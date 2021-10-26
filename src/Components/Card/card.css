@@ -1,0 +1,100 @@
+
+
+
+.cardImgs{
+    height: 250px;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+
+.MuiTypography-h5{
+    font-weight: bold !important;
+}
+.MuiCard-root{
+    margin: 10px auto !important;
+}
+.cardpara{
+    font-size: .9rem;
+    padding: 15px;
+}
+.cardBody{
+    position: relative;
+    z-index: 10;
+    padding: 15px;
+}
+.bordershow{
+    background-color: white;
+    border-top: 4px solid rgba(241, 241, 241, 0.801);
+}
+.cardContainer .MuiPaper-elevation1{
+    -webkit-box-shadow: 0px 3px 8px gainsboro !important;
+            box-shadow: 0px 3px 8px gainsboro !important;
+}
+
+.mItem{
+    color: white !important;
+    padding: 10px 40px !important;
+    border-bottom: 1px solid var(--primary) !important;
+}
+.cusClassCard{
+    -webkit-transition: .5s !important;
+    -o-transition: .5s !important;
+    transition: .5s !important;
+    border: 1px solid gainsboro;
+}
+.cusClassCard:hover{
+    -webkit-transform: translateY(-5px) scale(1.01);
+        -ms-transform: translateY(-5px) scale(1.01);
+            transform: translateY(-5px) scale(1.01);
+}
+.cardBody{
+    background-color: white;
+}
+.cardTitle{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.cardPriceTag{
+    font-size: .85rem;
+    color: gray;
+}
+.cardDecs{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+}
+.price{
+    font-size: .85rem;
+    font-weight: 600;
+}
+.cDecs{
+    font-size: .9rem !important;
+    font-weight: 600 !important;
+    padding-right: 10px !important;
+}
+
+.MuiMenu-paper .MuiList-padding{
+   padding-top: 0px !important;
+   padding-bottom: 0px !important;
+}
+ .MuiMenuItem-root{
+   padding: 10px 30px !important;
+   border-bottom: 1px solid gainsboro !important;
+   font-weight: 600 !important;
+} 

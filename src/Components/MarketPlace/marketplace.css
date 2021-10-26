@@ -1,0 +1,173 @@
+
+
+.marketplaceContainer{
+    margin: 100px auto;
+    max-width: 1150px;
+    padding: 0px 20px;
+}
+.marketHead{
+    text-transform: uppercase;
+    margin: 50px;
+    text-align: center;
+    padding-bottom: 5px;
+    /* border-bottom: 3px solid var(--primary); */
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 50px auto;
+    margin-bottom: 30px;
+    /* text-shadow: 3px 3px 0px var(--secondary); */
+    font-size: 3rem;
+    color: var(--primary);
+}
+.marketplaceContainer .MuiDialog-paperWidthSm{
+    max-width: 700px !important;
+}
+
+/* popup children  */
+
+.selecteditemBox{
+    width: 600px;
+    padding: 0px 15px;
+}
+.itemHead,.itemTotal{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-bottom: 1px solid gainsboro;
+    /* padding-bottom: 9px; */
+    padding: 10px 0px;
+}
+.itemList{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 15px 5px;
+    border-bottom: 1px solid gainsboro;
+}
+.itemCounter{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.itemCounter button{
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    padding: 1px 2px;
+    padding-bottom: 0px;
+}
+.itemCounter p{
+    margin: 0px 5px;
+}
+.itemIcon{
+    font-size: 1rem !important;
+}
+.itemInfo{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.itemImg{
+    width: 70px;
+    height: 70px;
+}
+.iInfo{
+    margin-left: 10px;
+}
+.totalBlnce h4{
+    color: var(--primary);
+    
+}
+.blue{
+    color: var(--primary);
+    font-size: .85rem;
+}
+.name{
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-top: 3px;
+}
+.smP{
+    font-size: .75rem;
+    color: gray;
+    margin-top: 3px;
+}
+.checkItem{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.checkItem .termsDiv{
+    font-size: .9rem;
+    color: gray;
+}
+.checkItem button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--primary);
+  
+}
+
+@media(max-width:600px){
+    .selecteditemBox{
+        width: 100%;
+    }
+}
+@media(max-width:500px){
+    .itemImg{
+        width: 40px;
+        height: 40px;
+    }
+    .itemList{
+        padding: 10px 5px;
+    }
+    .name,.totalBlnce h4{
+        font-size: .9rem;
+    }
+    .blue,.itemPri p,.totalBlnce p,.checkItem .termsDiv{
+        font-size: .7rem;
+    }
+    .smP{
+        font-size: .6rem;
+    }
+    .itemHead h4 , .itemTotal h4,.itemCounter p{
+        font-size: .8rem;
+    }
+    .itemList  .MuiSvgIcon-root{
+        font-size: .8rem !important;
+    }
+    .MuiDialog-paperWidthSm .MuiTypography-h6{
+        font-size: .9rem !important;
+    }
+    .MuiDialog-paperWidthSm  .MuiButton-root{
+        font-size: .8rem !important;
+    }
+}
+@media(max-width:380px){
+    .selecteditemBox{
+        width: 300px;
+    }
+}

@@ -1,0 +1,96 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
+}
+.App {
+  min-height: calc(100vh - 70px);
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+body::-webkit-scrollbar-track {
+  background-color: #f7b5b5;
+}
+
+:root {
+  --primary: #d32f2f;
+  --secondary: #ef5350;
+}
+
+.cusHr {
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+  border: 2px solid var(--primary);
+  margin: 10px auto;
+  -webkit-animation: line 2s linear infinite;
+  animation: line 2s linear infinite;
+  border-radius: 40px;
+}
+
+.loaderContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transform: -webkit-translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  -ms-transform: -ms-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%);
+}
+
+.maintabsDiv {
+  width: 65%;
+  padding-left: 20px;
+}
+.MuiAppBar-colorPrimary {
+  background-color: white !important;
+  color: var(--primary) !important;
+}
+.mainLoogo {
+  width: 60px !important;
+}
+.MuiAvatar-root {
+  height: 100% !important;
+  border-radius: 0px !important;
+}
+@media (min-width: 600px) {
+  .MuiTab-root {
+    min-width: 130px !important;
+  }
+}
+.web-header {
+  display: none;
+}
+@media (max-width: 700px) {
+  .desktopNavTabs {
+    display: none;
+  }
+  .web-header {
+    display: block;
+  }
+}
+
+
+
+.AppCounter {
+  display: flex;
+  justify-content: space-around;
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.time {
+  font-size: 32px;
+}
