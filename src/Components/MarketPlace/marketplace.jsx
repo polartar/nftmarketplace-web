@@ -6,6 +6,8 @@ import AddOutlinedIcon from '@material-ui/icons/AddOutlined'
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined'
 import Radio from '@material-ui/core/Radio'
 import './marketplace.css'
+import marketPrep from '../../Assets/market_prepare.png'
+
 
 const ShowPopUpList = ({ data }) => {
   const [selectedValue, setSelectedValue] = React.useState('')
@@ -101,7 +103,7 @@ const MarketPlace = () => {
   return (
     <div className="marketplaceContainer" id="market">
       {/* <h1 className="marketHead">Marketplace <hr className='cusHr' /></h1> */}
-      <AlertDialogSlide
+      {/* <AlertDialogSlide
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
         open={open}
@@ -110,7 +112,10 @@ const MarketPlace = () => {
         headColor='#d32f2f'
         btnValue='Confirm checkout'
       />
-      <MyCard data={cardSelector} value dots handleBuyNow={handleClickOpen} />
+      <MyCard data={cardSelector} value dots handleBuyNow={handleClickOpen} /> */}
+      <img src={marketPrep} width='100%'/>
+
+
     </div>
   )
 }

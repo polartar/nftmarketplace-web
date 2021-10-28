@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import './header.css'
-import mainLogo from "../../Assets/web_logo.png"
+import mainLogo from "../../Assets/web_logo.svg"
 import { NavLink } from 'react-router-dom'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 // import {NavTabs} from '../../Router/Router';

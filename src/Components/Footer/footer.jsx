@@ -10,12 +10,7 @@ const Footer = () => {
   return (
     <div className="footerContainer">
       <div className="footerSec">
-        <p>
-          Design & Developed by{" "}
-          <a href="https://smashcode.dev/" target="_blank" rel="noreferrer">
-            Smash Code
-          </a>{" "}
-        </p>
+
         <ul className="socialLinks">
           <li>
             <a href="mailto:admin@ebisusbay.xyz">

@@ -5,6 +5,7 @@
     max-width: 1150px;
     padding: 0px 20px;
 }
+
 .marketHead{
     text-transform: uppercase;
     margin: 50px;
@@ -20,6 +21,7 @@
     font-size: 3rem;
     color: var(--primary);
 }
+
 .marketplaceContainer .MuiDialog-paperWidthSm{
     max-width: 700px !important;
 }

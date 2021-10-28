@@ -6,7 +6,7 @@ import RoadMapScreen from "../Pages/RoadMapScreen";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import mainLogo from "../Assets/web_logo.png";
+import mainLogo from "../Assets/web_logo.svg";
 import Avatar from "@material-ui/core/Avatar";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { MemoryRouter, useRouteMatch } from 'react-router-dom';
@@ -21,7 +21,8 @@ export const NavTabs = () => {
         render={(history) => (
           <AppBar>
             <Tabs
-            variant='fullWidth'
+            variant='standard'
+            centered='false'
               selectionFollowsFocus={true}
               value={
                 history.location.pathname !== "/"
@@ -55,13 +56,12 @@ export const NavTabs = () => {
 
                 // color='primary'
               />
-              <Tab
+              {/* <Tab
                 value={routes[3]}
                 textColor="primary"
                 label="My Nfts"
                 component={Link}
-                to={routes[3]}
-              />
+                to={routes[3]}/> */}
               <Tab
                 value={routes[2]}
                 textColor="primary"
@@ -69,14 +69,14 @@ export const NavTabs = () => {
                 component={Link}
                 to={routes[2]}
               />
-              <Tab
+              {/* <Tab
                 value={routes[4]}
                 component={Link}
                 to={routes[4]}
                 label=""
                 textColor="primary"
                 icon={<AccountBalanceWalletIcon className="wIcon" />}
-              />
+              /> */}
             </Tabs>
           </AppBar>
         )}

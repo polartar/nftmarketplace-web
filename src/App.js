@@ -12,6 +12,7 @@ import { AppRouter } from "./Router/Router";
 import { ThemeProvider } from "@material-ui/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useEffect, useState } from "react";
+import CssBaseline from '@mui/material/CssBaseline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +56,7 @@ function ScrollTop(props) {
 
 const theme = createTheme({
   palette: {
-    mode: "dark",
+    // mode: "dark",
     primary: {
       main: "#d32f2f",
     },
@@ -69,6 +70,13 @@ const theme = createTheme({
     //   main: red.A400,
     // },
   },
+  overrides : {
+    MuiTab : {
+      textColorInherit : {
+        opacity :1,
+      }
+    }
+  }
 });
 
 function App(props) {
@@ -90,6 +98,7 @@ function App(props) {
 
   return (
     <React.Fragment>
+      <CssBaseline/>
       <div className="App">
         <Toolbar id="back-to-top-anchor" />
         <ThemeProvider theme={theme}>

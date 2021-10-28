@@ -6,7 +6,7 @@ import Header from '../Components/Header/Header'
 const Home = () => {
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <Counter />
             {/* <AppCounter /> */}
             {/* <FullCounter /> */}
