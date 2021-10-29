@@ -1,18 +1,25 @@
-import React from 'react'
+import {React, Fragment, useEffect, useState } from 'react'
+
+import {
+    createTheme, 
+    ThemeProvider,
+    makeStyles, 
+    Zoom, 
+    Fab,
+    useScrollTrigger,
+    Toolbar, 
+    CircularProgress
+  } from "@material-ui/core";
+
+import CssBaseline from '@mui/material/CssBaseline';
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+
 import "./App.css";
 import Footer from "./Components/Footer/footer";
-import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles } from "@material-ui/core/styles";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Fab from "@material-ui/core/Fab";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import Zoom from "@material-ui/core/Zoom";
-import { createTheme } from "@material-ui/core/styles";
 import { AppRouter } from "./Router/Router";
-import { ThemeProvider } from "@material-ui/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { useEffect, useState } from "react";
-import CssBaseline from '@mui/material/CssBaseline';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +63,7 @@ function ScrollTop(props) {
 
 const theme = createTheme({
   palette: {
-    // mode: "dark",
+    type: "dark",
     primary: {
       main: "#d32f2f",
     },
@@ -66,9 +73,6 @@ const theme = createTheme({
     inherit: {
       main: "white",
     },
-    // error: {
-    //   main: red.A400,
-    // },
   },
   overrides : {
     MuiTab : {
@@ -97,11 +101,12 @@ function App(props) {
   }
 
   return (
-    <React.Fragment>
-      <CssBaseline/>
+    <Fragment>
+      
       <div className="App">
         <Toolbar id="back-to-top-anchor" />
         <ThemeProvider theme={theme}>
+        <CssBaseline/>
           <AppRouter />
           <ScrollTop {...props}>
             <Fab color="primary" size="small" aria-label="scroll back to top">
@@ -111,7 +116,7 @@ function App(props) {
         </ThemeProvider>
       </div>
       <Footer />
-    </React.Fragment>
+    </Fragment>
   );
 }
 
