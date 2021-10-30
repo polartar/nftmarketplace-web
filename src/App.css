@@ -49,39 +49,6 @@ body::-webkit-scrollbar-track {
   transform: -ms-translate(-50%, -50%);
 }
 
-.maintabsDiv {
-  width: 65%;
-  padding-left: 20px;
-}
-.MuiAppBar-colorPrimary {
-  background-color: white !important;
-  color: var(--primary) !important;
-}
-
-.mainLoogo {
-  width: 60px !important;
-}
-.MuiAvatar-root {
-  height: 100% !important;
-  border-radius: 0px !important;
-}
-@media (min-width: 600px) {
-  .MuiTab-root {
-    min-width: 130px !important;
-  }
-}
-.web-header {
-  display: none;
-}
-@media (max-width: 700px) {
-  .desktopNavTabs {
-    display: none;
-  }
-  .web-header {
-    display: block;
-  }
-}
-
 .AppCounter {
   display: flex;
   justify-content: space-around;

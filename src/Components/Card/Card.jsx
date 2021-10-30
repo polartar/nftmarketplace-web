@@ -1,17 +1,18 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-// import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-// import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
+import {makeStyles} from '@mui/styles';
+import {
+  Card,
+  CardActions,
+  Button,
+  Typography,
+  Menu,
+  MenuItem,
+  Grid
+} from '@mui/material'
+
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+
 import './card.css'
-// import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -45,10 +46,6 @@ export default function MyCard({
   handleBuyNow,
 }) {
   const classes = useStyles()
-
-  // useEffect(() => {
-  //   AOS.init();
-  // }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null)
 

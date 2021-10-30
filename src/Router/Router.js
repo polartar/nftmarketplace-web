@@ -1,89 +1,76 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
 import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import mainLogo from "../Assets/web_logo.svg";
-import Avatar from "@material-ui/core/Avatar";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import { MemoryRouter, useRouteMatch } from 'react-router-dom';
 
-export const NavTabs = () => {
+import { withStyles } from '@mui/styles';
+import {AppBar, Tabs, Tab, Toolbar, Box} from "@mui/material";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+
+const styles = theme => ({
+  fullHeight: {
+    ...theme.mixins.toolbar,
+  },
+});
+
+export const NavTabs = withStyles(styles)((props) => {
   const routes = ["/", "/marketplace", "/roadmap", "/mynft", "/"];
+  const { classes } = props;
 
   return (
     <div className="desktopNavTabs">
       <Route
         path="/"
         render={(history) => (
-          <AppBar>
-            <Tabs
-            variant='standard'
-            centered='false'
-              selectionFollowsFocus={true}
-              value={
-                history.location.pathname !== "/"
-                  ? history.location.pathname
-                  : false
-              }
-              textColor='inherit'
-            >
-              <div className="maintabsDiv">
-                <Tab
-                  value={routes[0]}
-                  label=""
-                  // textColor="primary"
-                  component={Link}
-                  to={routes[0]}
-                  icon={
-                    <Avatar
-                      className="mainLoogo"
-                      alt="test avatar"
-                      src={mainLogo}
-                    />
-                  }
-                />
-              </div>
-              <Tab
-                value={routes[1]}
-                label="Marketplace"
-                component={Link}
-                to={routes[1]}
-                textColor="primary"
+          <AppBar color="inherit">
+            <Toolbar>
+            
+              <Link to='/'>
+                <img src={mainLogo} alt="Logo" width="60"/>
+              </Link>
+              <Box component='div' sx={{ flexGrow: 1 }}/>
 
-                // color='primary'
-              />
-              {/* <Tab
-                value={routes[3]}
-                textColor="primary"
-                label="My Nfts"
-                component={Link}
-                to={routes[3]}/> */}
-              <Tab
-                value={routes[2]}
-                textColor="primary"
-                label="RoadMap"
-                component={Link}
-                to={routes[2]}
-              />
-              {/* <Tab
-                value={routes[4]}
-                component={Link}
-                to={routes[4]}
-                label=""
-                textColor="primary"
-                icon={<AccountBalanceWalletIcon className="wIcon" />}
-              /> */}
-            </Tabs>
+              <Tabs
+              classes={{ root: classes.fullHeight }}
+              variant='standard'
+              centered='false'
+              textColor="primary"
+              selectionFollowsFocus={true}
+                value={
+                  history.location.pathname !== "/"
+                    ? history.location.pathname
+                    : false
+                }>
+                  
+                <Tab
+                classes={{ root: classes.fullHeight }}
+                  value={routes[1]}
+                  label="Marketplace"
+                  component={Link}
+                  to={routes[1]}
+                  textColor="inerit"
+                />
+
+                <Tab
+                classes={{ root: classes.fullHeight }}
+                  value={routes[2]}
+                  textColor="inherit"
+                  label="RoadMap"
+                  component={Link}
+                  to={routes[2]}
+                />
+
+              </Tabs>
+            </Toolbar>
           </AppBar>
         )}
       />
     </div>
   );
-};
+});
 
 export const AppRouter = () => {
   return (

@@ -1,24 +1,22 @@
 import {React, Fragment, useEffect, useState } from 'react'
 
 import {
-    createTheme, 
-    ThemeProvider,
-    makeStyles, 
-    Zoom, 
-    Fab,
-    useScrollTrigger,
-    Toolbar, 
-    CircularProgress
-  } from "@material-ui/core";
+  createTheme,
+  ThemeProvider,
+  StyledEngineProvider,
+  Zoom,
+  Fab,
+  useScrollTrigger,
+  Box,
+  CssBaseline,
+} from '@mui/material';
 
-import CssBaseline from '@mui/material/CssBaseline';
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import {makeStyles} from "@mui/styles"
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import "./App.css";
 import Footer from "./Components/Footer/footer";
 import { AppRouter } from "./Router/Router";
-
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(8),
     right: theme.spacing(2),
     zIndex: 999,
-  },
+  }
 }));
 
 function ScrollTop(props) {
@@ -63,57 +61,43 @@ function ScrollTop(props) {
 
 const theme = createTheme({
   palette: {
-    type: "dark",
+    // mode: "dark",
     primary: {
       main: "#d32f2f",
     },
     secondary: {
       main: "#ef5350",
     },
-    inherit: {
-      main: "white",
-    },
+    // inherit: {
+    //   main: "white",
+    // },
   },
   overrides : {
-    MuiTab : {
-      textColorInherit : {
-        opacity :1,
-      }
-    }
+    // MuiTab : {
+    //   textColorInherit : {
+    //     opacity :1,
+    //   }
+    // }
   }
 });
 
 function App(props) {
-  let [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="loaderContainer">
-        <CircularProgress color="secondary" />
-      </div>
-    );
-  }
-
   return (
     <Fragment>
       
       <div className="App">
-        <Toolbar id="back-to-top-anchor" />
-        <ThemeProvider theme={theme}>
-        <CssBaseline/>
-          <AppRouter />
-          <ScrollTop {...props}>
-            <Fab color="primary" size="small" aria-label="scroll back to top">
-              <KeyboardArrowUpIcon />
-            </Fab>
-          </ScrollTop>
-        </ThemeProvider>
+        <Box id="back-to-top-anchor" />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+          <CssBaseline/>
+            <AppRouter />
+            <ScrollTop {...props}>
+              <Fab color="primary" size="small" aria-label="scroll back to top">
+                <KeyboardArrowUpIcon />
+              </Fab>
+            </ScrollTop>
+          </ThemeProvider>
+        </StyledEngineProvider>
       </div>
       <Footer />
     </Fragment>
@@ -121,3 +105,20 @@ function App(props) {
 }
 
 export default App;
+
+
+// let [loading, setLoading] = useState(true);
+
+// useEffect(() => {
+//   setTimeout(() => {
+//     setLoading(false);
+//   }, 1000);
+// }, []);
+
+// if (loading) {
+//   return (
+//     <div className="loaderContainer">
+//       <CircularProgress color="secondary" />
+//     </div>
+//   );
+// }

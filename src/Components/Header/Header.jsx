@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import './header.css'
 import mainLogo from "../../Assets/web_logo.svg"
 import { NavLink } from 'react-router-dom'
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 // import {NavTabs} from '../../Router/Router';
 
 const Header = () => {

@@ -1,6 +1,6 @@
 import React from "react";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import TwitterIcon from '@material-ui/icons/Twitter';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import TwitterIcon from '@mui/icons-material/Twitter';
 // import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";

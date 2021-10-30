@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import MyCard from '../Card/Card'
 import AlertDialogSlide from '../Popup/Popup'
-import { makeStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import TextField from '@material-ui/core/TextField'
+import makeStyles from '@mui/styles/makeStyles';
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
 import './mynft.css'
 
 const useStyles = makeStyles((theme) => ({
