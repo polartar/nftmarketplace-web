@@ -4,11 +4,12 @@ import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
 import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
+import TOSAgreement from "../Components/Policy/TOS";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles } from '@mui/styles';
 import {AppBar, Tabs, Tab, Toolbar, Box, Typography} from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+// import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 const styles = theme => ({
   fullHeight: {
@@ -92,6 +93,7 @@ export const AppRouter = () => {
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
         <Route exact path="/mynft" component={MyNftScreen} />
+        <Route exact path='/tos' component={TOSAgreement}/>
       </Switch>
     </Router>
   );

@@ -3,12 +3,12 @@ import {React, Fragment, useEffect, useState } from 'react'
 import {
   createTheme,
   ThemeProvider,
-  StyledEngineProvider,
   Zoom,
   Fab,
   useScrollTrigger,
   Box,
   CssBaseline,
+  Container,
 } from '@mui/material';
 
 import {makeStyles} from "@mui/styles"
@@ -22,7 +22,7 @@ import { AppRouter } from "./Router/Router";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "fixed",
-    bottom: theme.spacing(8),
+    bottom: theme.spacing(10),
     right: theme.spacing(2),
     zIndex: 999,
   }
@@ -74,21 +74,23 @@ function App(props) {
   return (
     <Fragment>
       
-      <div className="App">
+      <Container className="App">
         <Box id="back-to-top-anchor" height='54px' />
-        <StyledEngineProvider injectFirst>
+
           <ThemeProvider theme={theme}>
           <CssBaseline/>
             <AppRouter />
+            <Footer />
             <ScrollTop {...props}>
               <Fab color="primary" size="small" aria-label="scroll back to top">
                 <KeyboardArrowUpIcon />
               </Fab>
             </ScrollTop>
+            
           </ThemeProvider>
-        </StyledEngineProvider>
-      </div>
-      <Footer />
+
+      </Container>
+
     </Fragment>
   );
 }

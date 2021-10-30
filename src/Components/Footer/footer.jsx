@@ -1,38 +1,41 @@
 import React from "react";
+
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import TwitterIcon from '@mui/icons-material/Twitter';
-// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
-import "./footer.css";
-const Footer = () => {
-  return (
-    <div className="footerContainer">
-      <div className="footerSec">
+import { AppBar, Toolbar, IconButton, Typography, Box, Link } from "@mui/material";
 
-        <ul className="socialLinks">
-          <li>
-            <a href="mailto:admin@ebisusbay.xyz">
-              <MailOutlineIcon />
-            </a>
-            {/* <a href="http://" target="_blank" rel="noopener noreferrer">
-            </a> */}
-          </li>
-          <li>
-            <a href="https://twitter.com/EbisusBay" target="_blank" rel="noopener noreferrer">
-              <TwitterIcon />
-            </a>
-          </li>
-          <li>
-            <a href="https://discord.gg/gf6KzyQG" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faDiscord} />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+
+const Footer = () => {
+  return(
+    <AppBar position="fixed" color="inherit" sx={{ top: 'auto', bottom: 0 }}>
+        <Toolbar>
+            <IconButton color='primary' aria-label='email' target='_blank' href='mailto:admin@ebisusbay.xyz'>
+              <MailOutlineIcon/>
+            </IconButton>
+            <IconButton color='primary' aria-label='twitter' target='_blank' href='https://twitter.com/EbisusBay'>
+              <TwitterIcon/>
+            </IconButton>
+            <IconButton color='primary' aria-label='discord' target='_blank' href='https://discord.gg/gf6KzyQG'>
+              <FontAwesomeIcon icon={faDiscord}/>
+            </IconButton>
+
+            <Box component='div' sx={{ flexGrow: 1 }}>
+              <Typography variant='body2' align='center' color='primary'>
+                Copyright © 2021 EbisusBay.xyz. All rights reserved.
+              </Typography>
+            </Box>
+
+            <Link  target='_blank' href='/tos' underline='hover'>
+              {'Terms of Service'}
+            </Link>
+
+        </Toolbar>
+    </AppBar>
+  )
 };
 
 export default Footer;
+

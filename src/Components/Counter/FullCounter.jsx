@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const FullCounter = ({ hideImg}) => {
   const [timeLeft, setTimeLeft] = useState({});
   const times = ["days", "hours", "minutes", "seconds"];
-  let time = '08 nov 2021  00:00:00'
+  let time = '08 nov 2021  12:00:00'
   useEffect(() => {
     const updateTime = () => {
       const timer = new Date(time || Date.now()).getTime();
