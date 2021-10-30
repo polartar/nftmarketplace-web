@@ -6,7 +6,6 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined'
 import Radio from '@mui/material/Radio'
 import './marketplace.css'
-import marketPrep from '../../Assets/market_prepare.png'
 
 
 const ShowPopUpList = ({ data }) => {
@@ -102,8 +101,8 @@ const MarketPlace = () => {
 
   return (
     <div className="marketplaceContainer" id="market">
-      {/* <h1 className="marketHead">Marketplace <hr className='cusHr' /></h1> */}
-      {/* <AlertDialogSlide
+
+      <AlertDialogSlide
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
         open={open}
@@ -112,9 +111,7 @@ const MarketPlace = () => {
         headColor='#d32f2f'
         btnValue='Confirm checkout'
       />
-      <MyCard data={cardSelector} value dots handleBuyNow={handleClickOpen} /> */}
-      <img src={marketPrep} width='100%'/>
-
+      <MyCard data={cardSelector} value dots handleBuyNow={handleClickOpen} />
 
     </div>
   )

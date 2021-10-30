@@ -31,11 +31,8 @@ const useStyles = makeStyles((theme) => ({
 function ScrollTop(props) {
   const { children, window } = props;
   const classes = useStyles();
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
+
   const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
     disableHysteresis: true,
     threshold: 100,
   });
@@ -68,17 +65,9 @@ const theme = createTheme({
     secondary: {
       main: "#ef5350",
     },
-    // inherit: {
-    //   main: "white",
-    // },
+
   },
-  overrides : {
-    // MuiTab : {
-    //   textColorInherit : {
-    //     opacity :1,
-    //   }
-    // }
-  }
+
 });
 
 function App(props) {
@@ -86,7 +75,7 @@ function App(props) {
     <Fragment>
       
       <div className="App">
-        <Box id="back-to-top-anchor" />
+        <Box id="back-to-top-anchor" height='54px' />
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
           <CssBaseline/>

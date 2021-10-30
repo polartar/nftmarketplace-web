@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-router-dom";
 
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
@@ -7,7 +7,7 @@ import RoadMapScreen from "../Pages/RoadMapScreen";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles } from '@mui/styles';
-import {AppBar, Tabs, Tab, Toolbar, Box} from "@mui/material";
+import {AppBar, Tabs, Tab, Toolbar, Box, Typography} from "@mui/material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 const styles = theme => ({
@@ -29,10 +29,21 @@ export const NavTabs = withStyles(styles)((props) => {
             <Toolbar>
             
               <Link to='/'>
-                <img src={mainLogo} alt="Logo" width="60"/>
+                <img src={mainLogo} alt="Logo" height="54"/>
               </Link>
-              <Box component='div' sx={{ flexGrow: 1 }}/>
+              <Box component='div' width='1.5%'/>
+              <NavLink to='/' style={{ textDecoration: 'none', color: 'unset' }}>
+                <Typography  color='inherit' component='div' style={{fontWeight : 600}}>
+                  Ebisus
+                </Typography>
+              </NavLink>
+              <NavLink to='/' style={{ textDecoration: 'none', color: 'unset' }}>
+                <Typography color='inherit' component='div' style={{fontWeight : 400}}>
+                  Bay
+                </Typography>
+              </NavLink>
 
+              <Box component='div' sx={{ flexGrow: 1 }}/>
               <Tabs
               classes={{ root: classes.fullHeight }}
               variant='standard'
@@ -51,7 +62,7 @@ export const NavTabs = withStyles(styles)((props) => {
                   label="Marketplace"
                   component={Link}
                   to={routes[1]}
-                  textColor="inerit"
+                  textColor="ihnerit"
                 />
 
                 <Tab
