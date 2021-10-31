@@ -4,7 +4,6 @@ import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
 import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
-import TOSAgreement from "../Components/Policy/TOS";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles } from '@mui/styles';
@@ -93,7 +92,6 @@ export const AppRouter = () => {
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
         <Route exact path="/mynft" component={MyNftScreen} />
-        <Route exact path='/tos' component={TOSAgreement}/>
       </Switch>
     </Router>
   );

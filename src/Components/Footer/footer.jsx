@@ -28,7 +28,7 @@ const Footer = () => {
               </Typography>
             </Box>
 
-            <Link  target='_blank' href='/tos' underline='hover'>
+            <Link  target='_blank' href='/tos.html' underline='hover'>
               {'Terms of Service'}
             </Link>
 
