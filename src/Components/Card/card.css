@@ -48,7 +48,7 @@
             transform: translateY(-5px) scale(1.01);
 }
 .cardBody{
-    background-color: white;
+    background-color: inherit;
 }
 .cardTitle{
     display: -webkit-box;
@@ -61,10 +61,7 @@
         -ms-flex-align: center;
             align-items: center;
 }
-.cardPriceTag{
-    font-size: .85rem;
-    color: gray;
-}
+
 .cardDecs{
     display: -webkit-box;
     display: -ms-flexbox;

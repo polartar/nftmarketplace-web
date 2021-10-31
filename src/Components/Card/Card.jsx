@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+  // paper: {
+  //   padding: theme.spacing(2),
+  //   textAlign: 'center',
+  //   color: theme.palette.text.secondary,
+  // },
 }))
 
 export default function MyCard({
@@ -60,7 +60,7 @@ export default function MyCard({
     <div className={`${classes.root} cardContainer `}>
       <Grid container spacing={1} justifyContent="center"  alignItems="center">
         {data.map((val, j) => {
-          // console.log(val)
+
           return (
             <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
               <Card
@@ -85,14 +85,17 @@ export default function MyCard({
                   <Typography  variant="h5" color='primary' component="p">
                     {val.title}
                   </Typography>
-                  <p className="cardPriceTag">Price</p>
+                  {val.price? (
+                    <Typography variant='subtitle2'>{val.price} CRO</Typography>
+                  ) : (<div/>)}
+                  
                   </div>
                   <div className="cardDecs">
 
-                  <Typography className='cDecs' component="p">
+                  <Typography variant='subtitle1' component="p" minHeight='60px'>
                     {val.descs}
                   </Typography>
-                  <p className="price">5433</p>
+                  
                   </div>
                 </div>
                 {/* </CardActionArea> */}

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ScrollTop(props) {
-  const { children, window } = props;
+  const { children } = props;
   const classes = useStyles();
 
   const trigger = useScrollTrigger({
@@ -75,7 +75,7 @@ function App(props) {
     <Fragment>
       
       <Container className="App">
-        <Box id="back-to-top-anchor" height='54px' />
+        <Box id="back-to-top-anchor" height='54px'/>
         <ThemeProvider theme={theme}>
         <CssBaseline/>
         

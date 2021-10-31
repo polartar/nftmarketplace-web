@@ -6,6 +6,7 @@
 }
 .App {
   min-height: calc(100vh - 70px);
+  min-width: 475px;
 }
 
 body::-webkit-scrollbar {
