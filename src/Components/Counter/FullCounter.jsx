@@ -1,8 +1,9 @@
+import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 const FullCounter = ({ hideImg}) => {
   const [timeLeft, setTimeLeft] = useState({});
-  const times = ["days", "hours", "minutes", "seconds"];
+  const times = ["Days", "Hours", "Minutes", "Seconds"];
   let time = '08 nov 2021  12:00:00'
   useEffect(() => {
     const updateTime = () => {
@@ -11,13 +12,13 @@ const FullCounter = ({ hideImg}) => {
       const remainingTime = timer - now;
       const prevSeconds = Math.floor(remainingTime / 1000);
       const prevMinutes = Math.floor(prevSeconds / 60);
-      const seconds = prevSeconds % 60;
+      const Seconds = prevSeconds % 60;
       const prevHours = Math.floor(prevMinutes / 60);
-      const minutes = prevMinutes % 60;
-      const days = Math.floor(prevHours / 24);
-      const hours = prevHours % 24;
-      if (days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0)
-        setTimeLeft({ seconds, minutes, hours, days });
+      const Minutes = prevMinutes % 60;
+      const Days = Math.floor(prevHours / 24);
+      const Hours = prevHours % 24;
+      if (Days >= 0 && Hours >= 0 && Minutes >= 0 && Seconds >= 0)
+        setTimeLeft({ Seconds, Minutes, Hours, Days });
     };
     const myInterval = setInterval(updateTime, 1000);
     return () => clearInterval(myInterval);
@@ -48,16 +49,15 @@ const Counter = ({ time, timeLog = 0 }) => {
       <span className="counter--value">
         <div className="count-down" style={{ display: "inline" }}>
           <div className="hand hand-m time">
-            <span className="digital digital-1 ">{timeLog}</span>
+            <span className="digital digital-1">{timeLog}</span>
           </div>
         </div>
       </span>
-      <strong className="counter--label">
+      
+      <Typography variant='h6' color='primary'>
         {time}
-        {/* {times.map((val=>(
-        <p key={val}>{val}</p>
-      )))} */}
-      </strong>
+      </Typography>
+
     </div>
   );
 };

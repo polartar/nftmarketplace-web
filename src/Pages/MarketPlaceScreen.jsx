@@ -7,15 +7,15 @@ const MarketPlaceScreen = () => {
     return (
         <Container maxWidth='xl'>  
             <Box m={5}>
-            <Typography align='center' variant='h3'>
-                We are hard at work preparing the market for you
+            <Typography align='center' style={{fontWeight : 600, fontSize: 44}} color='primary'>
+                We are hard at work preparing the market for you.
             </Typography>
             </Box>     
             
             <img src={marketPrep} width='100%'/>
 
             <Box m={5}>
-            <Typography align='center' variant='h3'>
+            <Typography align='center'  style={{fontWeight : 600, fontSize: 34}} color='primary'>
                 Cronos Launches In...
             </Typography>
             <FullCounter/>
