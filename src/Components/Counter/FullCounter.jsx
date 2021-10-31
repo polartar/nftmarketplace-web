@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import './Counter.css'
 
 const FullCounter = ({ hideImg}) => {
   const [timeLeft, setTimeLeft] = useState({});
