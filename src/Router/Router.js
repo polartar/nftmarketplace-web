@@ -93,7 +93,7 @@ export const AppRouter = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
-        <Route exact path="/mynft" component={MyNftScreen} />
+        {/* <Route exact path="/mynft" component={MyNftScreen} /> */}
       </Switch>
     </Router>
   );
