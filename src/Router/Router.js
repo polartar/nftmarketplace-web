@@ -31,7 +31,9 @@ export const NavTabs = withStyles(styles)((props) => {
               <Link to='/'>
                 <img src={mainLogo} alt="Logo" height="54"/>
               </Link>
+              
               <Box component='div' width='1.5%'/>
+
               <NavLink to='/' style={{ textDecoration: 'none', color: 'unset' }}>
                 <Typography  color='inherit' component='div' style={{fontWeight : 600}}>
                   Ebisus

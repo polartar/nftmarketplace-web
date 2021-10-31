@@ -5,9 +5,9 @@ import MuiAccordion from '@mui/material/Accordion'
 import MuiAccordionSummary from '@mui/material/AccordionSummary'
 import MuiAccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useSelector } from 'react-redux'
-import './faq.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,10 +18,8 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(16),
     fontWeight: theme.typography.fontWeightBold,
-    // color:'black'
   },
   text: {
-    // color: 'black',
     fontSize: '1.1rem',
     fontWeight:'500'
   },
@@ -79,13 +77,13 @@ export default function SimpleAccordion() {
   })
 
   return (
-    <div className={`${classes.root} faqContainer`}>
-        {/* <h1 className="faqHead">Frequently Asked Question <hr className='cusHr' /></h1> */}
+    <Container maxWidth='md'>
+
       {faqSelector.map((val,j) => {
         return (
           <Accordion square TransitionProps={{ unmountOnExit: true,timeout:400 }}   key={j}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon className='expendIcon' color='inherit' />}
+              expandIcon={<ExpandMoreIcon color='primary' />}
               aria-controls={val.tab}
               id={val.id}
               className={classes.border}
@@ -93,11 +91,11 @@ export default function SimpleAccordion() {
               <Typography className={classes.heading} color='primary'>{val.head}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography  className={`${classes.text}  faqText`} color='primary' >{val.desc}</Typography>
+              <Typography  className={`${classes.text}  faqText`} color='primary'>{val.desc}</Typography>
             </AccordionDetails>
           </Accordion>
         )
-      })}
-    </div>
+      })} 
+    </Container>
   )
 }

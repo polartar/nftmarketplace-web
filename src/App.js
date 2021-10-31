@@ -1,4 +1,4 @@
-import {React, Fragment, useEffect, useState } from 'react'
+import {React, Fragment } from 'react'
 
 import {
   createTheme,
@@ -15,7 +15,7 @@ import {makeStyles} from "@mui/styles"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import "./App.css";
-import Footer from "./Components/Footer/footer";
+import Footer from './Components/Footer/Footer';
 import { AppRouter } from "./Router/Router";
 
 
@@ -76,18 +76,18 @@ function App(props) {
       
       <Container className="App">
         <Box id="back-to-top-anchor" height='54px' />
-
-          <ThemeProvider theme={theme}>
-          <CssBaseline/>
-            <AppRouter />
-            <Footer />
-            <ScrollTop {...props}>
-              <Fab color="primary" size="small" aria-label="scroll back to top">
-                <KeyboardArrowUpIcon />
-              </Fab>
-            </ScrollTop>
-            
-          </ThemeProvider>
+        <ThemeProvider theme={theme}>
+        <CssBaseline/>
+        
+        <AppRouter />
+        <Footer />
+        <ScrollTop {...props}>
+          <Fab color="primary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
+          
+        </ThemeProvider>
 
       </Container>
 

@@ -1,13 +1,13 @@
+import { Box } from '@mui/system'
 import React from 'react'
 import CardSection from '../Components/CardSection/CardSection'
-import Counter from '../Components/Counter/Counter'
+
 
 const Home = () => {
     return (
-        <div>
-            <Counter />
+        <Box mt={24}>
             <CardSection />
-        </div>
+        </Box>
     )
 }
 
