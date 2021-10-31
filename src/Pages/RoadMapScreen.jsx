@@ -1,11 +1,11 @@
 import React from 'react'
 import SimpleAccordion from '../Components/Faq/Faq'
-import RoadMap from '../Components/RoadMap/index'
+import Roadmap from '../Components/RoadMap/RoadMap'
 
 const RoadMapScreen = () => {
     return (
         <div>
-            <RoadMap />
+            <Roadmap />
             <SimpleAccordion />
         </div>
     )
