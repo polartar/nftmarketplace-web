@@ -7,13 +7,13 @@ import CardSection from '../Components/CardSection/CardSection'
 
 const Home = () => {
     return (
-        <Redirect to='marketplace'/>
-        // <Box mt={16}>
-        //     <Typography align='center' variant='h3' color='primary'>
-        //         Commemorative and Founding Member NFTs 
-        //     </Typography>
-        //     <CardSection />
-        // </Box>
+        // <Redirect to='marketplace'/>
+        <Box mt={16}>
+            <Typography align='center' variant='h3' color='primary'>
+                Commemorative and Founding Member NFTs 
+            </Typography>
+            <CardSection />
+        </Box>
     )
 }
 

@@ -3,6 +3,8 @@ import img2 from '../Assets/cronieno22.svg'
 import img3 from '../Assets/placeholder_logo.svg'
 import gif from '../Assets/3d.gif'
 import video from '../Assets/video.mp4'
+import founding_member from '../Assets/vip_member.gif'
+import member from '../Assets/founding_member.png'
 
 export const InitialState = {
   nftslect:{},
@@ -16,17 +18,17 @@ export const InitialState = {
     },
     {
       id: '02',
-      img: img2,
-      title: 'Lizard',
+      img: member,
+      title: 'Founding Member',
       price: 200,
-      descs: `Lorem ipsum dolor sit amet consectetur `,
+      descs: ``,
     },
     {
       id: '03',
-      img: gif,
-      title: 'Lizard',
+      img: founding_member,
+      title: 'VIP Founding Member',
       price: 1000,
-      descs: `Lorem ipsum dolor sit amet consectetur `,
+      descs: ``,
     },
   ],
   myNftCard: [

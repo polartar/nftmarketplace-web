@@ -7,7 +7,8 @@ import {
   Typography,
   Menu,
   MenuItem,
-  Grid
+  Grid,
+  CardMedia
 } from '@mui/material'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert'
@@ -74,12 +75,13 @@ export default function MyCard({
               >
                 {/* <CardActionArea> */}
                 {val.img ? (
-                  <img className="cardImgs" src={val.img} alt="..." />
+                  <img className="cardImgs" src={val.img} alt="..."  />
                 ) : (
                   <video className="cardImgs" loop autoPlay muted>
                     <source src={val.video} type="video/mp4" />
                   </video>
                 )}
+
                 <div className="cardBody">
                   <div className="cardTitle">
                   <Typography  variant="h5" color='primary' component="p">
