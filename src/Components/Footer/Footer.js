@@ -18,7 +18,7 @@ const Footer = () => {
             <IconButton color='primary' aria-label='twitter' target='_blank' href='https://twitter.com/EbisusBay'>
               <TwitterIcon/>
             </IconButton>
-            <IconButton color='primary' aria-label='discord' target='_blank' href='https://discord.gg/gf6KzyQG'>
+            <IconButton color='primary' aria-label='discord' target='_blank' href='https://discord.gg/Qnjwg6Ax6r'>
               <FontAwesomeIcon icon={faDiscord}/>
             </IconButton>
 
