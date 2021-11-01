@@ -1,4 +1,4 @@
-import {React, Fragment } from 'react'
+import {React, Fragment, useLayoutEffect } from 'react'
 
 import {
   createTheme,
@@ -17,6 +17,10 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import "./App.css";
 import Footer from './Components/Footer/Footer';
 import { AppRouter } from "./Router/Router";
+
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from './Firebase/firebase_config'
+import { initializeAnalytics } from "firebase/analytics";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -71,6 +75,12 @@ const theme = createTheme({
 });
 
 function App(props) {
+  
+  useLayoutEffect(() =>{
+    const firebase = initializeApp(firebaseConfig);
+    initializeAnalytics(firebase)
+  }, []);
+
   return (
     <Fragment>
       
@@ -78,8 +88,7 @@ function App(props) {
         <Box id="back-to-top-anchor" height='54px'/>
         <ThemeProvider theme={theme}>
         <CssBaseline/>
-        
-        <AppRouter />
+        <AppRouter firebase/>
         <Footer />
         <ScrollTop {...props}>
           <Fab color="primary" size="small" aria-label="scroll back to top">
