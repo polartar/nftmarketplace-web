@@ -74,7 +74,7 @@ const ShowPopUpList = ({ data }) => {
           inputProps={{ 'aria-label': 'A' }}
         />
         <div className="termsDiv">
-          By checking this box, I agree to Opensea's{' '}
+          By checking this box, I agree to Ebisu's{' '}
           <button>Terms of Service</button>{' '}
         </div>
       </div>

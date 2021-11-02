@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-rout
 
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
-import MyNftScreen from "../Pages/MyNft";
+// import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
 import mainLogo from "../Assets/web_logo.svg";
 
@@ -49,7 +49,6 @@ export const NavTabs = withStyles(styles)((props) => {
               <Tabs
               classes={{ root: classes.fullHeight }}
               variant='standard'
-              centered='false'
               textColor="primary"
               selectionFollowsFocus={true}
                 value={

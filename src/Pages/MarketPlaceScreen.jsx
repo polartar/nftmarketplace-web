@@ -21,13 +21,13 @@ const MarketPlaceScreen = () => {
             </Typography>
             </Box>     
             
-            <img src={marketPrep} width='100%'/>
+            <img src={marketPrep} width='100%' alt='Market Prep'/>
 
-            <Box m={5}>
-            <Typography align='center'  style={{fontWeight : 600, fontSize: 34}} color='primary'>
-                Cronos Launches In...
-            </Typography>
-            <FullCounter/>
+            <Box m={5} mb={12}>
+                <Typography align='center'  style={{fontWeight : 600, fontSize: 34}} color='primary'>
+                    Cronos Launches In...
+                </Typography>
+                <FullCounter/>
             </Box>   
             
         </Container>

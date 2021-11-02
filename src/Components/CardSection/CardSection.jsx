@@ -1,61 +1,83 @@
-import React from 'react'
+import React, {useState} from 'react'
 import MyCard from '../Card/Card'
 import {useSelector} from 'react-redux'
 import './cardSec.css'
-import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import { 
+    Button,
+    CardMedia, 
+    Container, 
+    Dialog, 
+    DialogActions, 
+    DialogContent, 
+    Grid, 
+    Stack, 
+    Typography, 
+    useMediaQuery 
+} from '@mui/material'
 
-export function CardItem(data) {
-    console.log(data.title);
-    return(
-        <Card sx={{maxWWidth: 450, margin: 15, }}>
-            <CardActionArea>
-            <div
-                style={{
-                  display: "flex",
-                  alignItem: "center",
-                  justifyContent: "center"
-                }}
-              >
-                <CardMedia style={{
-                    width: "auto",
-                    maxHeight: "200px" 
-                  }}
-                  component='img'
-                  image={data.img}
-                  title='...'/>
-              </div>
-              <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2">
-                      {data.title}
-                  </Typography>
+import { useTheme } from '@mui/material/styles';
 
-              </CardContent>
-            </CardActionArea>
-        </Card>
-    )
-}
 
 const CardSection = () => {
     const cardSelector = useSelector((state)=>{
         return state.reducer.nftCard
     })
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const [open, setOpen] = React.useState(false)
+    let [selectedItem, setSelectedItem] = useState({})
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleClickOpen = (event) => {
+        setOpen(true)
+        setSelectedItem(event)
+      }
+
     return (
-        // <div className='cardSectContainer'>
-        //     <MyCard data={cardSelector} />
-        // </div>
-        <Grid container spacing={1} justifyContent="center"  alignItems="center">
-        {
-            cardSelector.map((val, j) => {
-                console.log(val)
-                console.log(j)
-                return(
-                    <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
-                    <CardItem val/>
+        <Container>
+            <div className='cardSectContainer'>
+                <MyCard data={cardSelector} handleActionArea={handleClickOpen}/>
+            </div>
+            <Dialog
+             open={open}
+             onClose={handleClose}
+             fullScreen={fullScreen}
+             maxWidth='lg'>
+                 <DialogContent dividers={true}>
+                    <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
+                        <Grid item xs={2} md={1} key='1'>
+                            <Container>
+                                <CardMedia component='img' src={selectedItem.img} width='350' />
+                            </Container>
+                        </Grid>
+                        <Grid item xs={1} key='2' >
+                        <Stack spacing={2} direction='column' alignItems='flex-start'>
+                            <Stack spacing={2} direction='row' alignItems='baseline'>
+                                <Typography  variant="h5" color='primary' component="p">
+                                    {selectedItem.title}
+                                </Typography>
+        
+                                <Typography variant='subtitle2' component='p'>
+                                    {selectedItem.price} CRO
+                                </Typography>
+                            </Stack>
+                            <Typography variant='subtitle1' component='p'>
+                                {selectedItem.p1}
+                            </Typography>
+                            <Typography variant='subtitle1' component='p'>
+                                {selectedItem.p2}
+                            </Typography>
+                        </Stack>
+                        </Grid>
                     </Grid>
-                )
-            })
-        }
-        </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
+        </Container>
+
     )
 }
 

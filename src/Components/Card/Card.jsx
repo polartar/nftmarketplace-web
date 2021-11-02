@@ -8,7 +8,8 @@ import {
   Menu,
   MenuItem,
   Grid,
-  CardMedia
+  CardMedia,
+  CardActionArea
 } from '@mui/material'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert'
@@ -43,6 +44,7 @@ export default function MyCard({
   dots,
   value,
   menu,
+  handleActionArea,
   handleSellPopup,
   handleBuyNow,
 }) {
@@ -73,23 +75,25 @@ export default function MyCard({
                 // data-aos-duration="1000"
                 // data-aos-easing="ease-in-out"
               >
-                {/* <CardActionArea> */}
-                {val.img ? (
+              <CardActionArea onClick={() => handleActionArea(val)}>
+                {/* {val.img ? (
                   <img className="cardImgs" src={val.img} alt="..."  />
                 ) : (
                   <video className="cardImgs" loop autoPlay muted>
                     <source src={val.video} type="video/mp4" />
                   </video>
-                )}
+                )} */}
+                
+                <CardMedia component={val.img ? 'img' : 'video'} src={val.img ? val.img : val.video} />
 
                 <div className="cardBody">
                   <div className="cardTitle">
                   <Typography  variant="h5" color='primary' component="p">
                     {val.title}
                   </Typography>
-                  {val.price? (
+                  {/* {val.price? (
                     <Typography variant='subtitle2'>{val.price} CRO</Typography>
-                  ) : (<div/>)}
+                  ) : (<div/>)} */}
                   
                   </div>
                   <div className="cardDecs">
@@ -100,7 +104,8 @@ export default function MyCard({
                   
                   </div>
                 </div>
-                {/* </CardActionArea> */}
+                </CardActionArea>
+
                 {dots ? (
                   <CardActions className='bordershow'>
                     <Button
