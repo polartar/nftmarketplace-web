@@ -16,6 +16,7 @@ import {
 } from '@mui/material'
 
 import { useTheme } from '@mui/material/styles';
+import { getAnalytics, logEvent } from '@firebase/analytics'
 
 
 const CardSection = () => {
@@ -32,6 +33,9 @@ const CardSection = () => {
     const handleClickOpen = (event) => {
         setOpen(true)
         setSelectedItem(event)
+        logEvent(getAnalytics(), 'screen_view', {
+            firebase_screen : event.title
+        })
       }
 
     return (
