@@ -2,10 +2,10 @@
 // import img2 from '../Assets/cronieno22.svg'
 // import img3 from '../Assets/placeholder_logo.svg'
 // import gif from '../Assets/3d.gif'
-import cronies from '../Assets/cronies.gif'
+import cronies from '../Assets/cronies.webp'
 // import video from '../Assets/video.mp4'
-import founding_member from '../Assets/vip_member.gif'
-import member from '../Assets/founding_member.png'
+import founding_member from '../Assets/vip_member.webp'
+import member from '../Assets/founding_member.webp'
 
 export const InitialState = {
   nftslect:{},

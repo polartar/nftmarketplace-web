@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import marketPrep from '../Assets/market_prepare.jpg'
+import marketPrep from '../Assets/market_prepare.webp'
 import {Typography, Container, Box} from '@mui/material'
 import FullCounter from '../Components/Counter/FullCounter'
 import { getAnalytics, logEvent } from '@firebase/analytics'
