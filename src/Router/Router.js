@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-router-dom";
-
+import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
 // import MyNftScreen from "../Pages/MyNft";
@@ -7,8 +7,21 @@ import RoadMapScreen from "../Pages/RoadMapScreen";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles } from '@mui/styles';
-import {AppBar, Tabs, Tab, Toolbar, Box, Typography} from "@mui/material";
-// import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import {
+  AppBar, 
+  Tabs,
+  Tab, 
+  Toolbar,
+  Box, 
+  Typography,
+  Avatar,
+  IconButton
+} from "@mui/material";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import { connectAccount } from "../GlobalState/User";
+import Blockies from 'react-blockies';
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
 
 const styles = theme => ({
   fullHeight: {
@@ -19,6 +32,27 @@ const styles = theme => ({
 export const NavTabs = withStyles(styles)((props) => {
   const routes = ["/", "/marketplace", "/roadmap", "/mynft", "/"];
   const { classes } = props;
+  const dispatch = useDispatch();
+  const address = useSelector((state) => {
+    return state.user.address;
+  });
+
+  const correctChain = useSelector((state) => {
+    return state.user.correctChain;
+  });
+
+  const needsOnboard = useSelector((state) => {
+    return state.user.needsOnboard;
+  });
+
+  const startConnect = () => {
+    if(needsOnboard){
+      const onboarding = new MetaMaskOnboarding();
+      onboarding.startOnboarding();
+    } else{
+      dispatch(connectAccount());
+    }
+  };
 
   return (
     <div className="desktopNavTabs">
@@ -74,8 +108,19 @@ export const NavTabs = withStyles(styles)((props) => {
                   component={Link}
                   to={routes[2]}
                 />
-
               </Tabs>
+              {(address)? 
+                (correctChain) ?
+                  <Avatar sx={{ bgcolor: '#d32f2f' }} alt={address}>
+                    <Blockies seed={address} size={30}/>
+                  </Avatar>
+                 :
+                  <SwitchChain/>
+                
+                : <IconButton color='primary' aria-label="connect" onClick={startConnect} >
+                    <AccountBalanceWalletIcon/>
+                  </IconButton>
+              }
             </Toolbar>
           </AppBar>
         )}

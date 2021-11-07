@@ -1,4 +1,5 @@
 import {React, Fragment, useLayoutEffect } from 'react'
+import {useDispatch} from 'react-redux'
 
 import {
   createTheme,
@@ -21,6 +22,7 @@ import { AppRouter } from "./Router/Router";
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './Firebase/firebase_config'
 import { initializeAnalytics } from "firebase/analytics";
+import { initProvider } from './GlobalState/User';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,10 +77,13 @@ const theme = createTheme({
 });
 
 function App(props) {
+
+  const dispatch = useDispatch();
   
   useLayoutEffect(() =>{
     const firebase = initializeApp(firebaseConfig);
-    initializeAnalytics(firebase)
+    initializeAnalytics(firebase);
+    dispatch(initProvider());
   }, []);
 
   return (

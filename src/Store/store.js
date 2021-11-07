@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 import { initState } from '../GlobalState/CreateSlice'
 import {memberships} from "../GlobalState/Memberships";
 import { cronies } from "../GlobalState/Cronies";
+import { user } from "../GlobalState/User";
 
 const rootReducer = combineReducers({
     initState: initState,
     memberships: memberships,
-    cronies: cronies
+    cronies: cronies,
+    user : user
 });
 
 const middleware = [thunk];

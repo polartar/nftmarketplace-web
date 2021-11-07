@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import MyCard from '../Card/Card'
 import {useSelector, useDispatch} from 'react-redux'
 import './cardSec.css'
+
 import { 
     Button,
     CardMedia, 
@@ -13,7 +14,8 @@ import {
     Stack, 
     Typography, 
     useMediaQuery,
-    Slider
+    Slider,
+    TextField
 } from '@mui/material'
 
 import { useTheme } from '@mui/material/styles';
@@ -49,6 +51,9 @@ const CardSection = () => {
         return state.cronies
     });
 
+    const [numToMint, setNumToMint] = useState(1);
+    const [referral, setRefferal] = useState("");
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [open, setOpen] = React.useState(false)
@@ -79,6 +84,10 @@ const CardSection = () => {
         dispatch(fetchMemberInfo());
         dispatch(fetchVipInfo());
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+    const mintNow = async() => {
+
+    };
 
     return (
         <Container>
@@ -114,13 +123,26 @@ const CardSection = () => {
                             <Typography variant='subtitle1' component='p'>
                                 {selectedItem.p2}
                             </Typography>
-                            <Slider defaultValue={1} step={1} marks min={1} max={selectedItem.maxMint} />
+                            <Typography variant='subtitle2' component='p'>
+                                    Minting {numToMint}
+                            </Typography>
+                            <Slider defaultValue={1} step={1} marks min={1} max={selectedItem.maxMint} onChange={ (e, val) =>
+                                setNumToMint(val)
+                            }/>
+
+                            {selectedItem.id === 0 ? null :
+                              <TextField label="Referral Code" variant="outlined" onChange={ (e, val) =>
+                                setRefferal(val)
+                              } />
+                            }
+                            
                         </Stack>
                         </Grid>
                     </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
+                    <Button onClick={mintNow}>Mint</Button>
                 </DialogActions>
             </Dialog>
         </Container>

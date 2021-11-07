@@ -15,6 +15,7 @@ const memberSlice = createSlice({
             discount : "",
             count : 0,
             max : 10000,
+            maxMint : 10
         },
         vips : {
             id : 2,
@@ -22,6 +23,7 @@ const memberSlice = createSlice({
             discount : "",
             count : 0,
             max : 1000,
+            maxMint : 10
         }
     },
     reducers: {
@@ -49,6 +51,7 @@ export const fetchMemberInfo = () => async(dispatch) => {
             discount : ethers.utils.formatEther(d),
             count : nc.toNumber(),
             max : 10000,
+            maxMint : 10
         })
     )
 };
@@ -64,6 +67,7 @@ export const fetchVipInfo = () => async(dispatch) => {
             discount : ethers.utils.formatEther(d),
             count : nc.toNumber(),
             max : 1000,
+            maxMint : 10
         })
     )
 };

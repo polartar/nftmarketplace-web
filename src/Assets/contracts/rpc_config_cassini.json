@@ -1,0 +1,8 @@
+{
+    "name" : "Cassini",
+    "chain_id" : "339",
+    "url" : "https://cassini.crypto.org:8545/",
+    "symbol" : "tCRO",
+    "explorer" : "https://cronos.crypto.org/cassini/explorer/",
+    "membership_contract" : "0x0587D78A3AC269e80EA2b27b064360f66c3B6342"
+}
