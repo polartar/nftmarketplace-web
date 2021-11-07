@@ -1,9 +1,4 @@
-// import img1 from '../Assets/2d.png'
-// import img2 from '../Assets/cronieno22.svg'
-// import img3 from '../Assets/placeholder_logo.svg'
-// import gif from '../Assets/3d.gif'
 import cronies from '../Assets/cronies.webp'
-// import video from '../Assets/video.mp4'
 import founding_member from '../Assets/vip_member.webp'
 import member from '../Assets/founding_member.webp'
 
@@ -11,28 +6,25 @@ export const InitialState = {
   nftslect:{},
   nftCard: [
     {
-      id: '01',
+      id: 0,
       img: cronies,
       title: 'Cronies',
-      price: 100,
       descs: `Commemorating the launch of the Cronos network`,
       p1: 'Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.',
       p2: 'We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. Cronies will not be mintable after the 1 millionth block or 10,000 minted. Whichever happens first. '
     },
     {
-      id: '02',
+      id: 1,
       img: member,
       title: 'Founding Member',
-      price: 250,
       descs: `Early access to features and reduced fees forever.`,
       p1: 'If you hold a Founding Member NFT you will have access to beta features on the platform and receive the benefit of reduced service fees.',
       p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and recieve 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. Founding Member NFTs will be limited to 10,000.'
     },
     {
-      id: '03',
+      id: 2,
       img: founding_member,
       title: 'VIP Founding Member',
-      price: 1000,
       descs: `Early access, further reduced fees and staking rewards`,
       p1: 'If you hold a VIP Founding Member NFT you will have access to beta features on the platform and receive reduced service fees. You can stake your VIP NFT, 50% of ALL service fees will go into the VIP Member rewards pool and divided evenly among stakers once per month. You can only stake one NFT per address but it is not against the rules to use multiple addresses',
       p2: 'The VIP Founding Member NFT has an on-chain referral system. Refer a friend and recieve 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. VIP Founding Member NFTs will be limited to 1,000.'

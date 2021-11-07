@@ -73,7 +73,7 @@ const AccordionDetails = withStyles((theme) => ({
 export default function SimpleAccordion() {
     const classes = useStyles()
   const faqSelector = useSelector((state) => {
-    return state.reducer.faq
+    return state.initState.faq
   })
 
   return (

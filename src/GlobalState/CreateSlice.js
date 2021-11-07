@@ -9,4 +9,4 @@ const  NFTSlice = createSlice({
     // }
 })
 
-export const reducer = NFTSlice.reducer
+export const initState = NFTSlice.reducer

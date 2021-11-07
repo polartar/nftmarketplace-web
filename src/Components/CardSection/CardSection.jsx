@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import MyCard from '../Card/Card'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import './cardSec.css'
 import { 
     Button,
@@ -12,17 +12,43 @@ import {
     Grid, 
     Stack, 
     Typography, 
-    useMediaQuery 
+    useMediaQuery,
+    Slider
 } from '@mui/material'
 
 import { useTheme } from '@mui/material/styles';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 
+import { fetchMemberInfo, fetchVipInfo } from '../../GlobalState/Memberships'
+
+
+// import { Contract, ethers } from 'ethers'
+// import rpc from '../../Assets/contracts/test_rpc.json'
+// import Membership from '../../Assets/contracts/EbisusBayMembership.json'
+
+
+
+// const userProvider = new ethers.providers.Web3Provider(window.ethereum);
+// const writeMemberships = new Contract(rpc.membership_contract, Membership.abi, userProvider);
 
 const CardSection = () => {
+    const dispatch = useDispatch();
     const cardSelector = useSelector((state)=>{
-        return state.reducer.nftCard
+        return state.initState.nftCard
     })
+
+    const founders = useSelector((state) => {
+        return state.memberships.founders
+    })
+
+    const vips = useSelector((state) => {
+        return state.memberships.vips
+    });
+
+    const cronies = useSelector((state) => {
+        return state.cronies
+    });
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [open, setOpen] = React.useState(false)
@@ -32,16 +58,32 @@ const CardSection = () => {
     };
     const handleClickOpen = (event) => {
         setOpen(true)
-        setSelectedItem(event)
+        let selection;
+        if(event.id === 0){
+            selection = cronies;
+        } else if(event.id === 1){
+            selection = founders;
+        } else{
+            selection = vips;
+        }
+        setSelectedItem({
+            ...event,
+            ...selection
+        })
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : event.title
         })
-      }
+    }
+
+    useEffect(() => {
+        dispatch(fetchMemberInfo());
+        dispatch(fetchVipInfo());
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Container>
             <div className='cardSectContainer'>
-                <MyCard data={cardSelector} handleActionArea={handleClickOpen}/>
+                <MyCard data={cardSelector} dots value handleActionArea={handleClickOpen} handleBuyNow={handleClickOpen}/>
             </div>
             <Dialog
              open={open}
@@ -72,6 +114,7 @@ const CardSection = () => {
                             <Typography variant='subtitle1' component='p'>
                                 {selectedItem.p2}
                             </Typography>
+                            <Slider defaultValue={1} step={1} marks min={1} max={selectedItem.maxMint} />
                         </Stack>
                         </Grid>
                     </Grid>
