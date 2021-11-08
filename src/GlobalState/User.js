@@ -54,7 +54,6 @@ const userSlice = createSlice({
         onMemberships(state, action){
             state.founderCount = action.payload.founderCount;
             state.vipCount = action.payload.vipCount;
-            state.fetchingNfts = false;
         }
     }
 });
@@ -106,7 +105,7 @@ export const connectAccount = () => async(dispatch) => {
             code: code,
             balance: balance
         }))
-        fetchingNfts();
+
     }
 }
 
@@ -128,17 +127,23 @@ export const fetchNfts = (user) => async(dispatch) =>{
         try{
             dispatch(fetchingNfts(true));
             const cronieBalance = await user.croniesContract.balanceOf(user.address);
-            let cronies = [];
+            var cronies = [];
             for(let i = 0; i < cronieBalance; i++){
                 const id = await user.croniesContract.tokenOfOwnerByIndex(user.address, i);
                 const dataUri = await user.croniesContract.tokenURI(id);
-                const decoded = Buffer.from(dataUri, 'base64');
+                const json = Buffer.from(dataUri.substring(29), 'base64');
+                const parsed = JSON.parse(json);
+
                 cronies.push({
                     id : id,
-                    image : dataURItoBlob(decoded.image, 'image/svg+xml')
-                })
+                    name: parsed.name,
+                    image : dataURItoBlob(parsed.image, 'image/svg+xml')
+                });
             }
-            dispatch(onCronies(cronies));
+            console.log('cronies: ' + cronies);
+            dispatch(onCronies({
+                cronies: cronies
+            }));
         }catch(error){
             console.log(error);
         }
@@ -147,6 +152,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
 }
 
 function dataURItoBlob(dataURI, type) {
+    console.log(dataURI);
     // convert base64 to raw binary data held in a string
     let byteString = atob(dataURI.split(',')[1]);
   

@@ -1,10 +1,10 @@
 import React from 'react'
-import MyNft from '../Components/MyNFT/myNft'
+import { MyNFTs } from '../Components/MyNFT/MyNFTs'
 
 const MyNftScreen = () => {
     return (
         <div>
-            <MyNft />
+            <MyNFTs />
         </div>
     )
 }

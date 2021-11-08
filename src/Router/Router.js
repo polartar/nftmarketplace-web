@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-rout
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
-// import MyNftScreen from "../Pages/MyNft";
+import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
 import mainLogo from "../Assets/web_logo.svg";
 
@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 export const NavTabs = withStyles(styles)((props) => {
-  const routes = ["/", "/marketplace", "/roadmap", "/mynft", "/"];
+  const routes = ["/", "/marketplace", "/roadmap", "/nfts", "/"];
   const { classes } = props;
   const dispatch = useDispatch();
   const address = useSelector((state) => {
@@ -108,6 +108,17 @@ export const NavTabs = withStyles(styles)((props) => {
                   component={Link}
                   to={routes[2]}
                 />
+              {(address) ?
+                  <Tab
+                  classes={{ root: classes.fullHeight }}
+                    value={routes[3]}
+                    textColor="inherit"
+                    label="My NFTs"
+                    component={Link}
+                    to={routes[3]}
+                  /> : null
+              } 
+
               </Tabs>
               {(address)? 
                 (correctChain) ?
@@ -137,7 +148,7 @@ export const AppRouter = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
-        {/* <Route exact path="/mynft" component={MyNftScreen} /> */}
+        <Route exact path="/nfts" component={MyNftScreen} />
       </Switch>
     </Router>
   );
