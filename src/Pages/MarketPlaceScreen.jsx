@@ -25,7 +25,7 @@ const MarketPlaceScreen = () => {
 
             <Box m={5} mb={12}>
                 <Typography align='center'  style={{fontWeight : 600, fontSize: 34}} color='primary'>
-                    Cronos Launches In...
+                    The Market Launches In...
                 </Typography>
                 <FullCounter/>
             </Box>   

@@ -15,16 +15,20 @@ import {
     Typography, 
     useMediaQuery,
     Slider,
-    TextField
+    TextField,
+    CircularProgress
 } from '@mui/material'
 
 import { useTheme } from '@mui/material/styles';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 
 import { fetchMemberInfo, fetchVipInfo } from '../../GlobalState/Memberships'
+import { connectAccount, chainConnect } from '../../GlobalState/User'
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { Link } from 'react-router-dom'
 
 
-// import { Contract, ethers } from 'ethers'
+import { ethers } from 'ethers'
 // import rpc from '../../Assets/contracts/test_rpc.json'
 // import Membership from '../../Assets/contracts/EbisusBayMembership.json'
 
@@ -50,6 +54,29 @@ const CardSection = () => {
     const cronies = useSelector((state) => {
         return state.cronies
     });
+
+    const user = useSelector((state) => {
+        return state.user;
+    });
+
+    const [minting, setMinting] = useState(false);
+    const closeMinting = () => {
+        setMinting(false);
+    };
+    const [mintError, setMintError] = useState(null);
+    const closeError = () => {
+        setMintError(null);
+    }
+    const [showSuccess, setShowSuccess] = useState({
+        show : false,
+        hash: ""
+    });
+    const closeSuccess = () => {
+        setShowSuccess({
+            show: false,
+            hash: ""
+        });
+    }
 
     const [numToMint, setNumToMint] = useState(1);
     const [referral, setRefferal] = useState("");
@@ -86,7 +113,59 @@ const CardSection = () => {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const mintNow = async() => {
+        if(user.address && user.membershipContract){
+            console.log("parsing: " + selectedItem.price);
+            console.log("parsing " + selectedItem.discount);
+            const price = ethers.utils.parseEther(selectedItem.price);
+            const discount = ethers.utils.parseEther(selectedItem.discount);
+            let finalPrice;
+            if(referral){
+                console.log("adding discount");
+                finalPrice = price.mul(numToMint).sub(discount.mul(numToMint));
+            } else {
+                finalPrice = price.mul(numToMint);
+            }
+            const gasLimit = ethers.BigNumber.from(3000000).mul(numToMint); 
+            console.log(referral);
+            const ref32 = ethers.utils.formatBytes32String(referral);
+            console.log(price);
+            console.log(discount);
+            console.log(finalPrice);
+            console.log("final price: " + ethers.utils.formatEther(finalPrice));
+            console.log('ref ' + ref32);
+            const extra = {
+                'value': finalPrice
+            }
+            if(selectedItem.id === 0){
+                //cronie
+            } else{
+                //member
+                setMinting(true);
+                try{
+                    const response = await user.membershipContract.mint(selectedItem.id, numToMint, ref32, extra);
+                    const receipt = await response.wait();
+                    setShowSuccess({
+                        show : true,
+                        hash : receipt.hash
+                    })
+                } catch(error){
+                    console.log('caught error');
+                    setMintError(error);
+                } finally {
+                    setMinting(false);
+                }
 
+            }
+        } else {
+            if(user.needsOnboard){
+                const onboarding = new MetaMaskOnboarding();
+                onboarding.startOnboarding();
+            } else if(!user.address){
+                dispatch(connectAccount());
+            } else if(!user.correctChain){
+                dispatch(chainConnect());
+            }
+        }
     };
 
     return (
@@ -131,9 +210,10 @@ const CardSection = () => {
                             }/>
 
                             {selectedItem.id === 0 ? null :
-                              <TextField label="Referral Code" variant="outlined" onChange={ (e, val) =>
-                                setRefferal(val)
-                              } />
+                              <TextField label="Referral Code" variant="outlined" onChange={ (e) =>{
+                                console.log('setting refferal ' + e.target.value);
+                                setRefferal(e.target.value);
+                              }} />
                             }
                             
                         </Stack>
@@ -145,6 +225,43 @@ const CardSection = () => {
                     <Button onClick={mintNow}>Mint</Button>
                 </DialogActions>
             </Dialog>
+            <Dialog
+                open={minting}>
+                <DialogContent>
+                    <Stack spacing={2} direction='row'>
+                        <CircularProgress/>
+                        <Typography variant='h3'>
+                            Minting...
+                        </Typography>
+                    </Stack>
+                </DialogContent>
+            </Dialog>
+            <Dialog 
+                onClose={closeSuccess}
+                open={showSuccess.show}>
+                <DialogContent>
+                    <Typography variant='h3'>Success! 🥳 </Typography>
+                    <Typography variant='subtitle2'>showSuccess.hash</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeSuccess}>Close</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog 
+                open={mintError != null}
+                onClose={closeError}>
+                    <DialogContent>
+                        <Typography variant='h3'>There was an issue 😵</Typography>
+                        <Typography variant='subtitle2'>{
+                            mintError? mintError.message : ""
+                        }</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={closeError}>Close</Button>
+                    </DialogActions>
+            </Dialog>
+                
         </Container>
 
     )

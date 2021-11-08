@@ -5,7 +5,7 @@ import './Counter.css'
 const FullCounter = ({ hideImg}) => {
   const [timeLeft, setTimeLeft] = useState({});
   const times = ["Days", "Hours", "Minutes", "Seconds"];
-  let time = '08 nov 2021  12:00:00'
+  let time = '15 nov 2021  12:00:00'
   useEffect(() => {
     const updateTime = () => {
       const timer = new Date(time || Date.now()).getTime();

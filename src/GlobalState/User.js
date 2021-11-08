@@ -23,6 +23,12 @@ const userSlice = createSlice({
 
         accountChanged(state, action){
             state.address = action.payload.address;
+            state.provider = action.payload.provider;
+            state.needsOnboard = action.payload.needsOnboard;
+            state.membershipContract = action.payload.membershipContract;
+            state.correctChain = action.payload.correctChain;
+            state.balance = action.payload.balance;
+            state.code = action.payload.code;
         },
 
         onProvider(state, action){
@@ -44,12 +50,41 @@ export const fetchUserInfo = () => async(dispatch) => {
 
 export const connectAccount = () => async(dispatch) => {
     if(window.ethereum){
-        const accounts = await window.ethereum.request({
+        const ethereum = await detectEthereumProvider();
+        const accounts = await ethereum.request({
             method: "eth_requestAccounts",
         })
+        const address = accounts[0];
         console.log("got accounts " + accounts);
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        // signer.connect(provider);
+        const cid =  await ethereum.request({
+            method: "net_version",
+        });
+        console.log("cid: " + cid);
+        const correctChain = cid === rpc.chain_id
+        console.log("signer: " + signer);
+        let mc;
+        let code;
+        let balance;
+        if(signer && correctChain){
+            mc = new Contract(rpc.membership_contract, Membership.abi, signer);
+            mc.connect(signer);
+            code = await mc.codes(address);
+            balance = await signer.getBalance();
+            console.log("code: " + code);
+            console.log("bal: " + balance);
+        }
+
         dispatch(accountChanged({
-            address: accounts[0]
+            address: address,
+            provider: provider,
+            needsOnboard: false,
+            membershipContract: mc,
+            correctChain:correctChain,
+            code: code,
+            balance: balance
         }))
     }
 }
