@@ -246,7 +246,7 @@ const CardSection = () => {
                 open={showSuccess.show}>
                 <DialogContent>
                     <Typography variant='h3'>Success! 🥳 </Typography>
-                    <Typography variant='subtitle2'>showSuccess.hash</Typography>
+                    <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeSuccess}>Close</Button>
