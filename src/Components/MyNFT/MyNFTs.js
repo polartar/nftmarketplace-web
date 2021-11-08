@@ -10,6 +10,7 @@ import {
     IconButton,
     Collapse,
     Card,
+    Typography,
 
 } from '@mui/material'
 import vip_member from '../../Assets/vip_member.webp'
@@ -25,23 +26,21 @@ export const MyNFTs = () => {
         return state.user;
     });
     const nfts = useSelector((state) => {
-        // const cronies = state.user.cronies;
-        // const founderCount = state.user.founderCount;
-        // const vipCount = state.user.vipCount;
-        // const cImages = cronies.map((v,j) => {
-        //     return v.image
-        // });
-        // let ret = [];
-        // for(let i = 0; i < founderCount; i++){
-        //     ret.push(member)
-        // }
-        // for(let i = 0; i < vipCount; i++){
-        //     ret.push(vip_member);
-        // }
-        // ret += cImages;
-        // return ret;
         return state.user.cronies;
     });
+
+    const founderCount = useSelector((state) => {
+        return state.user.founderCount;
+    })
+
+    const vipCount = useSelector((state) => {
+        return state.user.vipCount;
+    })
+
+    const [memberships, setMemberArray] = useState([]);
+    const [vips, setVipArray] = useState([]);
+
+    const [totalMemberships, setMemberships] = useState(0)
 
     useEffect(() => {
         dispatch(fetchNfts(user))
@@ -52,6 +51,14 @@ export const MyNFTs = () => {
             firebase_screen : 'my_nfts'
         })
     }, []);
+
+    useEffect(() => {
+        setMemberArray(Array.from({length:founderCount}, (v, i) => i))
+        setVipArray(Array.from({length:vipCount}, (v, i) => i))
+        setMemberships(vipCount + founderCount);
+    },[vipCount, founderCount])
+
+    
 
     console.log(nfts);
     return(
@@ -79,11 +86,45 @@ export const MyNFTs = () => {
             </Collapse>
             
             <Grid container spacing={1} justifyContent="center" alignItems="center">
-                {console.log(nfts)}
+
+                {
+                    vips.map((_,j) => {
+                        return(
+                            < Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
+                                <Card>
+                                    <CardMedia component='img' src={vip_member} />
+                                    <Typography variant='subtitle1'>
+                                        VIP Member
+                                    </Typography>
+                                </Card>
+                            </Grid>
+                        )
+                    })
+                }
+                
+                {
+                    memberships.map((_,j) => {
+                        return(
+                        < Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j + vipCount}>
+                            <Card>
+                                <CardMedia component='img' src={member} />
+                                <Typography variant='subtitle1'>
+                                    Founding Member
+                                </Typography>
+                            </Card>
+                        </Grid>
+                    )
+                    })
+                }
+
+                
                 {nfts.map((val, j) => 
-                    <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
+                    <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j + totalMemberships}>
                         <Card>
                             <CardMedia component='img' src={URL.createObjectURL(val.image)} />
+                            <Typography variant='subtitle1'>
+                                {val.name}
+                            </Typography>
                         </Card>
                     </Grid>
                 )}

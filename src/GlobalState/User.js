@@ -116,8 +116,8 @@ export const fetchNfts = (user) => async(dispatch) =>{
             const founderCount = await user.membershipContract.balanceOf(user.address, 1);
             const vipCount = await user.membershipContract.balanceOf(user.address, 2);
             dispatch(onMemberships({
-                founderCount: founderCount,
-                vipCount: vipCount
+                founderCount: founderCount.toNumber(),
+                vipCount: vipCount.toNumber()
             }))
         }catch(error){
             console.log(error);
