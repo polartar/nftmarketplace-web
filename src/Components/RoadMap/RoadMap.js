@@ -43,11 +43,11 @@ const Roadmap = () => {
 
         <TimelineItem>
           <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-          <TimelineDot color='primary'>
+          <TimelineConnector  />
+          <TimelineDot >
             <ShoppingBagTwoToneIcon/>
           </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+          <TimelineConnector  />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography variant="h6" component="span">
@@ -61,11 +61,11 @@ const Roadmap = () => {
 
         <TimelineItem>
           <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-          <TimelineDot color='primary'>
+          <TimelineConnector  />
+          <TimelineDot >
             <StorefrontTwoToneIcon/>
           </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+          <TimelineConnector  />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography variant="h6" component="span">
@@ -79,11 +79,11 @@ const Roadmap = () => {
 
         <TimelineItem>
           <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-          <TimelineDot color='primary'>
+          <TimelineConnector />
+          <TimelineDot >
             <AccountCircleTwoToneIcon/>
           </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+          <TimelineConnector  />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography variant="h6" component="span">
@@ -97,11 +97,11 @@ const Roadmap = () => {
 
         <TimelineItem>
           <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-          <TimelineDot color='primary'>
+          <TimelineConnector  />
+          <TimelineDot >
             <AccountBalanceTwoToneIcon/>
           </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+          <TimelineConnector  />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography variant="h6" component="span">
@@ -115,11 +115,11 @@ const Roadmap = () => {
 
         <TimelineItem>
           <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-          <TimelineDot color='primary'  >
+          <TimelineConnector  />
+          <TimelineDot  >
             <IoMdRocket style={{height: 24, width:24}}/>
           </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+          <TimelineConnector  />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography variant="h6" component="span">

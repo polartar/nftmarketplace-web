@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 import { Contract, ethers, BigNumber} from 'ethers'
 import rpc from '../Assets/contracts/rpc_config.json'
 import Membership from '../Assets/contracts/EbisusBayMembership.json'
+import Cronies from '../Assets/contracts/CronosToken.json'
 import detectEthereumProvider from '@metamask/detect-provider'
 
 const userSlice = createSlice({
@@ -12,11 +13,13 @@ const userSlice = createSlice({
         balance : "",
         code : "",
         rewards: "",
+        fetchingNfts: false,
         cronies : [],
         founderCount : 0,
         vipCount : 0,
         needsOnboard: false,
         membershipContract: null,
+        croniesContract: null,
         correctChain : false
     }, 
     reducers: {
@@ -26,6 +29,7 @@ const userSlice = createSlice({
             state.provider = action.payload.provider;
             state.needsOnboard = action.payload.needsOnboard;
             state.membershipContract = action.payload.membershipContract;
+            state.croniesContract = action.payload.croniesContract;
             state.correctChain = action.payload.correctChain;
             state.balance = action.payload.balance;
             state.code = action.payload.code;
@@ -38,10 +42,24 @@ const userSlice = createSlice({
             state.correctChain = action.payload.correctChain;
         },
 
+        fetchingNfts(state, action){
+            state.fetchingNfts = action.payload;
+        },
+
+        onCronies(state, action){
+            state.cronies = action.payload.cronies;
+            state.fetchingNfts = false;
+        },
+
+        onMemberships(state, action){
+            state.founderCount = action.payload.founderCount;
+            state.vipCount = action.payload.vipCount;
+            state.fetchingNfts = false;
+        }
     }
 });
 
-const {accountChanged, onProvider} = userSlice.actions;
+const {accountChanged, onProvider, fetchingNfts, onCronies, onMemberships} = userSlice.actions;
 export const user = userSlice.reducer;
 
 export const fetchUserInfo = () => async(dispatch) => {
@@ -55,26 +73,27 @@ export const connectAccount = () => async(dispatch) => {
             method: "eth_requestAccounts",
         })
         const address = accounts[0];
-        console.log("got accounts " + accounts);
+
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        // signer.connect(provider);
+
         const cid =  await ethereum.request({
             method: "net_version",
         });
-        console.log("cid: " + cid);
+
         const correctChain = cid === rpc.chain_id
-        console.log("signer: " + signer);
+
         let mc;
+        let cc;
         let code;
         let balance;
         if(signer && correctChain){
             mc = new Contract(rpc.membership_contract, Membership.abi, signer);
             mc.connect(signer);
+            cc = new Contract(rpc.cronie_contract, Cronies.abi, signer);
+            cc.connect(signer);
             code = await mc.codes(address);
             balance = await signer.getBalance();
-            console.log("code: " + code);
-            console.log("bal: " + balance);
         }
 
         dispatch(accountChanged({
@@ -82,12 +101,69 @@ export const connectAccount = () => async(dispatch) => {
             provider: provider,
             needsOnboard: false,
             membershipContract: mc,
+            croniesContract: cc,
             correctChain:correctChain,
             code: code,
             balance: balance
         }))
+        fetchingNfts();
     }
 }
+
+export const fetchNfts = (user) => async(dispatch) =>{
+    console.log('fetching nfts')
+    if(user.membershipContract){
+        try{
+            const founderCount = await user.membershipContract.balanceOf(user.address, 1);
+            const vipCount = await user.membershipContract.balanceOf(user.address, 2);
+            dispatch(onMemberships({
+                founderCount: founderCount,
+                vipCount: vipCount
+            }))
+        }catch(error){
+            console.log(error);
+        }
+    }
+    if(user.croniesContract){
+        try{
+            dispatch(fetchingNfts(true));
+            const cronieBalance = await user.croniesContract.balanceOf(user.address);
+            let cronies = [];
+            for(let i = 0; i < cronieBalance; i++){
+                const id = await user.croniesContract.tokenOfOwnerByIndex(user.address, i);
+                const dataUri = await user.croniesContract.tokenURI(id);
+                const decoded = Buffer.from(dataUri, 'base64');
+                cronies.push({
+                    id : id,
+                    image : dataURItoBlob(decoded.image, 'image/svg+xml')
+                })
+            }
+            dispatch(onCronies(cronies));
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+}
+
+function dataURItoBlob(dataURI, type) {
+    // convert base64 to raw binary data held in a string
+    let byteString = atob(dataURI.split(',')[1]);
+  
+    // separate out the mime component
+    let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+  
+    // write the bytes of the string to an ArrayBuffer
+    let ab = new ArrayBuffer(byteString.length);
+    let ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+  
+    // write the ArrayBuffer to a blob, and you're done
+    let bb = new Blob([ab], { type: type });
+    return bb;
+  }
 
 export const initProvider = () => async(dispatch) =>  {
     const ethereum = await detectEthereumProvider();

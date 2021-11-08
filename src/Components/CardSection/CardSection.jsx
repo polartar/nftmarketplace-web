@@ -23,19 +23,11 @@ import { useTheme } from '@mui/material/styles';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 
 import { fetchMemberInfo, fetchVipInfo } from '../../GlobalState/Memberships'
+import {fetchCronieInfo} from '../../GlobalState/Cronies'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
-import { Link } from 'react-router-dom'
-
 
 import { ethers } from 'ethers'
-// import rpc from '../../Assets/contracts/test_rpc.json'
-// import Membership from '../../Assets/contracts/EbisusBayMembership.json'
-
-
-
-// const userProvider = new ethers.providers.Web3Provider(window.ethereum);
-// const writeMemberships = new Contract(rpc.membership_contract, Membership.abi, userProvider);
 
 const CardSection = () => {
     const dispatch = useDispatch();
@@ -110,6 +102,7 @@ const CardSection = () => {
     useEffect(() => {
         dispatch(fetchMemberInfo());
         dispatch(fetchVipInfo());
+        dispatch(fetchCronieInfo());
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const mintNow = async() => {
@@ -119,7 +112,7 @@ const CardSection = () => {
             const price = ethers.utils.parseEther(selectedItem.price);
             const discount = ethers.utils.parseEther(selectedItem.discount);
             let finalPrice;
-            if(referral){
+            if(referral && selectedItem.id !== 0){
                 console.log("adding discount");
                 finalPrice = price.mul(numToMint).sub(discount.mul(numToMint));
             } else {
@@ -136,8 +129,21 @@ const CardSection = () => {
             const extra = {
                 'value': finalPrice
             }
+            handleClose();
             if(selectedItem.id === 0){
-                //cronie
+                setMinting(true);
+                try{
+                    const resposne = await user.croniesContract.mint(numToMint, extra);
+                    const receipt = await resposne.wait();
+                    setShowSuccess({
+                        show: true,
+                        hash: receipt.hash
+                    })
+                }catch(error){
+                    setMintError(error);
+                }finally{
+                    setMinting(false);
+                }
             } else{
                 //member
                 setMinting(true);
@@ -149,7 +155,6 @@ const CardSection = () => {
                         hash : receipt.hash
                     })
                 } catch(error){
-                    console.log('caught error');
                     setMintError(error);
                 } finally {
                     setMinting(false);

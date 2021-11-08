@@ -11,7 +11,7 @@ export const InitialState = {
       title: 'Cronies',
       descs: `Commemorating the launch of the Cronos network`,
       p1: 'Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.',
-      p2: 'We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. Cronies will not be mintable after the 1 millionth block or 10,000 minted. Whichever happens first. '
+      p2: 'We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.',
     },
     {
       id: 1,
@@ -26,7 +26,7 @@ export const InitialState = {
       img: founding_member,
       title: 'VIP Founding Member',
       descs: `Early access, further reduced fees and staking rewards`,
-      p1: 'If you hold a VIP Founding Member NFT you will have access to beta features on the platform and receive reduced service fees. You can stake your VIP NFT, 50% of ALL service fees will go into the VIP Member rewards pool and divided evenly among stakers once per month. You can only stake one NFT per address but it is not against the rules to use multiple addresses',
+      p1: 'If you hold a VIP Founding Member NFT you will have access to beta features on the platform and receive reduced service fees. You can stake your VIP NFT, 50% of ALL service fees will go into the VIP Member rewards pool and divided evenly among stakers once per month.',
       p2: 'The VIP Founding Member NFT has an on-chain referral system. Refer a friend and recieve 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. VIP Founding Member NFTs will be limited to 1,000.'
     },
   ],
