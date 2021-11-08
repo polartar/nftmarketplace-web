@@ -1,9 +1,9 @@
 {
-    "name" : "Local",
-    "chain_id" : "5777",
-    "url" : "http://localhost:7545",
-    "symbol" : "tCRO",
-    "explorer" : "",
-    "membership_contract" : "0x0587D78A3AC269e80EA2b27b064360f66c3B6342",
-    "cronie_contract" : "0xAc90967174379510181D3B433e8F04AA569d531F"
+    "name" : "Cronos",
+    "chain_id" : "25",
+    "url" : "https://evm-cronos.crypto.org",
+    "symbol" : "CRO",
+    "explorer" : "http://cronos.crypto.org/explorer/",
+    "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
+    "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb"
 }

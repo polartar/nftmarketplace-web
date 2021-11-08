@@ -10,7 +10,7 @@ const cronieSlice = createSlice({
     name: 'cronies',
     initialState: {
         price : "100",
-        maxMint : "",
+        maxMint : "5",
         discount: "0",
         count : 0,
         max : 10000

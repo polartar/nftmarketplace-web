@@ -110,7 +110,7 @@ export const connectAccount = () => async(dispatch) => {
 }
 
 export const fetchNfts = (user) => async(dispatch) =>{
-    console.log('fetching nfts')
+
     if(user.membershipContract){
         try{
             const founderCount = await user.membershipContract.balanceOf(user.address, 1);
@@ -152,7 +152,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
 }
 
 function dataURItoBlob(dataURI, type) {
-    console.log(dataURI);
+
     // convert base64 to raw binary data held in a string
     let byteString = atob(dataURI.split(',')[1]);
   
@@ -173,7 +173,7 @@ function dataURItoBlob(dataURI, type) {
 
 export const initProvider = () => async(dispatch) =>  {
     const ethereum = await detectEthereumProvider();
-    console.log(ethereum);
+
     if(ethereum == null || ethereum !== window.ethereum){
         console.log('not metamask detected');
         dispatch(onProvider({
@@ -186,9 +186,9 @@ export const initProvider = () => async(dispatch) =>  {
         const cid =  await ethereum.request({
             method: "net_version",
         });
-        console.log("cid: " + cid);
+
         const correctChain = cid === rpc.chain_id
-        console.log("signer: " + signer);
+
         let mc;
         if(signer && correctChain){
             mc = new Contract(rpc.membership_contract, Membership.abi, signer);
@@ -204,7 +204,7 @@ export const initProvider = () => async(dispatch) =>  {
 
 
         ethereum.on('accountsChanged', (accounts) => {
-            console.log("onAccountsChanged " + accounts);
+
             dispatch(accountChanged({
                 address: accounts[0]
             }))
@@ -214,7 +214,7 @@ export const initProvider = () => async(dispatch) =>  {
             // Handle the new chain.
             // Correctly handling chain changes can be complicated.
             // We recommend reloading the page unless you have good reason not to.
-            console.log(chainId);
+
             window.location.reload();
         });
     }
@@ -241,7 +241,7 @@ export const chainConnect = () => async(dispatch) => {
                             chainName: rpc.name,
                             chainId: cid,
                             rpcUrls: [rpc.url],
-                            blockExplorerUrls: [rpc.explorer],
+                            blockExplorerUrls: null,
                             nativeCurrency: {
                                 name: rpc.symbol,
                                 symbol: rpc.symbol,

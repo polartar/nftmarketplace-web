@@ -107,27 +107,27 @@ const CardSection = () => {
 
     const mintNow = async() => {
         if(user.address && user.membershipContract){
-            console.log("parsing: " + selectedItem.price);
-            console.log("parsing " + selectedItem.discount);
+            // console.log("parsing: " + selectedItem.price);
+            // console.log("parsing " + selectedItem.discount);
             const price = ethers.utils.parseEther(selectedItem.price);
             const discount = ethers.utils.parseEther(selectedItem.discount);
             let finalPrice;
             if(referral && selectedItem.id !== 0){
-                console.log("adding discount");
+                // console.log("adding discount");
                 finalPrice = price.mul(numToMint).sub(discount.mul(numToMint));
             } else {
                 finalPrice = price.mul(numToMint);
             }
             const gasLimit = ethers.BigNumber.from(3000000).mul(numToMint); 
-            console.log(referral);
+            // console.log(referral);
             const ref32 = ethers.utils.formatBytes32String(referral);
-            console.log(price);
-            console.log(discount);
-            console.log(finalPrice);
-            console.log("final price: " + ethers.utils.formatEther(finalPrice));
+            // console.log(price);
+            // console.log(discount);
+            // console.log(finalPrice);
+            // console.log("final price: " + ethers.utils.formatEther(finalPrice));
             console.log('ref ' + ref32);
             const extra = {
-                'value': finalPrice
+                'value': finalPrice,
             }
             handleClose();
             if(selectedItem.id === 0){
@@ -210,7 +210,7 @@ const CardSection = () => {
                             <Typography variant='subtitle2' component='p'>
                                     Minting {numToMint}
                             </Typography>
-                            <Slider defaultValue={1} step={1} marks min={1} max={selectedItem.maxMint} onChange={ (e, val) =>
+                            <Slider defaultValue={1} step={1} marks min={1} max={parseInt(selectedItem.maxMint)} onChange={ (e, val) =>
                                 setNumToMint(val)
                             }/>
 
