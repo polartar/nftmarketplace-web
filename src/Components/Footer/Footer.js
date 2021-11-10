@@ -24,7 +24,7 @@ const Footer = () => {
 
             <Box component='div' sx={{ flexGrow: 1 }}>
               <Typography variant='body2' align='center' color='primary'>
-                Copyright © 2021 EbisusBay.xyz. All rights reserved.
+                Copyright © 2021 EbisusBay.com. All rights reserved.
               </Typography>
             </Box>
 

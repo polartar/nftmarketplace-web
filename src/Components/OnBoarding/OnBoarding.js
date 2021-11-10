@@ -1,8 +1,8 @@
 import React from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { chainConnect } from '../../GlobalState/User'
-import rpc from '../../Assets/contracts/rpc_config.json'
-import MetaMaskOnboarding from '@metamask/onboarding';
+import rpc from '../../Assets/networks/rpc_config.json'
+// import MetaMaskOnboarding from '@metamask/onboarding';
 import {
     Button,
     Dialog,

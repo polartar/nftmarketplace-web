@@ -11,36 +11,53 @@ import {
     Collapse,
     Card,
     Typography,
-
+    Dialog, 
+    Stack,
+    DialogContent, 
+    CircularProgress,
+    useMediaQuery,
+    Button,
+    TextField,
+    DialogActions,
+    CardActions,
+    DialogTitle
 } from '@mui/material'
-import vip_member from '../../Assets/vip_member.webp'
-import member from '../../Assets/founding_member.webp'
+import { useTheme } from '@mui/material/styles';
+
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
 
 export const MyNFTs = () => {
+
     const dispatch = useDispatch();
-    const [alertOpen, setAlertOpen] = useState(true);
+    const theme = useTheme();
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [askTransfer, setAskTransfer] = useState(false);
+    const [progressText, setProgressText] = useState('Working...');
+    const [doingWork, setDoingWork] = useState(false);
+    const [selectedNft, setSelectedNft] = useState(null);
+    const [transferAddress, setTransferAddress] = useState(null);
+
     const user = useSelector((state) => {
         return state.user;
     });
-    const nfts = useSelector((state) => {
-        return state.user.cronies;
+
+    const [error, setError] = useState(null);
+    const closeError = () => {
+        setError(null);
+    }
+    const [showSuccess, setShowSuccess] = useState({
+        show : false,
+        hash: ""
     });
-
-    const founderCount = useSelector((state) => {
-        return state.user.founderCount;
-    })
-
-    const vipCount = useSelector((state) => {
-        return state.user.vipCount;
-    })
-
-    const [memberships, setMemberArray] = useState([]);
-    const [vips, setVipArray] = useState([]);
-
-    const [totalMemberships, setMemberships] = useState(0)
+    const closeSuccess = () => {
+        setShowSuccess({
+            show: false,
+            hash: ""
+        });
+    }
 
     useEffect(() => {
         dispatch(fetchNfts(user))
@@ -52,15 +69,40 @@ export const MyNFTs = () => {
         })
     }, []);
 
-    useEffect(() => {
-        setMemberArray(Array.from({length:founderCount}, (v, i) => i))
-        setVipArray(Array.from({length:vipCount}, (v, i) => i))
-        setMemberships(vipCount + founderCount);
-    },[vipCount, founderCount])
+    const showTransferDialog = (nft) => () => {
+        setSelectedNft(nft);
+        setAskTransfer(true);
+    }
 
-    
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    console.log(nfts);
+    const transferNft = async () => {
+        try{
+            closeTransfer();
+            setDoingWork(true);
+            let tx;
+            if(selectedNft.multiToken){
+                tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id, 1, "");
+            } else {
+                tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id);
+            }
+            const receipt = await tx.wait(); 
+            setShowSuccess({
+                show: true,
+                hash: receipt.hash
+            })
+        }catch(error){
+            console.log(error);
+            setError(error);
+        }finally{
+            setDoingWork(false);
+        }
+    }
+
+    const closeTransfer = () =>{
+        setAskTransfer(false);
+    }
+
     return(
         <Container maxWidth="lg" mt={3}>
             {(user.address)? 
@@ -86,45 +128,19 @@ export const MyNFTs = () => {
             </Collapse>
             
             <Grid container spacing={1} justifyContent="center" alignItems="center">
-
-                {
-                    vips.map((_,j) => {
-                        return(
-                            < Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
-                                <Card>
-                                    <CardMedia component='img' src={vip_member} />
-                                    <Typography variant='subtitle1'>
-                                        VIP Member
-                                    </Typography>
-                                </Card>
-                            </Grid>
-                        )
-                    })
-                }
-                
-                {
-                    memberships.map((_,j) => {
-                        return(
-                        < Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j + vipCount}>
-                            <Card>
-                                <CardMedia component='img' src={member} />
-                                <Typography variant='subtitle1'>
-                                    Founding Member
-                                </Typography>
-                            </Card>
-                        </Grid>
-                    )
-                    })
-                }
-
-                
-                {nfts.map((val, j) => 
-                    <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j + totalMemberships}>
+                {user.nfts.map((val, j) => 
+                    <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
                         <Card>
-                            <CardMedia component='img' src={URL.createObjectURL(val.image)} />
-                            <Typography variant='subtitle1'>
+                            <CardMedia component='img' src={val.image} />
+                            <Typography  variant="h5" color='primary' component="p">
                                 {val.name}
+                            </Typography>   
+                            <Typography variant='subtitle2' component='p'>
+                                {val.description}
                             </Typography>
+                            <CardActions>
+                                <Button onClick={showTransferDialog(val)}>Transfer</Button>
+                            </CardActions>
                         </Card>
                     </Grid>
                 )}
@@ -133,7 +149,73 @@ export const MyNFTs = () => {
                 : 
                 <Redirect to='/'/>
             }
+            {(selectedNft) ? 
+                        <Dialog
+                        onClose={closeTransfer}
+                        fullScreen={fullScreen}
+                        open={askTransfer}>
+                            <DialogContent>
+                                <DialogTitle>
+                                    Start Transfer
+                                </DialogTitle>
+                                <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
+                                    <Grid item xs={2} md={1} key='1'>
+                                        <Container>
+                                            <CardMedia component='img' src={selectedNft.image} width='150' />
+                                        </Container>
+                                    </Grid>
+                                    <Grid item xs={1} key='2' >
+                                        <TextField label="Address" variant="outlined" onChange={ (e) => {
+                                            setTransferAddress(e.target.value);
+                                        }}/>
+                                    </Grid>
+                                </Grid>
+        
+                                <DialogActions>
+                                    <Button onClick={closeTransfer}>Cancel</Button>
+                                    <Button onClick={transferNft}>OK</Button>
+                                </DialogActions>
+                            </DialogContent>
+                    </Dialog>
+            : null}
 
+            <Dialog
+                open={user.fetchingNfts || doingWork}>
+                <DialogContent>
+                    <Stack spacing={2} direction='row'>
+                        <CircularProgress/>
+                        <Typography variant='h3'>
+                            {progressText}
+                        </Typography>
+                    </Stack>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog 
+                onClose={closeSuccess}
+                open={showSuccess.show}>
+                <DialogContent>
+                    <Typography variant='h3'>Success! 🥳 </Typography>
+                    <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeSuccess}>Close</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog 
+                open={error != null}
+                onClose={closeError}>
+                    <DialogContent>
+                        <Typography variant='h3'>There was an issue 😵</Typography>
+                        <Typography variant='subtitle2'>{
+                            error? error.message : ""
+                        }</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={closeError}>Close</Button>
+                    </DialogActions>
+            </Dialog>
 
         </Container>
     )

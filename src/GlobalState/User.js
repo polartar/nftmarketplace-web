@@ -1,15 +1,22 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { Contract, ethers, BigNumber} from 'ethers'
-import rpc from '../Assets/contracts/rpc_config.json'
-import Membership from '../Assets/contracts/EbisusBayMembership.json'
-import Cronies from '../Assets/contracts/CronosToken.json'
+import rpc from '../Assets/networks/rpc_config.json'
+import Membership from '../Contracts/EbisusBayMembership.json'
+import Cronies from '../Contracts/CronosToken.json'
+import { ERC721, ERC1155 } from '../Contracts/Abis'
+
 import detectEthereumProvider from '@metamask/detect-provider'
+import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
+
+const gatewayTools = new IPFSGatewayTools();
+const gateway = "https://mygateway.mypinata.cloud";
 
 const userSlice = createSlice({
     name : 'user',
     initialState : {
         provider: null,
         address : null,
+        connectingWallet: false,
         balance : "",
         code : "",
         rewards: "",
@@ -20,7 +27,8 @@ const userSlice = createSlice({
         needsOnboard: false,
         membershipContract: null,
         croniesContract: null,
-        correctChain : false
+        correctChain : false,
+        nfts: []
     }, 
     reducers: {
 
@@ -46,27 +54,22 @@ const userSlice = createSlice({
             state.fetchingNfts = action.payload;
         },
 
-        onCronies(state, action){
-            state.cronies = action.payload.cronies;
+        onNfts(state, action){
+            state.nfts = action.payload.nfts;
             state.fetchingNfts = false;
         },
-
-        onMemberships(state, action){
-            state.founderCount = action.payload.founderCount;
-            state.vipCount = action.payload.vipCount;
+        connectingWallet(state, action) {
+            state.connectingWallet = action.connecting;
         }
     }
 });
 
-const {accountChanged, onProvider, fetchingNfts, onCronies, onMemberships} = userSlice.actions;
+const {accountChanged, onProvider, fetchingNfts, onNfts, connectingWallet} = userSlice.actions;
 export const user = userSlice.reducer;
-
-export const fetchUserInfo = () => async(dispatch) => {
-
-}
 
 export const connectAccount = () => async(dispatch) => {
     if(window.ethereum){
+        dispatch(connectingWallet({'connecting' : true}));
         const ethereum = await detectEthereumProvider();
         const accounts = await ethereum.request({
             method: "eth_requestAccounts",
@@ -105,49 +108,113 @@ export const connectAccount = () => async(dispatch) => {
             code: code,
             balance: balance
         }))
-
+        dispatch(connectingWallet({'connecting' : false}));
     }
 }
 
+const knownContracts = [
+    {
+        'name': 'vips',
+        'onChain' : false,
+        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+        'multiToken' : true,
+        'id' : 2
+    },
+    {
+        'name': 'founders',
+        'onChain' : false,
+        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+        'multiToken' : true,
+        'id' : 1
+    },
+    {
+        'name': 'cronies',
+        'multiToken': false,
+        'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
+        'onChain' : true,
+    }
+]
+
 export const fetchNfts = (user) => async(dispatch) =>{
 
-    if(user.membershipContract){
-        try{
-            const founderCount = await user.membershipContract.balanceOf(user.address, 1);
-            const vipCount = await user.membershipContract.balanceOf(user.address, 2);
-            dispatch(onMemberships({
-                founderCount: founderCount.toNumber(),
-                vipCount: vipCount.toNumber()
-            }))
-        }catch(error){
-            console.log(error);
-        }
-    }
-    if(user.croniesContract){
-        try{
-            dispatch(fetchingNfts(true));
-            const cronieBalance = await user.croniesContract.balanceOf(user.address);
-            var cronies = [];
-            for(let i = 0; i < cronieBalance; i++){
-                const id = await user.croniesContract.tokenOfOwnerByIndex(user.address, i);
-                const dataUri = await user.croniesContract.tokenURI(id);
-                const json = Buffer.from(dataUri.substring(29), 'base64');
-                const parsed = JSON.parse(json);
+    if(user.address && user.provider){
+        var nfts = [];
 
-                cronies.push({
-                    id : id,
-                    name: parsed.name,
-                    image : dataURItoBlob(parsed.image, 'image/svg+xml')
-                });
-            }
-            console.log('cronies: ' + cronies);
-            dispatch(onCronies({
-                cronies: cronies
-            }));
-        }catch(error){
-            console.log(error);
-        }
+        dispatch(fetchingNfts(true));
+        await Promise.all(
+            knownContracts.map(async (c, i) => {
+                console.log('fetching ' + i);
+                try{
+                    const signer = user.provider.getSigner();
+    
+                    if(c.multiToken){
+                        const contract = new Contract(c.address, ERC1155, signer);
+                        contract.connect(signer);
+                        const count = await contract.balanceOf(user.address, c.id);
+                        const uri = await contract.uri(c.id);
+                        const json = await (await fetch(gatewayTools.convertToDesiredGateway(uri, gateway))).json();
+                        const a = Array.from({length : count}, (_, i) => {
+                            const name = json.name;
+                            const image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                            const description = json.description;
+                            const properties = json.properties; 
+                            return {
+                                'name': name,
+                                'id' : c.id,
+                                'image' : image,
+                                'description' : description,
+                                'properties' : properties,
+                                'contract' : contract,
+                                'address' : c.address,
+                                'multiToken' : true
+                            }
+                        })
+                        nfts.push(...a);
+                    } else {
+                        const contract = new Contract(c.address, ERC721, signer);
+                        contract.connect(signer);
+                        const count = await contract.balanceOf(user.address);
+                        console.log('found ' + count);
+                        for(let i = 0; i < count; i++){
+                            const id = await contract.tokenOfOwnerByIndex(user.address, i);
+                            const uri = await contract.tokenURI(id);
+                            console.log(uri);
+                            if(c.onChain){
+                                const json = Buffer.from(uri.split(',')[1], 'base64');
+                                const parsed = JSON.parse(json);
+                                const name = parsed.name;
+                                const image = dataURItoBlob(parsed.image, 'image/svg+xml');
+                                const desc = parsed.description;
+                                const properties = (parsed.properties) ? parsed.properties : parsed.attributes;
+                                const nft = {
+                                    'id' : id,
+                                    'name' : name,
+                                    'image' : URL.createObjectURL(image),
+                                    'description' : desc,
+                                    'properties' : properties,
+                                    'contract' : contract,
+                                    'address' : user.address,
+                                    'multiToken' : false
+                                }
+                                console.log(nft);
+                                nfts.push(nft);
+                            } else {
+                                //pull ipfs
+                            }
+                        }
+                    }
+                }catch(error){
+                    console.log('error fetching ' + knownContracts[i].name);
+                    console.log(error);
+                }
+    
+            })
+        )
+        dispatch(onNfts({
+            'nfts' : nfts
+        }))
     }
+
 
 }
 
@@ -169,7 +236,7 @@ function dataURItoBlob(dataURI, type) {
     // write the ArrayBuffer to a blob, and you're done
     let bb = new Blob([ab], { type: type });
     return bb;
-  }
+}
 
 export const initProvider = () => async(dispatch) =>  {
     const ethereum = await detectEthereumProvider();

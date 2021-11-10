@@ -15,7 +15,9 @@ import {
   Box, 
   Typography,
   Avatar,
-  IconButton
+  IconButton,
+  Dialog,
+  CircularProgress
 } from "@mui/material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { connectAccount } from "../GlobalState/User";
@@ -82,8 +84,9 @@ export const NavTabs = withStyles(styles)((props) => {
               <Box component='div' sx={{ flexGrow: 1 }}/>
               <Tabs
               classes={{ root: classes.fullHeight }}
-              variant='standard'
               textColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
               selectionFollowsFocus={true}
                 value={
                   history.location.pathname !== "/"
@@ -151,5 +154,6 @@ export const AppRouter = () => {
         <Route exact path="/nfts" component={MyNftScreen} />
       </Switch>
     </Router>
+
   );
 };

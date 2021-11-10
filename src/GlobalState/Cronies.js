@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { Contract, ethers} from 'ethers'
-import rpc from '../Assets/contracts/rpc_config.json'
-import Cronies from '../Assets/contracts/CronosToken.json'
+import rpc from '../Assets/networks/rpc_config.json'
+import Cronies from '../Contracts/CronosToken.json'
 
 const readProvider = new ethers.providers.JsonRpcProvider(rpc.url);
 const readCronies = new Contract(rpc.cronie_contract, Cronies.abi, readProvider);
