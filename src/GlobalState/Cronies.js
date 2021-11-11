@@ -12,8 +12,8 @@ const cronieSlice = createSlice({
         price : "100",
         maxMint : "5",
         discount: "0",
-        count : 0,
-        max : 'Open Edition'
+        count : 'Fetching...',
+        max : 'Open until 1 millionth validated block'
     },
     reducers: {
         croniesReceived(state, action){

@@ -76,7 +76,7 @@ const CardSection = () => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [open, setOpen] = React.useState(false)
-    let [selectedItem, setSelectedItem] = useState({})
+    const [selectedItem, setSelectedItem] = useState({})
     const handleClose = () => {
         setOpen(false);
     };
@@ -133,7 +133,14 @@ const CardSection = () => {
                         hash: receipt.hash
                     })
                 }catch(error){
-                    setMintError(error);
+                    if(error.data){
+                        setMintError(error.data.message);
+                    } else if(error.message){
+                        setMintError(error.message)
+                    } else {
+                        console.log(error);
+                        setMintError("Unknown Error")
+                    }
                 }finally{
                     setMinting(false);
                 }
@@ -148,7 +155,14 @@ const CardSection = () => {
                         hash : receipt.hash
                     })
                 } catch(error){
-                    setMintError(error);
+                    if(error.data){
+                        setMintError(error.data.message);
+                    } else if(error.message){
+                        setMintError(error.message)
+                    } else {
+                        console.log(error);
+                        setMintError("Unknown Error")
+                    }
                 } finally {
                     setMinting(false);
                 }
@@ -257,7 +271,7 @@ const CardSection = () => {
                     <DialogContent>
                         <Typography variant='h3'>There was an issue 😵</Typography>
                         <Typography variant='subtitle2'>{
-                            mintError? mintError.message : ""
+                            (mintError) ? mintError : ""
                         }</Typography>
                     </DialogContent>
                     <DialogActions>

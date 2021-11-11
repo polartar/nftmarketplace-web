@@ -11,6 +11,7 @@ import unrevealed from '../Assets/unrevealed.svg';
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
+const crowGateway = "https://crocrow.mypinata.cloud";
 
 const userSlice = createSlice({
     name : 'user',
@@ -18,9 +19,9 @@ const userSlice = createSlice({
         provider: null,
         address : null,
         connectingWallet: false,
-        balance : "",
+        balance : "0",
         code : "",
-        rewards: "",
+        rewards: "Loading...",
         fetchingNfts: false,
         cronies : [],
         founderCount : 0,
@@ -42,6 +43,7 @@ const userSlice = createSlice({
             state.correctChain = action.payload.correctChain;
             state.balance = action.payload.balance;
             state.code = action.payload.code;
+            state.rewards = action.payload.rewards;
         },
 
         onProvider(state, action){
@@ -61,11 +63,28 @@ const userSlice = createSlice({
         },
         connectingWallet(state, action) {
             state.connectingWallet = action.payload.connecting;
+        },
+        registeredCode(state, action){
+            state.code = action.payload;
+        },
+        withdrewRewards(state){
+            state.rewards = 0;
+        },
+        transferedNFT(state, action){
+            //todo
         }
     }
 });
 
-const {accountChanged, onProvider, fetchingNfts, onNfts, connectingWallet} = userSlice.actions;
+export const {
+    accountChanged, 
+    onProvider, 
+    fetchingNfts,
+    onNfts, 
+    connectingWallet, 
+    registeredCode,
+    withdrewRewards,
+    transferedNFT} = userSlice.actions;
 export const user = userSlice.reducer;
 
 export const connectAccount = () => async(dispatch) => {
@@ -90,13 +109,15 @@ export const connectAccount = () => async(dispatch) => {
         let cc;
         let code;
         let balance;
+        let rewards;
         if(signer && correctChain){
             mc = new Contract(rpc.membership_contract, Membership.abi, signer);
             mc.connect(signer);
             cc = new Contract(rpc.cronie_contract, Cronies.abi, signer);
             cc.connect(signer);
-            code = await mc.codes(address);
-            balance = await signer.getBalance();
+            const rawCode = await mc.codes(address);
+            code = ethers.utils.parseBytes32String(rawCode);
+            rewards = ethers.utils.formatEther(await mc.payments(address));
         }
 
         dispatch(accountChanged({
@@ -107,7 +128,8 @@ export const connectAccount = () => async(dispatch) => {
             croniesContract: cc,
             correctChain:correctChain,
             code: code,
-            balance: balance
+            balance: balance,
+            rewards: rewards
         }))
         dispatch(connectingWallet({'connecting' : false}));
     }
@@ -147,7 +169,7 @@ const knownContracts = [
         'onChain' : false,
     },
     {
-        'name' : 'cro crows',
+        'name' : 'crocrows',
         'multiToken': false,
         'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
         'onChain' : false,
@@ -170,12 +192,12 @@ const knownContracts = [
         'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
         'onChain' : false,
     },
-    // {
-    //     'name' : 'drakes',
-    //     'multiToken': false,
-    //     'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
-    //     'onChain' : false,
-    // },
+    {
+        'name' : 'drakes',
+        'multiToken': false,
+        'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
+        'onChain' : false,
+    },
     {
         'name' : 'SupBirds',
         'multiToken': false,
@@ -205,7 +227,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                             try{
                                 uri = gatewayTools.convertToDesiredGateway(uri, gateway);
                             }catch(error){
-                                console.log(error);
+                                //console.log(error);
                             }
                         } 
                         const json = await (await fetch(uri)).json();
@@ -254,9 +276,9 @@ export const fetchNfts = (user) => async(dispatch) =>{
                             } else {
                                 if(gatewayTools.containsCID(uri)){
                                     try{
-                                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
                                     }catch(error){
-                                        console.log(error);
+                                       // console.log(error);
                                     }
                                 }
                                 let json
@@ -277,9 +299,13 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 let image
                                 if(gatewayTools.containsCID(json.image)){
                                     try {
-                                        image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                                        if(c.name == 'crocrows'){
+                                            image = 'https://crocrow.mypinata.cloud/ipfs/' + json.image.substring(7);
+                                        } else {
+                                            image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                                        }
+                                        
                                     }catch(error){
-                                        console.log(error)
                                         image = json.image;
                                     }
                                 } else {

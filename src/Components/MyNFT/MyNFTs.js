@@ -27,13 +27,16 @@ import { useTheme } from '@mui/material/styles';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
+import { nanoid } from 'nanoid'
+import { registeredCode, withdrewRewards, transferedNFT } from '../../GlobalState/User';
+import {ethers} from 'ethers'
 
 export const MyNFTs = () => {
 
     const dispatch = useDispatch();
     const theme = useTheme();
 
-    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(true);
     const [askTransfer, setAskTransfer] = useState(false);
     const [progressText, setProgressText] = useState('Working...');
     const [doingWork, setDoingWork] = useState(false);
@@ -76,6 +79,56 @@ export const MyNFTs = () => {
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+    const withdrawPayments = async () => {
+        try {
+            setDoingWork(true);
+            const tx = await user.membershipContract.withdrawPayments(user.address);
+            const receipt = await tx.wait();
+            setShowSuccess({
+                show: true,
+                hash: receipt.hash
+            });
+            dispatch(withdrewRewards());
+        }catch(error){
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+        }finally{
+            setDoingWork(false);
+        }
+    }
+
+    const registerCode = async () => {
+        try{
+            setDoingWork(true);
+            const id = nanoid(10);
+            const encoded = ethers.utils.formatBytes32String(id)
+            const tx = await user.membershipContract.register(encoded);
+            const receipt = await tx.wait();
+            setShowSuccess({
+                show: true,
+                hash: receipt.hash
+            });
+            dispatch(registeredCode(id));
+        }catch(error){
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+        }finally{
+            setDoingWork(false);
+        }
+    }
+
     const transferNft = async () => {
         try{
             closeTransfer();
@@ -91,9 +144,16 @@ export const MyNFTs = () => {
                 show: true,
                 hash: receipt.hash
             })
+            dispatch(transferedNFT(selectedNft));
         }catch(error){
-            console.log(error);
-            setError(error);
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
         }finally{
             setDoingWork(false);
         }
@@ -123,9 +183,41 @@ export const MyNFTs = () => {
                 }
                 sx={{ mb: 2 }}
                 >
-                Fear Not! Your NFTs from other collections will be visible here when the Block Explorer is stable.
+                Fear Not! Your NFTs from other collections will be visible here when the Block Explorer is stable. In the meantime contact us with the smart contract of your missing NFT and we will add support!
                 </Alert>
             </Collapse>
+
+            <Box sx={{p : 2}}>
+                {(user.code && user.code.length > 0)?
+                    <Container>
+                        <Typography variant='subtitle1'>
+                            Referral Code: {user.code}
+                        </Typography>
+                        <Stack spacing={2} direction='row'>
+                            <Typography variant='subtitle1'>
+                                Referral Rewards: {user.rewards} CRO
+                            </Typography>
+                            {(user.rewards === '0.0') ?
+                                 null :
+                                 <Button onClick={withdrawPayments}>
+                                     Withdraw
+                                 </Button>
+                            }
+            
+                        </Stack>
+                    </Container> : 
+
+                    <Container>
+                        <Typography variant='subtitle1'>
+                            No Referral Code Found. 
+                        </Typography>
+                        <Button onClick={registerCode}>
+                            Register
+                        </Button>
+                    </Container>
+
+                }
+            </Box>
             
             <Grid container spacing={4} justifyContent="center" alignItems="center">
                 {user.nfts.map((val, j) => 
@@ -212,7 +304,7 @@ export const MyNFTs = () => {
                     <DialogContent>
                         <Typography variant='h3'>There was an issue 😵</Typography>
                         <Typography variant='subtitle2'>{
-                            error? error.message : ""
+                            (error) ? error : ""
                         }</Typography>
                     </DialogContent>
                     <DialogActions>

@@ -13,7 +13,7 @@ const memberSlice = createSlice({
             id : 1,
             price : "",
             discount : "",
-            count : 0,
+            count : 'Fetching...',
             max : 10000,
             maxMint : 10
         },
@@ -21,7 +21,7 @@ const memberSlice = createSlice({
             id : 2,
             price : "",
             discount : "",
-            count : 0,
+            count : 'Fetching...',
             max : 1000,
             maxMint : 10
         }
