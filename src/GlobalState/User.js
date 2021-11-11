@@ -7,6 +7,7 @@ import { ERC721, ERC1155 } from '../Contracts/Abis'
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
+import unrevealed from '../Assets/unrevealed.svg';
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
@@ -59,7 +60,7 @@ const userSlice = createSlice({
             state.fetchingNfts = false;
         },
         connectingWallet(state, action) {
-            state.connectingWallet = action.connecting;
+            state.connectingWallet = action.payload.connecting;
         }
     }
 });
@@ -132,7 +133,55 @@ const knownContracts = [
         'multiToken': false,
         'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
         'onChain' : true,
-    }
+    },
+    {
+        'name' : 'CronosChimp',
+        'multiToken': false,
+        'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
+        'onChain' : false,
+    },
+    {
+        'name' : 'cro punks',
+        'multiToken': false,
+        'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
+        'onChain' : false,
+    },
+    {
+        'name' : 'cro crows',
+        'multiToken': false,
+        'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
+        'onChain' : false,
+    },
+    {
+        'name' : 'cronos punks',
+        'multiToken': false,
+        'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
+        'onChain' : false,
+    },
+    {
+        'name' : 'crocodiles',
+        'multiToken': false,
+        'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
+        'onChain' : false,
+    },
+    {
+        'name' : 'planets',
+        'multiToken': false,
+        'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
+        'onChain' : false,
+    },
+    // {
+    //     'name' : 'drakes',
+    //     'multiToken': false,
+    //     'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
+    //     'onChain' : false,
+    // },
+    {
+        'name' : 'SupBirds',
+        'multiToken': false,
+        'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
+        'onChain' : false,
+    },
 ]
 
 export const fetchNfts = (user) => async(dispatch) =>{
@@ -143,7 +192,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
         dispatch(fetchingNfts(true));
         await Promise.all(
             knownContracts.map(async (c, i) => {
-                console.log('fetching ' + i);
+
                 try{
                     const signer = user.provider.getSigner();
     
@@ -151,11 +200,18 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         const contract = new Contract(c.address, ERC1155, signer);
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address, c.id);
-                        const uri = await contract.uri(c.id);
-                        const json = await (await fetch(gatewayTools.convertToDesiredGateway(uri, gateway))).json();
+                        let uri = await contract.uri(c.id);
+                        if(gatewayTools.containsCID(uri)){
+                            try{
+                                uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                            }catch(error){
+                                console.log(error);
+                            }
+                        } 
+                        const json = await (await fetch(uri)).json();
                         const a = Array.from({length : count}, (_, i) => {
                             const name = json.name;
-                            const image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                            const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
                             const description = json.description;
                             const properties = json.properties; 
                             return {
@@ -174,11 +230,9 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         const contract = new Contract(c.address, ERC721, signer);
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address);
-                        console.log('found ' + count);
                         for(let i = 0; i < count; i++){
                             const id = await contract.tokenOfOwnerByIndex(user.address, i);
-                            const uri = await contract.tokenURI(id);
-                            console.log(uri);
+                            let uri = await contract.tokenURI(id);
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
                                 const parsed = JSON.parse(json);
@@ -193,13 +247,56 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     'description' : desc,
                                     'properties' : properties,
                                     'contract' : contract,
-                                    'address' : user.address,
+                                    'address' : c.address,
                                     'multiToken' : false
                                 }
-                                console.log(nft);
                                 nfts.push(nft);
                             } else {
-                                //pull ipfs
+                                if(gatewayTools.containsCID(uri)){
+                                    try{
+                                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                                    }catch(error){
+                                        console.log(error);
+                                    }
+                                }
+                                let json
+                                if(uri.includes('unrevealed')){
+                                    json = {
+                                        'id' : id,
+                                         'name' : c.name + ' ' + id,
+                                         'description' : 'Unrevealed!',
+                                         'image' : unrevealed,
+                                         'contract' : contract,
+                                         'address' : c.address,
+                                         'multiToken' : false,
+                                         'properties' : []
+                                    }
+                                } else{
+                                    json = await (await fetch(uri)).json();
+                                }
+                                let image
+                                if(gatewayTools.containsCID(json.image)){
+                                    try {
+                                        image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                                    }catch(error){
+                                        console.log(error)
+                                        image = json.image;
+                                    }
+                                } else {
+                                    image = json.image;
+                                }
+
+                                const nft = {
+                                    'id' : id,
+                                    'name' : json.name,
+                                    'image' : image,
+                                    'description' : json.description,
+                                    'properties' : (json.properties) ? json.properties : json.attributes,
+                                    'contract' : contract,
+                                    'address' : c.address,
+                                    'multiToken' : false
+                                }
+                                nfts.push(nft);
                             }
                         }
                     }

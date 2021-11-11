@@ -82,7 +82,7 @@ export const MyNFTs = () => {
             setDoingWork(true);
             let tx;
             if(selectedNft.multiToken){
-                tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id, 1, "");
+                tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id, 1, []);
             } else {
                 tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id);
             }
@@ -127,17 +127,20 @@ export const MyNFTs = () => {
                 </Alert>
             </Collapse>
             
-            <Grid container spacing={1} justifyContent="center" alignItems="center">
+            <Grid container spacing={4} justifyContent="center" alignItems="center">
                 {user.nfts.map((val, j) => 
-                    <Grid item xs={12} xl={4} lg={4} md={4} sm={6}  key={j}>
+                    <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={j}>
                         <Card>
-                            <CardMedia component='img' src={val.image} />
-                            <Typography  variant="h5" color='primary' component="p">
-                                {val.name}
-                            </Typography>   
-                            <Typography variant='subtitle2' component='p'>
-                                {val.description}
-                            </Typography>
+                            <CardMedia  component='img' image={val.image} height='250' sx={{}} />
+
+                            <Box sx={{ p: 2}}>
+                                <Typography  variant="h5" color='primary' component="p">
+                                    {val.name}
+                                </Typography>   
+                                <Typography variant='subtitle2' component='p'>
+                                    {val.description}
+                                </Typography>
+                            </Box>
                             <CardActions>
                                 <Button onClick={showTransferDialog(val)}>Transfer</Button>
                             </CardActions>
