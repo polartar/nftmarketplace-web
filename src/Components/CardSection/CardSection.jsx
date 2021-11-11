@@ -107,8 +107,6 @@ const CardSection = () => {
 
     const mintNow = async() => {
         if(user.address && user.membershipContract){
-            // console.log("parsing: " + selectedItem.price);
-            // console.log("parsing " + selectedItem.discount);
             const price = ethers.utils.parseEther(selectedItem.price);
             const discount = ethers.utils.parseEther(selectedItem.discount);
             let finalPrice;
@@ -119,12 +117,7 @@ const CardSection = () => {
                 finalPrice = price.mul(numToMint);
             }
             const gasLimit = ethers.BigNumber.from(3000000).mul(numToMint); 
-            // console.log(referral);
             const ref32 = ethers.utils.formatBytes32String(referral);
-            // console.log(price);
-            // console.log(discount);
-            // console.log(finalPrice);
-            // console.log("final price: " + ethers.utils.formatEther(finalPrice));
             console.log('ref ' + ref32);
             const extra = {
                 'value': finalPrice,
@@ -201,6 +194,11 @@ const CardSection = () => {
                                     {selectedItem.price} CRO
                                 </Typography>
                             </Stack>
+
+                            <Typography  variant="subtitle1" color='primary' component="p">
+                                    {selectedItem.count} / {selectedItem.max}
+                            </Typography>
+
                             <Typography variant='subtitle1' component='p'>
                                 {selectedItem.p1}
                             </Typography>

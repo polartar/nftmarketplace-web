@@ -13,7 +13,7 @@ const cronieSlice = createSlice({
         maxMint : "5",
         discount: "0",
         count : 0,
-        max : 10000
+        max : 'Open Edition'
     },
     reducers: {
         croniesReceived(state, action){
@@ -28,6 +28,6 @@ export const cronies = cronieSlice.reducer;
 export const fetchCronieInfo = () => async(dispatch) => {
     const c = await readCronies.totalSupply()
     dispatch(croniesReceived({
-            count: c,
+            count: c.toNumber(),
     }))
 }
