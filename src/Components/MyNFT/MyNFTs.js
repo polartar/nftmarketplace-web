@@ -187,37 +187,40 @@ export const MyNFTs = () => {
                 </Alert>
             </Collapse>
 
-            <Box sx={{p : 2}}>
-                {(user.code && user.code.length > 0)?
-                    <Container>
-                        <Typography variant='subtitle1'>
-                            Referral Code: {user.code}
-                        </Typography>
-                        <Stack spacing={2} direction='row'>
-                            <Typography variant='subtitle1'>
-                                Referral Rewards: {user.rewards} CRO
-                            </Typography>
-                            {(user.rewards === '0.0') ?
-                                 null :
-                                 <Button onClick={withdrawPayments}>
-                                     Withdraw
-                                 </Button>
-                            }
-            
-                        </Stack>
-                    </Container> : 
+            {(user.isMember) ? 
+                        <Box sx={{p : 2}}>
+                        {(user.code && user.code.length > 0)?
+                            <Container>
+                                <Typography variant='subtitle1'>
+                                    Referral Code: {user.code}
+                                </Typography>
+                                <Stack spacing={2} direction='row'>
+                                    <Typography variant='subtitle1'>
+                                        Referral Rewards: {user.rewards} CRO
+                                    </Typography>
+                                    {(user.rewards === '0.0') ?
+                                         null :
+                                         <Button onClick={withdrawPayments}>
+                                             Withdraw
+                                         </Button>
+                                    }
+                    
+                                </Stack>
+                            </Container> : 
+        
+                            <Container>
+                                <Typography variant='subtitle1'>
+                                    No Referral Code Found. 
+                                </Typography>
+                                <Button onClick={registerCode}>
+                                    Register
+                                </Button>
+                            </Container>
+        
+                        }
+                    </Box> : null
+            }
 
-                    <Container>
-                        <Typography variant='subtitle1'>
-                            No Referral Code Found. 
-                        </Typography>
-                        <Button onClick={registerCode}>
-                            Register
-                        </Button>
-                    </Container>
-
-                }
-            </Box>
             
             <Grid container spacing={4} justifyContent="center" alignItems="center">
                 {user.nfts.map((val, j) => 
@@ -225,8 +228,8 @@ export const MyNFTs = () => {
                         <Card>
                             <CardMedia  component='img' image={val.image} height='250' sx={{}} />
 
-                            <Box sx={{ p: 2}}>
-                                <Typography  variant="h5" color='primary' component="p">
+                            <Box sx={{ p: 2 }}>
+                                <Typography  noWrap variant="h5" color='primary' component="p">
                                     {val.name}
                                 </Typography>   
                                 <Typography variant='subtitle2' component='p'>

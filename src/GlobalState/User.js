@@ -22,6 +22,7 @@ const userSlice = createSlice({
         balance : "0",
         code : "",
         rewards: "Loading...",
+        isMember : false,
         fetchingNfts: false,
         cronies : [],
         founderCount : 0,
@@ -44,6 +45,7 @@ const userSlice = createSlice({
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
+            state.isMember = action.payload.isMember;
         },
 
         onProvider(state, action){
@@ -72,7 +74,11 @@ const userSlice = createSlice({
         },
         transferedNFT(state, action){
             //todo
+        },
+        setIsMember(state, action){
+            state.isMember = action.payload;
         }
+
     }
 });
 
@@ -84,7 +90,8 @@ export const {
     connectingWallet, 
     registeredCode,
     withdrewRewards,
-    transferedNFT} = userSlice.actions;
+    transferedNFT,
+    setIsMember} = userSlice.actions;
 export const user = userSlice.reducer;
 
 export const connectAccount = () => async(dispatch) => {
@@ -110,6 +117,8 @@ export const connectAccount = () => async(dispatch) => {
         let code;
         let balance;
         let rewards;
+        let ownedFounder = 0;
+        let ownedVip = 0;
         if(signer && correctChain){
             mc = new Contract(rpc.membership_contract, Membership.abi, signer);
             mc.connect(signer);
@@ -118,6 +127,8 @@ export const connectAccount = () => async(dispatch) => {
             const rawCode = await mc.codes(address);
             code = ethers.utils.parseBytes32String(rawCode);
             rewards = ethers.utils.formatEther(await mc.payments(address));
+            ownedFounder = await mc.balanceOf(address, 1);
+            ownedVip = await mc.balanceOf(address, 2);
         }
 
         dispatch(accountChanged({
@@ -129,7 +140,8 @@ export const connectAccount = () => async(dispatch) => {
             correctChain:correctChain,
             code: code,
             balance: balance,
-            rewards: rewards
+            rewards: rewards,
+            isMember : ownedVip > 0 || ownedFounder > 0
         }))
         dispatch(connectingWallet({'connecting' : false}));
     }
@@ -222,6 +234,9 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         const contract = new Contract(c.address, ERC1155, signer);
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address, c.id);
+                        if(c.address === '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5' && count > 0) {
+                            dispatch(setIsMember(true));
+                        }
                         let uri = await contract.uri(c.id);
                         if(gatewayTools.containsCID(uri)){
                             try{
