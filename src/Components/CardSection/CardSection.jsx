@@ -116,7 +116,7 @@ const CardSection = () => {
             } else {
                 finalPrice = price.mul(numToMint);
             }
-            const gasLimit = ethers.BigNumber.from(3000000).mul(numToMint); 
+
             const ref32 = ethers.utils.formatBytes32String(referral);
             console.log('ref ' + ref32);
             const extra = {
@@ -126,7 +126,8 @@ const CardSection = () => {
             if(selectedItem.id === 0){
                 setMinting(true);
                 try{
-                    const resposne = await user.croniesContract.mint(numToMint, extra);
+                    const gas = String(900015 * numToMint);
+                    const resposne = await user.croniesContract.mint(numToMint, {...extra, 'gasPrice' : ethers.utils.parseUnits("5000", "gwei"), 'gasLimit' : gas});
                     const receipt = await resposne.wait();
                     setShowSuccess({
                         show: true,
