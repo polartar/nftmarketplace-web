@@ -17,6 +17,8 @@ import {
   Avatar,
   IconButton,
   Dialog,
+  DialogContent,
+  Stack,
   CircularProgress
 } from "@mui/material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -46,6 +48,10 @@ export const NavTabs = withStyles(styles)((props) => {
   const needsOnboard = useSelector((state) => {
     return state.user.needsOnboard;
   });
+
+  const connectingWallet = useSelector((state) => {
+    return state.user.connectingWallet;
+  })
 
   const startConnect = () => {
     if(needsOnboard){
@@ -139,6 +145,17 @@ export const NavTabs = withStyles(styles)((props) => {
           </AppBar>
         )}
       />
+      <Dialog
+        open={connectingWallet}>
+        <DialogContent>
+            <Stack spacing={2} direction='row'>
+                <CircularProgress/>
+                <Typography variant='h3'>
+                    Connecting Wallet....
+                </Typography>
+            </Stack>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 });

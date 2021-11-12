@@ -19,7 +19,7 @@ export const InitialState = {
       title: 'Founding Member',
       descs: `Early access to features and reduced fees forever.`,
       p1: 'If you hold a Founding Member NFT you will have access to beta features on the platform and receive the benefit of reduced service fees.',
-      p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and recieve 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. Founding Member NFTs will be limited to 10,000.'
+      p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. Founding Member NFTs will be limited to 10,000.'
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export const InitialState = {
       title: 'VIP Founding Member',
       descs: `Early access, further reduced fees and staking rewards`,
       p1: 'If you hold a VIP Founding Member NFT you will have access to beta features on the platform and receive reduced service fees. You can stake your VIP NFT, 50% of ALL service fees will go into the VIP Member rewards pool and divided evenly among stakers once per month.',
-      p2: 'The VIP Founding Member NFT has an on-chain referral system. Refer a friend and recieve 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. VIP Founding Member NFTs will be limited to 1,000.'
+      p2: 'The VIP Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. VIP Founding Member NFTs will be limited to 1,000.'
     },
   ],
   myNftCard: [

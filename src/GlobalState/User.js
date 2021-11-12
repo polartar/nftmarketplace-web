@@ -131,7 +131,7 @@ export const connectAccount = () => async(dispatch) => {
             ownedVip = await mc.balanceOf(address, 2);
         }
 
-        dispatch(accountChanged({
+        await dispatch(accountChanged({
             address: address,
             provider: provider,
             needsOnboard: false,
