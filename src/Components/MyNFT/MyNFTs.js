@@ -30,6 +30,8 @@ import { Box } from '@mui/system';
 import { nanoid } from 'nanoid'
 import { registeredCode, withdrewRewards, transferedNFT } from '../../GlobalState/User';
 import {ethers} from 'ethers'
+import './mynft.css'
+
 
 export const MyNFTs = () => {
 
@@ -228,11 +230,11 @@ export const MyNFTs = () => {
                         <Card>
                             <CardMedia  component='img' image={val.image} height='250' sx={{}} />
 
-                            <Box sx={{ p: 2 }}>
-                                <Typography  noWrap variant="h5" color='primary' component="p">
+                            <Box sx={{ p: 2, height : 150}}>
+                                <Typography  noWrap variant="h5" color='primary'>
                                     {val.name}
                                 </Typography>   
-                                <Typography variant='subtitle2' component='p'>
+                                <Typography variant='subtitle2' paragraph>
                                     {val.description}
                                 </Typography>
                             </Box>
@@ -248,33 +250,33 @@ export const MyNFTs = () => {
                 <Redirect to='/'/>
             }
             {(selectedNft) ? 
-                        <Dialog
-                        onClose={closeTransfer}
-                        fullScreen={fullScreen}
-                        open={askTransfer}>
-                            <DialogContent>
-                                <DialogTitle>
-                                    Start Transfer
-                                </DialogTitle>
-                                <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
-                                    <Grid item xs={2} md={1} key='1'>
-                                        <Container>
-                                            <CardMedia component='img' src={selectedNft.image} width='150' />
-                                        </Container>
-                                    </Grid>
-                                    <Grid item xs={1} key='2' >
-                                        <TextField label="Address" variant="outlined" onChange={ (e) => {
-                                            setTransferAddress(e.target.value);
-                                        }}/>
-                                    </Grid>
-                                </Grid>
-        
-                                <DialogActions>
-                                    <Button onClick={closeTransfer}>Cancel</Button>
-                                    <Button onClick={transferNft}>OK</Button>
-                                </DialogActions>
-                            </DialogContent>
-                    </Dialog>
+                <Dialog
+                onClose={closeTransfer}
+                fullScreen={fullScreen}
+                open={askTransfer}>
+                    <DialogContent>
+                        <DialogTitle>
+                            Start Transfer
+                        </DialogTitle>
+                        <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
+                            <Grid item xs={2} md={1} key='1'>
+                                <Container>
+                                    <CardMedia component='img' src={selectedNft.image} width='150' />
+                                </Container>
+                            </Grid>
+                            <Grid item xs={1} key='2' >
+                                <TextField label="Address" variant="outlined" onChange={ (e) => {
+                                    setTransferAddress(e.target.value);
+                                }}/>
+                            </Grid>
+                        </Grid>
+
+                        <DialogActions>
+                            <Button onClick={closeTransfer}>Cancel</Button>
+                            <Button onClick={transferNft}>OK</Button>
+                        </DialogActions>
+                    </DialogContent>
+                </Dialog>
             : null}
 
             <Dialog
