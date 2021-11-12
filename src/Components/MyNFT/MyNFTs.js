@@ -228,7 +228,7 @@ export const MyNFTs = () => {
                 {user.nfts.map((val, j) => 
                     <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={j}>
                         <Card>
-                            <CardMedia  component='img' image={val.image} height='250' sx={{}} />
+                            <CardMedia  component='img' image={val.image} height='285' sx={{}} />
 
                             <Box sx={{ p: 2, height : 150}}>
                                 <Typography  noWrap variant="h5" color='primary'>

@@ -73,9 +73,10 @@ function ScrollTop(props) {
 
 
 function App(props) {
+  const isDarkModeEnabled = window.matchMedia("(prefers-color-scheme: dark)");
 
   const dispatch = useDispatch();
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(isDarkModeEnabled ? 'dark' : 'light');
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
