@@ -107,7 +107,7 @@ export default function MyCard({
                 </CardActionArea>
 
                 {dots ? (
-                  <CardActions className='bordershow'>
+                  <CardActions >
                     <Button
                       // size="small"
                       // color="primary"

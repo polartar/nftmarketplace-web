@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
@@ -6,7 +7,7 @@ import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
 import mainLogo from "../Assets/web_logo.svg";
 
-import { withStyles } from '@mui/styles';
+import { withStyles, useTheme } from '@mui/styles';
 import {
   AppBar, 
   Tabs,
@@ -26,6 +27,9 @@ import { connectAccount } from "../GlobalState/User";
 import Blockies from 'react-blockies';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { ColorModeContext } from "../App";
 
 const styles = theme => ({
   fullHeight: {
@@ -40,6 +44,9 @@ export const NavTabs = withStyles(styles)((props) => {
   const address = useSelector((state) => {
     return state.user.address;
   });
+
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
 
   const correctChain = useSelector((state) => {
     return state.user.correctChain;
@@ -129,6 +136,9 @@ export const NavTabs = withStyles(styles)((props) => {
               } 
 
               </Tabs>
+              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                 {theme.palette.mode === 'dark' ? <Brightness7Icon color='primary'/> : <Brightness4Icon color='primary'/>}
+              </IconButton>
               {(address)? 
                 (correctChain) ?
                   <Avatar sx={{ bgcolor: '#d32f2f' }} alt={address}>

@@ -1,4 +1,11 @@
-import {React, Fragment, useLayoutEffect } from 'react'
+import {
+  React, 
+  Fragment, 
+  useLayoutEffect, 
+  useMemo, 
+  createContext,
+  useState
+} from 'react'
 import {useDispatch} from 'react-redux'
 
 import {
@@ -24,6 +31,7 @@ import firebaseConfig from './Firebase/firebase_config'
 import { initializeAnalytics } from "firebase/analytics";
 import { initProvider } from './GlobalState/User';
 
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,23 +70,20 @@ function ScrollTop(props) {
   );
 }
 
-const theme = createTheme({
-  palette: {
-    // mode: "dark",
-    primary: {
-      main: "#d32f2f",
-    },
-    secondary: {
-      main: "#ef5350",
-    },
 
-  },
-
-});
 
 function App(props) {
 
   const dispatch = useDispatch();
+  const [mode, setMode] = useState('light');
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
   
   useLayoutEffect(() =>{
     const firebase = initializeApp(firebaseConfig);
@@ -86,9 +91,27 @@ function App(props) {
     dispatch(initProvider());
   }, []);
 
+
+
+  const theme = useMemo(
+    () => createTheme({
+      palette: {
+        mode: mode,
+        primary: {
+          main: "#d32f2f",
+        },
+        secondary: {
+          main: "#ef5350",
+        },
+    
+      },
+    
+    }), [mode]
+  );
+
   return (
     <Fragment>
-      
+      <ColorModeContext.Provider value={colorMode}>
       <Container className="App">
         <Box id="back-to-top-anchor" height='54px'/>
         <ThemeProvider theme={theme}>
@@ -104,26 +127,9 @@ function App(props) {
         </ThemeProvider>
 
       </Container>
-
+      </ColorModeContext.Provider>
     </Fragment>
   );
 }
 
 export default App;
-
-
-// let [loading, setLoading] = useState(true);
-
-// useEffect(() => {
-//   setTimeout(() => {
-//     setLoading(false);
-//   }, 1000);
-// }, []);
-
-// if (loading) {
-//   return (
-//     <div className="loaderContainer">
-//       <CircularProgress color="secondary" />
-//     </div>
-//   );
-// }
