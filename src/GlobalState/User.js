@@ -7,11 +7,11 @@ import { ERC721, ERC1155 } from '../Contracts/Abis'
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
-import unrevealed from '../Assets/unrevealed.svg';
+
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
-const crowGateway = "https://crocrow.mypinata.cloud";
+
 
 const userSlice = createSlice({
     name : 'user',
@@ -302,7 +302,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                         'id' : id,
                                          'name' : c.name + ' ' + id,
                                          'description' : 'Unrevealed!',
-                                         'image' : unrevealed,
+                                         'image' : "",
                                          'contract' : contract,
                                          'address' : c.address,
                                          'multiToken' : false,
@@ -314,11 +314,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 let image
                                 if(gatewayTools.containsCID(json.image)){
                                     try {
-                                        if(c.name == 'crocrows'){
-                                            image = 'https://crocrow.mypinata.cloud/ipfs/' + json.image.substring(7);
-                                        } else {
-                                            image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                                        }
+                                        image = gatewayTools.convertToDesiredGateway(json.image, gateway);
                                         
                                     }catch(error){
                                         image = json.image;

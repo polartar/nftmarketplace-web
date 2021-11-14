@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import marketPrep from '../Assets/market_prepare.webp'
 import {Typography, Container, Box} from '@mui/material'
-import FullCounter from '../Components/Counter/FullCounter'
+
 import { getAnalytics, logEvent } from '@firebase/analytics'
 
 
@@ -25,9 +25,9 @@ const MarketPlaceScreen = () => {
 
             <Box m={5} mb={12}>
                 <Typography align='center'  style={{fontWeight : 600, fontSize: 34}} color='primary'>
-                    The Market Launches In...
+                    The Market Launches Monday!
                 </Typography>
-                <FullCounter/>
+
             </Box>   
             
         </Container>
