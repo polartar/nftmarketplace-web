@@ -158,10 +158,10 @@ export const connectAccount = () => async(dispatch) => {
 }
 
 const knownContracts = [
-        {
+    {
         'name': 'vips',
         'onChain' : false,
-        'address': '0x0587D78A3AC269e80EA2b27b064360f66c3B6342',
+        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
         'multiToken' : true,
         'id' : 2,
         'listable' : true
@@ -169,7 +169,7 @@ const knownContracts = [
     {
         'name': 'founders',
         'onChain' : false,
-        'address': '0x0587D78A3AC269e80EA2b27b064360f66c3B6342',
+        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
         'multiToken' : true,
         'id' : 1,
         'listable' : false
@@ -177,96 +177,73 @@ const knownContracts = [
     {
         'name': 'cronies',
         'multiToken': false,
-        'address' : '0xAc90967174379510181D3B433e8F04AA569d531F',
+        'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
         'onChain' : true,
         'listable' : true
     },
-    // {
-    //     'name': 'vips',
-    //     'onChain' : false,
-    //     'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
-    //     'multiToken' : true,
-    //     'id' : 2,
-    //     'listable' : true
-    // },
-    // {
-    //     'name': 'founders',
-    //     'onChain' : false,
-    //     'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
-    //     'multiToken' : true,
-    //     'id' : 1,
-    //     'listable' : false
-    // },
-    // {
-    //     'name': 'cronies',
-    //     'multiToken': false,
-    //     'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
-    //     'onChain' : true,
-    //     'listable' : true
-    // },
-    // {
-    //     'name' : 'CronosChimp',
-    //     'multiToken': false,
-    //     'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
-    //     'onChain' : false,
-    //     'listable' : false
-    // },
-    // {
-    //     'name' : 'cro punks',
-    //     'multiToken': false,
-    //     'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
-    //     'onChain' : false,
-    //     'listable' : true
-    // },
-    // {
-    //     'name' : 'crocrows',
-    //     'multiToken': false,
-    //     'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
-    //     'onChain' : false,
-    //     'listable' : true
-    // },
-    // {
-    //     'name' : 'cronos punks',
-    //     'multiToken': false,
-    //     'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
-    //     'onChain' : false,
-    //     'listable' : true
-    // },
-    // {
-    //     'name' : 'crocodiles',
-    //     'multiToken': false,
-    //     'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
-    //     'onChain' : false,
-    //     'listable' : true
-    // },
-    // {
-    //     'name' : 'planets',
-    //     'multiToken': false,
-    //     'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
-    //     'onChain' : false,
-    //     'listable' : true
-    // }
-    // {
-    //     'name' : 'drakes',
-    //     'multiToken': false,
-    //     'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
-    //     'onChain' : false,
-    //     'listable' : false
-    // },
-    // {
-    //     'name' : 'SupBirds',
-    //     'multiToken': false,
-    //     'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
-    //     'onChain' : false,
-    //     'listable' : true
-    // },
-    // {
-    //     'name' : 'Crownos',
-    //     'multiToken': false,
-    //     'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
-    //     'onChain' : false,
-    //     'listable' : true
-    // },
+    {
+        'name' : 'CronosChimp',
+        'multiToken': false,
+        'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
+        'onChain' : false,
+        'listable' : false
+    },
+    {
+        'name' : 'cro punks',
+        'multiToken': false,
+        'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'crocrows',
+        'multiToken': false,
+        'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'cronos punks',
+        'multiToken': false,
+        'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'crocodiles',
+        'multiToken': false,
+        'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'planets',
+        'multiToken': false,
+        'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'drakes',
+        'multiToken': false,
+        'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
+        'onChain' : false,
+        'listable' : false
+    },
+    {
+        'name' : 'SupBirds',
+        'multiToken': false,
+        'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'Crownos',
+        'multiToken': false,
+        'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
+        'onChain' : false,
+        'listable' : true
+    },
 ]
 
 
