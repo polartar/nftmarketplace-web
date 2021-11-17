@@ -43,11 +43,11 @@ const Roadmap = () => {
 
         <TimelineItem>
           <TimelineSeparator>
-          <TimelineConnector  />
-          <TimelineDot >
+          <TimelineConnector  sx={{ bgcolor: 'primary.main' }} />
+          <TimelineDot color='primary' >
             <ShoppingBagTwoToneIcon/>
           </TimelineDot>
-          <TimelineConnector  />
+          <TimelineConnector  sx={{ bgcolor: 'primary.main' }} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography variant="h6" component="span">
@@ -55,6 +55,24 @@ const Roadmap = () => {
             </Typography>
             <Typography>
               Members can list items for sale. VIPs start earning rewards.
+            </Typography>
+          </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
+          <TimelineSeparator>
+          <TimelineConnector />
+          <TimelineDot >
+            <AccountCircleTwoToneIcon/>
+          </TimelineDot>
+          <TimelineConnector  />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <Typography variant="h6" component="span">
+              Advanced Member Features
+            </Typography>
+            <Typography>
+              Collection listings, searching and filtering.
             </Typography>
           </TimelineContent>
         </TimelineItem>
@@ -77,23 +95,7 @@ const Roadmap = () => {
           </TimelineContent>
         </TimelineItem>
 
-        <TimelineItem>
-          <TimelineSeparator>
-          <TimelineConnector />
-          <TimelineDot >
-            <AccountCircleTwoToneIcon/>
-          </TimelineDot>
-          <TimelineConnector  />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h6" component="span">
-              Advanced Member Features
-            </Typography>
-            <Typography>
-              Member profiles, collection listings, searching and filtering.
-            </Typography>
-          </TimelineContent>
-        </TimelineItem>
+
 
         <TimelineItem>
           <TimelineSeparator>
