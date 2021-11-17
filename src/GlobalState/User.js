@@ -290,11 +290,12 @@ export const fetchNfts = (user) => async(dispatch) =>{
         const signer = user.provider.getSigner();
         const market = new Contract(rpc.market_contract, Market.abi, signer);
         market.connect(signer);
-        const activeListings = market.totalActiveListingsUser(user.address);
+        let activeListings = await market.totalActiveListingsUser(user.address);
+        activeListings = activeListings.toNumber();
+
         let listings = [];
         if(activeListings > 0){
-            listings = market.openForUser(user.address, 1, activeListings);
-            console.log(listings);
+            listings = await market.openForUser(user.address, 1, activeListings);
         }
         await Promise.all(
             knownContracts.map(async (c, i) => {
@@ -309,6 +310,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         }
                         if(count !== 0){
                             let uri = await contract.uri(c.id);
+                            const listing = listings.find(e => e['nftId'].eq(c.id) && e['nft'] === c.address)
                             if(gatewayTools.containsCID(uri)){
                                 try{
                                     uri = gatewayTools.convertToDesiredGateway(uri, gateway);
@@ -350,7 +352,8 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 'address' : c.address,
                                 'multiToken' : true,
                                 'listable' : c.listable,
-                                'listed' : false
+                                'listed' : listing != null,
+                                'listingId' : (listing) ? listing['listingId'] : null
                             }
     
                             dispatch(onNfts({
@@ -365,6 +368,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         const count = await contract.balanceOf(user.address);
                         for(let i = 0; i < count; i++){
                             const id = await contract.tokenOfOwnerByIndex(user.address, i);
+                            const listing = listings.find(e => e['nftId'].eq(id) && e['nft'] === c.address)
                             let uri = await contract.tokenURI(id);
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
@@ -383,7 +387,8 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     'address' : c.address,
                                     'multiToken' : false,
                                     'listable' : c.listable,
-                                    'listed' : false
+                                    'listed' : listing != null,
+                                    'listingId' : (listing) ? listing['listingId'] : null
                                 }
                                 nfts.push(nft);
                             } else {
@@ -406,7 +411,8 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                          'multiToken' : false,
                                          'properties' : [],
                                          'listable' : c.listable,
-                                         'listed' : false
+                                         'listed' : listing != null,
+                                         'listingId' : (listing) ? listing['listingId'] : null
                                     }
                                 } else{
                                     json = await (await fetch(uri)).json();
@@ -433,7 +439,8 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     'address' : c.address,
                                     'multiToken' : false,
                                     'listable' : c.listable,
-                                    'listed' : false
+                                    'listed' : listing != null,
+                                    'listingId' : (listing) ? listing['listingId'] : null
                                 }
                                 nfts.push(nft);
                             }

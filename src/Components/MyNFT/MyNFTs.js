@@ -265,7 +265,6 @@ export const MyNFTs = () => {
                 hash: receipt.hash
             })
         }catch(error){
-            console.log(error);
             if(error.data){
                 setError(error.data.message);
             } else if(error.message){
@@ -300,9 +299,6 @@ export const MyNFTs = () => {
         setShowMemberOnly(false);
     }
 
-    const showCancelDialog = (nft) => () => {
-        setSelectedNft(nft);
-    }
     const handleNext = () => {
         if(activeStep == 0){
            setApprovalForAll();
@@ -313,6 +309,26 @@ export const MyNFTs = () => {
         }
     };
 
+    const showCancelDialog = (nft) => async () => {
+        try{
+            let tx = await user.marketContract.cancelListing(nft.listingId);
+            let receipt = await tx.wait();
+            setShowSuccess({
+                show: true,
+                hash: receipt.hash
+            });
+        }catch(error){
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+        }
+        
+    }
 
     //// END SALE 
 
