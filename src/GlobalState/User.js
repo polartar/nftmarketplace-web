@@ -69,6 +69,19 @@ const userSlice = createSlice({
             state.nfts.push(...action.payload.nfts);
             state.fetchingNfts = false;
         },
+        listingUpdate(state, action){
+            console.log('id: ' + action.payload.id +   '   contract: ' + action.payload.contract);
+            const index = state.nfts.findIndex(e => (e.contract.address.toLowerCase() === action.payload.contract.toLowerCase() && e.id === action.payload.id));
+            console.log('found index: ' + index);
+            if(index > 0) {
+                try{
+                    state.nfts[index].listed = action.payload.listed;
+                }catch(error){
+                    console.log(error);
+                }
+                
+            }
+        },
         connectingWallet(state, action) {
             state.connectingWallet = action.payload.connecting;
         },
@@ -96,9 +109,18 @@ export const {
     connectingWallet, 
     registeredCode,
     withdrewRewards,
+    listingUpdate,
     transferedNFT,
     setIsMember} = userSlice.actions;
 export const user = userSlice.reducer;
+
+export const updateListed = (contract, id, listed) => async(dispatch) => {
+    dispatch(listingUpdate({
+        'contract' : contract,
+        'id' : id,
+        'listed' : listed
+    }))
+}
 
 export const connectAccount = () => async(dispatch) => {
     if(window.ethereum){
@@ -250,17 +272,20 @@ const knownContracts = [
 export const fetchNfts = (user) => async(dispatch) =>{
 
     if(user.address && user.provider){
-        
+
         dispatch(fetchingNfts(true));
         const signer = user.provider.getSigner();
         const market = new Contract(rpc.market_contract, Market.abi, signer);
         market.connect(signer);
-        let activeListings = await market.totalActiveListingsUser(user.address);
+        let activeListings = await market.totalActive();// market.totalActiveListingsUser(user.address);
         activeListings = activeListings.toNumber();
 
         let listings = [];
         if(activeListings > 0){
-            listings = await market.openForUser(user.address, 1, activeListings);
+            // listings = await market.openForUser(user.address, 1, activeListings);
+            listings = await market.openListings(1, activeListings);
+            listings = listings.filter(e => e['seller'].toLowerCase() === user.address.toLowerCase());
+            console.log(listings);
         }
         await Promise.all(
             knownContracts.map(async (c, i) => {
@@ -275,7 +300,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         }
                         if(count !== 0){
                             let uri = await contract.uri(c.id);
-                            const listing = listings.find(e => e['nftId'].eq(c.id) && e['nft'] === c.address)
+                            const listing = listings.find(e => e['nftId'].eq(c.id) && e['nft'].toLowerCase() === c.address.toLowerCase());
                             if(gatewayTools.containsCID(uri)){
                                 try{
                                     uri = gatewayTools.convertToDesiredGateway(uri, gateway);
@@ -332,8 +357,8 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address);
                         for(let i = 0; i < count; i++){
-                            const id = await contract.tokenOfOwnerByIndex(user.address, i);
-                            const listing = listings.find(e => e['nftId'].eq(id) && e['nft'] === c.address)
+                            const id = await contract.tokenOfOwnerByIndex(user.address, i);                            
+                            const listing = listings.find(e => e['nftId'].eq(id) && e['nft'].toLowerCase() === c.address.toLowerCase());
                             let uri = await contract.tokenURI(id);
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');

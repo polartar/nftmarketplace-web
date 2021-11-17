@@ -33,7 +33,7 @@ import { fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { nanoid } from 'nanoid'
-import { registeredCode, withdrewRewards, transferedNFT } from '../../GlobalState/User';
+import { registeredCode, withdrewRewards, transferedNFT, updateListed } from '../../GlobalState/User';
 import {ethers} from 'ethers'
 import './mynft.css'
 
@@ -185,7 +185,7 @@ export const MyNFTs = () => {
         },
         {
             label : 'Enter Price',
-            description : 'Enter the listing price in CRO'
+            description : 'Enter the listing price in CRO. There is a 5% transaction fee on completed sale.'
         },
         {
           label: 'Confirm Listing',
@@ -257,9 +257,12 @@ export const MyNFTs = () => {
 
     const makeListing = async () => {
         try{
+            setNextEnabled(false);
+            setDoingWork(true);
             const price = ethers.utils.parseEther(salePrice);
             let tx = await user.marketContract.makeListing(selectedNft.contract.address, selectedNft.id, price);
             let receipt = await tx.wait();
+            dispatch(updateListed(selectedNft.contract.address, selectedNft.id, true));
             setShowSuccess({
                 show: true,
                 hash: receipt.hash
@@ -274,6 +277,7 @@ export const MyNFTs = () => {
                 setError("Unknown Error")
             }
         } finally{
+            setDoingWork(false);
             setStartSale(false);
             setSelectedNft(null);
             setActiveStep(0);
@@ -304,15 +308,17 @@ export const MyNFTs = () => {
            setApprovalForAll();
         } else if(activeStep == 1){
             setActiveStep(2);
-        } else {
+        } else if(activeStep == 2){
             makeListing();
         }
     };
 
     const showCancelDialog = (nft) => async () => {
         try{
+            setDoingWork(true);
             let tx = await user.marketContract.cancelListing(nft.listingId);
             let receipt = await tx.wait();
+            dispatch(updateListed(nft.contract.address, nft.id, false));
             setShowSuccess({
                 show: true,
                 hash: receipt.hash
@@ -326,6 +332,8 @@ export const MyNFTs = () => {
                 console.log(error);
                 setError("Unknown Error")
             }
+        }finally{
+            setDoingWork(false);
         }
         
     }
