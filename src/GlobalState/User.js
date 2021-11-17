@@ -268,19 +268,7 @@ const knownContracts = [
     //     'listable' : true
     // },
 ]
-/*
-    struct Listing {
-        uint256 listingId;
-        uint256 nftId;
-        address seller;
-        address nft;
-        uint256 price;
-        uint256 fee;
-        State state;
-        address purchaser;
-        bool is1155;
-    }
-/*/
+
 
 export const fetchNfts = (user) => async(dispatch) =>{
 
@@ -305,7 +293,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         contract.connect(signer);
                         let count = await contract.balanceOf(user.address, c.id);
                         count = count.toNumber();
-                        if(c.address === '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5' && count > 0) {
+                        if(c.address === rpc.membership_contract && count > 0) {
                             dispatch(setIsMember(true));
                         }
                         if(count !== 0){

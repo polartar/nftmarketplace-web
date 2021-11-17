@@ -1,22 +1,30 @@
-import React, { useEffect } from 'react'
-// import marketPrep from '../Assets/market_prepare.webp'
+import React, { useEffect, useState } from 'react'
+import { ethers } from 'ethers'
 import {
-    Typography,
     Container,
     Box,
     Dialog,
     CircularProgress,
     Stack,
-    DialogContent
+    CardMedia,
+    Grid,
+    Card,
+    Typography,
+    DialogContent, 
+    DialogActions,
+    CardActions,
+    Button,
 } from '@mui/material'
 import { loadMarket } from '../GlobalState/Market'
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { useSelector, useDispatch } from 'react-redux'
+import { connectAccount, chainConnect } from '../GlobalState/User'
+import MetaMaskOnboarding from '@metamask/onboarding';
 
 
 const MarketPlaceScreen = () => {
     const dispatch = useDispatch();
-
+    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'marketplace'
@@ -24,14 +32,140 @@ const MarketPlaceScreen = () => {
         dispatch(loadMarket());
     }, []);
 
+    const listings = useSelector((state) => {
+        return state.market.listings;
+    })
 
+    const user = useSelector((state) => {
+        return state.user;
+    })
+
+    const [buying, setBuying] = useState(false);
+    const [error, setError] = useState(null);
+    const closeError = () => {
+        setError(null);
+    }
     const loadingMarket = useSelector((state) => {
         return state.market.loadingPage;
     })
+    const [showSuccess, setShowSuccess] = useState({
+        show : false,
+        hash: ""
+    });
+    const closeSuccess = () => {
+        setShowSuccess({
+            show: false,
+            hash: ""
+        });
+    }
+
+    const showBuy = (listing) => async () => {
+        if(user.address){
+            setBuying(true);
+            try{
+                const tx = await user.marketContract.makePurchase(listing.listingId, {
+                    'value' : listing.price
+                });
+                const receipt = tx.wait();
+                setShowSuccess({
+                    show: true,
+                    hash: receipt.hash
+                });
+            }catch(error){
+                if(error.data){
+                    setError(error.data.message);
+                } else if(error.message){
+                    setError(error.message)
+                } else {
+                    console.log(error);
+                    setError("Unknown Error")
+                }
+            }finally{
+                setBuying(false);
+            }
+        } else{
+            if(user.needsOnboard){
+                const onboarding = new MetaMaskOnboarding();
+                onboarding.startOnboarding();
+            } else if(!user.address){
+                dispatch(connectAccount());
+            } else if(!user.correctChain){
+                dispatch(chainConnect());
+            }
+        }
+
+    }
     
     return (
-        <Container maxWidth='xl' mb={12}>  
+        <Container maxWidth='lg'>  
             
+            <Box mb={16} mt={4}>
+            <Grid container spacing={4} justifyContent="center" alignItems="center">
+                {listings.map((val) => 
+                    <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
+                        <Card>
+                            <CardMedia  component='img' image={val.nft.image} height='285' sx={{}} />
+
+                            <Box sx={{ p: 2, height : 150}}>
+                                <Typography  noWrap variant="h5" color='primary'>
+                                    {val.nft.name}
+                                </Typography>
+
+                                <Typography variant='subtitle2' paragraph>
+                                    {val.nft.description}
+                                </Typography>
+                            </Box>
+                            <CardActions>
+                                
+                                <Typography variant="subtitle2" color='primary'>
+                                    {ethers.utils.formatEther(val.price)} CRO
+                                </Typography>
+                                <Button onClick={showBuy(val)}>Buy</Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                )}
+            </Grid> 
+
+            <Dialog
+                open={buying}>
+                <DialogContent>
+                    <Stack spacing={2} direction='row'>
+                        <CircularProgress/>
+                        <Typography variant='h3'>
+                            Attempting Purchase...
+                        </Typography>
+                    </Stack>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog 
+                onClose={closeSuccess}
+                open={showSuccess.show}>
+                <DialogContent>
+                    <Typography variant='h3'>Success! 🥳 </Typography>
+                    <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeSuccess}>Close</Button>
+                </DialogActions>
+            </Dialog>
+
+
+            <Dialog 
+                open={error != null}
+                onClose={closeError}>
+                    <DialogContent>
+                        <Typography variant='h3'>There was an issue 😵</Typography>
+                        <Typography variant='subtitle2'>{
+                            (error) ? error : ""
+                        }</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={closeError}>Close</Button>
+                    </DialogActions>
+            </Dialog>
+
             <Dialog
                 open={loadingMarket}>
                 <DialogContent>
@@ -43,6 +177,7 @@ const MarketPlaceScreen = () => {
                     </Stack>
                 </DialogContent>
             </Dialog>
+            </Box>
         </Container>
     )
 }

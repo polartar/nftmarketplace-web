@@ -148,7 +148,7 @@ export const MyNFTs = () => {
             setShowSuccess({
                 show: true,
                 hash: receipt.hash
-            })
+            });
             dispatch(transferedNFT(selectedNft));
         }catch(error){
             if(error.data){
