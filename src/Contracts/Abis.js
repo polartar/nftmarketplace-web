@@ -4,7 +4,9 @@ export const ERC721 =[
     "function tokenURI(uint256 tokenId) public view returns (string memory)",
     "function approve(address to, uint256 tokenId) public",
     "function getApproved(uint256 tokenId) public view returns (address)",
+    "function setApprovalForAll(address operator, bool approved) public",
     "function safeTransferFrom(address from, address to, uint256 tokenId) public",
+    "function isApprovedForAll(address account, address operator) public view returns (bool)",
     "function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256)",
     "function totalSupply() public view returns (uint256)",
     "function tokenByIndex(uint256 index) public view returns (uint256)"

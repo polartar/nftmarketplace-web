@@ -20,13 +20,18 @@ import {
     TextField,
     DialogActions,
     CardActions,
-    DialogTitle
+    DialogTitle,
+    Stepper,
+    Step,
+    StepLabel,
+    StepContent
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { nanoid } from 'nanoid'
 import { registeredCode, withdrewRewards, transferedNFT } from '../../GlobalState/User';
 import {ethers} from 'ethers'
@@ -38,8 +43,11 @@ export const MyNFTs = () => {
     const dispatch = useDispatch();
     const theme = useTheme();
 
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [alertOpen, setAlertOpen] = useState(true);
     const [askTransfer, setAskTransfer] = useState(false);
+
+    
     const [progressText, setProgressText] = useState('Working...');
     const [doingWork, setDoingWork] = useState(false);
     const [selectedNft, setSelectedNft] = useState(null);
@@ -73,13 +81,6 @@ export const MyNFTs = () => {
             firebase_screen : 'my_nfts'
         })
     }, []);
-
-    const showTransferDialog = (nft) => () => {
-        setSelectedNft(nft);
-        setAskTransfer(true);
-    }
-
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const withdrawPayments = async () => {
         try {
@@ -131,6 +132,8 @@ export const MyNFTs = () => {
         }
     }
 
+    /// TRANSFER------------------
+
     const transferNft = async () => {
         try{
             closeTransfer();
@@ -161,9 +164,157 @@ export const MyNFTs = () => {
         }
     }
 
+    const showTransferDialog = (nft) => () => {
+        setSelectedNft(nft);
+        setAskTransfer(true);
+    }
+
     const closeTransfer = () =>{
         setAskTransfer(false);
     }
+
+    /// END TRANSFER-=------------
+
+    ////--- SALE -------- >>
+
+    const [salePrice, setSalePrice] = useState(null);
+    const listingSteps = [
+        {
+          label: 'Approve Transfer',
+          description: `Ebisu's Bay needs approval to transfer your NFT on your behalf.`,
+        },
+        {
+            label : 'Enter Price',
+            description : 'Enter the listing price in CRO'
+        },
+        {
+          label: 'Confirm Listing',
+          description: 'Sign transaction to complete listing.',
+        },
+
+    ];
+    const [showMemberOnly, setShowMemberOnly] = useState(false);
+    const [startSale, setStartSale] = useState(false);
+    const [activeStep, setActiveStep] = useState(0);
+    const [nextEnabled, setNextEnabled] = useState(false);
+
+    const showListDialog = (nft) => async () => {
+        try{
+            if(user.isMember){
+                setSelectedNft(nft);
+                setStartSale(true);
+                const transferEnabled = await nft.contract.isApprovedForAll(user.address, user.marketContract.address);
+                if(transferEnabled){
+                    setActiveStep(1);
+                } else {
+                    setNextEnabled(true);  
+                }
+            } else{
+                setShowMemberOnly(true);
+            }
+
+        }catch(error){
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+            setStartSale(false);
+            setSelectedNft(null);
+            setActiveStep(0);
+        } 
+        // finally {
+            // setStartSale(false);
+            // setSelectedNft(null);
+            // setActiveStep(0);
+        // }
+
+    }
+
+    const setApprovalForAll = async() => {
+        try{
+            let tx = await selectedNft.contract.setApprovalForAll(user.marketContract.address, true);
+            await tx.wait();
+            setNextEnabled(false);
+            setActiveStep(1);
+        }catch(error){
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+            setStartSale(false);
+            setSelectedNft(null);
+            setActiveStep(0);
+        }
+    }
+
+    const makeListing = async () => {
+        try{
+            const price = ethers.utils.parseEther(salePrice);
+            let tx = await user.marketContract.makeListing(selectedNft.contract.address, selectedNft.id, price);
+            let receipt = await tx.wait();
+            setShowSuccess({
+                show: true,
+                hash: receipt.hash
+            })
+        }catch(error){
+            console.log(error);
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+        } finally{
+            setStartSale(false);
+            setSelectedNft(null);
+            setActiveStep(0);
+        }
+    }
+
+    useEffect(() => {
+        if(salePrice && salePrice.length > 0 && salePrice[0] != '0'){
+            setNextEnabled(true);
+        } else {
+            setNextEnabled(false);
+        }
+    }, [salePrice])
+    
+
+    const cancelList = () =>{
+        setStartSale(false);
+        setActiveStep(0);
+        setNextEnabled(false);
+    }
+
+    const cancelMemberOnly = () => {
+        setShowMemberOnly(false);
+    }
+
+    const showCancelDialog = (nft) => () => {
+        setSelectedNft(nft);
+    }
+    const handleNext = () => {
+        if(activeStep == 0){
+           setApprovalForAll();
+        } else if(activeStep == 1){
+            setActiveStep(2);
+        } else {
+            makeListing();
+        }
+    };
+
+
+    //// END SALE 
 
     return(
         <Container maxWidth="lg" mt={3}>
@@ -233,13 +384,22 @@ export const MyNFTs = () => {
                             <Box sx={{ p: 2, height : 150}}>
                                 <Typography  noWrap variant="h5" color='primary'>
                                     {val.name}
-                                </Typography>   
+                                </Typography>
+                                {(val.count) ?
+                                  <Typography variant='subtitle' paragraph>
+                                        Count: {val.count}
+                                   </Typography>  
+                                    : null  
+                                } 
                                 <Typography variant='subtitle2' paragraph>
                                     {val.description}
                                 </Typography>
                             </Box>
                             <CardActions>
                                 <Button onClick={showTransferDialog(val)}>Transfer</Button>
+                                { (val.listed) ?
+                                    <Button onClick={showCancelDialog(val)}>Cancel</Button> : <Button onClick={showListDialog(val)} disabled={!val.listable}>Sell</Button>
+                                }
                             </CardActions>
                         </Card>
                     </Grid>
@@ -275,6 +435,69 @@ export const MyNFTs = () => {
                             <Button onClick={closeTransfer}>Cancel</Button>
                             <Button onClick={transferNft}>OK</Button>
                         </DialogActions>
+                    </DialogContent>
+                </Dialog>
+            : null}
+
+            {(selectedNft) ? 
+                <Dialog 
+                    fullScreen={fullScreen}
+                    onClose={cancelList}
+                    open={startSale}>
+                    <DialogContent>
+                        <DialogTitle>List {selectedNft.name}</DialogTitle>
+                        <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
+                            <Grid item xs={2} md={1} key='1'>
+                                <Container>
+                                    <CardMedia component='img' src={selectedNft.image} width='150' />
+                                </Container>
+                            </Grid>
+                            <Grid item xs={1} key='2' >
+                                <Stepper activeStep={activeStep} orientation="vertical">
+                                {listingSteps.map((step, index) => (
+                                    <Step key={step.label}>
+                                        <StepLabel
+                                        optional={
+                                            index === 2 ? (
+                                            <Typography variant="caption">Last step</Typography>
+                                            ) : null
+                                        }
+                                        >
+                                        {step.label}
+                                        </StepLabel>
+                                        <StepContent>
+                                        <Typography>{step.description}</Typography>
+                                        {(index == 1) ?  
+                                            <TextField type='number' label="Price" variant="outlined" onChange={ (e) => {
+                                                setSalePrice(e.target.value);
+                                            }}/>   : null 
+                                        }
+                                        <Box sx={{ mb: 2 }}>
+                                            <div>
+                                            <LoadingButton
+                                                variant="contained"
+                                                loading={!nextEnabled && index !==1 }
+                                                disabled={!nextEnabled}
+                                                onClick={handleNext}
+                                                sx={{ mt: 1, mr: 1 }}
+                                            >
+                                                {index === listingSteps.length - 1 ? 'Finish' : 'Continue'}
+                                            </LoadingButton>
+                                            {/* <Button
+                                                disabled={index === 0}
+                                                onClick={handleBack}
+                                                sx={{ mt: 1, mr: 1 }}
+                                            >
+                                                Back
+                                            </Button> */}
+                                            </div>
+                                        </Box>
+                                        </StepContent>
+                                    </Step>
+                                    ))}
+                                </Stepper>
+                            </Grid>
+                        </Grid>
                     </DialogContent>
                 </Dialog>
             : null}
@@ -317,6 +540,16 @@ export const MyNFTs = () => {
                     </DialogActions>
             </Dialog>
 
+            <Dialog open={showMemberOnly} onClose={cancelMemberOnly}>
+                <DialogContent>
+                    <Typography variant='h6'>Beta features are for members only.</Typography>
+                </DialogContent>
+                <DialogActions>
+                        <Button onClick={cancelMemberOnly}>Close</Button>
+                    </DialogActions>
+            </Dialog>
+
         </Container>
     )
 } 
+

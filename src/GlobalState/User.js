@@ -3,6 +3,7 @@ import { Contract, ethers, BigNumber} from 'ethers'
 import rpc from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
+import Market from '../Contracts/Marketplace.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 
 import detectEthereumProvider from '@metamask/detect-provider'
@@ -30,6 +31,7 @@ const userSlice = createSlice({
         needsOnboard: false,
         membershipContract: null,
         croniesContract: null,
+        marketContract: null,
         correctChain : false,
         nfts: []
     }, 
@@ -46,6 +48,7 @@ const userSlice = createSlice({
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
             state.isMember = action.payload.isMember;
+            state.marketContract = action.payload.marketContract;
         },
 
         onProvider(state, action){
@@ -57,10 +60,13 @@ const userSlice = createSlice({
 
         fetchingNfts(state, action){
             state.fetchingNfts = action.payload;
+            if(action.payload){
+                state.nfts = []
+            }
         },
 
         onNfts(state, action){
-            state.nfts = action.payload.nfts;
+            state.nfts.push(...action.payload.nfts);
             state.fetchingNfts = false;
         },
         connectingWallet(state, action) {
@@ -119,6 +125,8 @@ export const connectAccount = () => async(dispatch) => {
         let rewards;
         let ownedFounder = 0;
         let ownedVip = 0;
+        let market;
+
         if(signer && correctChain){
             mc = new Contract(rpc.membership_contract, Membership.abi, signer);
             mc.connect(signer);
@@ -129,6 +137,7 @@ export const connectAccount = () => async(dispatch) => {
             rewards = ethers.utils.formatEther(await mc.payments(address));
             ownedFounder = await mc.balanceOf(address, 1);
             ownedVip = await mc.balanceOf(address, 2);
+            market = new Contract(rpc.market_contract, Market.abi, signer);
         }
 
         await dispatch(accountChanged({
@@ -141,129 +150,216 @@ export const connectAccount = () => async(dispatch) => {
             code: code,
             balance: balance,
             rewards: rewards,
-            isMember : ownedVip > 0 || ownedFounder > 0
+            isMember : ownedVip > 0 || ownedFounder > 0,
+            marketContract: market
         }))
         dispatch(connectingWallet({'connecting' : false}));
     }
 }
 
 const knownContracts = [
-    {
+        {
         'name': 'vips',
         'onChain' : false,
-        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+        'address': '0x0587D78A3AC269e80EA2b27b064360f66c3B6342',
         'multiToken' : true,
-        'id' : 2
+        'id' : 2,
+        'listable' : true
     },
     {
         'name': 'founders',
         'onChain' : false,
-        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+        'address': '0x0587D78A3AC269e80EA2b27b064360f66c3B6342',
         'multiToken' : true,
-        'id' : 1
+        'id' : 1,
+        'listable' : false
     },
     {
         'name': 'cronies',
         'multiToken': false,
-        'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
+        'address' : '0xAc90967174379510181D3B433e8F04AA569d531F',
         'onChain' : true,
+        'listable' : true
     },
-    {
-        'name' : 'CronosChimp',
-        'multiToken': false,
-        'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
-        'onChain' : false,
-    },
-    {
-        'name' : 'cro punks',
-        'multiToken': false,
-        'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
-        'onChain' : false,
-    },
-    {
-        'name' : 'crocrows',
-        'multiToken': false,
-        'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
-        'onChain' : false,
-    },
-    {
-        'name' : 'cronos punks',
-        'multiToken': false,
-        'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
-        'onChain' : false,
-    },
-    {
-        'name' : 'crocodiles',
-        'multiToken': false,
-        'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
-        'onChain' : false,
-    },
-    {
-        'name' : 'planets',
-        'multiToken': false,
-        'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
-        'onChain' : false,
-    },
-    {
-        'name' : 'drakes',
-        'multiToken': false,
-        'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
-        'onChain' : false,
-    },
-    {
-        'name' : 'SupBirds',
-        'multiToken': false,
-        'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
-        'onChain' : false,
-    },
+    // {
+    //     'name': 'vips',
+    //     'onChain' : false,
+    //     'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+    //     'multiToken' : true,
+    //     'id' : 2,
+    //     'listable' : true
+    // },
+    // {
+    //     'name': 'founders',
+    //     'onChain' : false,
+    //     'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+    //     'multiToken' : true,
+    //     'id' : 1,
+    //     'listable' : false
+    // },
+    // {
+    //     'name': 'cronies',
+    //     'multiToken': false,
+    //     'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
+    //     'onChain' : true,
+    //     'listable' : true
+    // },
+    // {
+    //     'name' : 'CronosChimp',
+    //     'multiToken': false,
+    //     'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
+    //     'onChain' : false,
+    //     'listable' : false
+    // },
+    // {
+    //     'name' : 'cro punks',
+    //     'multiToken': false,
+    //     'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
+    //     'onChain' : false,
+    //     'listable' : true
+    // },
+    // {
+    //     'name' : 'crocrows',
+    //     'multiToken': false,
+    //     'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
+    //     'onChain' : false,
+    //     'listable' : true
+    // },
+    // {
+    //     'name' : 'cronos punks',
+    //     'multiToken': false,
+    //     'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
+    //     'onChain' : false,
+    //     'listable' : true
+    // },
+    // {
+    //     'name' : 'crocodiles',
+    //     'multiToken': false,
+    //     'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
+    //     'onChain' : false,
+    //     'listable' : true
+    // },
+    // {
+    //     'name' : 'planets',
+    //     'multiToken': false,
+    //     'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
+    //     'onChain' : false,
+    //     'listable' : true
+    // }
+    // {
+    //     'name' : 'drakes',
+    //     'multiToken': false,
+    //     'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
+    //     'onChain' : false,
+    //     'listable' : false
+    // },
+    // {
+    //     'name' : 'SupBirds',
+    //     'multiToken': false,
+    //     'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
+    //     'onChain' : false,
+    //     'listable' : true
+    // },
+    // {
+    //     'name' : 'Crownos',
+    //     'multiToken': false,
+    //     'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
+    //     'onChain' : false,
+    //     'listable' : true
+    // },
 ]
+/*
+    struct Listing {
+        uint256 listingId;
+        uint256 nftId;
+        address seller;
+        address nft;
+        uint256 price;
+        uint256 fee;
+        State state;
+        address purchaser;
+        bool is1155;
+    }
+/*/
 
 export const fetchNfts = (user) => async(dispatch) =>{
 
     if(user.address && user.provider){
-        var nfts = [];
-
+        
         dispatch(fetchingNfts(true));
+        const signer = user.provider.getSigner();
+        const market = new Contract(rpc.market_contract, Market.abi, signer);
+        market.connect(signer);
+        const activeListings = market.totalActiveListingsUser(user.address);
+        let listings = [];
+        if(activeListings > 0){
+            listings = market.openForUser(user.address, 1, activeListings);
+            console.log(listings);
+        }
         await Promise.all(
             knownContracts.map(async (c, i) => {
-
                 try{
-                    const signer = user.provider.getSigner();
-    
                     if(c.multiToken){
                         const contract = new Contract(c.address, ERC1155, signer);
                         contract.connect(signer);
-                        const count = await contract.balanceOf(user.address, c.id);
+                        let count = await contract.balanceOf(user.address, c.id);
+                        count = count.toNumber();
                         if(c.address === '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5' && count > 0) {
                             dispatch(setIsMember(true));
                         }
-                        let uri = await contract.uri(c.id);
-                        if(gatewayTools.containsCID(uri)){
-                            try{
-                                uri = gatewayTools.convertToDesiredGateway(uri, gateway);
-                            }catch(error){
-                                //console.log(error);
-                            }
-                        } 
-                        const json = await (await fetch(uri)).json();
-                        const a = Array.from({length : count}, (_, i) => {
+                        if(count !== 0){
+                            let uri = await contract.uri(c.id);
+                            if(gatewayTools.containsCID(uri)){
+                                try{
+                                    uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                                }catch(error){
+                                    //console.log(error);
+                                }
+                            } 
+                            const json = await (await fetch(uri)).json();
+                            // const a = Array.from({length : count}, (_, i) => {
+                            //     const name = json.name;
+                            //     const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
+                            //     const description = json.description;
+                            //     const properties = json.properties; 
+                            //     return {
+                            //         'name': name,
+                            //         'id' : c.id,
+                            //         'image' : image,
+                            //         'description' : description,
+                            //         'properties' : properties,
+                            //         'contract' : contract,
+                            //         'address' : c.address,
+                            //         'multiToken' : true,
+                            //         'listable' : c.listable,
+                            //         'listed' : false
+                            //     }
+                            // })
                             const name = json.name;
                             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
                             const description = json.description;
                             const properties = json.properties; 
-                            return {
+                            const nft = {
                                 'name': name,
                                 'id' : c.id,
                                 'image' : image,
+                                'count' : count,
                                 'description' : description,
                                 'properties' : properties,
                                 'contract' : contract,
                                 'address' : c.address,
-                                'multiToken' : true
+                                'multiToken' : true,
+                                'listable' : c.listable,
+                                'listed' : false
                             }
-                        })
-                        nfts.push(...a);
+    
+                            dispatch(onNfts({
+                                'nfts' : [nft]
+                            }))
+                        }
+              
                     } else {
+                        var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address);
@@ -285,7 +381,9 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     'properties' : properties,
                                     'contract' : contract,
                                     'address' : c.address,
-                                    'multiToken' : false
+                                    'multiToken' : false,
+                                    'listable' : c.listable,
+                                    'listed' : false
                                 }
                                 nfts.push(nft);
                             } else {
@@ -306,7 +404,9 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                          'contract' : contract,
                                          'address' : c.address,
                                          'multiToken' : false,
-                                         'properties' : []
+                                         'properties' : [],
+                                         'listable' : c.listable,
+                                         'listed' : false
                                     }
                                 } else{
                                     json = await (await fetch(uri)).json();
@@ -331,11 +431,16 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     'properties' : (json.properties) ? json.properties : json.attributes,
                                     'contract' : contract,
                                     'address' : c.address,
-                                    'multiToken' : false
+                                    'multiToken' : false,
+                                    'listable' : c.listable,
+                                    'listed' : false
                                 }
                                 nfts.push(nft);
                             }
                         }
+                        dispatch(onNfts({
+                            'nfts' : nfts
+                        }))
                     }
                 }catch(error){
                     console.log('error fetching ' + knownContracts[i].name);
@@ -344,13 +449,11 @@ export const fetchNfts = (user) => async(dispatch) =>{
     
             })
         )
-        dispatch(onNfts({
-            'nfts' : nfts
-        }))
+
     }
 
-
 }
+
 
 function dataURItoBlob(dataURI, type) {
 
