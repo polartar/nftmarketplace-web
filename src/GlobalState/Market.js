@@ -91,7 +91,7 @@ export const init = (state) => async(dispatch) => {
 
 export const loadPage = (state, page) => async(dispatch) => {
     dispatch(startLoading())
-    console.log('fetching page ' + page);
+
     const index = (page - 1) * pagesize;
     let listings = [...state.market.response].splice(index, pagesize);
 

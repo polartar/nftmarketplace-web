@@ -129,8 +129,8 @@ const MarketPlaceScreen = () => {
         <Container maxWidth='lg'>  
             
             <Box mb={16} mt={4} >
-            <Stack>
-
+            <Stack >
+                
                 <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
                     {(!listings) ? null :  listings.map((val) => 
                         <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
@@ -157,10 +157,12 @@ const MarketPlaceScreen = () => {
                         </Grid>
                     )}
                 </Grid> 
-    
-            <Container>
-                <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
-            </Container>
+            
+                {
+                    (loadingMarket) ? null : <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
+                }
+                
+
             </Stack>
             
             <Dialog
