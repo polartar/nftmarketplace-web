@@ -16,14 +16,14 @@ const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
 const marketSlice = createSlice({
     name : 'market',
     initialState : {
-        loadingPage : false,
+        loadingPage : true,
         totalListed : 0,
-        listings : []
+        listings : [[]]
     },
     reducers : {
         loadingMarket(state){
             state.loadingPage = true;
-            state.listings = []
+            state.listings = [[]]
         },
         onNewPage(state, action){
             state.loadingPage = false;
@@ -57,13 +57,22 @@ const {
 
 export const market = marketSlice.reducer;
 
+export const init = () => async(dispatch) => {
+    const totalActive = await readMarket.totalActive();
+    dispatch(onTotalListed(totalActive))
+}
+
+export const loadPage = (state, page) => async(dispatch) => {
+
+}
+
 export const loadMarket = () => async(dispatch) => {
-    console.log('load market');
+
     dispatch(loadingMarket());
     const totalActive = await readMarket.totalActive();
     dispatch(onTotalListed(totalActive))
     if(totalActive > 0){
-        const listingsResponse = await readMarket.openListings(1,totalActive)
+        const listingsResponse = await readMarket.openListings(1,8)
         const listings = listingsResponse.map((val) => {
             return {
                 'listingId' : val['listingId'],

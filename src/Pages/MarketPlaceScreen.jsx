@@ -13,7 +13,9 @@ import {
     DialogContent, 
     DialogActions,
     CardActions,
+    Pagination,
     Button,
+    Paper,
 } from '@mui/material'
 import { loadMarket } from '../GlobalState/Market'
 import { getAnalytics, logEvent } from '@firebase/analytics'
@@ -31,6 +33,15 @@ const MarketPlaceScreen = () => {
         });
         dispatch(loadMarket());
     }, []);
+
+    const [page, setPage] = React.useState(1);
+    const handleChange = (event, value) => {
+      setPage(value);
+    };
+
+    const totalListed = useSelector((state) => {
+        state.market.totalListed;
+    })
 
     const listings = useSelector((state) => {
         return state.market.listings;
@@ -99,34 +110,41 @@ const MarketPlaceScreen = () => {
     return (
         <Container maxWidth='lg'>  
             
-            <Box mb={16} mt={4}>
-            <Grid container spacing={4} justifyContent="center" alignItems="center">
-                {listings.map((val) => 
-                    <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
-                        <Card>
-                            <CardMedia  component='img' image={val.nft.image} height='285' sx={{}} />
+            <Box mb={16} mt={4} >
+            <Stack>
 
-                            <Box sx={{ p: 2, height : 150}}>
-                                <Typography  noWrap variant="h5" color='primary'>
-                                    {val.nft.name}
-                                </Typography>
+                <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
+                    {listings.map((val) => 
+                        <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
+                            <Card>
+                                <CardMedia  component='img' image={val.nft.image} height='285' sx={{}} />
 
-                                <Typography variant='subtitle2' paragraph>
-                                    {val.nft.description}
-                                </Typography>
-                            </Box>
-                            <CardActions>
-                                
-                                <Typography variant="subtitle2" color='primary'>
-                                    {ethers.utils.formatEther(val.price)} CRO
-                                </Typography>
-                                <Button onClick={showBuy(val)}>Buy</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                )}
-            </Grid> 
+                                <Box sx={{ p: 2, height : 150}}>
+                                    <Typography  noWrap variant="h5" color='primary'>
+                                        {val.nft.name}
+                                    </Typography>
 
+                                    <Typography variant='subtitle2' paragraph>
+                                        {val.nft.description}
+                                    </Typography>
+                                </Box>
+                                <CardActions>
+                                    
+                                    <Typography variant="subtitle2" color='primary'>
+                                        {ethers.utils.formatEther(val.price)} CRO
+                                    </Typography>
+                                    <Button onClick={showBuy(val)}>Buy</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    )}
+                </Grid> 
+    
+            <Container>
+                <Pagination count={totalListed} page={page} boundaryCount={2} onChange={handleChange}/>
+            </Container>
+            </Stack>
+            
             <Dialog
                 open={buying}>
                 <DialogContent>
