@@ -10,6 +10,7 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 
 
+const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 
@@ -284,7 +285,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
 
         dispatch(fetchingNfts(true));
         const signer = user.provider.getSigner();
-        const market = new Contract(rpc.market_contract, Market.abi, signer);
+        const market = new Contract(rpc.market_contract, Market.abi, readProvider);
         market.connect(signer);
         let activeListings = await market.totalActive();// market.totalActiveListingsUser(user.address);
         activeListings = activeListings.toNumber();
@@ -363,12 +364,13 @@ export const fetchNfts = (user) => async(dispatch) =>{
                     } else {
                         var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
+                        const readContract = new Contract(c.address, ERC721, readProvider);
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address);
                         for(let i = 0; i < count; i++){
-                            const id = await contract.tokenOfOwnerByIndex(user.address, i);                            
+                            const id = await readContract.tokenOfOwnerByIndex(user.address, i);                            
                             const listing = listings.find(e => e['nftId'].eq(id) && e['nft'].toLowerCase() === c.address.toLowerCase());
-                            let uri = await contract.tokenURI(id);
+                            let uri = await readContract.tokenURI(id);
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
                                 const parsed = JSON.parse(json);
