@@ -33,7 +33,7 @@ import { fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { nanoid } from 'nanoid'
-import { registeredCode, withdrewRewards, transferedNFT, updateListed } from '../../GlobalState/User';
+import { registeredCode, withdrewRewards, transferedNFT, updateListed, withdrewPayments } from '../../GlobalState/User';
 import {ethers} from 'ethers'
 import './mynft.css'
 
@@ -92,6 +92,30 @@ export const MyNFTs = () => {
                 hash: receipt.hash
             });
             dispatch(withdrewRewards());
+        }catch(error){
+            if(error.data){
+                setError(error.data.message);
+            } else if(error.message){
+                setError(error.message)
+            } else {
+                console.log(error);
+                setError("Unknown Error")
+            }
+        }finally{
+            setDoingWork(false);
+        }
+    }
+
+    const withdrawBalance = async() => {
+        try{
+            setDoingWork(true);
+            const tx = await user.marketContract.withdrawPayments(user.address);
+            const receipt = await tx.wait();
+            setShowSuccess({
+                show: true,
+                hash: receipt.hash
+            });
+            dispatch(withdrewPayments());
         }catch(error){
             if(error.data){
                 setError(error.data.message);
@@ -364,8 +388,25 @@ export const MyNFTs = () => {
                 </Alert>
             </Collapse>
 
+            <Box>
+
+            <Stack spacing={2} direction='row'>
+                    {/* <Container> */}
+                        <Stack  >
+                            <Typography variant='subtitle1'>
+                                Account Balance: {user.marketBalance} CRO
+                            </Typography>
+                            {(user.marketBalance === '0.0') ?
+                                    null :
+                                    <Button onClick={withdrawBalance}>
+                                        Withdraw
+                                    </Button>
+                            }
+            
+                        </Stack>
+                    {/* </Container> */}
             {(user.isMember) ? 
-                        <Box sx={{p : 2}}>
+                        <Box >
                         {(user.code && user.code.length > 0)?
                             <Container>
                                 <Typography variant='subtitle1'>
@@ -395,8 +436,11 @@ export const MyNFTs = () => {
                             </Container>
         
                         }
-                    </Box> : null
+                    </Box> 
+                    : null
             }
+            </Stack>
+            </Box>
 
             
             <Grid container spacing={4} justifyContent="center" alignItems="center">

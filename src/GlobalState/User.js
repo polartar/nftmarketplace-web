@@ -23,6 +23,7 @@ const userSlice = createSlice({
         balance : "0",
         code : "",
         rewards: "Loading...",
+        marketBalance : "Loading...",
         isMember : false,
         fetchingNfts: false,
         cronies : [],
@@ -49,6 +50,7 @@ const userSlice = createSlice({
             state.rewards = action.payload.rewards;
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
+            state.marketBalance = action.payload.marketBalance;
         },
 
         onProvider(state, action){
@@ -89,7 +91,10 @@ const userSlice = createSlice({
             state.code = action.payload;
         },
         withdrewRewards(state){
-            state.rewards = 0;
+            state.rewards = '0.0';
+        },
+        withdrewPayments(state){
+            state.marketBalance = '0.0'
         },
         transferedNFT(state, action){
             //todo
@@ -109,6 +114,7 @@ export const {
     connectingWallet, 
     registeredCode,
     withdrewRewards,
+    withdrewPayments,
     listingUpdate,
     transferedNFT,
     setIsMember} = userSlice.actions;
@@ -148,6 +154,7 @@ export const connectAccount = () => async(dispatch) => {
         let ownedFounder = 0;
         let ownedVip = 0;
         let market;
+        let sales;
 
         if(signer && correctChain){
             mc = new Contract(rpc.membership_contract, Membership.abi, signer);
@@ -160,6 +167,7 @@ export const connectAccount = () => async(dispatch) => {
             ownedFounder = await mc.balanceOf(address, 1);
             ownedVip = await mc.balanceOf(address, 2);
             market = new Contract(rpc.market_contract, Market.abi, signer);
+            sales = ethers.utils.formatEther(await market.payments(address));
         }
 
         await dispatch(accountChanged({
@@ -173,7 +181,8 @@ export const connectAccount = () => async(dispatch) => {
             balance: balance,
             rewards: rewards,
             isMember : ownedVip > 0 || ownedFounder > 0,
-            marketContract: market
+            marketContract: market,
+            marketBalance :sales
         }))
         dispatch(connectingWallet({'connecting' : false}));
     }
