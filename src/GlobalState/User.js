@@ -259,7 +259,7 @@ const knownContracts = [
         'multiToken': false,
         'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
         'onChain' : false,
-        'listable' : false
+        'listable' : true
     },
     {
         'name' : 'SupBirds',

@@ -17,7 +17,7 @@ import {
     Button,
     Paper,
 } from '@mui/material'
-import { loadMarket } from '../GlobalState/Market'
+import { loadPage, init } from '../GlobalState/Market'
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../GlobalState/User'
@@ -27,11 +27,15 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 const MarketPlaceScreen = () => {
     const dispatch = useDispatch();
     // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const state = useSelector((state)=>{
+        return state;
+    });
+
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'marketplace'
         });
-        dispatch(loadMarket());
+        dispatch(init(state));
     }, []);
 
     const [page, setPage] = React.useState(1);
@@ -39,36 +43,50 @@ const MarketPlaceScreen = () => {
       setPage(value);
     };
 
-    const totalListed = useSelector((state) => {
-        state.market.totalListed;
+    const response = useSelector((state) => {
+        return state.market.response;
+    });
+
+
+    useEffect(() => {
+        if(typeof listings === "undefined" && response != null){
+            dispatch(loadPage(state, page));
+        }
+    }, [page, response]);
+
+    const totalPages = useSelector((state) => {
+        return state.market.totalPages;
     })
 
     const listings = useSelector((state) => {
-        return state.market.listings;
-    })
+        return state.market.listings[page];
+    });
 
     const user = useSelector((state) => {
         return state.user;
-    })
+    });
 
     const [buying, setBuying] = useState(false);
     const [error, setError] = useState(null);
     const closeError = () => {
         setError(null);
-    }
+    };
+
     const loadingMarket = useSelector((state) => {
         return state.market.loadingPage;
-    })
+    });
+
     const [showSuccess, setShowSuccess] = useState({
         show : false,
         hash: ""
     });
+
     const closeSuccess = () => {
         setShowSuccess({
             show: false,
             hash: ""
         });
-    }
+    };
 
     const showBuy = (listing) => async () => {
         if(user.address){
@@ -114,7 +132,7 @@ const MarketPlaceScreen = () => {
             <Stack>
 
                 <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
-                    {listings.map((val) => 
+                    {(!listings) ? null :  listings.map((val) => 
                         <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
                             <Card>
                                 <CardMedia  component='img' image={val.nft.image} height='285' sx={{}} />
@@ -141,7 +159,7 @@ const MarketPlaceScreen = () => {
                 </Grid> 
     
             <Container>
-                <Pagination count={totalListed} page={page} boundaryCount={2} onChange={handleChange}/>
+                <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
             </Container>
             </Stack>
             
