@@ -63,7 +63,7 @@ export const market = marketSlice.reducer;
 export const init = (state) => async(dispatch) => {
     if(state.market.totalListed == 0){
         const totalActive = await (await readMarket.totalActive()).toNumber();
-        const pages = Math.ceil(totalActive / pagesize)
+
         const rawResponse = await readMarket.openListings(1, totalActive);
 
         const listingsResponse = rawResponse.map((val) => {
@@ -77,7 +77,12 @@ export const init = (state) => async(dispatch) => {
                 'is1155'    : val['is1155']
             }
         
-        });
+        }).reverse().filter((nft, index, self) =>
+        index === self.findIndex((t) => (
+          t.nftId.eq(nft.nftId) && t.nftAddress.toLowerCase() === nft.nftAddress.toLowerCase()
+        )));
+
+        const pages = Math.ceil(listingsResponse.length / pagesize)
         
         dispatch(onTotalListed({
             'totalActive' : totalActive,
