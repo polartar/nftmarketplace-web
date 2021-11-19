@@ -14,9 +14,12 @@ import {
     DialogActions,
     CardActions,
     Pagination,
+    IconButton,
+    Snackbar,
+    Alert,
     Button,
-    Paper,
 } from '@mui/material'
+import LinkIcon from '@mui/icons-material/Link';
 import { loadPage, init } from '../GlobalState/Market'
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { useSelector, useDispatch } from 'react-redux'
@@ -124,6 +127,15 @@ const MarketPlaceScreen = () => {
         }
 
     }
+
+    const [showCopied, setShowCopied] = useState(false);
+    const copyClosed = () => {
+        setShowCopied(false);
+    }
+    const copyLink = (nft) => () =>{
+        navigator.clipboard.writeText(window.location.origin + '/listing/' + nft.listingId)
+        setShowCopied(true);
+    }
     
     return (
         <Container maxWidth='lg'>  
@@ -152,6 +164,9 @@ const MarketPlaceScreen = () => {
                                         {ethers.utils.formatEther(val.price)} CRO
                                     </Typography>
                                     <Button onClick={showBuy(val)}>Buy</Button>
+                                    <IconButton color='primary' onClick={copyLink(val)}>
+                                        <LinkIcon/>
+                                    </IconButton>
                                 </CardActions>
                             </Card>
                         </Grid>
@@ -165,6 +180,12 @@ const MarketPlaceScreen = () => {
 
             </Stack>
             
+            <Snackbar open={showCopied} autoHideDuration={6000} onClose={copyClosed}>
+                <Alert onClose={copyClosed} severity="success" sx={{ width: '100%' }}>
+                    Link Copied!
+                </Alert>
+            </Snackbar>
+
             <Dialog
                 open={buying}>
                 <DialogContent>

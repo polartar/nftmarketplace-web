@@ -23,6 +23,7 @@ import {
     DialogTitle,
     Stepper,
     Step,
+    Snackbar,
     StepLabel,
     StepContent
 } from '@mui/material'
@@ -33,6 +34,7 @@ import { fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { nanoid } from 'nanoid'
+import LinkIcon from '@mui/icons-material/Link';
 import { registeredCode, withdrewRewards, transferedNFT, updateListed, withdrewPayments } from '../../GlobalState/User';
 import {ethers} from 'ethers'
 import './mynft.css'
@@ -363,6 +365,14 @@ export const MyNFTs = () => {
     }
 
     //// END SALE 
+    const [showCopied, setShowCopied] = useState(false);
+    const copyClosed = () => {
+        setShowCopied(false);
+    }
+    const copyLink = (nft) => () =>{
+        navigator.clipboard.writeText(window.location.origin + '/listing/' + nft.listingId)
+        setShowCopied(true);
+    }
 
     return(
         <Container maxWidth="lg" mt={3}>
@@ -465,8 +475,16 @@ export const MyNFTs = () => {
                             </Box>
                             <CardActions>
                                 <Button onClick={showTransferDialog(val)}>Transfer</Button>
-                                { (val.listed) ?
-                                    <Button onClick={showCancelDialog(val)}>Cancel</Button> : <Button onClick={showListDialog(val)} disabled={!val.listable}>Sell</Button>
+                                { (!val.listed) ?
+                                    <Button onClick={showListDialog(val)} disabled={!val.listable}>Sell</Button> :
+                                        (val.listingId) ? 
+                                            <Stack direction='row'>
+                                                <Button onClick={showCancelDialog(val)}>Cancel</Button> 
+                                                <IconButton color='primary' onClick={copyLink(val)}>
+                                                    <LinkIcon/>
+                                                </IconButton>
+                                            </Stack>
+                                        : null
                                 }
                             </CardActions>
                         </Card>
@@ -569,6 +587,12 @@ export const MyNFTs = () => {
                     </DialogContent>
                 </Dialog>
             : null}
+
+        <Snackbar open={showCopied} autoHideDuration={6000} onClose={copyClosed}>
+            <Alert onClose={copyClosed} severity="success" sx={{ width: '100%' }}>
+                Link Copied!
+            </Alert>
+        </Snackbar>
 
             <Dialog
                 open={user.fetchingNfts || doingWork}>

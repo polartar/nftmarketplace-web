@@ -5,6 +5,7 @@ import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
 import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
+import { DirectListing } from "../Pages/DirectListing";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles, useTheme } from '@mui/styles';
@@ -179,6 +180,7 @@ export const AppRouter = () => {
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
         <Route exact path="/nfts" component={MyNftScreen} />
+        <Route exact path="/listing/:id" component={DirectListing}/>
       </Switch>
     </Router>
 
