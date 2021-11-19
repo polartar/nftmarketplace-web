@@ -77,10 +77,7 @@ export const init = (state) => async(dispatch) => {
                 'is1155'    : val['is1155']
             }
         
-        }).reverse().filter((nft, index, self) =>
-        index === self.findIndex((t) => (
-          t.nftId.eq(nft.nftId) && t.nftAddress.toLowerCase() === nft.nftAddress.toLowerCase()
-        )));
+        }).reverse();
 
         const pages = Math.ceil(listingsResponse.length / pagesize)
         
