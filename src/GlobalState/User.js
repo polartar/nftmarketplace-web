@@ -275,7 +275,13 @@ const knownContracts = [
         'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
         'onChain' : false,
         'listable' : true
-    },
+    },{
+        'name' : 'Crypto Collage Collection',
+        'multiToken' :  false,
+        'address' : '0x64274Fce5bd057E6416f57A5EdC8a3195E153022',
+        'onChain' : false,
+        'listable' : true
+    }
 ]
 
 
