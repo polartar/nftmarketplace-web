@@ -18,18 +18,20 @@ import {
     Snackbar,
     Alert,
     Button,
+    CardActionArea,
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
-import { loadPage, init } from '../GlobalState/Market'
+import { loadPage, init, onListingLoaded } from '../GlobalState/Market'
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
+import {useHistory} from 'react-router-dom';
 
 
 const MarketPlaceScreen = () => {
     const dispatch = useDispatch();
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const history = useHistory();
     const state = useSelector((state)=>{
         return state;
     });
@@ -98,7 +100,7 @@ const MarketPlaceScreen = () => {
                 const tx = await user.marketContract.makePurchase(listing.listingId, {
                     'value' : listing.price
                 });
-                const receipt = tx.wait();
+                const receipt = await tx.wait();
                 setShowSuccess({
                     show: true,
                     hash: receipt.hash
@@ -136,6 +138,11 @@ const MarketPlaceScreen = () => {
         navigator.clipboard.writeText(window.location.origin + '/listing/' + nft.listingId)
         setShowCopied(true);
     }
+
+    const viewDetails = (listing) => () => {
+        dispatch(onListingLoaded(listing));
+        history.push("listing/" + listing.listingId);
+    }
     
     return (
         <Container maxWidth='lg'>  
@@ -147,23 +154,25 @@ const MarketPlaceScreen = () => {
                     {(!listings) ? null :  listings.map((val) => 
                         <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
                             <Card>
-                                <CardMedia  component='img' image={val.nft.image} height='285' sx={{}} />
+                                <CardActionArea onClick={viewDetails(val)}>
+                                    <CardMedia  component='img' image={val.nft.image} height='285' sx={{}} />
 
-                                <Box sx={{ p: 2, height : 150}}>
-                                    <Typography  noWrap variant="h5" color='primary'>
-                                        {val.nft.name}
-                                    </Typography>
+                                    <Box sx={{ p: 2, height : 150}}>
+                                        <Typography  noWrap variant="h5" color='primary'>
+                                            {val.nft.name}
+                                        </Typography>
 
-                                    <Typography variant='subtitle2' paragraph>
-                                        {val.nft.description}
-                                    </Typography>
-                                </Box>
-                                <CardActions>
-                                    
+                                        <Typography variant='subtitle2' paragraph>
+                                            {val.nft.description}
+                                        </Typography>
+                                    </Box>
                                     <Typography variant="subtitle2" color='primary'>
-                                        {ethers.utils.formatEther(val.price)} CRO
+                                            {ethers.utils.formatEther(val.price)} CRO
                                     </Typography>
+                                </CardActionArea>
+                                <CardActions>
                                     <Button onClick={showBuy(val)}>Buy</Button>
+                                    <Button onClick={viewDetails(val)}>Details</Button>
                                     <IconButton color='primary' onClick={copyLink(val)}>
                                         <LinkIcon/>
                                     </IconButton>

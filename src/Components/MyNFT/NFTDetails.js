@@ -23,7 +23,7 @@ import {
 
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
-import { getListing } from '../../GlobalState/Market';
+import { getListing, onListingLoaded } from '../../GlobalState/Market';
 
 
 export default function NFTDetails({
@@ -33,17 +33,22 @@ export default function NFTDetails({
     const dispatch = useDispatch();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const nft = useSelector((state) => {
+    const listing = useSelector((state) => {
         return state.market.currentListing;
     })
     const user = useSelector((state) => {
         return state.user;
     });
+    const state = useSelector((state) => {
+        return state;
+    });
+
     const ListItem = styled('li')(({ theme }) => ({
         margin: theme.spacing(0.5),
       }));
+
     useEffect(() => {
-        dispatch(getListing(listingId));
+        dispatch(getListing(state, listingId));
     }, [listingId])
 
     const [showSuccess, setShowSuccess] = useState({
@@ -64,28 +69,33 @@ export default function NFTDetails({
     };
 
     useEffect(() => {
-        if(nft != null){
+        if(listing != null){
             logEvent(getAnalytics(), 'screen_view', {
                 firebase_screen : 'NFT Details',
-                name : nft.name,
-                id : nft.nftId,
-                listingId : nft.listingId
+                name : listing.nft.name,
+                id : listing.nftId,
+                listingId : listing.listingId
             })
         }
-    }, [nft])
+    }, [listing])
 
-    const showBuy = (listing) => async () => {
+    const showBuy = () => async () => {
         if(user.address){
             setBuying(true);
             try{
                 const tx = await user.marketContract.makePurchase(listing.listingId, {
                     'value' : listing.price
                 });
-                const receipt = tx.wait();
+                const receipt = await tx.wait();
                 setShowSuccess({
                     show: true,
                     hash: receipt.hash
                 });
+                dispatch(onListingLoaded({
+                    ...listing,
+                    'state' : 1,
+                    'purchaser' : user.address
+                }));
             }catch(error){
                 if(error.data){
                     setError(error.data.message);
@@ -112,51 +122,60 @@ export default function NFTDetails({
     }
 
     return(
-        <Paper elevation='4'>
-            {(nft != null) ? 
+        <Paper elevation={4}>
+            {(listing !== null) ? 
             <Box p={4}>
                 <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
                     <Grid item xs={2} md={1} key='1'>
                         <Container>
-                            <CardMedia component='img' src={nft.image} width='350' />
+                            <CardMedia component='img' src={listing.nft.image} width='350' />
                         </Container>
                     </Grid>
                     <Grid item xs={1} key='2' >
                     <Stack spacing={2} direction='column' alignItems='flex-start'>
 
                         <Typography  variant="h5" color='primary' component="p">
-                            {nft.name}
+                            {listing.nft.name}
                         </Typography>
 
                         <Typography variant='subtitle2' component='p'>
-                            {ethers.utils.formatEther(nft.price)} CRO
+                            {ethers.utils.formatEther(listing.price)} CRO
                         </Typography>
 
                         <Typography variant='subtitle1' component='p'>
-                            {nft.description}
+                            {listing.nft.description}
                         </Typography>
                     
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                flexWrap: 'wrap',
-                                listStyle: 'none',
-                                p: 0.5,
-                                m: 0,
-                            }}
-                            component="ul"
-                            >
-                            {nft.properties.map((data) => {
-                                return (
-                                <ListItem key={data['trait_type']}>
-                                    <Chip label={data['trait_type'] + ' : ' + data['value']} color="primary"/>
-                                </ListItem>
-                                );
-                            })}
-                        </Box>
-
-                        <Button onClick={showBuy(nft)}>Buy</Button>
+                        {
+                            (listing.nft.properties !== null && listing.nft.properties.length > 0) ?
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexWrap: 'wrap',
+                                    listStyle: 'none',
+                                    p: 0.5,
+                                    m: 0,
+                                }}
+                                component="ul"
+                                >
+                                {listing.nft.properties.map((data) => {
+                                    return (
+                                    <ListItem key={data['trait_type']}>
+                                        <Chip label={data['trait_type'] + ' : ' + data['value']} color="primary"/>
+                                    </ListItem>
+                                    );
+                                })}
+                         </Box> : null
+                        }
+ 
+                        { (listing.state === 0) ? 
+                         <Button onClick={showBuy()}>Buy</Button> : 
+                         <Typography variant='subtitle1' color='primary'>
+                            SOLD
+                         </Typography>
+                        }
+                        
                     </Stack>
                     </Grid>
                     
@@ -164,7 +183,7 @@ export default function NFTDetails({
             </Box>:
 
             <Dialog
-                open={nft == null}>
+                open={listing === null}>
                 <DialogContent>
                     <Stack spacing={2} direction='row'>
                         <CircularProgress/>
@@ -187,7 +206,18 @@ export default function NFTDetails({
                 </DialogActions>
             </Dialog>
 
-
+            <Dialog
+                open={buying}>
+                <DialogContent>
+                    <Stack spacing={2} direction='row'>
+                        <CircularProgress/>
+                        <Typography variant='h3'>
+                            Attempting Purchase...
+                        </Typography>
+                    </Stack>
+                </DialogContent>
+            </Dialog>
+            
             <Dialog 
                 open={error != null}
                 onClose={closeError}>

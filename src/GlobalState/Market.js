@@ -37,7 +37,7 @@ const marketSlice = createSlice({
             state.totalPages = action.payload.totalPages;
         },
         onListingLoaded(state, action) {
-            state.currentListing = action.payload.nft;
+            state.currentListing = action.payload;
             state.loadingPage = false;
         }
     }
@@ -57,7 +57,7 @@ const marketSlice = createSlice({
     }
 /*/
 
-const {
+export const {
     startLoading,
     onNewPage,
     onTotalListed,
@@ -80,7 +80,9 @@ export const init = (state) => async(dispatch) => {
                 'nftAddress': val['nft'],
                 'price'     :val['price'],
                 'fee'       : val['fee'],
-                'is1155'    : val['is1155']
+                'is1155'    : val['is1155'],
+                'state'     : val['state'],
+                'purchaser' : val['purchaser']
             }
         
         }).reverse();
@@ -120,7 +122,11 @@ export const loadPage = (state, page) => async(dispatch) => {
     }));
 }
 
-export const getListing = (id) => async(dispatch) => {
+export const getListing = (state, id) => async(dispatch) => {
+    const curListing = state.market.currentListing;
+    if(curListing !== null && curListing.nftId === id){
+        return;
+    }
     dispatch(startLoading());
     try{
         const rawListing = await readMarket.listings(id);
@@ -131,16 +137,16 @@ export const getListing = (id) => async(dispatch) => {
             'nftAddress': rawListing['nft'],
             'price'     : rawListing['price'],
             'fee'       : rawListing['fee'],
-            'is1155'    : rawListing['is1155']
+            'is1155'    : rawListing['is1155'],
+            'state'     : rawListing['state'],
+            'purchaser' : rawListing['purchaser']
         }
-        console.log(listing);
+
         const nft = await getNft(listing);
-        console.log(nft);
+
         dispatch(onListingLoaded({
-            'nft' : {
-                ...listing,
-                ...nft
-            }
+            ...listing,
+            'nft' : nft
         }))
     }catch(error){
         console.log(error)
@@ -168,7 +174,7 @@ const getNft = async (listing) => {
                 'name': name,
                 'image' : image,
                 'description' : description,
-                'properties' : properties,
+                'properties' : (properties) ? properties : [],
             }
             return nft;
         } else {
@@ -214,11 +220,12 @@ const getNft = async (listing) => {
                 } else {
                     image = json.image;
                 }
+                const properties = (json.properties) ? json.properties : json.attributes;
                 const nft = {
                     'name' : json.name,
                     'image' : image,
                     'description' : json.description,
-                    'properties' : (json.properties) ? json.properties : json.attributes,
+                    'properties' : properties ? properties : [],
                 }
                 return nft;
             }

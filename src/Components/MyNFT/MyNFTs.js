@@ -330,11 +330,11 @@ export const MyNFTs = () => {
     }
 
     const handleNext = () => {
-        if(activeStep == 0){
+        if(activeStep === 0){
            setApprovalForAll();
-        } else if(activeStep == 1){
+        } else if(activeStep === 1){
             setActiveStep(2);
-        } else if(activeStep == 2){
+        } else if(activeStep === 2){
             makeListing();
         }
     };
@@ -553,7 +553,7 @@ export const MyNFTs = () => {
                                         </StepLabel>
                                         <StepContent>
                                         <Typography>{step.description}</Typography>
-                                        {(index == 1) ?  
+                                        {(index === 1) ?  
                                             <TextField type='number' label="Price" variant="outlined" onChange={ (e) => {
                                                 setSalePrice(e.target.value);
                                             }}/>   : null 

@@ -281,6 +281,18 @@ const knownContracts = [
         'address' : '0x64274Fce5bd057E6416f57A5EdC8a3195E153022',
         'onChain' : false,
         'listable' : true
+    },{
+        'name' : 'ppgm',
+         'multiToken' : false,
+         'address' : '0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014',
+         'onChain' : false,
+         'listable' : true
+    }, {
+        'name' : 'day1',
+        'multiToken' : false,
+        'address' : '0xf711e40d09BF4709c32eb967243872700fe80CC7',
+        'onChain' : false,
+        'listable' : true
     }
 ]
 
