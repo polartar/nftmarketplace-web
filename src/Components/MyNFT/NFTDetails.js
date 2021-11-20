@@ -138,7 +138,7 @@ export default function NFTDetails({
                             {listing.nft.name}
                         </Typography>
 
-                        <Stack direction='row'>
+                        <Stack direction='row' spacing={2}>
                             <Typography variant='subtitle2' component='p' sx={{pt:1}}>
                                 {ethers.utils.formatEther(listing.price)} CRO
                             </Typography>
@@ -146,7 +146,7 @@ export default function NFTDetails({
                             { (listing.state === 0) ? 
                             <Button onClick={showBuy()}>Buy</Button> : 
                             <Typography variant='subtitle1' color='primary'>
-                                SOLD
+                                {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }
                             </Typography>
                             }
                         </Stack>
