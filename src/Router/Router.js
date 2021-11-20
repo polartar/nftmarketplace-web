@@ -103,7 +103,7 @@ export const NavTabs = withStyles(styles)((props) => {
               scrollButtons="auto"
               selectionFollowsFocus={true}
                 value={
-                  history.location.pathname !== "/"
+                  (history.location.pathname === "/marketplace" || history.location.pathname === "/roadmap" || history.location.pathname === "/nfts")
                     ? history.location.pathname
                     : false
                 }>

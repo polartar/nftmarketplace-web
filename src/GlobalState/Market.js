@@ -19,7 +19,8 @@ const marketSlice = createSlice({
         totalListed : 0,
         totalPages : 0,
         listings : [[]],
-        response: null
+        response: null,
+        currentListing : null
     },
     reducers : {
         startLoading(state){
@@ -34,6 +35,10 @@ const marketSlice = createSlice({
             state.listings = action.payload.listings;
             state.response = action.payload.response;
             state.totalPages = action.payload.totalPages;
+        },
+        onListingLoaded(state, action) {
+            state.currentListing = action.payload.nft;
+            state.loadingPage = false;
         }
     }
 })
@@ -55,7 +60,8 @@ const marketSlice = createSlice({
 const {
     startLoading,
     onNewPage,
-    onTotalListed
+    onTotalListed,
+    onListingLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
@@ -100,97 +106,126 @@ export const loadPage = (state, page) => async(dispatch) => {
     let pageListing = [];
     for(let i = 0; i < listings.length; i++){
         let listing = listings[i];
-        try{
-            if(listing.is1155){
-                const contract = new Contract(listing.nftAddress, ERC1155, readProvider);
-                let uri = await contract.uri(listing.nftId);
-                if(gatewayTools.containsCID(uri)){
-                    try{
-                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
-                    }catch(error){
-                        //console.log(error);
-                    }
-                } 
-                const json = await (await fetch(uri)).json();
-                const name = json.name;
-                const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
-                const description = json.description;
-                const properties = json.properties; 
-                const nft = {
-                    'name': name,
-                    'image' : image,
-                    'description' : description,
-                    'properties' : properties,
-                }
-                pageListing.push({
-                    ...listing,
-                    'nft' : nft
-                })
-            } else {
-                const contract = new Contract(listing.nftAddress, ERC721, readProvider);
-                let uri = await contract.tokenURI(listing.nftId);
-                if(listing.nftAddress === rpc.cronie_contract){
-                    const json = Buffer.from(uri.split(',')[1], 'base64');
-                    const parsed = JSON.parse(json);
-                    const name = parsed.name;
-                    const image = dataURItoBlob(parsed.image, 'image/svg+xml');
-                    const desc = parsed.description;
-                    const properties = [];//(parsed.properties) ? parsed.properties : parsed.attributes;
-                    const nft = {
-                        'name' : name,
-                        'image' : URL.createObjectURL(image),
-                        'description' : desc,
-                        'properties' : properties,
-                    }
-                    pageListing.push({
-                        ...listing,
-                        'nft' : nft
-                    })
-                } else {
-                    if(gatewayTools.containsCID(uri)){
-                        try{
-                            uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
-                        }catch(error){
-                            // console.log(error);
-                        }
-                    }
-                    let json
-                    if(uri.includes('unrevealed')){
-                        continue;
-                    } else{
-                        json = await (await fetch(uri)).json();
-                    }
-                    let image
-                    if(gatewayTools.containsCID(json.image)){
-                        try {
-                            image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                            
-                        }catch(error){
-                            image = json.image;
-                        }
-                    } else {
-                        image = json.image;
-                    }
-                    const nft = {
-                        'name' : json.name,
-                        'image' : image,
-                        'description' : json.description,
-                        'properties' : (json.properties) ? json.properties : json.attributes,
-                    }
-                    pageListing.push({
-                        ...listing,
-                        'nft' : nft
-                    })
-                }
-            }
-        }catch(error){
-            console.log(error);
+        const nft = await getNft(listing);
+        if(nft !== null){
+            pageListing.push({
+                ...listing,
+                'nft' : nft
+            })
         }
     }
     dispatch(onNewPage({
         'page' : page,
         'newPage' : pageListing
     }));
+}
+
+export const getListing = (id) => async(dispatch) => {
+    dispatch(startLoading());
+    try{
+        const rawListing = await readMarket.listings(id);
+        const listing = {
+            'listingId' : rawListing['listingId'],
+            'nftId'     : rawListing['nftId'],
+            'seller'    : rawListing['seller'],
+            'nftAddress': rawListing['nft'],
+            'price'     : rawListing['price'],
+            'fee'       : rawListing['fee'],
+            'is1155'    : rawListing['is1155']
+        }
+        console.log(listing);
+        const nft = await getNft(listing);
+        console.log(nft);
+        dispatch(onListingLoaded({
+            'nft' : {
+                ...listing,
+                ...nft
+            }
+        }))
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const getNft = async (listing) => {
+    try{
+        if(listing.is1155){
+            const contract = new Contract(listing.nftAddress, ERC1155, readProvider);
+            let uri = await contract.uri(listing.nftId);
+            if(gatewayTools.containsCID(uri)){
+                try{
+                    uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                }catch(error){
+                    //console.log(error);
+                }
+            } 
+            const json = await (await fetch(uri)).json();
+            const name = json.name;
+            const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
+            const description = json.description;
+            const properties = json.properties; 
+            const nft = {
+                'name': name,
+                'image' : image,
+                'description' : description,
+                'properties' : properties,
+            }
+            return nft;
+        } else {
+            const contract = new Contract(listing.nftAddress, ERC721, readProvider);
+            let uri = await contract.tokenURI(listing.nftId);
+            if(listing.nftAddress === rpc.cronie_contract){
+                const json = Buffer.from(uri.split(',')[1], 'base64');
+                const parsed = JSON.parse(json);
+                const name = parsed.name;
+                const image = dataURItoBlob(parsed.image, 'image/svg+xml');
+                const desc = parsed.description;
+                const properties = [];//(parsed.properties) ? parsed.properties : parsed.attributes;
+                const nft = {
+                    'name' : name,
+                    'image' : URL.createObjectURL(image),
+                    'description' : desc,
+                    'properties' : properties,
+                }
+                return nft;
+            } else {
+                if(gatewayTools.containsCID(uri)){
+                    try{
+                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
+                    }catch(error){
+                        // console.log(error);
+                    }
+                }
+                let json
+
+                if(uri.includes('unrevealed')){
+                    return null;
+                } else{
+                    json = await (await fetch(uri)).json();
+                }
+                let image
+                if(gatewayTools.containsCID(json.image)){
+                    try {
+                        image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                        
+                    }catch(error){
+                        image = json.image;
+                    }
+                } else {
+                    image = json.image;
+                }
+                const nft = {
+                    'name' : json.name,
+                    'image' : image,
+                    'description' : json.description,
+                    'properties' : (json.properties) ? json.properties : json.attributes,
+                }
+                return nft;
+            }
+        }
+    }catch(error){
+        console.log(error);
+    }
 }
 
 // export const loadMarket = () => async(dispatch) => {

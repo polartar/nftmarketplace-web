@@ -16,13 +16,13 @@ const rootReducer = combineReducers({
 });
 
 const middleware = [thunk];
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const enhancer = composeEnhancers(applyMiddleware(...middleware));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 
 const configureStore = () => {
-    // return createStore(rootReducer, enhancer);
-    return createStore(rootReducer, applyMiddleware(...middleware));
+    return createStore(rootReducer, enhancer);
+    // return createStore(rootReducer, applyMiddleware(...middleware));
   };
   
 const store = configureStore();
