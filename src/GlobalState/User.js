@@ -22,6 +22,8 @@ const userSlice = createSlice({
         provider: null,
         address : null,
         connectingWallet: false,
+        choosingProvider: false,
+        providerType: "",
         balance : "0",
         code : "",
         rewards: "Loading...",
@@ -89,6 +91,10 @@ const userSlice = createSlice({
         connectingWallet(state, action) {
             state.connectingWallet = action.payload.connecting;
         },
+        choosingProvider(state, action) {
+            state.choosingProvider = action.payload.choosing;
+            state.providerType = action.payload.provider;
+        },
         registeredCode(state, action){
             state.code = action.payload;
         },
@@ -113,7 +119,8 @@ export const {
     onProvider, 
     fetchingNfts,
     onNfts, 
-    connectingWallet, 
+    connectingWallet,
+    choosingProvider,
     registeredCode,
     withdrewRewards,
     withdrewPayments,
@@ -130,59 +137,72 @@ export const updateListed = (contract, id, listed) => async(dispatch) => {
     }))
 }
 
-export const connectAccount = () => async(dispatch) => {
+export const chooseProvider = () => async(dispatch) => {
+    dispatch(choosingProvider({choosing: true, providerType: ""}));
+}
 
-    var accounts, provider, signer, cid, web3Provider, correctChain, signer, address;
+export const connectAccount = (type) => async(dispatch) => {
 
+    var accounts, provider, signer, cid, correctChain, signer, address;
+    dispatch(choosingProvider({choosing: false, providerType: type}));
+
+    console.log(type);
     //TODO: CHOOSE OPTION
-    if (true) {
-        web3Provider = new WalletConnectProvider({
+    if (type == "walletconnect") {
+        const w3Provider = new WalletConnectProvider({
             rpc: {
               25: "https://evm-cronos.crypto.org"
             },
             chainId: 25,
           });
-
+        
         try {
-            accounts = await web3Provider.enable();
+            accounts = await w3Provider.enable();
         } catch (error) {
             console.log(error);
             return;
         }
+
+        dispatch(connectingWallet({'connecting' : true}));
+
         address = accounts[0];
 
-        provider = new ethers.providers.Web3Provider(web3Provider);
+        provider = new ethers.providers.Web3Provider(w3Provider);
         signer = provider.getSigner();
 
-        cid = await web3Provider.request({
+        cid = await w3Provider.request({
             method: "net_version",
         });
 
         correctChain = cid === rpc.chain_id
+        console.log(cid, rpc.chain_id);
 
-        web3Provider.on('disconnect', (id) => {
+        w3Provider.on('disconnect', (id) => {
             dispatch(accountChanged({
                 address: "",
                 provider: null,
             }))
         });
 
-    } else {
+    } else if (type == "metamask" && window.ethereum) {
+
         dispatch(connectingWallet({'connecting' : true}));
         const ethereum = await detectEthereumProvider();
-        const accounts = await ethereum.request({
+        accounts = await ethereum.request({
             method: "eth_requestAccounts",
         })
-        const address = accounts[0];
+        address = accounts[0];
 
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
+        provider = new ethers.providers.Web3Provider(ethereum);
+        signer = provider.getSigner();
 
-        const cid =  await ethereum.request({
+        cid =  await ethereum.request({
             method: "net_version",
         });
 
-        const correctChain = cid === rpc.chain_id
+        correctChain = cid === rpc.chain_id
+    } else {
+        return;
     }
 
         let mc;
@@ -212,6 +232,7 @@ export const connectAccount = () => async(dispatch) => {
         await dispatch(accountChanged({
             address: address,
             provider: provider,
+            providerType: type,
             needsOnboard: false,
             membershipContract: mc,
             croniesContract: cc,
@@ -539,7 +560,6 @@ function dataURItoBlob(dataURI, type) {
 }
 
 export const initProvider = () => async(dispatch) =>  {
-    const ethereum = await detectEthereumProvider();
 
     const web3Provider = new WalletConnectProvider({
         rpc: {
@@ -550,15 +570,10 @@ export const initProvider = () => async(dispatch) =>  {
 
     var provider, signer, cid, outerProvider;
 
-    if(ethereum == null || ethereum !== window.ethereum){
-        if (web3Provider != null) {
-            provider = new ethers.providers.Web3Provider(web3Provider);
-            outerProvider = web3Provider;
-        } 
-    } else {
-        provider = new ethers.providers.Web3Provider(ethereum);
-        outerProvider = ethereum;
-    }
+    if (web3Provider != null) {
+        provider = new ethers.providers.Web3Provider(web3Provider);
+        outerProvider = web3Provider;
+    } 
 
     signer = provider.getSigner();
 
@@ -599,8 +614,8 @@ export const initProvider = () => async(dispatch) =>  {
 
 }
 
-export const chainConnect = () => async(dispatch) => {
-    if(window.ethereum) {
+export const chainConnect = (type) => async(dispatch) => {
+    if (window.ethereum) {
         const cid = ethers.utils.hexValue(BigNumber.from(rpc.chain_id));
         try{
             await window.ethereum.request({
@@ -640,7 +655,6 @@ export const chainConnect = () => async(dispatch) => {
             console.log(error);
         }
     } else {
-        console.log("ChainConnect");
         let cid = 25;
         const web3Provider = new WalletConnectProvider({
             rpc: {

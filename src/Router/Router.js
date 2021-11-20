@@ -21,10 +21,12 @@ import {
   Dialog,
   DialogContent,
   Stack,
-  CircularProgress
+  CircularProgress,
+  DialogActions,
+  Button
 } from "@mui/material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import { connectAccount } from "../GlobalState/User";
+import { connectAccount, chooseProvider } from "../GlobalState/User";
 import Blockies from 'react-blockies';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
@@ -61,14 +63,32 @@ export const NavTabs = withStyles(styles)((props) => {
     return state.user.connectingWallet;
   })
 
+  const choosingProvider = useSelector((state) => {
+    return state.user.choosingProvider;
+  })
+
   const startConnect = () => {
+    dispatch(chooseProvider());
+  };
+
+  const handleClose = () => {
+    window.location.reload();
+  };
+
+  const handleMetaMask = () => {
     if(needsOnboard){
       const onboarding = new MetaMaskOnboarding();
       onboarding.startOnboarding();
     } else{
-      dispatch(connectAccount());
+      dispatch(connectAccount("metamask"));
     }
   };
+
+  const handleWalletConnect = () => {
+      dispatch(connectAccount("walletconnect"));
+  };
+
+
 
   return (
     <div className="desktopNavTabs">
@@ -166,6 +186,19 @@ export const NavTabs = withStyles(styles)((props) => {
                 </Typography>
             </Stack>
         </DialogContent>
+      </Dialog>
+      <Dialog
+        open={choosingProvider}>
+        <DialogContent>
+                <Typography variant='h3'>
+                    Select Provider
+                </Typography>
+        </DialogContent>
+        <DialogActions>
+                <Button onClick={handleMetaMask}>MetaMask</Button>
+                <Button onClick={handleWalletConnect}>WalletConnect</Button>
+                <Button onClick={handleClose}>Cancel</Button>
+            </DialogActions>
       </Dialog>
     </div>
   );
