@@ -138,9 +138,18 @@ export default function NFTDetails({
                             {listing.nft.name}
                         </Typography>
 
-                        <Typography variant='subtitle2' component='p'>
-                            {ethers.utils.formatEther(listing.price)} CRO
-                        </Typography>
+                        <Stack direction='row'>
+                            <Typography variant='subtitle2' component='p' sx={{pt:1}}>
+                                {ethers.utils.formatEther(listing.price)} CRO
+                            </Typography>
+
+                            { (listing.state === 0) ? 
+                            <Button onClick={showBuy()}>Buy</Button> : 
+                            <Typography variant='subtitle1' color='primary'>
+                                SOLD
+                            </Typography>
+                            }
+                        </Stack>
 
                         <Typography variant='subtitle1' component='p'>
                             {listing.nft.description}
@@ -167,13 +176,6 @@ export default function NFTDetails({
                                     );
                                 })}
                          </Box> : null
-                        }
- 
-                        { (listing.state === 0) ? 
-                         <Button onClick={showBuy()}>Buy</Button> : 
-                         <Typography variant='subtitle1' color='primary'>
-                            SOLD
-                         </Typography>
                         }
                         
                     </Stack>
