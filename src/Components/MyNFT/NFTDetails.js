@@ -149,8 +149,8 @@ export default function NFTDetails({
                             >
                             {nft.properties.map((data) => {
                                 return (
-                                <ListItem key={data[0]}>
-                                    <Chip label={data['value']} color="primary"/>
+                                <ListItem key={data['trait_type']}>
+                                    <Chip label={data['trait_type'] + ' : ' + data['value']} color="primary"/>
                                 </ListItem>
                                 );
                             })}
