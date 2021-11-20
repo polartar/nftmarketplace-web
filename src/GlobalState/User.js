@@ -5,6 +5,7 @@ import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
@@ -130,7 +131,43 @@ export const updateListed = (contract, id, listed) => async(dispatch) => {
 }
 
 export const connectAccount = () => async(dispatch) => {
-    if(window.ethereum){
+
+    var accounts, provider, signer, cid, web3Provider, correctChain, signer, address;
+
+    //TODO: CHOOSE OPTION
+    if (true) {
+        web3Provider = new WalletConnectProvider({
+            rpc: {
+              25: "https://evm-cronos.crypto.org"
+            },
+            chainId: 25,
+          });
+
+        try {
+            accounts = await web3Provider.enable();
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+        address = accounts[0];
+
+        provider = new ethers.providers.Web3Provider(web3Provider);
+        signer = provider.getSigner();
+
+        cid = await web3Provider.request({
+            method: "net_version",
+        });
+
+        correctChain = cid === rpc.chain_id
+
+        web3Provider.on('disconnect', (id) => {
+            dispatch(accountChanged({
+                address: "",
+                provider: null,
+            }))
+        });
+
+    } else {
         dispatch(connectingWallet({'connecting' : true}));
         const ethereum = await detectEthereumProvider();
         const accounts = await ethereum.request({
@@ -146,6 +183,7 @@ export const connectAccount = () => async(dispatch) => {
         });
 
         const correctChain = cid === rpc.chain_id
+    }
 
         let mc;
         let cc;
@@ -186,7 +224,6 @@ export const connectAccount = () => async(dispatch) => {
             marketBalance :sales
         }))
         dispatch(connectingWallet({'connecting' : false}));
-    }
 }
 
 const knownContracts = [
@@ -504,50 +541,61 @@ function dataURItoBlob(dataURI, type) {
 export const initProvider = () => async(dispatch) =>  {
     const ethereum = await detectEthereumProvider();
 
+    const web3Provider = new WalletConnectProvider({
+        rpc: {
+          25: "https://evm-cronos.crypto.org"
+        },
+        chainId: 25,
+      });
+
+    var provider, signer, cid, outerProvider;
+
     if(ethereum == null || ethereum !== window.ethereum){
-        console.log('not metamask detected');
-        dispatch(onProvider({
-            provider: ethereum,
-            needsOnboard: true
-        }))
-    } else{
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer =  provider.getSigner();
-        const cid =  await ethereum.request({
-            method: "net_version",
-        });
-
-        const correctChain = cid === rpc.chain_id
-
-        let mc;
-        if(signer && correctChain){
-            mc = new Contract(rpc.membership_contract, Membership.abi, signer);
-        }
-        const obj = {
-            provider: provider,
-            needsOnboard: false,
-            membershipContract: mc,
-            correctChain:correctChain
-        };
-
-        dispatch(onProvider(obj))
-
-
-        ethereum.on('accountsChanged', (accounts) => {
-
-            dispatch(accountChanged({
-                address: accounts[0]
-            }))
-          });
-
-        ethereum.on('chainChanged', (chainId) => {
-            // Handle the new chain.
-            // Correctly handling chain changes can be complicated.
-            // We recommend reloading the page unless you have good reason not to.
-
-            window.location.reload();
-        });
+        if (web3Provider != null) {
+            provider = new ethers.providers.Web3Provider(web3Provider);
+            outerProvider = web3Provider;
+        } 
+    } else {
+        provider = new ethers.providers.Web3Provider(ethereum);
+        outerProvider = ethereum;
     }
+
+    signer = provider.getSigner();
+
+    cid = await outerProvider.request({
+        method: "net_version",
+    });
+    
+    const correctChain = cid === rpc.chain_id
+
+    let mc;
+    if(signer && correctChain){
+        mc = new Contract(rpc.membership_contract, Membership.abi, signer);
+    }
+    const obj = {
+        provider: provider,
+        needsOnboard: false,
+        membershipContract: mc,
+        correctChain:correctChain
+    };
+
+    dispatch(onProvider(obj))
+
+
+    outerProvider.on('accountsChanged', (accounts) => {
+
+        dispatch(accountChanged({
+            address: accounts[0]
+        }))
+        });
+
+    outerProvider.on('chainChanged', (chainId) => {
+        // Handle the new chain.
+        // Correctly handling chain changes can be complicated.
+        // We recommend reloading the page unless you have good reason not to.
+
+        window.location.reload();
+    });
 
 }
 
@@ -591,5 +639,18 @@ export const chainConnect = () => async(dispatch) => {
             }
             console.log(error);
         }
+    } else {
+        console.log("ChainConnect");
+        let cid = 25;
+        const web3Provider = new WalletConnectProvider({
+            rpc: {
+              25: "https://evm-cronos.crypto.org"
+            },
+            chainId: 25,
+          });
+        await web3Provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{chainId: cid}]
+        });
     }
 }
