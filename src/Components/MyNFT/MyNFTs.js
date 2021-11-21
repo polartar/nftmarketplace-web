@@ -211,7 +211,7 @@ export const MyNFTs = () => {
         },
         {
             label : 'Enter Price',
-            description : 'Enter the listing price in CRO. There is a 5% transaction fee on completed sale.'
+            description : 'Enter the listing price in CRO. There is a 0% transaction fee on completed sale!'
         },
         {
           label: 'Confirm Listing',
@@ -226,19 +226,14 @@ export const MyNFTs = () => {
 
     const showListDialog = (nft) => async () => {
         try{
-            if(user.isMember){
-                setSelectedNft(nft);
-                setStartSale(true);
-                const transferEnabled = await nft.contract.isApprovedForAll(user.address, user.marketContract.address);
-                if(transferEnabled){
-                    setActiveStep(1);
-                } else {
-                    setNextEnabled(true);  
-                }
-            } else{
-                setShowMemberOnly(true);
+            setSelectedNft(nft);
+            setStartSale(true);
+            const transferEnabled = await nft.contract.isApprovedForAll(user.address, user.marketContract.address);
+            if(transferEnabled){
+                setActiveStep(1);
+            } else {
+                setNextEnabled(true);  
             }
-
         }catch(error){
             if(error.data){
                 setError(error.data.message);
