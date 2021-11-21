@@ -29,6 +29,8 @@ const marketSlice = createSlice({
         },
         clearSet(state){
             state.listings = [[]];
+            state.totalListed = 0;
+            state.loadingPage = true;
         },
         onNewPage(state, action){
             state.loadingPage = false;
@@ -66,14 +68,15 @@ export const {
     startLoading,
     onNewPage,
     onTotalListed,
+    clearSet,
     onListingLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
 
 export const init = (state, type, address) => async(dispatch) => {
-    if(state.market.totalListed === 0 || type !== state.market.type){
-
+    // if(state.market.totalListed === 0 || type !== state.market.type){
+        dispatch(clearSet());
         const totalActive = await (await readMarket.totalActive()).toNumber();
         const rawResponse = await readMarket.openListings(1, totalActive);
 
@@ -95,19 +98,19 @@ export const init = (state, type, address) => async(dispatch) => {
         if(type === 'collection'){
             listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
         } else if(type === 'seller'){
-            listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase === address.toLowerCase());
+            listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
         }
         const pages = Math.ceil(listingsResponse.length / pagesize)
         
         dispatch(onTotalListed({
             'type' : type,
-            'totalActive' : totalActive,
+            'totalActive' : listingsResponse.length,
             'totalPages' : pages,
             'listings' : new Array(pages),
             'response' : listingsResponse
         }))
 
-    }
+    // }
 }
 
 export const loadPage = (state, page) => async(dispatch) => {

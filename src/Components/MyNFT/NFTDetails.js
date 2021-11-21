@@ -24,6 +24,7 @@ import {
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { getListing, onListingLoaded } from '../../GlobalState/Market';
+import { useHistory } from 'react-router';
 
 
 export default function NFTDetails({
@@ -32,6 +33,7 @@ export default function NFTDetails({
 
     const dispatch = useDispatch();
     const theme = useTheme();
+    const history = useHistory();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const listing = useSelector((state) => {
         return state.market.currentListing;
@@ -121,6 +123,14 @@ export default function NFTDetails({
 
     }
 
+    const viewCollection = (listing) => () => {
+        history.push(`/collection/${listing.nftAddress}`)
+    }
+
+    const viewSeller = (listing) => () => {
+        history.push(`/seller/${listing.seller}`)
+    }
+
     return(
         <Paper elevation={4}>
             {(listing !== null) ? 
@@ -177,6 +187,10 @@ export default function NFTDetails({
                                 })}
                          </Box> : null
                         }
+
+                        <Button onClick={viewCollection(listing)}>More From Collection</Button>
+                        <Button onClick={viewSeller(listing)}>More From Seller</Button>
+
                         
                     </Stack>
                     </Grid>
