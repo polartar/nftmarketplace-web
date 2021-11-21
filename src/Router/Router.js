@@ -68,14 +68,6 @@ export const NavTabs = withStyles(styles)((props) => {
   })
 
   const startConnect = () => {
-    dispatch(chooseProvider());
-  };
-
-  const handleClose = () => {
-    window.location.reload();
-  };
-
-  const handleMetaMask = () => {
     if(needsOnboard){
       const onboarding = new MetaMaskOnboarding();
       onboarding.startOnboarding();
@@ -84,8 +76,8 @@ export const NavTabs = withStyles(styles)((props) => {
     }
   };
 
-  const handleWalletConnect = () => {
-      dispatch(connectAccount("walletconnect"));
+  const handleClose = () => {
+    window.location.reload();
   };
 
 
@@ -194,11 +186,6 @@ export const NavTabs = withStyles(styles)((props) => {
                     Select Provider
                 </Typography>
         </DialogContent>
-        <DialogActions>
-                <Button onClick={handleMetaMask}>MetaMask</Button>
-                <Button onClick={handleWalletConnect}>WalletConnect</Button>
-                <Button onClick={handleClose}>Cancel</Button>
-            </DialogActions>
       </Dialog>
     </div>
   );

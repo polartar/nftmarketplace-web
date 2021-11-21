@@ -6,6 +6,7 @@ import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
@@ -22,8 +23,6 @@ const userSlice = createSlice({
         provider: null,
         address : null,
         connectingWallet: false,
-        choosingProvider: false,
-        providerType: "",
         balance : "0",
         code : "",
         rewards: "Loading...",
@@ -91,10 +90,6 @@ const userSlice = createSlice({
         connectingWallet(state, action) {
             state.connectingWallet = action.payload.connecting;
         },
-        choosingProvider(state, action) {
-            state.choosingProvider = action.payload.choosing;
-            state.providerType = action.payload.provider;
-        },
         registeredCode(state, action){
             state.code = action.payload;
         },
@@ -120,7 +115,6 @@ export const {
     fetchingNfts,
     onNfts, 
     connectingWallet,
-    choosingProvider,
     registeredCode,
     withdrewRewards,
     withdrewPayments,
@@ -137,114 +131,133 @@ export const updateListed = (contract, id, listed) => async(dispatch) => {
     }))
 }
 
-export const chooseProvider = () => async(dispatch) => {
-    dispatch(choosingProvider({choosing: true, providerType: ""}));
-}
 
 export const connectAccount = (type) => async(dispatch) => {
 
-    var accounts, provider, signer, cid, correctChain, signer, address;
-    dispatch(choosingProvider({choosing: false, providerType: type}));
-
-    console.log(type);
-    //TODO: CHOOSE OPTION
-    if (type == "walletconnect") {
-        const w3Provider = new WalletConnectProvider({
-            rpc: {
-              25: "https://evm-cronos.crypto.org"
+    const providerOptions = {
+        walletconnect: {
+            package: WalletConnectProvider, // required
+            options: {
+                chainId: 25,
+                rpc: {
+                    25: "https://evm-cronos.crypto.org",
+                },
+                network: 'cronos',
+                metadata: {
+                    icons: ["https://ebisusbay.com/vector%20-%20face.svg"],
+                    description: "Cronos NFT Marketplace"
+                    }
+                }
+        },
+        injected: {
+            display: {
+                logo: "https://github.com/MetaMask/brand-resources/raw/master/SVG/metamask-fox.svg",
+                name: "MetaMask",
+                description: "Connect with MetaMask in your browser"
             },
-            chainId: 25,
-          });
-        
-        try {
-            accounts = await w3Provider.enable();
-        } catch (error) {
-            console.log(error);
-            return;
+            package: null
+            },
         }
+    
+    
+    
+        
+    const web3Modal = new Web3Modal({
+        cacheProvider: false, // optional
+        providerOptions // required
+    });
+    web3Modal.clearCachedProvider();
 
-        dispatch(connectingWallet({'connecting' : true}));
-
-        address = accounts[0];
-
-        provider = new ethers.providers.Web3Provider(w3Provider);
-        signer = provider.getSigner();
-
-        cid = await w3Provider.request({
-            method: "net_version",
-        });
-
-        correctChain = cid === rpc.chain_id
-        console.log(cid, rpc.chain_id);
-
-        w3Provider.on('disconnect', (id) => {
-            dispatch(accountChanged({
-                address: "",
-                provider: null,
-            }))
-        });
-
-    } else if (type == "metamask" && window.ethereum) {
-
-        dispatch(connectingWallet({'connecting' : true}));
-        const ethereum = await detectEthereumProvider();
-        accounts = await ethereum.request({
-            method: "eth_requestAccounts",
-        })
-        address = accounts[0];
-
-        provider = new ethers.providers.Web3Provider(ethereum);
-        signer = provider.getSigner();
-
-        cid =  await ethereum.request({
-            method: "net_version",
-        });
-
-        correctChain = cid === rpc.chain_id
-    } else {
+    console.log("Opening a dialog", web3Modal);
+    var web3provider;
+    try {
+        web3provider = await web3Modal.connect();
+    } catch(e) {
+        console.log("Could not get a wallet connection", e);
         return;
     }
+    console.log(web3provider);
+    dispatch(connectingWallet({'connecting' : true}));
 
-        let mc;
-        let cc;
-        let code;
-        let balance;
-        let rewards;
-        let ownedFounder = 0;
-        let ownedVip = 0;
-        let market;
-        let sales;
+    var provider = new ethers.providers.Web3Provider(web3provider);
 
-        if(signer && correctChain){
-            mc = new Contract(rpc.membership_contract, Membership.abi, signer);
-            mc.connect(signer);
-            cc = new Contract(rpc.cronie_contract, Cronies.abi, signer);
-            cc.connect(signer);
-            const rawCode = await mc.codes(address);
-            code = ethers.utils.parseBytes32String(rawCode);
-            rewards = ethers.utils.formatEther(await mc.payments(address));
-            ownedFounder = await mc.balanceOf(address, 1);
-            ownedVip = await mc.balanceOf(address, 2);
-            market = new Contract(rpc.market_contract, Market.abi, signer);
-            sales = ethers.utils.formatEther(await market.payments(address));
-        }
+    let accounts = await web3provider.request({
+        method: 'eth_accounts',
+        params: [{chainId: cid}]
+    });
+    
+    var address = accounts[0];
 
-        await dispatch(accountChanged({
-            address: address,
-            provider: provider,
-            providerType: type,
-            needsOnboard: false,
-            membershipContract: mc,
-            croniesContract: cc,
-            correctChain:correctChain,
-            code: code,
-            balance: balance,
-            rewards: rewards,
-            isMember : ownedVip > 0 || ownedFounder > 0,
-            marketContract: market,
-            marketBalance :sales
+    var signer = provider.getSigner();
+
+    var cid = await web3provider.request({
+        method: "net_version",
+    });
+
+    var correctChain = cid === rpc.chain_id
+
+    web3provider.on('disconnect', (error) => {
+        dispatch(accountChanged({
+            address: "",
+            provider: null,
         }))
-        dispatch(connectingWallet({'connecting' : false}));
+    });
+
+    web3provider.on('accountsChanged', (accounts) => {
+
+        dispatch(accountChanged({
+            address: accounts[0]
+        }))
+    });
+
+    web3provider.on('chainChanged', (chainId) => {
+        // Handle the new chain.
+        // Correctly handling chain changes can be complicated.
+        // We recommend reloading the page unless you have good reason not to.
+
+        window.location.reload();
+    });
+
+    let mc;
+    let cc;
+    let code;
+    let balance;
+    let rewards;
+    let ownedFounder = 0;
+    let ownedVip = 0;
+    let market;
+    let sales;
+
+    if(signer && correctChain){
+        mc = new Contract(rpc.membership_contract, Membership.abi, signer);
+        mc.connect(signer);
+        cc = new Contract(rpc.cronie_contract, Cronies.abi, signer);
+        cc.connect(signer);
+        const rawCode = await mc.codes(address);
+        code = ethers.utils.parseBytes32String(rawCode);
+        rewards = ethers.utils.formatEther(await mc.payments(address));
+        ownedFounder = await mc.balanceOf(address, 1);
+        ownedVip = await mc.balanceOf(address, 2);
+        market = new Contract(rpc.market_contract, Market.abi, signer);
+        sales = ethers.utils.formatEther(await market.payments(address));
+    }
+
+    await dispatch(accountChanged({
+        address: address,
+        provider: provider,
+        providerType: type,
+        needsOnboard: false,
+        membershipContract: mc,
+        croniesContract: cc,
+        correctChain:correctChain,
+        code: code,
+        balance: balance,
+        rewards: rewards,
+        isMember : ownedVip > 0 || ownedFounder > 0,
+        marketContract: market,
+        marketBalance :sales
+    }))
+    dispatch(connectingWallet({'connecting' : false}));
 }
 
 const knownContracts = [
@@ -561,57 +574,53 @@ function dataURItoBlob(dataURI, type) {
 
 export const initProvider = () => async(dispatch) =>  {
 
-    const web3Provider = new WalletConnectProvider({
-        rpc: {
-          25: "https://evm-cronos.crypto.org"
-        },
-        chainId: 25,
-      });
-
-    var provider, signer, cid, outerProvider;
-
-    if (web3Provider != null) {
-        provider = new ethers.providers.Web3Provider(web3Provider);
-        outerProvider = web3Provider;
-    } 
-
-    signer = provider.getSigner();
-
-    cid = await outerProvider.request({
-        method: "net_version",
-    });
-    
-    const correctChain = cid === rpc.chain_id
-
-    let mc;
-    if(signer && correctChain){
-        mc = new Contract(rpc.membership_contract, Membership.abi, signer);
-    }
-    const obj = {
-        provider: provider,
-        needsOnboard: false,
-        membershipContract: mc,
-        correctChain:correctChain
-    };
-
-    dispatch(onProvider(obj))
-
-
-    outerProvider.on('accountsChanged', (accounts) => {
-
-        dispatch(accountChanged({
-            address: accounts[0]
+    const ethereum = await detectEthereumProvider();
+        
+     if(ethereum == null || ethereum !== window.ethereum){
+        console.log('not metamask detected');
+        dispatch(onProvider({
+            provider: ethereum,
+            needsOnboard: true
         }))
+    } else {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer =  provider.getSigner();
+        const cid =  await ethereum.request({
+            method: "net_version",
+        });
+    
+        const correctChain = cid === rpc.chain_id
+
+        let mc;
+        if(signer && correctChain){
+            mc = new Contract(rpc.membership_contract, Membership.abi, signer);
+        }
+        const obj = {
+            provider: provider,
+            needsOnboard: false,
+            membershipContract: mc,
+            correctChain:correctChain
+        };
+
+        dispatch(onProvider(obj))
+
+
+        provider.on('accountsChanged', (accounts) => {
+
+            dispatch(accountChanged({
+                address: accounts[0]
+            }))
+            });
+
+        provider.on('chainChanged', (chainId) => {
+            // Handle the new chain.
+            // Correctly handling chain changes can be complicated.
+            // We recommend reloading the page unless you have good reason not to.
+
+            window.location.reload();
         });
 
-    outerProvider.on('chainChanged', (chainId) => {
-        // Handle the new chain.
-        // Correctly handling chain changes can be complicated.
-        // We recommend reloading the page unless you have good reason not to.
-
-        window.location.reload();
-    });
-
+    }
 }
 
 export const chainConnect = (type) => async(dispatch) => {
