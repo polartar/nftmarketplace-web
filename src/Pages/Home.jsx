@@ -13,7 +13,7 @@ const Home = () => {
     }, []);
 
     return (
-        <Box mt={16} mb={16}>
+        <Box mt={10} mb={16}>
 
             <CardSection />
             <Stack>

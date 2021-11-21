@@ -61,7 +61,7 @@ export default function MyCard({
   }
   return (
     <div className={`${classes.root} cardContainer `}>
-      <Grid container spacing={1} justifyContent="center"  alignItems="center">
+      <Grid container spacing={3} justifyContent="center"  alignItems="center">
         {data.map((val, j) => {
 
           return (
