@@ -18,6 +18,7 @@ import {
     Alert,
     Button,
     CardActionArea,
+    Container,
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
@@ -158,7 +159,9 @@ export default function MarketSelection({
         <Stack >
             
             <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
-                {(!listings) ? null :  listings.map((val) => 
+                {(!listings) ? null :  (listings.length !== 0) ?
+                
+                listings.map((val) => 
                     <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
                         <Card>
                             <CardActionArea onClick={viewDetails(val)}>
@@ -187,11 +190,17 @@ export default function MarketSelection({
                             </CardActions>
                         </Card>
                     </Grid>
-                )}
+                ) :
+   
+                        <Box mt={16}>
+                            <Typography variant='h3' color='primary'>No Listings Found Check Back Soon.</Typography>
+                        </Box>
+                    
+                }
             </Grid> 
         
             {
-                (loadingMarket) ? null : <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
+                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
             }
             
 
