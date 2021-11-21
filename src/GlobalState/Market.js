@@ -72,7 +72,7 @@ export const {
 export const market = marketSlice.reducer;
 
 export const init = (state, type, address) => async(dispatch) => {
-    if(state.market.totalListed == 0 || type !== state.market.type){
+    if(state.market.totalListed === 0 || type !== state.market.type){
 
         const totalActive = await (await readMarket.totalActive()).toNumber();
         const rawResponse = await readMarket.openListings(1, totalActive);

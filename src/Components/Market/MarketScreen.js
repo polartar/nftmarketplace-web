@@ -25,13 +25,14 @@ import { loadPage, init, onListingLoaded } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useRouteMatch} from 'react-router-dom';
 
 export default function MarketSelection({
     collection,
     seller
 }){
     const dispatch = useDispatch();
+    const match = useRouteMatch();
     const history = useHistory();
     const state = useSelector((state)=>{
         return state;
@@ -149,7 +150,7 @@ export default function MarketSelection({
 
     const viewDetails = (listing) => () => {
         dispatch(onListingLoaded(listing));
-        history.push("listing/" + listing.listingId);
+        history.push(`/listing/${listing.listingId}`);
     }
 
     return(

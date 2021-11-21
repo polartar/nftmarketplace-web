@@ -31,6 +31,8 @@ import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../App";
+import CollectionScreen from "../Pages/CollectionListings";
+import SellerScreen from "../Pages/SellerListings";
 
 const styles = theme => ({
   fullHeight: {
@@ -181,6 +183,8 @@ export const AppRouter = () => {
         <Route exact path="/roadmap" component={RoadMapScreen} />
         <Route exact path="/nfts" component={MyNftScreen} />
         <Route exact path="/listing/:id" component={DirectListing}/>
+        <Route exact path="/collection/:address" component={CollectionScreen} />
+        <Route exact path="/seller/:address" component={SellerScreen} />
       </Switch>
     </Router>
 
