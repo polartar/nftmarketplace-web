@@ -14,9 +14,7 @@ const Home = () => {
 
     return (
         <Box mt={16} mb={16}>
-            <Typography align='center' variant='h3' color='primary'>
-                Commemorative and Founding Member NFTs 
-            </Typography>
+
             <CardSection />
             <Stack>
                 <Typography align='center' variant='subtitle2' color='primary'>
