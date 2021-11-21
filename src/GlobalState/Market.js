@@ -19,12 +19,16 @@ const marketSlice = createSlice({
         totalListed : 0,
         totalPages : 0,
         listings : [[]],
+        type: 'all',
         response: null,
         currentListing : null
     },
     reducers : {
         startLoading(state){
             state.loadingPage = true;
+        },
+        clearSet(state){
+            state.listings = [[]];
         },
         onNewPage(state, action){
             state.loadingPage = false;
@@ -35,6 +39,7 @@ const marketSlice = createSlice({
             state.listings = action.payload.listings;
             state.response = action.payload.response;
             state.totalPages = action.payload.totalPages;
+            state.type = action.payload.type;
         },
         onListingLoaded(state, action) {
             state.currentListing = action.payload;
@@ -66,19 +71,19 @@ export const {
 
 export const market = marketSlice.reducer;
 
-export const init = (state) => async(dispatch) => {
-    if(state.market.totalListed == 0){
-        const totalActive = await (await readMarket.totalActive()).toNumber();
+export const init = (state, type, address) => async(dispatch) => {
+    if(state.market.totalListed == 0 || type !== state.market.type){
 
+        const totalActive = await (await readMarket.totalActive()).toNumber();
         const rawResponse = await readMarket.openListings(1, totalActive);
 
-        const listingsResponse = rawResponse.map((val) => {
+        let listingsResponse = rawResponse.map((val) => {
             return {
                 'listingId' : val['listingId'],
                 'nftId'     : val['nftId'],
                 'seller'    : val['seller'],
                 'nftAddress': val['nft'],
-                'price'     :val['price'],
+                'price'     : val['price'],
                 'fee'       : val['fee'],
                 'is1155'    : val['is1155'],
                 'state'     : val['state'],
@@ -87,9 +92,15 @@ export const init = (state) => async(dispatch) => {
         
         }).reverse();
 
+        if(type === 'collection'){
+            listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
+        } else if(type === 'seller'){
+            listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase === address.toLowerCase());
+        }
         const pages = Math.ceil(listingsResponse.length / pagesize)
         
         dispatch(onTotalListed({
+            'type' : type,
             'totalActive' : totalActive,
             'totalPages' : pages,
             'listings' : new Array(pages),
