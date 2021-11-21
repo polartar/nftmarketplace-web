@@ -1,6 +1,6 @@
 import cronies from '../Assets/cronies.webp'
-import founding_member from '../Assets/vip_member.webp'
 import member from '../Assets/founding_member.webp'
+import genesis from '../Assets/CRS-collage.webp'
 
 export const InitialState = {
   nftslect:{},
@@ -23,11 +23,11 @@ export const InitialState = {
     },
     {
       id: 2,
-      img: founding_member,
-      title: 'VIP Founding Member',
-      descs: `Early access, further reduced fees and staking rewards`,
-      p1: 'If you hold a VIP Founding Member NFT you will have access to beta features on the platform and receive reduced service fees. You can stake your VIP NFT, 50% of ALL service fees will go into the VIP Member rewards pool and divided evenly among stakers once per month.',
-      p2: 'The VIP Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. VIP Founding Member NFTs will be limited to 1,000.'
+      img: genesis,
+      title: 'Crypto Collage Genesis',
+      descs: `NFT project will be minted with only 10 editions of each in existence.`,
+      p1: 'NFT project will be minted with only 10 editions of each in existence.',
+      p2: 'This art is inspired by the ever growing popularity of the cryptocurrency. Art is combination of vintage inspiration from the past that is fused with current cryptocurrency projects and astronomical potential it possesses.'
     },
   ],
   myNftCard: [

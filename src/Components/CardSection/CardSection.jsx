@@ -28,9 +28,11 @@ import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 
 import { ethers } from 'ethers'
+import { useHistory } from 'react-router'
 
 const CardSection = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const cardSelector = useSelector((state)=>{
         return state.initState.nftCard
     })
@@ -204,15 +206,18 @@ const CardSection = () => {
                                 <Typography  variant="h5" color='primary' component="p">
                                     {selectedItem.title}
                                 </Typography>
-        
-                                <Typography variant='subtitle2' component='p'>
-                                    {selectedItem.price} CRO
-                                </Typography>
+                                {(selectedItem.id === 2) ? null :
+                                    <Typography variant='subtitle2' component='p'>
+                                        {selectedItem.price} CRO
+                                    </Typography>
+                                }                               
                             </Stack>
 
-                            <Typography  variant="subtitle1" color='primary' component="p">
-                                    {selectedItem.count} / {selectedItem.max}
-                            </Typography>
+                            {(selectedItem.id === 2) ? null :
+                                <Typography  variant="subtitle1" color='primary' component="p">
+                                        {selectedItem.count} / {selectedItem.max}
+                                </Typography>
+                            }
 
                             <Typography variant='subtitle1' component='p'>
                                 {selectedItem.p1}
@@ -220,14 +225,19 @@ const CardSection = () => {
                             <Typography variant='subtitle1' component='p'>
                                 {selectedItem.p2}
                             </Typography>
-                            <Typography variant='subtitle2' component='p'>
-                                    Minting {numToMint}
-                            </Typography>
-                            <Slider defaultValue={1} step={1} marks min={1} max={parseInt(selectedItem.maxMint)} onChange={ (e, val) =>
-                                setNumToMint(val)
-                            }/>
+                            {(selectedItem.id === 2) ? null :
+                              <Typography variant='subtitle2' component='p'>
+                                   Minting {numToMint}
+                                </Typography>
+                            }
 
-                            {selectedItem.id === 0 ? null :
+                            {(selectedItem.id === 2) ? null :
+                                <Slider defaultValue={1} step={1} marks min={1} max={parseInt(selectedItem.maxMint)} onChange={ (e, val) =>
+                                    setNumToMint(val)
+                                }/>
+                            }
+ 
+                            {selectedItem.id !== 1 ? null :
                               <TextField label="Referral Code" variant="outlined" onChange={ (e) =>{
                                 console.log('setting refferal ' + e.target.value);
                                 setRefferal(e.target.value);
@@ -240,7 +250,10 @@ const CardSection = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
-                    <Button onClick={mintNow}>Mint</Button>
+                    {
+                        (selectedItem.id === 2) ? <Button onClick={() => history.push(`/seller/0x0800833a3706db6fBbD846d5d1b9370a79Af8097`)}>View Collection</Button>
+                         :<Button onClick={mintNow}>Mint</Button>
+                    }
                 </DialogActions>
             </Dialog>
             <Dialog
