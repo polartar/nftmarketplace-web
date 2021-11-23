@@ -385,7 +385,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
         if(activeListings.length > 0){
             // listings = await market.openForUser(user.address, 1, activeListings);
             // listings = await market.openListings(1, activeListings);
-            listings = activeListings.filter(e => e['seller'].toLowerCase() === user.address.toLowerCase());
+            listings = activeListings.filter(e => e['seller'].toLowerCase() === user.address.toLowerCase() );
             // console.log(listings);
         }
         await Promise.all(
@@ -401,7 +401,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         }
                         if(count !== 0){
                             let uri = await contract.uri(c.id);
-                            const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(c.id) && e['nft'].toLowerCase() === c.address.toLowerCase());
+                            const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(c.id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
                             if(gatewayTools.containsCID(uri)){
                                 try{
                                     uri = gatewayTools.convertToDesiredGateway(uri, gateway);
@@ -460,7 +460,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         const count = await contract.balanceOf(user.address);
                         for(let i = 0; i < count; i++){
                             const id = await readContract.tokenOfOwnerByIndex(user.address, i);                            
-                            const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nft'].toLowerCase() === c.address.toLowerCase());
+                            const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
                             let uri = await readContract.tokenURI(id);
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
