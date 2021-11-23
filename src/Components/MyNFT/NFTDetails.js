@@ -178,9 +178,9 @@ export default function NFTDetails({
                                 }}
                                 component="ul"
                                 >
-                                {listing.nft.properties.map((data) => {
+                                {listing.nft.properties.map((data, i) => {
                                     return (
-                                    <ListItem key={data['trait_type']}>
+                                    <ListItem key={i}>
                                         <Chip label={data['trait_type'] + ' : ' + data['value']} color="primary"/>
                                     </ListItem>
                                     );

@@ -4,11 +4,13 @@ import rpc from '../Assets/networks/rpc_config.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Market from '../Contracts/Marketplace.json'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
+import { listingUpdate } from './User'
 
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
+const listingsUri = "https://ebisusbay-viewer.herokuapp.com/activeListings";
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
 
@@ -77,23 +79,37 @@ export const market = marketSlice.reducer;
 export const init = (state, type, address) => async(dispatch) => {
     // if(state.market.totalListed === 0 || type !== state.market.type){
         dispatch(clearSet());
-        const totalActive = await (await readMarket.totalActive()).toNumber();
-        const rawResponse = await readMarket.openListings(1, totalActive);
+        // const totalActive = await (await readMarket.totalActive()).toNumber();
+        // const rawResponse = await readMarket.openListings(1, totalActive);
 
-        let listingsResponse = rawResponse.map((val) => {
-            return {
-                'listingId' : val['listingId'],
-                'nftId'     : val['nftId'],
-                'seller'    : val['seller'],
-                'nftAddress': val['nft'],
-                'price'     : val['price'],
-                'fee'       : val['fee'],
-                'is1155'    : val['is1155'],
-                'state'     : val['state'],
-                'purchaser' : val['purchaser']
-            }
+        // let listingsResponse = rawResponse.map((val) => {
+        //     return {
+        //         'listingId' : val['listingId'],
+        //         'nftId'     : val['nftId'],
+        //         'seller'    : val['seller'],
+        //         'nftAddress': val['nft'],
+        //         'price'     : val['price'],
+        //         'fee'       : val['fee'],
+        //         'is1155'    : val['is1155'],
+        //         'state'     : val['state'],
+        //         'purchaser' : val['purchaser']
+        //     }
         
-        }).reverse();
+        // }).reverse();
+        let listingsResponse = await (await (await (await fetch(listingsUri)).json()).map((e) => {
+            const nft = {
+                'name' : e.name,
+                'image' : e.image,
+                'description' : e.description,
+                'properties' : e.properties
+            }
+            return {
+                ...e,
+                'listingId': ethers.BigNumber.from(e.listingId),
+                'price' : ethers.utils.parseEther(String(e.price)),
+                'nft' : nft
+            }
+        })).filter(e => typeof e.name !== 'undefined');
 
         if(type === 'collection'){
             listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
@@ -101,6 +117,9 @@ export const init = (state, type, address) => async(dispatch) => {
             listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
         }
         const pages = Math.ceil(listingsResponse.length / pagesize)
+        // console.log(listingsResponse.length)
+        // console.log(pages)
+        
         
         dispatch(onTotalListed({
             'type' : type,
@@ -113,26 +132,40 @@ export const init = (state, type, address) => async(dispatch) => {
     // }
 }
 
+/**
+ * 
+                'name': name,
+                'image' : image,
+                'description' : description,
+                'properties' : (properties) ? properties : [],
+ */
+
 export const loadPage = (state, page) => async(dispatch) => {
     dispatch(startLoading())
 
     const index = (page - 1) * pagesize;
     let listings = [...state.market.response].splice(index, pagesize);
 
-    let pageListing = [];
-    for(let i = 0; i < listings.length; i++){
-        let listing = listings[i];
-        const nft = await getNft(listing);
-        if(nft !== null){
-            pageListing.push({
-                ...listing,
-                'nft' : nft
-            })
-        }
-    }
+    // let pageListing = [];
+    // for(let i = 0; i < listings.length; i++){
+    //     let listing = listings[i];
+    //     // const nft = await getNft(listing);
+    //     // const nft = {
+    //     //     'name' : listing.name,
+    //     //     'image' : listing.image,
+    //     //     'description' : listing.description,
+    //     //     'properties' : listing.properties
+    //     // }
+    //     if(nft !== null){
+    //         pageListing.push({
+    //             ...listing,
+    //             'nft' : nft
+    //         })
+    //     }
+    // }
     dispatch(onNewPage({
         'page' : page,
-        'newPage' : pageListing
+        'newPage' : listings
     }));
 }
 
