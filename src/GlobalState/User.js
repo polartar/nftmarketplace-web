@@ -10,6 +10,7 @@ import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
+import { knownContracts } from './Market'
 
 
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
@@ -260,114 +261,6 @@ export const connectAccount = (type) => async(dispatch) => {
     }))
     dispatch(connectingWallet({'connecting' : false}));
 }
-
-const knownContracts = [
-    {
-        'name': 'vips',
-        'onChain' : false,
-        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
-        'multiToken' : true,
-        'id' : 2,
-        'listable' : true
-    },
-    {
-        'name': 'founders',
-        'onChain' : false,
-        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
-        'multiToken' : true,
-        'id' : 1,
-        'listable' : false
-    },
-    {
-        'name': 'cronies',
-        'multiToken': false,
-        'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
-        'onChain' : true,
-        'listable' : true
-    },
-    {
-        'name' : 'CronosChimp',
-        'multiToken': false,
-        'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
-        'onChain' : false,
-        'listable' : false
-    },
-    {
-        'name' : 'cro punks',
-        'multiToken': false,
-        'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'crocrows',
-        'multiToken': false,
-        'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'cronos punks',
-        'multiToken': false,
-        'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'crocodiles',
-        'multiToken': false,
-        'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'planets',
-        'multiToken': false,
-        'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'drakes',
-        'multiToken': false,
-        'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'SupBirds',
-        'multiToken': false,
-        'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'Crownos',
-        'multiToken': false,
-        'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
-        'onChain' : false,
-        'listable' : true
-    },{
-        'name' : 'Crypto Collage Collection',
-        'multiToken' :  false,
-        'address' : '0x64274Fce5bd057E6416f57A5EdC8a3195E153022',
-        'onChain' : false,
-        'listable' : true
-    },{
-        'name' : 'ppgm',
-         'multiToken' : false,
-         'address' : '0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014',
-         'onChain' : false,
-         'listable' : true
-    }, {
-        'name' : 'day1',
-        'multiToken' : false,
-        'address' : '0xf711e40d09BF4709c32eb967243872700fe80CC7',
-        'onChain' : false,
-        'listable' : true
-    }
-]
-
 
 export const fetchNfts = (user) => async(dispatch) =>{
 

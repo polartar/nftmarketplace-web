@@ -282,124 +282,7 @@ const getNft = async (listing) => {
     }
 }
 
-// export const loadMarket = () => async(dispatch) => {
 
-//     dispatch(loadingMarket());
-//     const totalActive = await readMarket.totalActive();
-//     dispatch(onTotalListed(totalActive))
-//     if(totalActive > 0){
-//         const listingsResponse = await readMarket.openListings(1,8)
-//         const listings = listingsResponse.map((val) => {
-//             return {
-//                 'listingId' : val['listingId'],
-//                 'nftId'     : val['nftId'],
-//                 'seller'    : val['seller'],
-//                 'nftAddress': val['nft'],
-//                 'price'     :val['price'],
-//                 'fee'       : val['fee'],
-//                 'is1155'    : val['is1155']
-//             }
-
-//         })
-//         let pageListing = [];
-//         for(let i = 0; i < listings.length; i++){
-//             let listing = listings[i];
-//             try{
-//                 if(listing.is1155){
-//                     const contract = new Contract(listing.nftAddress, ERC1155, readProvider);
-//                     let uri = await contract.uri(listing.nftId);
-//                     if(gatewayTools.containsCID(uri)){
-//                         try{
-//                             uri = gatewayTools.convertToDesiredGateway(uri, gateway);
-//                         }catch(error){
-//                             //console.log(error);
-//                         }
-//                     } 
-//                     const json = await (await fetch(uri)).json();
-//                     const name = json.name;
-//                     const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
-//                     const description = json.description;
-//                     const properties = json.properties; 
-//                     const nft = {
-//                         'name': name,
-//                         'image' : image,
-//                         'description' : description,
-//                         'properties' : properties,
-//                     }
-//                     pageListing.push({
-//                         ...listing,
-//                         'nft' : nft
-//                     })
-//                 } else {
-//                     const contract = new Contract(listing.nftAddress, ERC721, readProvider);
-//                     let uri = await contract.tokenURI(listing.nftId);
-//                     if(listing.nftAddress === rpc.cronie_contract){
-//                         const json = Buffer.from(uri.split(',')[1], 'base64');
-//                         const parsed = JSON.parse(json);
-//                         const name = parsed.name;
-//                         const image = dataURItoBlob(parsed.image, 'image/svg+xml');
-//                         const desc = parsed.description;
-//                         const properties = [];//(parsed.properties) ? parsed.properties : parsed.attributes;
-//                         const nft = {
-//                             'name' : name,
-//                             'image' : URL.createObjectURL(image),
-//                             'description' : desc,
-//                             'properties' : properties,
-//                         }
-//                         pageListing.push({
-//                             ...listing,
-//                             'nft' : nft
-//                         })
-//                     } else {
-//                         if(gatewayTools.containsCID(uri)){
-//                             try{
-//                                 uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
-//                             }catch(error){
-//                                // console.log(error);
-//                             }
-//                         }
-//                         let json
-//                         if(uri.includes('unrevealed')){
-//                             continue;
-//                         } else{
-//                             json = await (await fetch(uri)).json();
-//                         }
-//                         let image
-//                         if(gatewayTools.containsCID(json.image)){
-//                             try {
-//                                 image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                                
-//                             }catch(error){
-//                                 image = json.image;
-//                             }
-//                         } else {
-//                             image = json.image;
-//                         }
-//                         const nft = {
-//                             'name' : json.name,
-//                             'image' : image,
-//                             'description' : json.description,
-//                             'properties' : (json.properties) ? json.properties : json.attributes,
-//                         }
-//                         pageListing.push({
-//                             ...listing,
-//                             'nft' : nft
-//                         })
-//                     }
-//                 }
-//             }catch(error){
-//                 console.log(error);
-//             }
-//         }
-//         dispatch(onNewPage({
-//             'newPage' : pageListing
-//         }));
-//     } else{
-//         dispatch(onNewPage({
-//             'newPage' : []
-//         }));
-//     }
-// }
 
 function dataURItoBlob(dataURI, type) {
 
@@ -420,3 +303,116 @@ function dataURItoBlob(dataURI, type) {
     let bb = new Blob([ab], { type: type });
     return bb;
 }
+
+export const knownContracts = [
+    {
+        'name': 'EbisusBay VIP',
+        'onChain' : false,
+        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+        'multiToken' : true,
+        'id' : 2,
+        'listable' : true
+    },
+    {
+        'name': 'EbisusBay Founder',
+        'onChain' : false,
+        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
+        'multiToken' : true,
+        'id' : 1,
+        'listable' : false
+    },
+    {
+        'name': 'Cronies',
+        'multiToken': false,
+        'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
+        'onChain' : true,
+        'listable' : true
+    },
+    {
+        'name' : 'CronosChimp',
+        'multiToken': false,
+        'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
+        'onChain' : false,
+        'listable' : false
+    },
+    {
+        'name' : 'CroPunks - Punks on Cronos',
+        'multiToken': false,
+        'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'CRO CROW',
+        'multiToken': false,
+        'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'Cronos Punk',
+        'multiToken': false,
+        'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'CROCOSNFT',
+        'multiToken': false,
+        'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'PetitePlanetsNFT',
+        'multiToken': false,
+        'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'CRODrakes',
+        'multiToken': false,
+        'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'SupBirds',
+        'multiToken': false,
+        'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
+        'onChain' : false,
+        'listable' : true
+    },
+    {
+        'name' : 'Crownos',
+        'multiToken': false,
+        'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
+        'onChain' : false,
+        'listable' : false
+    },{
+        'name' : 'Crypto Collage Collection',
+        'multiToken' :  false,
+        'address' : '0x64274Fce5bd057E6416f57A5EdC8a3195E153022',
+        'onChain' : false,
+        'listable' : true
+    },{
+        'name' : 'Petite Planets Gen 1 Governor Medals',
+         'multiToken' : false,
+         'address' : '0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014',
+         'onChain' : false,
+         'listable' : true
+    }, {
+        'name' : 'Day One Supporter',
+        'multiToken' : false,
+        'address' : '0xf711e40d09BF4709c32eb967243872700fe80CC7',
+        'onChain' : false,
+        'listable' : true
+    },{
+        'name' : "CryptoStars",
+        'multiToken' : false,
+        'address' : '0x03741A724d0E15F8FD052DAa56633a69090D20a3',
+        'onChain' : false,
+        'listable' :true
+    }
+]
