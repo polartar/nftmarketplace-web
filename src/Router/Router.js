@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link, NavLink, useHistory} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
@@ -31,7 +31,8 @@ import {
   MenuItem,
   CircularProgress,
   DialogActions,
-  Button
+  Button,
+  Menu
 } from "@mui/material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { connectAccount, chooseProvider } from "../GlobalState/User";
@@ -93,10 +94,12 @@ export const NavTabs = withStyles(styles)((props) => {
     window.location.reload();
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [marketSelect, setMarketSelect] = useState(false);
 
-  const onMarket = () => {
-
+  const onMarket = (event) => {
+    setAnchorEl(event.currentTarget);
+    setMarketSelect(true);
   }
 
   return (
@@ -144,7 +147,25 @@ export const NavTabs = withStyles(styles)((props) => {
                   component={Button}
                   onClick={onMarket}
                   textColor="ihnerit"
+                  aria-controls="basic-menu"
+                  aria-haspopup="true"
+                  aria-expanded={marketSelect ? 'true' : undefined}
                 />
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={marketSelect}
+                  onClose={() => setMarketSelect(false)}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>
+                  {knownContracts.filter(e => e.listable).map((e) => {
+                    
+                    return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => setMarketSelect(false)}>{e.name}</MenuItem>)
+                  })}
+                </Menu>
 
                 <Tab
                 classes={{ root: classes.fullHeight }}
@@ -205,7 +226,7 @@ export const NavTabs = withStyles(styles)((props) => {
         </DialogContent>
       </Dialog>
 
-      <Dialog
+      {/* <Dialog
         open={marketSelect}
         >
       <FormControl fullWidth>
@@ -214,12 +235,12 @@ export const NavTabs = withStyles(styles)((props) => {
           <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>
           {knownContracts.filter(e => e.listable).map((e) => {
             
-            return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`}>{e.name}</MenuItem>)
+            return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => setMarketSelect(false)}>{e.name}</MenuItem>)
           })}
         </Select>
       </FormControl>
 
-        </Dialog>
+        </Dialog> */}
     </div>
   );
 });
