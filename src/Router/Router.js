@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-router-dom";
+import { useContext, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink, useHistory} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
@@ -21,6 +21,14 @@ import {
   Dialog,
   DialogContent,
   Stack,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Drawer,
+  FormControl,
+  Select,
+  MenuItem,
   CircularProgress,
   DialogActions,
   Button
@@ -35,6 +43,9 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../App";
 import CollectionScreen from "../Pages/CollectionListings";
 import SellerScreen from "../Pages/SellerListings";
+
+import {knownContracts} from '../GlobalState/Market';
+
 
 const styles = theme => ({
   fullHeight: {
@@ -82,7 +93,11 @@ export const NavTabs = withStyles(styles)((props) => {
     window.location.reload();
   };
 
+  const [marketSelect, setMarketSelect] = useState(false);
 
+  const onMarket = () => {
+
+  }
 
   return (
     <div className="desktopNavTabs">
@@ -124,10 +139,10 @@ export const NavTabs = withStyles(styles)((props) => {
                   
                 <Tab
                 classes={{ root: classes.fullHeight }}
-                  value={routes[1]}
+                  
                   label="Marketplace"
-                  component={Link}
-                  to={routes[1]}
+                  component={Button}
+                  onClick={onMarket}
                   textColor="ihnerit"
                 />
 
@@ -189,6 +204,22 @@ export const NavTabs = withStyles(styles)((props) => {
                 </Typography>
         </DialogContent>
       </Dialog>
+
+      <Dialog
+        open={marketSelect}
+        >
+      <FormControl fullWidth>
+        <Select 
+        >
+          <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>
+          {knownContracts.filter(e => e.listable).map((e) => {
+            
+            return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`}>{e.name}</MenuItem>)
+          })}
+        </Select>
+      </FormControl>
+
+        </Dialog>
     </div>
   );
 });

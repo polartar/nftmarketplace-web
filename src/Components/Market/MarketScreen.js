@@ -18,7 +18,6 @@ import {
     Alert,
     Button,
     CardActionArea,
-    Container,
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
@@ -33,7 +32,6 @@ export default function MarketSelection({
     seller
 }){
     const dispatch = useDispatch();
-    const match = useRouteMatch();
     const history = useHistory();
     const state = useSelector((state)=>{
         return state;
@@ -50,7 +48,7 @@ export default function MarketSelection({
             address = seller;
         }
         dispatch(init(state, type, address));
-    }, []);
+    }, [collection, seller]);
 
     const [page, setPage] = React.useState(1);
     const handleChange = (event, value) => {
