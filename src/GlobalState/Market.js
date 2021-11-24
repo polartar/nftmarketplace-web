@@ -101,7 +101,7 @@ export const init = (state, type, address) => async(dispatch) => {
                 'name' : e.name,
                 'image' : e.image,
                 'description' : e.description,
-                'properties' : e.properties
+                'properties' : (e.properties) ? e.properties : []
             }
             return {
                 ...e,
@@ -216,12 +216,15 @@ const getNft = async (listing) => {
             const name = json.name;
             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
             const description = json.description;
-            const properties = json.properties; 
+            let properties = json.properties; 
+            if(properties === null || typeof properties === 'undefined'){
+                properties = [];
+            }
             const nft = {
                 'name': name,
                 'image' : image,
                 'description' : description,
-                'properties' : (properties) ? properties : [],
+                'properties' : properties
             }
             return nft;
         } else {
