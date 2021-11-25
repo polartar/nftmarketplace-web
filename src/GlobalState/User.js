@@ -48,16 +48,20 @@ const userSlice = createSlice({
             state.address = action.payload.address;
             state.provider = action.payload.provider;
             state.web3modal = action.payload.web3modal;
+            state.correctChain = action.payload.correctChain;
             state.needsOnboard = action.payload.needsOnboard;
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
-            state.correctChain = action.payload.correctChain;
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
+        },
+
+        onCorrectChain(state, action) {
+            state.correctChain = action.payload.correctChain;
         },
 
         onProvider(state, action){
@@ -121,7 +125,7 @@ const userSlice = createSlice({
                 state.web3modal.clearCachedProvider();
             }
             state.provider = null;
-            state.address = null;
+            state.address = "";
         }
 
     }
@@ -133,6 +137,7 @@ export const {
     fetchingNfts,
     onNfts, 
     connectingWallet,
+    onCorrectChain,
     registeredCode,
     withdrewRewards,
     withdrewPayments,
@@ -223,16 +228,11 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     if (!correctChain) {
         correctChain = cid === rpc.chain_id
     }
-    await dispatch(accountChanged({
-        correctChain: correctChain
-    }))
+    //console.log(correctChain);
+
 
     web3provider.on('disconnect', (error) => {
         dispatch(onLogout());
-        dispatch(accountChanged({
-            address: "",
-            provider: null,
-        }));
     });
 
     web3provider.on('accountsChanged', (accounts) => {
@@ -281,9 +281,9 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         provider: provider,
         web3modal: web3Modal,
         needsOnboard: false,
+        correctChain: correctChain,
         membershipContract: mc,
         croniesContract: cc,
-        correctChain: correctChain,
         code: code,
         balance: balance,
         rewards: rewards,
@@ -530,7 +530,7 @@ export const initProvider = () => async(dispatch) =>  {
             correctChain:correctChain
         };
 
-        dispatch(onProvider(obj))
+        //dispatch(onProvider(obj))
 
 
         provider.on('accountsChanged', (accounts) => {
