@@ -416,4 +416,5 @@ export const knownContracts = [
         "onChain" : false,
         "listable" : true
     }
+    
 ]
