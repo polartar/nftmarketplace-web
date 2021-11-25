@@ -150,7 +150,7 @@ export default function NFTDetails({
 
                         <Stack direction='row' spacing={2}>
                             <Typography variant='subtitle2' component='p' sx={{pt:1}}>
-                                {ethers.utils.formatEther(listing.price)} CRO
+                                {ethers.utils.commify(ethers.utils.formatEther(listing.price))} CRO
                             </Typography>
 
                             { (listing.state === 0) ? 

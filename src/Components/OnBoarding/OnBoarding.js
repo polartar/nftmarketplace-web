@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch} from 'react-redux'
-import { chainConnect } from '../../GlobalState/User'
+import { chainConnect, onLogout } from '../../GlobalState/User'
 import rpc from '../../Assets/networks/rpc_config.json'
 // import MetaMaskOnboarding from '@metamask/onboarding';
 import {
@@ -33,6 +33,7 @@ export const SwitchChain = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(true)
     const handleClose = () => {
+        dispatch(onLogout());
         window.location.reload();
     };
     const connectNow = () => {

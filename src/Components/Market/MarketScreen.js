@@ -174,7 +174,7 @@ export default function MarketSelection({
                                         {val.nft.description}
                                     </Typography>
                                     <Typography variant="subtitle2" color='primary'>
-                                        {ethers.utils.formatEther(val.price)} CRO
+                                        {ethers.utils.commify(ethers.utils.formatEther(val.price))} CRO
                                     </Typography>
                                 </Box>
 

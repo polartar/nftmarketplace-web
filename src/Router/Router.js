@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link, NavLink, useHistory} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
@@ -39,6 +39,7 @@ import { connectAccount, chooseProvider } from "../GlobalState/User";
 import Blockies from 'react-blockies';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
+import { AccountMenu } from "../Components/AccountMenu/AccountMenu"
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../App";
@@ -81,12 +82,18 @@ export const NavTabs = withStyles(styles)((props) => {
     return state.user.choosingProvider;
   })
 
+  useEffect(() => {
+    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") != null && address == null) {
+      dispatch(connectAccount(true));
+    }
+  }, []);
+
   const startConnect = () => {
     if(needsOnboard){
       const onboarding = new MetaMaskOnboarding();
       onboarding.startOnboarding();
     } else{
-      dispatch(connectAccount("metamask"));
+      dispatch(connectAccount());
     }
   };
 
@@ -192,9 +199,7 @@ export const NavTabs = withStyles(styles)((props) => {
               </IconButton>
               {(address)? 
                 (correctChain) ?
-                  <Avatar sx={{ bgcolor: '#d32f2f' }} alt={address}>
-                    <Blockies seed={address} size={30}/>
-                  </Avatar>
+                  <AccountMenu></AccountMenu>
                  :
                   <SwitchChain/>
                 
