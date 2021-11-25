@@ -14,6 +14,8 @@ const listingsUri = "https://ebisusbay-viewer.herokuapp.com/activeListings";
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
 
+export const SortOrders = ['Time', 'Price', 'Id']
+
 const marketSlice = createSlice({
     name : 'market',
     initialState : {
@@ -22,6 +24,8 @@ const marketSlice = createSlice({
         totalPages : 0,
         listings : [[]],
         type: 'all',
+        sortOrder : SortOrders[0],
+        curPage : 1,
         response: null,
         currentListing : null
     },
@@ -36,6 +40,7 @@ const marketSlice = createSlice({
         },
         onNewPage(state, action){
             state.loadingPage = false;
+            state.curPage = action.payload.page;
             state.listings[action.payload.page] = action.payload.newPage;
         },
         onTotalListed(state, action){
@@ -48,6 +53,21 @@ const marketSlice = createSlice({
         onListingLoaded(state, action) {
             state.currentListing = action.payload;
             state.loadingPage = false;
+        },
+        onSort(state, action){
+            if(state.response !== null){
+
+                if(action.payload.order === SortOrders[0]){
+                    state.response = state.response.sort((a,b) => a.listingId.sub(b.listingId));
+                } else if(action.payload.order === SortOrders[1]){
+                    state.response = state.response.sort((a,b) => a.price.sub(b.price));
+                } else{
+                    state.response = state.response.sort((a,b) => a.nftId - b.nftId);
+                }
+                const index = (state.curPage - 1) * pagesize;
+                state.listings[index] = [...state.response].splice(index, pagesize);
+            }
+            state.sortOrder = action.payload.order;
         }
     }
 })
@@ -71,31 +91,16 @@ export const {
     onNewPage,
     onTotalListed,
     clearSet,
-    onListingLoaded
+    onListingLoaded,
+    onSort
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
 
 export const init = (state, type, address) => async(dispatch) => {
-    // if(state.market.totalListed === 0 || type !== state.market.type){
+    
         dispatch(clearSet());
-        // const totalActive = await (await readMarket.totalActive()).toNumber();
-        // const rawResponse = await readMarket.openListings(1, totalActive);
 
-        // let listingsResponse = rawResponse.map((val) => {
-        //     return {
-        //         'listingId' : val['listingId'],
-        //         'nftId'     : val['nftId'],
-        //         'seller'    : val['seller'],
-        //         'nftAddress': val['nft'],
-        //         'price'     : val['price'],
-        //         'fee'       : val['fee'],
-        //         'is1155'    : val['is1155'],
-        //         'state'     : val['state'],
-        //         'purchaser' : val['purchaser']
-        //     }
-        
-        // }).reverse();
         let listingsResponse = await (await (await (await fetch(listingsUri)).json()).map((e) => {
             const nft = {
                 'name' : e.name,
@@ -117,8 +122,7 @@ export const init = (state, type, address) => async(dispatch) => {
             listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
         }
         const pages = Math.ceil(listingsResponse.length / pagesize)
-        // console.log(listingsResponse.length)
-        // console.log(pages)
+
         
         
         dispatch(onTotalListed({
@@ -129,7 +133,6 @@ export const init = (state, type, address) => async(dispatch) => {
             'response' : listingsResponse
         }))
 
-    // }
 }
 
 /**
@@ -146,23 +149,6 @@ export const loadPage = (state, page) => async(dispatch) => {
     const index = (page - 1) * pagesize;
     let listings = [...state.market.response].splice(index, pagesize);
 
-    // let pageListing = [];
-    // for(let i = 0; i < listings.length; i++){
-    //     let listing = listings[i];
-    //     // const nft = await getNft(listing);
-    //     // const nft = {
-    //     //     'name' : listing.name,
-    //     //     'image' : listing.image,
-    //     //     'description' : listing.description,
-    //     //     'properties' : listing.properties
-    //     // }
-    //     if(nft !== null){
-    //         pageListing.push({
-    //             ...listing,
-    //             'nft' : nft
-    //         })
-    //     }
-    // }
     dispatch(onNewPage({
         'page' : page,
         'newPage' : listings
@@ -412,10 +398,22 @@ export const knownContracts = [
         'onChain' : false,
         'listable' : true
     },{
-        'name' : "CryptoStars",
+        'name' : "Cronostars",
         'multiToken' : false,
         'address' : '0x03741A724d0E15F8FD052DAa56633a69090D20a3',
         'onChain' : false,
         'listable' :true
+    },{
+        "name" : "CROPhones",
+        "multiToken" : false,
+        "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
+        "onChain" : false,
+        "listable" : true
+    }, {
+        "name" : "CronosEyez",
+        "multiToken" : false,
+        "address" : "0xea8d9EE25eBe25a3bB1C7AB14dc0456B5a2766D7",
+        "onChain" : false,
+        "listable" : true
     }
 ]

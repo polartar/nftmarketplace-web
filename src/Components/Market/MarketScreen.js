@@ -18,14 +18,18 @@ import {
     Alert,
     Button,
     CardActionArea,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Select
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
-import { loadPage, init, onListingLoaded } from '../../GlobalState/Market';
+import { loadPage, init, onListingLoaded, onSort, SortOrders } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
-import {useHistory, useRouteMatch} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 export default function MarketSelection({
     collection,
@@ -54,6 +58,10 @@ export default function MarketSelection({
     const handleChange = (event, value) => {
       setPage(value);
     };
+
+    const statePage = useSelector((state) => {
+        return state.market.curPage;
+    });
 
     const response = useSelector((state) => {
         return state.market.response;
@@ -138,6 +146,10 @@ export default function MarketSelection({
 
     }
 
+    const sortChanged = (event) => {
+        dispatch(onSort(event.target.value));
+    }
+
     const [showCopied, setShowCopied] = useState(false);
     const copyClosed = () => {
         setShowCopied(false);
@@ -152,9 +164,29 @@ export default function MarketSelection({
         history.push(`/listing/${listing.listingId}`);
     }
 
+    const sortOrder = useSelector((state) => {
+        return state.market.sortOrder;
+    })
+
     return(
         <Box mb={16} mt={4} >
         <Stack >
+        <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+            <Select
+                labelId="sort-order"
+                id="sort-order-select"
+                value={sortOrder}
+                label="Sort Order"
+                onChange={sortChanged}
+            >
+                {
+                    SortOrders.map((e) => {
+                        return(<MenuItem value={e}>{e}</MenuItem>)
+                    })
+                }
+            </Select>
+        </FormControl>
             
             <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
                 {(!listings) ? null :  (listings.length !== 0) ?
@@ -198,7 +230,7 @@ export default function MarketSelection({
             </Grid> 
         
             {
-                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
+                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination defaultPage={statePage} count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
             }
             
 
