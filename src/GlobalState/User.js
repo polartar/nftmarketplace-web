@@ -26,7 +26,7 @@ const userSlice = createSlice({
         address : null,
         web3modal: null,
         connectingWallet: false,
-        balance : 0,
+        balance : "Loading...",
         code : "",
         rewards: "Loading...",
         marketBalance : "Loading...",
@@ -45,11 +45,6 @@ const userSlice = createSlice({
     reducers: {
 
         accountChanged(state, action){
-            state.address = action.payload.address;
-            state.provider = action.payload.provider;
-            state.web3modal = action.payload.web3modal;
-            state.correctChain = action.payload.correctChain;
-            state.needsOnboard = action.payload.needsOnboard;
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
             state.balance = action.payload.balance;
@@ -69,6 +64,14 @@ const userSlice = createSlice({
             state.needsOnboard = action.payload.needsOnboard;
             state.membershipContract = action.payload.membershipContract;
             state.correctChain = action.payload.correctChain;
+        },
+
+        onBasicAccountData(state, action) {
+            state.address = action.payload.address;
+            state.provider = action.payload.provider;
+            state.web3modal = action.payload.web3modal;
+            state.correctChain = action.payload.correctChain;
+            state.needsOnboard = action.payload.needsOnboard;
         },
 
         fetchingNfts(state, action){
@@ -126,6 +129,10 @@ const userSlice = createSlice({
             }
             state.provider = null;
             state.address = "";
+            state.balance = "Loading...";
+            state.rewards = "Loading...";
+            state.marketBalance = "Loading...";
+            state.isMember = false;
         }
 
     }
@@ -144,6 +151,7 @@ export const {
     listingUpdate,
     transferedNFT,
     setIsMember,
+    onBasicAccountData,
     onLogout
 } = userSlice.actions;
 export const user = userSlice.reducer;
@@ -206,7 +214,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         return;
     }
 
-    dispatch(connectingWallet({'connecting' : true}));
+    //dispatch(connectingWallet({'connecting' : true}));
 
     var provider = new ethers.providers.Web3Provider(web3provider);
 
@@ -222,6 +230,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     var cid = await web3provider.request({
         method: "net_version",
     });
+ 
 
     //console.log(cid, rpc.chain_id);
     var correctChain = cid === Number(rpc.chain_id)
@@ -229,6 +238,13 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         correctChain = cid === rpc.chain_id
     }
     //console.log(correctChain);
+    await dispatch(onBasicAccountData({
+        address: address,
+        provider: provider,
+        web3modal: web3Modal,
+        needsOnboard: false,
+        correctChain: correctChain
+    }));
 
 
     web3provider.on('disconnect', (error) => {

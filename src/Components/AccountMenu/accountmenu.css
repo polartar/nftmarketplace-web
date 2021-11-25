@@ -1,0 +1,23 @@
+.MuiMenuItem-root {
+    padding: 10px 30px !important;
+    font-weight: 600 !important;
+    border: 0px none;
+ } 
+
+ .css-1vooibu-MuiSvgIcon-root {
+     fill: white !important;
+ }
+
+ .MuiAlert-standardError {
+     background: rgb(136, 0, 0) !important;
+     color: white !important;
+ }
+
+ .MuiAlert-standardSuccess{
+    background: rgb(17, 146, 0) !important;
+    color: white !important;
+}
+
+.MuiAlert-standard {
+    top: "85%" !important;
+}

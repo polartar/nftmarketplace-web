@@ -67,7 +67,7 @@ export const NavTabs = withStyles(styles)((props) => {
   const colorMode = useContext(ColorModeContext);
 
   const correctChain = useSelector((state) => {
-    console.log("CORRECT CHAIN", state.user.correctChain);
+    //console.log("CORRECT CHAIN", state.user.correctChain);
     return state.user.correctChain;
   });
 

@@ -18,7 +18,11 @@ import {
     Tooltip,
     Alert,
     Snackbar,
+    Skeleton,
+    MenuList,
+    Container,
 } from '@mui/material';
+import { withStyles, useTheme, makeStyles } from '@mui/styles';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -31,15 +35,16 @@ import { registeredCode, withdrewRewards, withdrewPayments, onLogout } from '../
 import { nanoid } from 'nanoid'
 import {ethers} from 'ethers'
 
+import './accountmenu.css'
 
 export const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [error, setError] = React.useState(null);
   const dispatch = useDispatch();
   const [alertOpen, setAlertOpen] = React.useState(true);  
   const [progressText, setProgressText] = React.useState('Working...');
   const [doingWork, setDoingWork] = React.useState(false);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -60,9 +65,14 @@ const [showSuccess, setShowSuccess] = React.useState({
     show : false,
     hash: ""
 });
+const [error, setError] = React.useState({
+    error: false,
+    message: ""
+});
+
 
     const closeError = () => {
-        setError(null);
+        setError({error: false, message: error.message});
     };
     const closeSuccess = () => {
         setShowSuccess({
@@ -83,12 +93,12 @@ const [showSuccess, setShowSuccess] = React.useState({
         dispatch(withdrewRewards());
     }catch(error){
         if(error.data){
-            setError(error.data.message);
+            setError({error: true, message: error.data.message});
         } else if(error.message){
-            setError(error.message)
+            setError({error: true, message: error.message});
         } else {
             console.log(error);
-            setError("Unknown Error")
+            setError({error: true, message: "Unknown Error"});
         }
     }finally{
         setDoingWork(false);
@@ -107,12 +117,12 @@ const withdrawBalance = async() => {
         dispatch(withdrewPayments());
     }catch(error){
         if(error.data){
-            setError(error.data.message);
+            setError({error: true, message: error.data.message});
         } else if(error.message){
-            setError(error.message)
+            setError({error: true, message: error.message});
         } else {
             console.log(error);
-            setError("Unknown Error")
+            setError({error: true, message: "Unknown Error"});
         }
     }finally{
         setDoingWork(false);
@@ -133,12 +143,12 @@ const registerCode = async () => {
         dispatch(registeredCode(id));
     }catch(error){
         if(error.data){
-            setError(error.data.message);
+            setError({error: true, message: error.data.message});
         } else if(error.message){
-            setError(error.message)
+            setError({error: true, message: error.message});
         } else {
             console.log(error);
-            setError("Unknown Error")
+            setError({error: true, message: "Unknown Error"});
         }
     }finally{
         setDoingWork(false);
@@ -179,79 +189,92 @@ const [showCopied, setShowCopied] = React.useState(false);
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
+            '& .MuiMenuItem-root': {
+                borderBottom: "0 none",
             },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
+            border: "0px none"
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem component={Link} to='/nfts'>
+        <MenuItem component={Link} to='/nfts' sx={{ border: "0px none" }} >
             <ListItemIcon>
                 <InsertPhotoIcon fontSize="medium" />
             </ListItemIcon>
             <ListItemText>My NFTs</ListItemText>
         </MenuItem>
-        <MenuItem onClick={withdrawBalance}>
-            <ListItemIcon>
-                <AttachMoneyIcon fontSize="medium" />
-            </ListItemIcon>
-            <ListItemText>Withdraw {balance} CRO from Balance</ListItemText>
-        </MenuItem>
-        {(user.isMember) ? 
-            <>
-                {(user.code && user.code.length > 0) ?
-                    <>
-                    <MenuItem onClick={handleCopy(user.code)}>
-                        <ListItemIcon>
-                                <ContentCopyIcon fontSize="medium" />
-                        </ListItemIcon>
-                        <ListItemText>Copy Referral Code</ListItemText>
-                    </MenuItem>
-                    {(user.rewards === '0.0') ?
-                        null 
-                        :
-                        <MenuItem onClick={withdrawRewards}>
-                            <ListItemIcon>
-                                    <AttachMoneyIcon fontSize="medium" />
-                            </ListItemIcon>
-                            <ListItemText>Withdraw {user.rewards} CRO of Referral Rewards</ListItemText>
-                        </MenuItem>
-                    }
-                    </>
-
-                    : 
-                    <MenuItem onClick={registerCode}>
+        {(user.balance == "Loading...") ?
+            <Container sx={{ margin: "10px 0px 10px 0px", fontWeight: "500"}}>
+                <Skeleton variant="text" width={100} height={20} sx={{ display: "block"}}/>
+                <MenuItem>
+                    <Skeleton variant="circular" width={25} height={25} sx={{ display: "block", marginRight: "10px"}}/>
+                    <Skeleton variant="text" width={280} height={20} sx={{ display: "block"}}/>
+                </MenuItem>
+            </Container>
+        :
+            <Container sx={{ margin: "10px 0px 10px 0px", fontWeight: "500"}}>
+                Marketplace Balance
+                <MenuItem onClick={withdrawBalance}>
                     <ListItemIcon>
-                            <PeopleIcon fontSize="medium" />
+                        <AttachMoneyIcon fontSize="medium" />
                     </ListItemIcon>
-                    <ListItemText>Register Referral Code</ListItemText>
-                    </MenuItem>
-                } 
+                    <ListItemText>Withdraw {balance} CRO</ListItemText>
+                </MenuItem>
+            </Container>
+        }
+        {(user.rewards == "Loading...") ?
+            <Container sx={{ margin: "10px 0px 10px 0px", fontWeight: "500"}}>
+                <Skeleton variant="text" width={100} height={20} sx={{ display: "block"}}/>
+                <MenuItem>
+                    <Skeleton variant="circular" width={25} height={25} sx={{ display: "block", marginRight: "10px"}}/>
+                    <Skeleton variant="text" width={280} height={20} sx={{ display: "block"}}/>
+                </MenuItem>
+                <MenuItem>
+                    <Skeleton variant="circular" width={25} height={25} sx={{ display: "block", marginRight: "10px"}}/>
+                    <Skeleton variant="text" width={280} height={20} sx={{ display: "block"}}/>
+                </MenuItem>
+            </Container>
+        :
+            <>
+            {(user.isMember) ? 
+                <Container sx={{ margin: "10px 0px 10px 0px", fontWeight: "500"}}>
+                    Referrals
+                    {(user.code && user.code.length > 0) ?
+                        <>
+                        <MenuItem onClick={handleCopy(user.code)}>
+                            <ListItemIcon>
+                                    <ContentCopyIcon fontSize="medium" />
+                            </ListItemIcon>
+                            <ListItemText>Copy Referral Code</ListItemText>
+                        </MenuItem>
+                        {(user.rewards === '0.0') ?
+                            null 
+                            :
+                            <MenuItem onClick={withdrawRewards}>
+                                <ListItemIcon>
+                                        <AttachMoneyIcon fontSize="medium" />
+                                </ListItemIcon>
+                                <ListItemText>Withdraw {user.rewards} CRO</ListItemText>
+                            </MenuItem>
+                        }
+                        </>
+
+                        : 
+                        <MenuItem onClick={registerCode}>
+                        <ListItemIcon>
+                                <PeopleIcon fontSize="medium" />
+                        </ListItemIcon>
+                        <ListItemText>Register Referral Code</ListItemText>
+                        </MenuItem>
+                    } 
+                </Container>
+                : null
+            }
             </>
-            : null
         }
         <Divider />
-        <MenuItem onClick={logout}>
+        <MenuItem onClick={logout} sx={{ color: "#ff7f7f"}}>
           <ListItemIcon>
             <Logout fontSize="medium" />
           </ListItemIcon>
@@ -262,7 +285,7 @@ const [showCopied, setShowCopied] = React.useState(false);
         <Snackbar open={showCopied} autoHideDuration={6000} onClose={copyClosed}
             sx={{ top: "85%" }}
         >
-                <Alert onClose={copyClosed} severity="success" sx={{ width: '100%', backgroundColor: "#4e9a50", color: "white", fontWeight: "500" }}>
+                <Alert onClose={copyClosed} severity="success">
                     Referral code copied!
                 </Alert>
         </Snackbar>
@@ -278,31 +301,23 @@ const [showCopied, setShowCopied] = React.useState(false);
             </DialogContent>
         </Dialog>
 
-        <Dialog 
-            onClose={closeSuccess}
-            open={showSuccess.show}>
-            <DialogContent>
-                <Typography variant='h3'>Success! 🥳 </Typography>
-                <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={closeSuccess}>Close</Button>
-            </DialogActions>
-        </Dialog>
-
-        <Dialog 
-            open={error != null}
-            onClose={closeError}>
-                <DialogContent>
-                    <Typography variant='h3'>There was an issue 😵</Typography>
-                    <Typography variant='subtitle2'>{
-                        (error) ? error : ""
-                    }</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeError}>Close</Button>
-                </DialogActions>
-        </Dialog>
+        <Snackbar  
+            open={error.error} 
+            autoHideDuration={10000} 
+            onClose={closeError}
+            sx={{ top: "85%" }}>
+            <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
+                {`Error whilst processing transaction:\n ${error.message}`}
+            </Alert>
+        </Snackbar>
+        <Snackbar  
+            open={showSuccess.show} 
+            autoHideDuration={10000} 
+            onClose={closeSuccess}>
+            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+                Transaction was successful!
+            </Alert>
+        </Snackbar>
     </React.Fragment>
   );
-}
+};
