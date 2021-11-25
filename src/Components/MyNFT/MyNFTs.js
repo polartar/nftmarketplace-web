@@ -23,9 +23,9 @@ import {
     DialogTitle,
     Stepper,
     Step,
-    Snackbar,
     StepLabel,
-    StepContent
+    Snackbar,
+    StepContent,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 
@@ -96,12 +96,12 @@ export const MyNFTs = () => {
             dispatch(withdrewRewards());
         }catch(error){
             if(error.data){
-                setError(error.data.message);
+                setError({error: true, message: error.data.message});
             } else if(error.message){
-                setError(error.message)
+                setError({error: true, message: error.message});
             } else {
                 console.log(error);
-                setError("Unknown Error")
+                setError({error: true, message: "Unknown Error"});
             }
         }finally{
             setDoingWork(false);
@@ -120,12 +120,12 @@ export const MyNFTs = () => {
             dispatch(withdrewPayments());
         }catch(error){
             if(error.data){
-                setError(error.data.message);
+                setError({error: true, message: error.data.message});
             } else if(error.message){
-                setError(error.message)
+                setError({error: true, message: error.message});
             } else {
                 console.log(error);
-                setError("Unknown Error")
+                setError({error: true, message: "Unknown Error"});
             }
         }finally{
             setDoingWork(false);
@@ -601,31 +601,23 @@ export const MyNFTs = () => {
                 </DialogContent>
             </Dialog>
 
-            <Dialog 
-                onClose={closeSuccess}
-                open={showSuccess.show}>
-                <DialogContent>
-                    <Typography variant='h3'>Success! 🥳 </Typography>
-                    <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeSuccess}>Close</Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog 
-                open={error != null}
-                onClose={closeError}>
-                    <DialogContent>
-                        <Typography variant='h3'>There was an issue 😵</Typography>
-                        <Typography variant='subtitle2'>{
-                            (error) ? error : ""
-                        }</Typography>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={closeError}>Close</Button>
-                    </DialogActions>
-            </Dialog>
+            <Snackbar  
+            open={error.error} 
+            autoHideDuration={10000} 
+            onClose={closeError}
+            sx={{ top: "85%" }}>
+            <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
+                {`Error whilst processing transaction:\n ${error.message}`}
+            </Alert>
+        </Snackbar>
+        <Snackbar  
+            open={showSuccess.show} 
+            autoHideDuration={10000} 
+            onClose={closeSuccess}>
+            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+                Transaction was successful!
+            </Alert>
+        </Snackbar>
 
             <Dialog open={showMemberOnly} onClose={cancelMemberOnly}>
                 <DialogContent>

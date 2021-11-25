@@ -16,7 +16,9 @@ import {
     useMediaQuery,
     Slider,
     TextField,
-    CircularProgress
+    CircularProgress,
+    Snackbar,
+    Alert
 } from '@mui/material'
 
 import { useTheme } from '@mui/material/styles';
@@ -57,10 +59,15 @@ const CardSection = () => {
     const closeMinting = () => {
         setMinting(false);
     };
-    const [mintError, setMintError] = useState(null);
+    const [error, setError] = React.useState({
+        error: false,
+        message: ""
+    });
+
     const closeError = () => {
-        setMintError(null);
-    }
+        setError({error: false, message: error.message});
+    };
+
     const [showSuccess, setShowSuccess] = useState({
         show : false,
         hash: ""
@@ -137,12 +144,12 @@ const CardSection = () => {
                     })
                 }catch(error){
                     if(error.data){
-                        setMintError(error.data.message);
+                        setError({error: true, message: error.data.message});
                     } else if(error.message){
-                        setMintError(error.message)
+                        setError({error: true, message: error.message});
                     } else {
                         console.log(error);
-                        setMintError("Unknown Error")
+                        setError({error: true, message: "Unknown Error"});
                     }
                 }finally{
                     setMinting(false);
@@ -159,12 +166,12 @@ const CardSection = () => {
                     })
                 } catch(error){
                     if(error.data){
-                        setMintError(error.data.message);
+                        setError({error: true, message: error.data.message});
                     } else if(error.message){
-                        setMintError(error.message)
+                        setError({error: true, message: error.message});
                     } else {
                         console.log(error);
-                        setMintError("Unknown Error")
+                        setError({error: true, message: "Unknown Error"});
                     }
                 } finally {
                     setMinting(false);
@@ -267,31 +274,23 @@ const CardSection = () => {
                     </Stack>
                 </DialogContent>
             </Dialog>
-            <Dialog 
-                onClose={closeSuccess}
-                open={showSuccess.show}>
-                <DialogContent>
-                    <Typography variant='h3'>Success! 🥳 </Typography>
-                    <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeSuccess}>Close</Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog 
-                open={mintError != null}
-                onClose={closeError}>
-                    <DialogContent>
-                        <Typography variant='h3'>There was an issue 😵</Typography>
-                        <Typography variant='subtitle2'>{
-                            (mintError) ? mintError : ""
-                        }</Typography>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={closeError}>Close</Button>
-                    </DialogActions>
-            </Dialog>
+            <Snackbar  
+            open={error.error} 
+            autoHideDuration={10000} 
+            onClose={closeError}
+            sx={{ top: "85%" }}>
+            <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
+                {`Error whilst processing transaction:\n ${error.message}`}
+            </Alert>
+        </Snackbar>
+        <Snackbar  
+            open={showSuccess.show} 
+            autoHideDuration={10000} 
+            onClose={closeSuccess}>
+            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+                Transaction was successful!
+            </Alert>
+        </Snackbar>
                 
         </Container>
 
