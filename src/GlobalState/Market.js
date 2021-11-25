@@ -417,5 +417,18 @@ export const knownContracts = [
         'address' : '0x03741A724d0E15F8FD052DAa56633a69090D20a3',
         'onChain' : false,
         'listable' :true
+    },{
+        "name" : "CROPhones",
+        "multiToken" : false,
+        "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
+        "onChain" : false,
+        "listable" : true
+    }, {
+        "name" : "CronosEyez",
+        "multiToken" : false,
+        "address" : "0xea8d9EE25eBe25a3bB1C7AB14dc0456B5a2766D7",
+        "onChain" : false,
+        "listable" : true
     }
+    
 ]
