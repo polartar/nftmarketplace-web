@@ -155,6 +155,12 @@ export const NavTabs = withStyles(styles)((props) => {
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}
+                  PaperProps={{
+                    style: {
+                      maxHeight: 64 * 4.5,
+                      
+                    },
+                  }}
                 >
                 <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>
                   {knownContracts.filter(e => e.listable).map((e) => {

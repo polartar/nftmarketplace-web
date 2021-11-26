@@ -17,10 +17,14 @@ import {
     Alert,
     Button,
     CardActionArea,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Select
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
-import { loadPage, init, onListingLoaded } from '../../GlobalState/Market';
+import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -49,21 +53,34 @@ export default function MarketSelection({
         dispatch(init(state, type, address));
     }, [collection, seller]);
 
-    const [page, setPage] = React.useState(1);
-    const handleChange = (event, value) => {
-      setPage(value);
+    const page = useSelector((state) => {
+        return state.market.curPage;
+    })
+    const handlePageChange = (event, value) => {
+       dispatch(onPage(value));
     };
 
     const response = useSelector((state) => {
         return state.market.response;
     });
 
+    const[is1155Collection, set1155Collection] = useState(false);
 
     useEffect(() => {
         if(typeof listings === "undefined" && response != null){
             dispatch(loadPage(state, page));
         }
     }, [page, response]);
+
+    useEffect(() => {
+        if(response !== null){
+            if(response.every(e => e.is1155)){
+                set1155Collection(true);
+            } else {
+                set1155Collection(false);
+            }
+        }
+    }, [response])
 
     const totalPages = useSelector((state) => {
         return state.market.totalPages;
@@ -141,6 +158,10 @@ export default function MarketSelection({
 
     }
 
+    const sortChanged = async (event) => {
+        dispatch(requestSort(event.target.value, page));
+    }
+
     const [showCopied, setShowCopied] = useState(false);
     const copyClosed = () => {
         setShowCopied(false);
@@ -155,9 +176,29 @@ export default function MarketSelection({
         history.push(`/listing/${listing.listingId}`);
     }
 
+    const sortOrder = useSelector((state) => {
+        return state.market.sortOrder;
+    })
+
     return(
         <Box mb={16} mt={4} >
         <Stack >
+        <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+            <Select
+                labelId="sort-order"
+                id="sort-order-select"
+                value={sortOrder}
+                label="Sort Order"
+                onChange={sortChanged}
+            >
+                {
+                    ((is1155Collection) ? SortOrders.filter(e => e !== "Id"): SortOrders).map((e) => {
+                        return(<MenuItem value={e}>{e}</MenuItem>)
+                    })
+                }
+            </Select>
+        </FormControl>
             
             <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
                 {(!listings) ? null :  (listings.length !== 0) ?
@@ -201,7 +242,7 @@ export default function MarketSelection({
             </Grid> 
         
             {
-                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
+                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination defaultPage={page} count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handlePageChange}/>
             }
             
 
