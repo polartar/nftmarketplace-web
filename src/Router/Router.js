@@ -39,12 +39,13 @@ import { connectAccount, chooseProvider } from "../GlobalState/User";
 import Blockies from 'react-blockies';
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
-import { AccountMenu } from "../Components/AccountMenu/AccountMenu"
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../App";
 import CollectionScreen from "../Pages/CollectionListings";
 import SellerScreen from "../Pages/SellerListings";
+import { AccountMenu } from "../Components/AccountMenu/AccountMenu"
+
 
 import {knownContracts} from '../GlobalState/Market';
 
@@ -55,6 +56,8 @@ const styles = theme => ({
   },
 });
 
+
+
 export const NavTabs = withStyles(styles)((props) => {
   const routes = ["/", "/marketplace", "/roadmap", "/nfts", "/"];
   const { classes } = props;
@@ -63,11 +66,16 @@ export const NavTabs = withStyles(styles)((props) => {
     return state.user.address;
   });
 
+  useEffect(() => {
+    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") != null && address == null) {
+      dispatch(connectAccount(true));
+    }
+  }, []);
+
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
   const correctChain = useSelector((state) => {
-    //console.log("CORRECT CHAIN", state.user.correctChain);
     return state.user.correctChain;
   });
 
@@ -82,12 +90,6 @@ export const NavTabs = withStyles(styles)((props) => {
   const choosingProvider = useSelector((state) => {
     return state.user.choosingProvider;
   })
-
-  useEffect(() => {
-    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") != null && address == null) {
-      dispatch(connectAccount(true));
-    }
-  }, []);
 
   const startConnect = () => {
     if(needsOnboard){
@@ -183,7 +185,8 @@ export const NavTabs = withStyles(styles)((props) => {
                   component={Link}
                   to={routes[2]}
                 />
-              {(address) ?
+
+              {/*(address) ?
                   <Tab
                   classes={{ root: classes.fullHeight }}
                     value={routes[3]}
@@ -192,21 +195,20 @@ export const NavTabs = withStyles(styles)((props) => {
                     component={Link}
                     to={routes[3]}
                   /> : null
-              } 
+              */} 
 
               </Tabs>
-              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+              {/*<IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
                  {theme.palette.mode === 'dark' ? <Brightness7Icon color='primary'/> : <Brightness4Icon color='primary'/>}
-              </IconButton>
+            </IconButton>*/}
               {(address)? 
                 (correctChain) ?
-                  <AccountMenu></AccountMenu>
+                  <AccountMenu/>
                  :
                   <SwitchChain/>
                 
-                : <IconButton color='primary' aria-label="connect" onClick={startConnect} >
-                    <AccountBalanceWalletIcon/>
-                  </IconButton>
+                : 
+                <AccountMenu/>
               }
             </Toolbar>
           </AppBar>

@@ -80,9 +80,13 @@ export default function MarketSelection({
 
 
     const [buying, setBuying] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = React.useState({
+        error: false,
+        message: ""
+    });
+
     const closeError = () => {
-        setError(null);
+        setError({error: false, message: error.message});
     };
 
     const loadingMarket = useSelector((state) => {
@@ -115,12 +119,12 @@ export default function MarketSelection({
                 });
             }catch(error){
                 if(error.data){
-                    setError(error.data.message);
+                    setError({error: true, message: error.data.message});
                 } else if(error.message){
-                    setError(error.message)
+                    setError({error: true, message: error.message});
                 } else {
                     console.log(error);
-                    setError("Unknown Error")
+                    setError({error: true, message: "Unknown Error"});
                 }
             }finally{
                 setBuying(false);
@@ -222,32 +226,23 @@ export default function MarketSelection({
             </DialogContent>
         </Dialog>
 
-        <Dialog 
-            onClose={closeSuccess}
-            open={showSuccess.show}>
-            <DialogContent>
-                <Typography variant='h3'>Success! 🥳 </Typography>
-                <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={closeSuccess}>Close</Button>
-            </DialogActions>
-        </Dialog>
-
-
-        <Dialog 
-            open={error != null}
-            onClose={closeError}>
-                <DialogContent>
-                    <Typography variant='h3'>There was an issue 😵</Typography>
-                    <Typography variant='subtitle2'>{
-                        (error) ? error : ""
-                    }</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeError}>Close</Button>
-                </DialogActions>
-        </Dialog>
+        <Snackbar  
+            open={error.error} 
+            autoHideDuration={10000} 
+            onClose={closeError}
+            sx={{ top: "85%" }}>
+            <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
+                {`Error whilst processing transaction:\n ${error.message}`}
+            </Alert>
+        </Snackbar>
+        <Snackbar  
+            open={showSuccess.show} 
+            autoHideDuration={10000} 
+            onClose={closeSuccess}>
+            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+                Transaction was successful!
+            </Alert>
+        </Snackbar>
 
         <Dialog
             open={loadingMarket}>

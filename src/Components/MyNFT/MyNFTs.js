@@ -59,10 +59,14 @@ export const MyNFTs = () => {
         return state.user;
     });
 
-    const [error, setError] = useState(null);
+    const [error, setError] = React.useState({
+        error: false,
+        message: ""
+    });
+
     const closeError = () => {
-        setError(null);
-    }
+        setError({error: false, message: error.message});
+    };
     const [showSuccess, setShowSuccess] = useState({
         show : false,
         hash: ""
@@ -346,12 +350,12 @@ export const MyNFTs = () => {
             });
         }catch(error){
             if(error.data){
-                setError(error.data.message);
+                setError({error: true, message: error.data.message});
             } else if(error.message){
-                setError(error.message)
+                setError({error: true, message: error.message});
             } else {
                 console.log(error);
-                setError("Unknown Error")
+                setError({error: true, message: "Unknown Error"});
             }
         }finally{
             setDoingWork(false);
