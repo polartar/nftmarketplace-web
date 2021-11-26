@@ -4,7 +4,6 @@ import rpc from '../Assets/networks/rpc_config.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Market from '../Contracts/Marketplace.json'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
-import { listingUpdate } from './User'
 
 
 const gatewayTools = new IPFSGatewayTools();
