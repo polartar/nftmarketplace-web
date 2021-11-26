@@ -199,6 +199,7 @@ const CardSection = () => {
              open={open}
              onClose={handleClose}
              fullScreen={fullScreen}
+             sx={{ zIndex: 10}}
              maxWidth='lg'>
                  <DialogContent dividers={true}>
                     <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>

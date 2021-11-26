@@ -62,4 +62,4 @@ body::-webkit-scrollbar-track {
   font-size: 32px;
 }
 
-.web3modal-modal-lightbox { z-index: 10 !important; }
+.web3modal-modal-lightbox { z-index: 1000 !important; }
