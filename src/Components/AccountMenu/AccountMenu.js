@@ -376,7 +376,7 @@ const startConnect = () => {
         </> : null }
         <Container sx={{ margin: "15px 0px 7px 0px", fontWeight: "500"}}>
             Settings
-            <MenuItem onClick={colorMode.toggleColorMode} className="accountMenu" sx={{fontWeight: 300}}>
+            <MenuItem onClick={colorMode.toggleColorMode} className="accountMenu" sx={{ marginTop: "5px", fontWeight: 300}}>
             <ListItemIcon>
                  {theme.palette.mode === 'dark' ? 
                     <LightModeIcon/> 
@@ -399,7 +399,7 @@ const startConnect = () => {
         </Container>
         <Divider />
         {(user.address)? 
-        <MenuItem onClick={logout} sx={{ color: "#ff7f7f"}} className="accountMenu">
+        <MenuItem onClick={logout} sx={{ margin: "5px 0px 5px 0px", color: "#ff7f7f"}} className="accountMenu">
           <ListItemIcon>
             <Logout fontSize="medium" />
           </ListItemIcon>
