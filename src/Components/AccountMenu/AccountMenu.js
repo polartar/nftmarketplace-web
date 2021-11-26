@@ -7,7 +7,6 @@ import {
     Divider,
     Dialog,
     DialogContent,
-    DialogActions,
     Stack,
     CircularProgress,
     Button,
@@ -19,10 +18,9 @@ import {
     Alert,
     Snackbar,
     Skeleton,
-    MenuList,
     Container,
 } from '@mui/material';
-import { withStyles, useTheme, makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/styles';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -39,7 +37,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ColorModeContext } from "../../App";
-import { connectAccount, chooseProvider } from "../../GlobalState/User";
+import { connectAccount } from "../../GlobalState/User";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import SettingsIcon from '@mui/icons-material/Settings';
 
@@ -51,8 +49,7 @@ import '../../App.css'
 export const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
-  const [alertOpen, setAlertOpen] = React.useState(true);  
-  const [progressText, setProgressText] = React.useState('Working...');
+  const [progressText] = React.useState('Working...');
   const [doingWork, setDoingWork] = React.useState(false);
   const open = Boolean(anchorEl);
   const theme = useTheme();
@@ -68,12 +65,7 @@ export const AccountMenu = () => {
   const user = useSelector((state) => {
     return state.user;
   });
-  const balance = useSelector((state) => {
-      if (typeof user.marketBalance === 'undefined') {
-          return 0;
-      }
-    return state.user;
-  });
+
   const address = useSelector((state) => {
     try {
         return ethers.utils.getAddress(state.user.address);

@@ -9,7 +9,6 @@ import {
     CardMedia, 
     Container, 
     Dialog, 
-    DialogActions, 
     DialogContent, 
     Grid, 
     Stack, 

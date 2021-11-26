@@ -22,7 +22,6 @@ import {
   MenuItem,
   CircularProgress,
   Button,
-  IconButton,
   Menu
 } from "@mui/material";
 import { connectAccount } from "../GlobalState/User";
