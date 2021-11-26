@@ -55,6 +55,7 @@ const marketSlice = createSlice({
         },
         onSort(state, action){
             if(state.response !== null){
+                state.listings = [[]]
                 state.response = sortByType(state.response, action.payload.order);
                 const index = (state.curPage - 1) * pagesize;
                 state.listings[index] = [...state.response].splice(index, pagesize);
@@ -152,7 +153,6 @@ export const loadPage = (state, page) => async(dispatch) => {
 }
 
 export const requestSort = (order, curPage) => async(dispatch) => {
-    dispatch(clearSet())
     dispatch(onSort({
         'order' : order
     }))
@@ -298,10 +298,10 @@ function dataURItoBlob(dataURI, type) {
 
 function sortByType(listings, order){
     if(order === SortOrders[0]){
-        return listings.sort((a,b) => a.listingId.sub(b.listingId));
+        return listings.sort((a,b) => b.listingId.sub(a.listingId));
     } else if(order === SortOrders[1]){
         return listings.sort((a,b) => a.price.sub(b.price));
-    } else{
+    } else{   
         return listings.sort((a,b) => a.nftId - b.nftId);
     }
 }

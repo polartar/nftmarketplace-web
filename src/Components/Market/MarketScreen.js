@@ -30,7 +30,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import {useHistory} from 'react-router-dom';
-import { PagesOutlined } from '@mui/icons-material';
+
 
 export default function MarketSelection({
     collection,
@@ -66,12 +66,23 @@ export default function MarketSelection({
         return state.market.response;
     });
 
+    const[is1155Collection, set1155Collection] = useState(false);
 
     useEffect(() => {
         if(typeof listings === "undefined" && response != null){
             dispatch(loadPage(state, page));
         }
     }, [page, response]);
+
+    useEffect(() => {
+        if(response !== null){
+            if(response.every(e => e.is1155)){
+                set1155Collection(true);
+            } else {
+                set1155Collection(false);
+            }
+        }
+    }, [response])
 
     const totalPages = useSelector((state) => {
         return state.market.totalPages;
@@ -147,7 +158,6 @@ export default function MarketSelection({
 
     const sortChanged = async (event) => {
         dispatch(requestSort(event.target.value, page));
-        
     }
 
     const [showCopied, setShowCopied] = useState(false);
@@ -181,7 +191,7 @@ export default function MarketSelection({
                 onChange={sortChanged}
             >
                 {
-                    SortOrders.map((e) => {
+                    ((is1155Collection) ? SortOrders.filter(e => e !== "Id"): SortOrders).map((e) => {
                         return(<MenuItem value={e}>{e}</MenuItem>)
                     })
                 }
