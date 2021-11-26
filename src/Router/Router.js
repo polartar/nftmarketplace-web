@@ -21,16 +21,8 @@ import {
   Dialog,
   DialogContent,
   Stack,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  Drawer,
-  FormControl,
-  Select,
   MenuItem,
   CircularProgress,
-  DialogActions,
   Button,
   Menu
 } from "@mui/material";
@@ -158,6 +150,12 @@ export const NavTabs = withStyles(styles)((props) => {
                   onClose={() => setMarketSelect(false)}
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
+                  }}
+                  PaperProps={{
+                    style: {
+                      maxHeight: 64 * 4.5,
+                      
+                    },
                   }}
                 >
                 <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>

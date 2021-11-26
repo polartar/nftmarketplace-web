@@ -25,11 +25,12 @@ import {
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
-import { loadPage, init, onListingLoaded, onSort, SortOrders } from '../../GlobalState/Market';
+import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import {useHistory} from 'react-router-dom';
+import { PagesOutlined } from '@mui/icons-material';
 
 export default function MarketSelection({
     collection,
@@ -54,14 +55,12 @@ export default function MarketSelection({
         dispatch(init(state, type, address));
     }, [collection, seller]);
 
-    const [page, setPage] = React.useState(1);
-    const handleChange = (event, value) => {
-      setPage(value);
-    };
-
-    const statePage = useSelector((state) => {
+    const page = useSelector((state) => {
         return state.market.curPage;
-    });
+    })
+    const handlePageChange = (event, value) => {
+       dispatch(onPage(value));
+    };
 
     const response = useSelector((state) => {
         return state.market.response;
@@ -146,8 +145,9 @@ export default function MarketSelection({
 
     }
 
-    const sortChanged = (event) => {
-        dispatch(onSort(event.target.value));
+    const sortChanged = async (event) => {
+        dispatch(requestSort(event.target.value, page));
+        
     }
 
     const [showCopied, setShowCopied] = useState(false);
@@ -230,7 +230,7 @@ export default function MarketSelection({
             </Grid> 
         
             {
-                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination defaultPage={statePage} count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handleChange}/>
+                (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination defaultPage={page} count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handlePageChange}/>
             }
             
 

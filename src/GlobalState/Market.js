@@ -56,18 +56,14 @@ const marketSlice = createSlice({
         },
         onSort(state, action){
             if(state.response !== null){
-
-                if(action.payload.order === SortOrders[0]){
-                    state.response = state.response.sort((a,b) => a.listingId.sub(b.listingId));
-                } else if(action.payload.order === SortOrders[1]){
-                    state.response = state.response.sort((a,b) => a.price.sub(b.price));
-                } else{
-                    state.response = state.response.sort((a,b) => a.nftId - b.nftId);
-                }
+                state.response = sortByType(state.response, action.payload.order);
                 const index = (state.curPage - 1) * pagesize;
                 state.listings[index] = [...state.response].splice(index, pagesize);
             }
             state.sortOrder = action.payload.order;
+        },
+        onPage(state, action){
+            state.curPage = action.payload;
         }
     }
 })
@@ -92,7 +88,8 @@ export const {
     onTotalListed,
     clearSet,
     onListingLoaded,
-    onSort
+    onSort,
+    onPage
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
@@ -121,8 +118,8 @@ export const init = (state, type, address) => async(dispatch) => {
         } else if(type === 'seller'){
             listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
         }
-        const pages = Math.ceil(listingsResponse.length / pagesize)
-
+        const pages = Math.ceil(listingsResponse.length / pagesize);
+        listingsResponse = sortByType(listingsResponse, state.market.sortOrder);
         
         
         dispatch(onTotalListed({
@@ -153,6 +150,13 @@ export const loadPage = (state, page) => async(dispatch) => {
         'page' : page,
         'newPage' : listings
     }));
+}
+
+export const requestSort = (order, curPage) => async(dispatch) => {
+    dispatch(clearSet())
+    dispatch(onSort({
+        'order' : order
+    }))
 }
 
 export const getListing = (state, id) => async(dispatch) => {
@@ -291,6 +295,16 @@ function dataURItoBlob(dataURI, type) {
     // write the ArrayBuffer to a blob, and you're done
     let bb = new Blob([ab], { type: type });
     return bb;
+}
+
+function sortByType(listings, order){
+    if(order === SortOrders[0]){
+        return listings.sort((a,b) => a.listingId.sub(b.listingId));
+    } else if(order === SortOrders[1]){
+        return listings.sort((a,b) => a.price.sub(b.price));
+    } else{
+        return listings.sort((a,b) => a.nftId - b.nftId);
+    }
 }
 
 export const knownContracts = [
