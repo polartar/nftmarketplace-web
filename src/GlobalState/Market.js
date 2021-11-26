@@ -434,6 +434,12 @@ export const knownContracts = [
         "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
         "onChain" : false,
         "listable" : true
+    }, {
+        "name" : "Croslothty",
+        "multiToken" : false,
+        "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
+        "onChain" : false,
+        "listable" : true
     }
     
 ]
