@@ -24,7 +24,7 @@ import { loadPage, init, onListingLoaded } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
-import {useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 export default function MarketSelection({
     collection,
