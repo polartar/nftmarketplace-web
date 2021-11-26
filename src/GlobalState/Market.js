@@ -428,6 +428,12 @@ export const knownContracts = [
         "address" : "0xea8d9EE25eBe25a3bB1C7AB14dc0456B5a2766D7",
         "onChain" : false,
         "listable" : true
+    }, {
+        "name" : "CROstmas Gnome",
+        "multiToken" : false,
+        "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
+        "onChain" : false,
+        "listable" : true
     }
     
 ]
