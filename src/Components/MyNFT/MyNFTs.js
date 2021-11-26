@@ -397,10 +397,9 @@ export const MyNFTs = () => {
                 </Alert>
             </Collapse>
 
-            <Box>
+            {/*<Box>
 
             <Stack spacing={2} direction='row'>
-                    {/* <Container> */}
                         <Stack  >
                             <Typography variant='subtitle1'>
                                 Account Balance: {user.marketBalance} CRO
@@ -413,7 +412,6 @@ export const MyNFTs = () => {
                             }
             
                         </Stack>
-                    {/* </Container> */}
             {(user.isMember) ? 
                         <Box >
                         {(user.code && user.code.length > 0)?
@@ -449,7 +447,7 @@ export const MyNFTs = () => {
                     : null
             }
             </Stack>
-            </Box>
+        </Box>*/}
 
             
             <Grid container spacing={4} justifyContent="center" alignItems="center">

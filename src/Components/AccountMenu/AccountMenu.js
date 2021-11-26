@@ -41,6 +41,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ColorModeContext } from "../../App";
 import { connectAccount, chooseProvider } from "../../GlobalState/User";
 import MetaMaskOnboarding from '@metamask/onboarding';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 import './accountmenu.css'
 import '../../App.css'
@@ -67,7 +69,7 @@ export const AccountMenu = () => {
     return state.user;
   });
   const balance = useSelector((state) => {
-      if (typeof user.balance === 'undefined') {
+      if (typeof user.marketBalance === 'undefined') {
           return 0;
       }
     return state.user;
@@ -216,7 +218,7 @@ const startConnect = () => {
         </Box>
       : 
         <IconButton color='primary' aria-label="connect" onClick={handleClick} >
-            <AccountBalanceWalletIcon/>
+            <SettingsIcon/>
         </IconButton>
       } 
       <Menu
@@ -283,9 +285,8 @@ const startConnect = () => {
             <ListItemText>My NFTs</ListItemText>
         </MenuItem>
         <Divider/>
-        {(user.balance == "Loading...") ?
+        {(user.marketBalance == "Loading...") ?
             <>
-            <Divider/>
             <Container sx={{ margin: "15px 0px 7px 0px", fontWeight: "500"}}>
                 <Skeleton variant="text" width={100} height={20} sx={{ display: "block"}}/>
                 <MenuItem className="accountMenu">
@@ -298,19 +299,19 @@ const startConnect = () => {
         :
             <Container sx={{ margin: "15px 0px 7px 0px", fontWeight: "500"}}>
                 Marketplace Balance
-                {(user.balance > 0) ?
+                {(user.marketBalance > 0) ?
                     <MenuItem onClick={withdrawBalance} className="accountMenu" sx={{ marginTop: "5px"}}>
                         <ListItemIcon>
                             <AttachMoneyIcon fontSize="medium" />
                         </ListItemIcon>
-                        <ListItemText>Withdraw {balance} CRO</ListItemText>
+                        <ListItemText>Withdraw {ethers.utils.commify(user.marketBalance)} CRO</ListItemText>
                     </MenuItem>
                 :
                     <MenuItem className="accountMenu" sx={{ marginTop: "5px"}}>
                         <ListItemIcon>
                             <AttachMoneyIcon fontSize="medium" />
                         </ListItemIcon>
-                        <ListItemText>Withdraw {balance} CRO</ListItemText>
+                        <ListItemText>Withdraw {ethers.utils.commify(user.marketBalance)} CRO</ListItemText>
                     </MenuItem>
                 }
             </Container>
@@ -342,13 +343,18 @@ const startConnect = () => {
                             <ListItemText>Copy Referral Code</ListItemText>
                         </MenuItem>
                         {(user.rewards === '0.0') ?
-                            null 
+                            <MenuItem className="accountMenu" sx={{ marginTop: "5px"}}>
+                                <ListItemIcon>
+                                    <AttachMoneyIcon fontSize="medium" />
+                                </ListItemIcon>
+                                <ListItemText>Withdraw {ethers.utils.commify(user.rewards)} CRO</ListItemText>
+                            </MenuItem> 
                             :
                             <MenuItem onClick={withdrawRewards} className="accountMenu" sx={{ marginTop: "5px"}}>
                                 <ListItemIcon>
                                         <AttachMoneyIcon fontSize="medium" />
                                 </ListItemIcon>
-                                <ListItemText>Withdraw {user.rewards} CRO</ListItemText>
+                                <ListItemText>Withdraw {ethers.utils.commify(user.rewards)} CRO</ListItemText>
                             </MenuItem>
                         }
                         </>

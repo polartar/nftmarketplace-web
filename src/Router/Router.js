@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, NavLink, useHistory} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
@@ -16,35 +16,22 @@ import {
   Toolbar,
   Box, 
   Typography,
-  Avatar,
-  IconButton,
   Dialog,
   DialogContent,
   Stack,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  Drawer,
-  FormControl,
-  Select,
   MenuItem,
   CircularProgress,
-  DialogActions,
   Button,
+  IconButton,
   Menu
 } from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import { connectAccount, chooseProvider } from "../GlobalState/User";
-import Blockies from 'react-blockies';
+import { connectAccount } from "../GlobalState/User";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../App";
 import CollectionScreen from "../Pages/CollectionListings";
 import SellerScreen from "../Pages/SellerListings";
-import { AccountMenu } from "../Components/AccountMenu/AccountMenu"
+import { AccountMenu } from "../Components/AccountMenu/AccountMenu";
 
 
 import {knownContracts} from '../GlobalState/Market';

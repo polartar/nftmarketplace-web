@@ -118,9 +118,14 @@ const userSlice = createSlice({
         },
         onLogout(state) {
             state.connectingWallet = false;
+            const web3Modal = new Web3Modal({
+                cacheProvider: false, // optional
+                providerOptions: [] // required
+            });
+            web3Modal.clearCachedProvider();
             if (state.web3modal == null) {
                 const web3Modal = new Web3Modal({
-                    cacheProvider: true, // optional
+                    cacheProvider: false, // optional
                     providerOptions: [] // required
                 });
                 web3Modal.clearCachedProvider();
