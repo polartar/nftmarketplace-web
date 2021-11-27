@@ -9,7 +9,7 @@ import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
-const listingsUri = "http://ebapi-env.eba-bherptzu.us-east-2.elasticbeanstalk.com/activeListings";//"https://api.ebisusbay.com/activeListings";
+const listingsUri = "https://api.ebisusbay.com/activeListings";
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
 

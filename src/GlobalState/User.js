@@ -16,7 +16,7 @@ import { knownContracts } from './Market'
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
-const listingsUri = "http://ebapi-env.eba-bherptzu.us-east-2.elasticbeanstalk.com/activeListings";//"https://api.ebisusbay.com/activeListings";
+const listingsUri = "https://api.ebisusbay.com/activeListings";
 
 
 const userSlice = createSlice({
