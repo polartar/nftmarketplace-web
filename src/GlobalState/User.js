@@ -16,7 +16,7 @@ import { knownContracts } from './Market'
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
-const listingsUri = "https://ebisusbay-viewer.herokuapp.com/activeListings";
+const listingsUri = "https://api.ebisusbay.com/activeListings";
 
 
 const userSlice = createSlice({
@@ -322,18 +322,11 @@ export const fetchNfts = (user) => async(dispatch) =>{
 
         dispatch(fetchingNfts(true));
         const signer = user.provider.getSigner();
-        // const market = new Contract(rpc.market_contract, Market.abi, readProvider);
-        // market.connect(signer);
-        // let activeListings = await market.totalActive();// market.totalActiveListingsUser(user.address);
-        // activeListings = activeListings.toNumber();
         const activeListings = await (await fetch(listingsUri)).json()
 
         let listings = [];
         if(activeListings.length > 0){
-            // listings = await market.openForUser(user.address, 1, activeListings);
-            // listings = await market.openListings(1, activeListings);
             listings = activeListings.filter(e => e['seller'].toLowerCase() === user.address.toLowerCase() );
-            // console.log(listings);
         }
         await Promise.all(
             knownContracts.map(async (c, i) => {
