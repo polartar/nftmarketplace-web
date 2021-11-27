@@ -162,7 +162,7 @@ export const NavTabs = withStyles(styles)((props) => {
                     },
                   }}
                 >
-                <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>
+                <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`} onClick={() => setMarketSelect(false)}>All</MenuItem>
                   {knownContracts.filter(e => e.listable).map((e) => {
                     
                     return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => setMarketSelect(false)}>{e.name}</MenuItem>)

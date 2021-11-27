@@ -423,9 +423,9 @@ export const knownContracts = [
         "onChain" : false,
         "listable" : true
     }, {
-        "name" : "CronosEyez",
+        "name" : "CronosEyezNFT",
         "multiToken" : false,
-        "address" : "0xea8d9EE25eBe25a3bB1C7AB14dc0456B5a2766D7",
+        "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
         "onChain" : false,
         "listable" : true
     }, {
