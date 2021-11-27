@@ -5,10 +5,22 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import store from './Store/store'
 import { Provider } from 'react-redux'
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginReact from '@bugsnag/plugin-react'
+
+Bugsnag.start({
+  apiKey: '2930ae7912b5df1173da9e102e6f91cd',
+  plugins: [new BugsnagPluginReact()]
+})
+
+const ErrorBoundary = Bugsnag.getPlugin('react')
+  .createErrorBoundary(React)
 
 ReactDOM.render(
   <Provider store={store}>
+     <ErrorBoundary>
     <App />
+    </ErrorBoundary>
   </Provider>,
   document.getElementById('root'),
 )
