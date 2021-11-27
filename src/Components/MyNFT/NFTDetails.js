@@ -9,7 +9,6 @@ import {
     CardMedia, 
     Container, 
     Dialog, 
-    DialogActions, 
     DialogContent, 
     Grid, 
     Stack, 
@@ -18,7 +17,9 @@ import {
     Chip,
     Box,
     Paper,
-    CircularProgress
+    CircularProgress,
+    Snackbar,
+    Alert
 } from '@mui/material'
 
 import { connectAccount, chainConnect } from '../../GlobalState/User'
@@ -59,9 +60,13 @@ export default function NFTDetails({
     });
 
     const [buying, setBuying] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = React.useState({
+        error: false,
+        message: ""
+    });
+
     const closeError = () => {
-        setError(null);
+        setError({error: false, message: error.message});
     };
     const closeSuccess = () => {
         setShowSuccess({
@@ -100,12 +105,12 @@ export default function NFTDetails({
                 }));
             }catch(error){
                 if(error.data){
-                    setError(error.data.message);
+                    setError({error: true, message: error.data.message});
                 } else if(error.message){
-                    setError(error.message)
+                    setError({error: true, message: error.message});
                 } else {
                     console.log(error);
-                    setError("Unknown Error")
+                    setError({error: true, message: "Unknown Error"});
                 }
             }finally{
                 setBuying(false);
@@ -150,7 +155,7 @@ export default function NFTDetails({
 
                         <Stack direction='row' spacing={2}>
                             <Typography variant='subtitle2' component='p' sx={{pt:1}}>
-                                {ethers.utils.formatEther(listing.price)} CRO
+                                {ethers.utils.commify(ethers.utils.formatEther(listing.price))} CRO
                             </Typography>
 
                             { (listing.state === 0) ? 
@@ -210,17 +215,6 @@ export default function NFTDetails({
                 </DialogContent>
             </Dialog>
         }
-            <Dialog 
-                onClose={closeSuccess}
-                open={showSuccess.show}>
-                <DialogContent>
-                    <Typography variant='h3'>Success! 🥳 </Typography>
-                    <Typography variant='subtitle2'>{showSuccess.hash}</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeSuccess}>Close</Button>
-                </DialogActions>
-            </Dialog>
 
             <Dialog
                 open={buying}>
@@ -234,19 +228,23 @@ export default function NFTDetails({
                 </DialogContent>
             </Dialog>
             
-            <Dialog 
-                open={error != null}
-                onClose={closeError}>
-                    <DialogContent>
-                        <Typography variant='h3'>There was an issue 😵</Typography>
-                        <Typography variant='subtitle2'>{
-                            (error) ? error : ""
-                        }</Typography>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={closeError}>Close</Button>
-                    </DialogActions>
-            </Dialog>
+        <Snackbar  
+            open={error.error} 
+            autoHideDuration={10000} 
+            onClose={closeError}
+            sx={{ top: "85%" }}>
+            <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
+                {`Error whilst processing transaction:\n ${error.message}`}
+            </Alert>
+        </Snackbar>
+        <Snackbar  
+            open={showSuccess.show} 
+            autoHideDuration={10000} 
+            onClose={closeSuccess}>
+            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+                Transaction was successful!
+            </Alert>
+        </Snackbar>
         </Paper>
     )
 }

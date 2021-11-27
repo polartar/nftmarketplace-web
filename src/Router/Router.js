@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, NavLink, useHistory} from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
 import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
@@ -16,8 +16,6 @@ import {
   Toolbar,
   Box, 
   Typography,
-  Avatar,
-  IconButton,
   Dialog,
   DialogContent,
   Stack,
@@ -26,16 +24,14 @@ import {
   Button,
   Menu
 } from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import { connectAccount, chooseProvider } from "../GlobalState/User";
-import Blockies from 'react-blockies';
+import { connectAccount } from "../GlobalState/User";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { SwitchChain } from "../Components/OnBoarding/OnBoarding";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "../App";
 import CollectionScreen from "../Pages/CollectionListings";
 import SellerScreen from "../Pages/SellerListings";
+import { AccountMenu } from "../Components/AccountMenu/AccountMenu";
+
 
 import {knownContracts} from '../GlobalState/Market';
 
@@ -46,6 +42,8 @@ const styles = theme => ({
   },
 });
 
+
+
 export const NavTabs = withStyles(styles)((props) => {
   const routes = ["/", "/marketplace", "/roadmap", "/nfts", "/"];
   const { classes } = props;
@@ -53,6 +51,12 @@ export const NavTabs = withStyles(styles)((props) => {
   const address = useSelector((state) => {
     return state.user.address;
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") != null && address == null) {
+      dispatch(connectAccount(true));
+    }
+  }, []);
 
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
@@ -78,7 +82,7 @@ export const NavTabs = withStyles(styles)((props) => {
       const onboarding = new MetaMaskOnboarding();
       onboarding.startOnboarding();
     } else{
-      dispatch(connectAccount("metamask"));
+      dispatch(connectAccount());
     }
   };
 
@@ -173,7 +177,8 @@ export const NavTabs = withStyles(styles)((props) => {
                   component={Link}
                   to={routes[2]}
                 />
-              {(address) ?
+
+              {/*(address) ?
                   <Tab
                   classes={{ root: classes.fullHeight }}
                     value={routes[3]}
@@ -182,23 +187,20 @@ export const NavTabs = withStyles(styles)((props) => {
                     component={Link}
                     to={routes[3]}
                   /> : null
-              } 
+              */} 
 
               </Tabs>
-              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+              {/*<IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
                  {theme.palette.mode === 'dark' ? <Brightness7Icon color='primary'/> : <Brightness4Icon color='primary'/>}
-              </IconButton>
+            </IconButton>*/}
               {(address)? 
                 (correctChain) ?
-                  <Avatar sx={{ bgcolor: '#d32f2f' }} alt={address}>
-                    <Blockies seed={address} size={30}/>
-                  </Avatar>
+                  <AccountMenu/>
                  :
                   <SwitchChain/>
                 
-                : <IconButton color='primary' aria-label="connect" onClick={startConnect} >
-                    <AccountBalanceWalletIcon/>
-                  </IconButton>
+                : 
+                <AccountMenu/>
               }
             </Toolbar>
           </AppBar>

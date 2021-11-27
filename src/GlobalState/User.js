@@ -24,8 +24,9 @@ const userSlice = createSlice({
     initialState : {
         provider: null,
         address : null,
+        web3modal: null,
         connectingWallet: false,
-        balance : "0",
+        balance : "Loading...",
         code : "",
         rewards: "Loading...",
         marketBalance : "Loading...",
@@ -44,12 +45,8 @@ const userSlice = createSlice({
     reducers: {
 
         accountChanged(state, action){
-            state.address = action.payload.address;
-            state.provider = action.payload.provider;
-            state.needsOnboard = action.payload.needsOnboard;
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
-            state.correctChain = action.payload.correctChain;
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
@@ -58,11 +55,23 @@ const userSlice = createSlice({
             state.marketBalance = action.payload.marketBalance;
         },
 
+        onCorrectChain(state, action) {
+            state.correctChain = action.payload.correctChain;
+        },
+
         onProvider(state, action){
             state.provider = action.payload.provider;
             state.needsOnboard = action.payload.needsOnboard;
             state.membershipContract = action.payload.membershipContract;
             state.correctChain = action.payload.correctChain;
+        },
+
+        onBasicAccountData(state, action) {
+            state.address = action.payload.address;
+            state.provider = action.payload.provider;
+            state.web3modal = action.payload.web3modal;
+            state.correctChain = action.payload.correctChain;
+            state.needsOnboard = action.payload.needsOnboard;
         },
 
         fetchingNfts(state, action){
@@ -106,6 +115,29 @@ const userSlice = createSlice({
         },
         setIsMember(state, action){
             state.isMember = action.payload;
+        },
+        onLogout(state) {
+            state.connectingWallet = false;
+            const web3Modal = new Web3Modal({
+                cacheProvider: false, // optional
+                providerOptions: [] // required
+            });
+            web3Modal.clearCachedProvider();
+            if (state.web3modal == null) {
+                const web3Modal = new Web3Modal({
+                    cacheProvider: false, // optional
+                    providerOptions: [] // required
+                });
+                web3Modal.clearCachedProvider();
+            } else {
+                state.web3modal.clearCachedProvider();
+            }
+            state.provider = null;
+            state.address = "";
+            state.balance = "Loading...";
+            state.rewards = "Loading...";
+            state.marketBalance = "Loading...";
+            state.isMember = false;
         }
 
     }
@@ -117,12 +149,16 @@ export const {
     fetchingNfts,
     onNfts, 
     connectingWallet,
+    onCorrectChain,
     registeredCode,
     withdrewRewards,
     withdrewPayments,
     listingUpdate,
     transferedNFT,
-    setIsMember} = userSlice.actions;
+    setIsMember,
+    onBasicAccountData,
+    onLogout
+} = userSlice.actions;
 export const user = userSlice.reducer;
 
 export const updateListed = (contract, id, listed) => async(dispatch) => {
@@ -134,7 +170,7 @@ export const updateListed = (contract, id, listed) => async(dispatch) => {
 }
 
 
-export const connectAccount = (type) => async(dispatch) => {
+export const connectAccount = (firstRun=false) => async(dispatch) => {
 
     const providerOptions = {
         walletconnect: {
@@ -163,12 +199,16 @@ export const connectAccount = (type) => async(dispatch) => {
     
     
     
-        
     const web3Modal = new Web3Modal({
-        cacheProvider: false, // optional
+        cacheProvider: true, // optional
         providerOptions // required
     });
-    web3Modal.clearCachedProvider();
+
+    console.log(localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER"));
+    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == null && firstRun) {
+        return;
+    }
+    
 
     console.log("Opening a dialog", web3Modal);
     var web3provider;
@@ -178,8 +218,8 @@ export const connectAccount = (type) => async(dispatch) => {
         console.log("Could not get a wallet connection", e);
         return;
     }
-    console.log(web3provider);
-    dispatch(connectingWallet({'connecting' : true}));
+
+    //dispatch(connectingWallet({'connecting' : true}));
 
     var provider = new ethers.providers.Web3Provider(web3provider);
 
@@ -187,22 +227,33 @@ export const connectAccount = (type) => async(dispatch) => {
         method: 'eth_accounts',
         params: [{chainId: cid}]
     });
+
+
     
     var address = accounts[0];
-
     var signer = provider.getSigner();
-
     var cid = await web3provider.request({
         method: "net_version",
     });
+ 
 
-    var correctChain = cid === rpc.chain_id
+    //console.log(cid, rpc.chain_id);
+    var correctChain = cid === Number(rpc.chain_id)
+    if (!correctChain) {
+        correctChain = cid === rpc.chain_id
+    }
+    //console.log(correctChain);
+    await dispatch(onBasicAccountData({
+        address: address,
+        provider: provider,
+        web3modal: web3Modal,
+        needsOnboard: false,
+        correctChain: correctChain
+    }));
+
 
     web3provider.on('disconnect', (error) => {
-        dispatch(accountChanged({
-            address: "",
-            provider: null,
-        }))
+        dispatch(onLogout());
     });
 
     web3provider.on('accountsChanged', (accounts) => {
@@ -230,6 +281,7 @@ export const connectAccount = (type) => async(dispatch) => {
     let market;
     let sales;
 
+
     if(signer && correctChain){
         mc = new Contract(rpc.membership_contract, Membership.abi, signer);
         mc.connect(signer);
@@ -244,14 +296,15 @@ export const connectAccount = (type) => async(dispatch) => {
         sales = ethers.utils.formatEther(await market.payments(address));
     }
 
+
     await dispatch(accountChanged({
         address: address,
         provider: provider,
-        providerType: type,
+        web3modal: web3Modal,
         needsOnboard: false,
+        correctChain: correctChain,
         membershipContract: mc,
         croniesContract: cc,
-        correctChain:correctChain,
         code: code,
         balance: balance,
         rewards: rewards,
@@ -259,6 +312,7 @@ export const connectAccount = (type) => async(dispatch) => {
         marketContract: market,
         marketBalance :sales
     }))
+
     dispatch(connectingWallet({'connecting' : false}));
 }
 
@@ -490,7 +544,7 @@ export const initProvider = () => async(dispatch) =>  {
             correctChain:correctChain
         };
 
-        dispatch(onProvider(obj))
+        //dispatch(onProvider(obj))
 
 
         provider.on('accountsChanged', (accounts) => {
