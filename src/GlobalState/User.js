@@ -432,7 +432,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     }
                                 }
                                 let json
-                                if(uri.includes('unrevealed')){
+                                if(uri.includes('unrevealed') || uri.startsWith('ar')){
                                     json = {
                                         'id' : id,
                                          'name' : c.name + ' ' + id,
