@@ -26,6 +26,7 @@ const userSlice = createSlice({
         address : null,
         web3modal: null,
         connectingWallet: false,
+        gettingContractData: true,
         balance : "Loading...",
         code : "",
         rewards: "Loading...",
@@ -53,6 +54,7 @@ const userSlice = createSlice({
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
+            state.gettingContractData = false;
         },
 
         onCorrectChain(state, action) {

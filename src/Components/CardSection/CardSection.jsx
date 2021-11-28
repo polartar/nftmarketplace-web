@@ -20,11 +20,11 @@ import {
     Snackbar,
     Alert
 } from '@mui/material'
-
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useTheme } from '@mui/material/styles';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 
-import { fetchMemberInfo, fetchVipInfo } from '../../GlobalState/Memberships'
+import { fetchMemberInfo, fetchVipInfo, memberships } from '../../GlobalState/Memberships'
 import {fetchCronieInfo} from '../../GlobalState/Cronies'
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -54,6 +54,10 @@ const CardSection = () => {
     const user = useSelector((state) => {
         return state.user;
     });
+
+    const gettingContractData = useSelector((state) => {
+        return state.user.gettingContractData;
+    })
 
     const [minting, setMinting] = useState(false);
     const closeMinting = () => {
@@ -108,6 +112,27 @@ const CardSection = () => {
         })
     }
 
+   useEffect(() => {
+        if(!gettingContractData && !cronies.fetching && !founders.fetching && minting){
+            // let selection;
+            // const id = selectedItem.id;
+            // if(id === 0){
+            //     selection = cronies;
+            // } else{
+            //     selection = founders;
+            // }
+            // setSelectedItem({
+            //     ...selectedItem,
+            //     ...selection
+            // })
+            // mintNow();
+            
+            //some reason price isn't set on foundres by above, quick dirty fix just close the dialog :(
+            setOpen(false);
+            setMinting(false);
+        }
+   }, [gettingContractData, cronies, founders])
+
     useEffect(() => {
         dispatch(fetchMemberInfo());
         dispatch(fetchVipInfo());
@@ -115,6 +140,10 @@ const CardSection = () => {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const mintNow = async() => {
+        if(gettingContractData || cronies.fetching || founders.fetching){
+            setMinting(true);
+            return;
+        }
         if(user.address && user.membershipContract){
             const price = ethers.utils.parseEther(selectedItem.price);
             const discount = ethers.utils.parseEther(selectedItem.discount);
@@ -259,7 +288,7 @@ const CardSection = () => {
                     <Button onClick={handleClose}>Close</Button>
                     {
                         (selectedItem.id === 2) ? <Button onClick={() => history.push(`/seller/0x0800833a3706db6fBbD846d5d1b9370a79Af8097`)}>View Collection</Button>
-                         :<Button onClick={mintNow}>Mint</Button>
+                         :<Button  onClick={mintNow}>Mint</Button>
                     }
                 </DialogActions>
             </Dialog>
@@ -269,7 +298,7 @@ const CardSection = () => {
                     <Stack spacing={2} direction='row'>
                         <CircularProgress/>
                         <Typography variant='h3'>
-                            Minting...
+                            {(gettingContractData) ? "Fetching Contract..." :  "Minting..."}
                         </Typography>
                     </Stack>
                 </DialogContent>

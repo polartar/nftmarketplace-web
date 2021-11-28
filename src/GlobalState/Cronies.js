@@ -3,7 +3,7 @@ import { Contract, ethers} from 'ethers'
 import rpc from '../Assets/networks/rpc_config.json'
 import Cronies from '../Contracts/CronosToken.json'
 
-const readProvider = new ethers.providers.JsonRpcProvider(rpc.url);
+const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const readCronies = new Contract(rpc.cronie_contract, Cronies.abi, readProvider);
 
 const cronieSlice = createSlice({
@@ -13,11 +13,13 @@ const cronieSlice = createSlice({
         maxMint : "5",
         discount: "0",
         count : 'Fetching...',
-        max : 'Open until 1 millionth validated block'
+        max : 'Open until 1 millionth validated block',
+        fetching : true
     },
     reducers: {
         croniesReceived(state, action){
             state.count = action.payload.count;
+            state.fetching = false;
         }
     }
 })

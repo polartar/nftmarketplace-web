@@ -3,7 +3,7 @@ import { Contract, ethers} from 'ethers'
 import rpc from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 
-const readProvider = new ethers.providers.JsonRpcProvider(rpc.url);
+const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const readMemberships = new Contract(rpc.membership_contract, Membership.abi, readProvider);
 
 const memberSlice = createSlice({
@@ -15,7 +15,8 @@ const memberSlice = createSlice({
             discount : "",
             count : 'Fetching...',
             max : 10000,
-            maxMint : 10
+            maxMint : 10,
+            fetching : true
         },
         vips : {
             id : 2,
@@ -51,7 +52,8 @@ export const fetchMemberInfo = () => async(dispatch) => {
             discount : ethers.utils.formatEther(d),
             count : nc.toNumber(),
             max : 10000,
-            maxMint : 10
+            maxMint : 10,
+            fetching: false
         })
     )
 };
