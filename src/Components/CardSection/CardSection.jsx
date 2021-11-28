@@ -3,16 +3,16 @@ import MyCard from '../Card/Card'
 import {useSelector, useDispatch} from 'react-redux'
 import './cardSec.css'
 
-import { 
+import {
     Button,
-    CardMedia, 
-    Container, 
-    Dialog, 
-    DialogActions, 
-    DialogContent, 
-    Grid, 
-    Stack, 
-    Typography, 
+    CardMedia,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    Grid,
+    Stack,
+    Typography,
     useMediaQuery,
     Slider,
     TextField,
@@ -198,8 +198,7 @@ const CardSection = () => {
             <Dialog
              open={open}
              onClose={handleClose}
-             fullScreen={fullScreen}
-             sx={{ zIndex: 10}}
+             className='mintDialog'
              maxWidth='lg'>
                  <DialogContent dividers={true}>
                     <Grid container spacing={{sm : 4}} columns={fullScreen ? 1 : 2}>
@@ -218,7 +217,7 @@ const CardSection = () => {
                                     <Typography variant='subtitle2' component='p'>
                                         {selectedItem.price} CRO
                                     </Typography>
-                                }                               
+                                }
                             </Stack>
 
                             {(selectedItem.id === 2) ? null :
@@ -244,14 +243,14 @@ const CardSection = () => {
                                     setNumToMint(val)
                                 }/>
                             }
- 
+
                             {selectedItem.id !== 1 ? null :
                               <TextField label="Referral Code" variant="outlined" onChange={ (e) =>{
                                 console.log('setting refferal ' + e.target.value);
                                 setRefferal(e.target.value);
                               }} />
                             }
-                            
+
                         </Stack>
                         </Grid>
                     </Grid>
@@ -275,24 +274,24 @@ const CardSection = () => {
                     </Stack>
                 </DialogContent>
             </Dialog>
-            <Snackbar  
-            open={error.error} 
-            autoHideDuration={10000} 
+            <Snackbar
+            open={error.error}
+            autoHideDuration={10000}
             onClose={closeError}
             sx={{ top: "85%" }}>
             <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
                 {`Error whilst processing transaction:\n ${error.message}`}
             </Alert>
         </Snackbar>
-        <Snackbar  
-            open={showSuccess.show} 
-            autoHideDuration={10000} 
+        <Snackbar
+            open={showSuccess.show}
+            autoHideDuration={10000}
             onClose={closeSuccess}>
             <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
                 Transaction was successful!
             </Alert>
         </Snackbar>
-                
+
         </Container>
 
     )

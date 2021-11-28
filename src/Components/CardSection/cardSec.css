@@ -4,5 +4,13 @@
     padding: 0px 20px;
     max-width: 1150px;
     margin: 1px auto 14px;
-    margin-top: 50px;
+    margin-top: 25px;
+}
+
+.css-iffa4z {
+    margin-top: 30px !important;
+}
+
+.mintDialog {
+    z-index: 1000;
 }

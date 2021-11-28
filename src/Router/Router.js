@@ -32,6 +32,8 @@ import CollectionScreen from "../Pages/CollectionListings";
 import SellerScreen from "../Pages/SellerListings";
 import { AccountMenu } from "../Components/AccountMenu/AccountMenu";
 
+import "./router.css"
+
 
 import {knownContracts} from '../GlobalState/Market';
 
@@ -112,6 +114,15 @@ export const NavTabs = withStyles(styles)((props) => {
               
               <Box component='div' width='1.5%'/>
 
+              <div className='logotext'>
+                <NavLink to='/' style={{ textDecoration: 'none', color: 'unset' }}>
+                  <Typography  color='inherit' component='div' className='bold'>
+                    Ebisus<span className='normalWeight' sx={{fontWeight: 400}}>Bay</span>
+                  </Typography>
+                </NavLink>
+              </div>
+
+              {/*
               <NavLink to='/' style={{ textDecoration: 'none', color: 'unset' }}>
                 <Typography  color='inherit' component='div' style={{fontWeight : 600}}>
                   Ebisus
@@ -121,7 +132,7 @@ export const NavTabs = withStyles(styles)((props) => {
                 <Typography color='inherit' component='div' style={{fontWeight : 400}}>
                   Bay
                 </Typography>
-              </NavLink>
+              </NavLink>*/}
 
               <Box component='div' sx={{ flexGrow: 1 }}/>
               <Tabs

@@ -10,7 +10,7 @@ import { AppBar, Toolbar, IconButton, Typography, Box, Link } from "@mui/materia
 
 const Footer = () => {
   return(
-    <AppBar position="fixed" color="inherit" sx={{ top: 'auto', bottom: 0 }}>
+    <AppBar position="fixed" color="inherit" sx={{ top: 'auto', bottom: 0, zIndex: 9 }}>
         <Toolbar>
             <IconButton color='primary' aria-label='email' target='_blank' href='mailto:admin@ebisusbay.com'>
               <MailOutlineIcon/>
