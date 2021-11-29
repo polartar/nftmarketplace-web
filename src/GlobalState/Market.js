@@ -440,6 +440,18 @@ export const knownContracts = [
         "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
         "onChain" : false,
         "listable" : true
-    }
+    }, {
+        "name" : "Crosmonauts",
+        "multiToken" : false,
+        "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
+        "onChain" : false,
+        "listable" : false
+    }, {
+        "name" : "Pingoo Black Friday Ticket",
+        "multiToken" : false,
+        "address" : "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
+        "onChain" : false,
+        "listable" : false
+    },
     
 ]
