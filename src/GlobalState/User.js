@@ -426,15 +426,19 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 }
                                 nfts.push(nft);
                             } else {
-                                if(gatewayTools.containsCID(uri)){
+                                if(gatewayTools.containsCID(uri) && !uri.startsWith('ar')){
                                     try{
                                         uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
                                     }catch(error){
                                        // console.log(error);
                                     }
+                                } else if(uri.startsWith('ar')){
+                                    uri = `https://arweave.net/${uri.substring(5)}`;
+                                } else {
+                                    console.log(uri);
                                 }
                                 let json
-                                if(uri.includes('unrevealed') || uri.startsWith('ar')){
+                                if(uri.includes('unrevealed')){
                                     json = {
                                         'id' : id,
                                          'name' : c.name + ' ' + id,
@@ -452,14 +456,21 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     json = await (await fetch(uri)).json();
                                 }
                                 let image
-                                if(gatewayTools.containsCID(json.image)){
+                                if(gatewayTools.containsCID(json.image) && !json.image.startsWith('ar')){
                                     try {
                                         image = gatewayTools.convertToDesiredGateway(json.image, gateway);
                                         
                                     }catch(error){
                                         image = json.image;
                                     }
-                                } else {
+                                } else if(json.image.startsWith('ar')){
+                                    if(typeof json.tooltip !== 'undefined'){
+                                        image = `https://arweave.net/${json.tooltip.substring(5)}`;
+                                    } else {
+                                        image = `https://arweave.net/${json.image.substring(5)}`;
+                                    }
+                                    
+                                }else {
                                     image = json.image;
                                 }
 
