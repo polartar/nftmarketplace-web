@@ -42,7 +42,7 @@ const userSlice = createSlice({
         marketContract: null,
         correctChain : false,
         nfts: []
-    }, 
+    },
     reducers: {
 
         accountChanged(state, action){
@@ -97,7 +97,7 @@ const userSlice = createSlice({
                 }catch(error){
                     console.log(error);
                 }
-                
+
             }
         },
         connectingWallet(state, action) {
@@ -146,10 +146,10 @@ const userSlice = createSlice({
 });
 
 export const {
-    accountChanged, 
-    onProvider, 
+    accountChanged,
+    onProvider,
     fetchingNfts,
-    onNfts, 
+    onNfts,
     connectingWallet,
     onCorrectChain,
     registeredCode,
@@ -198,9 +198,9 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             package: null
             },
         }
-    
-    
-    
+
+
+
     const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
         providerOptions // required
@@ -210,7 +210,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == null && firstRun) {
         return;
     }
-    
+
 
     console.log("Opening a dialog", web3Modal);
     var web3provider;
@@ -231,13 +231,13 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     });
 
 
-    
+
     var address = accounts[0];
     var signer = provider.getSigner();
     var cid = await web3provider.request({
         method: "net_version",
     });
- 
+
 
     //console.log(cid, rpc.chain_id);
     var correctChain = cid === Number(rpc.chain_id)
@@ -259,10 +259,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     });
 
     web3provider.on('accountsChanged', (accounts) => {
-
-        dispatch(accountChanged({
-            address: accounts[0]
-        }))
+        dispatch(connectAccount());
     });
 
     web3provider.on('chainChanged', (chainId) => {
@@ -347,13 +344,13 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 }catch(error){
                                     //console.log(error);
                                 }
-                            } 
+                            }
                             const json = await (await fetch(uri)).json();
                             // const a = Array.from({length : count}, (_, i) => {
                             //     const name = json.name;
                             //     const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
                             //     const description = json.description;
-                            //     const properties = json.properties; 
+                            //     const properties = json.properties;
                             //     return {
                             //         'name': name,
                             //         'id' : c.id,
@@ -370,7 +367,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                             const name = json.name;
                             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
                             const description = json.description;
-                            const properties = json.properties; 
+                            const properties = json.properties;
                             const nft = {
                                 'name': name,
                                 'id' : c.id,
@@ -385,12 +382,12 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 'listed' : listing != null,
                                 'listingId' : (listing) ? listing['listingId'] : null
                             }
-    
+
                             dispatch(onNfts({
                                 'nfts' : [nft]
                             }))
                         }
-              
+
                     } else {
                         var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
@@ -398,7 +395,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         contract.connect(signer);
                         const count = await contract.balanceOf(user.address);
                         for(let i = 0; i < count; i++){
-                            const id = await readContract.tokenOfOwnerByIndex(user.address, i);                            
+                            const id = await readContract.tokenOfOwnerByIndex(user.address, i);
                             const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
                             let uri = await readContract.tokenURI(id);
                             if(c.onChain){
@@ -425,7 +422,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                             } else {
                                 if(gatewayTools.containsCID(uri) && !uri.startsWith('ar')){
                                     try{
-                                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
+                                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
                                     }catch(error){
                                        // console.log(error);
                                     }
@@ -456,7 +453,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                 if(gatewayTools.containsCID(json.image) && !json.image.startsWith('ar')){
                                     try {
                                         image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                                        
+
                                     }catch(error){
                                         image = json.image;
                                     }
@@ -466,7 +463,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     } else {
                                         image = `https://arweave.net/${json.image.substring(5)}`;
                                     }
-                                    
+
                                 }else {
                                     image = json.image;
                                 }
@@ -495,7 +492,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                     console.log('error fetching ' + knownContracts[i].name);
                     console.log(error);
                 }
-    
+
             })
         )
 
@@ -508,17 +505,17 @@ function dataURItoBlob(dataURI, type) {
 
     // convert base64 to raw binary data held in a string
     let byteString = atob(dataURI.split(',')[1]);
-  
+
     // separate out the mime component
     let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
+
     // write the bytes of the string to an ArrayBuffer
     let ab = new ArrayBuffer(byteString.length);
     let ia = new Uint8Array(ab);
     for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-  
+
     // write the ArrayBuffer to a blob, and you're done
     let bb = new Blob([ab], { type: type });
     return bb;
@@ -527,20 +524,16 @@ function dataURItoBlob(dataURI, type) {
 export const initProvider = () => async(dispatch) =>  {
 
     const ethereum = await detectEthereumProvider();
-        
+
      if(ethereum == null || ethereum !== window.ethereum){
         console.log('not metamask detected');
-        dispatch(onProvider({
-            provider: ethereum,
-            needsOnboard: true
-        }))
     } else {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer =  provider.getSigner();
         const cid =  await ethereum.request({
             method: "net_version",
         });
-    
+
         const correctChain = cid === rpc.chain_id
 
         let mc;
@@ -576,6 +569,7 @@ export const initProvider = () => async(dispatch) =>  {
 }
 
 export const chainConnect = (type) => async(dispatch) => {
+    console.log(window.ethereum);
     if (window.ethereum) {
         const cid = ethers.utils.hexValue(BigNumber.from(rpc.chain_id));
         try{
@@ -616,16 +610,11 @@ export const chainConnect = (type) => async(dispatch) => {
             console.log(error);
         }
     } else {
-        let cid = 25;
         const web3Provider = new WalletConnectProvider({
             rpc: {
               25: "https://evm-cronos.crypto.org"
             },
             chainId: 25,
           });
-        await web3Provider.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{chainId: cid}]
-        });
     }
 }

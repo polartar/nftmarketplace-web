@@ -168,6 +168,7 @@ const registerCode = async () => {
 }
 
 const logout = async () => {
+    await user.web3modal.clearCachedProvider();
     dispatch(onLogout());
     //window.location.reload();
 }
@@ -208,11 +209,11 @@ const startConnect = () => {
             </Button>
             </Tooltip>
         </Box>
-      : 
+      :
         <IconButton color='primary' aria-label="connect" onClick={handleClick} >
             <SettingsIcon/>
         </IconButton>
-      } 
+      }
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -249,14 +250,14 @@ const startConnect = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {(user.address)? 
+        {(user.address)?
         <MenuItem className="accountMenu" sx={{ marginTop: "8px" }}>
             <ListItemIcon>
                 <AccountBalanceWalletIcon sx={{fill: 'lightgreen'}} fontSize="medium" />
             </ListItemIcon>
             <ListItemText>{`${address.substring(0, 8)}...${address.substring(address.length-8, address.length)}`}</ListItemText>
         </MenuItem>
-        : 
+        :
         <>
         <MenuItem className="accountMenu" sx={{ marginTop: "8px", color: 'lightgreen' }} onClick={startConnect}>
             <ListItemIcon>
@@ -267,7 +268,7 @@ const startConnect = () => {
         <Divider/>
         </>
         }
-        {(user.address)? 
+        {(user.address)?
         <>
         <Divider/>
         <MenuItem component={Link} to='/nfts' className="accountMenu" sx={{ marginTop: "8px" }}>
@@ -323,7 +324,7 @@ const startConnect = () => {
             </Container>
         :
             <>
-            {(user.isMember) ? 
+            {(user.isMember) ?
             <Container sx={{ margin: "15px 0px 7px 0px", fontWeight: "500"}}>
                     Referrals
                     {(user.code && user.code.length > 0) ?
@@ -340,7 +341,7 @@ const startConnect = () => {
                                     <AttachMoneyIcon fontSize="medium" />
                                 </ListItemIcon>
                                 <ListItemText>Withdraw {ethers.utils.commify(user.rewards)} CRO</ListItemText>
-                            </MenuItem> 
+                            </MenuItem>
                             :
                             <MenuItem onClick={withdrawRewards} className="accountMenu" sx={{ marginTop: "5px"}}>
                                 <ListItemIcon>
@@ -351,14 +352,14 @@ const startConnect = () => {
                         }
                         </>
 
-                        : 
+                        :
                         <MenuItem onClick={registerCode} className="accountMenu">
                         <ListItemIcon>
                                 <PeopleIcon fontSize="medium" />
                         </ListItemIcon>
                         <ListItemText>Register Referral Code</ListItemText>
                         </MenuItem>
-                    } 
+                    }
                 </Container>
                 : null
             }
@@ -370,18 +371,18 @@ const startConnect = () => {
             Settings
             <MenuItem onClick={colorMode.toggleColorMode} className="accountMenu" sx={{ marginTop: "5px", fontWeight: 300}}>
             <ListItemIcon>
-                 {theme.palette.mode === 'dark' ? 
-                    <LightModeIcon/> 
-                    : 
+                 {theme.palette.mode === 'dark' ?
+                    <LightModeIcon/>
+                    :
                     <DarkModeIcon/>
                 }
             </ListItemIcon>
             <ListItemText>
-            {theme.palette.mode === 'dark' ? 
+            {theme.palette.mode === 'dark' ?
                     <>
                     Light Mode
                     </>
-                    : 
+                    :
                     <>
                     Dark Mode
                     </>
@@ -390,7 +391,7 @@ const startConnect = () => {
             </MenuItem>
         </Container>
         <Divider />
-        {(user.address)? 
+        {(user.address)?
         <MenuItem onClick={logout} sx={{ margin: "5px 0px 5px 0px", color: "#ff7f7f"}} className="accountMenu">
           <ListItemIcon>
             <Logout fontSize="medium" />
@@ -419,18 +420,18 @@ const startConnect = () => {
             </DialogContent>
         </Dialog>
 
-        <Snackbar  
-            open={error.error} 
-            autoHideDuration={10000} 
+        <Snackbar
+            open={error.error}
+            autoHideDuration={10000}
             onClose={closeError}
             sx={{ top: "85%" }}>
             <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
                 {`Error whilst processing transaction:\n ${error.message}`}
             </Alert>
         </Snackbar>
-        <Snackbar  
-            open={showSuccess.show} 
-            autoHideDuration={10000} 
+        <Snackbar
+            open={showSuccess.show}
+            autoHideDuration={10000}
             onClose={closeSuccess}>
             <Alert onClose={closeSuccess} severity="success" sx={{ width: '100%' }}>
                 Transaction was successful!
