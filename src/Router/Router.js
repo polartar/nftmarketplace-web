@@ -5,16 +5,17 @@ import Home from "../Pages/Home";
 import MarketPlaceScreen from "../Pages/MarketPlaceScreen";
 import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
+import DropScreen from "../Pages/DropScreen";
 import { DirectListing } from "../Pages/DirectListing";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles, useTheme } from '@mui/styles';
 import {
-  AppBar, 
+  AppBar,
   Tabs,
-  Tab, 
+  Tab,
   Toolbar,
-  Box, 
+  Box,
   Typography,
   Dialog,
   DialogContent,
@@ -113,11 +114,11 @@ export const NavTabs = withStyles(styles)((props) => {
         render={(history) => (
           <AppBar color="inherit">
             <Toolbar>
-            
+
               <Link to='/'>
                 <img src={mainLogo} alt="Logo" height="54"/>
               </Link>
-              
+
               <Box component='div' width='1.5%'/>
 
               <div className='logotext'>
@@ -152,10 +153,10 @@ export const NavTabs = withStyles(styles)((props) => {
                     ? history.location.pathname
                     : false
                 }>
-                  
+
                 <Tab
                 classes={{ root: classes.fullHeight }}
-                  
+
                   label="Marketplace"
                   component={Button}
                   onClick={onMarket}
@@ -175,13 +176,13 @@ export const NavTabs = withStyles(styles)((props) => {
                   PaperProps={{
                     style: {
                       maxHeight: 64 * 4.5,
-                      
+
                     },
                   }}
                 >
                 <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`} onClick={() => setMarketSelect(false)}>All</MenuItem>
                   {knownContracts.filter(e => e.listable).map((e) => {
-                    
+
                     return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => { setMarketSelect(false); resetPage(); }}>{e.name}</MenuItem>)
                   })}
                 </Menu>
@@ -204,19 +205,19 @@ export const NavTabs = withStyles(styles)((props) => {
                     component={Link}
                     to={routes[3]}
                   /> : null
-              */} 
+              */}
 
               </Tabs>
               {/*<IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
                  {theme.palette.mode === 'dark' ? <Brightness7Icon color='primary'/> : <Brightness4Icon color='primary'/>}
             </IconButton>*/}
-              {(address)? 
+              {(address)?
                 (correctChain) ?
                   <AccountMenu/>
                  :
                   <SwitchChain/>
-                
-                : 
+
+                :
                 <AccountMenu/>
               }
             </Toolbar>
@@ -247,11 +248,11 @@ export const NavTabs = withStyles(styles)((props) => {
         open={marketSelect}
         >
       <FormControl fullWidth>
-        <Select 
+        <Select
         >
           <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`}>All</MenuItem>
           {knownContracts.filter(e => e.listable).map((e) => {
-            
+
             return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => setMarketSelect(false)}>{e.name}</MenuItem>)
           })}
         </Select>
@@ -271,6 +272,7 @@ export const AppRouter = () => {
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
         <Route exact path="/nfts" component={MyNftScreen} />
+        <Route exact path="/drop" component={DropScreen} />
         <Route exact path="/listing/:id" component={DirectListing}/>
         <Route exact path="/collection/:address" component={CollectionScreen} />
         <Route exact path="/seller/:address" component={SellerScreen} />
