@@ -31,6 +31,8 @@ import { ColorModeContext } from "../App";
 import CollectionScreen from "../Pages/CollectionListings";
 import SellerScreen from "../Pages/SellerListings";
 import { AccountMenu } from "../Components/AccountMenu/AccountMenu";
+import { onPage } from "../GlobalState/Market";
+
 
 import "./router.css"
 
@@ -98,6 +100,10 @@ export const NavTabs = withStyles(styles)((props) => {
   const onMarket = (event) => {
     setAnchorEl(event.currentTarget);
     setMarketSelect(true);
+  }
+
+  const resetPage = () => {
+    dispatch(onPage(1));
   }
 
   return (
@@ -176,7 +182,7 @@ export const NavTabs = withStyles(styles)((props) => {
                 <MenuItem component={Link} to={`/marketplace`} value={`/marketplace}`} onClick={() => setMarketSelect(false)}>All</MenuItem>
                   {knownContracts.filter(e => e.listable).map((e) => {
                     
-                    return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => setMarketSelect(false)}>{e.name}</MenuItem>)
+                    return(<MenuItem component={Link} to={`/collection/${e.address}`} value={`/collection/${e.address}`} onClick={() => { setMarketSelect(false); resetPage(); }}>{e.name}</MenuItem>)
                   })}
                 </Menu>
 

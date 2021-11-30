@@ -241,7 +241,7 @@ export default function NFTDetails({
             open={showSuccess.show} 
             autoHideDuration={10000} 
             onClose={closeSuccess}>
-            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+            <Alert onClose={closeSuccess} severity="success" sx={{ width: '100%' }}>
                 Transaction was successful!
             </Alert>
         </Snackbar>

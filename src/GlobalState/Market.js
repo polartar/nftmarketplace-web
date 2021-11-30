@@ -4,28 +4,30 @@ import rpc from '../Assets/networks/rpc_config.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Market from '../Contracts/Marketplace.json'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
+import { circularProgressClasses } from '@mui/material'
 
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
-const listingsUri = "https://api.ebisusbay.com/activeListings";
+const listingsUri = "https://api.ebisusbay.com/listings?";
 const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
 const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
 
-export const SortOrders = ['Time', 'Price', 'Id']
+export const SortOrders = ['Listing ID', 'Price', 'Token ID']
 
 const marketSlice = createSlice({
     name : 'market',
     initialState : {
         loadingPage : true,
-        totalListed : 0,
+        // totalListed : 0,
         totalPages : 0,
         listings : [[]],
         type: 'all',
+        address: null,
         sortOrder : SortOrders[0],
         curPage : 1,
-        response: null,
+        // response: null,
         currentListing : null
     },
     reducers : {
@@ -34,7 +36,7 @@ const marketSlice = createSlice({
         },
         clearSet(state){
             state.listings = [[]];
-            state.totalListed = 0;
+            // state.totalListed = 0;
             state.loadingPage = true;
         },
         onNewPage(state, action){
@@ -43,22 +45,24 @@ const marketSlice = createSlice({
             state.listings[action.payload.page] = action.payload.newPage;
         },
         onTotalListed(state, action){
-            state.totalListed = action.payload.totalActive;
+            // state.totalListed = action.payload.totalActive;
             state.listings = action.payload.listings;
             state.response = action.payload.response;
             state.totalPages = action.payload.totalPages;
             state.type = action.payload.type;
+            state.address = action.payload.address;
         },
         onListingLoaded(state, action) {
             state.currentListing = action.payload;
             state.loadingPage = false;
         },
         onSort(state, action){
-            if(state.response !== null){
+            if(action.payload.response !== null){
                 state.listings = [[]]
-                state.response = sortByType(state.response, action.payload.order);
-                const index = (state.curPage - 1) * pagesize;
-                state.listings[index] = [...state.response].splice(index, pagesize);
+                state.response = action.payload.response;
+                state.curPage = 1;
+                state.totalPages = state.response.totalPages; 
+                state.listings[state.page] = state.response.listings;
             }
             state.sortOrder = action.payload.order;
         },
@@ -98,7 +102,9 @@ export const init = (state, type, address) => async(dispatch) => {
     
         dispatch(clearSet());
 
-        let listingsResponse = await (await (await (await fetch(listingsUri)).json()).map((e) => {
+        const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
+        const pages = rawResponse.totalPages;
+        const listingsResponse = rawResponse.listings.map((e) => {
             const nft = {
                 'name' : e.name,
                 'image' : e.image,
@@ -111,25 +117,25 @@ export const init = (state, type, address) => async(dispatch) => {
                 'price' : ethers.utils.parseEther(String(e.price)),
                 'nft' : nft
             }
-        })).filter(e => typeof e.name !== 'undefined');
+        }).filter(e => typeof e.name !== 'undefined'); //backend hasn't fetched metadata for this listing
 
-        if(type === 'collection'){
-            listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
-        } else if(type === 'seller'){
-            listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
-        }
-        const pages = Math.ceil(listingsResponse.length / pagesize);
-        listingsResponse = sortByType(listingsResponse, state.market.sortOrder);
-        
+        // if(type === 'collection'){
+        //     listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
+        // } else if(type === 'seller'){
+        //     listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
+        // }
+        // const pages = Math.ceil(listingsResponse.length / pagesize);
+        // listingsResponse = sortByType(listingsResponse, state.market.sortOrder);
+        const listings = new Array(pages);
+        listings[1] = listingsResponse
         
         dispatch(onTotalListed({
             'type' : type,
-            'totalActive' : listingsResponse.length,
             'totalPages' : pages,
             'listings' : new Array(pages),
-            'response' : listingsResponse
+            'address': address,
+            // 'response' : listingsResponse
         }))
-
 }
 
 /**
@@ -140,21 +146,37 @@ export const init = (state, type, address) => async(dispatch) => {
                 'properties' : (properties) ? properties : [],
  */
 
-export const loadPage = (state, page) => async(dispatch) => {
-    dispatch(startLoading())
-
-    const index = (page - 1) * pagesize;
-    let listings = [...state.market.response].splice(index, pagesize);
-
+export const loadPage = (page, type, address, order) => async(dispatch) => {
+    ///TODO show loaded
+    //dispatch(startLoading())
+    const rawResponse = await sortAndFetch(order, page, type, address);
+    const listingsResponse =  rawResponse.listings.map((e) => {
+        const nft = {
+            'name' : e.name,
+            'image' : e.image,
+            'description' : e.description,
+            'properties' : (e.properties) ? e.properties : []
+        }
+        return {
+            ...e,
+            'listingId': ethers.BigNumber.from(e.listingId),
+            'price' : ethers.utils.parseEther(String(e.price)),
+            'nft' : nft
+        }
+    }).filter(e => typeof e.name !== 'undefined');
+    // const index = (page - 1) * pagesize;
+    // let listings = [...state.market.response].splice(index, pagesize);
     dispatch(onNewPage({
         'page' : page,
-        'newPage' : listings
+        'newPage' : listingsResponse,
     }));
 }
 
-export const requestSort = (order, curPage) => async(dispatch) => {
+export const requestSort = (order, type, address) => async(dispatch) => {
+    let response = await sortAndFetch(order, 1, type, address);
     dispatch(onSort({
-        'order' : order
+        'response' : response,
+        'order': order
     }))
 }
 
@@ -296,14 +318,30 @@ function dataURItoBlob(dataURI, type) {
     return bb;
 }
 
-function sortByType(listings, order){
+async function sortAndFetch(order, page, type, address){
+    let filter;
     if(order === SortOrders[0]){
-        return listings.sort((a,b) => b.listingId.sub(a.listingId));
-    } else if(order === SortOrders[1]){
-        return listings.sort((a,b) => a.price.sub(b.price));
-    } else{   
-        return listings.sort((a,b) => a.nftId - b.nftId);
+        if(type !== 'all') {
+            filter = `&${type}=${address}&sortBy=listingId&direction=asc`
+        } else {
+            filter = `&sortBy=listingId&direction=desc`
+        }
+    } else if (order === SortOrders[1]){
+        if (type !== 'all'){
+            filter = `&${type}=${address}&sortBy=price&direction=asc`
+        } else {
+            filter = `&sortBy=price&direction=asc`
+        }
+    } else {   
+        if (type !== 'all'){
+            filter = `&${type}=${address}&sortBy=tokenId&direction=asc`
+        } else {
+            filter = `&sortBy=tokenId&direction=asc`
+        }
     }
+    const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;
+    const rawResponse = await (await fetch(uri)).json();
+    return rawResponse;
 }
 
 export const knownContracts = [

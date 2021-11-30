@@ -26,7 +26,7 @@ import LinkIcon from '@mui/icons-material/Link';
 
 import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
-import { connectAccount, chainConnect } from '../../GlobalState/User'
+import { connectAccount, chainConnect, onProvider } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import {useHistory} from 'react-router-dom';
 
@@ -40,9 +40,10 @@ export default function MarketSelection({
         return state;
     });
 
-    useEffect(() => {
+
+    useEffect(async function() {
+        let address = null;
         let type = 'all';
-        let address;
         if(typeof collection !== 'undefined'){
             type = 'collection';
             address = collection;
@@ -50,37 +51,46 @@ export default function MarketSelection({
             type = 'seller';
             address = seller;
         }
-        dispatch(init(state, type, address));
+        await dispatch(init(state, type, address));
+        await dispatch(loadPage(page, type, address, order));
     }, [collection, seller]);
 
     const page = useSelector((state) => {
         return state.market.curPage;
     })
+
+    const address = useSelector((state) => {
+        return state.market.address;
+    })
+
     const handlePageChange = (event, value) => {
        dispatch(onPage(value));
     };
 
-    const response = useSelector((state) => {
-        return state.market.response;
-    });
+    // const response = useSelector((state) => {
+    //     return state.market.response;
+    // });
 
     const[is1155Collection, set1155Collection] = useState(false);
 
-    useEffect(() => {
-        if(typeof listings === "undefined" && response != null){
-            dispatch(loadPage(state, page));
-        }
-    }, [page, response]);
+    const order = useSelector((state) => {
+        return state.market.sortOrder;
+    })
 
     useEffect(() => {
-        if(response !== null){
-            if(response.every(e => e.is1155)){
-                set1155Collection(true);
-            } else {
-                set1155Collection(false);
-            }
-        }
-    }, [response])
+        dispatch(loadPage(page, type, address, order));
+    }, [page, order]);
+
+
+    // useEffect(() => {
+    //     if(response !== null){
+    //         if(response.every(e => e.is1155)){
+    //             set1155Collection(true);
+    //         } else {
+    //             set1155Collection(false);
+    //         }
+    //     }
+    // }, [response])
 
     const totalPages = useSelector((state) => {
         return state.market.totalPages;
@@ -88,6 +98,10 @@ export default function MarketSelection({
 
     const listings = useSelector((state) => {
         return state.market.listings[page];
+    });
+
+    const type = useSelector((state) => {
+        return state.market.type;
     });
 
     const user = useSelector((state) => {
@@ -159,7 +173,7 @@ export default function MarketSelection({
     }
 
     const sortChanged = async (event) => {
-        dispatch(requestSort(event.target.value, page));
+        await dispatch(requestSort(event.target.value, type, address));
     }
 
     const [showCopied, setShowCopied] = useState(false);
@@ -279,7 +293,7 @@ export default function MarketSelection({
             open={showSuccess.show} 
             autoHideDuration={10000} 
             onClose={closeSuccess}>
-            <Alert onClose={closeSuccess} severity="error" sx={{ width: '100%' }}>
+            <Alert onClose={closeSuccess} severity="success" sx={{ width: '100%' }}>
                 Transaction was successful!
             </Alert>
         </Snackbar>
