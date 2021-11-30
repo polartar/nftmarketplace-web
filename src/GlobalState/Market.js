@@ -483,7 +483,7 @@ export const knownContracts = [
         "multiToken" : false,
         "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
         "onChain" : false,
-        "listable" : false
+        "listable" : true
     }, {
         "name" : "Pingoo Black Friday Ticket",
         "multiToken" : false,
