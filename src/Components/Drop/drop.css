@@ -8,7 +8,6 @@
     width: 100%;
     height: auto;
     text-align: center;
-
 }
 
 .countdowndesc {
@@ -30,8 +29,14 @@
 }
 
 .mintButton {
-    margin-top: 20px;
-    text-align: center
+    margin-top: 50px !important;
+    width: 200px !important;
+    height: auto !important;
+    text-align: center;
+    border-radius: 20px !important;
+    color: white;
+    background-color: var(--primary);
+    background-color: rgb(68, 68, 68) !important;
 }
 
 @media only screen and (max-width:890px) {

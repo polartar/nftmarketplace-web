@@ -25,7 +25,7 @@ const Drop = () => {
       <Typography className='time'>
         FRIDAY 3 DECEMBER 21:00 UTC
       </Typography>
-      <Button className='mintButton'>
+      <Button disabled className='mintButton'>
         MINT
       </Button>
     </Box>
