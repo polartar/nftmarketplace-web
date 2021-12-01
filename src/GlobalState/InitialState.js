@@ -1,6 +1,7 @@
 import cronies from '../Assets/cronies.webp'
 import member from '../Assets/founding_member.webp'
 import genesis from '../Assets/CRS-collage.webp'
+import elon from '../Assets/elons_adventures_card.gif'
 
 export const InitialState = {
   nftslect:{},
@@ -18,14 +19,16 @@ export const InitialState = {
       img: member,
       title: 'Founding Member',
       descs: `Early access to features and reduced fees forever.`,
-      p1: 'If you hold a Founding Member NFT you will have access to beta features on the platform and receive the benefit of reduced service fees.',
-      p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. We reserve the right to adjust the sale price based on CRO price action. Founding Member NFTs will be limited to 10,000.'
+      p1: 'If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.',
+      p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. Founding Member NFTs will be limited to 10,000.'
     },
     {
       id: 2,
-      img: genesis,
-      title: 'Crypto Collage Genesis',
-      descs: `NFT project will be minted with only 10 editions of each in existence.`,
+      img: elon,
+      title: "Elon's Adventures",
+      descs: "The zany and wacky adventures of Elon by Barbara Redekop.",
+      //title: 'Crypto Collage Genesis',
+      //descs: `NFT project will be minted with only 10 editions of each in existence.`,
       p1: 'NFT project will be minted with only 10 editions of each in existence.',
       p2: 'This art is inspired by the ever growing popularity of the cryptocurrency. Art is combination of vintage inspiration from the past that is fused with current cryptocurrency projects and astronomical potential it possesses.'
     },
