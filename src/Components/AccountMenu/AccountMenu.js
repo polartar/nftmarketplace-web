@@ -300,7 +300,7 @@ const startConnect = () => {
                         <ListItemText>Withdraw {ethers.utils.commify(user.marketBalance)} CRO</ListItemText>
                     </MenuItem>
                 :
-                    <MenuItem className="accountMenu" sx={{ marginTop: "5px"}}>
+                    <MenuItem onClick={withdrawBalance} className="accountMenu" sx={{ marginTop: "5px"}}>
                         <ListItemIcon>
                             <AttachMoneyIcon fontSize="medium" />
                         </ListItemIcon>
