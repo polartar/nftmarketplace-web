@@ -134,6 +134,7 @@ const userSlice = createSlice({
             } else {
                 state.web3modal.clearCachedProvider();
             }
+            state.web3modal = null;
             state.provider = null;
             state.address = "";
             state.balance = "Loading...";
@@ -223,6 +224,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
 
     //dispatch(connectingWallet({'connecting' : true}));
 
+    try {
     var provider = new ethers.providers.Web3Provider(web3provider);
 
     let accounts = await web3provider.request({
@@ -311,8 +313,13 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         marketContract: market,
         marketBalance :sales
     }))
-
+    } catch (error) {
+        console.log("Error connecting wallet!");
+        await web3Modal.clearCachedProvider();
+        dispatch(onLogout());
+    }
     dispatch(connectingWallet({'connecting' : false}));
+
 }
 
 export const fetchNfts = (user) => async(dispatch) =>{
