@@ -28,7 +28,7 @@ const Drop = () => {
 
       <Box mt={3}>
         <Typography component='p' variant='subtitle1' mb={3}>
-          We invite you to take part in Elon's Adventures. He is viral, he is global, he is intersteller.
+          We invite you to take part in Elon's Adventures. He is viral, he is global, he is interstellar.
         </Typography>
 
         <Typography component='span' variant='subtitle1' mr={1}>
