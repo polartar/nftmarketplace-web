@@ -490,6 +490,12 @@ export const knownContracts = [
         "address" : "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
         "onChain" : false,
         "listable" : false
-    },
+    },{
+        "name" : "Mad Meerkat",
+        "multiToken" : false,
+        "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
+        "onChain" : false,
+        "listable" : false
+    }
     
 ]
