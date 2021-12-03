@@ -508,6 +508,12 @@ export const knownContracts = [
         "address" : "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
         "onChain" : false,
         "listable" : true
+    },{
+        "name" : "SneakyPenguinsClub",
+        "multiToken" : false,
+        "address" : "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
+        "onChain" : false,
+        "listable" : true
     },
     
 ]
