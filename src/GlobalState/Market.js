@@ -513,7 +513,7 @@ export const knownContracts = [
         "multiToken" : false,
         "address" : "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
         "onChain" : false,
-        "listable" : true
+        "listable" : false
     },
     
 ]

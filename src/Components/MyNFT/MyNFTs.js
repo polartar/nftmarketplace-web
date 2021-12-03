@@ -384,25 +384,7 @@ export const MyNFTs = () => {
         <Container maxWidth="lg" mt={3}>
             {(user.address)? 
             <Box mb={16} mt={4}>
-                <Collapse in={alertOpen}>
-                <Alert
-                action={
-                    <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                        setAlertOpen(false);
-                    }}
-                    >
-                    <CloseIcon fontSize="inherit" />
-                    </IconButton>
-                }
-                sx={{ mb: 2 }}
-                >
-                Fear Not! Your NFTs from other collections will be visible here when the Block Explorer is stable. In the meantime contact us with the smart contract of your missing NFT and we will add support!
-                </Alert>
-            </Collapse>
+
 
             {/*<Box>
 
