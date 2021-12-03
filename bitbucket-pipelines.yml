@@ -47,6 +47,7 @@ pipelines:
           image: amazon/aws-cli
           deployment: Development
           script:
+            - ([[ "$BITBUCKET_BRANCH" == "master" ]]) || (echo "This build should only be run on master" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
@@ -85,6 +86,7 @@ pipelines:
           image: amazon/aws-cli
           deployment: Production
           script:
+            - ([[ "$BITBUCKET_BRANCH" == "production" ]]) || (echo "This build should only be run on production" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
