@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import CloseIcon from '@mui/icons-material/Close';
-import { Redirect } from 'react-router-dom'
+import {Redirect, useHistory} from 'react-router-dom'
 import {
     CardMedia,
     Container,
@@ -17,6 +17,7 @@ import {
     CircularProgress,
     useMediaQuery,
     Button,
+    CardActionArea,
     TextField,
     DialogActions,
     CardActions,
@@ -30,7 +31,7 @@ import {
 import { useTheme } from '@mui/material/styles';
 
 import { getAnalytics, logEvent } from '@firebase/analytics'
-import { fetchNfts } from '../../GlobalState/User';
+import { onNftLoading, fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { nanoid } from 'nanoid'
@@ -43,6 +44,7 @@ import './mynft.css'
 export const MyNFTs = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const theme = useTheme();
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -373,6 +375,11 @@ export const MyNFTs = () => {
         setShowCopied(true);
     }
 
+    const viewDetails = (collectionId, nftId) => () => {
+        dispatch(onNftLoading(nftId));
+        history.push(`/collection/${collectionId}/${nftId}`);
+    }
+
     return(
         <Container maxWidth="lg" mt={3}>
             {(user.address)? 
@@ -451,25 +458,28 @@ export const MyNFTs = () => {
 
             
             <Grid container spacing={4} justifyContent="center" alignItems="center">
-                {user.nfts.map((val, j) => 
+                {user.nfts.map((val, j) =>
                     <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={j}>
                         <Card>
-                            <CardMedia  component='img' image={val.image} height='285' sx={{}} />
+                            <CardActionArea onClick={viewDetails(val.address, val.id)}>
 
-                            <Box sx={{ p: 2, height : 150}}>
-                                <Typography  noWrap variant="h5" color='primary'>
-                                    {val.name}
-                                </Typography>
-                                {(val.count) ?
-                                  <Typography variant='subtitle' paragraph>
-                                        Count: {val.count}
-                                   </Typography>  
-                                    : null  
-                                } 
-                                <Typography variant='subtitle2' paragraph>
-                                    {val.description}
-                                </Typography>
-                            </Box>
+                                <CardMedia  component='img' image={val.image} height='285' sx={{}} />
+
+                                <Box sx={{ p: 2, height : 150}}>
+                                    <Typography  noWrap variant="h5" color='primary'>
+                                        {val.name}
+                                    </Typography>
+                                    {(val.count) ?
+                                        <Typography variant='subtitle' paragraph>
+                                            Count: {val.count}
+                                        </Typography>
+                                        : null
+                                    }
+                                    <Typography variant='subtitle2' paragraph>
+                                        {val.description}
+                                    </Typography>
+                                </Box>
+                            </CardActionArea>
                             <CardActions>
                                 <Button onClick={showTransferDialog(val)}>Transfer</Button>
                                 { (!val.listed) ?

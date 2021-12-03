@@ -42,7 +42,8 @@ const userSlice = createSlice({
         marketContract: null,
         elonContract : null,
         correctChain : false,
-        nfts: []
+        nfts: [],
+        currentNft : null
     },
     reducers: {
 
@@ -92,6 +93,12 @@ const userSlice = createSlice({
         onNfts(state, action){
             state.nfts.push(...action.payload.nfts);
             state.fetchingNfts = false;
+        },
+        onNftLoading(state, action){
+            state.currentNft = null;
+        },
+        onNftLoaded(state, action){
+            state.currentNft = action.payload.nft;
         },
         listingUpdate(state, action){
             console.log('id: ' + action.payload.id +   '   contract: ' + action.payload.contract);
@@ -157,6 +164,8 @@ export const {
     onProvider,
     fetchingNfts,
     onNfts,
+    onNftLoading,
+    onNftLoaded,
     connectingWallet,
     onCorrectChain,
     registeredCode,
@@ -521,6 +530,90 @@ export const fetchNfts = (user) => async(dispatch) =>{
 
 }
 
+export const getNftDetails = (state, collectionId, nftId) => async(dispatch) => {
+    try {
+
+        // const index = state.user.nfts.findIndex(e => (parseInt(e.id) === parseInt(nftId) && e.address === collectionId));
+        // if (index > -1) {
+        //     console.log('loading from user cache!');
+        //     console.log(state.user.nfts[index]);
+        //     dispatch(onNftLoaded({
+        //         'nft' : state.user.nfts[index]
+        //     }));
+        //     return;
+        // }
+
+        let nft;
+
+        if (collectionId === rpc.cronie_contract) {
+            const contract = new Contract(collectionId, ERC721, readProvider);
+            let uri = await contract.tokenURI(nftId);
+
+            const json = Buffer.from(uri.split(',')[1], 'base64');
+            const parsed = JSON.parse(json);
+            const name = parsed.name;
+            const image = dataURItoBlob(parsed.image, 'image/svg+xml');
+            const desc = parsed.description;
+            const properties = [];//(parsed.properties) ? parsed.properties : parsed.attributes;
+            nft = {
+                'name': name,
+                'image': URL.createObjectURL(image),
+                'description': desc,
+                'properties': properties,
+            }
+        } else {
+            const isMultiToken = knownContracts.findIndex(x => x.address === collectionId && x.multiToken) > -1;
+
+            let uri;
+            if (isMultiToken) {
+                const contract = new Contract(collectionId, ERC1155, readProvider);
+                uri = await contract.uri(nftId);
+            } else {
+                const contract = new Contract(collectionId, ERC721, readProvider);
+                uri = await contract.tokenURI(nftId);
+            }
+
+            if(gatewayTools.containsCID(uri)){
+                try{
+                    uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                }catch(error){
+                    // console.log(error);
+                }
+            }
+            let json
+
+            if(uri.includes('unrevealed')){
+                return null;
+            } else{
+                json = await (await fetch(uri)).json();
+            }
+            let image
+            if(gatewayTools.containsCID(json.image)){
+                try {
+                    image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+
+                }catch(error){
+                    image = json.image;
+                }
+            } else {
+                image = json.image;
+            }
+            const properties = (json.properties) ? json.properties : json.attributes;
+            nft = {
+                'name' : json.name,
+                'image' : image,
+                'description' : json.description,
+                'properties' : properties ? properties : [],
+            }
+        }
+
+        dispatch(onNftLoaded({
+            'nft' : nft
+        }))
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 function dataURItoBlob(dataURI, type) {
 

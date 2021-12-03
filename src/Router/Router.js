@@ -7,6 +7,7 @@ import MyNftScreen from "../Pages/MyNft";
 import RoadMapScreen from "../Pages/RoadMapScreen";
 import DropScreen from "../Pages/DropScreen";
 import { DirectListing } from "../Pages/DirectListing";
+import { SingleNftDetails } from "../Pages/SingleNftDetails";
 import mainLogo from "../Assets/web_logo.svg";
 
 import { withStyles, useTheme } from '@mui/styles';
@@ -275,6 +276,7 @@ export const AppRouter = () => {
         <Route exact path="/drop" component={DropScreen} />
         <Route exact path="/listing/:id" component={DirectListing}/>
         <Route exact path="/collection/:address" component={CollectionScreen} />
+        <Route exact path="/collection/:address/:id" component={SingleNftDetails} />
         <Route exact path="/seller/:address" component={SellerScreen} />
       </Switch>
     </Router>

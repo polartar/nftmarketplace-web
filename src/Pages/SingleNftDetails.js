@@ -5,14 +5,14 @@ import {
     Container,
     Box,
 } from '@mui/material'
-import ListingDetails from '../Components/Market/ListingDetails'
+import NFTDetails from '../Components/MyNFT/NFTDetails'
 
-export const DirectListing = () => {
-    let { id } = useParams();
+export const SingleNftDetails = () => {
+    let { address, id } = useParams();
     return(
         <Container maxWidth='lg'>
             <Box mt={16} mb={16}>
-                <ListingDetails listingId={id} />
+                <NFTDetails collectionId={address} nftId={id} />
             </Box>
         </Container>
     )
