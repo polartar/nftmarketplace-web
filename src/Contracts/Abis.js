@@ -19,3 +19,7 @@ export const ERC1155 = [
     "function isApprovedForAll(address account, address operator) public view returns (bool)",
     "function safeTransferFrom(address from, address to, uint256 tokenId, uint256 amount, bytes memory data) public"
 ]
+
+export const Elon = [
+    "function safeMint() public payable"
+]

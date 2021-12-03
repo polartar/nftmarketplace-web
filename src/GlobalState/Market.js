@@ -496,6 +496,12 @@ export const knownContracts = [
         "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
         "onChain" : false,
         "listable" : false
+    },{
+        "name" : "Elon's Adventure",
+        "multiToken" : false,
+        "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
+        "onChain" : false,
+        "listable" : true
     }
     
 ]

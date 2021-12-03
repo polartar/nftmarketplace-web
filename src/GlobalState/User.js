@@ -4,7 +4,7 @@ import rpc from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
-import { ERC721, ERC1155 } from '../Contracts/Abis'
+import { ERC721, ERC1155 , Elon} from '../Contracts/Abis'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
 
@@ -13,7 +13,7 @@ import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { knownContracts } from './Market'
 
 
-const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
+const readProvider = new ethers.providers.JsonRpcProvider(rpc.read_url);
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const listingsUri = "https://api.ebisusbay.com/listings?";
@@ -40,6 +40,7 @@ const userSlice = createSlice({
         membershipContract: null,
         croniesContract: null,
         marketContract: null,
+        elonContract : null,
         correctChain : false,
         nfts: []
     },
@@ -48,6 +49,7 @@ const userSlice = createSlice({
         accountChanged(state, action){
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
+            state.elonContract = action.payload.elonContract;
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
@@ -281,7 +283,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     let ownedVip = 0;
     let market;
     let sales;
-
+    let elon;
 
     if(signer && correctChain){
         mc = new Contract(rpc.membership_contract, Membership.abi, signer);
@@ -295,6 +297,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         ownedVip = await mc.balanceOf(address, 2);
         market = new Contract(rpc.market_contract, Market.abi, signer);
         sales = ethers.utils.formatEther(await market.payments(address));
+        elon = new Contract(rpc.elon_contract, Elon, signer);
     }
 
 
@@ -311,7 +314,8 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         rewards: rewards,
         isMember : ownedVip > 0 || ownedFounder > 0,
         marketContract: market,
-        marketBalance :sales
+        marketBalance :sales,
+        elonContract : elon
     }))
     } catch (error) {
         console.log("Error connecting wallet!");
@@ -457,7 +461,9 @@ export const fetchNfts = (user) => async(dispatch) =>{
                                     json = await (await fetch(uri)).json();
                                 }
                                 let image
-                                if(gatewayTools.containsCID(json.image) && !json.image.startsWith('ar')){
+                                if(json.image.startsWith('ipfs')){
+                                    image = `${gateway}/ipfs/${json.image.substring(7)}`;
+                                } else if(gatewayTools.containsCID(json.image) && !json.image.startsWith('ar')){
                                     try {
                                         image = gatewayTools.convertToDesiredGateway(json.image, gateway);
 
