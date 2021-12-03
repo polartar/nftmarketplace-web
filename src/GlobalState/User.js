@@ -49,7 +49,7 @@ const userSlice = createSlice({
         accountChanged(state, action){
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
-            state.elonContract = action.payload.elonContract;
+            
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
@@ -57,6 +57,10 @@ const userSlice = createSlice({
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
             state.gettingContractData = false;
+        },
+
+        elonContract(state, action){
+            state.elonContract = action.payload.elonContract;
         },
 
         onCorrectChain(state, action) {
@@ -162,7 +166,8 @@ export const {
     transferedNFT,
     setIsMember,
     onBasicAccountData,
-    onLogout
+    onLogout,
+    elonContract
 } = userSlice.actions;
 export const user = userSlice.reducer;
 
@@ -286,6 +291,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     let elon;
 
     if(signer && correctChain){
+        elon = new Contract(rpc.elon_contract, Elon, signer);
+        dispatch(elonContract({
+            elonContract : elon
+        }));
         mc = new Contract(rpc.membership_contract, Membership.abi, signer);
         mc.connect(signer);
         cc = new Contract(rpc.cronie_contract, Cronies.abi, signer);
@@ -297,7 +306,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         ownedVip = await mc.balanceOf(address, 2);
         market = new Contract(rpc.market_contract, Market.abi, signer);
         sales = ethers.utils.formatEther(await market.payments(address));
-        elon = new Contract(rpc.elon_contract, Elon, signer);
+
     }
 
 
@@ -314,8 +323,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         rewards: rewards,
         isMember : ownedVip > 0 || ownedFounder > 0,
         marketContract: market,
-        marketBalance :sales,
-        elonContract : elon
+        marketBalance :sales
     }))
     } catch (error) {
         console.log("Error connecting wallet!");
