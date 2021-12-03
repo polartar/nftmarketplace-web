@@ -502,6 +502,12 @@ export const knownContracts = [
         "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
         "onChain" : false,
         "listable" : true
-    }
+    },{
+        "name" : "GameArtNFT ",
+        "multiToken" : false,
+        "address" : "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
+        "onChain" : false,
+        "listable" : true
+    },
     
 ]
