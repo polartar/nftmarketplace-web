@@ -1,0 +1,94 @@
+options:
+  size: 2x
+
+pipelines:
+  # default:
+  # - step:
+  #     name: Integration test
+  #     image: node:16
+  #     caches:
+  #      - node
+  #     script:
+  #       - apt-get update
+  #       - node --version
+  #       - npm install --no-audit
+  #       - npm run test
+  branches:
+    master:
+      - step:
+          name: Integration test
+          image: node:16
+          caches:
+           - node
+          script:
+            - apt-get update
+            - node --version
+            - npm install --no-audit
+            #- npm run test
+          artifacts:
+            - node_modules/**
+      - step:
+          name: Build
+          image: node:16
+          caches:
+           - node
+          script:
+            - apt-get update
+            # Print Node.js version
+            - node --version
+            # Print npm version
+            - npm --version
+            # Build frontend
+            - CI=false npm run build
+          artifacts:
+            - build/**
+      - step:
+          name: Deploy
+          image: amazon/aws-cli
+          deployment: Development
+          script:
+            - ([[ "$BITBUCKET_BRANCH" == "master" ]]) || (echo "This build should only be run on master" && exit 1)
+            # Print AWS CLI version
+            - aws --version
+            # Deployment
+            - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+    production:
+      - step:
+          name: Integration test
+          image: node:16
+          caches:
+           - node
+          script:
+            - apt-get update
+            - node --version
+            - npm install --no-audit
+            #- npm run test
+          artifacts:
+            - node_modules/**
+      - step:
+          name: Build
+          image: node:16
+          caches:
+           - node
+          script:
+            - apt-get update
+            # Print Node.js version
+            - node --version
+            # Print npm version
+            - npm --version
+            # Build frontend
+            - CI=false npm run build
+          artifacts:
+            - build/**
+      - step:
+          name: Deploy
+          image: amazon/aws-cli
+          deployment: Production
+          script:
+            - ([[ "$BITBUCKET_BRANCH" == "production" ]]) || (echo "This build should only be run on production" && exit 1)
+            # Print AWS CLI version
+            - aws --version
+            # Deployment
+            - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
