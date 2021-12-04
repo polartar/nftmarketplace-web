@@ -14,7 +14,7 @@ pipelines:
   #       - npm install --no-audit
   #       - npm run test
   branches:
-    master:
+    dev:
       - step:
           name: Integration test
           image: node:16
@@ -47,7 +47,7 @@ pipelines:
           image: amazon/aws-cli
           deployment: Development
           script:
-            - ([[ "$BITBUCKET_BRANCH" == "master" ]]) || (echo "This build should only be run on master" && exit 1)
+            - ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
