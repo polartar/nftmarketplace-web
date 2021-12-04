@@ -114,8 +114,8 @@ const Drop = () => {
          </Container> : 
          <Container>
             <Box mt={3}>
-            <Button variant="outlined" onClick={mintNow} enabled={!minting}>
-              MINT
+            <Button variant="outlined" onClick={mintNow} disabled>
+              SOLD OUT
             </Button>
           </Box> 
          </Container>

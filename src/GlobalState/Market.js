@@ -501,7 +501,7 @@ export const knownContracts = [
         "multiToken" : false,
         "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
         "onChain" : false,
-        "listable" : false
+        "listable" : true
     },{
         "name" : "GameArtNFT ",
         "multiToken" : false,
@@ -514,6 +514,12 @@ export const knownContracts = [
         "address" : "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
         "onChain" : false,
         "listable" : false
+    },{
+        "name" : "CroBits",
+        "multiToken" : false,
+        "address" : "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
+        "onChain" : false,
+        "listable" : true
     },
     
 ]
