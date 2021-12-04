@@ -520,6 +520,12 @@ export const knownContracts = [
         "address" : "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
         "onChain" : false,
         "listable" : true
+    },{
+        "name" : "CronosRedPanda",
+        "multiToken" : false,
+        "address" : "0xdc29c27b6adE7b172359EC1746a02B3304e974d8",
+        "onChain" : false,
+        "listable" : true
     },
     
 ]
