@@ -15,9 +15,11 @@ docker-compose -f docker-compose.yml up --build --remove-orphans
 Note: Use "-d" to run containers in the background
 
 Verify stack:
+```
 % docker ps
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS                   PORTS                  NAMES
 a3262fec588f   ebisusbay-frontend_ebisusbay-frontend   "/docker-entrypoint.…"   9 seconds ago   Up 8 seconds (healthy)   0.0.0.0:8080->80/tcp   ebisusbay-frontend
+```
 
 Delete stack:
 ```
