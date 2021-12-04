@@ -53,7 +53,7 @@ pipelines:
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
             - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
-    production:
+    prod:
       - step:
           name: Integration test
           image: node:16
@@ -86,7 +86,7 @@ pipelines:
           image: amazon/aws-cli
           deployment: Production
           script:
-            - ([[ "$BITBUCKET_BRANCH" == "production" ]]) || (echo "This build should only be run on production" && exit 1)
+            - ([[ "$BITBUCKET_BRANCH" == "prod" ]]) || (echo "This build should only be run on prod" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
