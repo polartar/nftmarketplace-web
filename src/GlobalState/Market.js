@@ -526,6 +526,13 @@ export const knownContracts = [
         "address" : "0xdc29c27b6adE7b172359EC1746a02B3304e974d8",
         "onChain" : false,
         "listable" : true
+    },{
+        "name" : "Genesis Rock",
+        "multiToken" : true,
+        'id' : 1,
+        "address" : "0x68ec010Cf044CbAe1aCc213D043d394E620c641D",
+        "onChain" : false,
+        "listable" : false
     },
     
 ]
