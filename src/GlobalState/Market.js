@@ -532,7 +532,7 @@ export const knownContracts = [
         'id' : 1,
         "address" : "0x68ec010Cf044CbAe1aCc213D043d394E620c641D",
         "onChain" : false,
-        "listable" : false
+        "listable" : true
     },
     
 ]
