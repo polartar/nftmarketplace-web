@@ -5,7 +5,7 @@
     "symbol" : "tCRO",
     "explorer" : "https://cronos.crypto.org/explorer/testnet3/",
     "membership_contract" : "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
-    "market_contract" : "0x87e10d181b988E1dB31E0A23356845fAbD253f8B",
+    "market_contract" : "0x15876C450638158F48392F01dE2CEa51eccc7840",
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
