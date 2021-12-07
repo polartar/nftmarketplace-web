@@ -1,0 +1,42 @@
+{
+    "name" : "test-net",
+    "chain_id" : "339",
+    "url" : "https://cronos-testnet-3.crypto.org:8545",
+    "symbol" : "tCRO",
+    "explorer" : "https://cronos.crypto.org/explorer/testnet3/",
+    "membership_contract" : "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+    "market_contract" : "0x87e10d181b988E1dB31E0A23356845fAbD253f8B",
+    "known_contracts" :  [
+        {
+            "name": "EbisusBay VIP",
+            "onChain" : false,
+            "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+            "multiToken" : true,
+            "id" : 2,
+            "listable" : true
+        },
+        {
+            "name": "EbisusBay Founder",
+            "onChain" : false,
+            "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+            "multiToken" : true,
+            "id" : 1,
+            "listable" : false
+        },
+        {
+            "name": "Basic NFT",
+            "multiToken": false,
+            "address" : "0x2710Bd198f363d2561795f13b82D2017b4cbFC78",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "Cronos Warrior",
+            "multiToken": false,
+            "address" : "0x6777a24aef6374265B4A900c9Db57673cFF426Ab",
+            "onChain" : false,
+            "listable" : false
+        }
+        
+    ]
+}
