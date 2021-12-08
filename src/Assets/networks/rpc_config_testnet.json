@@ -5,10 +5,11 @@
     "read_rpc" : "https://cronos-testnet-3.crypto.org:8545/",
     "symbol" : "tCRO",
     "explorer" : "https://cronos.crypto.org/explorer/testnet3/",
-    "api_base" : "http://localhost:5000/",
+    "api_base" : "https://testapi.ebisusbay.biz/",
     "membership_contract" : "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
     "market_contract" : "0x15876C450638158F48392F01dE2CEa51eccc7840",
     "cronie_contract" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
+    "elon_contract": "0x2fE1f2722fa215A68b92aECaD425259C0D645972",
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
@@ -45,6 +46,12 @@
             "multiToken": false,
             "address" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
             "onChain" : true,
+            "listable" : true
+        }, {
+            "name" : "Elon's Adventure",
+            "multiToken": false,
+            "address" : "0x2fE1f2722fa215A68b92aECaD425259C0D645972",
+            "onChain" : false,
             "listable" : true
         }
         
