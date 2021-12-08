@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch} from 'react-redux'
 import { chainConnect, onLogout } from '../../GlobalState/User'
-import rpc from '../../Assets/networks/rpc_config.json'
+import config from '../../Assets/networks/rpc_config.json'
 // import MetaMaskOnboarding from '@metamask/onboarding';
 import {
     Button,
@@ -46,7 +46,7 @@ export const SwitchChain = () => {
             open={open}>
             <DialogContent>
                 <DialogContentText>
-                    You need to connect to the {rpc.name} block chain before continuing.
+                    You need to connect to the {config.name} block chain before continuing.
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

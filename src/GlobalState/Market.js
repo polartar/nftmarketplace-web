@@ -1,18 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { Contract, ethers} from 'ethers'
-import rpc from '../Assets/networks/rpc_config.json'
+import config from '../Assets/networks/rpc_config.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Market from '../Contracts/Marketplace.json'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
-import { circularProgressClasses } from '@mui/material'
 
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
-const listingsUri = "https://api.ebisusbay.com/listings?";
-const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
-const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
+const listingsUri = `${config.api_base}listings?`;
+const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 
 export const SortOrders = ['Listing ID', 'Price', 'Token ID']
 
@@ -241,7 +240,7 @@ const getNft = async (listing) => {
         } else {
             const contract = new Contract(listing.nftAddress, ERC721, readProvider);
             let uri = await contract.tokenURI(listing.nftId);
-            if(listing.nftAddress === rpc.cronie_contract){
+            if(listing.nftAddress === config.cronie_contract){
                 const json = Buffer.from(uri.split(',')[1], 'base64');
                 const parsed = JSON.parse(json);
                 const name = parsed.name;
@@ -340,8 +339,9 @@ async function sortAndFetch(order, page, type, address){
         }
     }
     const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;
+    console.log(uri);
     const rawResponse = await (await fetch(uri)).json();
     return rawResponse;
 }
 
-export const knownContracts = rpc.known_contracts;
+export const knownContracts = config.known_contracts;

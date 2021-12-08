@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { Contract, ethers, BigNumber} from 'ethers'
-import rpc from '../Assets/networks/rpc_config.json'
+import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
@@ -13,10 +13,10 @@ import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { knownContracts } from './Market'
 
 
-const readProvider = new ethers.providers.JsonRpcProvider(rpc.read_url);
+const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
-const listingsUri = "https://api.ebisusbay.com/listings?";
+const listingsUri = `${config.api_base}listings?`;
 
 
 const userSlice = createSlice({
@@ -258,9 +258,9 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
 
 
     //console.log(cid, rpc.chain_id);
-    var correctChain = cid === Number(rpc.chain_id)
+    var correctChain = cid === Number(config.chain_id)
     if (!correctChain) {
-        correctChain = cid === rpc.chain_id
+        correctChain = cid === config.chain_id
     }
     //console.log(correctChain);
     await dispatch(onBasicAccountData({
@@ -300,20 +300,20 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     let elon;
 
     if(signer && correctChain){
-        elon = new Contract(rpc.elon_contract, Elon, signer);
+        elon = new Contract(config.elon_contract, Elon, signer);
         dispatch(elonContract({
             elonContract : elon
         }));
-        mc = new Contract(rpc.membership_contract, Membership.abi, signer);
+        mc = new Contract(config.membership_contract, Membership.abi, signer);
         mc.connect(signer);
-        cc = new Contract(rpc.cronie_contract, Cronies.abi, signer);
+        cc = new Contract(config.cronie_contract, Cronies.abi, signer);
         cc.connect(signer);
         const rawCode = await mc.codes(address);
         code = ethers.utils.parseBytes32String(rawCode);
         rewards = ethers.utils.formatEther(await mc.payments(address));
         ownedFounder = await mc.balanceOf(address, 1);
         ownedVip = await mc.balanceOf(address, 2);
-        market = new Contract(rpc.market_contract, Market.abi, signer);
+        market = new Contract(config.market_contract, Market.abi, signer);
         sales = ethers.utils.formatEther(await market.payments(address));
 
     }
@@ -360,7 +360,7 @@ export const fetchNfts = (user) => async(dispatch) =>{
                         contract.connect(signer);
                         let count = await contract.balanceOf(user.address, c.id);
                         count = count.toNumber();
-                        if(c.address === rpc.membership_contract && count > 0) {
+                        if(c.address === config.membership_contract && count > 0) {
                             dispatch(setIsMember(true));
                         }
                         if(count !== 0){
@@ -545,7 +545,7 @@ export const getNftDetails = (state, collectionId, nftId) => async(dispatch) => 
 
         let nft;
 
-        if (collectionId === rpc.cronie_contract) {
+        if (collectionId === config.cronie_contract) {
             const contract = new Contract(collectionId, ERC721, readProvider);
             let uri = await contract.tokenURI(nftId);
 
@@ -648,11 +648,11 @@ export const initProvider = () => async(dispatch) =>  {
             method: "net_version",
         });
 
-        const correctChain = cid === rpc.chain_id
+        const correctChain = cid === config.chain_id
 
         let mc;
         if(signer && correctChain){
-            mc = new Contract(rpc.membership_contract, Membership.abi, signer);
+            mc = new Contract(config.membership_contract, Membership.abi, signer);
         }
         const obj = {
             provider: provider,
@@ -685,7 +685,7 @@ export const initProvider = () => async(dispatch) =>  {
 export const chainConnect = (type) => async(dispatch) => {
     console.log(window.ethereum);
     if (window.ethereum) {
-        const cid = ethers.utils.hexValue(BigNumber.from(rpc.chain_id));
+        const cid = ethers.utils.hexValue(BigNumber.from(config.chain_id));
         try{
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
@@ -700,13 +700,13 @@ export const chainConnect = (type) => async(dispatch) => {
                         method: 'wallet_addEthereumChain',
                         params: [
                         {
-                            chainName: rpc.name,
+                            chainName: config.name,
                             chainId: cid,
-                            rpcUrls: [rpc.url],
+                            rpcUrls: [config.write_rpc],
                             blockExplorerUrls: null,
                             nativeCurrency: {
-                                name: rpc.symbol,
-                                symbol: rpc.symbol,
+                                name: config.symbol,
+                                symbol: config.symbol,
                                 decimals: 18
                             }
                         },
