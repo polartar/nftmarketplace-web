@@ -1,11 +1,14 @@
 {
     "name" : "test-net",
-    "chain_id" : "339",
-    "url" : "https://cronos-testnet-3.crypto.org:8545",
+    "chain_id" : "338",
+    "write_rpc" : "https://cronos-testnet-3.crypto.org:8545/",
+    "read_rpc" : "https://cronos-testnet-3.crypto.org:8545/",
     "symbol" : "tCRO",
     "explorer" : "https://cronos.crypto.org/explorer/testnet3/",
+    "api_base" : "http://localhost:5000/",
     "membership_contract" : "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
     "market_contract" : "0x15876C450638158F48392F01dE2CEa51eccc7840",
+    "cronie_contract" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
@@ -35,7 +38,14 @@
             "multiToken": false,
             "address" : "0x6777a24aef6374265B4A900c9Db57673cFF426Ab",
             "onChain" : false,
-            "listable" : false
+            "listable" : true
+        },
+        {
+            "name" : "Cronies",
+            "multiToken": false,
+            "address" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
+            "onChain" : true,
+            "listable" : true
         }
         
     ]
