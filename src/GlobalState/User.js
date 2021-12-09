@@ -335,6 +335,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         marketBalance :sales
     }))
     } catch (error) {
+        console.log(error)
         console.log("Error connecting wallet!");
         await web3Modal.clearCachedProvider();
         dispatch(onLogout());
