@@ -10,6 +10,8 @@ const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
 const listingsUri = `${config.api_base}listings?`;
+const collectionsUri = `${config.api_base}collections?`;
+
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 
@@ -27,6 +29,7 @@ const marketSlice = createSlice({
         sortOrder : SortOrders[0],
         curPage : 1,
         // response: null,
+        collection: null,
         currentListing : null
     },
     reducers : {
@@ -67,6 +70,9 @@ const marketSlice = createSlice({
         },
         onPage(state, action){
             state.curPage = action.payload;
+        },
+        onCollectionDataLoaded(state, action) {
+            state.collection = action.payload.collection;
         }
     }
 })
@@ -92,7 +98,8 @@ export const {
     clearSet,
     onListingLoaded,
     onSort,
-    onPage
+    onPage,
+    onCollectionDataLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
@@ -177,6 +184,24 @@ export const requestSort = (order, type, address) => async(dispatch) => {
         'response' : response,
         'order': order
     }))
+}
+
+export const getCollectionData = (type, address) => async(dispatch) => {
+    if (type != 'collection') {
+        dispatch(onCollectionDataLoaded({
+            collection: null,
+        }))
+        return;
+    }
+    try {
+        const uri = `${collectionsUri}collection=${address}`;
+        var data = await (await fetch(uri)).json();
+        dispatch(onCollectionDataLoaded({
+            collection: data.collections[0]
+        }))
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 export const getListing = (state, id) => async(dispatch) => {

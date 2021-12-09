@@ -20,15 +20,17 @@ import {
     MenuItem,
     FormControl,
     InputLabel,
-    Select
+    Select,
+    Item
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
-import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage, getListing } from '../../GlobalState/Market';
+import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage, getCollectionData } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect, onProvider } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import {useHistory} from 'react-router-dom';
+import "./marketscreen.css"
 
 export default function MarketSelection({
     collection,
@@ -38,6 +40,12 @@ export default function MarketSelection({
     const history = useHistory();
     const state = useSelector((state)=>{
         return state;
+    });
+
+    const[royalty, setRoyalty] = useState(null);
+
+    const user = useSelector((state) => {
+        return state.user;
     });
 
     useEffect(async function() {
@@ -52,7 +60,16 @@ export default function MarketSelection({
         }
         await dispatch(init(state, type, address));
         await dispatch(loadPage(page, type, address, order));
+        await dispatch(getCollectionData(type, address));
     }, [collection, seller]);
+
+    useEffect(async function() {
+        if (user.marketContract != null) {
+            let royalties = await user.marketContract.royalties(address)
+            setRoyalty((royalties[1] / 10000) * 100);
+        }
+    }, [user.marketContract]);
+
 
     const page = useSelector((state) => {
         return state.market.curPage;
@@ -60,6 +77,11 @@ export default function MarketSelection({
 
     const address = useSelector((state) => {
         return state.market.address;
+    })
+
+    const collections = useSelector((state) => {
+        console.log(state.market.collection);
+        return state.market.collection;
     })
 
     const handlePageChange = (event, value) => {
@@ -101,10 +123,6 @@ export default function MarketSelection({
 
     const type = useSelector((state) => {
         return state.market.type;
-    });
-
-    const user = useSelector((state) => {
-        return state.user;
     });
 
 
@@ -195,6 +213,77 @@ export default function MarketSelection({
     return(
         <Box mb={16} mt={4} >
         <Stack >
+        <Box sx={{ flexGrow: 1, height: "auto", marginBottom: "30px" }}>
+        {(collections)?
+        <Grid sx={{}} container spacing={4} justifyContent="center" alignItems="center" direction='row'>
+            <Grid item xs={4} textAlign="center">
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Floor
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {ethers.utils.commify(Number(collections.floorPrice).toFixed(0))} CRO
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Avg. Sale
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {isNaN(collections.averagePrice) ?
+                            "N/A"
+                        : 
+                            ethers.utils.commify(Number(collections.averagePrice).toFixed(2))
+                        }
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Royalty
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {royalty}%
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Volume
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {ethers.utils.commify(Number(collections.totalVolume).toFixed(0))} CRO
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Sales
+                    </Typography>
+                    <Typography className='dataValue'>
+                    {ethers.utils.commify(collections.numberOfSales)}
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Active
+                    </Typography>
+                    <Typography className='dataValue'>
+                    {ethers.utils.commify(collections.numberActive)}
+                    </Typography>
+                </Box>
+            </Grid>
+        </Grid>
+        : null
+        }
+        </Box>
         <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
             <Select
