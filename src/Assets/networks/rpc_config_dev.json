@@ -8,7 +8,7 @@
     "api_base" : "https://api.ebisusbay.biz/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
-    "market_contract" : "0xA5d020b4418d534Dc697A51bec54bE0552bcf51E",
+    "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
     "known_contracts" :  [
         {
