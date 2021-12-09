@@ -1,8 +1,8 @@
-.MuiCardMedia-img{
+/* .MuiCardMedia-img{
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
-}
+} */
 
 .MuiTypography-paragraph{
     text-overflow: ellipsis;
