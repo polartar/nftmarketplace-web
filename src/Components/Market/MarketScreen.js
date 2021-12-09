@@ -31,11 +31,16 @@ import { connectAccount, chainConnect, onProvider } from '../../GlobalState/User
 import MetaMaskOnboarding from '@metamask/onboarding';
 import {useHistory} from 'react-router-dom';
 import "./marketscreen.css"
+import config from '../../Assets/networks/rpc_config.json'
+import Market from '../../Contracts/Marketplace.json'
+import { Contract } from '@ethersproject/contracts';
 
 export default function MarketSelection({
     collection,
     seller
 }){
+    const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
     const dispatch = useDispatch();
     const history = useHistory();
     const state = useSelector((state)=>{
@@ -64,8 +69,8 @@ export default function MarketSelection({
     }, [collection, seller]);
 
     useEffect(async function() {
-        if (user.marketContract != null && typeof collection !== 'undefined') {
-            let royalties = await user.marketContract.royalties(collection)
+        if (typeof collection !== 'undefined') {
+            let royalties = await readMarket.royalties(collection)
             setRoyalty((royalties[1] / 10000) * 100);
         }
     }, [user.marketContract, collection]);

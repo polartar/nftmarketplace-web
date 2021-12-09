@@ -26,12 +26,16 @@ import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { getListing, onListingLoaded } from '../../GlobalState/Market';
 import { useHistory } from 'react-router';
-
+import config from '../../Assets/networks/rpc_config.json'
+import Market from '../../Contracts/Marketplace.json'
+import { Contract } from '@ethersproject/contracts';
 
 export default function NFTDetails({
     listingId
 }){
 
+    const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
     const dispatch = useDispatch();
     const theme = useTheme();
     const history = useHistory();
@@ -49,10 +53,11 @@ export default function NFTDetails({
     const [royalty, setRoyalty] = useState(null);
 
     useEffect(async function() {
-        if (user.marketContract !== null && listing !== null && listing.nftAddress !== null) {
-            let royalties = await user.marketContract.royalties(listing.nftAddress)
+        if (listing !== null && listing.nftAddress !== null) {
+            let royalties = await readMarket.royalties(listing.nftAddress)
+            console.log(royalties);
             setRoyalty((royalties[1] / 10000) * 100);
-        }
+        } 
     }, [user.marketContract, listing]);
 
     const ListItem = styled('li')(({ theme }) => ({
