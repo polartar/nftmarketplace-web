@@ -52,7 +52,7 @@ const marketSlice = createSlice({
             state.address = action.payload.address;
         },
         onListingLoaded(state, action) {
-            state.currentListing = action.payload;
+            state.currentListing = action.payload.listing;
             state.loadingPage = false;
         },
         onSort(state, action){
@@ -102,7 +102,6 @@ export const init = (state, type, address) => async(dispatch) => {
         dispatch(clearSet());
 
         const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
-        console.log(rawResponse);
         const pages = rawResponse.totalPages;
         const listingsResponse = rawResponse.listings.map((e) => {
             // const nft = {
@@ -187,24 +186,28 @@ export const getListing = (state, id) => async(dispatch) => {
     }
     dispatch(startLoading());
     try{
-        const rawListing = await readMarket.listings(id);
+        const uri = `${listingsUri}listingId=${id}`;
+        var rawListing = await (await fetch(uri)).json();
+        rawListing = rawListing['listings'][0];
         const listing = {
-            'listingId' : rawListing['listingId'],
-            'nftId'     : rawListing['nftId'],
-            'seller'    : rawListing['seller'],
-            'nftAddress': rawListing['nft'],
-            'price'     : rawListing['price'],
-            'fee'       : rawListing['fee'],
-            'is1155'    : rawListing['is1155'],
-            'state'     : rawListing['state'],
-            'purchaser' : rawListing['purchaser']
+            'listingId'   : rawListing['listingId'],
+            'nftId'       : rawListing['nftId'],
+            'seller'      : rawListing['seller'],
+            'nftAddress'  : rawListing['nftAddress'],
+            'price'       : rawListing['price'],
+            'fee'         : rawListing['fee'],
+            'is1155'      : rawListing['is1155'],
+            'state'       : rawListing['state'],
+            'purchaser'   : rawListing['purchaser'],
+            'listingTime' : rawListing['listingTime'],
+            'saleTime'    : rawListing['saleTime'],
+            'endingTime'  : rawListing['endingTime'],
+            'royalty'     : rawListing['royalty'],
+            'nft'         : rawListing['nft']
         }
-
-        const nft = await getNft(listing);
-
+        //const nft = await getNft(listing);
         dispatch(onListingLoaded({
-            ...listing,
-            'nft' : nft
+            listing: listing
         }))
     }catch(error){
         console.log(error)
@@ -340,7 +343,6 @@ async function sortAndFetch(order, page, type, address){
         }
     }
     const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;
-    console.log(uri);
     const rawResponse = await (await fetch(uri)).json();
     return rawResponse;
 }
