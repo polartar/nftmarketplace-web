@@ -25,12 +25,12 @@
             "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
             "multiToken" : true,
             "id" : 1,
-            "listable" : false
+            "listable" : true
         },
         {
             "name": "Basic NFT",
             "multiToken": false,
-            "address" : "0x2710Bd198f363d2561795f13b82D2017b4cbFC78",
+            "address" : "0xCfEEe4c7B10C52854e061607C347e0D79C6F73A1",
             "onChain" : false,
             "listable" : true
         },

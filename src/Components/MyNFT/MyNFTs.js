@@ -114,56 +114,6 @@ export const MyNFTs = () => {
         }
     }
 
-    const withdrawBalance = async() => {
-        try{
-            setDoingWork(true);
-            const tx = await user.marketContract.withdrawPayments(user.address);
-            const receipt = await tx.wait();
-            setShowSuccess({
-                show: true,
-                hash: receipt.hash
-            });
-            dispatch(withdrewPayments());
-        }catch(error){
-            if(error.data){
-                setError({error: true, message: error.data.message});
-            } else if(error.message){
-                setError({error: true, message: error.message});
-            } else {
-                console.log(error);
-                setError({error: true, message: "Unknown Error"});
-            }
-        }finally{
-            setDoingWork(false);
-        }
-    }
-
-    const registerCode = async () => {
-        try{
-            setDoingWork(true);
-            const id = nanoid(10);
-            const encoded = ethers.utils.formatBytes32String(id)
-            const tx = await user.membershipContract.register(encoded);
-            const receipt = await tx.wait();
-            setShowSuccess({
-                show: true,
-                hash: receipt.hash
-            });
-            dispatch(registeredCode(id));
-        }catch(error){
-            if(error.data){
-                setError(error.data.message);
-            } else if(error.message){
-                setError(error.message)
-            } else {
-                console.log(error);
-                setError("Unknown Error")
-            }
-        }finally{
-            setDoingWork(false);
-        }
-    }
-
     /// TRANSFER------------------
 
     const transferNft = async () => {
@@ -217,7 +167,7 @@ export const MyNFTs = () => {
         },
         {
             label : 'Enter Price',
-            description : 'Enter the listing price in CRO. There is a 0% transaction fee on completed sale!'
+            description : `Enter the listing price in CRO.`
         },
         {
           label: 'Confirm Listing',
@@ -230,10 +180,23 @@ export const MyNFTs = () => {
     const [activeStep, setActiveStep] = useState(0);
     const [nextEnabled, setNextEnabled] = useState(false);
 
+    const [royalty, setRoyalty] = useState(0);
+    const [fee, setFee] = useState(0);
+    const [youReceive, setYouReceive] = useState(0);
+
+
+    const calculateExtraFees = (price) => async () => {
+        setYouReceive(price - ((fee / 100) * price) - ((royalty / 100) * price));
+    }
+
     const showListDialog = (nft) => async () => {
         try{
             setSelectedNft(nft);
             setStartSale(true);
+            let fees = await user.marketContract.fee(nft.address);
+            let royalties = await user.marketContract.royalties(nft.address)
+            setFee((fees / 10000) * 100);
+            setRoyalty((royalties[1] / 10000) * 100);
             const transferEnabled = await nft.contract.isApprovedForAll(user.address, user.marketContract.address);
             if(transferEnabled){
                 setActiveStep(1);
@@ -542,11 +505,32 @@ export const MyNFTs = () => {
                                         </StepLabel>
                                         <StepContent>
                                         <Typography>{step.description}</Typography>
-                                        {(index === 1) ?  
-                                            <TextField type='number' label="Price" variant="outlined" onChange={ (e) => {
-                                                setSalePrice(e.target.value);
-                                            }}/>   : null 
+                                        {(index === 1) ? 
+                                            <Stack>
+                                                <TextField sx={{ marginTop: "10px", marginBottom: "10px" }}type='number' label="Price" variant="outlined" onChange={ (e) => {
+                                                    dispatch(calculateExtraFees(e.target.value));
+                                                    setSalePrice(e.target.value);
+                                                }}/>
+                                                <Typography>
+                                                    Buyer pays: <span className='bold'>
+                                                        {(salePrice)?
+                                                            ethers.utils.commify(salePrice) : 0
+                                                        }</span> CRO
+                                                </Typography>
+                                                <Typography>
+                                                    Service Fee: <span className='bold'>{fee}</span>%
+                                                </Typography>
+                                                <Typography>
+                                                    Royalty Fee: <span className='bold'>{royalty}</span>%
+                                                </Typography>
+                                                
+                                                <Typography>
+                                                    You receive: <span className='bold'>{ethers.utils.commify(youReceive.toFixed(2))}</span> CRO
+                                                </Typography>
+                                            </Stack>
+                                            : null 
                                         }
+                                       
                                         <Box sx={{ mb: 2 }}>
                                             <div>
                                             <LoadingButton

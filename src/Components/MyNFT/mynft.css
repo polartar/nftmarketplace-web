@@ -13,3 +13,7 @@
     -webkit-line-clamp: 3;
     max-height: 145;
 }
+
+.bold {
+    font-weight: 500 !important;
+}
