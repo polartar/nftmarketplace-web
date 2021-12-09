@@ -49,12 +49,11 @@ export default function NFTDetails({
     const [royalty, setRoyalty] = useState(null);
 
     useEffect(async function() {
-        if (user.marketContract != null) {
-            console.log("HERE");
+        if (user.marketContract !== null && listing !== null && listing.nftAddress !== null) {
             let royalties = await user.marketContract.royalties(listing.nftAddress)
             setRoyalty((royalties[1] / 10000) * 100);
         }
-    }, [user.marketContract]);
+    }, [user.marketContract, listing]);
 
     const ListItem = styled('li')(({ theme }) => ({
         margin: theme.spacing(0.5),

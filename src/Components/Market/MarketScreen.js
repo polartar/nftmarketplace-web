@@ -87,9 +87,7 @@ export default function MarketSelection({
        dispatch(onPage(value));
     };
 
-    // const response = useSelector((state) => {
-    //     return state.market.response;
-    // });
+
 
     const[is1155Collection, set1155Collection] = useState(false);
 
@@ -100,17 +98,6 @@ export default function MarketSelection({
     useEffect(() => {
         dispatch(loadPage(page, type, address, order));
     }, [page, order]);
-
-
-    // useEffect(() => {
-    //     if(response !== null){
-    //         if(response.every(e => e.is1155)){
-    //             set1155Collection(true);
-    //         } else {
-    //             set1155Collection(false);
-    //         }
-    //     }
-    // }, [response])
 
     const totalPages = useSelector((state) => {
         return state.market.totalPages;

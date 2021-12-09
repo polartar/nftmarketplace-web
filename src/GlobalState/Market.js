@@ -111,27 +111,15 @@ export const init = (state, type, address) => async(dispatch) => {
         const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
         const pages = rawResponse.totalPages;
         const listingsResponse = rawResponse.listings.map((e) => {
-            // const nft = {
-            //     'name' : e.name,
-            //     'image' : e.image,
-            //     'description' : e.description,
-            //     'properties' : (e.properties) ? e.properties : []
-            // }
+
             return {
                 ...e,
                 'listingId': ethers.BigNumber.from(e.listingId),
                 'price' : ethers.utils.parseEther(String(e.price)),
-                // 'nft' : nft
             }
-        }); //backend hasn't fetched metadata for this listing
+        }); 
 
-        // if(type === 'collection'){
-        //     listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
-        // } else if(type === 'seller'){
-        //     listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
-        // }
-        // const pages = Math.ceil(listingsResponse.length / pagesize);
-        // listingsResponse = sortByType(listingsResponse, state.market.sortOrder);
+
         const listings = new Array(pages);
         listings[1] = listingsResponse
         
@@ -157,21 +145,14 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
     //dispatch(startLoading())
     const rawResponse = await sortAndFetch(order, page, type, address);
     const listingsResponse =  rawResponse.listings.map((e) => {
-        // const nft = {
-        //     'name' : e.name,
-        //     'image' : e.image,
-        //     'description' : e.description,
-        //     'properties' : (e.properties) ? e.properties : []
-        // }
+
         return {
             ...e,
             'listingId': ethers.BigNumber.from(e.listingId),
             'price' : ethers.utils.parseEther(String(e.price)),
-            // 'nft' : nft
         }
     });
-    // const index = (page - 1) * pagesize;
-    // let listings = [...state.market.response].splice(index, pagesize);
+
     dispatch(onNewPage({
         'page' : page,
         'newPage' : listingsResponse,
@@ -230,7 +211,7 @@ export const getListing = (state, id) => async(dispatch) => {
             'royalty'     : rawListing['royalty'],
             'nft'         : rawListing['nft']
         }
-        //const nft = await getNft(listing);
+
         dispatch(onListingLoaded({
             listing: listing
         }))

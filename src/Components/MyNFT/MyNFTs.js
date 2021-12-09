@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import CloseIcon from '@mui/icons-material/Close';
 import {Redirect, useHistory} from 'react-router-dom'
 import {
     CardMedia,
@@ -8,7 +7,6 @@ import {
     Grid,
     Alert,
     IconButton,
-    Collapse,
     Card,
     Typography,
     Dialog, 
@@ -34,9 +32,8 @@ import { getAnalytics, logEvent } from '@firebase/analytics'
 import { onNftLoading, fetchNfts } from '../../GlobalState/User';
 import { Box } from '@mui/system';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { nanoid } from 'nanoid'
 import LinkIcon from '@mui/icons-material/Link';
-import { registeredCode, withdrewRewards, transferedNFT, updateListed, withdrewPayments } from '../../GlobalState/User';
+import {  withdrewRewards, transferedNFT, updateListed} from '../../GlobalState/User';
 import {ethers} from 'ethers'
 import './mynft.css'
 
@@ -193,7 +190,7 @@ export const MyNFTs = () => {
         try{
             setSelectedNft(nft);
             setStartSale(true);
-            let fees = await user.marketContract.fee(nft.address);
+            let fees = await user.marketContract.fee(user.address);
             let royalties = await user.marketContract.royalties(nft.address)
             setFee((fees / 10000) * 100);
             setRoyalty((royalties[1] / 10000) * 100);
