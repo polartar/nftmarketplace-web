@@ -46,6 +46,16 @@ export default function NFTDetails({
         return state;
     });
 
+    const [royalty, setRoyalty] = useState(null);
+
+    useEffect(async function() {
+        if (user.marketContract != null) {
+            console.log("HERE");
+            let royalties = await user.marketContract.royalties(listing.nftAddress)
+            setRoyalty((royalties[1] / 10000) * 100);
+        }
+    }, [user.marketContract]);
+
     const ListItem = styled('li')(({ theme }) => ({
         margin: theme.spacing(0.5),
       }));
@@ -196,7 +206,9 @@ export default function NFTDetails({
 
                         <Button onClick={viewCollection(listing.nftAddress)}>More From Collection</Button>
                         <Button onClick={viewSeller(listing.seller)}>More From Seller</Button>
-
+                        <Typography className='royalty'>
+                            Seller is charged a {royalty}% royalty fee for future sales of this item.
+                        </Typography>
                         
                     </Stack>
                     </Grid>

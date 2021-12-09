@@ -13,6 +13,10 @@
     margin: auto;
 }
 
+.royalty {
+    margin-top: 100px !important;
+}
+
 @media only screen and (max-width:500px) {
     .gridItem {
         width: 100%;
@@ -24,6 +28,9 @@
     }
     .dataValue {
         font-size: 12px !important;
+    }
+    .royalty {
+        margin-top: 20px !important;
     }
 
 }
