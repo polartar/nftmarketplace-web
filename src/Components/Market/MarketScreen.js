@@ -65,7 +65,7 @@ export default function MarketSelection({
 
     useEffect(async function() {
         if (user.marketContract != null && typeof collection !== 'undefined') {
-            let royalties = await user.marketContract.royalties(address)
+            let royalties = await user.marketContract.royalties(collection)
             setRoyalty((royalties[1] / 10000) * 100);
         }
     }, [user.marketContract, collection]);
