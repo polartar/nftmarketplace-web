@@ -235,7 +235,7 @@ export default function MarketSelection({
                         {isNaN(collections.averagePrice) ?
                             "N/A"
                         : 
-                            ethers.utils.commify(Number(collections.averagePrice).toFixed(2))
+                            ethers.utils.commify(Number(collections.averagePrice).toFixed(0)) + " CRO"
                         }
                     </Typography>
                 </Box>
