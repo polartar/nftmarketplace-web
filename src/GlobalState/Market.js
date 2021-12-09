@@ -10,6 +10,8 @@ const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
 const listingsUri = `${config.api_base}listings?`;
+const collectionsUri = `${config.api_base}collections?`;
+
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 
@@ -27,6 +29,7 @@ const marketSlice = createSlice({
         sortOrder : SortOrders[0],
         curPage : 1,
         // response: null,
+        collection: null,
         currentListing : null
     },
     reducers : {
@@ -52,7 +55,7 @@ const marketSlice = createSlice({
             state.address = action.payload.address;
         },
         onListingLoaded(state, action) {
-            state.currentListing = action.payload;
+            state.currentListing = action.payload.listing;
             state.loadingPage = false;
         },
         onSort(state, action){
@@ -67,6 +70,9 @@ const marketSlice = createSlice({
         },
         onPage(state, action){
             state.curPage = action.payload;
+        },
+        onCollectionDataLoaded(state, action) {
+            state.collection = action.payload.collection;
         }
     }
 })
@@ -92,7 +98,8 @@ export const {
     clearSet,
     onListingLoaded,
     onSort,
-    onPage
+    onPage,
+    onCollectionDataLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
@@ -104,27 +111,15 @@ export const init = (state, type, address) => async(dispatch) => {
         const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
         const pages = rawResponse.totalPages;
         const listingsResponse = rawResponse.listings.map((e) => {
-            const nft = {
-                'name' : e.name,
-                'image' : e.image,
-                'description' : e.description,
-                'properties' : (e.properties) ? e.properties : []
-            }
+
             return {
                 ...e,
                 'listingId': ethers.BigNumber.from(e.listingId),
                 'price' : ethers.utils.parseEther(String(e.price)),
-                'nft' : nft
             }
-        }).filter(e => typeof e.name !== 'undefined'); //backend hasn't fetched metadata for this listing
+        }); 
 
-        // if(type === 'collection'){
-        //     listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
-        // } else if(type === 'seller'){
-        //     listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
-        // }
-        // const pages = Math.ceil(listingsResponse.length / pagesize);
-        // listingsResponse = sortByType(listingsResponse, state.market.sortOrder);
+
         const listings = new Array(pages);
         listings[1] = listingsResponse
         
@@ -150,21 +145,14 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
     //dispatch(startLoading())
     const rawResponse = await sortAndFetch(order, page, type, address);
     const listingsResponse =  rawResponse.listings.map((e) => {
-        const nft = {
-            'name' : e.name,
-            'image' : e.image,
-            'description' : e.description,
-            'properties' : (e.properties) ? e.properties : []
-        }
+
         return {
             ...e,
             'listingId': ethers.BigNumber.from(e.listingId),
             'price' : ethers.utils.parseEther(String(e.price)),
-            'nft' : nft
         }
-    }).filter(e => typeof e.name !== 'undefined');
-    // const index = (page - 1) * pagesize;
-    // let listings = [...state.market.response].splice(index, pagesize);
+    });
+
     dispatch(onNewPage({
         'page' : page,
         'newPage' : listingsResponse,
@@ -179,6 +167,24 @@ export const requestSort = (order, type, address) => async(dispatch) => {
     }))
 }
 
+export const getCollectionData = (type, address) => async(dispatch) => {
+    if (type != 'collection') {
+        dispatch(onCollectionDataLoaded({
+            collection: null,
+        }))
+        return;
+    }
+    try {
+        const uri = `${collectionsUri}collection=${address}`;
+        var data = await (await fetch(uri)).json();
+        dispatch(onCollectionDataLoaded({
+            collection: data.collections[0]
+        }))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 export const getListing = (state, id) => async(dispatch) => {
     const curListing = state.market.currentListing;
     if(curListing !== null && curListing.nftId === id){
@@ -186,24 +192,28 @@ export const getListing = (state, id) => async(dispatch) => {
     }
     dispatch(startLoading());
     try{
-        const rawListing = await readMarket.listings(id);
+        const uri = `${listingsUri}listingId=${id}`;
+        var rawListing = await (await fetch(uri)).json();
+        rawListing = rawListing['listings'][0];
         const listing = {
-            'listingId' : rawListing['listingId'],
-            'nftId'     : rawListing['nftId'],
-            'seller'    : rawListing['seller'],
-            'nftAddress': rawListing['nft'],
-            'price'     : rawListing['price'],
-            'fee'       : rawListing['fee'],
-            'is1155'    : rawListing['is1155'],
-            'state'     : rawListing['state'],
-            'purchaser' : rawListing['purchaser']
+            'listingId'   : rawListing['listingId'],
+            'nftId'       : rawListing['nftId'],
+            'seller'      : rawListing['seller'],
+            'nftAddress'  : rawListing['nftAddress'],
+            'price'       : rawListing['price'],
+            'fee'         : rawListing['fee'],
+            'is1155'      : rawListing['is1155'],
+            'state'       : rawListing['state'],
+            'purchaser'   : rawListing['purchaser'],
+            'listingTime' : rawListing['listingTime'],
+            'saleTime'    : rawListing['saleTime'],
+            'endingTime'  : rawListing['endingTime'],
+            'royalty'     : rawListing['royalty'],
+            'nft'         : rawListing['nft']
         }
 
-        const nft = await getNft(listing);
-
         dispatch(onListingLoaded({
-            ...listing,
-            'nft' : nft
+            listing: listing
         }))
     }catch(error){
         console.log(error)
@@ -339,7 +349,6 @@ async function sortAndFetch(order, page, type, address){
         }
     }
     const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;
-    console.log(uri);
     const rawResponse = await (await fetch(uri)).json();
     return rawResponse;
 }

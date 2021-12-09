@@ -4,7 +4,7 @@
 Note: Instructions only for MacOS.
 
 ```
-cd /<pathtorepository>/ebisusbay-frontend
+cd /<pathtorepository>/eb_web
 ```
 
 Build and run:
