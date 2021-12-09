@@ -39,7 +39,7 @@
             "multiToken": false,
             "address" : "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
             "onChain" : false,
-            "listable" : false
+            "listable" : true
         },
         {
             "name" : "CroPunks - Punks on Cronos",

@@ -64,11 +64,11 @@ export default function MarketSelection({
     }, [collection, seller]);
 
     useEffect(async function() {
-        if (user.marketContract != null && type != "all") {
+        if (user.marketContract != null && typeof collection !== 'undefined') {
             let royalties = await user.marketContract.royalties(address)
             setRoyalty((royalties[1] / 10000) * 100);
         }
-    }, [user.marketContract]);
+    }, [user.marketContract, collection]);
 
 
     const page = useSelector((state) => {
