@@ -24,7 +24,7 @@ import {
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
-import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage } from '../../GlobalState/Market';
+import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage, getListing } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect, onProvider } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -39,7 +39,6 @@ export default function MarketSelection({
     const state = useSelector((state)=>{
         return state;
     });
-
 
     useEffect(async function() {
         let address = null;
@@ -186,7 +185,6 @@ export default function MarketSelection({
     }
 
     const viewDetails = (listing) => () => {
-        dispatch(onListingLoaded(listing));
         history.push(`/listing/${listing.listingId}`);
     }
 
