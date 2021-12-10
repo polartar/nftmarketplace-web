@@ -49,6 +49,8 @@ export default function MarketSelection({
 
     const[royalty, setRoyalty] = useState(null);
 
+    const[filteredSortOrders, setFilteredSortOrders] = useState(SortOrders);
+
     const user = useSelector((state) => {
         return state.user;
     });
@@ -94,7 +96,9 @@ export default function MarketSelection({
 
 
 
-    const[is1155Collection, set1155Collection] = useState(false);
+    const is1155 = useSelector((state) => {
+        return state.market.is1155;
+    })
 
     const order = useSelector((state) => {
         return state.market.sortOrder;
@@ -115,6 +119,11 @@ export default function MarketSelection({
     const type = useSelector((state) => {
         return state.market.type;
     });
+
+    const hasRank = useSelector((state) => {
+        return state.market.hasRank;
+    });
+
 
 
     const [buying, setBuying] = useState(false);
@@ -201,6 +210,18 @@ export default function MarketSelection({
         return state.market.sortOrder;
     })
 
+    useEffect(async function() {
+        var localSortOrders = SortOrders;
+        if (is1155) {
+            localSortOrders = SortOrders.filter(e => e !== "Token ID");
+        }
+        if (!hasRank) {
+            localSortOrders = SortOrders.filter(e => e !== "Rarity");
+        }
+        setFilteredSortOrders(localSortOrders);
+    }, [SortOrders, is1155, hasRank, listings]);
+
+
     return(
         <Box mb={16} mt={4} >
         <Stack >
@@ -285,7 +306,7 @@ export default function MarketSelection({
                 onChange={sortChanged}
             >
                 {
-                    ((is1155Collection) ? SortOrders.filter(e => e !== "Id"): SortOrders).map((e) => {
+                    filteredSortOrders.map((e) => {
                         return(<MenuItem value={e}>{e}</MenuItem>)
                     })
                 }

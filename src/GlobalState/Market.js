@@ -15,7 +15,7 @@ const collectionsUri = `${config.api_base}collections?`;
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 
-export const SortOrders = ['Listing ID', 'Price', 'Token ID']
+export const SortOrders = ['Listing ID', 'Price', 'Token ID', 'Rarity']
 
 const marketSlice = createSlice({
     name : 'market',
@@ -30,6 +30,8 @@ const marketSlice = createSlice({
         curPage : 1,
         // response: null,
         collection: null,
+        hasRank: false,
+        is1155: false,
         currentListing : null
     },
     reducers : {
@@ -43,8 +45,13 @@ const marketSlice = createSlice({
         },
         onNewPage(state, action){
             state.loadingPage = false;
+            state.hasRank = action.payload.hasRank;
+            state.is1155 = action.payload.is1155;
             state.curPage = action.payload.page;
             state.listings[action.payload.page] = action.payload.newPage;
+            if(action.payload.hasRank === false && state.sortOrder === SortOrders[3]){
+                state.sortOrder = SortOrders[0]
+            }
         },
         onTotalListed(state, action){
             // state.totalListed = action.payload.totalActive;
@@ -144,6 +151,15 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
     ///TODO show loaded
     //dispatch(startLoading())
     const rawResponse = await sortAndFetch(order, page, type, address);
+    let hasRank = false;
+    let is1155 = false;
+    if (rawResponse.listings.length > 0)
+        if (typeof rawResponse.listings[0].nft.rank !== 'undefined') {
+            hasRank = true;
+        }
+        if (rawResponse.listings[0].is1155) {
+            is1155 = true;
+        }
     const listingsResponse =  rawResponse.listings.map((e) => {
 
         return {
@@ -151,10 +167,13 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
             'listingId': ethers.BigNumber.from(e.listingId),
             'price' : ethers.utils.parseEther(String(e.price)),
         }
+        
     });
 
     dispatch(onNewPage({
         'page' : page,
+        hasRank: hasRank,
+        is1155: is1155,
         'newPage' : listingsResponse,
     }));
 }
@@ -211,9 +230,8 @@ export const getListing = (state, id) => async(dispatch) => {
             'royalty'     : rawListing['royalty'],
             'nft'         : rawListing['nft']
         }
-
         dispatch(onListingLoaded({
-            listing: listing
+            listing: listing,
         }))
     }catch(error){
         console.log(error)
@@ -341,11 +359,17 @@ async function sortAndFetch(order, page, type, address){
         } else {
             filter = `&sortBy=price&direction=asc`
         }
-    } else {   
+    } else if (order === SortOrders[2]) {   
         if (type !== 'all'){
             filter = `&${type}=${address}&sortBy=tokenId&direction=asc`
         } else {
             filter = `&sortBy=tokenId&direction=asc`
+        }
+    } else if (order === SortOrders[3]) {   
+        if (type !== 'all'){
+            filter = `&${type}=${address}&sortBy=rank&direction=desc`
+        } else {
+            filter = `&sortBy=rank&direction=desc`
         }
     }
     const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;

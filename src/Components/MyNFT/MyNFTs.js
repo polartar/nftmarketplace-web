@@ -337,7 +337,9 @@ export const MyNFTs = () => {
 
     const viewDetails = (collectionId, nftId) => () => {
         dispatch(onNftLoading(nftId));
-        history.push(`/collection/${collectionId}/${nftId}`);
+        const win = window.open(`/collection/${collectionId}/${nftId}`, "_blank");
+        win.focus();
+        // history.push(`/collection/${collectionId}/${nftId}`);
     }
 
     return(
