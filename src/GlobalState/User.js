@@ -549,7 +549,10 @@ export const getNftDetails = (state, collectionId, nftId) => async(dispatch) => 
             const internalUri = `https://app.ebisusbay.com/files/${collectionId.toLowerCase()}/metadata/${nftId}.json`;
             const json = await (await fetch(internalUri)).json();
             dispatch(onNftLoaded({
-                'nft' : json
+                'nft' : {
+                    ...json,
+                    'properties' : (json.properties) ? json.properties : []
+                }
             }));
             return;
         }catch(error){
