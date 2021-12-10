@@ -53,7 +53,7 @@ export default function NFTDetails({
     const [royalty, setRoyalty] = useState(null);
 
     useEffect(async function() {
-        if (listing !== null && listing.nftAddress !== null) {
+        if (listing !== null && listing.nftAddress !== null && royalty === null) {
             let royalties = await readMarket.royalties(listing.nftAddress)
             console.log(royalties);
             setRoyalty((royalties[1] / 10000) * 100);
@@ -104,8 +104,12 @@ export default function NFTDetails({
         if(user.address){
             setBuying(true);
             try{
+                let price = listing.price;
+                if(typeof price === 'string' ){
+                    price = ethers.utils.parseEther(price);
+                } 
                 const tx = await user.marketContract.makePurchase(listing.listingId, {
-                    'value' : listing.price
+                    'value' : price
                 });
                 const receipt = await tx.wait();
                 setShowSuccess({
