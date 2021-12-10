@@ -545,6 +545,16 @@ export const getNftDetails = (state, collectionId, nftId) => async(dispatch) => 
         // }
 
         let nft;
+        try{
+            const internalUri = `https://app.ebisusbay.com/files/${collectionId.toLowerCase()}/metadata/${nftId}.json`;
+            const json = await (await fetch(internalUri)).json();
+            dispatch(onNftLoaded({
+                'nft' : json
+            }));
+            return;
+        }catch(error){
+            console.log(error);
+        }
 
         if (collectionId === config.cronie_contract) {
             const contract = new Contract(collectionId, ERC721, readProvider);

@@ -184,6 +184,11 @@ export default function NFTDetails({
                         <Typography variant='subtitle1' component='p'>
                             {listing.nft.description}
                         </Typography>
+
+                        {
+                            (typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) ? 
+                            <Typography variant='subtitle1' component='p'>Rank: {listing.nft.rank}</Typography> : null
+                        }
                     
                         {
                             (listing.nft.attributes !== undefined && listing.nft.attributes.length > 0) ?
