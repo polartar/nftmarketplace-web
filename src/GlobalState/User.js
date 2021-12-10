@@ -551,7 +551,7 @@ export const getNftDetails = (state, collectionId, nftId) => async(dispatch) => 
             dispatch(onNftLoaded({
                 'nft' : {
                     ...json,
-                    'properties' : (json.properties) ? json.properties : []
+                    'properties' : (json.attributes) ? json.attributes : []
                 }
             }));
             return;
