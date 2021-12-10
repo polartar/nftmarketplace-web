@@ -54,7 +54,7 @@ pipelines:
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*.html" "/*.json" "/robots.txt" "/vector*" "/static/*"
     dev:
       - step:
           name: Integration test
@@ -95,7 +95,7 @@ pipelines:
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*.html" "/*.json" "/robots.txt" "/vector*" "/static/*"
     prod:
       - step:
           name: Integration test
@@ -134,4 +134,4 @@ pipelines:
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*.html" "/*.json" "/robots.txt" "/vector*" "/static/*"
