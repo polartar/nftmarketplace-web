@@ -17,6 +17,16 @@
     margin-top: 100px !important;
 }
 
+.link {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.raritySniper {
+    margin-bottom: 5px !important;
+    text-align: center !important;
+}
+
 @media only screen and (max-width:500px) {
     .gridItem {
         width: 100%;
