@@ -14,7 +14,7 @@ const Footer = () => {
   return(
     <AppBar position="fixed" color="inherit" sx={{ top: 'auto', bottom: 0, zIndex: 9 }}>
         <Toolbar className='toolbar'>
-            <IconButton size='large' color='primary' aria-label='email' target='_blank' href='mailto:admin@ebisusbay.com'>
+            <IconButton size='large' color='primary' aria-label='email' target='_blank' href='mailto:support@ebisusbay.com'>
               <MailOutlineIcon className='icons' />
             </IconButton>
             <IconButton color='primary' aria-label='twitter' target='_blank' href='https://twitter.com/EbisusBay'>
