@@ -11,12 +11,15 @@ import Web3Modal from "web3modal";
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { knownContracts } from './Market'
+import { DeFiWeb3Connector } from 'deficonnect'
+import cdcLogo from '../Assets/cdc_logo.svg'
 
 
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const listingsUri = `${config.api_base}listings?`;
+
 
 
 const userSlice = createSlice({
@@ -50,7 +53,7 @@ const userSlice = createSlice({
         accountChanged(state, action){
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
-            
+
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
@@ -149,6 +152,8 @@ const userSlice = createSlice({
             }
             state.web3modal = null;
             state.provider = null;
+            localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
+            localStorage.removeItem("walletconnect", null);
             state.address = "";
             state.balance = "Loading...";
             state.rewards = "Loading...";
@@ -214,9 +219,35 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             },
             package: null
             },
+        "custom-defiwallet": {
+            display: {
+                logo: cdcLogo,
+                name: "Crypto.com DeFi Wallet",
+                description: "Connect with the CDC DeFi Wallet"
+            },
+            options: {},
+            package: WalletConnectProvider,
+            connector: async (ProviderPackage, options) =>  {
+                const connector = new DeFiWeb3Connector({
+                    supportedChainIds: [25],
+                    rpc: {25: 'https://evm-cronos.crypto.org'},
+                    pollingInterval: 15000,
+                    metadata: {
+                        icons: ['https://ebisusbay.com/vector%20-%20face.svg'],
+                        description: "Cronos NFT Marketplace"
+                    }
+                });
+
+                await connector.activate();
+                let provider = await connector.getProvider();
+                return provider;
+            }
         }
+    }
 
-
+    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == "\"custom-defiwallet\"") {
+        localStorage.removeItem('WEB3_CONNECT_CACHED_PROVIDER');
+    }
 
     const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
@@ -239,7 +270,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     }
 
     //dispatch(connectingWallet({'connecting' : true}));
-
+    console.log(web3provider);
     try {
     var provider = new ethers.providers.Web3Provider(web3provider);
 
@@ -272,12 +303,21 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     }));
 
 
+    web3provider.on('DeFiConnectorDeactivate', (error) => {
+        console.log("HERE");
+        dispatch(onLogout());
+    });
+
     web3provider.on('disconnect', (error) => {
         dispatch(onLogout());
     });
 
     web3provider.on('accountsChanged', (accounts) => {
         dispatch(connectAccount());
+    });
+
+    web3provider.on('DeFiConnectorUpdate', (accounts) => {
+        window.location.reload();
     });
 
     web3provider.on('chainChanged', (chainId) => {

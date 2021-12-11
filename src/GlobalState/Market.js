@@ -11,6 +11,7 @@ const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
 const listingsUri = `${config.api_base}listings?`;
 const collectionsUri = `${config.api_base}collections?`;
+const marketDataUri = `${config.api_base}marketdata?`;
 
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
@@ -30,6 +31,7 @@ const marketSlice = createSlice({
         curPage : 1,
         // response: null,
         collection: null,
+        marketData: null,
         hasRank: false,
         is1155: false,
         currentListing : null
@@ -70,7 +72,7 @@ const marketSlice = createSlice({
                 state.listings = [[]]
                 state.response = action.payload.response;
                 state.curPage = 1;
-                state.totalPages = state.response.totalPages; 
+                state.totalPages = state.response.totalPages;
                 state.listings[state.page] = state.response.listings;
             }
             state.sortOrder = action.payload.order;
@@ -80,6 +82,9 @@ const marketSlice = createSlice({
         },
         onCollectionDataLoaded(state, action) {
             state.collection = action.payload.collection;
+        },
+        onMarketDataLoaded(state, action) {
+            state.marketData = action.payload.marketdata;
         }
     }
 })
@@ -106,13 +111,14 @@ export const {
     onListingLoaded,
     onSort,
     onPage,
-    onCollectionDataLoaded
+    onCollectionDataLoaded,
+    onMarketDataLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
 
 export const init = (state, type, address) => async(dispatch) => {
-    
+
         dispatch(clearSet());
 
         const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
@@ -124,12 +130,12 @@ export const init = (state, type, address) => async(dispatch) => {
                 'listingId': ethers.BigNumber.from(e.listingId),
                 'price' : ethers.utils.parseEther(String(e.price)),
             }
-        }); 
+        });
 
 
         const listings = new Array(pages);
         listings[1] = listingsResponse
-        
+
         dispatch(onTotalListed({
             'type' : type,
             'totalPages' : pages,
@@ -140,7 +146,7 @@ export const init = (state, type, address) => async(dispatch) => {
 }
 
 /**
- * 
+ *
                 'name': name,
                 'image' : image,
                 'description' : description,
@@ -167,7 +173,7 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
             'listingId': ethers.BigNumber.from(e.listingId),
             'price' : ethers.utils.parseEther(String(e.price)),
         }
-        
+
     });
 
     dispatch(onNewPage({
@@ -184,6 +190,19 @@ export const requestSort = (order, type, address) => async(dispatch) => {
         'response' : response,
         'order': order
     }))
+}
+
+
+export const getMarketData = () => async(dispatch) => {
+    try {
+        const uri = marketDataUri;
+        var data = await (await fetch(uri)).json();
+        dispatch(onMarketDataLoaded({
+            marketdata: data
+        }))
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 export const getCollectionData = (type, address) => async(dispatch) => {
@@ -249,12 +268,12 @@ const getNft = async (listing) => {
                 }catch(error){
                     //console.log(error);
                 }
-            } 
+            }
             const json = await (await fetch(uri)).json();
             const name = json.name;
             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
             const description = json.description;
-            let properties = json.properties; 
+            let properties = json.properties;
             if(properties === null || typeof properties === 'undefined'){
                 properties = [];
             }
@@ -285,7 +304,7 @@ const getNft = async (listing) => {
             } else {
                 if(gatewayTools.containsCID(uri)){
                     try{
-                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
+                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
                     }catch(error){
                         // console.log(error);
                     }
@@ -301,7 +320,7 @@ const getNft = async (listing) => {
                 if(gatewayTools.containsCID(json.image)){
                     try {
                         image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                        
+
                     }catch(error){
                         image = json.image;
                     }
@@ -329,17 +348,17 @@ function dataURItoBlob(dataURI, type) {
 
     // convert base64 to raw binary data held in a string
     let byteString = atob(dataURI.split(',')[1]);
-  
+
     // separate out the mime component
     let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
+
     // write the bytes of the string to an ArrayBuffer
     let ab = new ArrayBuffer(byteString.length);
     let ia = new Uint8Array(ab);
     for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-  
+
     // write the ArrayBuffer to a blob, and you're done
     let bb = new Blob([ab], { type: type });
     return bb;
@@ -359,13 +378,13 @@ async function sortAndFetch(order, page, type, address){
         } else {
             filter = `&sortBy=price&direction=asc`
         }
-    } else if (order === SortOrders[2]) {   
+    } else if (order === SortOrders[2]) {
         if (type !== 'all'){
             filter = `&${type}=${address}&sortBy=tokenId&direction=asc`
         } else {
             filter = `&sortBy=tokenId&direction=asc`
         }
-    } else if (order === SortOrders[3]) {   
+    } else if (order === SortOrders[3]) {
         if (type !== 'all'){
             filter = `&${type}=${address}&sortBy=rank&direction=desc`
         } else {
