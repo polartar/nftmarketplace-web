@@ -1,18 +1,25 @@
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 
 import thunk from "redux-thunk";
-import { initState } from '../GlobalState/CreateSlice'
 import {memberships} from "../GlobalState/Memberships";
 import { cronies } from "../GlobalState/Cronies";
-import { user } from "../GlobalState/User";
-import { market } from "../GlobalState/Market";
+import marketplaceReducer from "../GlobalState/marketplaceSlice";
+import listingReducer from "../GlobalState/listingSlice";
+import nftReducer from "../GlobalState/nftSlice";
+import walletReducer from "../GlobalState/walletSlice";
+import userReducer from "../GlobalState/userSlice";
 
 const rootReducer = combineReducers({
-    initState: initState,
+    // initState: initState,
     memberships: memberships,
     cronies: cronies,
-    user : user,
-    market : market
+    // user : user,
+
+    marketplace: marketplaceReducer,
+    listing: listingReducer,
+    nft: nftReducer,
+    wallet: walletReducer,
+    user: userReducer
 });
 
 const middleware = [thunk];

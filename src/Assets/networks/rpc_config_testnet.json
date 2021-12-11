@@ -1,0 +1,58 @@
+{
+    "name" : "test-net",
+    "chain_id" : "338",
+    "write_rpc" : "https://cronos-testnet-3.crypto.org:8545/",
+    "read_rpc" : "https://cronos-testnet-3.crypto.org:8545/",
+    "symbol" : "tCRO",
+    "explorer" : "https://cronos.crypto.org/explorer/testnet3/",
+    "api_base" : "https://testapi.ebisusbay.biz/",
+    "membership_contract" : "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+    "market_contract" : "0x15876C450638158F48392F01dE2CEa51eccc7840",
+    "cronie_contract" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
+    "elon_contract": "0x2fE1f2722fa215A68b92aECaD425259C0D645972",
+    "known_contracts" :  [
+        {
+            "name": "EbisusBay VIP",
+            "onChain" : false,
+            "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+            "multiToken" : true,
+            "id" : 2,
+            "listable" : true
+        },
+        {
+            "name": "EbisusBay Founder",
+            "onChain" : false,
+            "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+            "multiToken" : true,
+            "id" : 1,
+            "listable" : true
+        },
+        {
+            "name": "Basic NFT",
+            "multiToken": false,
+            "address" : "0xCfEEe4c7B10C52854e061607C347e0D79C6F73A1",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "Cronos Warrior",
+            "multiToken": false,
+            "address" : "0x6777a24aef6374265B4A900c9Db57673cFF426Ab",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "Cronies",
+            "multiToken": false,
+            "address" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
+            "onChain" : true,
+            "listable" : true
+        }, {
+            "name" : "Elon's Adventure",
+            "multiToken": false,
+            "address" : "0x2fE1f2722fa215A68b92aECaD425259C0D645972",
+            "onChain" : false,
+            "listable" : true
+        }
+    ]
+}
