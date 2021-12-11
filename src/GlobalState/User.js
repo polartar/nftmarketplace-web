@@ -5,13 +5,13 @@ import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
 import { ERC721, ERC1155 , Elon} from '../Contracts/Abis'
-import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { knownContracts } from './Market'
 import { DeFiWeb3Connector } from 'deficonnect'
+import  WalletConnectProvider from '@deficonnect/web3-provider'
 import cdcLogo from '../Assets/cdc_logo.svg'
 
 
@@ -197,6 +197,7 @@ export const updateListed = (contract, id, listed) => async(dispatch) => {
 export const connectAccount = (firstRun=false) => async(dispatch) => {
 
     const providerOptions = {
+        /*
         walletconnect: {
             package: WalletConnectProvider, // required
             options: {
@@ -210,7 +211,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
                     description: "Cronos NFT Marketplace"
                     }
                 }
-        },
+        },*/
         injected: {
             display: {
                 logo: "https://github.com/MetaMask/brand-resources/raw/master/SVG/metamask-fox.svg",
