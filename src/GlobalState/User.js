@@ -4,7 +4,7 @@ import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
-import { ERC721, ERC1155 , Elon} from '../Contracts/Abis'
+import { ERC721, ERC1155 , Ebisu} from '../Contracts/Abis'
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
@@ -331,7 +331,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ebisu;
 
         if(signer && correctChain){
-            ebisu = new Contract(config.ebisu_contract, Elon, signer);
+            ebisu = new Contract(config.ebisu_contract, Ebisu, signer);
             mc = new Contract(config.membership_contract, Membership.abi, signer);
             mc.connect(signer);
             cc = new Contract(config.cronie_contract, Cronies.abi, signer);
