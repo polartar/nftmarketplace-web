@@ -86,7 +86,7 @@ const Drop = () => {
         const extra = {
           'value' : cost
         };
-        const response = await contract.safeMint(numToMint, extra);
+        const response = await contract.mint(numToMint, extra);
         const receipt = await response.wait();
       }catch(error){
         if(error.data){
@@ -124,7 +124,7 @@ const Drop = () => {
          </Container> : 
          <Container>
             <Box mt={3}>
-
+            <Typography component="p" variant="subtitle1">{numToMint}</Typography>
             <Slider defaultValue={1} step={1} marks min={1} max={10} onChange={ (e, val) =>
                                     setNumToMint(val)
                                 }/>
