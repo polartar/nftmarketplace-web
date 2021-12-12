@@ -5,50 +5,63 @@ import { createGlobalStyle } from 'styled-components';
 import SliderCarouselRedux from "../components/SliderCarouselRedux";
 import ListingCollection from "../components/ListingCollection";
 import CarouselCollectionRedux from "../components/CarouselCollectionRedux";
+import {useHistory} from "react-router-dom";
 
 const GlobalStyles = createGlobalStyle`
 `;
 
-const homethree= () => (
-    <div>
-        <GlobalStyles />
-        <section className="jumbotron no-bg no-bottom">
-            <div className='container-fluid'>
-                <div className='row'>
-                    <SliderCarouselRedux/>
-                </div>
-            </div>
-        </section>
+const Home = () => {
+    const history = useHistory();
 
-        <section className='container no-top'>
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-lg-12'>
-                        <div className="spacer-double"></div>
-                        <h2 className='style-2'>New Items</h2>
+    const navigateTo = (link) => {
+        history.push(link);
+    }
+
+    return (
+        <div>
+            <GlobalStyles/>
+            <section className="jumbotron no-bg no-bottom">
+                <div className='container-fluid'>
+                    <div className='row'>
+                        <SliderCarouselRedux/>
                     </div>
                 </div>
-                <ListingCollection showLoadMore={false}/>
-            </div>
-        </section>
+            </section>
 
-        <section className='container'>
-            <div className='row'>
-                <div className='col-lg-12'>
-                    <h2 className='style-2'>Hot Collections</h2>
-                </div>
-            </div>
-            <div className='container'>
-                <div className='row'>
+            <section className='container no-top'>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-lg-12'>
+                            <div className="spacer-double"></div>
+                            <h2 className='style-2'>New Items</h2>
+                        </div>
+                    </div>
+                    <ListingCollection showLoadMore={false}/>
                     <div className='col-lg-12'>
-                        <CarouselCollectionRedux/>
+                        <div className="spacer-single"></div>
+                        <span onClick={() => navigateTo(`/marketplace`)} className="btn-main lead m-auto">View Marketplace</span>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <Footer />
+            <section className='container'>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <h2 className='style-2'>Hot Collections</h2>
+                    </div>
+                </div>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-lg-12'>
+                            <CarouselCollectionRedux/>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    </div>
-);
-export default homethree;
+            <Footer/>
+
+        </div>
+    );
+};
+export default Home;
