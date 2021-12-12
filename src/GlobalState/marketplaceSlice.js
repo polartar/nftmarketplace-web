@@ -62,6 +62,24 @@ export const { listingsLoading, listingsReceived, onFilter, onSort, clearSet, on
 
 export default marketplaceSlice.reducer;
 
+export const init = (sort, filter) => async (dispatch, getState) => {
+    dispatch(clearSet());
+
+    if (sort) {
+        dispatch(onSort({
+            type: sort.type,
+            direction: sort.direction
+        }));
+    }
+
+    if (filter) {
+        dispatch(onFilter({
+            type: filter.type,
+            address: filter.address
+        }));
+    }
+}
+
 export const fetchListings = () => async (dispatch, getState) => {
     const state = getState();
 

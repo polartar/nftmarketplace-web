@@ -28,7 +28,7 @@ const homethree= () => (
                         <h2 className='style-2'>New Items</h2>
                     </div>
                 </div>
-                <ListingCollection/>
+                <ListingCollection showLoadMore={false}/>
             </div>
         </section>
 

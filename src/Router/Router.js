@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { useSelector } from 'react-redux'
-import Home from '../components/pages/home';
-import Marketplace from '../components/pages/marketplace';
-import Collection from '../components/pages/collection';
-import Seller from '../components/pages/seller';
-import Listing from '../components/pages/listing';
-import Nft from '../components/pages/nft';
-import MyNfts from '../components/pages/myNfts';
-import Header from "../components/menu/header";
+import Home from '../Components/pages/home';
+import Marketplace from '../Components/pages/marketplace';
+import Collection from '../Components/pages/collection';
+import Seller from '../Components/pages/seller';
+import Listing from '../Components/pages/listing';
+import Nft from '../Components/pages/nft';
+import MyNfts from '../Components/pages/myNfts';
+import Header from "../Components/menu/header";
 
 export const AppRouter = () => {
 

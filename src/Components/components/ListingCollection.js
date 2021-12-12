@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListingCard from './ListingCard';
-import {clearSet, fetchListings, filterListings} from "../../GlobalState/marketplaceSlice";
+import {init, fetchListings} from "../../GlobalState/marketplaceSlice";
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null}) => {
 
@@ -21,23 +21,26 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     });
 
     useEffect(() => {
-        dispatch(clearSet());
-        if(collectionId){
-            dispatch(filterListings('collection', collectionId));
-        } else if(sellerId){
-            dispatch(filterListings('seller', sellerId));
-        } else {
-            dispatch(fetchListings());
+        let sort = {
+            type: 'listingId',
+            direction: 'desc'
         }
-    }, [dispatch]);
 
-    // //will run when component unmounted
-    // useEffect(() => {
-    //     return () => {
-    //         dispatch(clearFilter());
-    //         dispatch(clearNfts());
-    //     }
-    // },[dispatch]);
+        let filter = {
+            type: null,
+            address: null
+        }
+
+        if(collectionId){
+            filter.type = 'collection';
+            filter.address = collectionId;
+        } else if(sellerId){
+            filter.type = 'collection';
+            filter.address = collectionId;
+        }
+        dispatch(init(sort, filter));
+        dispatch(fetchListings());
+    }, [dispatch]);
 
     const loadMore = () => {
         dispatch(fetchListings());
@@ -45,17 +48,16 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
 
     return (
         <div className='row'>
-
             {listings && listings.map( (listing, index) => (
                 <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
             ))}
             { showLoadMore && canLoadMore &&
-                <div className='col-lg-12'>
-                    <div className="spacer-single"></div>
-                    <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
-                </div>
+            <div className='col-lg-12'>
+                <div className="spacer-single"></div>
+                <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
+            </div>
             }
-        </div>              
+        </div>
     );
 };
 

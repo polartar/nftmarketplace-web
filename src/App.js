@@ -1,6 +1,6 @@
 import React from 'react';
-import ScrollToTopBtn from './components/menu/ScrollToTop';
-import Header from './components/menu/header';
+import ScrollToTopBtn from './Components/menu/ScrollToTop';
+import Header from './Components/menu/header';
 import { createGlobalStyle } from 'styled-components';
 import { AppRouter } from "./Router/Router";
 
