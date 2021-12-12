@@ -86,7 +86,7 @@ const Drop = () => {
         const extra = {
           'value' : cost
         };
-        const response = await contract.safeMint(numToMint, extra);
+        const response = await contract.mint(numToMint, extra);
         const receipt = await response.wait();
       }catch(error){
         if(error.data){
