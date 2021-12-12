@@ -236,19 +236,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         }
     }
 
-    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == "\"custom-defiwallet\"") {
-        localStorage.removeItem('WEB3_CONNECT_CACHED_PROVIDER');
-    }
-
     const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
         providerOptions // required
     });
-
-    console.log(localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER"));
-    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == null && firstRun) {
-        return;
-    }
 
 
     console.log("Opening a dialog", web3Modal);
@@ -257,11 +248,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         web3provider = await web3Modal.connect();
     } catch(e) {
         console.log("Could not get a wallet connection", e);
+        dispatch(onLogout());
         return;
     }
 
-    //dispatch(connectingWallet({'connecting' : true}));
-    console.log(web3provider);
     try {
         var provider = new ethers.providers.Web3Provider(web3provider);
 
