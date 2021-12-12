@@ -10,10 +10,13 @@ const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
 const listingsUri = `${config.api_base}listings?`;
+const collectionsUri = `${config.api_base}collections?`;
+const marketDataUri = `${config.api_base}marketdata?`;
+
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 
-export const SortOrders = ['Listing ID', 'Price', 'Token ID']
+export const SortOrders = ['Listing ID', 'Price', 'Token ID', 'Rarity']
 
 const marketSlice = createSlice({
     name : 'market',
@@ -27,6 +30,10 @@ const marketSlice = createSlice({
         sortOrder : SortOrders[0],
         curPage : 1,
         // response: null,
+        collection: null,
+        marketData: null,
+        hasRank: false,
+        is1155: false,
         currentListing : null
     },
     reducers : {
@@ -40,8 +47,13 @@ const marketSlice = createSlice({
         },
         onNewPage(state, action){
             state.loadingPage = false;
+            state.hasRank = action.payload.hasRank;
+            state.is1155 = action.payload.is1155;
             state.curPage = action.payload.page;
             state.listings[action.payload.page] = action.payload.newPage;
+            if(action.payload.hasRank === false && state.sortOrder === SortOrders[3]){
+                state.sortOrder = SortOrders[0]
+            }
         },
         onTotalListed(state, action){
             // state.totalListed = action.payload.totalActive;
@@ -52,7 +64,7 @@ const marketSlice = createSlice({
             state.address = action.payload.address;
         },
         onListingLoaded(state, action) {
-            state.currentListing = action.payload;
+            state.currentListing = action.payload.listing;
             state.loadingPage = false;
         },
         onSort(state, action){
@@ -60,13 +72,19 @@ const marketSlice = createSlice({
                 state.listings = [[]]
                 state.response = action.payload.response;
                 state.curPage = 1;
-                state.totalPages = state.response.totalPages; 
+                state.totalPages = state.response.totalPages;
                 state.listings[state.page] = state.response.listings;
             }
             state.sortOrder = action.payload.order;
         },
         onPage(state, action){
             state.curPage = action.payload;
+        },
+        onCollectionDataLoaded(state, action) {
+            state.collection = action.payload.collection;
+        },
+        onMarketDataLoaded(state, action) {
+            state.marketData = action.payload.marketdata;
         }
     }
 })
@@ -92,42 +110,62 @@ export const {
     clearSet,
     onListingLoaded,
     onSort,
-    onPage
+    onPage,
+    onCollectionDataLoaded,
+    onMarketDataLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
 
 export const init = (state, type, address) => async(dispatch) => {
-    
+
         dispatch(clearSet());
 
         const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
         const pages = rawResponse.totalPages;
         const listingsResponse = rawResponse.listings.map((e) => {
+
             return {
                 ...e,
                 'listingId': ethers.BigNumber.from(e.listingId),
                 'price' : ethers.utils.parseEther(String(e.price)),
             }
-        }); //backend hasn't fetched metadata for this listing
+        });
 
 
         const listings = new Array(pages);
         listings[1] = listingsResponse
-        
+
         dispatch(onTotalListed({
             'type' : type,
             'totalPages' : pages,
             'listings' : new Array(pages),
             'address': address,
+            // 'response' : listingsResponse
         }))
 }
 
+/**
+ *
+                'name': name,
+                'image' : image,
+                'description' : description,
+                'properties' : (properties) ? properties : [],
+ */
 
 export const loadPage = (page, type, address, order) => async(dispatch) => {
     ///TODO show loaded
     //dispatch(startLoading())
     const rawResponse = await sortAndFetch(order, page, type, address);
+    let hasRank = false;
+    let is1155 = false;
+    if (rawResponse.listings.length > 0)
+        if (typeof rawResponse.listings[0].nft.rank !== 'undefined') {
+            hasRank = true;
+        }
+        if (rawResponse.listings[0].is1155) {
+            is1155 = true;
+        }
     const listingsResponse =  rawResponse.listings.map((e) => {
 
         return {
@@ -135,11 +173,13 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
             'listingId': ethers.BigNumber.from(e.listingId),
             'price' : ethers.utils.parseEther(String(e.price)),
         }
+
     });
-    // const index = (page - 1) * pagesize;
-    // let listings = [...state.market.response].splice(index, pagesize);
+
     dispatch(onNewPage({
         'page' : page,
+        hasRank: hasRank,
+        is1155: is1155,
         'newPage' : listingsResponse,
     }));
 }
@@ -152,6 +192,37 @@ export const requestSort = (order, type, address) => async(dispatch) => {
     }))
 }
 
+
+export const getMarketData = () => async(dispatch) => {
+    try {
+        const uri = marketDataUri;
+        var data = await (await fetch(uri)).json();
+        dispatch(onMarketDataLoaded({
+            marketdata: data
+        }))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const getCollectionData = (type, address) => async(dispatch) => {
+    if (type != 'collection') {
+        dispatch(onCollectionDataLoaded({
+            collection: null,
+        }))
+        return;
+    }
+    try {
+        const uri = `${collectionsUri}collection=${address}`;
+        var data = await (await fetch(uri)).json();
+        dispatch(onCollectionDataLoaded({
+            collection: data.collections[0]
+        }))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 export const getListing = (state, id) => async(dispatch) => {
     const curListing = state.market.currentListing;
     if(curListing !== null && curListing.nftId === id){
@@ -159,24 +230,27 @@ export const getListing = (state, id) => async(dispatch) => {
     }
     dispatch(startLoading());
     try{
-        const rawListing = await readMarket.listings(id);
+        const uri = `${listingsUri}listingId=${id}`;
+        var rawListing = await (await fetch(uri)).json();
+        rawListing = rawListing['listings'][0];
         const listing = {
-            'listingId' : rawListing['listingId'],
-            'nftId'     : rawListing['nftId'],
-            'seller'    : rawListing['seller'],
-            'nftAddress': rawListing['nft'],
-            'price'     : rawListing['price'],
-            'fee'       : rawListing['fee'],
-            'is1155'    : rawListing['is1155'],
-            'state'     : rawListing['state'],
-            'purchaser' : rawListing['purchaser']
+            'listingId'   : rawListing['listingId'],
+            'nftId'       : rawListing['nftId'],
+            'seller'      : rawListing['seller'],
+            'nftAddress'  : rawListing['nftAddress'],
+            'price'       : rawListing['price'],
+            'fee'         : rawListing['fee'],
+            'is1155'      : rawListing['is1155'],
+            'state'       : rawListing['state'],
+            'purchaser'   : rawListing['purchaser'],
+            'listingTime' : rawListing['listingTime'],
+            'saleTime'    : rawListing['saleTime'],
+            'endingTime'  : rawListing['endingTime'],
+            'royalty'     : rawListing['royalty'],
+            'nft'         : rawListing['nft']
         }
-
-        const nft = await getNft(listing);
-
         dispatch(onListingLoaded({
-            ...listing,
-            'nft' : nft
+            listing: listing,
         }))
     }catch(error){
         console.log(error)
@@ -194,12 +268,12 @@ const getNft = async (listing) => {
                 }catch(error){
                     //console.log(error);
                 }
-            } 
+            }
             const json = await (await fetch(uri)).json();
             const name = json.name;
             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
             const description = json.description;
-            let properties = json.properties; 
+            let properties = json.properties;
             if(properties === null || typeof properties === 'undefined'){
                 properties = [];
             }
@@ -230,7 +304,7 @@ const getNft = async (listing) => {
             } else {
                 if(gatewayTools.containsCID(uri)){
                     try{
-                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
+                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
                     }catch(error){
                         // console.log(error);
                     }
@@ -246,7 +320,7 @@ const getNft = async (listing) => {
                 if(gatewayTools.containsCID(json.image)){
                     try {
                         image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                        
+
                     }catch(error){
                         image = json.image;
                     }
@@ -274,17 +348,17 @@ function dataURItoBlob(dataURI, type) {
 
     // convert base64 to raw binary data held in a string
     let byteString = atob(dataURI.split(',')[1]);
-  
+
     // separate out the mime component
     let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
+
     // write the bytes of the string to an ArrayBuffer
     let ab = new ArrayBuffer(byteString.length);
     let ia = new Uint8Array(ab);
     for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-  
+
     // write the ArrayBuffer to a blob, and you're done
     let bb = new Blob([ab], { type: type });
     return bb;
@@ -304,15 +378,20 @@ async function sortAndFetch(order, page, type, address){
         } else {
             filter = `&sortBy=price&direction=asc`
         }
-    } else {   
+    } else if (order === SortOrders[2]) {
         if (type !== 'all'){
             filter = `&${type}=${address}&sortBy=tokenId&direction=asc`
         } else {
             filter = `&sortBy=tokenId&direction=asc`
         }
+    } else if (order === SortOrders[3]) {
+        if (type !== 'all'){
+            filter = `&${type}=${address}&sortBy=rank&direction=desc`
+        } else {
+            filter = `&sortBy=rank&direction=desc`
+        }
     }
     const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;
-    console.log(uri);
     const rawResponse = await (await fetch(uri)).json();
     return rawResponse;
 }

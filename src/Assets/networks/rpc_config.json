@@ -8,7 +8,7 @@
     "api_base" : "https://api.ebisusbay.com/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
-    "market_contract" : "0xA5d020b4418d534Dc697A51bec54bE0552bcf51E",
+    "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
     "known_contracts" :  [
         {
@@ -28,10 +28,24 @@
             "listable" : false
         },
         {
-            "name": "Cronies",
-            "multiToken": false,
-            "address" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
-            "onChain" : true,
+            "name" : "Mad Meerkat",
+            "multiToken" : false,
+            "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "Croslothty",
+            "multiToken" : false,
+            "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
+            "onChain" : false,
+            "listable" : true
+        }, 
+        {
+            "name" : "Crosmonauts",
+            "multiToken" : false,
+            "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
+            "onChain" : false,
             "listable" : true
         },
         {
@@ -39,7 +53,7 @@
             "multiToken": false,
             "address" : "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
             "onChain" : false,
-            "listable" : false
+            "listable" : true
         },
         {
             "name" : "CroPunks - Punks on Cronos",
@@ -53,6 +67,13 @@
             "multiToken": false,
             "address" : "0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5",
             "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name": "Cronies",
+            "multiToken": false,
+            "address" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
+            "onChain" : true,
             "listable" : true
         },
         {
@@ -138,28 +159,10 @@
             "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
             "onChain" : false,
             "listable" : true
-        }, {
-            "name" : "Croslothty",
-            "multiToken" : false,
-            "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
-            "onChain" : false,
-            "listable" : true
-        }, {
-            "name" : "Crosmonauts",
-            "multiToken" : false,
-            "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
-            "onChain" : false,
-            "listable" : true
-        }, {
+        },  {
             "name" : "Pingoo Black Friday Ticket",
             "multiToken" : false,
             "address" : "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
-            "onChain" : false,
-            "listable" : false
-        },{
-            "name" : "Mad Meerkat",
-            "multiToken" : false,
-            "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
             "onChain" : false,
             "listable" : false
         },{
@@ -185,7 +188,7 @@
             "multiToken" : false,
             "address" : "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
             "onChain" : false,
-            "listable" : true
+            "listable" : false
         },{
             "name" : "CronosRedPanda",
             "multiToken" : false,

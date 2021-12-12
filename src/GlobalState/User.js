@@ -5,18 +5,21 @@ import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
 import { ERC721, ERC1155 , Elon} from '../Contracts/Abis'
-import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { knownContracts } from './Market'
+import { DeFiWeb3Connector } from 'deficonnect'
+import  WalletConnectProvider from '@deficonnect/web3-provider'
+import cdcLogo from '../Assets/cdc_logo.svg'
 
 
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const listingsUri = `${config.api_base}listings?`;
+
 
 
 const userSlice = createSlice({
@@ -40,7 +43,7 @@ const userSlice = createSlice({
         membershipContract: null,
         croniesContract: null,
         marketContract: null,
-        elonContract : null,
+        ebisuContract : null,
         correctChain : false,
         nfts: [],
         currentNft : null
@@ -50,18 +53,15 @@ const userSlice = createSlice({
         accountChanged(state, action){
             state.membershipContract = action.payload.membershipContract;
             state.croniesContract = action.payload.croniesContract;
-            
+
             state.balance = action.payload.balance;
             state.code = action.payload.code;
             state.rewards = action.payload.rewards;
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
+            state.ebisuContract = action.payload.ebisuContract;
             state.gettingContractData = false;
-        },
-
-        elonContract(state, action){
-            state.elonContract = action.payload.elonContract;
         },
 
         onCorrectChain(state, action) {
@@ -138,17 +138,12 @@ const userSlice = createSlice({
                 providerOptions: [] // required
             });
             web3Modal.clearCachedProvider();
-            if (state.web3modal == null) {
-                const web3Modal = new Web3Modal({
-                    cacheProvider: false, // optional
-                    providerOptions: [] // required
-                });
-                web3Modal.clearCachedProvider();
-            } else {
+            if (state.web3modal != null) {
                 state.web3modal.clearCachedProvider();
             }
             state.web3modal = null;
             state.provider = null;
+            localStorage.clear();
             state.address = "";
             state.balance = "Loading...";
             state.rewards = "Loading...";
@@ -192,6 +187,7 @@ export const updateListed = (contract, id, listed) => async(dispatch) => {
 export const connectAccount = (firstRun=false) => async(dispatch) => {
 
     const providerOptions = {
+        /*
         walletconnect: {
             package: WalletConnectProvider, // required
             options: {
@@ -205,7 +201,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
                     description: "Cronos NFT Marketplace"
                     }
                 }
-        },
+        },*/
         injected: {
             display: {
                 logo: "https://github.com/MetaMask/brand-resources/raw/master/SVG/metamask-fox.svg",
@@ -214,9 +210,35 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             },
             package: null
             },
+        "custom-defiwallet": {
+            display: {
+                logo: cdcLogo,
+                name: "Crypto.com DeFi Wallet",
+                description: "Connect with the CDC DeFi Wallet"
+            },
+            options: {},
+            package: WalletConnectProvider,
+            connector: async (ProviderPackage, options) =>  {
+                const connector = new DeFiWeb3Connector({
+                    supportedChainIds: [25],
+                    rpc: {25: 'https://evm-cronos.crypto.org'},
+                    pollingInterval: 15000,
+                    metadata: {
+                        icons: ['https://ebisusbay.com/vector%20-%20face.svg'],
+                        description: "Cronos NFT Marketplace"
+                    }
+                });
+
+                await connector.activate();
+                let provider = await connector.getProvider();
+                return provider;
+            }
         }
+    }
 
-
+    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == "\"custom-defiwallet\"") {
+        localStorage.removeItem('WEB3_CONNECT_CACHED_PROVIDER');
+    }
 
     const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
@@ -239,102 +261,110 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     }
 
     //dispatch(connectingWallet({'connecting' : true}));
-
+    console.log(web3provider);
     try {
-    var provider = new ethers.providers.Web3Provider(web3provider);
+        var provider = new ethers.providers.Web3Provider(web3provider);
 
-    let accounts = await web3provider.request({
-        method: 'eth_accounts',
-        params: [{chainId: cid}]
-    });
-
-
-
-    var address = accounts[0];
-    var signer = provider.getSigner();
-    var cid = await web3provider.request({
-        method: "net_version",
-    });
+        let accounts = await web3provider.request({
+            method: 'eth_accounts',
+            params: [{chainId: cid}]
+        });
 
 
-    //console.log(cid, rpc.chain_id);
-    var correctChain = cid === Number(config.chain_id)
-    if (!correctChain) {
-        correctChain = cid === config.chain_id
-    }
-    //console.log(correctChain);
-    await dispatch(onBasicAccountData({
-        address: address,
-        provider: provider,
-        web3modal: web3Modal,
-        needsOnboard: false,
-        correctChain: correctChain
-    }));
+
+        var address = accounts[0];
+        var signer = provider.getSigner();
+        var cid = await web3provider.request({
+            method: "net_version",
+        });
 
 
-    web3provider.on('disconnect', (error) => {
-        dispatch(onLogout());
-    });
-
-    web3provider.on('accountsChanged', (accounts) => {
-        dispatch(connectAccount());
-    });
-
-    web3provider.on('chainChanged', (chainId) => {
-        // Handle the new chain.
-        // Correctly handling chain changes can be complicated.
-        // We recommend reloading the page unless you have good reason not to.
-
-        window.location.reload();
-    });
-
-    let mc;
-    let cc;
-    let code;
-    let balance;
-    let rewards;
-    let ownedFounder = 0;
-    let ownedVip = 0;
-    let market;
-    let sales;
-    let elon;
-
-    if(signer && correctChain){
-        elon = new Contract(config.elon_contract, Elon, signer);
-        dispatch(elonContract({
-            elonContract : elon
+        //console.log(cid, rpc.chain_id);
+        var correctChain = cid === Number(config.chain_id)
+        if (!correctChain) {
+            correctChain = cid === config.chain_id
+        }
+        //console.log(correctChain);
+        await dispatch(onBasicAccountData({
+            address: address,
+            provider: provider,
+            web3modal: web3Modal,
+            needsOnboard: false,
+            correctChain: correctChain
         }));
-        mc = new Contract(config.membership_contract, Membership.abi, signer);
-        mc.connect(signer);
-        cc = new Contract(config.cronie_contract, Cronies.abi, signer);
-        cc.connect(signer);
-        const rawCode = await mc.codes(address);
-        code = ethers.utils.parseBytes32String(rawCode);
-        rewards = ethers.utils.formatEther(await mc.payments(address));
-        ownedFounder = await mc.balanceOf(address, 1);
-        ownedVip = await mc.balanceOf(address, 2);
-        market = new Contract(config.market_contract, Market.abi, signer);
-        sales = ethers.utils.formatEther(await market.payments(address));
-
-    }
 
 
-    await dispatch(accountChanged({
-        address: address,
-        provider: provider,
-        web3modal: web3Modal,
-        needsOnboard: false,
-        correctChain: correctChain,
-        membershipContract: mc,
-        croniesContract: cc,
-        code: code,
-        balance: balance,
-        rewards: rewards,
-        isMember : ownedVip > 0 || ownedFounder > 0,
-        marketContract: market,
-        marketBalance :sales
-    }))
+        web3provider.on('DeFiConnectorDeactivate', (error) => {
+            console.log("HERE");
+            dispatch(onLogout());
+        });
+
+        web3provider.on('disconnect', (error) => {
+            dispatch(onLogout());
+        });
+
+        web3provider.on('accountsChanged', (accounts) => {
+            dispatch(connectAccount());
+        });
+
+        web3provider.on('DeFiConnectorUpdate', (accounts) => {
+            window.location.reload();
+        });
+
+        web3provider.on('chainChanged', (chainId) => {
+            // Handle the new chain.
+            // Correctly handling chain changes can be complicated.
+            // We recommend reloading the page unless you have good reason not to.
+
+            window.location.reload();
+        });
+
+        let mc;
+        let cc;
+        let code;
+        let balance;
+        let rewards;
+        let ownedFounder = 0;
+        let ownedVip = 0;
+        let market;
+        let sales;
+        let ebisu;
+
+        if(signer && correctChain){
+            ebisu = new Contract(config.ebisuContract, Elon, signer);
+            mc = new Contract(config.membership_contract, Membership.abi, signer);
+            mc.connect(signer);
+            cc = new Contract(config.cronie_contract, Cronies.abi, signer);
+            cc.connect(signer);
+            const rawCode = await mc.codes(address);
+            code = ethers.utils.parseBytes32String(rawCode);
+            rewards = ethers.utils.formatEther(await mc.payments(address));
+            ownedFounder = await mc.balanceOf(address, 1);
+            ownedVip = await mc.balanceOf(address, 2);
+            market = new Contract(config.market_contract, Market.abi, signer);
+            sales = ethers.utils.formatEther(await market.payments(address));
+            
+        }
+
+
+        await dispatch(accountChanged({
+            address: address,
+            provider: provider,
+            web3modal: web3Modal,
+            needsOnboard: false,
+            correctChain: correctChain,
+            membershipContract: mc,
+            croniesContract: cc,
+            code: code,
+            balance: balance,
+            rewards: rewards,
+            isMember : ownedVip > 0 || ownedFounder > 0,
+            marketContract: market,
+            marketBalance :sales,
+            ebisuContract : ebisu
+        }))
     } catch (error) {
+        console.log(error)
         console.log("Error connecting wallet!");
         await web3Modal.clearCachedProvider();
         dispatch(onLogout());
@@ -544,6 +574,19 @@ export const getNftDetails = (state, collectionId, nftId) => async(dispatch) => 
         // }
 
         let nft;
+        try{
+            const internalUri = `https://app.ebisusbay.com/files/${collectionId.toLowerCase()}/metadata/${nftId}.json`;
+            const json = await (await fetch(internalUri)).json();
+            dispatch(onNftLoaded({
+                'nft' : {
+                    ...json,
+                    'properties' : (json.attributes) ? json.attributes : []
+                }
+            }));
+            return;
+        }catch(error){
+            console.log(error);
+        }
 
         if (collectionId === config.cronie_contract) {
             const contract = new Contract(collectionId, ERC721, readProvider);

@@ -9,7 +9,7 @@ import {
     Grid,
     Card,
     Typography,
-    DialogContent, 
+    DialogContent,
     CardActions,
     Pagination,
     IconButton,
@@ -20,26 +20,44 @@ import {
     MenuItem,
     FormControl,
     InputLabel,
-    Select
+    Select,
+    Item
 } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link';
 
-import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage } from '../../GlobalState/Market';
+import { loadPage, init, onListingLoaded, SortOrders, requestSort, onPage, getCollectionData, getMarketData } from '../../GlobalState/Market';
 import { useSelector, useDispatch } from 'react-redux'
 import { connectAccount, chainConnect, onProvider } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import {useHistory} from 'react-router-dom';
+import "./marketscreen.css"
+import config from '../../Assets/networks/rpc_config.json'
+import Market from '../../Contracts/Marketplace.json'
+import { Contract } from '@ethersproject/contracts';
 
 export default function MarketSelection({
     collection,
     seller
 }){
+    const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
     const dispatch = useDispatch();
     const history = useHistory();
     const state = useSelector((state)=>{
         return state;
     });
 
+    const suppliedByRaritySniper = [
+        "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56".toLowerCase()
+    ];
+
+    const[royalty, setRoyalty] = useState(null);
+
+    const[filteredSortOrders, setFilteredSortOrders] = useState(SortOrders);
+
+    const user = useSelector((state) => {
+        return state.user;
+    });
 
     useEffect(async function() {
         let address = null;
@@ -53,7 +71,17 @@ export default function MarketSelection({
         }
         await dispatch(init(state, type, address));
         await dispatch(loadPage(page, type, address, order));
+        await dispatch(getCollectionData(type, address));
+        dispatch(getMarketData())
     }, [collection, seller]);
+
+    useEffect(async function() {
+        if (typeof collection !== 'undefined') {
+            let royalties = await readMarket.royalties(collection)
+            setRoyalty((royalties[1] / 10000) * 100);
+        }
+    }, [user.marketContract, collection]);
+
 
     const page = useSelector((state) => {
         return state.market.curPage;
@@ -63,15 +91,33 @@ export default function MarketSelection({
         return state.market.address;
     })
 
+    const collections = useSelector((state) => {
+        return state.market.collection;
+    })
+
+    const marketData = useSelector((state) => {
+        return state.market.marketData;
+    })
+
     const handlePageChange = (event, value) => {
        dispatch(onPage(value));
     };
 
-    // const response = useSelector((state) => {
-    //     return state.market.response;
-    // });
+    const [raritySniper, setRaritySniper] = useState(false);
 
-    const[is1155Collection, set1155Collection] = useState(false);
+    useEffect(async function() {
+        if (address) {
+            if (suppliedByRaritySniper.includes(address.toLowerCase())) {
+                setRaritySniper(true);
+            } else {
+                setRaritySniper(false);
+            }
+        }
+    }, [address]);
+
+    const is1155 = useSelector((state) => {
+        return state.market.is1155;
+    })
 
     const order = useSelector((state) => {
         return state.market.sortOrder;
@@ -80,17 +126,6 @@ export default function MarketSelection({
     useEffect(() => {
         dispatch(loadPage(page, type, address, order));
     }, [page, order]);
-
-
-    // useEffect(() => {
-    //     if(response !== null){
-    //         if(response.every(e => e.is1155)){
-    //             set1155Collection(true);
-    //         } else {
-    //             set1155Collection(false);
-    //         }
-    //     }
-    // }, [response])
 
     const totalPages = useSelector((state) => {
         return state.market.totalPages;
@@ -104,9 +139,10 @@ export default function MarketSelection({
         return state.market.type;
     });
 
-    const user = useSelector((state) => {
-        return state.user;
+    const hasRank = useSelector((state) => {
+        return state.market.hasRank;
     });
+
 
 
     const [buying, setBuying] = useState(false);
@@ -186,7 +222,6 @@ export default function MarketSelection({
     }
 
     const viewDetails = (listing) => () => {
-        dispatch(onListingLoaded(listing));
         history.push(`/listing/${listing.listingId}`);
     }
 
@@ -194,9 +229,139 @@ export default function MarketSelection({
         return state.market.sortOrder;
     })
 
+    useEffect(async function() {
+        var localSortOrders = SortOrders;
+        if (is1155) {
+            localSortOrders = SortOrders.filter(e => e !== "Token ID");
+        }
+        if (!hasRank) {
+            localSortOrders = SortOrders.filter(e => e !== "Rarity");
+        }
+        setFilteredSortOrders(localSortOrders);
+    }, [SortOrders, is1155, hasRank, listings]);
+
+
     return(
         <Box mb={16} mt={4} >
         <Stack >
+        <Box sx={{ flexGrow: 1, height: "auto", marginBottom: "30px" }}>
+        {(collections)?
+        <Grid sx={{}} container spacing={4} justifyContent="center" alignItems="center" direction='row'>
+            <Grid item xs={4} textAlign="center">
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Floor
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {ethers.utils.commify(Number(collections.floorPrice).toFixed(0))} CRO
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Avg. Sale
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {isNaN(collections.averageSalePrice) ?
+                            "N/A"
+                        :
+                            ethers.utils.commify(Number(collections.averageSalePrice).toFixed(0)) + " CRO"
+                        }
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Royalty
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {royalty}%
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Volume
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {ethers.utils.commify(Number(collections.totalVolume).toFixed(0))} CRO
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Sales
+                    </Typography>
+                    <Typography className='dataValue'>
+                    {ethers.utils.commify(collections.numberOfSales)}
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Active
+                    </Typography>
+                    <Typography className='dataValue'>
+                    {ethers.utils.commify(collections.numberActive)}
+                    </Typography>
+                </Box>
+            </Grid>
+        </Grid>
+        : null
+        }
+        {(marketData && !collections && type !== 'seller')?
+        <Grid sx={{}} container spacing={4} justifyContent="center" alignItems="center" direction='row'>
+            <Grid item xs={4} textAlign="center">
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Volume
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {ethers.utils.commify(Number(marketData.totalVolume).toFixed(0))} CRO
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Sales
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {
+                            ethers.utils.commify(marketData.totalSales)
+                        }
+                    </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={4} textAlign="center" >
+                <Box className='gridItem'>
+                    <Typography className='dataTitle'>
+                        Active
+                    </Typography>
+                    <Typography className='dataValue'>
+                        {
+                            ethers.utils.commify(marketData.totalActive)
+                        }
+                    </Typography>
+                </Box>
+            </Grid>
+            </Grid>
+        : null
+        }
+        </Box>
+        {(raritySniper)?
+            <Box>
+                <Typography className='raritySniper'>
+                    Rarity scores and ranks provided by <a className='link' href='https://raritysniper.com'>RaritySniper</a>
+                </Typography>
+            </Box>
+            : null
+            }
         <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
             <Select
@@ -207,17 +372,17 @@ export default function MarketSelection({
                 onChange={sortChanged}
             >
                 {
-                    ((is1155Collection) ? SortOrders.filter(e => e !== "Id"): SortOrders).map((e) => {
+                    filteredSortOrders.map((e) => {
                         return(<MenuItem value={e}>{e}</MenuItem>)
                     })
                 }
             </Select>
         </FormControl>
-            
+
             <Grid container spacing={4} justifyContent="center" alignItems="center" direction='row'>
                 {(!listings) ? null :  (listings.length !== 0) ?
-                
-                listings.map((val) => 
+
+                listings.map((val) =>
                     <Grid item xs={12} xl={3} lg={3} md={4} sm={6}  key={val.listingId.toNumber()}>
                         <Card>
                             <CardActionArea onClick={viewDetails(val)}>
@@ -247,21 +412,21 @@ export default function MarketSelection({
                         </Card>
                     </Grid>
                 ) :
-   
+
                         <Box mt={16}>
                             <Typography variant='h3' color='primary'>No Listings Found Check Back Soon.</Typography>
                         </Box>
-                    
+
                 }
-            </Grid> 
-        
+            </Grid>
+
             {
                 (loadingMarket || listings == null || listings.length === 0) ? null : <Pagination defaultPage={page} count={totalPages} page={page} siblingCount={3} boundaryCount={2} onChange={handlePageChange}/>
             }
-            
+
 
         </Stack>
-        
+
         <Snackbar open={showCopied} autoHideDuration={6000} onClose={copyClosed}>
             <Alert onClose={copyClosed} severity="success" sx={{ width: '100%' }}>
                 Link Copied!
@@ -280,18 +445,18 @@ export default function MarketSelection({
             </DialogContent>
         </Dialog>
 
-        <Snackbar  
-            open={error.error} 
-            autoHideDuration={10000} 
+        <Snackbar
+            open={error.error}
+            autoHideDuration={10000}
             onClose={closeError}
             sx={{ top: "85%" }}>
             <Alert onClose={closeError} severity="error" sx={{ width: '100%' }}>
                 {`Error whilst processing transaction:\n ${error.message}`}
             </Alert>
         </Snackbar>
-        <Snackbar  
-            open={showSuccess.show} 
-            autoHideDuration={10000} 
+        <Snackbar
+            open={showSuccess.show}
+            autoHideDuration={10000}
             onClose={closeSuccess}>
             <Alert onClose={closeSuccess} severity="success" sx={{ width: '100%' }}>
                 Transaction was successful!

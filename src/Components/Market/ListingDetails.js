@@ -26,12 +26,16 @@ import { connectAccount, chainConnect } from '../../GlobalState/User'
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { getListing, onListingLoaded } from '../../GlobalState/Market';
 import { useHistory } from 'react-router';
-
+import config from '../../Assets/networks/rpc_config.json'
+import Market from '../../Contracts/Marketplace.json'
+import { Contract } from '@ethersproject/contracts';
 
 export default function NFTDetails({
     listingId
 }){
 
+    const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
     const dispatch = useDispatch();
     const theme = useTheme();
     const history = useHistory();
@@ -45,6 +49,16 @@ export default function NFTDetails({
     const state = useSelector((state) => {
         return state;
     });
+
+    const [royalty, setRoyalty] = useState(null);
+
+    useEffect(async function() {
+        if (listing !== null && listing.nftAddress !== null && royalty === null) {
+            let royalties = await readMarket.royalties(listing.nftAddress)
+            console.log(royalties);
+            setRoyalty((royalties[1] / 10000) * 100);
+        } 
+    }, [user.marketContract, listing]);
 
     const ListItem = styled('li')(({ theme }) => ({
         margin: theme.spacing(0.5),
@@ -90,8 +104,12 @@ export default function NFTDetails({
         if(user.address){
             setBuying(true);
             try{
+                let price = listing.price;
+                if(typeof price === 'string' ){
+                    price = ethers.utils.parseEther(price);
+                } 
                 const tx = await user.marketContract.makePurchase(listing.listingId, {
-                    'value' : listing.price
+                    'value' : price
                 });
                 const receipt = await tx.wait();
                 setShowSuccess({
@@ -128,12 +146,13 @@ export default function NFTDetails({
 
     }
 
-    const viewCollection = (listing) => () => {
-        history.push(`/collection/${listing.nftAddress}`)
+    const viewCollection = (address) => () => {
+        console.log(address);
+        history.push(`/collection/${address}`)
     }
 
-    const viewSeller = (listing) => () => {
-        history.push(`/seller/${listing.seller}`)
+    const viewSeller = (address) => () => {
+        history.push(`/seller/${address}`)
     }
 
     return(
@@ -155,7 +174,7 @@ export default function NFTDetails({
 
                         <Stack direction='row' spacing={2}>
                             <Typography variant='subtitle2' component='p' sx={{pt:1}}>
-                                {ethers.utils.commify(ethers.utils.formatEther(listing.price))} CRO
+                                {ethers.utils.commify(listing.price)} CRO
                             </Typography>
 
                             { (listing.state === 0) ? 
@@ -169,9 +188,14 @@ export default function NFTDetails({
                         <Typography variant='subtitle1' component='p'>
                             {listing.nft.description}
                         </Typography>
+
+                        {
+                            (typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) ? 
+                            <Typography variant='subtitle1' component='p'>Rank: {listing.nft.rank}</Typography> : null
+                        }
                     
                         {
-                            (listing.nft.properties !== null && listing.nft.properties.length > 0) ?
+                            (listing.nft.attributes !== undefined && listing.nft.attributes.length > 0) ?
                             <Box
                                 sx={{
                                     display: 'flex',
@@ -183,7 +207,7 @@ export default function NFTDetails({
                                 }}
                                 component="ul"
                                 >
-                                {listing.nft.properties.map((data, i) => {
+                                {listing.nft.attributes.map((data, i) => {
                                     return (
                                     <ListItem key={i}>
                                         <Chip label={data['trait_type'] + ' : ' + data['value']} color="primary"/>
@@ -193,9 +217,11 @@ export default function NFTDetails({
                          </Box> : null
                         }
 
-                        <Button onClick={viewCollection(listing)}>More From Collection</Button>
-                        <Button onClick={viewSeller(listing)}>More From Seller</Button>
-
+                        <Button onClick={viewCollection(listing.nftAddress)}>More From Collection</Button>
+                        <Button onClick={viewSeller(listing.seller)}>More From Seller</Button>
+                        <Typography className='royalty'>
+                            Seller is charged a {royalty}% royalty fee for future sales of this item.
+                        </Typography>
                         
                     </Stack>
                     </Grid>
