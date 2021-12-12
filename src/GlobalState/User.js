@@ -331,7 +331,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ebisu;
 
         if(signer && correctChain){
-            ebisu = new Contract(config.ebisuContract, Elon, signer);
+            ebisu = new Contract(config.ebisu_contract, Elon, signer);
             mc = new Contract(config.membership_contract, Membership.abi, signer);
             mc.connect(signer);
             cc = new Contract(config.cronie_contract, Cronies.abi, signer);
