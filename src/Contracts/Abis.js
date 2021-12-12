@@ -21,5 +21,5 @@ export const ERC1155 = [
 ]
 
 export const Elon = [
-    "function safeMint() public payable"
+    "function mint(uint256 count) public payable"
 ]
