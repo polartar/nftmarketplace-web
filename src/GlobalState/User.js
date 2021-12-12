@@ -43,7 +43,7 @@ const userSlice = createSlice({
         membershipContract: null,
         croniesContract: null,
         marketContract: null,
-        elonContract : null,
+        ebisuContract : null,
         correctChain : false,
         nfts: [],
         currentNft : null
@@ -60,11 +60,8 @@ const userSlice = createSlice({
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
+            state.ebisuContract = action.payload.ebisuContract;
             state.gettingContractData = false;
-        },
-
-        elonContract(state, action){
-            state.elonContract = action.payload.elonContract;
         },
 
         onCorrectChain(state, action) {
@@ -331,13 +328,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ownedVip = 0;
         let market;
         let sales;
-        let elon;
+        let ebisu;
 
         if(signer && correctChain){
-            elon = new Contract(config.elon_contract, Elon, signer);
-            dispatch(elonContract({
-                elonContract : elon
-            }));
+            ebisu = new Contract(config.ebisu_contract, Elon, signer);
             mc = new Contract(config.membership_contract, Membership.abi, signer);
             mc.connect(signer);
             cc = new Contract(config.cronie_contract, Cronies.abi, signer);
@@ -349,7 +343,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             ownedVip = await mc.balanceOf(address, 2);
             market = new Contract(config.market_contract, Market.abi, signer);
             sales = ethers.utils.formatEther(await market.payments(address));
-
+            
         }
 
 
@@ -366,7 +360,8 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             rewards: rewards,
             isMember : ownedVip > 0 || ownedFounder > 0,
             marketContract: market,
-            marketBalance :sales
+            marketBalance :sales,
+            ebisuContract : ebisu
         }))
     } catch (error) {
         console.log(error)

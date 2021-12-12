@@ -10,6 +10,7 @@
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
+    "ebisu_contract": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
@@ -188,7 +189,7 @@
             "multiToken" : false,
             "address" : "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
             "onChain" : false,
-            "listable" : true
+            "listable" : false
         },{
             "name" : "CronosRedPanda",
             "multiToken" : false,
@@ -200,6 +201,13 @@
             "multiToken" : true,
             "id": 1,
             "address" : "0x68ec010Cf044CbAe1aCc213D043d394E620c641D",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "Ebisu by Barbara",
+            "multiToken": false,
+            "address" : "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
             "onChain" : false,
             "listable" : true
         }
