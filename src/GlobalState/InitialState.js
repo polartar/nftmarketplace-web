@@ -1,7 +1,7 @@
 import cronies from '../Assets/cronies.webp'
 import member from '../Assets/founding_member.webp'
 import genesis from '../Assets/CRS-collage.webp'
-import elon from '../Assets/elons_adventures_card.gif'
+import ebisus from '../Assets/ebisu_card.gif'
 
 export const InitialState = {
   nftslect:{},
@@ -24,9 +24,9 @@ export const InitialState = {
     },
     {
       id: 2,
-      img: elon,
-      title: "Elon's Adventures",
-      descs: "The zany and wacky adventures of Elon by Barbara Redekop.",
+      img: ebisus,
+      title: "Ebisu by Barbara",
+      descs: "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
       //title: 'Crypto Collage Genesis',
       //descs: `NFT project will be minted with only 10 editions of each in existence.`,
       p1: 'NFT project will be minted with only 10 editions of each in existence.',

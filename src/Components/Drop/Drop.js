@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import banner from '../../Assets/drops/elonsadventures/elonsadventures.gif'
-import {Typography, Link, Container, Button} from '@mui/material'
+import banner from '../../Assets/drops/eb_drop.gif'
+import ebisu from '../../Assets/Ebisu.gif'
+import {Typography, Link, Container, Button, CardMedia} from '@mui/material'
 import { 
   Box,
   Dialog,
@@ -8,6 +9,7 @@ import {
   Stack,
   CircularProgress,
   Snackbar,
+  Slider,
   Alert
 } from '@mui/material';
 import "./drop.css"
@@ -23,20 +25,20 @@ const Drop = () => {
   const countdownRef = useRef();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    countdownRef.current.start();
-  },[]);
+  // useEffect(() => {
+  //   countdownRef.current.start();
+  // },[]);
 
-  useLayoutEffect(() => {
-    (async () => {
-      const response = await fetch("https://us-central1-ebisusbay.cloudfunctions.net/dropLive");
-      const data = await response.json();
-      setStartTime(data.liveAt);
-      setIsLive(data.isLive);
-    })();
-  }, []);
+  // useLayoutEffect(() => {
+  //   (async () => {
+  //     const response = await fetch("https://us-central1-ebisusbay.cloudfunctions.net/dropLive");
+  //     const data = await response.json();
+  //     setStartTime(data.liveAt);
+  //     setIsLive(data.isLive);
+  //   })();
+  // }, []);
 
-  const [isLive, setIsLive] = useState(false);
+  const [isLive, setIsLive] = useState(true);
   const [startTime, setStartTime] = useState(1638565200000);
   const user = useSelector((state) => {
     return state.user;
@@ -64,19 +66,27 @@ const Drop = () => {
         hash: ""
     });
   }
-
+  const [numToMint, setNumToMint] = useState(1);
 
 
   const mintNow = async() => {
     if(user.address){
       setMinting(true);
-      const contract = user.elonContract;
+      const contract = user.ebisuContract;
       try{
-        const cost = ethers.utils.parseEther("500");
+        const memberCost = ethers.utils.parseEther("100");
+        const regCost = ethers.utils.parseEther("150");
+        let cost;
+        if(user.isMember){
+            cost = memberCost;
+        } else {
+          cost = regCost;
+        }
+        cost = cost.mul(numToMint);
         const extra = {
           'value' : cost
         };
-        const response = await contract.safeMint(extra);
+        const response = await contract.safeMint(numToMint, extra);
         const receipt = await response.wait();
       }catch(error){
         if(error.data){
@@ -114,8 +124,12 @@ const Drop = () => {
          </Container> : 
          <Container>
             <Box mt={3}>
-            <Button variant="outlined" onClick={mintNow} disabled>
-              SOLD OUT
+
+            <Slider defaultValue={1} step={1} marks min={1} max={10} onChange={ (e, val) =>
+                                    setNumToMint(val)
+                                }/>
+            <Button variant="outlined" onClick={mintNow} >
+              MINT
             </Button>
           </Box> 
          </Container>
@@ -123,12 +137,19 @@ const Drop = () => {
 
 
       <Box mt={3}>
+
+        {/* <img src={ebisu} maxWidth='350'/> */}
+        
+
         <Typography component='p' variant='subtitle1' mb={3}>
-          We invite you to take part in Elon's Adventures. He is viral, he is global, he is interstellar.
+        Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods.
+Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters.
+
+
         </Typography>
 
         <Typography component='span' variant='subtitle1' mr={1}>
-          We are offering 20 one of a kind unique adventures. Each hand drawn by the very talented and beautiful
+        May his blessing be upon you as a guiding light in your journeys on the Cronos Cain. Brought to you by 
         </Typography>
         <Link href="https://www.instagram.com/im_barbara_redekop/" variant='subtitle1' target="_blank" rel="noreferrer">
          Barbara Redekop.
@@ -136,10 +157,11 @@ const Drop = () => {
 
         <Box>
         <Typography component='p' variant='caption' mt={3}>
-            Founding members will have the chance to mint one random adventure at the presale price of 500 CRO. After 48 hours the drop will open to the general public for 800 CRO.
+            Minting will be open for 1 week for the price of 150 CRO, founding members pay 100 CRO.
           </Typography>
         </Box>
           
+        <CardMedia component='img' src={ebisu} />
       </Box>
 
       <Dialog
