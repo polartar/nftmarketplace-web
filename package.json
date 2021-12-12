@@ -15,7 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@metamask/detect-provider": "^1.2.0",
     "@metamask/onboarding": "^1.0.1",
-    "@mui/icons-material": "^5.0.5",
+    "@mui/icons-material": "^5.2.1",
     "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "^5.0.6",
     "@mui/styles": "^5.0.2",

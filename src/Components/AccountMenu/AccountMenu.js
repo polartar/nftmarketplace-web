@@ -24,6 +24,7 @@ import { useTheme } from '@mui/styles';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CookieIcon from '@mui/icons-material/Cookie';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import PeopleIcon from '@mui/icons-material/People';
 import Logout from '@mui/icons-material/Logout';
@@ -168,9 +169,16 @@ const registerCode = async () => {
 }
 
 const logout = async () => {
-    await user.web3modal.clearCachedProvider();
     dispatch(onLogout());
     //window.location.reload();
+}
+
+const clearCookies = async () => {
+    dispatch(onLogout());
+    setShowSuccess({
+        show: true,
+        hash: "",
+    });
 }
 
 const [showCopied, setShowCopied] = React.useState(false);
@@ -389,6 +397,14 @@ const startConnect = () => {
             }
             </ListItemText>
             </MenuItem>
+            <MenuItem onClick={clearCookies} className="accountMenu" sx={{ marginTop: "5px", fontWeight: 300}}>
+            <ListItemIcon>
+                <CookieIcon></CookieIcon>
+            </ListItemIcon>
+            <ListItemText>
+                Clear Cookies
+            </ListItemText>
+            </MenuItem>
         </Container>
         <Divider />
         {(user.address)?
@@ -437,6 +453,17 @@ const startConnect = () => {
                 Transaction was successful!
             </Alert>
         </Snackbar>
+
+        <Snackbar
+            open={showSuccess.show}
+            autoHideDuration={10000}
+            onClose={closeSuccess}>
+            <Alert onClose={closeSuccess} severity="success" sx={{ width: '100%' }}>
+                Cookies cleared! Now reconnect your wallet.
+            </Alert>
+        </Snackbar>
+
+        
     </React.Fragment>
   );
 };

@@ -141,19 +141,12 @@ const userSlice = createSlice({
                 providerOptions: [] // required
             });
             web3Modal.clearCachedProvider();
-            if (state.web3modal == null) {
-                const web3Modal = new Web3Modal({
-                    cacheProvider: false, // optional
-                    providerOptions: [] // required
-                });
-                web3Modal.clearCachedProvider();
-            } else {
+            if (state.web3modal != null) {
                 state.web3modal.clearCachedProvider();
             }
             state.web3modal = null;
             state.provider = null;
-            localStorage.removeItem("WEB3_CONNECT_CACHED_PROVIDER");
-            localStorage.removeItem("walletconnect", null);
+            localStorage.clear();
             state.address = "";
             state.balance = "Loading...";
             state.rewards = "Loading...";
@@ -273,108 +266,108 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     //dispatch(connectingWallet({'connecting' : true}));
     console.log(web3provider);
     try {
-    var provider = new ethers.providers.Web3Provider(web3provider);
+        var provider = new ethers.providers.Web3Provider(web3provider);
 
-    let accounts = await web3provider.request({
-        method: 'eth_accounts',
-        params: [{chainId: cid}]
-    });
-
-
-
-    var address = accounts[0];
-    var signer = provider.getSigner();
-    var cid = await web3provider.request({
-        method: "net_version",
-    });
+        let accounts = await web3provider.request({
+            method: 'eth_accounts',
+            params: [{chainId: cid}]
+        });
 
 
-    //console.log(cid, rpc.chain_id);
-    var correctChain = cid === Number(config.chain_id)
-    if (!correctChain) {
-        correctChain = cid === config.chain_id
-    }
-    //console.log(correctChain);
-    await dispatch(onBasicAccountData({
-        address: address,
-        provider: provider,
-        web3modal: web3Modal,
-        needsOnboard: false,
-        correctChain: correctChain
-    }));
+
+        var address = accounts[0];
+        var signer = provider.getSigner();
+        var cid = await web3provider.request({
+            method: "net_version",
+        });
 
 
-    web3provider.on('DeFiConnectorDeactivate', (error) => {
-        console.log("HERE");
-        dispatch(onLogout());
-    });
-
-    web3provider.on('disconnect', (error) => {
-        dispatch(onLogout());
-    });
-
-    web3provider.on('accountsChanged', (accounts) => {
-        dispatch(connectAccount());
-    });
-
-    web3provider.on('DeFiConnectorUpdate', (accounts) => {
-        window.location.reload();
-    });
-
-    web3provider.on('chainChanged', (chainId) => {
-        // Handle the new chain.
-        // Correctly handling chain changes can be complicated.
-        // We recommend reloading the page unless you have good reason not to.
-
-        window.location.reload();
-    });
-
-    let mc;
-    let cc;
-    let code;
-    let balance;
-    let rewards;
-    let ownedFounder = 0;
-    let ownedVip = 0;
-    let market;
-    let sales;
-    let elon;
-
-    if(signer && correctChain){
-        elon = new Contract(config.elon_contract, Elon, signer);
-        dispatch(elonContract({
-            elonContract : elon
+        //console.log(cid, rpc.chain_id);
+        var correctChain = cid === Number(config.chain_id)
+        if (!correctChain) {
+            correctChain = cid === config.chain_id
+        }
+        //console.log(correctChain);
+        await dispatch(onBasicAccountData({
+            address: address,
+            provider: provider,
+            web3modal: web3Modal,
+            needsOnboard: false,
+            correctChain: correctChain
         }));
-        mc = new Contract(config.membership_contract, Membership.abi, signer);
-        mc.connect(signer);
-        cc = new Contract(config.cronie_contract, Cronies.abi, signer);
-        cc.connect(signer);
-        const rawCode = await mc.codes(address);
-        code = ethers.utils.parseBytes32String(rawCode);
-        rewards = ethers.utils.formatEther(await mc.payments(address));
-        ownedFounder = await mc.balanceOf(address, 1);
-        ownedVip = await mc.balanceOf(address, 2);
-        market = new Contract(config.market_contract, Market.abi, signer);
-        sales = ethers.utils.formatEther(await market.payments(address));
-
-    }
 
 
-    await dispatch(accountChanged({
-        address: address,
-        provider: provider,
-        web3modal: web3Modal,
-        needsOnboard: false,
-        correctChain: correctChain,
-        membershipContract: mc,
-        croniesContract: cc,
-        code: code,
-        balance: balance,
-        rewards: rewards,
-        isMember : ownedVip > 0 || ownedFounder > 0,
-        marketContract: market,
-        marketBalance :sales
-    }))
+        web3provider.on('DeFiConnectorDeactivate', (error) => {
+            console.log("HERE");
+            dispatch(onLogout());
+        });
+
+        web3provider.on('disconnect', (error) => {
+            dispatch(onLogout());
+        });
+
+        web3provider.on('accountsChanged', (accounts) => {
+            dispatch(connectAccount());
+        });
+
+        web3provider.on('DeFiConnectorUpdate', (accounts) => {
+            window.location.reload();
+        });
+
+        web3provider.on('chainChanged', (chainId) => {
+            // Handle the new chain.
+            // Correctly handling chain changes can be complicated.
+            // We recommend reloading the page unless you have good reason not to.
+
+            window.location.reload();
+        });
+
+        let mc;
+        let cc;
+        let code;
+        let balance;
+        let rewards;
+        let ownedFounder = 0;
+        let ownedVip = 0;
+        let market;
+        let sales;
+        let elon;
+
+        if(signer && correctChain){
+            elon = new Contract(config.elon_contract, Elon, signer);
+            dispatch(elonContract({
+                elonContract : elon
+            }));
+            mc = new Contract(config.membership_contract, Membership.abi, signer);
+            mc.connect(signer);
+            cc = new Contract(config.cronie_contract, Cronies.abi, signer);
+            cc.connect(signer);
+            const rawCode = await mc.codes(address);
+            code = ethers.utils.parseBytes32String(rawCode);
+            rewards = ethers.utils.formatEther(await mc.payments(address));
+            ownedFounder = await mc.balanceOf(address, 1);
+            ownedVip = await mc.balanceOf(address, 2);
+            market = new Contract(config.market_contract, Market.abi, signer);
+            sales = ethers.utils.formatEther(await market.payments(address));
+
+        }
+
+
+        await dispatch(accountChanged({
+            address: address,
+            provider: provider,
+            web3modal: web3Modal,
+            needsOnboard: false,
+            correctChain: correctChain,
+            membershipContract: mc,
+            croniesContract: cc,
+            code: code,
+            balance: balance,
+            rewards: rewards,
+            isMember : ownedVip > 0 || ownedFounder > 0,
+            marketContract: market,
+            marketBalance :sales
+        }))
     } catch (error) {
         console.log(error)
         console.log("Error connecting wallet!");
