@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { connectAccount, onLogout } from "../../GlobalState/User";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Link, NavLink, useHistory } from "react-router-dom";
+import Blockies from "react-blockies";
 
 setDefaultBreakpoints([
     { xs: 0 },
@@ -187,7 +188,9 @@ const Header = function() {
                         )}
                         {walletAddress && correctChain && (
                             <div id="de-click-menu-profile" className="de-menu-profile">
-                                <img src="../../img/author_single/author_thumbnail.jpg" alt="" onClick={() => btn_icon_pop(!showpop)}/>
+                                <span onClick={()=> btn_icon_pop(!showpop)}>
+                                    <Blockies size={8} scale={4}/>
+                                </span>
                                 {showpop &&
                                 <div className="popshow" ref={refpop}>
                                     <div className="d-wallet">

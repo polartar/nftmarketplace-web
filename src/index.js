@@ -8,6 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.js';
 import './Assets/style.scss';
 import './Assets/style_grey.scss';
+import './Assets/override.scss'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

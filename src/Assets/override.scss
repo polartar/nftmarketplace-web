@@ -1,0 +1,29 @@
+/* Hot Collections */
+.slick-slide canvas {
+    display: block;
+}
+.nft_coll_pp canvas {
+    width: 60px;
+    height: auto;
+    border: solid 5px #FFFFFF;
+    background: #FFFFFF;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+}
+.nft_coll canvas {
+    transition: 0.7s;
+}
+
+/* Header Avatar */
+.de-menu-profile canvas {
+    width: 38px;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+canvas {
+    vertical-align: middle;
+}

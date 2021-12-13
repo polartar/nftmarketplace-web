@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import Blockies from 'react-blockies';
 
 const CustomSlide = ({ index, avatar, banner, username, uniqueId, collectionId }) => {
   return (
@@ -8,8 +9,9 @@ const CustomSlide = ({ index, avatar, banner, username, uniqueId, collectionId }
               <span><img src={banner} className="lazy img-fluid" alt=""/></span>
           </div>
           <div className="nft_coll_pp">
-              <span onClick={()=> window.open("/collection/" + collectionId, "_self")}><img className="lazy" src={avatar} alt=""/></span>
-              <i className="fa fa-check"></i>
+              <span onClick={()=> window.open("/collection/" + collectionId, "_self")}>
+                <Blockies size={10} scale={6}/>
+              </span>
           </div>
           <div className="nft_coll_info">
               <span onClick={()=> window.open("/collection/" + collectionId, "_self")}><h4>{ username }</h4></span>
