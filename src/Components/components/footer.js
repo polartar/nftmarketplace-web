@@ -15,7 +15,7 @@ const footer= () => (
                     </div>
                     <div className="col">
                         <a href="https://www.weare.fi/" target="_blank">
-                            <img src={weAreFi} alt='WeAre Solutions' width='128px'/>
+                            <img src={weAreFi} alt='WeAre Solutions' width='64px'/>
                         </a>
                     </div>
                 </div>
