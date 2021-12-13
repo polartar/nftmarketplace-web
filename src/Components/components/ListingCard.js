@@ -40,11 +40,8 @@ const ListingCard = ({ listing, className = 'd-item col-lg-3 col-md-6 col-sm-6 c
                     <div className="has_offers">
                         {ethers.utils.commify(listing.price)} CRO
                     </div>
-                    <div className="nft__item_action">
+                    <div className="nft__item_action mb-2">
                         <span onClick={() => navigateTo(`/listing/${listing.listingId}`)}>Details</span>
-                    </div>
-                    <div className="nft__item_like">
-                        <i className="fa fa-heart"></i><span>{listing.likes}</span>
                     </div>
                 </div> 
             </div>

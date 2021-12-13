@@ -38,7 +38,7 @@ const NftCard = ({ nft, className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12
                             <h4>{nft.name}</h4>
                         }
                     </span>
-                    <div className="nft__item_action">
+                    <div className="nft__item_action mb-2">
                         <span onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)}>Details</span>
                     </div>
                 </div> 
