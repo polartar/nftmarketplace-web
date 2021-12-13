@@ -48,8 +48,8 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
             filter.type = 'collection';
             filter.address = collectionId;
         } else if(sellerId){
-            filter.type = 'collection';
-            filter.address = collectionId;
+            filter.type = 'seller';
+            filter.address = sellerId;
         }
         dispatch(init(sort, filter));
         dispatch(fetchListings());
