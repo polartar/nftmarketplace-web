@@ -51,7 +51,6 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
 
     const uri = `${api.baseUrl}${api.listings}?${queryString}`;
 
-    console.log(uri);
     return await (await fetch(uri)).json();
 }
 
@@ -164,11 +163,10 @@ export async function getNftsForAddress(walletAddress, walletProvider) {
                                 'listingId' : (listing) ? listing['listingId'] : null
                             }
 
-                            response.nfts = [nft]
+                            response.nfts.push(nft);
                         }
 
                     } else {
-                        var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
                         const readContract = new Contract(c.address, ERC721, readProvider);
                         contract.connect(signer);
@@ -197,7 +195,7 @@ export async function getNftsForAddress(walletAddress, walletProvider) {
                                     'listed' : listing != null,
                                     'listingId' : (listing) ? listing['listingId'] : null
                                 }
-                                nfts.push(nft);
+                                response.nfts.push(nft);
                             } else {
                                 if(gatewayTools.containsCID(uri) && !uri.startsWith('ar')){
                                     try{
@@ -262,11 +260,9 @@ export async function getNftsForAddress(walletAddress, walletProvider) {
                                     'listed' : listing != null,
                                     'listingId' : (listing) ? listing['listingId'] : null
                                 }
-                                nfts.push(nft);
+                                response.nfts.push(nft);
                             }
                         }
-
-                        response.nfts = nfts;
                     }
                 }catch(error){
                     console.log('error fetching ' + knownContracts[i].name);

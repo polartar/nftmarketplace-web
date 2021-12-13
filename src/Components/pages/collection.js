@@ -35,7 +35,7 @@ const GlobalStyles = createGlobalStyle`
   }
   @media only screen and (max-width: 1199px) {
     .navbar{
-      background: #403f83;
+      background: #ff7814;
     }
     .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
       background: #fff;

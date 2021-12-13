@@ -91,8 +91,8 @@ const userSlice = createSlice({
             }
         },
 
-        onNfts(state, action){
-            state.nfts.push(...action.payload);
+        onNftsLoaded(state, action){
+            state.nfts = action.payload;
             state.fetchingNfts = false;
         },
         onNftLoading(state, action){
@@ -159,7 +159,7 @@ export const {
     accountChanged,
     onProvider,
     fetchingNfts,
-    onNfts,
+    onNftsLoaded,
     onNftLoading,
     onNftLoaded,
     connectingWallet,
@@ -466,5 +466,5 @@ export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
     dispatch(fetchingNfts());
     const response = await getNftsForAddress(walletAddress, walletProvider);
     dispatch(setIsMember(response.isMember));
-    dispatch(onNfts(response.nfts));
+    dispatch(onNftsLoaded(response.nfts));
 }
