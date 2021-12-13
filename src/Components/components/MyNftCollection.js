@@ -1,14 +1,13 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import NftCard from './NftCard';
-import { fetchNfts } from "../../GlobalState/userSlice";
+import { fetchNfts } from "../../GlobalState/User";
 
 const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
 
     const dispatch = useDispatch();
-    const currentUser = useSelector((state) => state.user)
-    const currentUserWallet = useSelector((state) => state.wallet)
-    const nfts = useSelector((state) => currentUser.nfts)
+    const user = useSelector((state) => state.user)
+    const nfts = useSelector((state) => user.nfts)
 
     const [height, setHeight] = useState(0);
 
@@ -24,7 +23,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
     });
 
     useEffect(() => {
-        dispatch(fetchNfts(currentUserWallet.address, currentUserWallet.provider));
+        dispatch(fetchNfts(user.address, user.provider));
     }, [dispatch]);
 
     // //will run when component unmounted

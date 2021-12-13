@@ -46,7 +46,7 @@ const GlobalStyles = createGlobalStyle`
 
 const MyNfts = () => {
 
-    const walletAddress = useSelector((state) => state.wallet.address)
+    const walletAddress = useSelector((state) => state.user.address)
 
     const Content = () => (
         <>

@@ -61,9 +61,25 @@ const Collection = () => {
 
         return contract ? contract.name : 'Collection';
     }
+    const user = useSelector((state) => {
+        return state.user;
+    });
+    const marketplace = useSelector((state) => {
+        return state.marketplace;
+    });
+    const isFilteredOnCollection = useSelector((state) => {
+        return marketplace.curFilter !== null &&
+            marketplace.curFilter.type === 'collection' &&
+            marketplace.curFilter.address !== null;
+    });
 
-    useEffect(() => {
+    useEffect(async () => {
         dispatch(getCollectionData('collection', address));
+
+        if (user.marketContract !== null && isFilteredOnCollection) {
+            let royalties = await user.marketContract.royalties(marketplace.curFilter.address)
+            setRoyalty((royalties[1] / 10000) * 100);
+        }
     }, [dispatch, address]);
 
     return (

@@ -14,6 +14,7 @@ const marketplaceSlice = createSlice({
         curSort: {},
         totalPages: 0,
         collection: null,
+        contract: null,
     },
     reducers: {
         listingsLoading: (state, action) => {

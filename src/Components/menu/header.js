@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Breakpoint, { BreakpointProvider, setDefaultBreakpoints } from "react-socks";
 import { header } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
-import { connectAccount, onLogout } from "../../GlobalState/walletSlice";
+import { connectAccount, onLogout } from "../../GlobalState/User";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Link, NavLink, useHistory } from "react-router-dom";
 
@@ -33,16 +33,16 @@ const Header = function() {
     });
 
     const walletAddress = useSelector((state) => {
-        return state.wallet.address;
+        return state.user.address;
     });
     const correctChain = useSelector((state) => {
-        return state.wallet.correctChain;
+        return state.user.correctChain;
     });
     const marketBalance = useSelector((state) => {
-        return state.wallet.marketBalance;
+        return state.user.marketBalance;
     });
     const referralCode = useSelector((state) => {
-        return state.wallet.code;
+        return state.user.code;
     });
 
     const navigateTo = (link) => {

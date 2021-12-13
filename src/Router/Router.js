@@ -13,7 +13,7 @@ import Header from "../Components/menu/header";
 export const AppRouter = () => {
 
     const walletConnected = useSelector((state) => {
-        return state.wallet.address !== null;
+        return state.user.address !== null;
     });
 
     function PrivateRoute({ component: Component, ...rest }) {

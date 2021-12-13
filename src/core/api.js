@@ -6,12 +6,12 @@ import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { dataURItoBlob } from "../Store/utils";
 import config from '../Assets/networks/rpc_config.json'
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import {knownContracts, nftsLoading} from "../GlobalState/userSlice";
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
+const knownContracts = config.known_contracts;
 
 const api = {
     baseUrl: config.api_base,
