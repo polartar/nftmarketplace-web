@@ -76,7 +76,6 @@ export async function getListing(listingId) {
             'royalty'     : rawListing['royalty'],
             'nft'         : rawListing['nft']
         }
-        console.log(listing);
         return listing;
 
     }catch(error){
@@ -92,7 +91,7 @@ export async function getCollectionMetadata(contractAddress) {
 }
 
 
-export async function getNftsForAddress(walletAddress, walletProvider) {
+export async function getNftsForAddress(walletAddress, walletProvider, onNftLoaded) {
     if(walletAddress && walletProvider){
 
         const signer = walletProvider.getSigner();
@@ -163,10 +162,11 @@ export async function getNftsForAddress(walletAddress, walletProvider) {
                                 'listingId' : (listing) ? listing['listingId'] : null
                             }
 
-                            response.nfts.push(nft);
+                            onNftLoaded([nft]);
                         }
 
                     } else {
+                        var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
                         const readContract = new Contract(c.address, ERC721, readProvider);
                         contract.connect(signer);
@@ -195,7 +195,7 @@ export async function getNftsForAddress(walletAddress, walletProvider) {
                                     'listed' : listing != null,
                                     'listingId' : (listing) ? listing['listingId'] : null
                                 }
-                                response.nfts.push(nft);
+                                nfts.push(nft);
                             } else {
                                 if(gatewayTools.containsCID(uri) && !uri.startsWith('ar')){
                                     try{
@@ -260,9 +260,10 @@ export async function getNftsForAddress(walletAddress, walletProvider) {
                                     'listed' : listing != null,
                                     'listingId' : (listing) ? listing['listingId'] : null
                                 }
-                                response.nfts.push(nft);
+                                nfts.push(nft);
                             }
                         }
+                        onNftLoaded(nfts);
                     }
                 }catch(error){
                     console.log('error fetching ' + knownContracts[i].name);
