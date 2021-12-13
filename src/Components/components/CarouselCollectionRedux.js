@@ -13,23 +13,23 @@ const CarouselCollectionRedux = () => {
   const hotCollections = [
       {
           authorAvatar: '/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg',
-          bannerUrl: '/mock_data/uploads/author_banner_1d2c434cf5.jpg',
+          bannerUrl: '/mock_data/banners/meerkat_bg.jpg',
           name: 'Mad Meerkat',
-          collectionId: 10,
+          collectionId: '0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56',
           uniqueID: 123
       },
       {
           authorAvatar: '/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg',
-          bannerUrl: '/mock_data/uploads/author_banner_1d2c434cf5.jpg',
+          bannerUrl: '/mock_data/banners/ccc_bg.png',
           name: 'Cronos Chimp Club',
-          collectionId: 10,
+          collectionId: '0x562F021423D75A1636DB5bE1C4D99Bc005ccebFe',
           uniqueID: 123
       },
       {
           authorAvatar: '/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg',
-          bannerUrl: '/mock_data/uploads/author_banner_1d2c434cf5.jpg',
+          bannerUrl: '/mock_data/banners/author_banner_1d2c434cf5.jpg',
           name: 'Crosmonauts',
-          collectionId: 10,
+          collectionId: '0xDFab622fC4E5CE1420F83cf38E52312f33849a0A',
           uniqueID: 123
       }
   ];
