@@ -11,11 +11,9 @@ const listingSlice = createSlice({
     reducers: {
         listingLoading: (state) => {
             state.loading = true;
-            state.error = false;
         },
         listingReceived: (state, action) => {
             state.loading = false;
-            state.error = false;
             state.listing = action.payload;
         }
     },

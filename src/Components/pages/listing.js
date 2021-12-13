@@ -1,10 +1,15 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
-import { getListingDetails } from "../../GlobalState/listingSlice";
+import {getListingDetails, listingReceived} from "../../GlobalState/listingSlice";
 import { humanize } from "../../utils";
 import { useParams, useHistory  } from "react-router-dom";
+import {ethers} from "ethers";
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { connectAccount, chainConnect } from '../../GlobalState/User'
+import { Alert } from "react-bootstrap"
+import Toast from "../components/Toast"
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
@@ -41,32 +46,101 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+
+
 const Listing = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
 
     const listing = useSelector((state) => state.listing.listing)
-    const loading = useSelector((state) => state.listing.loading)
+    const user = useSelector((state) => state.user)
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
+    const [buying, setBuying] = useState(false);
+    const [result, setResult] = React.useState({
+        error: false,
+        show: false,
+        message: ""
+    });
 
     useEffect(() => {
         dispatch(getListingDetails(id));
     }, [dispatch, id]);
 
-    const viewCollection = (listing) => () => {
+    const viewCollection = () => () => {
         history.push(`/collection/${listing.nftAddress}`);
     }
 
-    const viewSeller = (listing) => () => {
+    const viewSeller = () => () => {
         history.push(`/seller/${listing.seller}`);
+    }
+
+    const showBuy = () => async () => {
+        if(user.address){
+            setBuying(true);
+            try{
+                let price = listing.price;
+                if(typeof price === 'string' ){
+                    price = ethers.utils.parseEther(price);
+                }
+                console.log(user.marketContract, listing.listingId, listing.price, price);
+                const tx = await user.marketContract.makePurchase(listing.listingId, {
+                    'value' : price
+                });
+                const receipt = await tx.wait();
+                setResult({
+                    error: false,
+                    show: true,
+                    hash: receipt.hash
+                });
+                dispatch(listingReceived({
+                    ...listing,
+                    'state' : 1,
+                    'purchaser' : user.address
+                }));
+            }catch(error){
+                if(error.data){
+                    setResult({error: true, message: error.data.message, show: true});
+                } else if(error.message){
+                    setResult({error: true, message: error.message, show: true});
+                } else {
+                    console.log(error);
+                    setResult({error: true, message: "Unknown Error", show: true});
+                }
+            }finally{
+                setBuying(false);
+            }
+        } else{
+            if(user.needsOnboard){
+                const onboarding = new MetaMaskOnboarding();
+                onboarding.startOnboarding();
+            } else if(!user.address){
+                dispatch(connectAccount());
+            } else if(!user.correctChain){
+                dispatch(chainConnect());
+            }
+        }
+
+    }
+
+    function StatusAlert() {
+        return (
+            <Alert show={result.show} variant={result.error ? "danger" : "success"} onClose={() => {
+                setResult({show: false, error: null, message: ""})
+            }} dismissible>
+                <Alert.Heading>{result.error ? "Error" : "Success!"}</Alert.Heading>
+                <p>{result.message}</p>
+            </Alert>
+        );
     }
 
     return (
         <div>
         <GlobalStyles/>
             <section className='container'>
+
+                <StatusAlert/>
                 <div className='row mt-md-5 pt-md-4'>
                     <div className="col-md-6 text-center">
                         {listing &&
@@ -81,10 +155,10 @@ const Listing = () => {
                             <p>{listing.nft.description}</p>
                             <div className="d-flex flex-row mt-5">
                                 <button className='btn-main lead mb-3 mr15'
-                                        onClick={viewCollection(listing)}>More From Collection
+                                        onClick={viewCollection()}>More From Collection
                                 </button>
                                 <button className='btn-main lead mb-3 mr15'
-                                        onClick={viewSeller(listing)}>More From Seller
+                                        onClick={viewSeller()}>More From Seller
                                 </button>
                             </div>
                             <div className="de_tab">
@@ -112,11 +186,14 @@ const Listing = () => {
                                     </div>
 
                                     {/* button for checkout */}
-                                    <div className="d-flex flex-row mt-5">
-                                        <button className='btn-main lead mb-5 mr15'
-                                                onClick={() => setOpenCheckout(true)}>Buy Now
-                                        </button>
-                                    </div>
+                                    {listing.state === 0 ?
+                                        <div className="d-flex flex-row mt-5">
+                                            <button className='btn-main lead mb-5 mr15'
+                                                    onClick={showBuy()}>Buy Now
+                                            </button>
+                                        </div> :
+                                        <div>LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }</div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -125,7 +202,7 @@ const Listing = () => {
             </div>
         </section>
         <Footer /> 
-        { openCheckout &&
+        { openCheckout && user &&
         <div className='checkout'>
             <div className='maincheckout'>
             <button className='btn-close' onClick={() => setOpenCheckout(false)}>x</button>
@@ -136,7 +213,7 @@ const Listing = () => {
                 <div className='heading mt-3'>
                     <p>Your balance</p>
                     <div className='subtotal'>
-                    10.67856 ETH
+                        {ethers.utils.formatEther(user.balance)} CRO
                     </div>
                 </div>
               <div className='heading'>
