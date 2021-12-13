@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListingCard from './ListingCard';
 import {init, fetchListings} from "../../GlobalState/marketplaceSlice";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null}) => {
 
@@ -61,19 +62,53 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
         dispatch(fetchListings());
     }
 
-    return (
-        <div className='row'>
-            {listings && listings.map( (listing, index) => (
-                <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
-            ))}
-            { showLoadMore && canLoadMore &&
-            <div className='col-lg-12'>
-                <div className="spacer-single"></div>
-                <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
+    if (showLoadMore) {
+        return (
+            <InfiniteScroll
+                dataLength={listings.length} //This is important field to render the next data
+                next={loadMore}
+                hasMore={canLoadMore}
+                style={{ overflow: 'hidden' }}
+                loader={
+                    <div className='row'>
+                        <div className='col-lg-12 text-center'>
+                            <div className="spacer-single"></div>
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                }
+                endMessage={
+                    <div className='row'>
+                        <div className='col-lg-12 text-center'>
+                            <div className="spacer-single"></div>
+                            <span>Yay! You have seen it all</span>
+                        </div>
+                    </div>
+                }
+            >
+                <div className='row'>
+                    {listings && listings.map( (listing, index) => (
+                        <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                    ))}
+                </div>
+            </InfiniteScroll>
+        );
+    }
+    else {
+        return (
+            <div className='row'>
+                {listings && listings.map( (listing, index) => (
+                    <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                ))}
+                { showLoadMore && canLoadMore &&
+                <div className='col-lg-12'>
+                    <div className="spacer-single"></div>
+                    <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
+                </div>
+                }
             </div>
-            }
-        </div>
-    );
+        );
+    }
 };
 
 export default memo(ListingCollection);
