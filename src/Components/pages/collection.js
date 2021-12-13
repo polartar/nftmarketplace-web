@@ -56,11 +56,12 @@ const Collection = () => {
         return state.marketplace.collection;
     });
 
-    const collectionName = (collectionId) => {
-        const contract = knownContracts.find(c => c.address === address);
+    const collectionName = () => {
+        const contract = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
 
         return contract ? contract.name : 'Collection';
     }
+
     const user = useSelector((state) => {
         return state.user;
     });
@@ -92,7 +93,7 @@ const Collection = () => {
                     <div className='container'>
                         <div className='row m-10-hor'>
                             <div className='col-12 text-center'>
-                                <h1>{collectionName(address)}</h1>
+                                <h1>{collectionName()}</h1>
                             </div>
                         </div>
                     </div>
