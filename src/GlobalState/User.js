@@ -333,7 +333,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             ownedVip = await mc.balanceOf(address, 2);
             market = new Contract(config.market_contract, Market.abi, signer);
             sales = ethers.utils.formatEther(await market.payments(address));
-            
+
         }
 
 
