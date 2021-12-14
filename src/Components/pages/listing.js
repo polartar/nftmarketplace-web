@@ -8,7 +8,7 @@ import { useParams, useHistory  } from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
-import { Alert } from "react-bootstrap"
+import {Alert, Spinner} from "react-bootstrap"
 import { Helmet } from "react-helmet";
 import { toast } from 'react-toastify';
 
@@ -55,6 +55,7 @@ const Listing = () => {
     const history = useHistory();
 
     const listing = useSelector((state) => state.listing.listing)
+    const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
@@ -118,73 +119,86 @@ const Listing = () => {
 
     return (
         <div>
-        <GlobalStyles/>
+            <GlobalStyles/>
             {listing &&
             <Helmet>
                 <title>Ebisu's Bay | {listing.nft.name}</title>
             </Helmet>
             }
-            <section className='container'>
-                <div className='row mt-md-5 pt-md-4'>
-                    <div className="col-md-6 text-center">
-                        {listing &&
-                        <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
-                        }
+            {isLoading ?
+                <section className='container'>
+                    <div className='row mt-4'>
+                        <div className='col-lg-12 text-center'>
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
                     </div>
-                    <div className="col-md-6">
-                        {listing &&
-                        <div className="item_info">
-                            <h2>{listing.nft.name}</h2>
-                            <h3>{listing.price} CRO</h3>
-                            <p>{listing.nft.description}</p>
-                            <div className="d-flex flex-row mt-5">
-                                <button className='btn-main lead mb-3 mr15'
-                                        onClick={viewCollection()}>More From Collection
-                                </button>
-                                <button className='btn-main lead mb-3 mr15'
-                                        onClick={viewSeller()}>More From Seller
-                                </button>
-                            </div>
-                            <div className="de_tab">
+                </section>
+                :
+                <section className='container'>
+                    <div className='row mt-md-5 pt-md-4'>
+                        <div className="col-md-6 text-center">
+                            {listing &&
+                            <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            }
+                        </div>
+                        <div className="col-md-6">
+                            {listing &&
+                            <div className="item_info">
+                                <h2>{listing.nft.name}</h2>
+                                <h3>{listing.price} CRO</h3>
+                                <p>{listing.nft.description}</p>
+                                <div className="d-flex flex-row mt-5">
+                                    <button className='btn-main lead mb-3 mr15'
+                                            onClick={viewCollection()}>More From Collection
+                                    </button>
+                                    <button className='btn-main lead mb-3 mr15'
+                                            onClick={viewSeller()}>More From Seller
+                                    </button>
+                                </div>
+                                <div className="de_tab">
 
-                                <div className="de_tab_content">
-                                    <div className="tab-1 onStep fadeIn">
-                                        <div className="d-block mb-3">
-                                            <div className="row mt-5">
-                                                {listing.nft.attributes && listing.nft.attributes.map((data, i) => {
-                                                    return (
-                                                        <div className="col-lg-4 col-md-6 col-sm-6">
-                                                            <a className="nft_attr">
-                                                                <h5>{humanize(data.trait_type)}</h5>
-                                                                <h4>{humanize(data.value)}</h4>
-                                                                {data.score && (
-                                                                    <span>{Math.round(data.score)}% have this trait</span>
-                                                                )}
-                                                            </a>
-                                                        </div>
-                                                    );
-                                                })}
+                                    <div className="de_tab_content">
+                                        <div className="tab-1 onStep fadeIn">
+                                            <div className="d-block mb-3">
+                                                <div className="row mt-5">
+                                                    {listing.nft.attributes && listing.nft.attributes.map((data, i) => {
+                                                        return (
+                                                            <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                <a className="nft_attr">
+                                                                    <h5>{humanize(data.trait_type)}</h5>
+                                                                    <h4>{humanize(data.value)}</h4>
+                                                                    {data.score && (
+                                                                        <span>{Math.round(data.score)}% have this trait</span>
+                                                                    )}
+                                                                </a>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+
                                             </div>
-
                                         </div>
-                                    </div>
 
-                                    {/* button for checkout */}
-                                    {listing.state === 0 ?
-                                        <div className="d-flex flex-row mt-5">
-                                            <button className='btn-main lead mb-5 mr15'
-                                                    onClick={showBuy()}>Buy Now
-                                            </button>
-                                        </div> :
-                                        <div>LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }</div>
-                                    }
+                                        {/* button for checkout */}
+                                        {listing.state === 0 ?
+                                            <div className="d-flex flex-row mt-5">
+                                                <button className='btn-main lead mb-5 mr15'
+                                                        onClick={showBuy()}>Buy Now
+                                                </button>
+                                            </div> :
+                                            <div>LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }</div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
+                            }
                         </div>
-                        }
-                </div>
-            </div>
-        </section>
+                    </div>
+                </section>
+            }
+
         <Footer /> 
         { openCheckout && user &&
         <div className='checkout'>

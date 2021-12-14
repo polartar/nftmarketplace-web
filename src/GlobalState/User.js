@@ -4,28 +4,19 @@ import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
-import { ERC721, ERC1155 , Elon} from '../Contracts/Abis'
+import { Elon} from '../Contracts/Abis'
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
-import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
-import { knownContracts } from './Market'
 import { DeFiWeb3Connector } from 'deficonnect'
 import  WalletConnectProvider from '@deficonnect/web3-provider'
 import cdcLogo from '../Assets/cdc_logo.svg'
-import { dataURItoBlob } from "../Store/utils";
 import {getNftsForAddress} from "../core/api";
-
-const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
-const gatewayTools = new IPFSGatewayTools();
-const gateway = "https://mygateway.mypinata.cloud";
-const listingsUri = `${config.api_base}listings?`;
-
-
 
 const userSlice = createSlice({
     name : 'user',
     initialState : {
+        // Wallet
         provider: null,
         address : null,
         web3modal: null,
@@ -36,7 +27,6 @@ const userSlice = createSlice({
         rewards: "Loading...",
         marketBalance : "Loading...",
         isMember : false,
-        fetchingNfts: false,
         cronies : [],
         founderCount : 0,
         vipCount : 0,
@@ -46,8 +36,13 @@ const userSlice = createSlice({
         marketContract: null,
         ebisuContract : null,
         correctChain : false,
+
+        // My NFTs
+        fetchingNfts: false,
         nfts: [],
         currentNft : null,
+
+        // Theme
         theme: 'light'
     },
     reducers: {
@@ -86,12 +81,16 @@ const userSlice = createSlice({
         },
 
         fetchingNfts(state, action){
-            state.fetchingNfts = action.payload;
+            state.fetchingNfts = true;
             state.nfts = []
         },
         onNftsAdded(state, action){
             state.nfts.push(...action.payload);
         },
+        nftsFetched(state){
+            state.fetchingNfts = false;
+        },
+
         onNftLoading(state, action){
             state.currentNft = null;
         },
@@ -162,6 +161,7 @@ export const {
     onNftsLoaded,
     onNftLoading,
     onNftsAdded,
+    nftsFetched,
     onNftLoaded,
     connectingWallet,
     onCorrectChain,
@@ -470,6 +470,7 @@ export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
         dispatch(onNftsAdded(nfts));
     });
     dispatch(setIsMember(response.isMember));
+    dispatch(nftsFetched());
 }
 
 export const setTheme = (theme) => async(dispatch) =>{

@@ -99,8 +99,6 @@ export const init = (sort, filter) => async (dispatch, getState) => {
 export const fetchListings = () => async (dispatch, getState) => {
     const state = getState();
 
-    console.log(state.marketplace);
-
     dispatch(listingsLoading());
     const response = await sortAndFetchListings(
         state.marketplace.curPage + 1,
@@ -108,7 +106,6 @@ export const fetchListings = () => async (dispatch, getState) => {
         state.marketplace.curFilter.type,
         state.marketplace.curFilter.address
     );
-    console.log(response);
     dispatch(listingsReceived(response));
 }
 

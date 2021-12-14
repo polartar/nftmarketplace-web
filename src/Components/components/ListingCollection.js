@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ListingCard from './ListingCard';
 import {init, fetchListings} from "../../GlobalState/marketplaceSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import {Spinner} from "react-bootstrap";
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null}) => {
 
@@ -19,7 +20,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     }
 
     const canLoadMore = useSelector((state) => {
-        return state.marketplace.curPage < state.marketplace.totalPages;
+        return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
     });
     const user = useSelector((state) => {
         return state.user;
@@ -65,26 +66,30 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     if (showLoadMore) {
         return (
             <InfiniteScroll
-                dataLength={listings.length} //This is important field to render the next data
+                dataLength={listings.length}
                 next={loadMore}
                 hasMore={canLoadMore}
                 style={{ overflow: 'hidden' }}
                 loader={
                     <div className='row'>
                         <div className='col-lg-12 text-center'>
-                            <div className="spacer-single"></div>
-                            <span>Loading...</span>
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
                         </div>
                     </div>
                 }
-                endMessage={
-                    <div className='row'>
-                        <div className='col-lg-12 text-center'>
-                            <div className="spacer-single"></div>
-                            <span>Yay! You have seen it all</span>
-                        </div>
-                    </div>
-                }
+                endMessage={() => {
+                    if (listings.length) {
+                        return (
+                            <div className='row mt-4'>
+                                <div className='col-lg-12 text-center'>
+                                    <span>Nothing to see here...</span>
+                                </div>
+                            </div>
+                        )
+                    }
+                }}
             >
                 <div className='row'>
                     {listings && listings.map( (listing, index) => (
@@ -101,10 +106,10 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                     <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
                 ))}
                 { showLoadMore && canLoadMore &&
-                <div className='col-lg-12'>
-                    <div className="spacer-single"></div>
-                    <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
-                </div>
+                    <div className='col-lg-12'>
+                        <div className="spacer-single"></div>
+                        <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
+                    </div>
                 }
             </div>
         );
