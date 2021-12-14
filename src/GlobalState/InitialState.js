@@ -113,8 +113,9 @@ export const InitialState = {
       referral: false,
       is1155: false,
     },
+    /*
     {
-      id: 3,
+      id: 4,
       img: croMoonCollage,
       wideBanner: "",
       longBanner: "",
@@ -140,7 +141,8 @@ export const InitialState = {
       referral: false,
       is1155: false,
     },
-  ],
+    */
+  ], 
   myNftCard: [
     // {
     //   id: '04',
