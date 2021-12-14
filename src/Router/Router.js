@@ -273,7 +273,7 @@ export const AppRouter = () => {
         <Route exact path="/marketplace" component={MarketPlaceScreen} />
         <Route exact path="/roadmap" component={RoadMapScreen} />
         <Route exact path="/nfts" component={MyNftScreen} />
-        <Route exact path="/drop" component={DropScreen} />
+        <Route exact path="/drop/:id" component={DropScreen} />
         <Route exact path="/listing/:id" component={DirectListing}/>
         <Route exact path="/collection/:address" component={CollectionScreen} />
         <Route exact path="/collection/:address/:id" component={SingleNftDetails} />
