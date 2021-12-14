@@ -1,29 +1,25 @@
 import React, {memo, useEffect, useState} from 'react';
-import { Row, Col, Toast, Button } from "react-bootstrap"
 import Blockies from "react-blockies";
 import {useDispatch, useSelector} from "react-redux";
 import useOnclickOutside from "react-cool-onclickoutside";
 import {useHistory} from "react-router-dom";
-import {connectAccount, onLogout, setTheme} from "../../GlobalState/User";
+import {connectAccount, onLogout, setTheme, withdrewRewards, withdrewPayments, registeredCode} from "../../GlobalState/User";
+import {toast} from "react-toastify";
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { nanoid } from 'nanoid'
+import {ethers} from 'ethers'
 
 const AccountMenu = function() {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [showpop, btn_icon_pop] = useState(false);
-    const [shownot, btn_icon_not] = useState(false);
 
     const closePop = () => {
         btn_icon_pop(false);
     };
-    const closeNot = () => {
-        btn_icon_not(false);
-    };
     const refpop = useOnclickOutside(() => {
         closePop();
-    });
-    const refpopnot = useOnclickOutside(() => {
-        closeNot();
     });
     const walletAddress = useSelector((state) => {
         return state.user.address;
@@ -31,14 +27,14 @@ const AccountMenu = function() {
     const correctChain = useSelector((state) => {
         return state.user.correctChain;
     });
-    const marketBalance = useSelector((state) => {
-        return state.user.marketBalance;
-    });
-    const referralCode = useSelector((state) => {
-        return state.user.code;
-    });
     const theme = useSelector((state) => {
         return state.user.theme;
+    });
+    const user = useSelector((state) => {
+        return state.user;
+    });
+    const needsOnboard = useSelector((state) => {
+        return state.user.needsOnboard;
     });
 
     const navigateTo = (link) => {
@@ -51,13 +47,93 @@ const AccountMenu = function() {
     }
 
     const connectWalletPressed = async () => {
-        dispatch(connectAccount());
+        if(needsOnboard){
+            const onboarding = new MetaMaskOnboarding();
+            onboarding.startOnboarding();
+        } else{
+            dispatch(connectAccount());
+        }
     };
 
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         console.log('toggleTheme...', newTheme);
         dispatch(setTheme(newTheme));
+    }
+
+    const handleCopy = (code) => () =>{
+        navigator.clipboard.writeText(code);
+        toast.success('Copied!');
+    }
+
+    const withdrawRewards = async () => {
+        try {
+            // setDoingWork(true);
+            const tx = await user.membershipContract.withdrawPayments(user.address);
+            const receipt = await tx.wait();
+            toast.success(`Success! ${receipt.hash}`);
+            dispatch(withdrewRewards());
+        } catch (error) {
+            if (error.data) {
+                toast.error(error.data.message);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        } finally {
+            // setDoingWork(false);
+        }
+    }
+
+    const withdrawBalance = async() => {
+        try{
+            // setDoingWork(true);
+            const tx = await user.marketContract.withdrawPayments(user.address);
+            const receipt = await tx.wait();
+            toast.success(`Success! ${receipt.hash}`);
+            dispatch(withdrewPayments());
+        }catch(error){
+            if (error.data) {
+                toast.error(error.data.message);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        }finally{
+            // setDoingWork(false);
+        }
+    }
+
+    const registerCode = async () => {
+        try{
+            // setDoingWork(true);
+            const id = nanoid(10);
+            const encoded = ethers.utils.formatBytes32String(id)
+            const tx = await user.membershipContract.register(encoded);
+            const receipt = await tx.wait();
+            toast.success(`Success! ${receipt.hash}`);
+            dispatch(registeredCode(id));
+        }catch(error){
+            if (error.data) {
+                toast.error(error.data.message);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        }finally{
+            // setDoingWork(false);
+        }
+    }
+
+    const clearCookies = async () => {
+        dispatch(onLogout());
+        toast.success(`Cookies cleared!`);
     }
 
     useEffect(() => {
@@ -89,46 +165,75 @@ const AccountMenu = function() {
                             <h4>My Wallet</h4>
                             <div className="d-flex justify-content-between">
                                 <span id="wallet" className="d-wallet-address">{`${walletAddress.substring(0, 4)}...${walletAddress.substring(walletAddress.length-3, walletAddress.length)}`}</span>
-                                <button className="btn_menu" title="Copy Address">Copy</button>
+                                <button className="btn_menu" title="Copy Address" onClick={handleCopy(walletAddress)}>Copy</button>
                             </div>
                         </div>
-                        <div className="d-wallet">
-                            <h4>Market Balance</h4>
-                            <div className="d-flex justify-content-between">
-                                <span>{marketBalance} CRO</span>
-                                <button className="btn_menu" title="Withdraw Balance">Withdraw</button>
-                            </div>
-                        </div>
-                        <div className="d-wallet">
-                            <h4>Referral Balance</h4>
-                            <div className="d-flex justify-content-between">
-                                <span>{marketBalance} CRO</span>
-                                <button className="btn_menu" title="Withdraw Balance">Withdraw</button>
-                            </div>
-                        </div>
-                        <div className="d-wallet">
-                            <h4>Referral Code</h4>
-                            <div className="d-flex justify-content-between">
-                                <span id="wallet" className="d-wallet-address">{referralCode}</span>
-                                <button className="btn_menu" title="Copy Referral Code">Copy</button>
-                            </div>
-                        </div>
+                        {user.isMember &&
+                            <>
+                                <div className="d-wallet">
+                                    <h4>Market Balance</h4>
+                                    <div className="d-flex justify-content-between">
+                                        <span>{user.marketBalance} CRO</span>
+                                        {user.marketBalance !== '0.0' &&
+                                            <button className="btn_menu" title="Withdraw Balance" onClick={withdrawBalance}>Withdraw</button>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="d-wallet">
+                                    <h4>Referral Balance</h4>
+                                    <div className="d-flex justify-content-between">
+                                        <span>{user.rewards} CRO</span>
+                                        {user.rewards !== '0.0' &&
+                                            <button className="btn_menu" title="Withdraw Referral Rewards" onClick={withdrawRewards}>Withdraw</button>
+                                        }
+                                    </div>
+                                </div>
+                                {(user.code && user.code.length > 0) ?
+                                    <div className="d-wallet">
+                                        <h4>Referral Code</h4>
+                                        <div className="d-flex justify-content-between">
+                                            <span id="wallet" className="d-wallet-address">{user.code}</span>
+                                            <button className="btn_menu" title="Copy Referral Code"
+                                                    onClick={handleCopy(user.code)}>Copy
+                                            </button>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="d-wallet">
+                                        <h4>sdfg</h4>
+                                        <div className="d-flex justify-content-between">
+                                            <button className="btn_menu" title="Register Referral Code"
+                                                    onClick={registerCode}>Copy
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                            </>
+                        }
                         <div className="d-line"></div>
                         <ul className="de-submenu-profile">
                             <li>
-                                          <span onClick={() => navigateTo(`/nfts`)}>
-                                              <i className="fa fa-photo"></i> My NFTs
-                                          </span>
+                                <span onClick={() => navigateTo(`/nfts`)}>
+                                    <i className="fa fa-photo"></i> My NFTs
+                                </span>
                             </li>
                             <li>
-                                          <span onClick={toggleTheme}>
-                                              <i className="fa fa-photo"></i> Change Theme
-                                          </span>
+                                <span onClick={toggleTheme}>
+                                    <i className="fa fa-sun-o"></i> Change Theme
+                                </span>
                             </li>
                             <li>
-                                      <span onClick={logout}>
-                                        <i className="fa fa-sign-out"></i> Disconnect Wallet
-                                      </span>
+                                <span onClick={clearCookies}>
+                                    <i className="fa fa-flash"></i> Clear Cookies
+                                </span>
+                            </li>
+                        </ul>
+                        <div className="d-line"></div>
+                        <ul className="de-submenu-profile">
+                            <li>
+                                <span onClick={logout}>
+                                    <i className="fa fa-sign-out"></i> Disconnect Wallet
+                                </span>
                             </li>
                         </ul>
                     </div>

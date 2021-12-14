@@ -82,8 +82,6 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
                     />
                 </div>
             )}
-            <span  className="btn-main">View Marketplace</span>
-
         </div>
     );
 }

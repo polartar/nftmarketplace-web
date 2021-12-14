@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Breakpoint, { BreakpointProvider, setDefaultBreakpoints } from "react-socks";
 import { header } from 'react-bootstrap';
-import { useSelector, useDispatch } from "react-redux";
-import {connectAccount, onLogout, setTheme} from "../../GlobalState/User";
-import useOnclickOutside from "react-cool-onclickoutside";
-import { Link, NavLink, useHistory } from "react-router-dom";
-import Blockies from "react-blockies";
+import { NavLink } from "react-router-dom";
 import AccountMenu from "../components/AccountMenu";
 
 setDefaultBreakpoints([

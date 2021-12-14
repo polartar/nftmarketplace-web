@@ -101,6 +101,7 @@ const Rankings = () => {
                                         <span onClick={viewCollection}>
                                             {knownContracts.find(c => c.address.toUpperCase() === collection.collection.toUpperCase())?.name ?? 'Unknown'}
                                         </span>
+                                        <span className="bot">asfd</span>
                                     </th>
                                     <td>{ethers.utils.commify(Math.round(collection.totalVolume))} CRO</td>
                                     <td>{collection.numberOfSales}</td>
