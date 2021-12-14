@@ -157,7 +157,7 @@ const AccountMenu = function() {
             {walletAddress && correctChain && (
                 <div id="de-click-menu-profile" className="de-menu-profile">
                                 <span onClick={()=> btn_icon_pop(!showpop)}>
-                                    <Blockies size={8} scale={4}/>
+                                    <Blockies seed={user.address} size={8} scale={4}/>
                                 </span>
                     {showpop &&
                     <div className="popshow" ref={refpop}>

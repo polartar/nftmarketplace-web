@@ -31,7 +31,7 @@ export default api;
 // });
 
 export async function sortAndFetchListings(page, sort, filterType, filterAddress) {
-    let pagesize = 24;
+    let pagesize = 12;
 
     let query = {
         state: 0,
