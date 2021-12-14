@@ -10,6 +10,7 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import { Alert } from "react-bootstrap"
 import Toast from "../components/Toast"
+import { Helmet } from "react-helmet";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
@@ -138,6 +139,11 @@ const Listing = () => {
     return (
         <div>
         <GlobalStyles/>
+            {listing &&
+            <Helmet>
+                <title>Ebisu's Bay | {listing.nft.name}</title>
+            </Helmet>
+            }
             <section className='container'>
 
                 <StatusAlert/>

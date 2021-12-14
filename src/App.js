@@ -1,5 +1,5 @@
 import { React, useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import ScrollToTopBtn from './Components/menu/ScrollToTop';
 import Header from './Components/menu/header';
 import { createGlobalStyle } from 'styled-components';
@@ -19,6 +19,10 @@ const GlobalStyles = createGlobalStyle`
 function App() {
     const dispatch = useDispatch();
 
+    const theme = useSelector((state) => {
+        return state.user.theme;
+    });
+
     useLayoutEffect(() =>{
         const firebase = initializeApp(firebaseConfig);
         initializeAnalytics(firebase);
@@ -26,7 +30,7 @@ function App() {
     }, []);
 
     return (
-        <div className="wraper">
+        <div className={"wraper " + (theme === 'dark' ? 'greyscheme' : '')}>
             <GlobalStyles />
             <AppRouter firebase/>
             <ScrollToTopBtn />

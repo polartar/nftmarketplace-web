@@ -47,7 +47,8 @@ const userSlice = createSlice({
         ebisuContract : null,
         correctChain : false,
         nfts: [],
-        currentNft : null
+        currentNft : null,
+        theme: 'dark'
     },
     reducers: {
 
@@ -146,8 +147,11 @@ const userSlice = createSlice({
             state.rewards = "Loading...";
             state.marketBalance = "Loading...";
             state.isMember = false;
+        },
+        onThemeChanged(state, action) {
+            console.log('onThemeChanged', action.payload);
+            state.theme = action.payload;
         }
-
     }
 });
 
@@ -169,7 +173,8 @@ export const {
     setIsMember,
     onBasicAccountData,
     onLogout,
-    elonContract
+    elonContract,
+    onThemeChanged
 } = userSlice.actions;
 export const user = userSlice.reducer;
 
@@ -465,4 +470,9 @@ export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
         dispatch(onNftsAdded(nfts));
     });
     dispatch(setIsMember(response.isMember));
+}
+
+export const setTheme = (theme) => async(dispatch) =>{
+    console.log('setting theme.....', theme)
+    dispatch(onThemeChanged(theme));
 }

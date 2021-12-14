@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Breakpoint, { BreakpointProvider, setDefaultBreakpoints } from "react-socks";
 import { header } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
-import { connectAccount, onLogout } from "../../GlobalState/User";
+import {connectAccount, onLogout, setTheme} from "../../GlobalState/User";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import Blockies from "react-blockies";
@@ -45,6 +45,9 @@ const Header = function() {
     const referralCode = useSelector((state) => {
         return state.user.code;
     });
+    const theme = useSelector((state) => {
+        return state.user.theme;
+    });
 
     const navigateTo = (link) => {
         closePop();
@@ -53,6 +56,12 @@ const Header = function() {
 
     const logout = async () => {
         dispatch(onLogout());
+    }
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        console.log('toggleTheme...', newTheme);
+        dispatch(setTheme(newTheme));
     }
 
     useEffect(() => {
