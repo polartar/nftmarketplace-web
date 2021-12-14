@@ -11,12 +11,14 @@ import {
   CircularProgress,
   Snackbar,
   Slider,
-  Alert
+  Alert,
+  TextField
 } from '@mui/material';
 import "./drop.css"
 import Countdown from 'react-countdown';
 import { connectAccount } from '../../GlobalState/User'
-
+import { fetchMemberInfo } from '../../GlobalState/Memberships'
+import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {  ethers} from 'ethers'
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -28,6 +30,10 @@ export default function Drop({
   const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
   const countdownRef = useRef();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchMemberInfo());
+    dispatch(fetchCronieInfo());
+  }, [])
 
   // useEffect(() => {
   //   countdownRef.current.start();
@@ -50,6 +56,14 @@ export default function Drop({
     return state.initState.nftCard[dropId];
   });
 
+  const membership = useSelector((state)=>{
+    return state.memberships;
+  });
+
+  const cronies = useSelector((state)=>{
+    return state.cronies;
+  });
+
   const [dropObject, setDropObject] = useState(null);
 
   useEffect(async() => {
@@ -63,14 +77,28 @@ export default function Drop({
       }
     }
     try {
-      let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
-      currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+      if (currentDrop.address !== "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5" && currentDrop.address !== "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
+        let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+        currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+      }
     } catch(error) {
       console.log(error);
     }
-    console.log(currentDrop);
     setDropObject(currentDrop);
   }, [user]);
+
+
+  useEffect(async() => {
+    if (dropObject) {
+      if (dropObject.address === "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5") {
+        setDropObject(Object.assign({currentSupply: membership.founders.count}, dropObject));
+      }
+      if (dropObject.address === "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
+        setDropObject(Object.assign({currentSupply: cronies.count}, dropObject));
+      }
+    }
+  }, [membership])
+
 
   const [isLive, setIsLive] = useState(true);
   const [startTime, setStartTime] = useState(1638565200000);
@@ -83,6 +111,9 @@ export default function Drop({
       error: false,
       message: ""
   });
+
+  const [referral, setReferral] = useState("");
+
   const [showSuccess, setShowSuccess] = useState({
     show : false,
     hash: ""
@@ -114,21 +145,33 @@ export default function Drop({
         } else {
           cost = regCost;
         }
-        cost = cost.mul(numToMint);
-        let method;
-        for (const abiMethod of dropObject.abi) {
-          if (abiMethod.includes("mint")) method = abiMethod;
-        }
         const extra = {
-          'value' : cost
+          'value' : cost.mul(numToMint)
         };
-        var response;
-        if (method.includes("address") && method.includes("uint256")) {
-          response = await contract.mint(user.address, numToMint);
+        if (dropObject.is1155) {
+          var response;
+          if (dropObject.title === "Founding Member") {
+            const ref32 = ethers.utils.formatBytes32String(referral);
+            response = await contract.mint(1, numToMint, ref32, extra);
+          } else {
+            // Cronie
+            console.log("here");
+            const gas = String(900015 * numToMint);
+            response = await contract.mint(numToMint, extra);
+          }
         } else {
-          response = await contract.mint(numToMint, extra);
-        }
-        const receipt = await response.wait();
+          let method;
+          for (const abiMethod of dropObject.abi) {
+            if (abiMethod.includes("mint")) method = abiMethod;
+          }
+          var response;
+          if (method.includes("address") && method.includes("uint256")) {
+            response = await contract.mint(user.address, numToMint, extra);
+          } else {
+            response = await contract.mint(numToMint, extra);
+          }
+          const receipt = await response.wait();
+      }
       }catch(error){
         if(error.data){
           console.log(error);
@@ -161,6 +204,9 @@ export default function Drop({
     <Box className='container'>
       {(dropObject) ?
       <>
+      <Typography sx={{fontSize: "30px", fontWeight: "bold"}}>
+        {dropObject.title}
+      </Typography>
       <img src={dropObject.wideBanner} className='banner'></img>
         { !isLive ?
          <Container>
@@ -177,6 +223,14 @@ export default function Drop({
          <Container className='container'>
 
             <CardMedia component='img' src={dropObject.nftImage} className='nftImage'/>
+            <Box sx={{ margin: "15px"}}>
+           {dropObject.referral ?
+                              <TextField label="Referral Code" variant="outlined" onChange={ (e) =>{
+                                setReferral(e.target.value);
+                              }} />
+                              : null
+              }
+            </Box>
             <Box mt={3}>
             {/*<Typography component="p" variant="subtitle1">{numToMint}</Typography>*/}
             <Slider defaultValue={1} step={1} marks min={1} max={dropObject.maxMintPerTx} onChange={ (e, val) =>
@@ -186,7 +240,7 @@ export default function Drop({
               MINT {numToMint}
             </Button>
             <Box sx={{ margin: "15px"}}>
-            <Typography class='details'>
+            <Typography className='details'>
             {dropObject.currentSupply}/{dropObject.totalSupply} minted! {isNaN(dropObject.totalSupply - dropObject.currentSupply)? null
             :
               <>
