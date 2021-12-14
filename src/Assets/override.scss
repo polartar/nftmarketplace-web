@@ -27,3 +27,13 @@
 canvas {
     vertical-align: middle;
 }
+
+/* Rankings Avatar */
+.coll_list_pp {
+    canvas {
+        width: 100%;
+        border-radius: 100% !important;
+        position: relative;
+        z-index: 1;
+    }
+}

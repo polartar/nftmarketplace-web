@@ -14,6 +14,7 @@ const marketplaceSlice = createSlice({
         curSort: {},
         totalPages: 0,
         collection: null,
+        rankings: [],
         contract: null,
     },
     reducers: {
@@ -49,7 +50,9 @@ const marketplaceSlice = createSlice({
         },
         onCollectionDataLoaded: (state, action) => {
             state.collection = action.payload.collection;
-            console.log(state.collection);
+        },
+        onRankingsLoaded: (state, action) => {
+            state.rankings = action.payload.collections;
         }
     },
     // extraReducers: (builder) => {
@@ -59,7 +62,15 @@ const marketplaceSlice = createSlice({
     // }
 });
 
-export const { listingsLoading, listingsReceived, onFilter, onSort, clearSet, onCollectionDataLoaded } = marketplaceSlice.actions;
+export const {
+    listingsLoading,
+    listingsReceived,
+    onFilter,
+    onSort,
+    clearSet,
+    onCollectionDataLoaded,
+    onRankingsLoaded
+} = marketplaceSlice.actions;
 
 export default marketplaceSlice.reducer;
 
@@ -118,20 +129,21 @@ export const resetListings = () => async (dispatch) => {
     dispatch(fetchListings());
 }
 
-export const getCollectionData = (type, address) => async(dispatch) => {
-    if (type != 'collection') {
-        dispatch(onCollectionDataLoaded({
-            collection: null,
-        }))
-        return;
-    }
+export const getCollectionData = (address) => async(dispatch) => {
     try {
         const response = await getCollectionMetadata(address);
-        console.log(address);
-        console.log(response);
         dispatch(onCollectionDataLoaded({
             collection: response.collections[0]
         }))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const getRankings = () => async(dispatch) => {
+    try {
+        const response = await getCollectionMetadata();
+        dispatch(onRankingsLoaded({collections: response.collections}))
     } catch(error) {
         console.log(error);
     }

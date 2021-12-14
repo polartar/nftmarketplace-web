@@ -75,7 +75,7 @@ const Collection = () => {
     });
 
     useEffect(async () => {
-        dispatch(getCollectionData('collection', address));
+        dispatch(getCollectionData(address));
 
         if (user.marketContract !== null && isFilteredOnCollection) {
             let royalties = await user.marketContract.royalties(marketplace.curFilter.address)

@@ -30,7 +30,7 @@ export default api;
 // });
 
 export async function sortAndFetchListings(page, sort, filterType, filterAddress) {
-    let pagesize = 8;
+    let pagesize = 24;
 
     let query = {
         state: 0,
@@ -83,13 +83,26 @@ export async function getListing(listingId) {
     }
 }
 
+export async function getCollectionMetadata(contractAddress, sort, filter) {
+    let query = {
+        sortBy: 'totalVolume',
+        direction: 'desc'
+    };
+    if (filter != null) query[filter.type] = filter.value;
+    if (sort != null && sort.type != null) {
+        const sortProps = {
+            sortBy: sort.type,
+            direction: sort.direction
+        };
+        query = {...query, ...sortProps}
+    }
+    if (contractAddress != null) query['collection'] = contractAddress;
 
+    const queryString = new URLSearchParams(query);
 
-export async function getCollectionMetadata(contractAddress) {
-    const uri = `${api.baseUrl}${api.collections}?collection=${contractAddress}`;
+    const uri = `${api.baseUrl}${api.collections}?${queryString}`;
     return await (await fetch(uri)).json();
 }
-
 
 export async function getNftsForAddress(walletAddress, walletProvider, onNftLoaded) {
     if(walletAddress && walletProvider){
