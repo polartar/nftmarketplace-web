@@ -48,7 +48,7 @@ const userSlice = createSlice({
         correctChain : false,
         nfts: [],
         currentNft : null,
-        theme: 'dark'
+        theme: 'light'
     },
     reducers: {
 
