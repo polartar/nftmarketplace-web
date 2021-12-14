@@ -217,12 +217,20 @@ export default function Drop({
         </Link>
 
         <Box>
+          {dropObject.cost != dropObject.memberCost ?
+          <>
           <Typography component='p' mt={3} className='details'>
             Standard Price: <span className='bold'>{dropObject.cost} CRO </span>
           </Typography>
           <Typography component='p' mt={3} className='details'>
           Founding Member Price: <span className='bold'>{dropObject.memberCost} CRO </span>
           </Typography>
+          </>
+          :
+          <Typography component='p' mt={3} className='details'>
+            Price: <span className='bold'>{dropObject.cost} CRO </span>
+          </Typography>
+          }
           {dropObject.end ?
             <Typography component='p' mt={3} className='details'>
               Minting Ends: <span className='bold'>{convertTime(dropObject.end)}</span>

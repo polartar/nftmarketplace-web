@@ -67,7 +67,7 @@ export const InitialState = {
       maxMintPerTx: 50,
       totalSupply: 10000,
       cost: "5.0",
-      memberCost: "4.0",
+      memberCost: "5.0",
       abi: [
         "function mint(address _to, uint256 _mintAmount) public payable",
         "function totalSupply() public view returns (uint256)"
