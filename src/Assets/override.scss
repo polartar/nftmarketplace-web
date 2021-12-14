@@ -37,3 +37,22 @@ canvas {
         z-index: 1;
     }
 }
+
+$white: #fff;
+$color: #218cff;
+.btn_menu {
+    font-size: 12px;
+    padding: 4px 10px;
+    line-height: 1em;
+    border: solid 1px #dddddd;
+    display: inline-block;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    outline: none;
+    &:hover {
+        color: $white;
+        background: $color;
+        border: solid 1px $color;
+    }
+}
