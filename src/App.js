@@ -4,6 +4,7 @@ import ScrollToTopBtn from './Components/menu/ScrollToTop';
 import Header from './Components/menu/header';
 import { createGlobalStyle } from 'styled-components';
 import { AppRouter } from "./Router/Router";
+import {toast, ToastContainer} from 'react-toastify';
 
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './Firebase/firebase_config'
@@ -34,6 +35,7 @@ function App() {
             <GlobalStyles />
             <AppRouter firebase/>
             <ScrollToTopBtn />
+            <ToastContainer position={toast.POSITION.BOTTOM_LEFT} hideProgressBar={true} />
         </div>
     );
 }

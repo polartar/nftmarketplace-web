@@ -6,6 +6,7 @@ import '../node_modules/elegant-icons/style.css';
 import '../node_modules/et-line/style.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.js';
+import 'react-toastify/dist/ReactToastify.css';
 import './Assets/style.scss';
 import './Assets/style_grey.scss';
 import './Assets/override.scss'

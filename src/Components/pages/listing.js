@@ -9,8 +9,8 @@ import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import { Alert } from "react-bootstrap"
-import Toast from "../components/Toast"
 import { Helmet } from "react-helmet";
+import { toast } from 'react-toastify';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
@@ -59,11 +59,6 @@ const Listing = () => {
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
     const [buying, setBuying] = useState(false);
-    const [result, setResult] = React.useState({
-        error: false,
-        show: false,
-        message: ""
-    });
 
     useEffect(() => {
         dispatch(getListingDetails(id));
@@ -90,24 +85,20 @@ const Listing = () => {
                     'value' : price
                 });
                 const receipt = await tx.wait();
-                setResult({
-                    error: false,
-                    show: true,
-                    hash: receipt.hash
-                });
                 dispatch(listingReceived({
                     ...listing,
                     'state' : 1,
                     'purchaser' : user.address
                 }));
+                toast.success(`Success! ${receipt.hash}`);
             }catch(error){
                 if(error.data){
-                    setResult({error: true, message: error.data.message, show: true});
+                    toast.error(error.data.message);
                 } else if(error.message){
-                    setResult({error: true, message: error.message, show: true});
+                    toast.error(error.message);
                 } else {
                     console.log(error);
-                    setResult({error: true, message: "Unknown Error", show: true});
+                    toast.error("Unknown Error");
                 }
             }finally{
                 setBuying(false);
@@ -125,17 +116,6 @@ const Listing = () => {
 
     }
 
-    function StatusAlert() {
-        return (
-            <Alert show={result.show} variant={result.error ? "danger" : "success"} onClose={() => {
-                setResult({show: false, error: null, message: ""})
-            }} dismissible>
-                <Alert.Heading>{result.error ? "Error" : "Success!"}</Alert.Heading>
-                <p>{result.message}</p>
-            </Alert>
-        );
-    }
-
     return (
         <div>
         <GlobalStyles/>
@@ -145,8 +125,6 @@ const Listing = () => {
             </Helmet>
             }
             <section className='container'>
-
-                <StatusAlert/>
                 <div className='row mt-md-5 pt-md-4'>
                     <div className="col-md-6 text-center">
                         {listing &&
