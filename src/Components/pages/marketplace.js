@@ -5,6 +5,8 @@ import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
+import {ethers} from "ethers";
+import {getMarketData} from "../../GlobalState/marketplaceSlice";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -45,6 +47,15 @@ const GlobalStyles = createGlobalStyle`
 
 
 const Marketplace = () => {
+    const dispatch = useDispatch();
+
+    const marketData = useSelector((state) => {
+        return state.marketplace.marketData;
+    })
+
+    useEffect(async function() {
+        dispatch(getMarketData())
+    }, []);
 
     return (
         <div>
@@ -65,6 +76,26 @@ const Marketplace = () => {
 
             <section className='container'>
                 <div className='row'>
+                    {marketData && (
+                        <div className="d-item col-lg-6 col-sm-8 mb-4 mx-auto">
+                            <a className="nft_attr">
+                                <div className="row">
+                                    <div className="col-4">
+                                        <h5>Volume</h5>
+                                        <h4>{ethers.utils.commify(Number(marketData.totalVolume).toFixed(0))} CRO</h4>
+                                    </div>
+                                    <div className="col-4">
+                                        <h5>Sales</h5>
+                                        <h4>{ethers.utils.commify(Number(marketData.totalSales).toFixed(0))} CRO</h4>
+                                    </div>
+                                    <div className="col-4">
+                                        <h5>Active</h5>
+                                        <h4>{ethers.utils.commify(marketData.totalActive)}</h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    )}
                     <div className='col-lg-12'>
                         <TopFilterBar/>
                     </div>

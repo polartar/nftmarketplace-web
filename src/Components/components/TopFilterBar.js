@@ -3,9 +3,11 @@ import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { sort } from './constants/filters';
 import { filterListings, sortListings, resetListings, knownContracts } from "../../GlobalState/marketplaceSlice";
+import {useHistory} from "react-router-dom";
 
 const TopFilterBar = ({showFilter = true, showSort = true}) => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleCategory = useCallback((option) => {
         dispatch(filterListings('collection', option.address));
@@ -28,7 +30,7 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
         key: null,
         label: 'None'
     };
-    
+
     const customStyles = {
         option: (base, state) => ({
             ...base,

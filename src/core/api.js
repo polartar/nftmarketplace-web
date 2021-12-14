@@ -16,7 +16,8 @@ const knownContracts = config.known_contracts;
 const api = {
     baseUrl: config.api_base,
     listings:  '/listings',
-    collections: '/collections'
+    collections: '/collections',
+    marketData: '/marketdata',
 }
 
 export default api;
@@ -81,6 +82,12 @@ export async function getListing(listingId) {
     }catch(error){
         console.log(error)
     }
+}
+
+export async function getMarketMetadata() {
+    const uri = `${api.baseUrl}${api.marketData}`;
+
+    return await (await fetch(uri)).json();
 }
 
 export async function getCollectionMetadata(contractAddress, sort, filter) {

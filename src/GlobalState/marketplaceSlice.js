@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sortAndFetchListings, getCollectionMetadata } from '../core/api';
+import {sortAndFetchListings, getCollectionMetadata, getMarketMetadata} from '../core/api';
 import config from '../Assets/networks/rpc_config.json'
 export const knownContracts = config.known_contracts;
 
@@ -15,7 +15,7 @@ const marketplaceSlice = createSlice({
         totalPages: 0,
         collection: null,
         rankings: [],
-        contract: null,
+        marketData: null,
     },
     reducers: {
         listingsLoading: (state, action) => {
@@ -53,6 +53,9 @@ const marketplaceSlice = createSlice({
         },
         onRankingsLoaded: (state, action) => {
             state.rankings = action.payload.collections;
+        },
+        onMarketDataLoaded(state, action) {
+            state.marketData = action.payload.marketdata;
         }
     },
     // extraReducers: (builder) => {
@@ -69,7 +72,8 @@ export const {
     onSort,
     clearSet,
     onCollectionDataLoaded,
-    onRankingsLoaded
+    onRankingsLoaded,
+    onMarketDataLoaded
 } = marketplaceSlice.actions;
 
 export default marketplaceSlice.reducer;
@@ -144,6 +148,17 @@ export const getRankings = () => async(dispatch) => {
     try {
         const response = await getCollectionMetadata();
         dispatch(onRankingsLoaded({collections: response.collections}))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const getMarketData = () => async(dispatch) => {
+    try {
+        const response = await getMarketMetadata();
+        dispatch(onMarketDataLoaded({
+            marketdata: response
+        }))
     } catch(error) {
         console.log(error);
     }
