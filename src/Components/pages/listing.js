@@ -169,9 +169,14 @@ const Listing = () => {
                                                                 <a className="nft_attr">
                                                                     <h5>{humanize(data.trait_type)}</h5>
                                                                     <h4>{humanize(data.value)}</h4>
-                                                                    {data.score && (
-                                                                        <span>{Math.round(data.score)}% have this trait</span>
-                                                                    )}
+                                                                    {data.occurrence ? (
+                                                                            <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                        )
+                                                                    :
+                                                                        data.percent && (
+                                                                            <span>{data.percent}% have this trait</span>
+                                                                        )
+                                                                    }
                                                                 </a>
                                                             </div>
                                                         );
