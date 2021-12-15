@@ -128,16 +128,16 @@ export const InitialState = {
       Let’s make this Christmas a special one together!`,
       author: { name: "CroMoon", "link": "https://cromoon.net"},
       address: "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
-      maxMintPerTx: 50,
-      totalSupply: 10000,
+      maxMintPerTx: 3,
+      totalSupply: 5555,
       cost: "2.0",
       memberCost: "2.0",
       abi: [
         "function mint(uint256 _mintAmount) public payable",
         "function totalSupply() public view returns (uint256)",
-        "uint256 public cost"
+        "function cost() view returns (uint256)"
       ],
-      start: 1639489543,
+      start: 1639591200000,
       end: null,
       referral: false,
       is1155: false,
