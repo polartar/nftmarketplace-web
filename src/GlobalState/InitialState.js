@@ -135,7 +135,7 @@ export const InitialState = {
       totalSupply: 5555,
       cost: "399",
       memberCost: "349",
-      foundersOnly: true,
+      foundersOnly: false,
       abi: [
         "function mint(uint256 _mintAmount) public payable",
         "function totalSupply() public view returns (uint256)",
