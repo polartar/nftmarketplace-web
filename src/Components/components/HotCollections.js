@@ -7,7 +7,7 @@ import { settings } from "./constants";
 import CustomSlide from "./CustomSlide";
 import api from "../../core/api";
 
-const CarouselCollectionRedux = () => {
+const HotCollections = () => {
 
   const dispatch = useDispatch();
   const hotCollections = [
@@ -47,9 +47,10 @@ const CarouselCollectionRedux = () => {
               index={index + 1}
               avatar={item.authorAvatar}
               banner={item.bannerUrl}
-              username={item.name}
-              uniqueId={item.uniqueID}
+              title={item.name}
+              subtitle={item.uniqueID}
               collectionId={item.collectionId}
+              url={`/collections/${item.collectionId}`}
             />
           ))}
         </Slider>
@@ -57,4 +58,4 @@ const CarouselCollectionRedux = () => {
   );
 }
 
-export default memo(CarouselCollectionRedux);
+export default memo(HotCollections);

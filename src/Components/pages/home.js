@@ -1,11 +1,10 @@
 import React from 'react';
-import SliderMain from '../components/SliderMain';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import SliderCarouselRedux from "../components/SliderCarouselRedux";
 import ListingCollection from "../components/ListingCollection";
-import CarouselCollectionRedux from "../components/CarouselCollectionRedux";
 import {useHistory} from "react-router-dom";
+import HotCollections from "../components/HotCollections";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -53,7 +52,7 @@ const Home = () => {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-lg-12'>
-                            <CarouselCollectionRedux/>
+                            <HotCollections/>
                         </div>
                     </div>
                 </div>

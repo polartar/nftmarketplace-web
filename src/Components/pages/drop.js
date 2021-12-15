@@ -137,10 +137,26 @@ const Drop = () => {
             if (currentDrop.address !== "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5" && currentDrop.address !== "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+                if(id === '4'){
+                    let bnCost = await readContract.cost();
+                    console.log(`got cost ${bnCost}`)
+                    let cost = ethers.utils.formatEther(bnCost);
+                    currentDrop.memberCost = cost;
+                    currentDrop.cost = cost;
+                }
+                const sTime = new Date(currentDrop.start);
+                const now = new Date();
+                if(sTime > now){
+                    setIsLive(false);
+                } else {
+                    console.log(currentDrop.startTime);
+                    console.log(`now: ${now}  sTime ${sTime}`)
+                }
             }
         } catch(error) {
             console.log(error);
         }
+        setLoading(false);
         setDropObject(currentDrop);
     }, [user]);
 
@@ -156,9 +172,24 @@ const Drop = () => {
         }
     }, [membership])
 
+    // useEffect(async() => {
+    //     if(hasEnded()){
+    //         console.log('ended');
+    //     }else{
+    //         console.log('not ended');
+    //     }
+    // }, [dropObject])
+    //
+    // function hasEnded() {
+    //     const endDatePassed = Date.parse(drop.end) < new Date();
+    //     const soldOut = dropObject?.currentSupply >= dropObject?.totalSupply;
+    //     console.log(drop, dropObject);
+    //     return endDatePassed || soldOut;
+    // }
 
     const [isLive, setIsLive] = useState(true);
     const [startTime, setStartTime] = useState(1638565200000);
+    const [loading, setLoading] = useState(true);
 
     const [minting, setMinting] = useState(false);
     const closeMinting = () => {
@@ -267,21 +298,30 @@ const Drop = () => {
                             <div className="spacer-double"></div>
                             <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                 <h1 className="col-white">{drop.title}</h1>
-                                {drop.foundersOnly &&
-                                    <h3 className="col-white">Founding Member Presale</h3>
-                                }
                             </Reveal>
-                            <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                {!isLive ?
-                                    <p className="lead col-white">
-                                        Starts in: <Countdown date={drop.start} />
-                                    </p>
-                                :
+                            {drop.foundersOnly &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                                    <h1 className="col-white">{drop.title}</h1>
+                                    {drop.foundersOnly &&
+                                    <h3 className="col-white">Founding Member Presale</h3>
+                                    }
+                                </Reveal>
+                            }
+                            {isLive && drop.end &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <p className="lead col-white">
                                         Ends in: <Countdown date={drop.end} />
                                     </p>
-                                }
-                            </Reveal>
+                                </Reveal>
+                            }
+                            {!isLive &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <p className="lead col-white">
+                                        Starts in: <Countdown date={drop.start} />
+                                    </p>
+                                </Reveal>
+                            }
+
                             <div className="spacer-10"></div>
                             <Reveal className='onStep d-inline' keyframes={inline} delay={800} duration={900}
                                     triggerOnce>
@@ -328,7 +368,7 @@ const Drop = () => {
                     </div>
                     <div className="col-md-6">
                         <div className="item_info">
-                            <h2>Ebisu</h2>
+                            <h2>{drop.title}</h2>
                             <div className="item_info_counts">
                                 <div className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted</div>
                             </div>
@@ -356,13 +396,19 @@ const Drop = () => {
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
                             }
-                            <div>
-                                <Form.Label>Quantity</Form.Label>
-                                <Form.Range value={quantity} min="1" max="10" onChange={e => setQuantity(e.target.value)}/>
-                            </div>
-                            <div className="d-flex flex-row mt-5">
-                                <button className='btn-main lead mb-5 mr15' onClick={mintNow}>Mint {quantity}</button>
-                            </div>
+                            {isLive ?
+                                <>
+                                    <div>
+                                        <Form.Label>Quantity</Form.Label>
+                                        <Form.Range value={quantity} min="1" max="10" onChange={e => setQuantity(e.target.value)}/>
+                                    </div>
+                                    <div className="d-flex flex-row mt-5">
+                                        <button className='btn-main lead mb-5 mr15' onClick={mintNow}>Mint {quantity}</button>
+                                    </div>
+                                </>
+                                :
+                                <p className="mt-5">MINT HAS ENDED</p>
+                            }
                         </div>
                     </div>
                 </div>

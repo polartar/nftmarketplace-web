@@ -147,7 +147,7 @@ const Listing = () => {
                             {listing &&
                             <div className="item_info">
                                 <h2>{listing.nft.name}</h2>
-                                <h3>{listing.price} CRO</h3>
+                                <h3>{ethers.utils.commify(listing.price)} CRO</h3>
                                 <p>{listing.nft.description}</p>
                                 <div className="d-flex flex-row mt-5">
                                     <button className='btn-main lead mb-3 mr15'

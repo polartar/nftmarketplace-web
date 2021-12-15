@@ -7,8 +7,9 @@ import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import { knownContracts, getCollectionData } from '../../GlobalState/marketplaceSlice'
-import { ethers } from "ethers";
-import {humanize} from "../../Store/utils";
+import {Contract, ethers} from "ethers";
+import config from '../../Assets/networks/rpc_config.json'
+import Market from '../../Contracts/Marketplace.json'
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -50,6 +51,8 @@ const Collection = () => {
     const { address } = useParams();
     const dispatch = useDispatch();
 
+    const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
     const[royalty, setRoyalty] = useState(null);
 
     const collection = useSelector((state) => {
@@ -68,19 +71,11 @@ const Collection = () => {
     const marketplace = useSelector((state) => {
         return state.marketplace;
     });
-    const isFilteredOnCollection = useSelector((state) => {
-        return marketplace.curFilter !== null &&
-            marketplace.curFilter.type === 'collection' &&
-            marketplace.curFilter.address !== null;
-    });
 
     useEffect(async () => {
         dispatch(getCollectionData(address));
-
-        if (user.marketContract !== null && isFilteredOnCollection) {
-            let royalties = await user.marketContract.royalties(marketplace.curFilter.address)
-            setRoyalty((royalties[1] / 10000) * 100);
-        }
+        let royalties = await readMarket.royalties(address)
+        setRoyalty((royalties[1] / 10000) * 100);
     }, [dispatch, address]);
 
     return (

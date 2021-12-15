@@ -1,7 +1,7 @@
 import React from 'react';
 import SliderMain from '../components/SliderMain';
-import CarouselCollectionRedux from '../components/CarouselCollectionRedux';
 import Footer from '../components/footer';
+import LatestDropsCollection from "../components/LatestDropsCollection";
 
 
 const Drops = () => (
@@ -19,7 +19,7 @@ const Drops = () => (
                     </div>
                 </div>
                 <div className='col-lg-12'>
-                    <CarouselCollectionRedux/>
+                    <LatestDropsCollection/>
                 </div>
             </div>
         </section>

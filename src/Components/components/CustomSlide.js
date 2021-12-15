@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Blockies from 'react-blockies';
 
-const CustomSlide = ({ index, avatar, banner, username, uniqueId, collectionId }) => {
+const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url }) => {
   return (
     <div className='itm' index={index}>
       <div className="nft_coll">
@@ -9,13 +9,13 @@ const CustomSlide = ({ index, avatar, banner, username, uniqueId, collectionId }
               <span><img src={banner} className="lazy img-fluid" alt=""/></span>
           </div>
           <div className="nft_coll_pp">
-              <span onClick={()=> window.open("/collection/" + collectionId, "_self")}>
+              <span onClick={()=> window.open(url, "_self")}>
                 <Blockies seed={collectionId} size={10} scale={6}/>
               </span>
           </div>
           <div className="nft_coll_info">
-              <span onClick={()=> window.open("/collection/" + collectionId, "_self")}><h4>{ username }</h4></span>
-              <span>{ uniqueId }</span>
+              <span onClick={()=> window.open(url, "_self")}><h4>{ title }</h4></span>
+              <span>{ subtitle }</span>
           </div>
       </div>
     </div>

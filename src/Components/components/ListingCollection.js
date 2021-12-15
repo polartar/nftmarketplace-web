@@ -10,7 +10,6 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     const dispatch = useDispatch();
     const listings = useSelector((state) => state.marketplace.listings)
     const [height, setHeight] = useState(0);
-    const [royalty, setRoyalty] = useState(null);
 
     const onImgLoad = ({target:img}) => {
         let currentHeight = height;
@@ -28,6 +27,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     const marketplace = useSelector((state) => {
         return state.marketplace;
     });
+
     const isFilteredOnCollection = useSelector((state) => {
         return marketplace.curFilter !== null &&
             marketplace.curFilter.type === 'collection' &&
@@ -54,8 +54,6 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
         }
         dispatch(init(sort, filter));
         dispatch(fetchListings());
-
-
 
     }, [dispatch]);
 
