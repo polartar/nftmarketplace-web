@@ -131,7 +131,7 @@ export const InitialState = {
       Let’s make this Christmas a special one together!`,
       author: { name: "CroMoon", "link": "https://cromoon.net/nfts"},
       address: "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
-      maxMintPerTx: 3,
+      maxMintPerTx: 20,
       totalSupply: 5555,
       cost: "399",
       memberCost: "349",
