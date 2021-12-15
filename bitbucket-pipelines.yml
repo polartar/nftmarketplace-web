@@ -3,7 +3,6 @@ pipelines:
   # - step:
   #     name: Integration test
   #     image: node:16
-  #     size: 2x # Double resources available for this step.
   #     script:
   #       - apt-get update
   #       - node --version
@@ -14,7 +13,6 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          size: 2x # Double resources available for this step.
           script:
             - apt-get update
             - node --version
@@ -25,7 +23,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          size: 2x # Double resources available for this step.
           script:
             - apt-get update
             # Print Node.js version
@@ -53,7 +50,6 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          size: 2x # Double resources available for this step.
           script:
             - apt-get update
             - node --version
@@ -64,7 +60,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          size: 2x # Double resources available for this step.
           script:
             - apt-get update
             # Print Node.js version
@@ -92,7 +87,6 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          size: 2x # Double resources available for this step.
           script:
             - apt-get update
             - node --version
@@ -103,7 +97,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          size: 2x # Double resources available for this step.
           script:
             - apt-get update
             # Print Node.js version
