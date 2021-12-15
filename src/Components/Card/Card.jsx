@@ -124,7 +124,7 @@ export default function MyCard({
                       // className="btnClr"
                       color='primary'
                     >
-                      {(j !== 2) ? 'Buy Now' : 'Learn More'}
+                      Buy Now
                     </Button>
                     {/* menu for ny nft section  */}
                     {menu ? (

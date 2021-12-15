@@ -94,6 +94,8 @@ const CardSection = () => {
         setOpen(false);
     };
     const handleClickOpen = (event) => {
+        history.push(`/drop/${event.id}`);
+        return;
         if(event.id === 2){
             history.push('/drop');
             return;

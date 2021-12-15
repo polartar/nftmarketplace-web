@@ -1,13 +1,8 @@
-options:
-  size: 2x
-
 pipelines:
   # default:
   # - step:
   #     name: Integration test
   #     image: node:16
-  #     caches:
-  #      - node
   #     script:
   #       - apt-get update
   #       - node --version
@@ -18,8 +13,6 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          caches:
-           - node
           script:
             - apt-get update
             - node --version
@@ -30,8 +23,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          caches:
-           - node
           script:
             - apt-get update
             # Print Node.js version
@@ -59,8 +50,6 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          caches:
-           - node
           script:
             - apt-get update
             - node --version
@@ -71,8 +60,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          caches:
-           - node
           script:
             - apt-get update
             # Print Node.js version
@@ -100,8 +87,6 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          caches:
-           - node
           script:
             - apt-get update
             - node --version
@@ -112,8 +97,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          caches:
-           - node
           script:
             - apt-get update
             # Print Node.js version
