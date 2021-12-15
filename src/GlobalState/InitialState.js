@@ -130,7 +130,7 @@ export const InitialState = {
       SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
       Let’s make this Christmas a special one together!`,
       author: { name: "CroMoon", "link": "https://cromoon.net/nfts"},
-      address: "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
+      address: "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
       maxMintPerTx: 3,
       totalSupply: 5555,
       cost: "399",
