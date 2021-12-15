@@ -38,6 +38,7 @@ canvas {
     }
 }
 
+/* User menu buttons */
 $white: #fff;
 $color: #218cff;
 .btn_menu {
@@ -55,4 +56,9 @@ $color: #218cff;
         background: $color;
         border: solid 1px $color;
     }
+}
+
+/* Pointer for clicking card images */
+.nft__item_preview {
+    cursor: pointer;
 }
