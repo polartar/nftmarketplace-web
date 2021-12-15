@@ -41,7 +41,7 @@
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
             "onChain" : false,
             "listable" : true
-        }, 
+        },
         {
             "name" : "Crosmonauts",
             "multiToken" : false,
@@ -224,6 +224,13 @@
             "address" : "0x7E95774b4750F5c330ff2E44981c5E85E1a04F91",
             "onChain" : false,
             "listable" : false
+        },
+        {
+            "name": "CroSanta",
+            "multiToken": false,
+            "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
+            "onChain": false,
+            "listable": false
         }
 
     ]

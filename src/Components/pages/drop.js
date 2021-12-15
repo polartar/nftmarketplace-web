@@ -267,6 +267,9 @@ const Drop = () => {
                             <div className="spacer-double"></div>
                             <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                 <h1 className="col-white">{drop.title}</h1>
+                                {drop.foundersOnly &&
+                                    <h3 className="col-white">Founding Member Presale</h3>
+                                }
                             </Reveal>
                             <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                 {!isLive ?
