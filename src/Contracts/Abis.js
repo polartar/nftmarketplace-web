@@ -20,6 +20,6 @@ export const ERC1155 = [
     "function safeTransferFrom(address from, address to, uint256 tokenId, uint256 amount, bytes memory data) public"
 ]
 
-export const Ebisu = [
+export const Elon = [
     "function mint(uint256 count) public payable"
 ]

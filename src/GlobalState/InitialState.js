@@ -2,6 +2,10 @@ import cronies from '../Assets/cronies.webp'
 import member from '../Assets/founding_member.webp'
 import genesis from '../Assets/CRS-collage.webp'
 import ebisus from '../Assets/ebisu_card.gif'
+import ebisuBanner from '../Assets/drops/eb_drop.gif'
+import ebisusImage from '../Assets/Ebisu.gif'
+import croMoonCollage from '../Assets/drops/cromoondrop.gif'
+import crostmas from '../Assets/drops/crostmas_cards.webp'
 
 export const InitialState = {
   nftslect:{},
@@ -9,30 +13,137 @@ export const InitialState = {
     {
       id: 0,
       img: cronies,
+      nftImage: cronies,
       title: 'Cronies',
       descs: `Commemorating the launch of the Cronos network`,
       p1: 'Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.',
       p2: 'We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.',
+      description: `Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.
+      We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.`,
+      author: { name: "Ebisu's Bay", "link": "https://app.ebisusbay.com"},
+      address: "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
+      maxMintPerTx: 5,
+      totalSupply: "∞",
+      cost: "100.0",
+      memberCost: "100.0",
+      abi: [
+        "function mint(uint256 _amount) public payable",
+      ],
+      start: 1639489543,
+      end: null,
+      referral: false,
+      is1155: true,
     },
     {
       id: 1,
       img: member,
+      nftImage: member,
       title: 'Founding Member',
       descs: `Early access to features and reduced fees forever.`,
       p1: 'If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.',
-      p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. Founding Member NFTs will be limited to 10,000.'
+      p2: 'The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. Founding Member NFTs will be limited to 10,000.',
+      description: `If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.
+      The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. Founding Member NFTs will be limited to 10,000.`,
+      author: { name: "Ebisu's Bay", "link": "https://app.ebisusbay.com"},
+      address: "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
+      maxMintPerTx: 10,
+      totalSupply: 10000,
+      cost: "200.0",
+      memberCost: "200.0",
+      abi: [
+        "function mint(uint256 _id, uint256 _amount, bytes _data) public payable",
+      ],
+      start: 1639489543,
+      end: null,
+      referral: true,
+      discount: "10.0",
+      is1155: true,
     },
     {
       id: 2,
       img: ebisus,
+      nftImage: ebisusImage,
+      wideBanner: "",
+      longBanner: ebisus,
       title: "Ebisu by Barbara",
       descs: "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
       //title: 'Crypto Collage Genesis',
       //descs: `NFT project will be minted with only 10 editions of each in existence.`,
-      p1: 'NFT project will be minted with only 10 editions of each in existence.',
-      p2: 'This art is inspired by the ever growing popularity of the cryptocurrency. Art is combination of vintage inspiration from the past that is fused with current cryptocurrency projects and astronomical potential it possesses.'
+      description: `Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods.
+           Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters.
+           May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.`,
+      author: { name: "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/"},
+      address: "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+      maxMintPerTx: 10,
+      totalSupply: "∞",
+      cost: "150.0",
+      memberCost: "100.0",
+      abi: [
+        "function mint(uint256 count) public payable",
+        "function totalSupply() public view returns (uint256)"
+      ],
+      start: 1639489543,
+      end: 163949000,
+      referral: false,
+      is1155: false,
     },
-  ],
+    {
+      id: 3,
+      img: crostmas,
+      wideBanner: "",
+      longBanner: "",
+      nftImage: crostmas,
+      title: "CROstmas Cards",
+      descs: "CROstmas Cards is a collection on Cronos network.",
+      //title: 'Crypto Collage Genesis',
+      //descs: `NFT project will be minted with only 10 editions of each in existence.`,
+      description:  `CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to "Unwrap" and get CRO to their wallet.`,
+      author: { name: "CROstmas Cards", "link": "https://crostmascards.com"},
+      address: "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
+      maxMintPerTx: 50,
+      totalSupply: 10000,
+      cost: "10.0",
+      memberCost: "10.0",
+      abi: [
+        "function mint(address _to, uint256 _mintAmount) public payable",
+        "function totalSupply() public view returns (uint256)"
+      ],
+      start: 1639489543,
+      end: null,
+      referral: false,
+      is1155: false,
+    },
+   
+    {
+      id: 4,
+      img: croMoonCollage,
+      wideBanner: "",
+      longBanner: "",
+      nftImage: croMoonCollage,
+      title: "SantaCro",
+      descs: "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
+      description:  `Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n
+      SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n
+      SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
+      Let’s make this Christmas a special one together!`,
+      author: { name: "CroMoon", "link": "https://cromoon.net"},
+      address: "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
+      maxMintPerTx: 50,
+      totalSupply: 10000,
+      cost: "2.0",
+      memberCost: "2.0",
+      abi: [
+        "function mint(uint256 _mintAmount) public payable",
+        "function totalSupply() public view returns (uint256)",
+        "uint256 public cost"
+      ],
+      start: 1639489543,
+      end: null,
+      referral: false,
+      is1155: false,
+    },
+ 
+  ], 
   myNftCard: [
     // {
     //   id: '04',

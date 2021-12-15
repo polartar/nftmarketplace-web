@@ -4,7 +4,7 @@ import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
-import { ERC721, ERC1155 , Ebisu} from '../Contracts/Abis'
+import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
@@ -43,7 +43,7 @@ const userSlice = createSlice({
         membershipContract: null,
         croniesContract: null,
         marketContract: null,
-        ebisuContract : null,
+        // ebisuContract : null,
         correctChain : false,
         nfts: [],
         currentNft : null
@@ -60,7 +60,7 @@ const userSlice = createSlice({
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
-            state.ebisuContract = action.payload.ebisuContract;
+            // state.ebisuContract = action.payload.ebisuContract;
             state.gettingContractData = false;
         },
 
@@ -236,19 +236,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         }
     }
 
-    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == "\"custom-defiwallet\"") {
-        localStorage.removeItem('WEB3_CONNECT_CACHED_PROVIDER');
-    }
-
     const web3Modal = new Web3Modal({
         cacheProvider: true, // optional
         providerOptions // required
     });
-
-    console.log(localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER"));
-    if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") == null && firstRun) {
-        return;
-    }
 
 
     console.log("Opening a dialog", web3Modal);
@@ -257,11 +248,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         web3provider = await web3Modal.connect();
     } catch(e) {
         console.log("Could not get a wallet connection", e);
+        dispatch(onLogout());
         return;
     }
 
-    //dispatch(connectingWallet({'connecting' : true}));
-    console.log(web3provider);
     try {
         var provider = new ethers.providers.Web3Provider(web3provider);
 
@@ -328,10 +318,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ownedVip = 0;
         let market;
         let sales;
-        let ebisu;
+        // let ebisu;
 
         if(signer && correctChain){
-            ebisu = new Contract(config.ebisu_contract, Ebisu, signer);
+            // ebisu = new Contract(config.ebisu_contract, Ebisu, signer);
             mc = new Contract(config.membership_contract, Membership.abi, signer);
             mc.connect(signer);
             cc = new Contract(config.cronie_contract, Cronies.abi, signer);
@@ -343,7 +333,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             ownedVip = await mc.balanceOf(address, 2);
             market = new Contract(config.market_contract, Market.abi, signer);
             sales = ethers.utils.formatEther(await market.payments(address));
-            
+
         }
 
 
@@ -361,7 +351,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             isMember : ownedVip > 0 || ownedFounder > 0,
             marketContract: market,
             marketBalance :sales,
-            ebisuContract : ebisu
+            // ebisuContract : ebisu
         }))
     } catch (error) {
         console.log(error)
