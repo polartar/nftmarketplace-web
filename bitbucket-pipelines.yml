@@ -1,13 +1,8 @@
-options:
-  size: 2x
-
 pipelines:
   # default:
   # - step:
   #     name: Integration test
   #     image: node:16
-  #     caches:
-  #      - node
   #     script:
   #       - apt-get update
   #       - node --version
@@ -18,8 +13,11 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          caches:
-           - node
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - apt-get update
             - node --version
@@ -30,8 +28,11 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          caches:
-           - node
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - apt-get update
             # Print Node.js version
@@ -48,19 +49,27 @@ pipelines:
           name: Deploy
           image: amazon/aws-cli
           deployment: Testnet
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "testnet" ]]) || (echo "This build should only be run on testnet" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
     dev:
       - step:
           name: Integration test
           image: node:16
-          caches:
-           - node
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - apt-get update
             - node --version
@@ -71,8 +80,11 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          caches:
-           - node
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - apt-get update
             # Print Node.js version
@@ -89,19 +101,27 @@ pipelines:
           name: Deploy
           image: amazon/aws-cli
           deployment: Development
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
     prod:
       - step:
           name: Integration test
           image: node:16
-          caches:
-           - node
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - apt-get update
             - node --version
@@ -112,8 +132,11 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          caches:
-           - node
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - apt-get update
             # Print Node.js version
@@ -128,10 +151,15 @@ pipelines:
           name: Deploy
           image: amazon/aws-cli
           deployment: Production
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "prod" ]]) || (echo "This build should only be run on prod" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*" "/static/css/*" "/static/js/*" "/static/media/*"
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"

@@ -60,6 +60,12 @@
             "address" : "0x65A422AB9c95fc94208E010B8d4ab50F7E79af19",
             "onChain" : false,
             "listable" : true
+        },{
+            "name" : "SantaCRO",
+            "multiToken": false,
+            "address" : "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
+            "onChain" : false,
+            "listable" : true
         }
     ]
 }

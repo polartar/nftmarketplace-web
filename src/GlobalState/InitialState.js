@@ -113,36 +113,37 @@ export const InitialState = {
       referral: false,
       is1155: false,
     },
-    /*
-    {
-      id: 4,
-      img: croMoonCollage,
-      wideBanner: "",
-      longBanner: "",
-      nftImage: croMoonCollage,
-      title: "SantaCro",
-      descs: "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
-      description:  `Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n
-      SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n
-      SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
-      Let’s make this Christmas a special one together!`,
-      author: { name: "CroMoon", "link": "https://cromoon.net"},
-      address: "",
-      maxMintPerTx: 50,
-      totalSupply: 10000,
-      cost: "???",
-      memberCost: "???",
-      abi: [
-        "function mint(uint256 _mintAmount) public payable",
-        "function totalSupply() public view returns (uint256)"
-      ],
-      start: 1639489543,
-      end: null,
-      referral: false,
-      is1155: false,
-    },
-    */
-  ],
+   
+    // {
+    //   id: 4,
+    //   img: croMoonCollage,
+    //   wideBanner: "",
+    //   longBanner: "",
+    //   nftImage: croMoonCollage,
+    //   title: "SantaCro",
+    //   descs: "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
+    //   description:  `Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n
+    //   SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n
+    //   SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
+    //   Let’s make this Christmas a special one together!`,
+    //   author: { name: "CroMoon", "link": "https://cromoon.net"},
+    //   address: "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
+    //   maxMintPerTx: 3,
+    //   totalSupply: 5555,
+    //   cost: "2.0",
+    //   memberCost: "2.0",
+    //   abi: [
+    //     "function mint(uint256 _mintAmount) public payable",
+    //     "function totalSupply() public view returns (uint256)",
+    //     "function cost() view returns (uint256)"
+    //   ],
+    //   start: 1639591200000,
+    //   end: null,
+    //   referral: false,
+    //   is1155: false,
+    // },
+ 
+  ], 
   myNftCard: [
     // {
     //   id: '04',
@@ -203,36 +204,36 @@ export const InitialState = {
       desc:`A: Founding members will have a reduced service fee when selling NFTs.`,
       tab:'panel2a-content',
       id:'panel2a-header'
-    },
+  },
     {
-      head:`Q: What benefits can VIP Founding Members enjoy?`,
-      desc:`A: VIP Founding Members will gain early access to new features, have
+        head:`Q: What benefits can VIP Founding Members enjoy?`,
+        desc:`A: VIP Founding Members will gain early access to new features, have
         further reduced service fees, and have the option to stake their membership NFT to earn
         a portion of the fees collected from all sales on the platform.`,
-      tab:'panel3a-content',
-      id:'panel3a-header'
+        tab:'panel3a-content',
+        id:'panel3a-header'
     },
 
     {
-      head:`Q: Will you be launching on any other networks?`,
-      desc:`A: If the community demands it! We are currently evaluating adding support for Songbird and Flare networks.`,
-      tab:'panel4a-content',
-      id:'panel4a-header'
+        head:`Q: Will you be launching on any other networks?`,
+        desc:`A: If the community demands it! We are currently evaluating adding support for Songbird and Flare networks.`,
+        tab:'panel4a-content',
+        id:'panel4a-header'
     },
     {
-      head:`Q: What is the Launchpad?`,
-      desc:`A: We will be working with curated artists and promising new NFT
+        head:`Q: What is the Launchpad?`,
+        desc:`A: We will be working with curated artists and promising new NFT
         gaming projects to promote and launch new drops. If you are
         interested on getting a rocketship onto the launchpad please contact
         us.`,
-      tab:'panel5a-content',
-      id:'panel5a-header'
+        tab:'panel5a-content',
+        id:'panel5a-header'
     },
     {
       head:`Q: I want a feature that isn't on the roadmap. Will you do it please?`,
       desc:`A: We aim to please. Reach out to us and let us know what you would like to see!`,
       tab:'panel6a-content',
       id:'panel6a-header'
-    },
+  },
   ],
 }

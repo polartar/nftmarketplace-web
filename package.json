@@ -9,6 +9,7 @@
     "@bugsnag/plugin-react": "^7.14.0",
     "@deficonnect/web3-provider": "^1.6.7-alpha.25",
     "@emotion/react": "^11.7.1",
+    "@firebase/analytics": "^0.7.4",
     "@metamask/detect-provider": "^1.2.0",
     "@metamask/onboarding": "^1.0.1",
     "@pinata/ipfs-gateway-tools": "^1.1.6",

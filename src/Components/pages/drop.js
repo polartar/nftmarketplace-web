@@ -13,6 +13,7 @@ import { ethers} from 'ethers'
 import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
+import { getAnalytics, logEvent } from '@firebase/analytics'
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -78,6 +79,14 @@ const Drop = () => {
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
     const countdownRef = useRef();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        logEvent(getAnalytics(), 'screen_view', {
+            firebase_screen : 'drop',
+            drop_id: id
+        })
+    }, []);
+
     useEffect(() => {
         dispatch(fetchMemberInfo());
         dispatch(fetchCronieInfo());
