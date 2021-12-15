@@ -3,7 +3,6 @@ pipelines:
   # - step:
   #     name: Integration test
   #     image: node:16
-  #     size: 2x # Double resources available for this step.
   #     script:
   #       - apt-get update
   #       - node --version
@@ -14,7 +13,10 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          size: 2x # Double resources available for this step.
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - apt-get update
             - node --version
@@ -25,7 +27,10 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          size: 2x # Double resources available for this step.
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - apt-get update
             # Print Node.js version
@@ -42,6 +47,10 @@ pipelines:
           name: Deploy
           image: amazon/aws-cli
           deployment: Testnet
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "testnet" ]]) || (echo "This build should only be run on testnet" && exit 1)
             # Print AWS CLI version
@@ -53,7 +62,10 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          size: 2x # Double resources available for this step.
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - apt-get update
             - node --version
@@ -64,7 +76,10 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          size: 2x # Double resources available for this step.
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - apt-get update
             # Print Node.js version
@@ -81,6 +96,10 @@ pipelines:
           name: Deploy
           image: amazon/aws-cli
           deployment: Development
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
             # Print AWS CLI version
@@ -92,7 +111,10 @@ pipelines:
       - step:
           name: Integration test
           image: node:16
-          size: 2x # Double resources available for this step.
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - apt-get update
             - node --version
@@ -103,7 +125,10 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          size: 2x # Double resources available for this step.
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - apt-get update
             # Print Node.js version
@@ -118,6 +143,10 @@ pipelines:
           name: Deploy
           image: amazon/aws-cli
           deployment: Production
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+          size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "prod" ]]) || (echo "This build should only be run on prod" && exit 1)
             # Print AWS CLI version

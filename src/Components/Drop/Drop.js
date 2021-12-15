@@ -172,18 +172,26 @@ export default function Drop({
         } else {
           cost = regCost;
         }
-        const finalCost = cost.mul(numToMint);
-        const extra = {
+        let finalCost = cost.mul(numToMint);
+        let extra = {
           'value' : finalCost
         };
         if (dropObject.is1155) {
           var response;
+          
           if (dropObject.title === "Founding Member") {
+            console.log(referral);
+            if(referral){
+              finalCost = finalCost.sub(ethers.utils.parseEther('10.0').mul(numToMint));
+              extra = {
+                'value' : finalCost
+              };
+            };
             const ref32 = ethers.utils.formatBytes32String(referral);
             response = await contract.mint(1, numToMint, ref32, extra);
           } else {
             // Cronie
-            console.log("here");
+
             const gas = String(900015 * numToMint);
             response = await contract.mint(numToMint, extra);
           }
