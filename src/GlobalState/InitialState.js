@@ -33,6 +33,7 @@ export const InitialState = {
       end: null,
       referral: false,
       is1155: true,
+      foundersOnly: false,
     },
     {
       id: 1,
@@ -58,6 +59,7 @@ export const InitialState = {
       referral: true,
       discount: "10.0",
       is1155: true,
+      foundersOnly: false,
     },
     {
       id: 2,
@@ -86,6 +88,7 @@ export const InitialState = {
       end: 163949000,
       referral: false,
       is1155: false,
+      foundersOnly: false,
     },
     {
       id: 3,
@@ -112,38 +115,39 @@ export const InitialState = {
       end: null,
       referral: false,
       is1155: false,
+      foundersOnly: false,
     },
-   
-    // {
-    //   id: 4,
-    //   img: croMoonCollage,
-    //   wideBanner: "",
-    //   longBanner: "",
-    //   nftImage: croMoonCollage,
-    //   title: "SantaCro",
-    //   descs: "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
-    //   description:  `Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n
-    //   SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n
-    //   SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
-    //   Let’s make this Christmas a special one together!`,
-    //   author: { name: "CroMoon", "link": "https://cromoon.net"},
-    //   address: "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
-    //   maxMintPerTx: 3,
-    //   totalSupply: 5555,
-    //   cost: "2.0",
-    //   memberCost: "2.0",
-    //   abi: [
-    //     "function mint(uint256 _mintAmount) public payable",
-    //     "function totalSupply() public view returns (uint256)",
-    //     "function cost() view returns (uint256)"
-    //   ],
-    //   start: 1639591200000,
-    //   end: null,
-    //   referral: false,
-    //   is1155: false,
-    // },
- 
-  ], 
+    {
+      id: 4,
+      img: croMoonCollage,
+      wideBanner: "",
+      longBanner: "",
+      nftImage: croMoonCollage,
+      title: "SantaCro",
+      descs: "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
+      description:  `Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n
+      SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n
+      SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
+      Let’s make this Christmas a special one together!`,
+      author: { name: "CroMoon", "link": "https://cromoon.net/nfts"},
+      address: "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
+      maxMintPerTx: 3,
+      totalSupply: 5555,
+      cost: "399",
+      memberCost: "349",
+      foundersOnly: true,
+      abi: [
+        "function mint(uint256 _mintAmount) public payable",
+        "function totalSupply() public view returns (uint256)",
+        "function cost() view returns (uint256)"
+      ],
+      start: 1639591200000,
+      end: null,
+      referral: false,
+      is1155: false,
+    },
+
+  ],
   myNftCard: [
     // {
     //   id: '04',
