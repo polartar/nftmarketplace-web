@@ -6,6 +6,7 @@ import { cronies } from "../GlobalState/Cronies";
 import marketplaceReducer from "../GlobalState/marketplaceSlice";
 import listingReducer from "../GlobalState/listingSlice";
 import nftReducer from "../GlobalState/nftSlice";
+import { initState } from '../GlobalState/CreateSlice'
 import { user } from "../GlobalState/User";
 
 const rootReducer = combineReducers({
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     marketplace: marketplaceReducer,
     listing: listingReducer,
     nft: nftReducer,
-    user: user
+    user: user,
+    initState: initState
 });
 
 const middleware = [thunk];

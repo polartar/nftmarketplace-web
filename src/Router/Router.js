@@ -10,6 +10,8 @@ import Nft from '../Components/pages/nft';
 import MyNfts from '../Components/pages/myNfts';
 import Header from "../Components/menu/header";
 import Rankings from "../Components/pages/rankings";
+import Drops from "../Components/pages/drops";
+import Drop from "../Components/pages/drop";
 
 export const AppRouter = () => {
 
@@ -43,7 +45,8 @@ export const AppRouter = () => {
                 <Route exact path="/marketplace" component={Marketplace} />
                 {/*<Route exact path="/roadmap" component={Roadmap} />*/}
                 <PrivateRoute  exact path="/nfts" component={MyNfts} />
-                {/*<Route exact path="/drop" component={Drop} />*/}
+                <Route exact path="/drops" component={Drops} />
+                <Route exact path="/drops/:id" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>
                 <Route exact path="/rankings" component={Rankings}/>
                 <Route exact path="/collection/:address" component={Collection} />

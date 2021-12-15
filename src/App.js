@@ -1,7 +1,6 @@
 import { React, useLayoutEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import ScrollToTopBtn from './Components/menu/ScrollToTop';
-import Header from './Components/menu/header';
 import { createGlobalStyle } from 'styled-components';
 import { AppRouter } from "./Router/Router";
 import {toast, ToastContainer} from 'react-toastify';
