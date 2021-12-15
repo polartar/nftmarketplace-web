@@ -1,4 +1,8 @@
-/* Hot Collections */
+/* Copied colors from style.scss */
+$color: #218cff;
+$gray: #bbb;
+
+/* Hot Collections Avatar for Blockies */
 .slick-slide canvas {
     display: block;
 }
@@ -14,8 +18,19 @@
 .nft_coll canvas {
     transition: 0.7s;
 }
+.nft_coll {
+    canvas{
+        transition: .7s;
+    }
+    &:hover{
+        canvas{
+            transform: scale(1.05);
+            transition: .7s;
+        }
+    }
+}
 
-/* Header Avatar */
+/* Header Avatar for Blockies */
 .de-menu-profile canvas {
     width: 38px;
     border-radius: 30px;
@@ -28,7 +43,7 @@ canvas {
     vertical-align: middle;
 }
 
-/* Rankings Avatar */
+/* Rankings Avatar for Blockies */
 .coll_list_pp {
     canvas {
         width: 100%;
@@ -38,9 +53,25 @@ canvas {
     }
 }
 
+/* NFT Details Avatar for Blockies */
+.author_list_pp {
+    &:hover canvas{
+        padding: 3px;
+        -webkit-box-shadow: 0px 0px 0px 2px $color;
+        transition: .3s;
+    }
+}
+.author_list_pp canvas {
+    width: 100%;
+    border-radius: 100% !important;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    position: relative;
+    z-index: 1;
+}
+
 /* User menu buttons */
 $white: #fff;
-$color: #218cff;
 .btn_menu {
     font-size: 12px;
     padding: 4px 10px;

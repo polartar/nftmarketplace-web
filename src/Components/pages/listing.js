@@ -11,6 +11,7 @@ import { connectAccount, chainConnect } from '../../GlobalState/User'
 import {Alert, Spinner} from "react-bootstrap"
 import { Helmet } from "react-helmet";
 import { toast } from 'react-toastify';
+import Blockies from "react-blockies";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
@@ -149,13 +150,33 @@ const Listing = () => {
                                 <h2>{listing.nft.name}</h2>
                                 <h3>{ethers.utils.commify(listing.price)} CRO</h3>
                                 <p>{listing.nft.description}</p>
-                                <div className="d-flex flex-row mt-5">
-                                    <button className='btn-main lead mb-3 mr15'
-                                            onClick={viewCollection()}>More From Collection
-                                    </button>
-                                    <button className='btn-main lead mb-3 mr15'
-                                            onClick={viewSeller()}>More From Seller
-                                    </button>
+                                <div className="d-flex flex-row">
+                                    <div className="mr40">
+                                        <h6>Seller</h6>
+                                        <div className="item_author">
+                                            <div className="author_list_pp">
+                                            <span onClick={viewSeller()}>
+                                                <Blockies seed={listing.seller} size={10} scale={5}/>
+                                            </span>
+                                            </div>
+                                            <div className="author_list_info">
+                                                <span>{`${listing.seller.substring(0, 4)}...${listing.seller.substring(listing.seller.length-3, listing.seller.length)}`}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mr40">
+                                        <h6>Collection</h6>
+                                        <div className="item_author">
+                                            <div className="author_list_pp">
+                                            <span onClick={viewCollection()}>
+                                                <Blockies seed={listing.nftAddress} size={10} scale={5}/>
+                                            </span>
+                                            </div>
+                                            <div className="author_list_info">
+                                                <span>ghjk</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="de_tab">
 
