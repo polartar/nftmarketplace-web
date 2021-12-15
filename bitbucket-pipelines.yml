@@ -16,6 +16,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - apt-get update
@@ -30,6 +31,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - apt-get update
@@ -50,6 +52,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "testnet" ]]) || (echo "This build should only be run on testnet" && exit 1)
@@ -65,6 +68,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - apt-get update
@@ -79,6 +83,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - apt-get update
@@ -99,6 +104,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
@@ -114,6 +120,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - apt-get update
@@ -128,6 +135,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - apt-get update
@@ -146,6 +154,7 @@ pipelines:
           runs-on:
             - 'self.hosted'
             - 'linux'
+            - 'web'
           size: 1x
           script:
             - ([[ "$BITBUCKET_BRANCH" == "prod" ]]) || (echo "This build should only be run on prod" && exit 1)
