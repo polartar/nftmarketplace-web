@@ -129,7 +129,7 @@ export const InitialState = {
       SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n
       SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n
       Let’s make this Christmas a special one together!`,
-      author: { name: "CroMoon", "link": "https://cromoon.net"},
+      author: { name: "CroMoon", "link": "https://cromoon.net/nfts"},
       address: "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
       maxMintPerTx: 3,
       totalSupply: 5555,
