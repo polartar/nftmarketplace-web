@@ -127,7 +127,7 @@ export default function Drop({
 
 
   const [isLive, setIsLive] = useState(true);
-  
+
   const [startTime, setStartTime] = useState(1638565200000);
 
   const [minting, setMinting] = useState(false);
@@ -178,7 +178,7 @@ export default function Drop({
         };
         if (dropObject.is1155) {
           var response;
-          
+
           if (dropObject.title === "Founding Member") {
             console.log(referral);
             if(referral){
@@ -256,7 +256,13 @@ export default function Drop({
         {dropObject.title}
       </Typography>
       <img src={dropObject.wideBanner} className='banner'></img>
-        { !isLive ?
+      <CardMedia component='img' src={dropObject.nftImage} className='nftImage'/>
+      { dropObject.foundersOnly ?
+      <Typography className='countdowndesc'>
+              FOUNDING MEMBER PRESALE
+      </Typography>
+      : null }
+        { dropObject.start > Date.now() ?
          <Container>
             <Typography className='countdowndesc'>
               SALE BEGINS
@@ -269,8 +275,6 @@ export default function Drop({
             </Typography>
          </Container> :
          <Container className='container'>
-
-            <CardMedia component='img' src={dropObject.nftImage} className='nftImage'/>
             <Box sx={{ margin: "15px"}}>
            {dropObject.referral ?
                               <TextField label="Referral Code" variant="outlined" onChange={ (e) =>{
@@ -321,9 +325,11 @@ export default function Drop({
         <Box>
           {dropObject.cost != dropObject.memberCost ?
           <>
+          {dropObject.foundersOnly ? null :
           <Typography component='p' mt={3} className='details'>
             Standard Price: <span className='bold'>{dropObject.cost} CRO </span>
           </Typography>
+          }
           <Typography component='p' mt={3} className='details'>
           Founding Member Price: <span className='bold'>{dropObject.memberCost} CRO </span>
           </Typography>
@@ -352,7 +358,7 @@ export default function Drop({
             </Typography>
         </Stack>
       </Dialog>
-      
+
       <Dialog
                 open={minting}>
                 <DialogContent>
