@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import banner from '../../Assets/drops/eb_drop.gif'
-import ebisu from '../../Assets/Ebisu.gif'
+import React, { useEffect, useRef, useState } from 'react'
+// import banner from '../../Assets/drops/eb_drop.gif'
+// import ebisu from '../../Assets/Ebisu.gif'
 import {Typography, Link, Container, Button, CardMedia} from '@mui/material'
 import config from '../../Assets/networks/rpc_config.json'
 import {
@@ -21,8 +21,7 @@ import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {  ethers} from 'ethers'
 import {useSelector, useDispatch} from 'react-redux'
-
-
+import { getAnalytics, logEvent } from '@firebase/analytics'
 
 export default function Drop({
   dropId,
@@ -47,6 +46,8 @@ export default function Drop({
   //     setIsLive(data.isLive);
   //   })();
   // }, []);
+
+  const [loading, setLoading] = useState(true);
 
   const user = useSelector((state) => {
     return state.user;
@@ -80,13 +81,38 @@ export default function Drop({
       if (currentDrop.address !== "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5" && currentDrop.address !== "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
         let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
         currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+        if(dropId === '4'){
+          let bnCost = await readContract.cost();
+          console.log(`got cost ${bnCost}`)
+          let cost = ethers.utils.formatEther(bnCost);
+          currentDrop.memberCost = cost;
+          currentDrop.cost = cost;
+        }
+        const sTime = new Date(currentDrop.start);
+        const now = new Date();
+        if(sTime > now){
+          setIsLive(false);
+        } else {
+          console.log(currentDrop.startTime);
+          console.log(`now: ${now}  sTime ${sTime}`)
+        }
       }
     } catch(error) {
       console.log(error);
     }
+    setLoading(false);
     setDropObject(currentDrop);
   }, [user]);
 
+  useEffect(() => {
+    if(dropObject != null){
+        logEvent(getAnalytics(), 'screen_view', {
+            firebase_screen : 'Drop',
+            name : dropObject.title,
+            id : dropObject.id,
+        })
+    }
+}, [dropObject])
 
   useEffect(async() => {
     if (dropObject) {
@@ -101,6 +127,7 @@ export default function Drop({
 
 
   const [isLive, setIsLive] = useState(true);
+  
   const [startTime, setStartTime] = useState(1638565200000);
 
   const [minting, setMinting] = useState(false);
@@ -145,8 +172,9 @@ export default function Drop({
         } else {
           cost = regCost;
         }
+        const finalCost = cost.mul(numToMint);
         const extra = {
-          'value' : cost.mul(numToMint)
+          'value' : finalCost
         };
         if (dropObject.is1155) {
           var response;
@@ -168,9 +196,21 @@ export default function Drop({
           if (method.includes("address") && method.includes("uint256")) {
             response = await contract.mint(user.address, numToMint, extra);
           } else {
+            console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
             response = await contract.mint(numToMint, extra);
           }
           const receipt = await response.wait();
+          setShowSuccess({
+            show: true,
+            hash: receipt.hash
+        });
+        const anParam = {
+          currency : 'CRO',
+          value : ethers.utils.formatEther(finalCost),
+          quantity : numToMint,
+          items: [dropObject.title]
+        };
+        logEvent(getAnalytics(), 'purchase', anParam);
       }
       }catch(error){
         if(error.data){
@@ -192,7 +232,7 @@ export default function Drop({
   };
 
   const convertTime = (time) => {
-    let date = new Date(time * 1000);
+    let date = new Date(time);
     const fullDateString = date.toLocaleString('default', {timeZone: 'UTC'});
     const month = date.toLocaleString('default', { month: 'long', timeZone: 'UTC' });
     let dateString = `${fullDateString.split(", ")[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`
@@ -296,6 +336,15 @@ export default function Drop({
       </>
       : null
       }
+      <Dialog open={loading}>
+        <Stack spacing={2} direction='row'>
+            <CircularProgress/>
+            <Typography variant='h3'>
+                  Loading...
+            </Typography>
+        </Stack>
+      </Dialog>
+      
       <Dialog
                 open={minting}>
                 <DialogContent>
