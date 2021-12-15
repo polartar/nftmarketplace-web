@@ -210,6 +210,13 @@
             "address" : "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
             "onChain" : false,
             "listable" : true
+        },
+        {
+            "name" : "DrakeStones",
+            "multiToken": false,
+            "address" : "0x7E95774b4750F5c330ff2E44981c5E85E1a04F91",
+            "onChain" : false,
+            "listable" : false
         }
         
     ]
