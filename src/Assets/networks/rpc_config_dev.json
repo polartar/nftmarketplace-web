@@ -230,7 +230,14 @@
             "multiToken": false,
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
             "onChain": false,
-            "listable": false
+            "listable": true
+        },
+        {
+            "name": "Cro Sharks ",
+            "multiToken": false,
+            "address": "0x01b7D7e3D4e2f496D0b25453A361e36eF5144686",
+            "onChain": false,
+            "listable": true
         }
 
     ]
