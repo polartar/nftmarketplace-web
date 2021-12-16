@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
-import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
@@ -45,8 +44,8 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const MyNfts = () => {
-
     const walletAddress = useSelector((state) => state.user.address)
+
 
     const Content = () => (
         <>
@@ -71,7 +70,9 @@ const MyNfts = () => {
                         <TopFilterBar showFilter={false}/>
                     </div>
                 </div>
-                <MyNftCollection walletAddress={walletAddress}/>
+                <MyNftCollection
+                    walletAddress={walletAddress}
+                />
             </section>
 
             <Footer/>

@@ -13,7 +13,20 @@ const Outer = styled.div`
 `;
 
 //react functional component
-const NftCard = ({ nft, className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4', clockTop = true, height, onImgLoad }) => {
+const NftCard = ({
+    nft,
+    className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4',
+    height,
+    onImgLoad,
+    canTransfer = false,
+    canSell = false,
+    canCancel = false,
+    canUpdate = false,
+    onTransferButtonPressed,
+    onSellButtonPressed,
+    onCancelButtonPressed,
+    onUpdateButtonPressed,
+}) => {
     const history = useHistory();
 
     const navigateTo = (link) => {
@@ -39,11 +52,22 @@ const NftCard = ({ nft, className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12
                         }
                     </span>
                     <div className="nft__item_action mb-2">
-                        <span onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)}>Details</span>
+                        {canTransfer &&
+                        <span className="mx-1" onClick={onTransferButtonPressed}>Transfer</span>
+                        }
+                        {canSell &&
+                        <span className="mx-1" onClick={onSellButtonPressed}>Sell</span>
+                        }
+                        {canCancel &&
+                        <span className="mx-1" onClick={onCancelButtonPressed}>Cancel</span>
+                        }
+                        {canUpdate &&
+                        <span className="mx-1" onClick={onUpdateButtonPressed}>Update</span>
+                        }
                     </div>
-                </div> 
+                </div>
             </div>
-        </div>             
+        </div>
     );
 };
 
