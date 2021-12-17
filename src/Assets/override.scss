@@ -93,3 +93,22 @@ $white: #fff;
 .nft__item_preview {
     cursor: pointer;
 }
+
+/* Collection Page Avatar for Blockies */
+.d_coll .profile_avatar canvas {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.profile_avatar canvas {
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    width: 150px;
+    height: auto;
+}
+.d_coll .profile_avatar canvas{
+    display: inline-block;
+    margin-top: -100px;
+    margin-bottom: 30px;
+}

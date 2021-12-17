@@ -10,7 +10,11 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
           </div>
           <div className="nft_coll_pp">
               <span onClick={()=> window.open(url, "_self")}>
-                <Blockies seed={collectionId} size={10} scale={6}/>
+                  {avatar ?
+                      <img className="lazy" src={avatar} alt=""/>
+                      :
+                      <Blockies seed={collectionId} size={10} scale={6}/>
+                  }
               </span>
           </div>
           <div className="nft_coll_info">

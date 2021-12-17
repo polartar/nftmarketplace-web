@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
@@ -10,6 +10,9 @@ import { knownContracts, getCollectionData } from '../../GlobalState/marketplace
 import {Contract, ethers} from "ethers";
 import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
+import {CollectionsMetadata} from "../../GlobalState/CollectionsMetadata";
+import Blockies from 'react-blockies';
+import {toast} from "react-toastify";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -71,6 +74,19 @@ const Collection = () => {
     const marketplace = useSelector((state) => {
         return state.marketplace;
     });
+    const[metadata, setMetadata] = useState(null);
+
+    const handleCopy = (code) => () =>{
+        navigator.clipboard.writeText(code);
+        toast.success('Copied!');
+    }
+
+    useEffect(() => {
+        let extraData = CollectionsMetadata.collections.find(c => c.address.toUpperCase() === address.toUpperCase());
+        if (extraData) {
+            setMetadata(extraData);
+        }
+    });
 
     useEffect(async () => {
         dispatch(getCollectionData(address));
@@ -82,38 +98,70 @@ const Collection = () => {
         <div>
             <GlobalStyles/>
 
-            <section className='jumbotron breadcumb no-bg'
-                     style={{backgroundImage: `url(${'/img/background/subheader.png'})`}}>
+            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata ? metadata.banner : '/img/background/subheader.png'})`}}>
                 <div className='mainbreadcumb'>
-                    <div className='container'>
-                        <div className='row m-10-hor'>
-                            <div className='col-12 text-center'>
-                                <h1>{collectionName()}</h1>
+                </div>
+            </section>
+
+            <section className='container d_coll no-top no-bottom'>
+                <div className='row'>
+                    <div className="col-md-12">
+                        <div className="d_profile">
+                            {collection &&
+                            <div className="profile_avatar">
+                                <div className="d_profile_img">
+                                    {metadata ?
+                                        <>
+                                            {metadata.avatar ?
+
+                                                <img src={metadata.avatar} alt=""/>
+                                                :
+                                                <Blockies seed={collection.address} size={15} scale={10}/>
+                                            }
+                                            {metadata.verified &&
+                                                <i className="fa fa-check"></i>
+                                            }
+                                        </>
+                                        :
+                                        <Blockies seed={collection.address} size={15} scale={10}/>
+                                    }
+                                </div>
+
+                                <div className="profile_name">
+                                    <h4>
+                                        {collectionName()}
+                                        <div className="clearfix"></div>
+                                        <span id="wallet" className="profile_wallet">{address}</span>
+
+                                        <button id="btn_copy" title="Copy Text" onClick={handleCopy(address)}>Copy</button>
+                                    </h4>
+                                </div>
                             </div>
+                            }
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className='container'>
+            <section className='container no-top'>
                 <div className='row'>
                     {collection && (
                     <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
                         <a className="nft_attr">
                             <div className="row">
-                                <div className="col-md-2 col-sm-4">
+                                <div className="col-md-2 col-xs-4">
                                     <h5>Floor</h5>
                                     <h4>{ethers.utils.commify(Number(collection.floorPrice).toFixed(0))} CRO</h4>
                                 </div>
-                                <div className="col-md-2 col-sm-4">
+                                <div className="col-md-2 col-xs-4">
                                     <h5>Volume</h5>
                                     <h4>{ethers.utils.commify(Number(collection.totalVolume).toFixed(0))} CRO</h4>
                                 </div>
-                                <div className="col-md-2 col-sm-4">
+                                <div className="col-md-2 col-xs-4">
                                     <h5>Sales</h5>
                                     <h4>{ethers.utils.commify(collection.numberOfSales)}</h4>
                                 </div>
-                                <div className="col-md-2 col-sm-4">
+                                <div className="col-md-2 col-xs-4">
                                     <h5>Avg. Sale</h5>
                                     <h4>
                                         {isNaN(collection.averageSalePrice) ?
@@ -123,11 +171,11 @@ const Collection = () => {
                                         }
                                     </h4>
                                 </div>
-                                <div className="col-md-2 col-sm-4">
+                                <div className="col-md-2 col-xs-4">
                                     <h5>Royalty</h5>
                                     <h4>{royalty}%</h4>
                                 </div>
-                                <div className="col-md-2 col-sm-4">
+                                <div className="col-md-2 col-xs-4">
                                     <h5>Active Listings</h5>
                                     <h4>{ethers.utils.commify(collection.numberActive)}</h4>
                                 </div>
