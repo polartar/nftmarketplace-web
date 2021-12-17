@@ -116,10 +116,10 @@ const Collection = () => {
                                 <div className="col-md-2 col-sm-4">
                                     <h5>Avg. Sale</h5>
                                     <h4>
-                                        {isNaN(collection.averagePrice) ?
+                                        {isNaN(collection.averageSalePrice) ?
                                             "N/A"
                                             :
-                                            ethers.utils.commify(Number(collection.averagePrice).toFixed(0)) + " CRO"
+                                            ethers.utils.commify(Number(collection.averageSalePrice).toFixed(0)) + " CRO"
                                         }
                                     </h4>
                                 </div>
