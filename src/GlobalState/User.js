@@ -42,8 +42,8 @@ const userSlice = createSlice({
         nfts: [],
 
         // My Sales
-        mySalesFetching: false,
-        mySalesNfts: [],
+        mySoldNftsFetching: false,
+        mySoldNfts: [],
 
         // Theme
         theme: 'light'
@@ -99,15 +99,15 @@ const userSlice = createSlice({
         onNftLoaded(state, action){
             state.currentNft = action.payload.nft;
         },
-        mySalesFetching(state, action){
-            state.mySalesFetching = true;
-            state.mySalesNfts = []
+        mySoldNftsFetching(state, action){
+            state.mySoldNftsFetching = true;
+            state.mySoldNfts = []
         },
         mySalesFetched(state, action){
-            state.mySalesFetching = false;
+            state.mySoldNftsFetching = false;
         },
         mySalesOnNftsAdded(state, action){
-            state.mySalesNfts.push(...action.payload);
+            state.mySoldNfts.push(...action.payload);
         },
         listingUpdate(state, action){
             console.log('id: ' + action.payload.id +   '   contract: ' + action.payload.contract);
@@ -175,7 +175,7 @@ export const {
     onNftsAdded,
     nftsFetched,
     onNftLoaded,
-    mySalesFetching,
+    mySoldNftsFetching,
     mySalesFetched,
     mySalesOnNftsAdded,
     connectingWallet,
@@ -490,7 +490,7 @@ export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
 }
 
 export const fetchSales = (walletAddress) => async (dispatch) => {
-    dispatch(mySalesFetching());
+    dispatch(mySoldNftsFetching());
 
     const listings = await getNftSalesForAddress(walletAddress);
 

@@ -301,7 +301,24 @@ export async function getNftSalesForAddress(walletAddress) {
         const response = await fetch(`${ api.baseUrl }${ api.listings }?seller=${ walletAddress }&state=1`);
         const json = await response.json();
 
-        return json.listings;
+        const listings = json.listings || [];
+
+        return listings.map(item => {
+
+            const { saleTime, listingId, fee, nft, purchaser } = item;
+
+            const { name, image } = nft || {};
+
+            return {
+                name,
+                image,
+                saleTime,
+                listingId,
+                fee,
+                nft,
+                purchaser,
+            }
+        });
 
     } catch (error) {
         console.log('error fetching sales for: ' + walletAddress);

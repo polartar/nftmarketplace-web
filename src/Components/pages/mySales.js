@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
-import MyNftCollection from "../components/MyNftCollection";
 import {Redirect} from "react-router-dom";
-import MySalesCollection from "../components/MySalesCollection";
+import MySoldNftCollection from "../components/MySoldNftCollection";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -71,7 +70,7 @@ const MySales = () => {
                         <TopFilterBar showFilter={false}/>
                     </div>
                 </div>
-                <MySalesCollection
+                <MySoldNftCollection
                     walletAddress={walletAddress}
                 />
             </section>
