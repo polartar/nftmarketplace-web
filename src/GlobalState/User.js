@@ -11,7 +11,7 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import { DeFiWeb3Connector } from 'deficonnect'
 import  WalletConnectProvider from '@deficonnect/web3-provider'
 import cdcLogo from '../Assets/cdc_logo.svg'
-import {getNftsForAddress} from "../core/api";
+import { getNftSalesForAddress, getNftsForAddress } from "../core/api";
 
 const userSlice = createSlice({
     name : 'user',
@@ -40,7 +40,10 @@ const userSlice = createSlice({
         // My NFTs
         fetchingNfts: false,
         nfts: [],
-        currentNft : null,
+
+        // My Sales
+        mySalesFetching: false,
+        mySalesNfts: [],
 
         // Theme
         theme: 'light'
@@ -90,12 +93,21 @@ const userSlice = createSlice({
         nftsFetched(state){
             state.fetchingNfts = false;
         },
-
         onNftLoading(state, action){
             state.currentNft = null;
         },
         onNftLoaded(state, action){
             state.currentNft = action.payload.nft;
+        },
+        mySalesFetching(state, action){
+            state.mySalesFetching = true;
+            state.mySalesNfts = []
+        },
+        mySalesFetched(state, action){
+            state.mySalesFetching = false;
+        },
+        mySalesOnNftsAdded(state, action){
+            state.mySalesNfts.push(...action.payload);
         },
         listingUpdate(state, action){
             console.log('id: ' + action.payload.id +   '   contract: ' + action.payload.contract);
@@ -163,6 +175,9 @@ export const {
     onNftsAdded,
     nftsFetched,
     onNftLoaded,
+    mySalesFetching,
+    mySalesFetched,
+    mySalesOnNftsAdded,
     connectingWallet,
     onCorrectChain,
     registeredCode,
@@ -271,9 +286,11 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             method: "net_version",
         });
 
-
-        //console.log(cid, rpc.chain_id);
-        var correctChain = cid === Number(config.chain_id)
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('cid:       ', cid)
+            console.log('chain_id:  ', config.chain_id)
+        }
+        var correctChain = cid === Number(config.chain_id);
         if (!correctChain) {
             correctChain = cid === config.chain_id
         }
@@ -471,6 +488,16 @@ export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
     dispatch(setIsMember(response.isMember));
     dispatch(nftsFetched());
 }
+
+export const fetchSales = (walletAddress) => async (dispatch) => {
+    dispatch(mySalesFetching());
+
+    const listings = await getNftSalesForAddress(walletAddress);
+
+    dispatch(mySalesOnNftsAdded(listings))
+
+    dispatch(mySalesFetched());
+};
 
 export const setTheme = (theme) => async(dispatch) =>{
     console.log('setting theme.....', theme)

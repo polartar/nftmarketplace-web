@@ -218,6 +218,11 @@ const AccountMenu = function() {
                                 </span>
                             </li>
                             <li>
+                                <span onClick={() => navigateTo(`/sales`)}>
+                                    <i className="fa fa-shopping-basket"></i> My Sales
+                                </span>
+                            </li>
+                            <li>
                                 <span onClick={toggleTheme}>
                                     <i className="fa fa-sun-o"></i> Change Theme
                                 </span>

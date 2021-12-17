@@ -12,6 +12,7 @@ import Header from "../Components/menu/header";
 import Rankings from "../Components/pages/rankings";
 import Drops from "../Components/pages/drops";
 import Drop from "../Components/pages/drop";
+import MySales from "../Components/pages/mySales";
 
 export const AppRouter = () => {
 
@@ -45,6 +46,7 @@ export const AppRouter = () => {
                 <Route exact path="/marketplace" component={Marketplace} />
                 {/*<Route exact path="/roadmap" component={Roadmap} />*/}
                 <PrivateRoute  exact path="/nfts" component={MyNfts} />
+                <PrivateRoute  exact path="/sales" component={MySales} />
                 <Route exact path="/drops" component={Drops} />
                 <Route exact path="/drops/:id" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>

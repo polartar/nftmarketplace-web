@@ -1,11 +1,9 @@
-import {Contract, ethers} from "ethers";
-import rpc from "../Assets/networks/rpc_config.json";
+import { Contract, ethers } from "ethers";
+import config from "../Assets/networks/rpc_config.json";
 import Market from "../Contracts/Marketplace.json";
-import { ERC721, ERC1155 } from '../Contracts/Abis'
+import { ERC1155, ERC721 } from '../Contracts/Abis'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { dataURItoBlob } from "../Store/utils";
-import config from '../Assets/networks/rpc_config.json'
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
@@ -296,6 +294,21 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
         return response;
     }
 
+}
+
+export async function getNftSalesForAddress(walletAddress) {
+    try {
+        const response = await fetch(`${ api.baseUrl }${ api.listings }?seller=${ walletAddress }&state=1`);
+        const json = await response.json();
+
+        return json.listings;
+
+    } catch (error) {
+        console.log('error fetching sales for: ' + walletAddress);
+        console.log(error);
+
+        return [];
+    }
 }
 
 export async function getNft(collectionId, nftId) {
