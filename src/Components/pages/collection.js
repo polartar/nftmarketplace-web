@@ -98,7 +98,7 @@ const Collection = () => {
         <div>
             <GlobalStyles/>
 
-            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata ? metadata.banner : '/img/background/subheader.png'})`}}>
+            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.png'})`}}>
                 <div className='mainbreadcumb'>
                 </div>
             </section>
@@ -110,20 +110,13 @@ const Collection = () => {
                             {collection &&
                             <div className="profile_avatar">
                                 <div className="d_profile_img">
-                                    {metadata ?
-                                        <>
-                                            {metadata.avatar ?
-
-                                                <img src={metadata.avatar} alt=""/>
-                                                :
-                                                <Blockies seed={collection.address} size={15} scale={10}/>
-                                            }
-                                            {metadata.verified &&
-                                                <i className="fa fa-check"></i>
-                                            }
-                                        </>
+                                    {metadata?.avatar ?
+                                        <img src={metadata.avatar} alt=""/>
                                         :
                                         <Blockies seed={collection.address} size={15} scale={10}/>
+                                    }
+                                    {metadata?.verified &&
+                                        <i className="fa fa-check"></i>
                                     }
                                 </div>
 

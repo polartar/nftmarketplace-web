@@ -112,3 +112,9 @@ $white: #fff;
     margin-top: -100px;
     margin-bottom: 30px;
 }
+
+/* Collection Page Avatar outline */
+.profile_avatar img, .profile_avatar canvas {
+    background: white;
+    box-shadow: 0 0 0 1pt grey;
+}

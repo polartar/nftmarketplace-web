@@ -173,7 +173,7 @@ const Listing = () => {
                                             </span>
                                             </div>
                                             <div className="author_list_info">
-                                                <span>ghjk</span>
+                                                <span>View Collection</span>
                                             </div>
                                         </div>
                                     </div>
