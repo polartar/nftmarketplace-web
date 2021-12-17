@@ -4,6 +4,7 @@ import Market from "../Contracts/Marketplace.json";
 import { ERC1155, ERC721 } from '../Contracts/Abis'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { dataURItoBlob } from "../Store/utils";
+import moment from "moment";
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
@@ -303,22 +304,29 @@ export async function getNftSalesForAddress(walletAddress) {
 
         const listings = json.listings || [];
 
-        return listings.map(item => {
 
-            const { saleTime, listingId, fee, nft, purchaser } = item;
+        const filteredListings = listings.map(item => {
+
+            const { saleTime, listingId, price, nft, purchaser } = item;
 
             const { name, image } = nft || {};
 
             return {
                 name,
                 image,
-                saleTime,
+                saleTime: moment(new Date(saleTime * 1000)).format("DD/MM/YYYY, HH:mm"),
                 listingId,
-                fee,
-                nft,
+                price,
                 purchaser,
             }
         });
+
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('listings:              ', listings)
+            console.log('filteredListings:      ', filteredListings)
+        }
+
+        return filteredListings;
 
     } catch (error) {
         console.log('error fetching sales for: ' + walletAddress);
