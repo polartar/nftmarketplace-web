@@ -6,28 +6,30 @@ import 'slick-carousel/slick/slick-theme.css';
 import { settings } from "./constants";
 import CustomSlide from "./CustomSlide";
 import api from "../../core/api";
+import card from "../../Assets/collections/crosmonauts/card.png";
+import avatar from "../../Assets/collections/crosmonauts/avatar.png";
 
 const HotCollections = () => {
 
   const dispatch = useDispatch();
   const hotCollections = [
       {
-          authorAvatar: '/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg',
-          bannerUrl: '/mock_data/banners/meerkat_bg.jpg',
+          authorAvatar: avatar,
+          bannerUrl: card,
           name: 'Mad Meerkat',
           collectionId: '0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56',
           uniqueID: 123
       },
       {
-          authorAvatar: '/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg',
-          bannerUrl: '/mock_data/banners/ccc_bg.png',
+          authorAvatar: avatar,
+          bannerUrl: card,
           name: 'Cronos Chimp Club',
           collectionId: '0x562F021423D75A1636DB5bE1C4D99Bc005ccebFe',
           uniqueID: 123
       },
       {
-          authorAvatar: '/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg',
-          bannerUrl: '/mock_data/banners/author_banner_1d2c434cf5.jpg',
+          authorAvatar: avatar,
+          bannerUrl: card,
           name: 'Crosmonauts',
           collectionId: '0xDFab622fC4E5CE1420F83cf38E52312f33849a0A',
           uniqueID: 123
@@ -48,9 +50,9 @@ const HotCollections = () => {
               avatar={item.authorAvatar}
               banner={item.bannerUrl}
               title={item.name}
-              subtitle={item.uniqueID}
+              subtitle={"some subtitle"}
               collectionId={item.collectionId}
-              url={`/collections/${item.collectionId}`}
+              url={`/collection/${item.collectionId}`}
             />
           ))}
         </Slider>
