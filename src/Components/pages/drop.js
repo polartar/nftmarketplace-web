@@ -14,6 +14,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
+export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -110,8 +111,7 @@ const Drop = () => {
     });
 
     const drop = useSelector((state) => {
-        console.log(state.initState.nftCard.find(n => n.slug === slug));
-        return state.initState.nftCard.find(n => n.slug === slug);
+        return drops.find(n => n.slug === slug);
     });
 
     const membership = useSelector((state)=>{
@@ -301,6 +301,9 @@ const Drop = () => {
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                                    <p className="lead col-white">{drop.subtitle}</p>
+                                </Reveal>
                                 {drop.foundersOnly &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                     <h1 className="col-white">{drop.title}</h1>
@@ -366,7 +369,7 @@ const Drop = () => {
                 <section className='container no-top'>
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
-                            <img src={drop.nftImage} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            <img src={drop.imgNft} className="img-fluid img-rounded mb-sm-30" alt=""/>
                         </div>
                         <div className="col-md-6">
                             <div className="item_info">
