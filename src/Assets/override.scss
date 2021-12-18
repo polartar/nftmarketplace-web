@@ -114,7 +114,7 @@ $white: #fff;
 }
 
 /* Collection Page Avatar outline */
-.profile_avatar img, .profile_avatar canvas {
+.d_coll .profile_avatar img, .d_coll .profile_avatar canvas {
     background: white;
     box-shadow: 0 0 0 1pt grey;
 }
