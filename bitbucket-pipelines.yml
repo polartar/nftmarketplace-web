@@ -1,13 +1,18 @@
 pipelines:
   # default:
-  # - step:
-  #     name: Integration test
-  #     image: node:16
-  #     script:
-  #       - apt-get update
-  #       - node --version
-  #       - npm install --no-audit
-  #       - npm run test
+  #   - step:
+  #       name: Integration test
+  #       image: node:16
+  #       runs-on:
+  #         - 'self.hosted'
+  #         - 'linux'
+  #         - 'web'
+  #       size: 1x
+  #       script:
+  #         - apt-get update
+  #         - node --version
+  #         - npm install --no-audit
+  #         #- npm run test
   branches:
     testnet:
       - step:

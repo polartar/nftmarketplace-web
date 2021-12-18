@@ -5,7 +5,7 @@
     "read_rpc" : "https://rpc.nebkas.ro/",
     "symbol" : "CRO",
     "explorer" : "http://cronos.crypto.org/explorer/",
-    "api_base" : "https://api.ebisusbay.com/",
+    "api_base" : "https://api.ebisusbay.biz/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
@@ -32,6 +32,20 @@
             "name" : "Mad Meerkat",
             "multiToken" : false,
             "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "Petite Planets Gen 2",
+            "multiToken": false,
+            "address" : "0x83Ac37cc236DB5e9e2F01929aBEf70D8dfc44f9a",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "PetitePlanetsNFT",
+            "multiToken": false,
+            "address" : "0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118",
             "onChain" : false,
             "listable" : true
         },
@@ -239,5 +253,6 @@
             "onChain": false,
             "listable": true
         }
+
     ]
 }
