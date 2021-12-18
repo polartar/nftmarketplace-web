@@ -10,13 +10,15 @@ export const drops = config.drops;
 const SliderCarouselRedux = () => {
     const history = useHistory();
 
+    const carouselSettings = {...settings, ...{slidesToShow: 4}}
+
     const navigateTo = (link) => {
         history.push(link);
     }
 
     return (
         <div className='nft-big'>
-          <Slider {...settings}>
+          <Slider {...carouselSettings}>
           {drops && drops.reverse().map( (drop, index) => (
             <div onClick={() => navigateTo(`/drops/${drop.slug}`)} className='itm' index={index+1} key={index}>
               <div className="nft_pic">                            

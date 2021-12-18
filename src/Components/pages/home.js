@@ -32,7 +32,7 @@ const Home = () => {
                     <div className='row'>
                         <div className='col-lg-12'>
                             <div className="spacer-double"></div>
-                            <h2 className='style-2'>New Items</h2>
+                            <h2 className='style-2'>New Listings</h2>
                         </div>
                     </div>
                     <ListingCollection showLoadMore={false}/>
