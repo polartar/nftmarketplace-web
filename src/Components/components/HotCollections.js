@@ -1,43 +1,27 @@
-import React, { memo, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import React, {memo, useEffect, useState} from "react";
+import { useDispatch } from 'react-redux';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { settings } from "./constants";
 import CustomSlide from "./CustomSlide";
-import api from "../../core/api";
-import card from "../../Assets/collections/crosmonauts/card.png";
-import avatar from "../../Assets/collections/crosmonauts/avatar.png";
+import config from '../../Assets/networks/rpc_config.json'
+export const collections = config.known_contracts;
 
 const HotCollections = () => {
 
   const dispatch = useDispatch();
-  const hotCollections = [
-      {
-          authorAvatar: avatar,
-          bannerUrl: card,
-          name: 'Mad Meerkat',
-          collectionId: '0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56',
-          uniqueID: 123
-      },
-      {
-          authorAvatar: avatar,
-          bannerUrl: card,
-          name: 'Cronos Chimp Club',
-          collectionId: '0x562F021423D75A1636DB5bE1C4D99Bc005ccebFe',
-          uniqueID: 123
-      },
-      {
-          authorAvatar: avatar,
-          bannerUrl: card,
-          name: 'Crosmonauts',
-          collectionId: '0xDFab622fC4E5CE1420F83cf38E52312f33849a0A',
-          uniqueID: 123
-      }
-  ];
+
+  const [hotCollections, setHotCollections] = useState([]);
 
   useEffect(() => {
-    // dispatch(fetchHotCollections());
+      let slugs = [
+          'cronos-chimp-club',
+          'crosmonauts',
+          'mad-meerkats'
+      ];
+      let featuredCollections = collections.filter(c => c.metadata && slugs.includes(c.metadata.slug));
+      setHotCollections(featuredCollections);
 }, [dispatch]);
 
   return (
@@ -47,12 +31,12 @@ const HotCollections = () => {
             <CustomSlide
               key={index}
               index={index + 1}
-              avatar={item.authorAvatar}
-              banner={item.bannerUrl}
+              avatar={item.metadata.avatar}
+              banner={item.metadata.card}
               title={item.name}
               subtitle={"some subtitle"}
-              collectionId={item.collectionId}
-              url={`/collection/${item.collectionId}`}
+              collectionId={item.address}
+              url={`/collection/${item.address}`}
             />
           ))}
         </Slider>

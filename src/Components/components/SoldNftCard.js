@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import styled from "styled-components";
 import { useHistory  } from "react-router-dom";
 import { ethers } from "ethers";
-import Blockies from "react-blockies";
 
 const Outer = styled.div`
   display: flex;
@@ -32,22 +31,18 @@ const SoldNftCard = ({
 
     return (
         <div className={ className }>
-            <div className=" d-flex flex-row gap-3">
+            <div className="nft_sold__item d-flex flex-row gap-3" onClick={ () => navigateTo(`/listing/${ nft.listingId }`) }>
                 <div style={ { height: `150px` } }>
                     <div className="h-100" style={ width ? { width: `${width}px` } : {} }>
                         <Outer>
                             <img onLoad={ onImgLoad }
-
                                  className="h-100"
-                                 onLoadStart={() => {
-                                     console.log('onLoadStart')
-                                 }}
                                  src={ nft.image } alt=""/>
                         </Outer>
                     </div>
                 </div>
                 <div className="nft__item_info mb-2">
-                    <span onClick={ () => navigateTo(`/listing/${ nft.listingId }`) }>
+                    <span>
                         <h4>{ nft.name }</h4>
                     </span>
                     <div className="has_offers">

@@ -10,7 +10,6 @@ import { knownContracts, getCollectionData } from '../../GlobalState/marketplace
 import {Contract, ethers} from "ethers";
 import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
-import {CollectionsMetadata} from "../../GlobalState/CollectionsMetadata";
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
 
@@ -82,9 +81,9 @@ const Collection = () => {
     }
 
     useEffect(() => {
-        let extraData = CollectionsMetadata.collections.find(c => c.address.toUpperCase() === address.toUpperCase());
+        let extraData = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
         if (extraData) {
-            setMetadata(extraData);
+            setMetadata(extraData.metadata);
         }
     });
 
