@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import Select from 'react-select';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { sort } from './constants/filters';
 import { filterListings, sortListings, resetListings, knownContracts } from "../../GlobalState/marketplaceSlice";
 import {useHistory} from "react-router-dom";
@@ -8,6 +8,14 @@ import {useHistory} from "react-router-dom";
 const TopFilterBar = ({showFilter = true, showSort = true}) => {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const sortOptions = useSelector((state) => {
+        let sortOptions = sort;
+        if(!state.marketplace.hasRank) {
+            sortOptions = sort.filter((s) => s.key !== 'rank');
+        }
+        return sortOptions;
+    });
 
     const handleCategory = useCallback((option) => {
         dispatch(filterListings('collection', option.address));
@@ -75,7 +83,7 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
                     <Select
                         styles={customStyles}
                         placeholder={'Sort Listings...'}
-                        options={[defaultSortValue,...sort]}
+                        options={[defaultSortValue,...sortOptions]}
                         getOptionLabel={(option) => option.label}
                         getOptionValue={(option) => option.key}
                         onChange={handleSort}

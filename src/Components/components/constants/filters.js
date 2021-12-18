@@ -7,11 +7,21 @@ export const sort = [
     {
         key: 'price',
         direction: 'desc',
-        label: 'Highest Price'
+        label: 'Price (Highest)'
     },
     {
         key: 'price',
         direction: 'asc',
-        label: 'Lowest Price'
+        label: 'Price (Lowest)'
+    },
+    {
+        key: 'rank',
+        direction: 'desc',
+        label: 'Rarity (Most)'
+    },
+    {
+        key: 'rank',
+        direction: 'asc',
+        label: 'Rarity (Least)'
     },
 ];

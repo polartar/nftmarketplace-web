@@ -49,8 +49,8 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
     }
     const queryString = new URLSearchParams(query);
 
-    const uri = `${api.baseUrl}${api.listings}?${queryString}`;
-
+    const url = new URL(api.listings, `${api.baseUrl}`);
+    const uri = `${url}?${queryString}`;
     return await (await fetch(uri)).json();
 }
 

@@ -16,6 +16,7 @@ const marketplaceSlice = createSlice({
         collection: null,
         rankings: [],
         marketData: null,
+        hasRank: false
     },
     reducers: {
         listingsLoading: (state, action) => {
@@ -28,6 +29,7 @@ const marketplaceSlice = createSlice({
             state.listings.push(...action.payload.listings);
             state.curPage = action.payload.page;
             state.totalPages = action.payload.totalPages;
+            state.hasRank = action.payload.hasRank;
         },
         clearSet: (state) => {
             state.listings = [];
@@ -106,6 +108,9 @@ export const fetchListings = () => async (dispatch, getState) => {
         state.marketplace.curFilter.type,
         state.marketplace.curFilter.address
     );
+
+    response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
+
     dispatch(listingsReceived(response));
 }
 
