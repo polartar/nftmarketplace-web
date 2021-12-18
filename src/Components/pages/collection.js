@@ -67,6 +67,12 @@ const Collection = () => {
         return contract ? contract.name : 'Collection';
     }
 
+    const user = useSelector((state) => {
+        return state.user;
+    });
+    const marketplace = useSelector((state) => {
+        return state.marketplace;
+    });
     const[metadata, setMetadata] = useState(null);
 
     const handleCopy = (code) => () =>{
@@ -75,9 +81,9 @@ const Collection = () => {
     }
 
     useEffect(() => {
-        let contract = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
-        if (contract) {
-            setMetadata(contract.metadata);
+        let extraData = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
+        if (extraData) {
+            setMetadata(extraData.metadata);
         }
     });
 
