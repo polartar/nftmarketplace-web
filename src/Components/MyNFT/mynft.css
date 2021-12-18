@@ -1,8 +1,8 @@
-.MuiCardMedia-img{
+/* .MuiCardMedia-img{
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
-}
+} */
 
 .MuiTypography-paragraph{
     text-overflow: ellipsis;
@@ -12,4 +12,8 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     max-height: 145;
+}
+
+.bold {
+    font-weight: 500 !important;
 }

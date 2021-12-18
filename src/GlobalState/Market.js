@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { Contract, ethers} from 'ethers'
-import rpc from '../Assets/networks/rpc_config.json'
+import config from '../Assets/networks/rpc_config.json'
 import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Market from '../Contracts/Marketplace.json'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
@@ -9,11 +9,14 @@ import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
 const pagesize = 8;
-const listingsUri = "https://api.ebisusbay.com/listings?";
-const readProvider = new ethers.providers.JsonRpcProvider("https://rpc.nebkas.ro/");
-const readMarket = new Contract(rpc.market_contract, Market.abi, readProvider);
+const listingsUri = `${config.api_base}listings?`;
+const collectionsUri = `${config.api_base}collections?`;
+const marketDataUri = `${config.api_base}marketdata?`;
 
-export const SortOrders = ['Listing ID', 'Price', 'Token ID']
+const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
+
+export const SortOrders = ['Listing ID', 'Price', 'Token ID', 'Rarity']
 
 const marketSlice = createSlice({
     name : 'market',
@@ -27,6 +30,10 @@ const marketSlice = createSlice({
         sortOrder : SortOrders[0],
         curPage : 1,
         // response: null,
+        collection: null,
+        marketData: null,
+        hasRank: false,
+        is1155: false,
         currentListing : null
     },
     reducers : {
@@ -40,8 +47,13 @@ const marketSlice = createSlice({
         },
         onNewPage(state, action){
             state.loadingPage = false;
+            state.hasRank = action.payload.hasRank;
+            state.is1155 = action.payload.is1155;
             state.curPage = action.payload.page;
             state.listings[action.payload.page] = action.payload.newPage;
+            if(action.payload.hasRank === false && state.sortOrder === SortOrders[3]){
+                state.sortOrder = SortOrders[0]
+            }
         },
         onTotalListed(state, action){
             // state.totalListed = action.payload.totalActive;
@@ -52,7 +64,7 @@ const marketSlice = createSlice({
             state.address = action.payload.address;
         },
         onListingLoaded(state, action) {
-            state.currentListing = action.payload;
+            state.currentListing = action.payload.listing;
             state.loadingPage = false;
         },
         onSort(state, action){
@@ -60,13 +72,19 @@ const marketSlice = createSlice({
                 state.listings = [[]]
                 state.response = action.payload.response;
                 state.curPage = 1;
-                state.totalPages = state.response.totalPages; 
+                state.totalPages = state.response.totalPages;
                 state.listings[state.page] = state.response.listings;
             }
             state.sortOrder = action.payload.order;
         },
         onPage(state, action){
             state.curPage = action.payload;
+        },
+        onCollectionDataLoaded(state, action) {
+            state.collection = action.payload.collection;
+        },
+        onMarketDataLoaded(state, action) {
+            state.marketData = action.payload.marketdata;
         }
     }
 })
@@ -92,42 +110,32 @@ export const {
     clearSet,
     onListingLoaded,
     onSort,
-    onPage
+    onPage,
+    onCollectionDataLoaded,
+    onMarketDataLoaded
 } = marketSlice.actions;
 
 export const market = marketSlice.reducer;
 
 export const init = (state, type, address) => async(dispatch) => {
-    
+
         dispatch(clearSet());
 
         const rawResponse = await sortAndFetch('Listing ID', 1, type, address);
         const pages = rawResponse.totalPages;
         const listingsResponse = rawResponse.listings.map((e) => {
-            const nft = {
-                'name' : e.name,
-                'image' : e.image,
-                'description' : e.description,
-                'properties' : (e.properties) ? e.properties : []
-            }
+
             return {
                 ...e,
                 'listingId': ethers.BigNumber.from(e.listingId),
                 'price' : ethers.utils.parseEther(String(e.price)),
-                'nft' : nft
             }
-        }).filter(e => typeof e.name !== 'undefined'); //backend hasn't fetched metadata for this listing
+        });
 
-        // if(type === 'collection'){
-        //     listingsResponse = listingsResponse.filter((e) => e.nftAddress.toLowerCase() === address.toLowerCase());
-        // } else if(type === 'seller'){
-        //     listingsResponse = listingsResponse.filter((e) => e.seller.toLowerCase() === address.toLowerCase());
-        // }
-        // const pages = Math.ceil(listingsResponse.length / pagesize);
-        // listingsResponse = sortByType(listingsResponse, state.market.sortOrder);
+
         const listings = new Array(pages);
         listings[1] = listingsResponse
-        
+
         dispatch(onTotalListed({
             'type' : type,
             'totalPages' : pages,
@@ -138,7 +146,7 @@ export const init = (state, type, address) => async(dispatch) => {
 }
 
 /**
- * 
+ *
                 'name': name,
                 'image' : image,
                 'description' : description,
@@ -149,24 +157,29 @@ export const loadPage = (page, type, address, order) => async(dispatch) => {
     ///TODO show loaded
     //dispatch(startLoading())
     const rawResponse = await sortAndFetch(order, page, type, address);
-    const listingsResponse =  rawResponse.listings.map((e) => {
-        const nft = {
-            'name' : e.name,
-            'image' : e.image,
-            'description' : e.description,
-            'properties' : (e.properties) ? e.properties : []
+    let hasRank = false;
+    let is1155 = false;
+    if (rawResponse.listings.length > 0)
+        if (typeof rawResponse.listings[0].nft.rank !== 'undefined') {
+            hasRank = true;
         }
+        if (rawResponse.listings[0].is1155) {
+            is1155 = true;
+        }
+    const listingsResponse =  rawResponse.listings.map((e) => {
+
         return {
             ...e,
             'listingId': ethers.BigNumber.from(e.listingId),
             'price' : ethers.utils.parseEther(String(e.price)),
-            'nft' : nft
         }
-    }).filter(e => typeof e.name !== 'undefined');
-    // const index = (page - 1) * pagesize;
-    // let listings = [...state.market.response].splice(index, pagesize);
+
+    });
+
     dispatch(onNewPage({
         'page' : page,
+        hasRank: hasRank,
+        is1155: is1155,
         'newPage' : listingsResponse,
     }));
 }
@@ -179,6 +192,37 @@ export const requestSort = (order, type, address) => async(dispatch) => {
     }))
 }
 
+
+export const getMarketData = () => async(dispatch) => {
+    try {
+        const uri = marketDataUri;
+        var data = await (await fetch(uri)).json();
+        dispatch(onMarketDataLoaded({
+            marketdata: data
+        }))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+export const getCollectionData = (type, address) => async(dispatch) => {
+    if (type != 'collection') {
+        dispatch(onCollectionDataLoaded({
+            collection: null,
+        }))
+        return;
+    }
+    try {
+        const uri = `${collectionsUri}collection=${address}`;
+        var data = await (await fetch(uri)).json();
+        dispatch(onCollectionDataLoaded({
+            collection: data.collections[0]
+        }))
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 export const getListing = (state, id) => async(dispatch) => {
     const curListing = state.market.currentListing;
     if(curListing !== null && curListing.nftId === id){
@@ -186,24 +230,27 @@ export const getListing = (state, id) => async(dispatch) => {
     }
     dispatch(startLoading());
     try{
-        const rawListing = await readMarket.listings(id);
+        const uri = `${listingsUri}listingId=${id}`;
+        var rawListing = await (await fetch(uri)).json();
+        rawListing = rawListing['listings'][0];
         const listing = {
-            'listingId' : rawListing['listingId'],
-            'nftId'     : rawListing['nftId'],
-            'seller'    : rawListing['seller'],
-            'nftAddress': rawListing['nft'],
-            'price'     : rawListing['price'],
-            'fee'       : rawListing['fee'],
-            'is1155'    : rawListing['is1155'],
-            'state'     : rawListing['state'],
-            'purchaser' : rawListing['purchaser']
+            'listingId'   : rawListing['listingId'],
+            'nftId'       : rawListing['nftId'],
+            'seller'      : rawListing['seller'],
+            'nftAddress'  : rawListing['nftAddress'],
+            'price'       : rawListing['price'],
+            'fee'         : rawListing['fee'],
+            'is1155'      : rawListing['is1155'],
+            'state'       : rawListing['state'],
+            'purchaser'   : rawListing['purchaser'],
+            'listingTime' : rawListing['listingTime'],
+            'saleTime'    : rawListing['saleTime'],
+            'endingTime'  : rawListing['endingTime'],
+            'royalty'     : rawListing['royalty'],
+            'nft'         : rawListing['nft']
         }
-
-        const nft = await getNft(listing);
-
         dispatch(onListingLoaded({
-            ...listing,
-            'nft' : nft
+            listing: listing,
         }))
     }catch(error){
         console.log(error)
@@ -221,12 +268,12 @@ const getNft = async (listing) => {
                 }catch(error){
                     //console.log(error);
                 }
-            } 
+            }
             const json = await (await fetch(uri)).json();
             const name = json.name;
             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
             const description = json.description;
-            let properties = json.properties; 
+            let properties = json.properties;
             if(properties === null || typeof properties === 'undefined'){
                 properties = [];
             }
@@ -240,7 +287,7 @@ const getNft = async (listing) => {
         } else {
             const contract = new Contract(listing.nftAddress, ERC721, readProvider);
             let uri = await contract.tokenURI(listing.nftId);
-            if(listing.nftAddress === rpc.cronie_contract){
+            if(listing.nftAddress === config.cronie_contract){
                 const json = Buffer.from(uri.split(',')[1], 'base64');
                 const parsed = JSON.parse(json);
                 const name = parsed.name;
@@ -257,7 +304,7 @@ const getNft = async (listing) => {
             } else {
                 if(gatewayTools.containsCID(uri)){
                     try{
-                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);                                        
+                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
                     }catch(error){
                         // console.log(error);
                     }
@@ -273,7 +320,7 @@ const getNft = async (listing) => {
                 if(gatewayTools.containsCID(json.image)){
                     try {
                         image = gatewayTools.convertToDesiredGateway(json.image, gateway);
-                        
+
                     }catch(error){
                         image = json.image;
                     }
@@ -301,17 +348,17 @@ function dataURItoBlob(dataURI, type) {
 
     // convert base64 to raw binary data held in a string
     let byteString = atob(dataURI.split(',')[1]);
-  
+
     // separate out the mime component
     let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
+
     // write the bytes of the string to an ArrayBuffer
     let ab = new ArrayBuffer(byteString.length);
     let ia = new Uint8Array(ab);
     for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-  
+
     // write the ArrayBuffer to a blob, and you're done
     let bb = new Blob([ab], { type: type });
     return bb;
@@ -331,11 +378,17 @@ async function sortAndFetch(order, page, type, address){
         } else {
             filter = `&sortBy=price&direction=asc`
         }
-    } else {   
+    } else if (order === SortOrders[2]) {
         if (type !== 'all'){
             filter = `&${type}=${address}&sortBy=tokenId&direction=asc`
         } else {
             filter = `&sortBy=tokenId&direction=asc`
+        }
+    } else if (order === SortOrders[3]) {
+        if (type !== 'all'){
+            filter = `&${type}=${address}&sortBy=rank&direction=desc`
+        } else {
+            filter = `&sortBy=rank&direction=desc`
         }
     }
     const uri = `${listingsUri}state=0&page=${page}&pageSize=${pagesize}${filter}`;
@@ -343,170 +396,4 @@ async function sortAndFetch(order, page, type, address){
     return rawResponse;
 }
 
-export const knownContracts = [
-    {
-        'name': 'EbisusBay VIP',
-        'onChain' : false,
-        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
-        'multiToken' : true,
-        'id' : 2,
-        'listable' : true
-    },
-    {
-        'name': 'EbisusBay Founder',
-        'onChain' : false,
-        'address': '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5',
-        'multiToken' : true,
-        'id' : 1,
-        'listable' : false
-    },
-    {
-        'name': 'Cronies',
-        'multiToken': false,
-        'address' : '0xD961956B319A10CBdF89409C0aE7059788A4DaBb',
-        'onChain' : true,
-        'listable' : true
-    },
-    {
-        'name' : 'CronosChimp',
-        'multiToken': false,
-        'address' : '0x562f021423d75a1636db5be1c4d99bc005ccebfe',
-        'onChain' : false,
-        'listable' : false
-    },
-    {
-        'name' : 'CroPunks - Punks on Cronos',
-        'multiToken': false,
-        'address' : '0xaec3adc72e453ecb6009aa48e0ac967941b30c4e',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'CRO CROW',
-        'multiToken': false,
-        'address' : '0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'Cronos Punk',
-        'multiToken': false,
-        'address' : '0x16134B610f15338B96D8DF52EE63553dD2B013A2',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'CROCOSNFT',
-        'multiToken': false,
-        'address' : '0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'PetitePlanetsNFT',
-        'multiToken': false,
-        'address' : '0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'CRODrakes',
-        'multiToken': false,
-        'address' : '0xbed280E63B3292a5faFEC896F9a0256d12552170',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'SupBirds',
-        'multiToken': false,
-        'address' : '0x48879b93AbCE2B69F9792584f8891BCe30C1BF28',
-        'onChain' : false,
-        'listable' : true
-    },
-    {
-        'name' : 'Crownos',
-        'multiToken': false,
-        'address' : '0x704f0990CE1997ED5110e7415cc7aBE090006C1e',
-        'onChain' : false,
-        'listable' : false
-    },{
-        'name' : 'Crypto Collage Collection',
-        'multiToken' :  false,
-        'address' : '0x64274Fce5bd057E6416f57A5EdC8a3195E153022',
-        'onChain' : false,
-        'listable' : true
-    },{
-        'name' : 'Petite Planets Gen 1 Governor Medals',
-         'multiToken' : false,
-         'address' : '0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014',
-         'onChain' : false,
-         'listable' : true
-    }, {
-        'name' : 'Day One Supporter',
-        'multiToken' : false,
-        'address' : '0xf711e40d09BF4709c32eb967243872700fe80CC7',
-        'onChain' : false,
-        'listable' : true
-    },{
-        'name' : "Cronostars",
-        'multiToken' : false,
-        'address' : '0x03741A724d0E15F8FD052DAa56633a69090D20a3',
-        'onChain' : false,
-        'listable' :true
-    },{
-        "name" : "CROPhones",
-        "multiToken" : false,
-        "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
-        "onChain" : false,
-        "listable" : true
-    }, {
-        "name" : "CronosEyezNFT",
-        "multiToken" : false,
-        "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
-        "onChain" : false,
-        "listable" : true
-    }, {
-        "name" : "CROstmas Gnome",
-        "multiToken" : false,
-        "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
-        "onChain" : false,
-        "listable" : true
-    }, {
-        "name" : "Croslothty",
-        "multiToken" : false,
-        "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
-        "onChain" : false,
-        "listable" : true
-    }, {
-        "name" : "Crosmonauts",
-        "multiToken" : false,
-        "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
-        "onChain" : false,
-        "listable" : true
-    }, {
-        "name" : "Pingoo Black Friday Ticket",
-        "multiToken" : false,
-        "address" : "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
-        "onChain" : false,
-        "listable" : false
-    },{
-        "name" : "Mad Meerkat",
-        "multiToken" : false,
-        "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
-        "onChain" : false,
-        "listable" : false
-    },{
-        "name" : "Elon's Adventure",
-        "multiToken" : false,
-        "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
-        "onChain" : false,
-        "listable" : false
-    },{
-        "name" : "GameArtNFT ",
-        "multiToken" : false,
-        "address" : "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
-        "onChain" : false,
-        "listable" : true
-    },
-    
-]
+export const knownContracts = config.known_contracts;
