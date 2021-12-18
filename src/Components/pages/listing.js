@@ -124,6 +124,16 @@ const Listing = () => {
             {listing &&
             <Helmet>
                 <title>Ebisu's Bay | {listing.nft.name}</title>
+                <meta name='description' content={listing.nft.description} />
+                <meta property='og:locale' content='en_US' />
+                <meta property='og:type' content='website' />
+                <meta property='og:title' content={listing.nft.name} />
+                <meta property='og:description' content={listing.nft.description} />
+                <meta property='og:image' content={listing.nft.image} />
+                <meta property='og:url' content={'https://app.ebisusbay.com/listing/'+id} />
+                {/*<meta name='twitter:card' content='summary_large_image' />*/}
+                <meta name='twitter:site' content='@EbisusBay' />
+                <meta name='twitter:creator' content='@EbisusBay' />
             </Helmet>
             }
             {isLoading ?
