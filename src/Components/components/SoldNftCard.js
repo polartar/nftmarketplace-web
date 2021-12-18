@@ -31,7 +31,7 @@ const SoldNftCard = ({
 
     return (
         <div className={ className }>
-            <div className="nft_sold__item d-flex flex-row gap-3">
+            <div className="nft_sold__item d-flex flex-row gap-3" onClick={ () => navigateTo(`/listing/${ nft.listingId }`) }>
                 <div style={ { height: `150px` } }>
                     <div className="h-100" style={ width ? { width: `${width}px` } : {} }>
                         <Outer>
@@ -42,7 +42,7 @@ const SoldNftCard = ({
                     </div>
                 </div>
                 <div className="nft__item_info mb-2">
-                    <span onClick={ () => navigateTo(`/listing/${ nft.listingId }`) }>
+                    <span>
                         <h4>{ nft.name }</h4>
                     </span>
                     <div className="has_offers">
