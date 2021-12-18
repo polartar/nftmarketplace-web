@@ -12,6 +12,7 @@ export const InitialState = {
   nftCard: [
     {
       id: 0,
+      slug: 'cronies',
       img: cronies,
       nftImage: cronies,
       title: 'Cronies',
@@ -37,6 +38,7 @@ export const InitialState = {
     },
     {
       id: 1,
+      slug: 'founding-member',
       img: member,
       nftImage: member,
       title: 'Founding Member',
@@ -63,6 +65,7 @@ export const InitialState = {
     },
     {
       id: 2,
+      slug: 'ebisus',
       img: ebisus,
       nftImage: ebisusImage,
       wideBanner: "",
@@ -92,6 +95,7 @@ export const InitialState = {
     },
     {
       id: 3,
+      slug: 'crostmas',
       img: crostmas,
       wideBanner: "",
       longBanner: "",
@@ -119,6 +123,7 @@ export const InitialState = {
     },
     {
       id: 4,
+      slug: 'cro-moon-collage',
       img: croMoonCollage,
       wideBanner: "",
       longBanner: "",

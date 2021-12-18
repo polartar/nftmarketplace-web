@@ -73,7 +73,7 @@ const inline = keyframes`
 `;
 
 const Drop = () => {
-    const {id} = useParams();
+    const {slug} = useParams();
 
     const [quantity, setQuantity] = React.useState(1);
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
@@ -83,7 +83,7 @@ const Drop = () => {
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'drop',
-            drop_id: id
+            drop_id: slug
         })
     }, []);
 
@@ -109,8 +109,9 @@ const Drop = () => {
         return state.user;
     });
 
-    const drop = useSelector((state)=>{
-        return state.initState.nftCard[id];
+    const drop = useSelector((state) => {
+        console.log(state.initState.nftCard.find(n => n.slug === slug));
+        return state.initState.nftCard.find(n => n.slug === slug);
     });
 
     const membership = useSelector((state)=>{
@@ -137,7 +138,7 @@ const Drop = () => {
             if (currentDrop.address !== "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5" && currentDrop.address !== "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
-                if(id === '4'){
+                if(slug === 'cro-moon-collage'){
                     let bnCost = await readContract.cost();
                     console.log(`got cost ${bnCost}`)
                     let cost = ethers.utils.formatEther(bnCost);
@@ -290,130 +291,135 @@ const Drop = () => {
     return (
         <div>
             <GlobalStyles/>
-            <section className="jumbotron no-bg" style={{backgroundImage: `url(${'/img/background/7.jpg'})`}}>
-                <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col-md-6">
-                            <div className="spacer-single"></div>
-                            <div className="spacer-double"></div>
-                            <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                <h1 className="col-white">{drop.title}</h1>
-                            </Reveal>
-                            {drop.foundersOnly &&
+            <>
+                <section className="jumbotron no-bg" style={{backgroundImage: `url(${'/img/background/7.jpg'})`}}>
+                    <div className="container">
+                        <div className="row align-items-center">
+                            <div className="col-md-6">
+                                <div className="spacer-single"></div>
+                                <div className="spacer-double"></div>
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                                    <h1 className="col-white">{drop.title}</h1>
+                                </Reveal>
+                                {drop.foundersOnly &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                     <h1 className="col-white">{drop.title}</h1>
                                     {drop.foundersOnly &&
                                     <h3 className="col-white">Founding Member Presale</h3>
                                     }
                                 </Reveal>
-                            }
-                            {isLive && drop.end &&
+                                }
+                                {isLive && drop.end &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <p className="lead col-white">
-                                        Ends in: <Countdown date={drop.end} />
+                                        Ends in: <Countdown date={drop.end}/>
                                     </p>
                                 </Reveal>
-                            }
-                            {!isLive &&
+                                }
+                                {!isLive &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <p className="lead col-white">
-                                        Starts in: <Countdown date={drop.start} />
+                                        Starts in: <Countdown date={drop.start}/>
                                     </p>
                                 </Reveal>
-                            }
+                                }
 
-                            <div className="spacer-10"></div>
-                            <Reveal className='onStep d-inline' keyframes={inline} delay={800} duration={900}
-                                    triggerOnce>
-                                <span onClick={() => window.open("#", "_self")}
-                                      className="btn-main inline lead">Explore</span>
-                                <div className="mb-sm-30"></div>
-                            </Reveal>
+                                <div className="spacer-10"></div>
+                                <Reveal className='onStep d-inline' keyframes={inline} delay={800} duration={900}
+                                        triggerOnce>
+                                    <span onClick={() => window.open("#", "_self")}
+                                          className="btn-main inline lead">Explore</span>
+                                    <div className="mb-sm-30"></div>
+                                </Reveal>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
 
-            <section className='container no-bottom'>
-                <div className='row'>
-                    <div className="col-md-12">
-                        <div className="d_profile de-flex">
-                            <div className="de-flex-col">
-                                <div className="profile_avatar">
-                                    <img src="/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg" alt=""/>
-                                    <i className="fa fa-check"></i>
-                                    <div className="profile_name">
-                                        <h4>
-                                            {drop.author.name}
-                                            {drop.author.link &&
+                <section className='container no-bottom'>
+                    <div className='row'>
+                        <div className="col-md-12">
+                            <div className="d_profile de-flex">
+                                <div className="de-flex-col">
+                                    <div className="profile_avatar">
+                                        <img src="/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg" alt=""/>
+                                        <i className="fa fa-check"></i>
+                                        <div className="profile_name">
+                                            <h4>
+                                                {drop.author.name}
+                                                {drop.author.link &&
                                                 <span className="profile_username">
-                                                    <a href={drop.author.link} target="_blank">View Website</a>
-                                                </span>
-                                            }
-                                        </h4>
+                                                        <a href={drop.author.link} target="_blank">View Website</a>
+                                                    </span>
+                                                }
+                                            </h4>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section className='container no-top'>
-                <div className='row mt-md-5 pt-md-4'>
-                    <div className="col-md-6 text-center">
-                        <img src={drop.nftImage} className="img-fluid img-rounded mb-sm-30" alt=""/>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="item_info">
-                            <h2>{drop.title}</h2>
-                            <div className="item_info_counts">
-                                <div className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted</div>
-                            </div>
-                            <p>{drop.description}</p>
-
-
-                            <div className="d-flex flex-row">
-                                <div className="me-4">
-                                    <h6 className="mb-1">Mint Price</h6>
-                                    <h5>{drop.cost} CRO</h5>
+                <section className='container no-top'>
+                    <div className='row mt-md-5 pt-md-4'>
+                        <div className="col-md-6 text-center">
+                            <img src={drop.nftImage} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="item_info">
+                                <h2>{drop.title}</h2>
+                                <div className="item_info_counts">
+                                    <div
+                                        className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
+                                    </div>
                                 </div>
-                                {(drop.cost !== drop.memberCost) &&
+                                <p>{drop.description}</p>
+
+
+                                <div className="d-flex flex-row">
+                                    <div className="me-4">
+                                        <h6 className="mb-1">Mint Price</h6>
+                                        <h5>{drop.cost} CRO</h5>
+                                    </div>
+                                    {(drop.cost !== drop.memberCost) &&
                                     <div>
                                         <h6 className="mb-1">Founding Member Price</h6>
                                         <h5>{drop.memberCost} CRO</h5>
                                     </div>
-                                }
-                            </div>
+                                    }
+                                </div>
 
-                            <div className="spacer-40"></div>
+                                <div className="spacer-40"></div>
 
-                            {drop.end &&
+                                {drop.end &&
                                 <div className="me-4">
                                     <h6 className="mb-1">Minting Ends</h6>
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
-                            }
-                            {isLive ?
-                                <>
-                                    <div>
-                                        <Form.Label>Quantity</Form.Label>
-                                        <Form.Range value={quantity} min="1" max="10" onChange={e => setQuantity(e.target.value)}/>
-                                    </div>
-                                    <div className="d-flex flex-row mt-5">
-                                        <button className='btn-main lead mb-5 mr15' onClick={mintNow}>Mint {quantity}</button>
-                                    </div>
-                                </>
-                                :
-                                <p className="mt-5">MINT HAS ENDED</p>
-                            }
+                                }
+                                {isLive ?
+                                    <>
+                                        <div>
+                                            <Form.Label>Quantity</Form.Label>
+                                            <Form.Range value={quantity} min="1" max="10"
+                                                        onChange={e => setQuantity(e.target.value)}/>
+                                        </div>
+                                        <div className="d-flex flex-row mt-5">
+                                            <button className='btn-main lead mb-5 mr15'
+                                                    onClick={mintNow}>Mint {quantity}</button>
+                                        </div>
+                                    </>
+                                    :
+                                    <p className="mt-5">MINT HAS ENDED</p>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
+                </section>
+            </>
             <Footer/>
 
         </div>
