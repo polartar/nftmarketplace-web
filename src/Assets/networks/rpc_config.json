@@ -33,7 +33,15 @@
             "multiToken" : false,
             "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "mad-meerkats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/meerkats/avatar.png",
+                "banner": "/img/collections/meerkats/banner.jpg",
+                "card": "/img/collections/crosmonauts/card.png"
+            }
         },
         {
             "name" : "Petite Planets Gen 2",
@@ -61,14 +69,30 @@
             "multiToken" : false,
             "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "crosmonauts",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crosmonauts/avatar.png",
+                "banner": "/img/collections/crosmonauts/banner.png",
+                "card": "/img/collections/crosmonauts/card.png"
+            }
         },
         {
             "name" : "CronosChimp",
             "multiToken": false,
             "address" : "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-chimp-club",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/chimps/avatar.png",
+                "banner": "/img/collections/chimps/banner.png",
+                "card": "/img/collections/crosmonauts/card.png"
+            }
         },
         {
             "name" : "CroPunks - Punks on Cronos",
