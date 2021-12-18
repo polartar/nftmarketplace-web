@@ -1,0 +1,47 @@
+import React from 'react';
+import { Link } from "react-router-dom";
+import nebkas from "../../Assets/nebkas-logo.png"
+import weAreFi from "../../Assets/wearefi-logo.png"
+
+const footer= () => (
+  <footer className="footer-light">
+            <div className="container text-center">
+                <h5>Partners</h5>
+                <div className="row">
+                    <div className="col">
+                        <a href="https://nebkas.ro" target="_blank">
+                            <img src={nebkas} alt='nebkas.co' width='128px'/>
+                        </a>
+                    </div>
+                    <div className="col">
+                        <a href="https://www.weare.fi/" target="_blank">
+                            <img src={weAreFi} alt='WeAre Solutions' width='64px'/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div className="subfooter">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="de-flex">
+                                <div className="de-flex-col">
+                                    <span onClick={()=> window.open("", "_self")}>
+                                        <img alt="" className="f-logo d-1" src="./img/logo.png" />
+                                        <img alt="" className="f-logo d-3" src="./img/logo-2-light.png" />
+                                        <span className="copy">Copyright &copy; 2021 EbisusBay.com. All rights reserved</span>
+                                    </span>
+                                </div>
+                                <div className="de-flex-col">
+                                    <div className="social-icons">
+                                        <span onClick={()=> window.open("https://twitter.com/EbisusBay", "_blank")}><i className="fa fa-twitter fa-lg"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+);
+export default footer;
