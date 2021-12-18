@@ -65,11 +65,6 @@ const MySales = () => {
             </section>
 
             <section className='container'>
-                <div className='row'>
-                    <div className='col-lg-12'>
-                        <TopFilterBar showFilter={false}/>
-                    </div>
-                </div>
                 <MySoldNftCollection
                     walletAddress={walletAddress}
                 />
