@@ -17,7 +17,7 @@ const SliderCarouselRedux = () => {
     return (
         <div className='nft-big'>
           <Slider {...settings}>
-          {drops && drops.map( (drop, index) => (
+          {drops && drops.reverse().map( (drop, index) => (
             <div onClick={() => navigateTo(`/drops/${drop.slug}`)} className='itm' index={index+1} key={index}>
               <div className="nft_pic">                            
                   <span>
