@@ -301,7 +301,7 @@
         {
             "id": 1,
             "slug": "founding-member",
-            "imgNft": "/img/drops/founding_member/founding_member.png",
+            "imgNft": "/img/drops/founding_member/founding_member.webp",
             "imgPreview": "/img/drops/founding_member/founding_member.webp",
             "title": "Founding Member",
             "subtitle": "Early access to features and reduced fees forever.",
@@ -353,6 +353,7 @@
             "slug": "crostmas",
             "imgNft": "/img/drops/crostmas/crostmas_cards.webp",
             "imgPreview": "/img/drops/crostmas/crostmas_cards.webp",
+            "imgAvatar": "/img/drops/crostmas/avatar.png",
             "title": "CROstmas Cards",
             "subtitle": "CROstmas Cards is a collection on Cronos network.",
             "description":  "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",

@@ -346,8 +346,9 @@ const Drop = () => {
                             <div className="d_profile de-flex">
                                 <div className="de-flex-col">
                                     <div className="profile_avatar">
-                                        <img src="/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg" alt=""/>
-                                        <i className="fa fa-check"></i>
+                                        {drop.imgAvatar &&
+                                            <img src={drop.imgAvatar} alt=""/>
+                                        }
                                         <div className="profile_name">
                                             <h4>
                                                 {drop.author.name}
