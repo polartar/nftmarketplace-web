@@ -12,6 +12,8 @@ import {Alert, Spinner} from "react-bootstrap"
 import { Helmet } from "react-helmet";
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
+import config from "../../Assets/networks/rpc_config.json";
+const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
@@ -58,6 +60,17 @@ const Listing = () => {
     const listing = useSelector((state) => state.listing.listing)
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
+    const collectionName = useSelector((state) => {
+        return knownContracts.find(c => c.address === listing?.nftAddress)?.name;
+    })
+    const collectionAvatar = useSelector((state) => {
+        let contract = knownContracts.find(c => c.address === listing?.nftAddress);
+        if (contract && contract.metadata?.avatar) {
+            return contract.metadata.avatar;
+        } else {
+            return null;
+        }
+    })
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
     const [buying, setBuying] = useState(false);
@@ -160,8 +173,8 @@ const Listing = () => {
                                 <h2>{listing.nft.name}</h2>
                                 <h3>{ethers.utils.commify(listing.price)} CRO</h3>
                                 <p>{listing.nft.description}</p>
-                                <div className="d-flex flex-row">
-                                    <div className="mr40">
+                                <div className="row">
+                                    <div className="col">
                                         <h6>Seller</h6>
                                         <div className="item_author">
                                             <div className="author_list_pp">
@@ -174,19 +187,33 @@ const Listing = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mr40">
+                                    <div className="col">
                                         <h6>Collection</h6>
                                         <div className="item_author">
                                             <div className="author_list_pp">
                                             <span onClick={viewCollection()}>
-                                                <Blockies seed={listing.nftAddress} size={10} scale={5}/>
+                                                {collectionAvatar ?
+                                                    <img className="lazy" src={collectionAvatar} alt=""/>
+                                                    :
+                                                    <Blockies seed={listing.nftAddress} size={10} scale={5}/>
+                                                }
                                             </span>
                                             </div>
                                             <div className="author_list_info">
-                                                <span>View Collection</span>
+                                                <span>{collectionName ?? "View Collection"}</span>
                                             </div>
                                         </div>
                                     </div>
+                                    {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
+                                        <div className="col">
+                                            <h6>Rarity Sniper Rank</h6>
+                                            <div className="item_author">
+                                                <div className="author_list_info">
+                                                    <span>{listing.nft.rank}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                                 <div className="de_tab">
 
