@@ -100,6 +100,7 @@ export default function Drop({
     } catch(error) {
       console.log(error);
     }
+    console.log(Date.now() < currentDrop.end);
     setLoading(false);
     setDropObject(currentDrop);
   }, [user]);
@@ -263,17 +264,20 @@ export default function Drop({
       </Typography>
       : null }
         { dropObject.start > Date.now() ?
-         <Container>
-            <Typography className='countdowndesc'>
-              SALE BEGINS
-            </Typography>
-            <Typography className='countdown'>
-              <Countdown date={dropObject.start} ref={countdownRef} />
-            </Typography>
-            <Typography className='time'>
-              {convertTime(dropObject.start)}
-            </Typography>
-         </Container> :
+            <Container>
+                <Typography className='countdowndesc'>
+                  SALE BEGINS
+                </Typography>
+                <Typography className='countdown'>
+                  <Countdown date={dropObject.start} ref={countdownRef} />
+                </Typography>
+                <Typography className='time'>
+                  {convertTime(dropObject.start)}
+                </Typography>
+            </Container>
+          :
+          <>
+          { Date.now() < dropObject.end || dropObject.end == null ? 
          <Container className='container'>
             <Box sx={{ margin: "15px"}}>
            {dropObject.referral ?
@@ -303,6 +307,14 @@ export default function Drop({
             </Box>
           </Box>
          </Container>
+         : 
+            <Container>
+                <Typography className='countdowndesc'>
+                  ENDED
+                </Typography>
+              </Container>
+          }
+          </>
       }
 
 

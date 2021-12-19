@@ -84,8 +84,8 @@ export const InitialState = {
         "function mint(uint256 count) public payable",
         "function totalSupply() public view returns (uint256)"
       ],
-      start: 1639489543,
-      end: 163949000,
+      start: 1639489543000,
+      end: 1639929600000,
       referral: false,
       is1155: false,
       foundersOnly: false,
