@@ -319,6 +319,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                         onSellButtonPressed={showListDialog(nft)}
                         onCancelButtonPressed={showCancelDialog(nft)}
                         // onUpdateButtonPressed={showTransferDialog(nft)}
+                        newTab={true}
                     />
                 ))}
             </div>
@@ -338,7 +339,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                     </div>
                 </div>
             }
-
 
             {(selectedNft) ?
                 <Dialog
