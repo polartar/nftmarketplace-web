@@ -77,7 +77,7 @@ const Marketplace = () => {
             <section className='container'>
                 <div className='row'>
                     {marketData && (
-                        <div className="d-item col-lg-6 col-sm-8 mb-4 mx-auto">
+                        <div className="d-item col-lg-6 col-sm-10 mb-4 mx-auto">
                             <a className="nft_attr">
                                 <div className="row">
                                     <div className="col-4">

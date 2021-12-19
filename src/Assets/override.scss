@@ -139,3 +139,8 @@ $white: #fff;
         transition: .7s;
     }
 }
+
+/* Put dropdowns behind wallet connect popup */
+.items_filter .dropdownSelect {
+    z-index: 2 !important;
+}
