@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Blockies from 'react-blockies';
 
-const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url }) => {
+const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url, verified }) => {
   return (
     <div className='itm' index={index}>
       <div className="nft_coll">
@@ -14,6 +14,9 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
                       <img className="lazy" src={avatar} alt=""/>
                       :
                       <Blockies seed={collectionId} size={10} scale={6}/>
+                  }
+                  {verified &&
+                  <i className="fa fa-check"></i>
                   }
               </span>
           </div>
