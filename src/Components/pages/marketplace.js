@@ -86,7 +86,7 @@ const Marketplace = () => {
                                     </div>
                                     <div className="col-4">
                                         <h5>Sales</h5>
-                                        <h4>{ethers.utils.commify(Number(marketData.totalSales).toFixed(0))} CRO</h4>
+                                        <h4>{ethers.utils.commify(Number(marketData.totalSales).toFixed(0))}</h4>
                                     </div>
                                     <div className="col-4">
                                         <h5>Active</h5>
