@@ -100,7 +100,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                 tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id);
             }
             const receipt = await tx.wait();
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(`Transfer successful!`);
             dispatch(transferedNFT(selectedNft));
         }catch(error){
             if(error.data){
