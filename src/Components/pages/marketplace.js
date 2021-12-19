@@ -10,8 +10,8 @@ import {getMarketData} from "../../GlobalState/marketplaceSlice";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
-    background-color: #ff7814;
-    border-bottom: solid 1px #ff7814;
+    background-color: #ff9421;
+    border-bottom: solid 1px #ff9421;
     background-image: linear-gradient(to right, #ff690e, #ffb84e)
     -webkit-transform: translate3d(0,0,0);
   }
@@ -33,7 +33,7 @@ const GlobalStyles = createGlobalStyle`
   }
   @media only screen and (max-width: 1199px) {
     .navbar{
-      background: #ff7814;
+      background: #ff9421;
     }
     .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
       background: #fff;
