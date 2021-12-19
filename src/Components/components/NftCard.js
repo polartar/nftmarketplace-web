@@ -45,7 +45,7 @@ const NftCard = ({
                 <div className="nft__item_wrap" style={{height: `${height}px`}}>
                     <Outer>
                         <span>
-                            <img onClick={() => navigateTo(`/listing/${nft.address}/${nft.id}`)} onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
+                            <img onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)} onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
                         </span>
                     </Outer>
                 </div>
