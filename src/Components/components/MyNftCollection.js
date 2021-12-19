@@ -100,7 +100,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                 tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id);
             }
             const receipt = await tx.wait();
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(`Transfer successful!`);
             dispatch(transferedNFT(selectedNft));
         }catch(error){
             if(error.data){
@@ -312,13 +312,14 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                         onImgLoad={onImgLoad}
                         height={height}
                         canTransfer={true}
-                        canSell={!nft.listed}
+                        canSell={nft.listable}
                         canCancel={nft.listed && nft.listingId}
                         canUpdate={false}
                         onTransferButtonPressed={showTransferDialog(nft)}
                         onSellButtonPressed={showListDialog(nft)}
                         onCancelButtonPressed={showCancelDialog(nft)}
                         // onUpdateButtonPressed={showTransferDialog(nft)}
+                        newTab={true}
                     />
                 ))}
             </div>
@@ -338,7 +339,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                     </div>
                 </div>
             }
-
 
             {(selectedNft) ?
                 <Dialog

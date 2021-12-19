@@ -6,6 +6,9 @@ import { getListingDetails } from "../../GlobalState/listingSlice";
 import { humanize } from "../../utils";
 import { useParams, useHistory  } from "react-router-dom";
 import {getNftDetails} from "../../GlobalState/nftSlice";
+import Blockies from "react-blockies";
+import config from "../../Assets/networks/rpc_config.json";
+const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
@@ -48,6 +51,17 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
+    const collectionName = useSelector((state) => {
+        return knownContracts.find(c => c.address === address)?.name;
+    })
+    const collectionAvatar = useSelector((state) => {
+        let contract = knownContracts.find(c => c.address === address);
+        if (contract && contract.metadata?.avatar) {
+            return contract.metadata.avatar;
+        } else {
+            return null;
+        }
+    })
 
     useEffect(() => {
         dispatch(getNftDetails(address, id));
@@ -72,10 +86,34 @@ const Nft = () => {
                         <div className="item_info">
                             <h2>{nft.name}</h2>
                             <p>{nft.description}</p>
-                            <div className="d-flex flex-row mt-5">
-                                <button className='btn-main lead mb-3 mr15'
-                                        onClick={viewCollection()}>More From Collection
-                                </button>
+                            <div className="row">
+                                <div className="col">
+                                    <h6>Collection</h6>
+                                    <div className="item_author">
+                                        <div className="author_list_pp">
+                                            <span onClick={viewCollection()}>
+                                                {collectionAvatar ?
+                                                    <img className="lazy" src={collectionAvatar} alt=""/>
+                                                    :
+                                                    <Blockies seed={address} size={10} scale={5}/>
+                                                }
+                                            </span>
+                                        </div>
+                                        <div className="author_list_info">
+                                            <span>{collectionName ?? "View Collection"}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {(typeof nft.rank !== 'undefined' && nft.rank !== null) &&
+                                <div className="col">
+                                    <h6>Rarity Sniper Rank</h6>
+                                    <div className="item_author">
+                                        <div className="author_list_info">
+                                            <span>{nft.rank}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
                             </div>
                             <div className="de_tab">
 
@@ -89,9 +127,14 @@ const Nft = () => {
                                                             <a className="nft_attr">
                                                                 <h5>{humanize(data.trait_type)}</h5>
                                                                 <h4>{humanize(data.value)}</h4>
-                                                                {data.score && (
-                                                                    <span>{Math.round(data.score)}% have this trait</span>
-                                                                )}
+                                                                {data.occurrence ? (
+                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                    )
+                                                                    :
+                                                                    data.percent && (
+                                                                        <span>{data.percent}% have this trait</span>
+                                                                    )
+                                                                }
                                                             </a>
                                                         </div>
                                                     );

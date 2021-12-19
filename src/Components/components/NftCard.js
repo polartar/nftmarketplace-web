@@ -26,11 +26,17 @@ const NftCard = ({
     onSellButtonPressed,
     onCancelButtonPressed,
     onUpdateButtonPressed,
+    newTab = false,
 }) => {
     const history = useHistory();
 
     const navigateTo = (link) => {
-        history.push(link);
+        if (newTab) {
+            window.open(link, "_blank");
+        } else {
+
+            history.push(link);
+        }
     }
 
     return (
@@ -39,7 +45,7 @@ const NftCard = ({
                 <div className="nft__item_wrap" style={{height: `${height}px`}}>
                     <Outer>
                         <span>
-                            <img onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
+                            <img onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)} onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
                         </span>
                     </Outer>
                 </div>

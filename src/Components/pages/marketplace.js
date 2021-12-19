@@ -10,8 +10,8 @@ import {getMarketData} from "../../GlobalState/marketplaceSlice";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
-    background-color: #ff7814;
-    border-bottom: solid 1px #ff7814;
+    background-color: #ff9421;
+    border-bottom: solid 1px #ff9421;
     background-image: linear-gradient(to right, #ff690e, #ffb84e)
     -webkit-transform: translate3d(0,0,0);
   }
@@ -33,7 +33,7 @@ const GlobalStyles = createGlobalStyle`
   }
   @media only screen and (max-width: 1199px) {
     .navbar{
-      background: #ff7814;
+      background: #ff9421;
     }
     .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
       background: #fff;
@@ -77,7 +77,7 @@ const Marketplace = () => {
             <section className='container'>
                 <div className='row'>
                     {marketData && (
-                        <div className="d-item col-lg-6 col-sm-8 mb-4 mx-auto">
+                        <div className="d-item col-lg-6 col-sm-10 mb-4 mx-auto">
                             <a className="nft_attr">
                                 <div className="row">
                                     <div className="col-4">
@@ -86,7 +86,7 @@ const Marketplace = () => {
                                     </div>
                                     <div className="col-4">
                                         <h5>Sales</h5>
-                                        <h4>{ethers.utils.commify(Number(marketData.totalSales).toFixed(0))} CRO</h4>
+                                        <h4>{ethers.utils.commify(Number(marketData.totalSales).toFixed(0))}</h4>
                                     </div>
                                     <div className="col-4">
                                         <h5>Active</h5>
