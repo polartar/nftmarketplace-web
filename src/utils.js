@@ -143,6 +143,13 @@ export function classList(classes) {
     .join(" ");
 }
 
+/**
+ * Takes a string and makes it human readable
+ * Removes underscores, adds spaces, etc...
+ *
+ * @param str
+ * @returns {string}
+ */
 export function humanize(str) {
   var i, frags = str.split('_');
   for (i=0; i<frags.length; i++) {
@@ -151,6 +158,12 @@ export function humanize(str) {
   return frags.join(' ').split(/(?=[A-Z])/).join(' ');
 }
 
+/**
+ * Converts a number to use SI prefixed notation
+ *
+ * @param num
+ * @returns {string|number}
+ */
 export function siPrefixedNumber(num) {
 
   // Nine Zeroes for Billions
@@ -167,5 +180,4 @@ export function siPrefixedNumber(num) {
               ? (Math.abs(Number(num)) / 1.0e+3).toFixed(2) + "K"
 
               : Math.abs(Number(num));
-
 }
