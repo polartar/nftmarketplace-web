@@ -55,8 +55,9 @@ const Home = () => {
                                 data stored on a digital ledger, called a blockchain, that certifies a
                                 digital asset to be unique and therefore not interchangeable</p></div>
                             <div className="spacer-10"></div>
-                            <div className="onStep d-inline css-1i8mt5g"><span
-                                className="btn-main inline lead">Explore</span></div>
+                            <div className="onStep d-inline css-1i8mt5g">
+                                <span className="btn-main inline lead" onClick={()=> window.open('/marketplace', "_self")}>Explore</span>
+                            </div>
                             <div className="onStep d-inline css-1i8mt5g"><span
                                 className="btn-main inline white lead">Create</span></div>
                             <div className="onStep d-inline css-1i8mt5g">
