@@ -187,13 +187,16 @@ const Listing = () => {
                                         <h6>Collection</h6>
                                         <div className="item_author">
                                             <div className="author_list_pp">
-                                            <span onClick={viewCollection()}>
-                                                {collectionMetadata?.avatar ?
-                                                    <img className="lazy" src={collectionMetadata.avatar} alt=""/>
-                                                    :
-                                                    <Blockies seed={listing.nftAddress} size={10} scale={5}/>
-                                                }
-                                            </span>
+                                                <span onClick={viewCollection()}>
+                                                    {collectionMetadata?.avatar ?
+                                                        <img className="lazy" src={collectionMetadata.avatar} alt=""/>
+                                                        :
+                                                        <Blockies seed={listing.nftAddress} size={10} scale={5}/>
+                                                    }
+                                                    {collectionMetadata?.verified &&
+                                                        <i className="fa fa-check"></i>
+                                                    }
+                                                </span>
                                             </div>
                                             <div className="author_list_info">
                                                 <span>{collectionName ?? "View Collection"}</span>

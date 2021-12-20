@@ -92,6 +92,9 @@ const Nft = () => {
                                                     :
                                                     <Blockies seed={address} size={10} scale={5}/>
                                                 }
+                                                {collectionMetadata?.verified &&
+                                                    <i className="fa fa-check"></i>
+                                                }
                                             </span>
                                         </div>
                                         <div className="author_list_info">
@@ -120,9 +123,27 @@ const Nft = () => {
                                     <div className="tab-1 onStep fadeIn">
                                         <div className="d-block mb-3">
                                             <div className="row mt-5 gx-3 gy-2">
+                                                {nft.attributes && nft.attributes.map((data, i) => {
+                                                    return (
+                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                            <a className="nft_attr">
+                                                                <h5>{humanize(data.trait_type)}</h5>
+                                                                <h4>{humanize(data.value)}</h4>
+                                                                {data.occurrence ? (
+                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                    )
+                                                                    :
+                                                                    data.percent && (
+                                                                        <span>{data.percent}% have this trait</span>
+                                                                    )
+                                                                }
+                                                            </a>
+                                                        </div>
+                                                    );
+                                                })}
                                                 {nft.properties && nft.properties.map((data, i) => {
                                                     return (
-                                                        <div className="col-lg-4 col-md-6 col-sm-6">
+                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                             <a className="nft_attr">
                                                                 <h5>{humanize(data.trait_type)}</h5>
                                                                 <h4>{humanize(data.value)}</h4>
