@@ -3,12 +3,39 @@ import Breakpoint, { BreakpointProvider, setDefaultBreakpoints } from "react-soc
 import { header } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import AccountMenu from "../components/AccountMenu";
+import {createGlobalStyle} from "styled-components";
 
 setDefaultBreakpoints([
     { xs: 0 },
     { l: 1199 },
     { xl: 1200 }
 ]);
+
+const GlobalStyles = createGlobalStyle`
+  header#myHeader.navbar.sticky.white {
+    background: #ff9421;
+    border-bottom: 0;
+    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
+  }
+  header#myHeader.navbar.white .btn, .navbar.white a, .navbar.sticky.white a{
+    color: #fff;
+  }
+  .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
+    background: #fff;
+  }
+  @media only screen and (max-width: 1199px) { 
+    .navbar{
+      background: #ff9421;
+    }
+  }
+  .jumbotron h1, .jumbotron h3, .jumbotron h5, .jumbotron p {
+    color: #fff;
+  }
+  .de_count h3 {
+    font-size: 36px;
+    margin-bottom: 0px;
+  }
+`;
 
 const Header = function() {
     const [showmenu, btn_icon] = useState(false);
@@ -35,6 +62,7 @@ const Header = function() {
 
     return (
         <header id="myHeader" className='navbar white'>
+            <GlobalStyles/>
             <div className='container'>
                 <div className='row w-100-nav'>
                     <div className='logo px-0'>
@@ -43,21 +71,6 @@ const Header = function() {
                                 <img
                                     src="/img/logo.png"
                                     className="img-fluid d-block"
-                                    alt="#"
-                                />
-                                <img
-                                    src="/img/logo.png"
-                                    className="img-fluid d-3"
-                                    alt="#"
-                                />
-                                <img
-                                    src="/img/logo.png"
-                                    className="img-fluid d-4"
-                                    alt="#"
-                                />
-                                <img
-                                    src="/img/logo.png"
-                                    className="img-fluid d-none"
                                     alt="#"
                                 />
                             </NavLink>
@@ -78,6 +91,18 @@ const Header = function() {
                                     <div className='navbar-item'>
                                         <NavLink to="/marketplace">
                                             Marketplace
+                                            <span className='lines'></span>
+                                        </NavLink>
+                                    </div>
+                                    <div className='navbar-item'>
+                                        <NavLink to="/collections">
+                                            Collections
+                                            <span className='lines'></span>
+                                        </NavLink>
+                                    </div>
+                                    <div className='navbar-item'>
+                                        <NavLink to="/drops">
+                                            Drops
                                             <span className='lines'></span>
                                         </NavLink>
                                     </div>

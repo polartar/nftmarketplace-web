@@ -22,34 +22,6 @@ const fadeInUp = keyframes`
 `;
 
 const GlobalStyles = createGlobalStyle`
-  header#myHeader.navbar.sticky.white {
-    background: #212428;
-    border-bottom: 0;
-    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
-  }
-  header#myHeader.navbar.white .btn, .navbar.white a, .navbar.sticky.white a{
-    color: #fff;
-  }
-  header#myHeader .dropdown-toggle::after{
-    color: #fff;
-  }
-  header#myHeader .logo .d-block{
-    display: none !important;
-  }
-  header#myHeader .logo .d-none{
-    display: none !important;
-  }
-  header#myHeader .logo .d-4{
-    display: block !important;
-  }
-  .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
-    background: #fff;
-  }
-  @media only screen and (max-width: 1199px) { 
-    .navbar{
-      background: #ff7814;
-    }
-  }
   .jumbotron h1, .jumbotron h3, .jumbotron h5, .jumbotron p {
     color: #fff;
   }

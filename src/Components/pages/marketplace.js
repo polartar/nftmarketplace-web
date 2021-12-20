@@ -11,10 +11,9 @@ import {siPrefixedNumber} from "../../utils";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
-    background-color: #ff9421;
-    border-bottom: solid 1px #ff9421;
-    background-image: linear-gradient(to right, #ff690e, #ffb84e)
-    -webkit-transform: translate3d(0,0,0);
+    background: #ff9421;
+    border-bottom: 0;
+    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
   }
   header#myHeader.navbar .search #quick_search{
     color: #fff;
