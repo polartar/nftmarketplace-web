@@ -31,6 +31,7 @@ export default collectionsSlice.reducer;
 
 export const getAllCollections = (sortKey = 'name', sortDirection = 'asc') => async(dispatch, state) => {
     try {
+        dispatch(collectionsLoading());
         const response = await getCollectionMetadata();
         response.collections.forEach(function (collection, index) {
             const contract = knownContracts.find(c => c.address.toUpperCase() === collection.collection.toUpperCase());

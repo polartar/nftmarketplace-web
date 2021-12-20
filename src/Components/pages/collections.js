@@ -7,6 +7,7 @@ import {getAllCollections} from "../../GlobalState/collectionsSlice";
 import {useHistory} from "react-router-dom";
 import {ethers} from "ethers";
 import Blockies from "react-blockies";
+import {Spinner} from "react-bootstrap";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -48,6 +49,7 @@ const Collections = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const isLoading = useSelector((state) => state.collections.loading)
     const collections = useSelector((state) => {
         return state.collections.collections;
     });
@@ -70,7 +72,7 @@ const Collections = () => {
         }
         dispatch(getAllCollections(key, direction));
     };
-    
+
     return (
         <div>
             <GlobalStyles/>
@@ -87,7 +89,16 @@ const Collections = () => {
                 </div>
             </section>
 
-            <section className='container'>
+            <section className='container no-top'>
+                {isLoading &&
+                    <div className='row mt-4'>
+                        <div className='col-lg-12 text-center'>
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    </div>
+                }
                 <div className='row'>
                     <div className='col-lg-12'>
                         <table className="table de-table table-rank">
