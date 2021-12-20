@@ -104,7 +104,6 @@ export const fetchListings = () => async (dispatch, getState) => {
         state.marketplace.curFilter.type,
         state.marketplace.curFilter.address
     );
-    console.log(response);
 
     response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
 
@@ -135,9 +134,8 @@ export const resetListings = () => async (dispatch) => {
 export const getCollectionData = (address) => async(dispatch) => {
     try {
         const response = await getCollectionMetadata(address);
-        console.log(response.collections);
         dispatch(onCollectionDataLoaded({
-            collection: response.collections,
+            collection: response.collections[0],
         }));
     } catch(error) {
         console.log(error);
