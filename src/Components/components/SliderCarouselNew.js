@@ -24,6 +24,15 @@ const GlobalStyles = createGlobalStyle`
     width: 50px;
     height: 50px;
   }
+  
+  .nft__item_lg img {
+    max-height: 700px;
+  }
+  @media only screen and (max-width: 1024px) {
+    .nft__item_lg img{
+      max-height: 450px;
+    }
+  }
 `;
 
 class CustomSlide extends Component {

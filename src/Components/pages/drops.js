@@ -8,6 +8,16 @@ import {createGlobalStyle} from "styled-components";
 import SliderMain from '../components/SliderCarouselNew';
 
 const GlobalStyles = createGlobalStyle`
+  header#myHeader.navbar.sticky.white {
+    background-color: #ff9421;
+    border-bottom: solid 1px #ff9421;
+    color:#fff;
+    background-image: linear-gradient(to right, #ff690e, #ffb84e)
+    -webkit-transform: translate3d(0,0,0);
+  }
+  header#myHeader.navbar.sticky.white a{
+    color: #fff;
+  }
 `;
 
 const Drops = () => (
