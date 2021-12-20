@@ -113,7 +113,7 @@ const Collection = () => {
                                     {metadata?.avatar ?
                                         <img src={metadata.avatar} alt=""/>
                                         :
-                                        <Blockies seed={collection.address} size={15} scale={10}/>
+                                        <Blockies seed={address.toLowerCase()} size={15} scale={10}/>
                                     }
                                     {metadata?.verified &&
                                         <i className="fa fa-check"></i>

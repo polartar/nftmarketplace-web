@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import config from "../../Assets/networks/rpc_config.json";
-import {getRankings} from "../../GlobalState/marketplaceSlice";
+import {getAllCollections} from "../../GlobalState/collectionsSlice";
 import {useHistory} from "react-router-dom";
 import {ethers} from "ethers";
 import Blockies from "react-blockies";
-const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -45,21 +44,33 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const Rankings = () => {
+const Collections = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const collections = useSelector((state) => {
-        return state.marketplace.rankings;
+        return state.collections.collections;
     });
+    const sort = useSelector((state) => {
+        return state.collections.sort;
+    });
+
     const viewCollection = (collectionAddress) => () => {
         history.push(`/collection/${collectionAddress}`);
     }
 
     useEffect(async () => {
-        dispatch(getRankings());
+        dispatch(getAllCollections());
     }, []);
 
+    const sortCollections = (key) => () => {
+        let direction = 'asc';
+        if (key === sort.key) {
+            direction = sort.direction === 'asc' ? 'desc' : 'asc';
+        }
+        dispatch(getAllCollections(key, direction));
+    };
+    
     return (
         <div>
             <GlobalStyles/>
@@ -69,7 +80,7 @@ const Rankings = () => {
                     <div className='container'>
                         <div className='row m-10-hor'>
                             <div className='col-12'>
-                                <h1 className='text-center'>Top Collections</h1>
+                                <h1 className='text-center'>Collections</h1>
                             </div>
                         </div>
                     </div>
@@ -82,26 +93,30 @@ const Rankings = () => {
                         <table className="table de-table table-rank">
                             <thead>
                             <tr>
-                                <th scope="col">Collection</th>
-                                <th scope="col">Volume</th>
-                                <th scope="col">Sales</th>
-                                <th scope="col">Floor Price</th>
-                                <th scope="col">Avg. Price</th>
-                                <th scope="col">Active Listings</th>
+                                <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('name')}>Collection</th>
+                                <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('totalVolume')}>Volume</th>
+                                <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('numberOfSales')}>Sales</th>
+                                <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('floorPrice')}>Floor Price</th>
+                                <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('averageSalePrice')}>Avg. Price</th>
+                                <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('numberActive')}>Active Listings</th>
                             </tr>
                             <tr></tr>
                             </thead>
                             <tbody>
-                            {collections && collections.map( (collection, index) => (
+                            {collections && collections.map( (collection, index) => {
+                                return (
                                 <tr>
                                     <th scope="row">
                                         <div className="coll_list_pp">
-                                            <Blockies size={10} scale={4}/>
+                                            {collection.metadata?.avatar ?
+                                                <img className="lazy" src={collection.metadata.avatar} alt=""/>
+                                            :
+                                                <Blockies seed={collection.collection.toLowerCase()} size={10} scale={5}/>
+                                            }
                                         </div>
-                                        <span onClick={viewCollection}>
-                                            {knownContracts.find(c => c.address.toUpperCase() === collection.collection.toUpperCase())?.name ?? 'Unknown'}
+                                        <span style={{cursor: 'pointer'}} onClick={viewCollection(collection.collection)}>
+                                            {collection?.name ?? 'Unknown'}
                                         </span>
-                                        <span className="bot">asfd</span>
                                     </th>
                                     <td>{ethers.utils.commify(Math.round(collection.totalVolume))} CRO</td>
                                     <td>{collection.numberOfSales}</td>
@@ -109,18 +124,9 @@ const Rankings = () => {
                                     <td>{ethers.utils.commify(Math.round(collection.averageSalePrice))} CRO</td>
                                     <td>{collection.numberActive}</td>
                                 </tr>
-                            ))}
+                            )})}
                             </tbody>
                         </table>
-
-                        <div className="spacer-double"></div>
-
-                        <ul className="pagination justify-content-center">
-                            <li className="active"><span>1 - 20</span></li>
-                            <li><span>21 - 40</span></li>
-                            <li><span>41 - 60</span></li>
-                        </ul>
-
                     </div>
                 </div>
             </section>
@@ -130,4 +136,4 @@ const Rankings = () => {
         </div>
     );
 };
-export default Rankings;
+export default Collections;

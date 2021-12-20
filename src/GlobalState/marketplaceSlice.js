@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {sortAndFetchListings, getCollectionMetadata, getMarketMetadata} from '../core/api';
+import {sortAndFetchListings, getCollectionMetadata, getMarketMetadata, getCollectionTraits} from '../core/api';
 import config from '../Assets/networks/rpc_config.json'
 export const knownContracts = config.known_contracts;
 
@@ -14,7 +14,6 @@ const marketplaceSlice = createSlice({
         curSort: {},
         totalPages: 0,
         collection: null,
-        rankings: [],
         marketData: null,
         hasRank: false
     },
@@ -52,9 +51,6 @@ const marketplaceSlice = createSlice({
         },
         onCollectionDataLoaded: (state, action) => {
             state.collection = action.payload.collection;
-        },
-        onRankingsLoaded: (state, action) => {
-            state.rankings = action.payload.collections;
         },
         onMarketDataLoaded(state, action) {
             state.marketData = action.payload.marketdata;
@@ -108,6 +104,7 @@ export const fetchListings = () => async (dispatch, getState) => {
         state.marketplace.curFilter.type,
         state.marketplace.curFilter.address
     );
+    console.log(response);
 
     response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
 
@@ -138,18 +135,10 @@ export const resetListings = () => async (dispatch) => {
 export const getCollectionData = (address) => async(dispatch) => {
     try {
         const response = await getCollectionMetadata(address);
+        console.log(response.collections);
         dispatch(onCollectionDataLoaded({
-            collection: response.collections[0]
-        }))
-    } catch(error) {
-        console.log(error);
-    }
-}
-
-export const getRankings = () => async(dispatch) => {
-    try {
-        const response = await getCollectionMetadata();
-        dispatch(onRankingsLoaded({collections: response.collections}))
+            collection: response.collections,
+        }));
     } catch(error) {
         console.log(error);
     }

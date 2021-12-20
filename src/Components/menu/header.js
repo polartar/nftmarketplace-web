@@ -101,6 +101,12 @@ const Header = function() {
                                     </NavLink>
                                 </div>
                                 <div className='navbar-item'>
+                                    <NavLink to="/collections">
+                                        Collections
+                                        <span className='lines'></span>
+                                    </NavLink>
+                                </div>
+                                <div className='navbar-item'>
                                     <NavLink to="/drops">
                                         Drops
                                         <span className='lines'></span>
