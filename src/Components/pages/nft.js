@@ -52,10 +52,10 @@ const Nft = () => {
 
     const nft = useSelector((state) => state.nft.nft)
     const collectionMetadata = useSelector((state) => {
-        return knownContracts.find(c => c.address === address)?.metadata;
+        return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
     });
     const collectionName = useSelector((state) => {
-        return knownContracts.find(c => c.address === address)?.name;
+        return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.name;
     });
 
     useEffect(() => {
@@ -119,7 +119,7 @@ const Nft = () => {
                                 <div className="de_tab_content">
                                     <div className="tab-1 onStep fadeIn">
                                         <div className="d-block mb-3">
-                                            <div className="row mt-5">
+                                            <div className="row mt-5 gx-3 gy-2">
                                                 {nft.properties && nft.properties.map((data, i) => {
                                                     return (
                                                         <div className="col-lg-4 col-md-6 col-sm-6">

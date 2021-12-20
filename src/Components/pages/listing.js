@@ -62,10 +62,10 @@ const Listing = () => {
     const user = useSelector((state) => state.user)
 
     const collectionMetadata = useSelector((state) => {
-        return knownContracts.find(c => c.address === listing?.nftAddress)?.metadata;
+        return knownContracts.find(c => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.metadata;
     });
     const collectionName = useSelector((state) => {
-        return knownContracts.find(c => c.address === listing?.nftAddress)?.name;
+        return knownContracts.find(c => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.name;
     });
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
@@ -220,7 +220,7 @@ const Listing = () => {
                                     <div className="de_tab_content">
                                         <div className="tab-1 onStep fadeIn">
                                             <div className="d-block mb-3">
-                                                <div className="row mt-5">
+                                                <div className="row mt-5 gx-3 gy-2">
                                                     {listing.nft.attributes && listing.nft.attributes.map((data, i) => {
                                                         return (
                                                             <div key={i} className="col-lg-4 col-md-6 col-sm-6">

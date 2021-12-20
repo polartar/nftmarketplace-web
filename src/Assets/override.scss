@@ -1,6 +1,8 @@
 /* Copied colors from style.scss */
 $color: #218cff;
 $gray: #bbb;
+$black: #111;
+$white: #fff;
 
 /* Hot Collections Avatar for Blockies */
 .slick-slide canvas {
@@ -71,7 +73,6 @@ canvas {
 }
 
 /* User menu buttons */
-$white: #fff;
 .btn_menu {
     font-size: 12px;
     padding: 4px 10px;
@@ -143,4 +144,11 @@ $white: #fff;
 /* Put dropdowns behind wallet connect popup */
 .items_filter .dropdownSelect {
     z-index: 2 !important;
+}
+
+/* Fix equal height issue in traits grid */
+.nft_attr {
+    margin-bottom: 0;
+    height: 100%;
+}
 }
