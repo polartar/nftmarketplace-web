@@ -162,7 +162,8 @@ export default class Responsive extends Component {
                                                         </>
                                                         :
                                                         <>
-                                                          <span className="d-title">Drop is Live!</span>
+                                                          <span className="d-title">Drop ends in</span>
+                                                          <h3>Drop is Live!</h3>
                                                         </>
                                                   }
                                                 </>
