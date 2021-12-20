@@ -5,7 +5,7 @@ import ListingCollection from "../components/ListingCollection";
 import {useHistory} from "react-router-dom";
 import HotCollections from "../components/HotCollections";
 import Reveal from "react-awesome-reveal";
-import SliderCarouselSingleRedux from "../components/SliderCarouselSingleRedux";
+import HomeCarousel from "../components/HomeCarousel";
 import { keyframes } from "@emotion/react";
 
 const fadeInUp = keyframes`
@@ -109,6 +109,9 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className='col-lg-6 px-0'>
+                            <HomeCarousel/>
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,8 @@
 import React from 'react';
 import Footer from '../components/footer';
 import LatestDropsCollection from "../components/LatestDropsCollection";
-import Reveal from "react-awesome-reveal";
-import SliderCarouselSingleRedux from "../components/SliderCarouselSingleRedux";
-import {keyframes} from "@emotion/react";
 import {createGlobalStyle} from "styled-components";
-import SliderMain from '../components/SliderCarouselNew';
+import DropsCarousel from '../components/DropsCarousel';
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -26,7 +23,7 @@ const Drops = () => (
         <section className="jumbotron breadcumb no-bg h-vh" style={{backgroundImage: `url(${'./img/background/12.jpg'})`}}>
             <div className='container'>
                 <div className='row'>
-                    <SliderMain/>
+                    <DropsCarousel/>
                 </div>
             </div>
         </section>
