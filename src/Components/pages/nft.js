@@ -120,7 +120,7 @@ const Nft = () => {
                                     <div className="tab-1 onStep fadeIn">
                                         <div className="d-block mb-3">
                                             <div className="row mt-5">
-                                                {nft.attributes && nft.attributes.map((data, i) => {
+                                                {nft.properties && nft.properties.map((data, i) => {
                                                     return (
                                                         <div className="col-lg-4 col-md-6 col-sm-6">
                                                             <a className="nft_attr">
