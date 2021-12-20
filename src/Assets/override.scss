@@ -152,6 +152,12 @@ canvas {
     height: 100%;
 }
 
+/* Remove blue background from avatar images */
+.author_list_pp {
+    background: none;
+}
+
+
 .nft-home-carousel{
     width: 100%;
     .slick-prev{
