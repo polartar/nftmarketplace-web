@@ -59,7 +59,8 @@ const Home = () => {
                                 <span className="btn-main inline lead" onClick={()=> window.open('/marketplace', "_self")}>Explore</span>
                             </div>
                             <div className="onStep d-inline css-1i8mt5g"><span
-                                className="btn-main inline white lead">Create</span></div>
+                                className="btn-main inline white lead" onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")}>Become a Creator</span>
+                            </div>
                             <div className="onStep d-inline css-1i8mt5g">
                                 <div className="mb-sm-30"></div>
                             </div>
