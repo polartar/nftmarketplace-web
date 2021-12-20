@@ -51,17 +51,12 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
+    const collectionMetadata = useSelector((state) => {
+        return knownContracts.find(c => c.address === address)?.metadata;
+    });
     const collectionName = useSelector((state) => {
         return knownContracts.find(c => c.address === address)?.name;
-    })
-    const collectionAvatar = useSelector((state) => {
-        let contract = knownContracts.find(c => c.address === address);
-        if (contract && contract.metadata?.avatar) {
-            return contract.metadata.avatar;
-        } else {
-            return null;
-        }
-    })
+    });
 
     useEffect(() => {
         dispatch(getNftDetails(address, id));
@@ -92,8 +87,8 @@ const Nft = () => {
                                     <div className="item_author">
                                         <div className="author_list_pp">
                                             <span onClick={viewCollection()}>
-                                                {collectionAvatar ?
-                                                    <img className="lazy" src={collectionAvatar} alt=""/>
+                                                {collectionMetadata?.avatar ?
+                                                    <img className="lazy" src={collectionMetadata.avatar} alt=""/>
                                                     :
                                                     <Blockies seed={address} size={10} scale={5}/>
                                                 }
@@ -106,7 +101,11 @@ const Nft = () => {
                                 </div>
                                 {(typeof nft.rank !== 'undefined' && nft.rank !== null) &&
                                 <div className="col">
-                                    <h6>Rarity Sniper Rank</h6>
+                                    {collectionMetadata?.rarity ?
+                                        <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
+                                        :
+                                        <h6>Rarity Rank</h6>
+                                    }
                                     <div className="item_author">
                                         <div className="author_list_info">
                                             <span>{nft.rank}</span>

@@ -40,7 +40,8 @@
                 "verified": true,
                 "avatar": "/img/collections/meerkats/avatar.png",
                 "banner": "/img/collections/meerkats/banner.jpg",
-                "card": "/img/collections/crosmonauts/card.png"
+                "card": "/img/collections/crosmonauts/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {

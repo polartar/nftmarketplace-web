@@ -60,17 +60,13 @@ const Listing = () => {
     const listing = useSelector((state) => state.listing.listing)
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
+
+    const collectionMetadata = useSelector((state) => {
+        return knownContracts.find(c => c.address === listing?.nftAddress)?.metadata;
+    });
     const collectionName = useSelector((state) => {
         return knownContracts.find(c => c.address === listing?.nftAddress)?.name;
-    })
-    const collectionAvatar = useSelector((state) => {
-        let contract = knownContracts.find(c => c.address === listing?.nftAddress);
-        if (contract && contract.metadata?.avatar) {
-            return contract.metadata.avatar;
-        } else {
-            return null;
-        }
-    })
+    });
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
     const [buying, setBuying] = useState(false);
@@ -192,8 +188,8 @@ const Listing = () => {
                                         <div className="item_author">
                                             <div className="author_list_pp">
                                             <span onClick={viewCollection()}>
-                                                {collectionAvatar ?
-                                                    <img className="lazy" src={collectionAvatar} alt=""/>
+                                                {collectionMetadata?.avatar ?
+                                                    <img className="lazy" src={collectionMetadata.avatar} alt=""/>
                                                     :
                                                     <Blockies seed={listing.nftAddress} size={10} scale={5}/>
                                                 }
@@ -206,7 +202,11 @@ const Listing = () => {
                                     </div>
                                     {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
                                         <div className="col">
-                                            <h6>Rarity Sniper Rank</h6>
+                                            {collectionMetadata?.rarity ?
+                                                <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
+                                                :
+                                                <h6>Rarity Rank</h6>
+                                            }
                                             <div className="item_author">
                                                 <div className="author_list_info">
                                                     <span>{listing.nft.rank}</span>
