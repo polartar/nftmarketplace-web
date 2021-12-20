@@ -60,17 +60,13 @@ const Listing = () => {
     const listing = useSelector((state) => state.listing.listing)
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
+
+    const collectionMetadata = useSelector((state) => {
+        return knownContracts.find(c => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.metadata;
+    });
     const collectionName = useSelector((state) => {
-        return knownContracts.find(c => c.address === listing?.nftAddress)?.name;
-    })
-    const collectionAvatar = useSelector((state) => {
-        let contract = knownContracts.find(c => c.address === listing?.nftAddress);
-        if (contract && contract.metadata?.avatar) {
-            return contract.metadata.avatar;
-        } else {
-            return null;
-        }
-    })
+        return knownContracts.find(c => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.name;
+    });
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
     const [buying, setBuying] = useState(false);
@@ -191,13 +187,16 @@ const Listing = () => {
                                         <h6>Collection</h6>
                                         <div className="item_author">
                                             <div className="author_list_pp">
-                                            <span onClick={viewCollection()}>
-                                                {collectionAvatar ?
-                                                    <img className="lazy" src={collectionAvatar} alt=""/>
-                                                    :
-                                                    <Blockies seed={listing.nftAddress} size={10} scale={5}/>
-                                                }
-                                            </span>
+                                                <span onClick={viewCollection()}>
+                                                    {collectionMetadata?.avatar ?
+                                                        <img className="lazy" src={collectionMetadata.avatar} alt=""/>
+                                                        :
+                                                        <Blockies seed={listing.nftAddress} size={10} scale={5}/>
+                                                    }
+                                                    {collectionMetadata?.verified &&
+                                                        <i className="fa fa-check"></i>
+                                                    }
+                                                </span>
                                             </div>
                                             <div className="author_list_info">
                                                 <span>{collectionName ?? "View Collection"}</span>
@@ -206,7 +205,11 @@ const Listing = () => {
                                     </div>
                                     {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
                                         <div className="col">
-                                            <h6>Rarity Sniper Rank</h6>
+                                            {collectionMetadata?.rarity ?
+                                                <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
+                                                :
+                                                <h6>Rarity Rank</h6>
+                                            }
                                             <div className="item_author">
                                                 <div className="author_list_info">
                                                     <span>{listing.nft.rank}</span>
@@ -220,7 +223,7 @@ const Listing = () => {
                                     <div className="de_tab_content">
                                         <div className="tab-1 onStep fadeIn">
                                             <div className="d-block mb-3">
-                                                <div className="row mt-5">
+                                                <div className="row mt-5 gx-3 gy-2">
                                                     {listing.nft.attributes && listing.nft.attributes.map((data, i) => {
                                                         return (
                                                             <div key={i} className="col-lg-4 col-md-6 col-sm-6">

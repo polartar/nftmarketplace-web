@@ -9,10 +9,10 @@ import Listing from '../Components/pages/listing';
 import Nft from '../Components/pages/nft';
 import MyNfts from '../Components/pages/myNfts';
 import Header from "../Components/menu/header";
-import Rankings from "../Components/pages/rankings";
 import Drops from "../Components/pages/drops";
 import Drop from "../Components/pages/drop";
 import MySales from "../Components/pages/mySales";
+import Collections from "../Components/pages/collections";
 
 export const AppRouter = () => {
 
@@ -50,7 +50,7 @@ export const AppRouter = () => {
                 <Route exact path="/drops" component={Drops} />
                 <Route exact path="/drops/:slug" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>
-                <Route exact path="/rankings" component={Rankings}/>
+                <Route exact path="/collections" component={Collections}/>
                 <Route exact path="/collection/:address" component={Collection} />
                 <Route exact path="/collection/:address/:id" component={Nft} />
                 <Route exact path="/seller/:address" component={Seller} />

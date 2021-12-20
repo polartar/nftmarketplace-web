@@ -51,17 +51,12 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
+    const collectionMetadata = useSelector((state) => {
+        return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
+    });
     const collectionName = useSelector((state) => {
-        return knownContracts.find(c => c.address === address)?.name;
-    })
-    const collectionAvatar = useSelector((state) => {
-        let contract = knownContracts.find(c => c.address === address);
-        if (contract && contract.metadata?.avatar) {
-            return contract.metadata.avatar;
-        } else {
-            return null;
-        }
-    })
+        return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.name;
+    });
 
     useEffect(() => {
         dispatch(getNftDetails(address, id));
@@ -92,10 +87,13 @@ const Nft = () => {
                                     <div className="item_author">
                                         <div className="author_list_pp">
                                             <span onClick={viewCollection()}>
-                                                {collectionAvatar ?
-                                                    <img className="lazy" src={collectionAvatar} alt=""/>
+                                                {collectionMetadata?.avatar ?
+                                                    <img className="lazy" src={collectionMetadata.avatar} alt=""/>
                                                     :
                                                     <Blockies seed={address} size={10} scale={5}/>
+                                                }
+                                                {collectionMetadata?.verified &&
+                                                    <i className="fa fa-check"></i>
                                                 }
                                             </span>
                                         </div>
@@ -106,7 +104,11 @@ const Nft = () => {
                                 </div>
                                 {(typeof nft.rank !== 'undefined' && nft.rank !== null) &&
                                 <div className="col">
-                                    <h6>Rarity Sniper Rank</h6>
+                                    {collectionMetadata?.rarity ?
+                                        <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
+                                        :
+                                        <h6>Rarity Rank</h6>
+                                    }
                                     <div className="item_author">
                                         <div className="author_list_info">
                                             <span>{nft.rank}</span>
@@ -120,10 +122,28 @@ const Nft = () => {
                                 <div className="de_tab_content">
                                     <div className="tab-1 onStep fadeIn">
                                         <div className="d-block mb-3">
-                                            <div className="row mt-5">
+                                            <div className="row mt-5 gx-3 gy-2">
                                                 {nft.attributes && nft.attributes.map((data, i) => {
                                                     return (
-                                                        <div className="col-lg-4 col-md-6 col-sm-6">
+                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                            <a className="nft_attr">
+                                                                <h5>{humanize(data.trait_type)}</h5>
+                                                                <h4>{humanize(data.value)}</h4>
+                                                                {data.occurrence ? (
+                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                    )
+                                                                    :
+                                                                    data.percent && (
+                                                                        <span>{data.percent}% have this trait</span>
+                                                                    )
+                                                                }
+                                                            </a>
+                                                        </div>
+                                                    );
+                                                })}
+                                                {nft.properties && nft.properties.map((data, i) => {
+                                                    return (
+                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                             <a className="nft_attr">
                                                                 <h5>{humanize(data.trait_type)}</h5>
                                                                 <h4>{humanize(data.value)}</h4>

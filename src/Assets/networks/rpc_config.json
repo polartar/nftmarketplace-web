@@ -5,7 +5,7 @@
     "read_rpc" : "https://rpc.nebkas.ro/",
     "symbol" : "CRO",
     "explorer" : "http://cronos.crypto.org/explorer/",
-    "api_base" : "https://api.ebisusbay.biz/",
+    "api_base" : "https://api.ebisusbay.com/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
@@ -18,7 +18,13 @@
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
             "multiToken" : true,
             "id" : 2,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-vip",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/logo.png"
+            }
         },
         {
             "name": "EbisusBay Founder",
@@ -26,7 +32,13 @@
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
             "multiToken" : true,
             "id" : 1,
-            "listable" : false
+            "listable" : false,
+            "metadata": {
+                "slug": "ebisu-founder",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/logo.png"
+            }
         },
         {
             "name" : "Mad Meerkat",
@@ -40,7 +52,8 @@
                 "verified": true,
                 "avatar": "/img/collections/meerkats/avatar.png",
                 "banner": "/img/collections/meerkats/banner.jpg",
-                "card": "/img/collections/crosmonauts/card.png"
+                "card": "/img/collections/crosmonauts/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {
@@ -113,7 +126,13 @@
             "multiToken": false,
             "address" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
             "onChain" : true,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "cronies",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/logo.png"
+            }
         },
         {
             "name" : "Cronos Punk",
@@ -278,6 +297,7 @@
             "slug": "cronies",
             "imgNft": "/img/drops/cronies/cronies-drop.webp",
             "imgPreview": "/img/drops/cronies/cronies-drop.webp",
+            "imgAvatar": "/img/logo.png",
             "title": "Cronies",
             "subtitle": "Commemorating the launch of the Cronos network",
             "p1": "Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.",
@@ -292,7 +312,7 @@
             "abi": [
                 "function mint(uint256 _amount) public payable"
             ],
-            "start": 1639489543,
+            "start": 1639489543000,
             "end": null,
             "referral": false,
             "is1155": true,
@@ -301,8 +321,9 @@
         {
             "id": 1,
             "slug": "founding-member",
-            "imgNft": "/img/drops/founding_member/founding_member.png",
+            "imgNft": "/img/drops/founding_member/founding_member.webp",
             "imgPreview": "/img/drops/founding_member/founding_member.webp",
+            "imgAvatar": "/img/logo.png",
             "title": "Founding Member",
             "subtitle": "Early access to features and reduced fees forever.",
             "p1": "If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.",
@@ -317,7 +338,7 @@
             "abi": [
                 "function mint(uint256 _id, uint256 _amount, bytes _data) public payable"
             ],
-            "start": 1639489543,
+            "start": 1639489543000,
             "end": null,
             "referral": true,
             "discount": "10.0",
@@ -342,8 +363,8 @@
                 "function mint(uint256 count) public payable",
                 "function totalSupply() public view returns (uint256)"
             ],
-            "start": 1639489543,
-            "end": 163949000,
+            "start": 1639489543000,
+            "end": 1639929600000,
             "referral": false,
             "is1155": false,
             "foundersOnly": false
@@ -353,6 +374,7 @@
             "slug": "crostmas",
             "imgNft": "/img/drops/crostmas/crostmas_cards.webp",
             "imgPreview": "/img/drops/crostmas/crostmas_cards.webp",
+            "imgAvatar": "/img/drops/crostmas/avatar.png",
             "title": "CROstmas Cards",
             "subtitle": "CROstmas Cards is a collection on Cronos network.",
             "description":  "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",
@@ -366,7 +388,7 @@
                 "function mint(address _to, uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)"
             ],
-            "start": 1639489543,
+            "start": 1639489543000,
             "end": null,
             "referral": false,
             "is1155": false,
@@ -375,8 +397,8 @@
         {
             "id": 4,
             "slug": "santa-cro",
-            "imgNft": "/img/drops/cro_moon_collage/cromoondrop.gif",
-            "imgPreview": "/img/drops/cro_moon_collage/cromoondrop.gif",
+            "imgNft": "/img/drops/cromoon/cromoondrop.gif",
+            "imgPreview": "/img/drops/cromoon/cromoondrop.gif",
             "title": "SantaCro",
             "subtitle": "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
             "description":  "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Let’s make this Christmas a special one together!",

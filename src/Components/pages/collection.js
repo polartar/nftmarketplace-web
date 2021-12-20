@@ -12,6 +12,7 @@ import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
+import {siPrefixedNumber} from "../../utils";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -112,7 +113,7 @@ const Collection = () => {
                                     {metadata?.avatar ?
                                         <img src={metadata.avatar} alt=""/>
                                         :
-                                        <Blockies seed={collection.address} size={15} scale={10}/>
+                                        <Blockies seed={address.toLowerCase()} size={15} scale={10}/>
                                     }
                                     {metadata?.verified &&
                                         <i className="fa fa-check"></i>
@@ -143,15 +144,15 @@ const Collection = () => {
                             <div className="row">
                                 <div className="col-md-2 col-xs-4">
                                     <h5>Floor</h5>
-                                    <h4>{ethers.utils.commify(Number(collection.floorPrice).toFixed(0))} CRO</h4>
+                                    <h4>{siPrefixedNumber(Number(collection.floorPrice).toFixed(0))} CRO</h4>
                                 </div>
                                 <div className="col-md-2 col-xs-4">
                                     <h5>Volume</h5>
-                                    <h4>{ethers.utils.commify(Number(collection.totalVolume).toFixed(0))} CRO</h4>
+                                    <h4>{siPrefixedNumber(Number(collection.totalVolume).toFixed(0))} CRO</h4>
                                 </div>
                                 <div className="col-md-2 col-xs-4">
                                     <h5>Sales</h5>
-                                    <h4>{ethers.utils.commify(collection.numberOfSales)}</h4>
+                                    <h4>{siPrefixedNumber(collection.numberOfSales)}</h4>
                                 </div>
                                 <div className="col-md-2 col-xs-4">
                                     <h5>Avg. Sale</h5>
@@ -159,7 +160,7 @@ const Collection = () => {
                                         {isNaN(collection.averageSalePrice) ?
                                             "N/A"
                                             :
-                                            ethers.utils.commify(Number(collection.averageSalePrice).toFixed(0)) + " CRO"
+                                            siPrefixedNumber(Number(collection.averageSalePrice).toFixed(0)) + " CRO"
                                         }
                                     </h4>
                                 </div>
@@ -169,7 +170,7 @@ const Collection = () => {
                                 </div>
                                 <div className="col-md-2 col-xs-4">
                                     <h5>Active Listings</h5>
-                                    <h4>{ethers.utils.commify(collection.numberActive)}</h4>
+                                    <h4>{siPrefixedNumber(collection.numberActive)}</h4>
                                 </div>
                             </div>
                         </a>

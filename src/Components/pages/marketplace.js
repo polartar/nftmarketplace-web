@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import {ethers} from "ethers";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
+import {siPrefixedNumber} from "../../utils";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.sticky.white {
@@ -82,15 +83,15 @@ const Marketplace = () => {
                                 <div className="row">
                                     <div className="col-4">
                                         <h5>Volume</h5>
-                                        <h4>{ethers.utils.commify(Number(marketData.totalVolume).toFixed(0))} CRO</h4>
+                                        <h4>{siPrefixedNumber(Number(marketData.totalVolume).toFixed(0))} CRO</h4>
                                     </div>
                                     <div className="col-4">
                                         <h5>Sales</h5>
-                                        <h4>{ethers.utils.commify(Number(marketData.totalSales).toFixed(0))}</h4>
+                                        <h4>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</h4>
                                     </div>
                                     <div className="col-4">
                                         <h5>Active</h5>
-                                        <h4>{ethers.utils.commify(marketData.totalActive)}</h4>
+                                        <h4>{siPrefixedNumber(marketData.totalActive)}</h4>
                                     </div>
                                 </div>
                             </a>

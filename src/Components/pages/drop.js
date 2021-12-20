@@ -76,7 +76,6 @@ const inline = keyframes`
 const Drop = () => {
     const {slug} = useParams();
 
-    const [quantity, setQuantity] = React.useState(1);
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
     const countdownRef = useRef();
     const dispatch = useDispatch();
@@ -171,7 +170,7 @@ const Drop = () => {
                 setDropObject(Object.assign({currentSupply: cronies.count}, dropObject));
             }
         }
-    }, [membership])
+    }, [membership, user, cronies])
 
     // useEffect(async() => {
     //     if(hasEnded()){
@@ -202,22 +201,11 @@ const Drop = () => {
     });
 
     const [referral, setReferral] = useState("");
-
-    const [showSuccess, setShowSuccess] = useState({
-        show : false,
-        hash: ""
-    });
-
-    const closeError = () => {
-        setError({error: false, message: error.message});
-    };
-
-    const closeSuccess = () => {
-        setShowSuccess({
-            show: false,
-            hash: ""
-        });
+    const handleChangeReferralCode = (event) => {
+        const { value } = event.target;
+        setReferral(value);
     }
+
     const [numToMint, setNumToMint] = useState(1);
 
 
@@ -346,8 +334,9 @@ const Drop = () => {
                             <div className="d_profile de-flex">
                                 <div className="de-flex-col">
                                     <div className="profile_avatar">
-                                        <img src="/mock_data/uploads/thumbnail_author_1_6f9ad9e11a.jpg" alt=""/>
-                                        <i className="fa fa-check"></i>
+                                        {drop.imgAvatar &&
+                                            <img src={drop.imgAvatar} alt=""/>
+                                        }
                                         <div className="profile_name">
                                             <h4>
                                                 {drop.author.name}
@@ -407,12 +396,17 @@ const Drop = () => {
                                     <>
                                         <div>
                                             <Form.Label>Quantity</Form.Label>
-                                            <Form.Range value={quantity} min="1" max="10"
-                                                        onChange={e => setQuantity(e.target.value)}/>
+                                            <Form.Range value={numToMint} min="1" max="10"
+                                                        onChange={e => setNumToMint(e.target.value)}/>
                                         </div>
+                                        <Form.Group className="mb-3" controlId="formReferralCode">
+                                            <Form.Label>Referral Code</Form.Label>
+                                            <Form.Control onChange={handleChangeReferralCode} type="email" placeholder="Enter Referral Code" />
+                                            <Form.Text className="text-muted"/>
+                                        </Form.Group>
                                         <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15'
-                                                    onClick={mintNow}>Mint {quantity}</button>
+                                                    onClick={mintNow}>Mint {numToMint}</button>
                                         </div>
                                     </>
                                     :

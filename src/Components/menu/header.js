@@ -46,17 +46,17 @@ const Header = function() {
                                     alt="#"
                                 />
                                 <img
-                                    src="/img/logo-2.png"
+                                    src="/img/logo.png"
                                     className="img-fluid d-3"
                                     alt="#"
                                 />
                                 <img
-                                    src="/img/logo-3.png"
+                                    src="/img/logo.png"
                                     className="img-fluid d-4"
                                     alt="#"
                                 />
                                 <img
-                                    src="/img/logo-light.png"
+                                    src="/img/logo.png"
                                     className="img-fluid d-none"
                                     alt="#"
                                 />
@@ -97,6 +97,12 @@ const Header = function() {
                                 <div className='navbar-item'>
                                     <NavLink to="/marketplace">
                                         Marketplace
+                                        <span className='lines'></span>
+                                    </NavLink>
+                                </div>
+                                <div className='navbar-item'>
+                                    <NavLink to="/collections">
+                                        Collections
                                         <span className='lines'></span>
                                     </NavLink>
                                 </div>

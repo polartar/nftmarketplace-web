@@ -143,10 +143,41 @@ export function classList(classes) {
     .join(" ");
 }
 
+/**
+ * Takes a string and makes it human readable
+ * Removes underscores, adds spaces, etc...
+ *
+ * @param str
+ * @returns {string}
+ */
 export function humanize(str) {
   var i, frags = str.split('_');
   for (i=0; i<frags.length; i++) {
     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
   }
   return frags.join(' ').split(/(?=[A-Z])/).join(' ');
+}
+
+/**
+ * Converts a number to use SI prefixed notation
+ *
+ * @param num
+ * @returns {string|number}
+ */
+export function siPrefixedNumber(num) {
+
+  // Nine Zeroes for Billions
+  return Math.abs(Number(num)) >= 1.0e+9
+
+      ? (Math.abs(Number(num)) / 1.0e+9).toFixed(2) + "B"
+      // Six Zeroes for Millions
+      : Math.abs(Number(num)) >= 1.0e+6
+
+          ? (Math.abs(Number(num)) / 1.0e+6).toFixed(2) + "M"
+          // Three Zeroes for Thousands
+          : Math.abs(Number(num)) >= 1.0e+3
+
+              ? (Math.abs(Number(num)) / 1.0e+3).toFixed(2) + "K"
+
+              : Math.abs(Number(num));
 }

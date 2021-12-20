@@ -1,16 +1,34 @@
 import React from 'react';
-import SliderMain from '../components/SliderMain';
 import Footer from '../components/footer';
 import LatestDropsCollection from "../components/LatestDropsCollection";
+import {createGlobalStyle} from "styled-components";
+import DropsCarousel from '../components/DropsCarousel';
 
+const GlobalStyles = createGlobalStyle`
+  header#myHeader.navbar.sticky.white {
+    background-color: #ff9421;
+    border-bottom: solid 1px #ff9421;
+    color:#fff;
+    background-image: linear-gradient(to right, #ff690e, #ffb84e)
+    -webkit-transform: translate3d(0,0,0);
+  }
+  header#myHeader.navbar.sticky.white a{
+    color: #fff;
+  }
+`;
 
 const Drops = () => (
     <div>
-        <section className="jumbotron breadcumb no-bg h-vh" style={{backgroundImage: `url(${'./img/bg-shape-1.jpg'})`}}>
-            <SliderMain/>
+        <GlobalStyles/>
+        <section className="jumbotron breadcumb no-bg h-vh" style={{backgroundImage: `url(${'./img/background/12.jpg'})`}}>
+            <div className='container'>
+                <div className='row'>
+                    <DropsCarousel/>
+                </div>
+            </div>
         </section>
 
-        <section className='container no-bottom'>
+        <section className='container no-bottom no-top'>
             <div className='row'>
                 <div className='col-lg-12'>
                     <div className='text-center'>
