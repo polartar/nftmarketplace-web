@@ -17,10 +17,10 @@ const LatestDropsCollection = () => {
             <CustomSlide
               key={index}
               index={index + 1}
-              avatar={drop.imgPreview}
-              banner={drop.imgNft}
+              avatar="/img/collections/crosmonauts/avatar.png"
+              banner="/img/collections/crosmonauts/card.png"
               title={drop.title}
-              subtitle={drop.subtitle}
+              // subtitle={drop.subtitle}
               collectionId={drop.address}
               url={`/drops/${drop.slug}`}
             />
