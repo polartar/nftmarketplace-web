@@ -171,7 +171,7 @@ const Drop = () => {
                 setDropObject(Object.assign({currentSupply: cronies.count}, dropObject));
             }
         }
-    }, [membership])
+    }, [membership, user, cronies])
 
     // useEffect(async() => {
     //     if(hasEnded()){
