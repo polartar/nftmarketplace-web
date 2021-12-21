@@ -8,8 +8,7 @@ import { useParams, useHistory  } from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
-import {Alert, Spinner} from "react-bootstrap"
-import { Helmet } from "react-helmet";
+import {Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
@@ -111,21 +110,6 @@ const Listing = () => {
     return (
         <div>
             <GlobalStyles/>
-            {listing &&
-            <Helmet>
-                <title>Ebisu's Bay | {listing.nft.name}</title>
-                <meta name='description' content={listing.nft.description} />
-                <meta property='og:locale' content='en_US' />
-                <meta property='og:type' content='website' />
-                <meta property='og:title' content={listing.nft.name} />
-                <meta property='og:description' content={listing.nft.description} />
-                <meta property='og:image' content={listing.nft.image} />
-                <meta property='og:url' content={'https://app.ebisusbay.com/listing/'+id} />
-                {/*<meta name='twitter:card' content='summary_large_image' />*/}
-                <meta name='twitter:site' content='@EbisusBay' />
-                <meta name='twitter:creator' content='@EbisusBay' />
-            </Helmet>
-            }
             {isLoading ?
                 <section className='container'>
                     <div className='row mt-4'>
