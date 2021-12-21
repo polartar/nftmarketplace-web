@@ -66,6 +66,12 @@
             "address" : "0xcaF00e08D089CD835Dc55cD97Edc66F3f4cF400B",
             "onChain" : false,
             "listable" : true
+        },{
+            "name" : "CryptoLovers",
+            "multiToken": false,
+            "address" : "0xAbd98bB836598A9dab111De5C7Ea9A3309D6FD69",
+            "onChain" : false,
+            "listable" : true
         }
     ]
 }
