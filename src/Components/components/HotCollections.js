@@ -34,7 +34,6 @@ const HotCollections = () => {
               avatar={item.metadata.avatar}
               banner={item.metadata.card}
               title={item.name}
-              subtitle={"some subtitle"}
               collectionId={item.address}
               url={`/collection/${item.address}`}
               verified={item.metadata.verified}

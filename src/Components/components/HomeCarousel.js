@@ -1,10 +1,7 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { carouselCollectionSingle } from './constants';
-import { useSelector, useDispatch } from 'react-redux';
-import api from "../../core/api";
 import config from '../../Assets/networks/rpc_config.json';
 import {useHistory} from "react-router-dom";
 import {createGlobalStyle} from "styled-components";

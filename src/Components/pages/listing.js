@@ -8,8 +8,7 @@ import { useParams, useHistory  } from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
-import {Alert, Spinner} from "react-bootstrap"
-import { Helmet } from "react-helmet";
+import {Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
@@ -18,35 +17,16 @@ const knownContracts = config.known_contracts;
 const GlobalStyles = createGlobalStyle`
   header#myHeader.navbar.white {
     background-color: #ff9421;
-    border-bottom: solid 1px #dddddd;
+    border-bottom: 0;
+    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
   }
-  header#myHeader.navbar .search #quick_search{
+  header#myHeader.navbar.sticky.white {
+    background: #ff9421;
+    border-bottom: 0;
+    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
+  }
+  header#myHeader.navbar.sticky.white a{
     color: #fff;
-    background: rgba(255, 255, 255, .1);
-  }
-  header#myHeader.navbar.white .btn, .navbar.white a, .navbar.sticky.white a{
-    color: #fff;
-  }
-  .mr40{
-    margin-right: 40px;
-  }
-  .mr15{
-    margin-right: 15px;
-  }
-  .btn2{
-    background: #f6f6f6;
-    color: #8364E2 !important;
-  }
-  @media only screen and (max-width: 1199px) {
-    .navbar{
-      background: #ff7814;
-    }
-    .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
-      background: #111;
-    }
-    .item-dropdown .dropdown a{
-      color: #111 !important;
-    }
   }
 `;
 
@@ -130,21 +110,6 @@ const Listing = () => {
     return (
         <div>
             <GlobalStyles/>
-            {listing &&
-            <Helmet>
-                <title>Ebisu's Bay | {listing.nft.name}</title>
-                <meta name='description' content={listing.nft.description} />
-                <meta property='og:locale' content='en_US' />
-                <meta property='og:type' content='website' />
-                <meta property='og:title' content={listing.nft.name} />
-                <meta property='og:description' content={listing.nft.description} />
-                <meta property='og:image' content={listing.nft.image} />
-                <meta property='og:url' content={'https://app.ebisusbay.com/listing/'+id} />
-                {/*<meta name='twitter:card' content='summary_large_image' />*/}
-                <meta name='twitter:site' content='@EbisusBay' />
-                <meta name='twitter:creator' content='@EbisusBay' />
-            </Helmet>
-            }
             {isLoading ?
                 <section className='container'>
                     <div className='row mt-4'>

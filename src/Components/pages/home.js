@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import ListingCollection from "../components/ListingCollection";
 import {useHistory} from "react-router-dom";
 import HotCollections from "../components/HotCollections";
-import Reveal from "react-awesome-reveal";
 import HomeCarousel from "../components/HomeCarousel";
 import { keyframes } from "@emotion/react";
+import {siPrefixedNumber} from "../../utils";
+import {getMarketData} from "../../GlobalState/marketplaceSlice";
 
 const fadeInUp = keyframes`
   0% {
@@ -22,34 +24,6 @@ const fadeInUp = keyframes`
 `;
 
 const GlobalStyles = createGlobalStyle`
-  header#myHeader.navbar.sticky.white {
-    background: #212428;
-    border-bottom: 0;
-    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
-  }
-  header#myHeader.navbar.white .btn, .navbar.white a, .navbar.sticky.white a{
-    color: #fff;
-  }
-  header#myHeader .dropdown-toggle::after{
-    color: #fff;
-  }
-  header#myHeader .logo .d-block{
-    display: none !important;
-  }
-  header#myHeader .logo .d-none{
-    display: none !important;
-  }
-  header#myHeader .logo .d-4{
-    display: block !important;
-  }
-  .navbar .menu-line, .navbar .menu-line1, .navbar .menu-line2{
-    background: #fff;
-  }
-  @media only screen and (max-width: 1199px) { 
-    .navbar{
-      background: #ff7814;
-    }
-  }
   .jumbotron h1, .jumbotron h3, .jumbotron h5, .jumbotron p {
     color: #fff;
   }
@@ -61,10 +35,19 @@ const GlobalStyles = createGlobalStyle`
 
 const Home = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const marketData = useSelector((state) => {
+        return state.marketplace.marketData;
+    })
 
     const navigateTo = (link) => {
         history.push(link);
     }
+
+    useEffect(async function() {
+        dispatch(getMarketData())
+    }, []);
 
     return (
         <div>
@@ -83,30 +66,40 @@ const Home = () => {
                                 data stored on a digital ledger, called a blockchain, that certifies a
                                 digital asset to be unique and therefore not interchangeable</p></div>
                             <div className="spacer-10"></div>
+                            <div className="onStep d-inline css-1i8mt5g">
+                                <span className="btn-main inline lead" onClick={()=> window.open('/marketplace', "_self")}>Explore</span>
+                            </div>
                             <div className="onStep d-inline css-1i8mt5g"><span
-                                className="btn-main inline lead">Explore</span></div>
-                            <div className="onStep d-inline css-1i8mt5g"><span
-                                className="btn-main inline white lead">Create</span></div>
+                                className="btn-main inline white lead" onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")}>Become a Creator</span>
+                            </div>
                             <div className="onStep d-inline css-1i8mt5g">
                                 <div className="mb-sm-30"></div>
                             </div>
                             <div className="onStep d-inline css-51map3">
                                 <div className="row">
                                     <div className="spacer-single"></div>
-                                    <div className="row">
-                                        <div className="col-lg-4 col-md-6 col-sm-4 mb30">
-                                            <div className="de_count text-left"><h3><span>94215</span>
-                                            </h3><h5 className="id-color">Collectibles</h5></div>
+                                    {marketData && (
+                                        <div className="row">
+                                            <div className="col-lg-4 col-md-6 col-sm-4 mb30">
+                                                <div className="de_count text-left">
+                                                    <h3><span>{siPrefixedNumber(Number(marketData.totalVolume).toFixed(0))}</span></h3>
+                                                    <h5 className="id-color">Volume</h5>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-4 col-md-6 col-sm-4 mb30">
+                                                <div className="de_count text-left">
+                                                    <h3><span>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</span></h3>
+                                                    <h5 className="id-color">NFTs Sold</h5>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-4 col-md-6 col-sm-4 mb30">
+                                                <div className="de_count text-left">
+                                                    <h3><span>{siPrefixedNumber(marketData.totalActive)}</span></h3>
+                                                    <h5 className="id-color">Active Listings</h5>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="col-lg-4 col-md-6 col-sm-4 mb30">
-                                            <div className="de_count text-left"><h3><span>27</span>k
-                                            </h3><h5 className="id-color">Auctions</h5></div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6 col-sm-4 mb30">
-                                            <div className="de_count text-left"><h3><span>4</span>k</h3>
-                                                <h5 className="id-color">NFT Artist</h5></div>
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

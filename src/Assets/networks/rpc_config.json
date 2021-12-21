@@ -23,7 +23,7 @@
                 "slug": "ebisu-vip",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/logo.png"
+                "avatar": "/img/avatar.jpg"
             }
         },
         {
@@ -37,7 +37,7 @@
                 "slug": "ebisu-founder",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/logo.png"
+                "avatar": "/img/avatar.jpg"
             }
         },
         {
@@ -52,7 +52,7 @@
                 "verified": true,
                 "avatar": "/img/collections/meerkats/avatar.png",
                 "banner": "/img/collections/meerkats/banner.jpg",
-                "card": "/img/collections/crosmonauts/card.png",
+                "card": "/img/collections/meerkats/card.jpg",
                 "rarity": "rarity_sniper"
             }
         },
@@ -104,7 +104,7 @@
                 "verified": true,
                 "avatar": "/img/collections/chimps/avatar.png",
                 "banner": "/img/collections/chimps/banner.png",
-                "card": "/img/collections/crosmonauts/card.png"
+                "card": "/img/collections/chimps/card.png"
             }
         },
         {
@@ -131,7 +131,7 @@
                 "slug": "cronies",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/logo.png"
+                "avatar": "/img/avatar.jpg"
             }
         },
         {
@@ -297,7 +297,7 @@
             "slug": "cronies",
             "imgNft": "/img/drops/cronies/cronies-drop.webp",
             "imgPreview": "/img/drops/cronies/cronies-drop.webp",
-            "imgAvatar": "/img/logo.png",
+            "imgAvatar": "/img/avatar.jpg",
             "title": "Cronies",
             "subtitle": "Commemorating the launch of the Cronos network",
             "p1": "Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.",
@@ -323,7 +323,7 @@
             "slug": "founding-member",
             "imgNft": "/img/drops/founding_member/founding_member.webp",
             "imgPreview": "/img/drops/founding_member/founding_member.webp",
-            "imgAvatar": "/img/logo.png",
+            "imgAvatar": "/img/avatar.jpg",
             "title": "Founding Member",
             "subtitle": "Early access to features and reduced fees forever.",
             "p1": "If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.",
