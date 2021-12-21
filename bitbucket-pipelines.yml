@@ -1,13 +1,18 @@
 pipelines:
   # default:
-  # - step:
-  #     name: Integration test
-  #     image: node:16
-  #     script:
-  #       - apt-get update
-  #       - node --version
-  #       - npm install --no-audit
-  #       - npm run test
+  #   - step:
+  #       name: Integration test
+  #       image: node:16
+  #       runs-on:
+  #         - 'self.hosted'
+  #         - 'linux'
+  #         - 'web'
+  #       size: 1x
+  #       script:
+  #         - apt-get update
+  #         - node --version
+  #         - npm install --no-audit
+  #         #- npm run test
   branches:
     testnet:
       - step:
@@ -60,6 +65,7 @@ pipelines:
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            - aws s3 cp index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
             - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
     dev:
       - step:
@@ -112,6 +118,7 @@ pipelines:
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            - aws s3 cp index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
             - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
     prod:
       - step:
@@ -162,4 +169,5 @@ pipelines:
             - aws --version
             # Deployment
             - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            - aws s3 cp index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
             - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
