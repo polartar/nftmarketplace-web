@@ -45,8 +45,8 @@ const SoldNftCard = ({
                     <span>
                         <h4>{ nft.name }</h4>
                     </span>
-                    <div className="has_offers">
-                        Sold for { ethers.utils.commify(nft.price) } CRO
+                    <div className="nft__item_price">
+                        <span className="m-0">Sold for { ethers.utils.commify(nft.price) } CRO</span>
                     </div>
                     <div className="has_offers">
                         { nft.saleTime }
