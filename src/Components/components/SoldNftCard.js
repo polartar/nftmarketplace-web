@@ -15,7 +15,7 @@ const Outer = styled.div`
 
 const SoldNftCard = ({
     nft,
-    className = 'd-item p-3',
+    className = 'col-sm-12 col-md-12 col-lg-6 d-item',
     width,
     onImgLoad
 }) => {
@@ -25,15 +25,15 @@ const SoldNftCard = ({
         history.push(link);
     }
 
-    const viewPurchaser = () => () => {
-        history.push(`/seller/${nft.purchaser}`);
+    const viewListingDetails = () => {
+        navigateTo(`/listing/${ nft.listingId }`);
     }
 
     return (
         <div className={ className }>
-            <div className="nft_sold__item d-flex flex-row gap-3" onClick={ () => navigateTo(`/listing/${ nft.listingId }`) }>
-                <div style={ { height: `150px` } }>
-                    <div className="h-100" style={ width ? { width: `${width}px` } : {} }>
+            <div className="nft_sold__item d-flex flex-row gap-3" onClick={ viewListingDetails }>
+                <div style={ { height: `100px` } }>
+                    <div className="h-100" style={ width ? { width: `${ width }px` } : {} }>
                         <Outer>
                             <img onLoad={ onImgLoad }
                                  className="h-100"
@@ -41,7 +41,7 @@ const SoldNftCard = ({
                         </Outer>
                     </div>
                 </div>
-                <div className="nft__item_info mb-2">
+                <div className="nft__item_info">
                     <span>
                         <h4>{ nft.name }</h4>
                     </span>
