@@ -28,13 +28,6 @@ const GlobalStyles = createGlobalStyle`
       background: #ff9421;
     }
   }
-  .jumbotron h1, .jumbotron h3, .jumbotron h5, .jumbotron p {
-    color: #fff;
-  }
-  .de_count h3 {
-    font-size: 36px;
-    margin-bottom: 0px;
-  }
 `;
 
 const Header = function() {
