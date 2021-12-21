@@ -141,21 +141,6 @@ const Drop = () => {
         }
     }, [membership, user, cronies])
 
-    // useEffect(async() => {
-    //     if(hasEnded()){
-    //         console.log('ended');
-    //     }else{
-    //         console.log('not ended');
-    //     }
-    // }, [dropObject])
-    //
-    // function hasEnded() {
-    //     const endDatePassed = Date.parse(drop.end) < new Date();
-    //     const soldOut = dropObject?.currentSupply >= dropObject?.totalSupply;
-    //     console.log(drop, dropObject);
-    //     return endDatePassed || soldOut;
-    // }
-
     const [isLive, setIsLive] = useState(true);
     const [startTime, setStartTime] = useState(1638565200000);
     const [loading, setLoading] = useState(true);

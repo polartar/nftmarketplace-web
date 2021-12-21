@@ -200,10 +200,10 @@ const AccountMenu = function() {
                                     </div>
                                     :
                                     <div className="d-wallet">
-                                        <h4>sdfg</h4>
+                                        <h4>Referral Code</h4>
                                         <div className="d-flex justify-content-between">
                                             <button className="btn_menu" title="Register Referral Code"
-                                                    onClick={registerCode}>Copy
+                                                    onClick={registerCode}>Register
                                             </button>
                                         </div>
                                     </div>
