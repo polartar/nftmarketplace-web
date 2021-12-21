@@ -304,8 +304,9 @@ export async function getNftSalesForAddress(walletAddress) {
 
         const listings = json.listings || [];
 
+        const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
 
-        const filteredListings = listings.map(item => {
+        const filteredListings = sortedListings.map(item => {
 
             const { saleTime, listingId, price, nft, purchaser } = item;
 
