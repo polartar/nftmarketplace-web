@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import ListingCollection from "../components/ListingCollection";
 import {useHistory} from "react-router-dom";
 import HotCollections from "../components/HotCollections";
-import Reveal from "react-awesome-reveal";
 import HomeCarousel from "../components/HomeCarousel";
 import { keyframes } from "@emotion/react";
+import {siPrefixedNumber} from "../../utils";
+import {getMarketData} from "../../GlobalState/marketplaceSlice";
 
 const fadeInUp = keyframes`
   0% {
@@ -33,10 +35,19 @@ const GlobalStyles = createGlobalStyle`
 
 const Home = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const marketData = useSelector((state) => {
+        return state.marketplace.marketData;
+    })
 
     const navigateTo = (link) => {
         history.push(link);
     }
+
+    useEffect(async function() {
+        dispatch(getMarketData())
+    }, []);
 
     return (
         <div>
@@ -67,20 +78,28 @@ const Home = () => {
                             <div className="onStep d-inline css-51map3">
                                 <div className="row">
                                     <div className="spacer-single"></div>
-                                    <div className="row">
-                                        <div className="col-lg-4 col-md-6 col-sm-4 mb30">
-                                            <div className="de_count text-left"><h3><span>94215</span>
-                                            </h3><h5 className="id-color">Collectibles</h5></div>
+                                    {marketData && (
+                                        <div className="row">
+                                            <div className="col-lg-4 col-md-6 col-sm-4 mb30">
+                                                <div className="de_count text-left">
+                                                    <h3><span>{siPrefixedNumber(Number(marketData.totalVolume).toFixed(0))}</span></h3>
+                                                    <h5 className="id-color">Volume</h5>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-4 col-md-6 col-sm-4 mb30">
+                                                <div className="de_count text-left">
+                                                    <h3><span>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</span></h3>
+                                                    <h5 className="id-color">NFTs Sold</h5>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-4 col-md-6 col-sm-4 mb30">
+                                                <div className="de_count text-left">
+                                                    <h3><span>{siPrefixedNumber(marketData.totalActive)}</span></h3>
+                                                    <h5 className="id-color">Active Listings</h5>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="col-lg-4 col-md-6 col-sm-4 mb30">
-                                            <div className="de_count text-left"><h3><span>27</span>k
-                                            </h3><h5 className="id-color">Auctions</h5></div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6 col-sm-4 mb30">
-                                            <div className="de_count text-left"><h3><span>4</span>k</h3>
-                                                <h5 className="id-color">NFT Artist</h5></div>
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

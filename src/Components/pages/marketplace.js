@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
-import {ethers} from "ethers";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
 import {siPrefixedNumber} from "../../utils";
 
