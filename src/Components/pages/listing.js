@@ -30,8 +30,6 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-
-
 const Listing = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -61,6 +59,12 @@ const Listing = () => {
 
     const viewSeller = () => () => {
         history.push(`/seller/${listing.seller}`);
+    }
+
+    const fullImage = () => {
+        let link = listing.nft.original_image.split('://')[1];
+
+        return `https://ipfs.io/ipfs/${link}`;
     }
 
     const showBuy = () => async () => {
@@ -125,7 +129,14 @@ const Listing = () => {
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
                             {listing &&
-                            <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                                <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            }
+                            {listing && listing.nft.original_image &&
+                                <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
+                                    <span onClick={() => window.open(fullImage(), "_blank")}>
+                                        View Full Image <i className="fa fa-external-link"></i>
+                                    </span>
+                                </div>
                             }
                         </div>
                         <div className="col-md-6">

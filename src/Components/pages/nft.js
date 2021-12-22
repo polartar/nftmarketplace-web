@@ -47,6 +47,12 @@ const Nft = () => {
         history.push(`/collection/${address}`);
     }
 
+    const fullImage = () => {
+        let link = nft.original_image.split('://')[1];
+
+        return `https://ipfs.io/ipfs/${link}`;
+    }
+
     return (
         <div>
         <GlobalStyles/>
@@ -54,7 +60,14 @@ const Nft = () => {
                 <div className='row mt-md-5 pt-md-4'>
                     <div className="col-md-6 text-center">
                         {nft &&
-                        <img src={nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            <img src={nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                        }
+                        {nft && nft.original_image &&
+                            <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
+                                <span onClick={() => window.open(fullImage(), "_blank")}>
+                                    View Full Image <i className="fa fa-external-link"></i>
+                                </span>
+                            </div>
                         }
                     </div>
                     <div className="col-md-6">
