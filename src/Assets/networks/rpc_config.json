@@ -204,7 +204,15 @@
             "multiToken" : false,
             "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "cronoseyez",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronoseyez/avatar.jpg",
+                "banner": "/img/collections/cronoseyez/banner.jpg",
+                "card": "/img/collections/cronoseyez/card.jpg"
+            }
         }, {
             "name" : "CROstmas Gnome",
             "multiToken" : false,
@@ -222,7 +230,15 @@
             "multiToken" : false,
             "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "elons-adventure",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/barbara/elon/avatar.jpg",
+                "banner": "/img/collections/barbara/elon/banner.jpg",
+                "card": "/img/collections/barbara/elon/card.jpg"
+            }
         },{
             "name" : "GameArtNFT ",
             "multiToken" : false,
@@ -234,7 +250,15 @@
             "multiToken" : false,
             "address" : "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
             "onChain" : false,
-            "listable" : false
+            "listable" : false,
+            "metadata": {
+                "slug": "sneaky-penguins-club",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/sneakypenguins/avatar.png",
+                "banner": "/img/collections/sneakypenguins/banner.png",
+                "card": "/img/collections/sneakypenguins/card.png"
+            }
         },{
             "name" : "CroBits",
             "multiToken" : false,
@@ -260,7 +284,15 @@
             "multiToken": false,
             "address" : "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-by-barbara",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/barbara/ebisu/avatar.jpg",
+                "banner": "/img/collections/barbara/ebisu/banner.jpg",
+                "card": "/img/collections/barbara/ebisu/card.jpg"
+            }
         },
         {
             "name" : "Cronos Dolphinos",
@@ -281,7 +313,15 @@
             "multiToken": false,
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
             "onChain": false,
-            "listable": true
+            "listable": true,
+            "metadata": {
+                "slug": "cro-santa",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/santacro/avatar.png",
+                "banner": "/img/collections/santacro/banner.png",
+                "card": "/img/collections/santacro/card.png"
+            }
         },
         {
             "name": "Cro Sharks ",
