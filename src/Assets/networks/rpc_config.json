@@ -294,7 +294,15 @@
             "multiToken" : false,
             "address" : "0xdc29c27b6adE7b172359EC1746a02B3304e974d8",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "redpandas",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/redpandas/avatar.png",
+                "banner": "/img/collections/redpandas/banner.png",
+                "card": "/img/collections/redpandas/card.png"
+            }
         },{
             "name" : "Genesis Rock",
             "multiToken" : true,
