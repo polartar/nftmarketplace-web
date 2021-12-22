@@ -230,7 +230,15 @@
             "multiToken" : false,
             "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "elons-adventure",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/barbara/elon/avatar.jpg",
+                "banner": "/img/collections/barbara/elon/banner.jpg",
+                "card": "/img/collections/barbara/elon/card.jpg"
+            }
         },{
             "name" : "GameArtNFT ",
             "multiToken" : false,
