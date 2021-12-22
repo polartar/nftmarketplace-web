@@ -9,9 +9,8 @@ const MySoldNftCollection = ({ walletAddress = null}) => {
 
     const dispatch = useDispatch();
     const [width, setWidth] = useState(0);
-    const user = useSelector((state) => state.user);
     const isLoading = useSelector((state) => state.user.mySoldNftsFetching);
-    const mySoldNfts = useSelector((state) => user.mySoldNfts);
+    const mySoldNfts = useSelector((state) => state.user.mySoldNfts);
 
     const onImgLoad = ({target:img}) => {
         let currentWidth = width;
@@ -32,7 +31,7 @@ const MySoldNftCollection = ({ walletAddress = null}) => {
 
     return (
         <>
-            <div className='row d-flex gap-3 flex-column'>
+            <div className='row'>
                 {mySoldNfts && mySoldNfts.map( (nft, index) => (
                     <SoldNftCard
                         nft={nft}

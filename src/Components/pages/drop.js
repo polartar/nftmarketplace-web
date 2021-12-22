@@ -141,21 +141,6 @@ const Drop = () => {
         }
     }, [membership, user, cronies])
 
-    // useEffect(async() => {
-    //     if(hasEnded()){
-    //         console.log('ended');
-    //     }else{
-    //         console.log('not ended');
-    //     }
-    // }, [dropObject])
-    //
-    // function hasEnded() {
-    //     const endDatePassed = Date.parse(drop.end) < new Date();
-    //     const soldOut = dropObject?.currentSupply >= dropObject?.totalSupply;
-    //     console.log(drop, dropObject);
-    //     return endDatePassed || soldOut;
-    // }
-
     const [isLive, setIsLive] = useState(true);
     const [startTime, setStartTime] = useState(1638565200000);
     const [loading, setLoading] = useState(true);
@@ -368,11 +353,14 @@ const Drop = () => {
                                             <Form.Range value={numToMint} min="1" max="10"
                                                         onChange={e => setNumToMint(e.target.value)}/>
                                         </div>
-                                        <Form.Group className="mb-3" controlId="formReferralCode">
-                                            <Form.Label>Referral Code</Form.Label>
-                                            <Form.Control onChange={handleChangeReferralCode} type="email" placeholder="Enter Referral Code" />
-                                            <Form.Text className="text-muted"/>
-                                        </Form.Group>
+                                        {dropObject?.referral ??
+                                            <Form.Group className="mb-3" controlId="formReferralCode">
+                                                <Form.Label>Referral Code</Form.Label>
+                                                <Form.Control onChange={handleChangeReferralCode} type="text"
+                                                              placeholder="Enter Referral Code"/>
+                                                <Form.Text className="text-muted"/>
+                                            </Form.Group>
+                                        }
                                         <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15'
                                                     onClick={mintNow}>Mint {numToMint}</button>

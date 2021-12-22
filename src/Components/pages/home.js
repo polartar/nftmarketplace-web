@@ -62,9 +62,11 @@ const Home = () => {
                             <div className="onStep css-2yud45"><h1 className="col-white">Discover <span
                                 className="color">rare</span> digital art and collect NFTs</h1>
                             </div>
-                            <div className="onStep css-gb9rv5"><p className="lead col-white">Unit of
-                                data stored on a digital ledger, called a blockchain, that certifies a
-                                digital asset to be unique and therefore not interchangeable</p></div>
+                            <div className="onStep css-gb9rv5">
+                                <p className="lead col-white">
+                                    Ebisu's Bay is the first NFT marketplace on Cronos. Create, buy, sell, trade and enjoy the #crofam NFT community
+                                </p>
+                            </div>
                             <div className="spacer-10"></div>
                             <div className="onStep d-inline css-1i8mt5g">
                                 <span className="btn-main inline lead" onClick={()=> window.open('/marketplace', "_self")}>Explore</span>

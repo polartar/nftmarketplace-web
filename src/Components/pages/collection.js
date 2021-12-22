@@ -1,18 +1,25 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
-import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
-import TopFilterBar from '../components/TopFilterBar';
-import { knownContracts, getCollectionData } from '../../GlobalState/marketplaceSlice'
+import {
+    knownContracts,
+    init,
+    fetchListings,
+    getStats,
+    filterListingsByTrait
+} from '../../GlobalState/collectionSlice'
 import {Contract, ethers} from "ethers";
 import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
 import {siPrefixedNumber} from "../../utils";
+import {Accordion, Form} from "react-bootstrap";
+import CollectionListingsGroup from "../components/CollectionListingsGroup";
+import CollectionFilterBar from "../components/CollectionFilterBar";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -23,10 +30,15 @@ const Collection = () => {
 
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
     const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
-    const[royalty, setRoyalty] = useState(null);
 
-    const collection = useSelector((state) => {
-        return state.marketplace.collection;
+    const[royalty, setRoyalty] = useState(null);
+    const[filteredTraits, setFilteredTraits] = useState([]);
+    const[metadata, setMetadata] = useState(null);
+
+    const listings = useSelector((state) => state.collection.listings)
+    const collectionStats = useSelector((state) => state.collection.stats);
+    const canLoadMore = useSelector((state) => {
+        return state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages;
     });
 
     const collectionName = () => {
@@ -35,31 +47,85 @@ const Collection = () => {
         return contract ? contract.name : 'Collection';
     }
 
-    const user = useSelector((state) => {
-        return state.user;
-    });
-    const marketplace = useSelector((state) => {
-        return state.marketplace;
-    });
-    const[metadata, setMetadata] = useState(null);
-
     const handleCopy = (code) => () =>{
         navigator.clipboard.writeText(code);
         toast.success('Copied!');
     }
+
+    const handleCheck = (event, traitCategory) => {
+        const { id, checked } = event.target;
+        if (checked) {
+            setFilteredTraits(prev => {
+                let ft = {...prev};
+
+                if (!ft[traitCategory]) {
+                    ft[traitCategory] = [id];
+                } else {
+                    let arr = [...ft[traitCategory]];
+                    arr.push(id);
+                    ft[traitCategory] = arr;
+                }
+
+                return {...ft}
+            });
+        } else {
+            setFilteredTraits(prev => {
+                let ft = {...prev};
+
+                if (!ft[traitCategory]) {
+                    return {...ft};
+                }
+                const filtered = ft[traitCategory].filter(t => t !== id);
+                if (filtered.length > 0) {
+                    ft[traitCategory] = filtered;
+                } else {
+                    delete ft[traitCategory];
+                }
+                return {...ft}
+            });
+        }
+    }
+
+    const hasTraits = () => {
+        return collectionStats?.traits != null;
+    }
+
+    const loadMore = () => {
+        dispatch(fetchListings());
+    }
+
+    useEffect(async () => {
+        let sort = {
+            type: 'listingId',
+            direction: 'desc'
+        }
+
+        let filter = {
+            type: 'collection',
+            address: address
+        }
+
+        dispatch(init(sort, filter));
+        dispatch(fetchListings());
+    }, [dispatch]);
 
     useEffect(() => {
         let extraData = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
         if (extraData) {
             setMetadata(extraData.metadata);
         }
-    });
+    }, [address]);
 
     useEffect(async () => {
-        dispatch(getCollectionData(address));
+        dispatch(getStats(address));
         let royalties = await readMarket.royalties(address)
         setRoyalty((royalties[1] / 10000) * 100);
     }, [dispatch, address]);
+
+
+    useEffect(async () => {
+        dispatch(filterListingsByTrait(filteredTraits));
+    }, [filteredTraits]);
 
     return (
         <div>
@@ -74,7 +140,7 @@ const Collection = () => {
                 <div className='row'>
                     <div className="col-md-12">
                         <div className="d_profile">
-                            {collection &&
+                            {collectionStats&&
                             <div className="profile_avatar">
                                 <div className="d_profile_img">
                                     {metadata?.avatar ?
@@ -104,52 +170,83 @@ const Collection = () => {
             </section>
 
             <section className='container no-top'>
-                <div className='row'>
-                    {collection && (
-                    <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
-                        <a className="nft_attr">
-                            <div className="row">
-                                <div className="col-md-2 col-xs-4">
-                                    <h5>Floor</h5>
-                                    <h4>{siPrefixedNumber(Number(collection.floorPrice).toFixed(0))} CRO</h4>
-                                </div>
-                                <div className="col-md-2 col-xs-4">
-                                    <h5>Volume</h5>
-                                    <h4>{siPrefixedNumber(Number(collection.totalVolume).toFixed(0))} CRO</h4>
-                                </div>
-                                <div className="col-md-2 col-xs-4">
-                                    <h5>Sales</h5>
-                                    <h4>{siPrefixedNumber(collection.numberOfSales)}</h4>
-                                </div>
-                                <div className="col-md-2 col-xs-4">
-                                    <h5>Avg. Sale</h5>
-                                    <h4>
-                                        {isNaN(collection.averageSalePrice) ?
-                                            "N/A"
-                                            :
-                                            siPrefixedNumber(Number(collection.averageSalePrice).toFixed(0)) + " CRO"
-                                        }
-                                    </h4>
-                                </div>
-                                <div className="col-md-2 col-xs-4">
-                                    <h5>Royalty</h5>
-                                    <h4>{royalty}%</h4>
-                                </div>
-                                <div className="col-md-2 col-xs-4">
-                                    <h5>Active Listings</h5>
-                                    <h4>{siPrefixedNumber(collection.numberActive)}</h4>
-                                </div>
+                    {collectionStats && (
+                        <div className="row">
+                            <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
+                                <a className="nft_attr">
+                                    <div className="row">
+                                        <div className="col-md-2 col-xs-4">
+                                            <h5>Floor</h5>
+                                            <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
+                                        </div>
+                                        <div className="col-md-2 col-xs-4">
+                                            <h5>Volume</h5>
+                                            <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
+                                        </div>
+                                        <div className="col-md-2 col-xs-4">
+                                            <h5>Sales</h5>
+                                            <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
+                                        </div>
+                                        <div className="col-md-2 col-xs-4">
+                                            <h5>Avg. Sale</h5>
+                                            <h4>
+                                                {isNaN(collectionStats.averageSalePrice) ?
+                                                    "N/A"
+                                                    :
+                                                    siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0)) + " CRO"
+                                                }
+                                            </h4>
+                                        </div>
+                                        <div className="col-md-2 col-xs-4">
+                                            <h5>Royalty</h5>
+                                            <h4>{royalty}%</h4>
+                                        </div>
+                                        <div className="col-md-2 col-xs-4">
+                                            <h5>Active Listings</h5>
+                                            <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
+                        </div>
                     )}
-                    <div className='col-lg-12'>
-                        <TopFilterBar showFilter={false}/>
+                <div className='row'>
+                    <CollectionFilterBar showFilter={false}/>
+                </div>
+                <div className="row">
+                    {hasTraits() &&
+                        <div className='col-md-3 d-none d-md-block'>
+                            <h3>Attributes</h3>
+                            <Accordion>
+                                {collectionStats?.traits && Object.entries(collectionStats.traits).map((trait, key) => (
+                                    <Accordion.Item eventKey={key} key={key}>
+                                        <Accordion.Header>{trait[0]}</Accordion.Header>
+                                        <Accordion.Body>
+                                            {Object.entries(trait[1]).map((stats, value) => (
+                                                <div key={value}>
+                                                    <Form.Check
+                                                        type="checkbox"
+                                                        id={stats[0]}
+                                                        label={stats[0]}
+                                                        onChange={(t) => handleCheck(t, trait[0])}
+                                                    />
+                                                </div>
+                                            ))}
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                ))}
+                            </Accordion>
+                        </div>
+                    }
+                    <div className={hasTraits() ? 'col-md-9' : 'col-md-12'}>
+                        <CollectionListingsGroup
+                            listings={listings}
+                            canLoadMore={canLoadMore}
+                            loadMore={loadMore}
+                        />
                     </div>
                 </div>
-                <ListingCollection collectionId={address}/>
             </section>
-
 
             <Footer/>
         </div>

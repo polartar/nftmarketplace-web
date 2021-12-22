@@ -104,7 +104,8 @@
                 "verified": true,
                 "avatar": "/img/collections/chimps/avatar.png",
                 "banner": "/img/collections/chimps/banner.png",
-                "card": "/img/collections/chimps/card.png"
+                "card": "/img/collections/chimps/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {
@@ -176,10 +177,10 @@
             "listable" : true
         },{
             "name" : "Petite Planets Gen 1 Governor Medals",
-             "multiToken" : false,
-             "address" : "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
-             "onChain" : false,
-             "listable" : true
+            "multiToken" : false,
+            "address" : "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
+            "onChain" : false,
+            "listable" : true
         }, {
             "name" : "Day One Supporter",
             "multiToken" : false,

@@ -312,13 +312,13 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                         onImgLoad={onImgLoad}
                         height={height}
                         canTransfer={true}
-                        canSell={nft.listable}
+                        canSell={nft.listable && !nft.listed}
                         canCancel={nft.listed && nft.listingId}
-                        canUpdate={false}
+                        canUpdate={nft.listable && nft.listed}
                         onTransferButtonPressed={showTransferDialog(nft)}
                         onSellButtonPressed={showListDialog(nft)}
+                        onUpdateButtonPressed={showListDialog(nft)}
                         onCancelButtonPressed={showCancelDialog(nft)}
-                        // onUpdateButtonPressed={showTransferDialog(nft)}
                         newTab={true}
                     />
                 ))}

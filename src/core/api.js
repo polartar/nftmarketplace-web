@@ -29,7 +29,7 @@ export default api;
 //     })
 // });
 
-export async function sortAndFetchListings(page, sort, filterType, filterAddress) {
+export async function sortAndFetchListings(page, sort, filterType, filterAddress, traits, search) {
     let pagesize = 12;
 
     let query = {
@@ -39,7 +39,7 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
         sortBy: 'tokenId',
         direction: 'asc'
     };
-    if (filterAddress != null) query[filterType] = filterAddress;
+    if (filterAddress != null) query[filterType] = filterAddress.toLowerCase();
     if (sort != null && sort.type != null) {
         const sortProps = {
             sortBy: sort.type,
@@ -47,6 +47,9 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
         };
         query = {...query, ...sortProps}
     }
+    if (traits != null && Object.entries(traits).length > 0) query['traits'] = JSON.stringify(traits);
+    if (search) query['search'] = search;
+
     const queryString = new URLSearchParams(query);
 
     const url = new URL(api.listings, `${api.baseUrl}`);
@@ -108,6 +111,18 @@ export async function getCollectionMetadata(contractAddress, sort, filter) {
 
     const uri = `${api.baseUrl}${api.collections}?${queryString}`;
     return await (await fetch(uri)).json();
+}
+
+export async function getCollectionTraits(contractAddress) {
+    try {
+        const internalUri = `https://app.ebisusbay.com/files/${contractAddress.toLowerCase()}/rarity.json`;
+
+        return await (await fetch(internalUri)).json();
+    } catch (error) {
+        console.log(error);
+    }
+
+    return null;
 }
 
 export async function getNftsForAddress(walletAddress, walletProvider, onNftLoaded) {
@@ -304,8 +319,9 @@ export async function getNftSalesForAddress(walletAddress) {
 
         const listings = json.listings || [];
 
+        const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
 
-        const filteredListings = listings.map(item => {
+        const filteredListings = sortedListings.map(item => {
 
             const { saleTime, listingId, price, nft, purchaser } = item;
 
