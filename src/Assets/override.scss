@@ -4,6 +4,26 @@ $gray: #bbb;
 $black: #111;
 $white: #fff;
 
+
+
+//  to fix the footer to the bottom of page when there is not enough content.
+body > div#root > div.wraper {
+    //  first child is header
+    //  second element is component's top level div placed by router.
+    & > div:nth-child(2) {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+        //  first child element is header picture and title
+        //  Content: second child element is class with .container class
+        & > section:nth-child(2) {
+            flex: 1;
+        }
+    }
+}
+
+
 /* Hot Collections Avatar for Blockies */
 .slick-slide canvas {
     display: block;
