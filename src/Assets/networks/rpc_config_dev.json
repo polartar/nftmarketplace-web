@@ -104,7 +104,8 @@
                 "verified": true,
                 "avatar": "/img/collections/chimps/avatar.png",
                 "banner": "/img/collections/chimps/banner.png",
-                "card": "/img/collections/chimps/card.png"
+                "card": "/img/collections/chimps/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {
@@ -364,7 +365,7 @@
                 "function totalSupply() public view returns (uint256)"
             ],
             "start": 1639489543000,
-            "end": 163949000000,
+            "end": 1639929600000,
             "referral": false,
             "is1155": false,
             "foundersOnly": false
@@ -388,7 +389,7 @@
                 "function mint(address _to, uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)"
             ],
-            "start": 1639489543,
+            "start": 1639489543000,
             "end": null,
             "referral": false,
             "is1155": false,

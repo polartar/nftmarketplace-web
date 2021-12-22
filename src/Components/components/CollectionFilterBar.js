@@ -76,7 +76,7 @@ const CollectionFilterBar = () => {
     return (
         <>
             <div className='col-lg-9'>
-                <div className="items_filter" style={{'margin-bottom': 0, 'margin-top': 0}}>
+                <div className="items_filter" style={{marginBottom: 0, marginTop: 0}}>
                     <div className='dropdownSelect two'>
                         <Select
                             styles={customStyles}
