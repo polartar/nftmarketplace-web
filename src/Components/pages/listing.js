@@ -62,9 +62,12 @@ const Listing = () => {
     }
 
     const fullImage = () => {
-        let link = listing.nft.original_image.split('://')[1];
+        if (listing.nft.original_image.startsWith('ipfs://')) {
+            const link = listing.nft.original_image.split('://')[1];
+            return `https://ipfs.io/ipfs/${link}`;
+        }
 
-        return `https://ipfs.io/ipfs/${link}`;
+        return listing.nft.original_image;
     }
 
     const showBuy = () => async () => {

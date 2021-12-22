@@ -48,9 +48,12 @@ const Nft = () => {
     }
 
     const fullImage = () => {
-        let link = nft.original_image.split('://')[1];
+        if (nft.original_image.startsWith('ipfs://')) {
+            const link = nft.original_image.split('://')[1];
+            return `https://ipfs.io/ipfs/${link}`;
+        }
 
-        return `https://ipfs.io/ipfs/${link}`;
+        return nft.original_image;
     }
 
     return (
