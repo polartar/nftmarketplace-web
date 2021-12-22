@@ -198,7 +198,15 @@
             "multiToken" :  false,
             "address" : "0x64274Fce5bd057E6416f57A5EdC8a3195E153022",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "crypto-collage-collection",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cryptocollage/avatar.png",
+                "banner": "/img/collections/cryptocollage/banner.png",
+                "card": "/img/collections/cryptocollage/card.png"
+            }
         },{
             "name" : "Petite Planets Gen 1 Governor Medals",
              "multiToken" : false,
