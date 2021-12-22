@@ -204,7 +204,15 @@
             "multiToken" : false,
             "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "cronoseyez",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronoseyez/avatar.jpg",
+                "banner": "/img/collections/cronoseyez/banner.jpg",
+                "card": "/img/collections/cronoseyez/card.jpg"
+            }
         }, {
             "name" : "CROstmas Gnome",
             "multiToken" : false,
