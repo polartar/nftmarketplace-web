@@ -16,7 +16,7 @@ import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
-import {siPrefixedNumber} from "../../utils";
+import {humanize, siPrefixedNumber} from "../../utils";
 import {Accordion, Form} from "react-bootstrap";
 import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
@@ -215,7 +215,7 @@ const Collection = () => {
                 </div>
                 <div className="row">
                     {hasTraits() &&
-                        <div className='col-md-3 d-none d-md-block'>
+                        <div className='col-md-3'>
                             <h3>Attributes</h3>
                             <Accordion>
                                 {collectionStats?.traits && Object.entries(collectionStats.traits).map((trait, key) => (
@@ -227,7 +227,7 @@ const Collection = () => {
                                                     <Form.Check
                                                         type="checkbox"
                                                         id={stats[0]}
-                                                        label={stats[0]}
+                                                        label={humanize(stats[0])}
                                                         onChange={(t) => handleCheck(t, trait[0])}
                                                     />
                                                 </div>
