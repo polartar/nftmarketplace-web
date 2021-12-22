@@ -54,6 +54,9 @@ export const AppRouter = () => {
                 <Route exact path="/collection/:address" component={Collection} />
                 <Route exact path="/collection/:address/:id" component={Nft} />
                 <Route exact path="/seller/:address" component={Seller} />
+                <Route path='*' render={() => (
+                    <Redirect to="/" />
+                )}/>
             </Switch>
         </Router>
     );
