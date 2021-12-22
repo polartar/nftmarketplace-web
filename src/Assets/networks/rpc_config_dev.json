@@ -61,14 +61,30 @@
             "multiToken": false,
             "address" : "0x83Ac37cc236DB5e9e2F01929aBEf70D8dfc44f9a",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "petite-planets-gen2",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/petiteplanets/gen2/avatar.png",
+                "banner": "/img/collections/petiteplanets/gen2/banner.png",
+                "card": "/img/collections/petiteplanets/gen2/card.png"
+            }
         },
         {
             "name" : "PetitePlanetsNFT",
             "multiToken": false,
             "address" : "0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "petite-planets",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/petiteplanets/gen1/avatar.png",
+                "banner": "/img/collections/petiteplanets/gen1/banner.png",
+                "card": "/img/collections/petiteplanets/gen1/card.png"
+            }
         },
         {
             "name" : "Croslothty",
