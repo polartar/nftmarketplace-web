@@ -136,6 +136,11 @@ export const sortListings = (type, direction) => async (dispatch) => {
     dispatch(fetchListings());
 }
 
+export const searchListings = (value) => async (dispatch) => {
+    dispatch(onSearch(value));
+    dispatch(fetchListings());
+}
+
 export const filterListingsByTrait = (traits) => async (dispatch) => {
     dispatch(onTraitFilter(traits));
     dispatch(fetchListings());
