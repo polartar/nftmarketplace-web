@@ -281,7 +281,15 @@
             "multiToken": false,
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
             "onChain": false,
-            "listable": true
+            "listable": true,
+            "metadata": {
+                "slug": "santacro",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/santacro/avatar.png",
+                "banner": "/img/collections/santacro/banner.png",
+                "card": "/img/collections/santacro/card.png"
+            }
         },
         {
             "name": "Cro Sharks ",
