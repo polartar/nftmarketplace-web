@@ -244,7 +244,7 @@
             "onChain" : false,
             "listable" : false,
             "metadata": {
-                "slug": "cronoseyez",
+                "slug": "sneaky-penguins-club",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/sneakypenguins/avatar.png",
@@ -276,7 +276,15 @@
             "multiToken": false,
             "address" : "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-by-barbara",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/barbara/ebisu/avatar.jpg",
+                "banner": "/img/collections/barbara/ebisu/banner.jpg",
+                "card": "/img/collections/barbara/ebisu/card.jpg"
+            }
         },
         {
             "name" : "Cronos Dolphinos",
@@ -299,7 +307,7 @@
             "onChain": false,
             "listable": true,
             "metadata": {
-                "slug": "santacro",
+                "slug": "cro-santa",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/santacro/avatar.png",
