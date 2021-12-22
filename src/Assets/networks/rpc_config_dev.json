@@ -242,7 +242,15 @@
             "multiToken" : false,
             "address" : "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
             "onChain" : false,
-            "listable" : false
+            "listable" : false,
+            "metadata": {
+                "slug": "cronoseyez",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/sneakypenguins/avatar.png",
+                "banner": "/img/collections/sneakypenguins/banner.png",
+                "card": "/img/collections/sneakypenguins/card.png"
+            }
         },{
             "name" : "CroBits",
             "multiToken" : false,
