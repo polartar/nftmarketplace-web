@@ -34,7 +34,7 @@
             "id" : 1,
             "listable" : false,
             "metadata": {
-                "slug": "ebisu-vip",
+                "slug": "ebisu-founder",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg"
@@ -128,7 +128,7 @@
             "onChain" : true,
             "listable" : true,
             "metadata": {
-                "slug": "ebisu-vip",
+                "slug": "cronies",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg"
