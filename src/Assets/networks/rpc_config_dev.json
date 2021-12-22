@@ -170,7 +170,15 @@
             "multiToken": false,
             "address" : "0xbed280E63B3292a5faFEC896F9a0256d12552170",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "crodrakes",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crodrakes/avatar.gif",
+                "banner": "/img/collections/crodrakes/banner.png",
+                "card": "/img/collections/crodrakes/card.png"
+            }
         },
         {
             "name" : "SupBirds",
