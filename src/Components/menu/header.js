@@ -26,6 +26,8 @@ const GlobalStyles = createGlobalStyle`
   @media only screen and (max-width: 1199px) { 
     .navbar{
       background: #ff9421;
+      border-bottom: 0;
+      box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
     }
   }
 `;
