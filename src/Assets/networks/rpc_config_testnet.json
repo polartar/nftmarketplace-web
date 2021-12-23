@@ -69,7 +69,7 @@
         },{
             "name" : "CryptoLovers",
             "multiToken": false,
-            "address" : "0x807686a239084ce25e3e479a44e0c2295fa7eb1c",
+            "address" : "0xEf05151db4e0c96fff0921481300e2d53618Ee96",
             "onChain" : false,
             "listable" : true
         }
