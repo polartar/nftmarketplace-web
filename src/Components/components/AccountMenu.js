@@ -223,11 +223,6 @@ const AccountMenu = function() {
                                 </span>
                             </li>
                             <li>
-                                <span onClick={toggleTheme}>
-                                    <i className="fa fa-sun-o"></i> Change Theme
-                                </span>
-                            </li>
-                            <li>
                                 <span onClick={clearCookies}>
                                     <i className="fa fa-flash"></i> Clear Cookies
                                 </span>

@@ -16,7 +16,7 @@ import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
-import {siPrefixedNumber} from "../../utils";
+import {humanize, siPrefixedNumber} from "../../utils";
 import {Accordion, Form} from "react-bootstrap";
 import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
@@ -37,6 +37,7 @@ const Collection = () => {
 
     const listings = useSelector((state) => state.collection.listings)
     const collectionStats = useSelector((state) => state.collection.stats);
+    const hasRank = useSelector((state) => state.collection.hasRank);
     const canLoadMore = useSelector((state) => {
         return state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages;
     });
@@ -172,6 +173,13 @@ const Collection = () => {
             <section className='container no-top'>
                     {collectionStats && (
                         <div className="row">
+                            {hasRank &&
+                                <div className="row">
+                                    <div className="col-lg-8 col-sm-10 mx-auto text-end fst-italic" style={{fontSize: '0.8em'}}>
+                                        Rarity scores and ranks provided by <a href="https://raritysniper.com/" target="_blank"><span className="color">Rarity Sniper</span></a>
+                                    </div>
+                                </div>
+                            }
                             <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
                                 <a className="nft_attr">
                                     <div className="row">
@@ -215,7 +223,7 @@ const Collection = () => {
                 </div>
                 <div className="row">
                     {hasTraits() &&
-                        <div className='col-md-3 d-none d-md-block'>
+                        <div className='col-md-3'>
                             <h3>Attributes</h3>
                             <Accordion>
                                 {collectionStats?.traits && Object.entries(collectionStats.traits).map((trait, key) => (
@@ -227,7 +235,7 @@ const Collection = () => {
                                                     <Form.Check
                                                         type="checkbox"
                                                         id={stats[0]}
-                                                        label={stats[0]}
+                                                        label={humanize(stats[0])}
                                                         onChange={(t) => handleCheck(t, trait[0])}
                                                     />
                                                 </div>
