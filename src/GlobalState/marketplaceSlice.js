@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {sortAndFetchListings, getCollectionMetadata, getMarketMetadata, getCollectionTraits} from '../core/api';
+import {sortAndFetchListings, getCollectionMetadata, getMarketMetadata} from '../core/api';
 import config from '../Assets/networks/rpc_config.json'
 export const knownContracts = config.known_contracts;
 
@@ -15,7 +15,9 @@ const marketplaceSlice = createSlice({
         totalPages: 0,
         collection: null,
         marketData: null,
-        hasRank: false
+        hasRank: false,
+        cachedFilter: {},
+        cachedSort: {},
     },
     reducers: {
         listingsLoading: (state, action) => {
@@ -30,24 +32,43 @@ const marketplaceSlice = createSlice({
             state.totalPages = action.payload.totalPages;
             state.hasRank = action.payload.hasRank;
         },
-        clearSet: (state) => {
+        clearSet: (state, action) => {
+            const hardClear = action.payload || false;
+
             state.listings = [];
             state.curPage = 0;
             state.totalPages = 0;
             state.curFilter = {};
             state.curSort = {};
+
+            if (hardClear) {
+                state.cachedFilter = {};
+                state.cachedSort = {};
+            }
         },
         onFilter: (state, action) => {
+            const { cacheName, ...payload } = action.payload;
+
             state.listings = [];
             state.totalPages = 0;
             state.curPage = 0;
-            state.curFilter = action.payload;
+            state.curFilter = payload;
+
+            if (cacheName) {
+                state.cachedFilter[cacheName] = payload;
+            }
         },
         onSort: (state, action) => {
+            const { cacheName, ...payload } = action.payload;
+
             state.listings = [];
             state.totalPages = 0;
             state.curPage = 0;
-            state.curSort = action.payload;
+            state.curSort = payload;
+
+            if (cacheName) {
+                state.cachedSort[cacheName] = payload;
+            }
         },
         onCollectionDataLoaded: (state, action) => {
             state.collection = action.payload.collection;
@@ -77,7 +98,7 @@ export const {
 export default marketplaceSlice.reducer;
 
 export const init = (sort, filter) => async (dispatch, getState) => {
-    dispatch(clearSet());
+    dispatch(clearSet(false));
 
     if (sort) {
         dispatch(onSort({
@@ -110,18 +131,22 @@ export const fetchListings = () => async (dispatch, getState) => {
     dispatch(listingsReceived(response));
 }
 
-export const filterListings = (type, address) => async (dispatch) => {
+export const filterListings = ({ type, address, label }, cacheName) => async (dispatch) => {
     dispatch(onFilter({
         type: type,
-        address: address
+        address: address,
+        label: label,
+        cacheName: cacheName
     }));
     dispatch(fetchListings());
 }
 
-export const sortListings = (type, direction) => async (dispatch) => {
+export const sortListings = ({ type, direction, label }, cacheName) => async (dispatch) => {
     dispatch(onSort({
         type: type,
-        direction: direction
+        direction: direction,
+        label: label,
+        cacheName: cacheName
     }));
     dispatch(fetchListings());
 }

@@ -64,10 +64,10 @@ const Marketplace = () => {
                         </div>
                     )}
                     <div className='col-lg-12'>
-                        <TopFilterBar/>
+                        <TopFilterBar cacheName='marketplace'/>
                     </div>
                 </div>
-                <ListingCollection/>
+                <ListingCollection cacheName='marketplace'/>
             </section>
 
 

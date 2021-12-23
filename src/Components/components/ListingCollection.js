@@ -5,7 +5,7 @@ import {init, fetchListings} from "../../GlobalState/marketplaceSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {Spinner} from "react-bootstrap";
 
-const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null}) => {
+const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
     const dispatch = useDispatch();
     const listings = useSelector((state) => state.marketplace.listings)
@@ -21,9 +21,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
     });
-    const user = useSelector((state) => {
-        return state.user;
-    });
+
     const marketplace = useSelector((state) => {
         return state.marketplace;
     });
@@ -51,6 +49,20 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
         } else if(sellerId){
             filter.type = 'seller';
             filter.address = sellerId;
+        } else {
+            //  if cacheName is supplied filter and sort values remain same after changing pages.
+            const cachedFilter = marketplace.cachedFilter[cacheName];
+            const cachedSort = marketplace.cachedSort[cacheName];
+
+            if (cachedFilter) {
+                filter.type = cachedFilter.type;
+                filter.address = cachedFilter.address;
+            }
+
+            if (cachedSort) {
+                sort.type = cachedSort.type;
+                sort.direction = cachedSort.direction;
+            }
         }
         dispatch(init(sort, filter));
         dispatch(fetchListings());
@@ -105,7 +117,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                 ))}
                 { showLoadMore && canLoadMore &&
                     <div className='col-lg-12'>
-                        <div className="spacer-single"></div>
+                        <div className="spacer-single"/>
                         <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
                     </div>
                 }

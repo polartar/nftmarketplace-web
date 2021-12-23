@@ -3,11 +3,13 @@ import Select from 'react-select';
 import {useDispatch, useSelector} from 'react-redux';
 import { sort } from './constants/filters';
 import { filterListings, sortListings, resetListings, knownContracts } from "../../GlobalState/marketplaceSlice";
-import {useHistory} from "react-router-dom";
 
-const TopFilterBar = ({showFilter = true, showSort = true}) => {
+const TopFilterBar = ({ showFilter = true, showSort = true, cacheName = null }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
+
+    const marketplace = useSelector((state) => {
+        return state.marketplace;
+    });
 
     const sortOptions = useSelector((state) => {
         let sortOptions = sort;
@@ -18,11 +20,19 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
     });
 
     const handleCategory = useCallback((option) => {
-        dispatch(filterListings('collection', option.address));
+        dispatch(filterListings({
+            type: 'collection',
+            address: option.address,
+            label: option.name
+        }, cacheName));
     }, [dispatch]);
-    
+
     const handleSort = useCallback((option) => {
-        dispatch(sortListings(option.key, option.direction));
+        dispatch(sortListings({
+            type: option.key,
+            direction: option.direction,
+            label: option.label
+        }, cacheName));
     }, [dispatch]);
 
     const handleClear = useCallback(() => {
@@ -35,9 +45,34 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
     };
 
     const defaultSortValue = {
-        key: null,
-        label: 'None'
+        label: 'None',
+        value: null,
     };
+
+    const selectDefaultFilterValue = () => {
+        const cached = marketplace.cachedFilter[cacheName];
+
+        if (cached) {
+            return {
+                name: cached.label,
+                address: cached.address
+            }
+        }
+
+        return defaultFilterValue;
+    }
+
+    const selectDefaultSortValue = () => {
+        const cached = marketplace.cachedSort[cacheName];
+        if (cached) {
+            return {
+                label: cached.label,
+                value: cached.value
+            }
+        }
+
+        return defaultSortValue;
+    }
 
     const customStyles = {
         option: (base, state) => ({
@@ -66,7 +101,7 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
 
     return (
         <div className="items_filter">
-            {showFilter && (
+            { showFilter && (
                 <div className='dropdownSelect one'>
                     <Select
                         styles={customStyles}
@@ -74,6 +109,7 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
                         options={[defaultFilterValue, ...knownContracts.sort((a, b) => a.name > b.name ? 1 : -1)]}
                         getOptionLabel={(option) => option.name}
                         getOptionValue={(option) => option.address}
+                        defaultValue={selectDefaultFilterValue()}
                         onChange={handleCategory}
                     />
                 </div>
@@ -86,12 +122,13 @@ const TopFilterBar = ({showFilter = true, showSort = true}) => {
                         options={[defaultSortValue,...sortOptions]}
                         getOptionLabel={(option) => option.label}
                         getOptionValue={(option) => option.key}
+                        defaultValue={selectDefaultSortValue()}
                         onChange={handleSort}
                     />
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default memo(TopFilterBar);
