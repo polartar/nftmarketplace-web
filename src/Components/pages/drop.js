@@ -106,7 +106,7 @@ const Drop = () => {
             if (currentDrop.address !== "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5" && currentDrop.address !== "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
-                if(slug === 'cro-santa'){
+                if(slug === 'santa-cro'){
                     let bnCost = await readContract.cost();
                     console.log(`got cost ${bnCost}`)
                     let cost = ethers.utils.formatEther(bnCost);
@@ -328,12 +328,12 @@ const Drop = () => {
                                 <div className="d-flex flex-row">
                                     <div className="me-4">
                                         <h6 className="mb-1">Mint Price</h6>
-                                        <h5>{drop.cost} CRO</h5>
+                                        <h5>{dropObject?.cost} CRO</h5>
                                     </div>
-                                    {(drop.cost !== drop.memberCost) &&
+                                    {(dropObject?.cost !== dropObject?.memberCost) &&
                                     <div>
                                         <h6 className="mb-1">Founding Member Price</h6>
-                                        <h5>{drop.memberCost} CRO</h5>
+                                        <h5>{dropObject?.memberCost} CRO</h5>
                                     </div>
                                     }
                                 </div>
