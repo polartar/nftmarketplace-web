@@ -9,6 +9,7 @@ import HomeCarousel from "../components/HomeCarousel";
 import { keyframes } from "@emotion/react";
 import {siPrefixedNumber} from "../../utils";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
+import Reveal from "react-awesome-reveal";
 
 const fadeInUp = keyframes`
   0% {
@@ -21,6 +22,17 @@ const fadeInUp = keyframes`
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
+`;
+const inline = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+  .d-inline{
+    display: inline-block;
+   }
 `;
 
 const GlobalStyles = createGlobalStyle`
@@ -58,29 +70,26 @@ const Home = () => {
                     <div className="row align-items-center">
                         <div className="col-md-6">
                             <div className="spacer-single"></div>
-                            <h6><span className="text-uppercase color">Ebisu's Bay Marketplace</span></h6>
-                            <div className="onStep css-2yud45"><h1 className="col-white">Discover <span
-                                className="color">rare</span> digital art and collect NFTs</h1>
-                            </div>
-                            <div className="onStep css-gb9rv5">
+                            <h6> <span className="text-uppercase color">Ebisu's Bay Marketplace</span></h6>
+                            <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                                <h1 className="col-white">Discover <span className="color">rare</span> digital art and collect NFTs</h1>
+                            </Reveal>
+                            <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                 <p className="lead col-white">
                                     Ebisu's Bay is the first NFT marketplace on Cronos. Create, buy, sell, trade and enjoy the #crofam NFT community
                                 </p>
-                            </div>
+                            </Reveal>
                             <div className="spacer-10"></div>
-                            <div className="onStep d-inline css-1i8mt5g">
-                                <span className="btn-main inline lead" onClick={()=> window.open('/marketplace', "_self")}>Explore</span>
-                            </div>
-                            <div className="onStep d-inline css-1i8mt5g"><span
-                                className="btn-main inline white lead" onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")}>Become a Creator</span>
-                            </div>
-                            <div className="onStep d-inline css-1i8mt5g">
+                            <Reveal className='onStep d-inline' keyframes={inline} delay={800} duration={900} triggerOnce>
+                                <span onClick={()=> window.open('/marketplace', "_self")} className="btn-main inline lead">Explore</span>
+                                <span onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")} className="btn-main inline white lead">Become a Creator</span>
                                 <div className="mb-sm-30"></div>
-                            </div>
-                            <div className="onStep d-inline css-51map3">
+                            </Reveal>
+
+                            <Reveal className='onStep d-inline' keyframes={inline} delay={900} duration={1200} triggerOnce>
                                 <div className="row">
                                     <div className="spacer-single"></div>
-                                    {marketData && (
+                                    {marketData &&
                                         <div className="row">
                                             <div className="col-lg-4 col-md-6 col-sm-4 mb30">
                                                 <div className="de_count text-left">
@@ -88,12 +97,14 @@ const Home = () => {
                                                     <h5 className="id-color">Volume</h5>
                                                 </div>
                                             </div>
+
                                             <div className="col-lg-4 col-md-6 col-sm-4 mb30">
                                                 <div className="de_count text-left">
                                                     <h3><span>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</span></h3>
                                                     <h5 className="id-color">NFTs Sold</h5>
                                                 </div>
                                             </div>
+
                                             <div className="col-lg-4 col-md-6 col-sm-4 mb30">
                                                 <div className="de_count text-left">
                                                     <h3><span>{siPrefixedNumber(marketData.totalActive)}</span></h3>
@@ -101,11 +112,11 @@ const Home = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
+                                    }
                                 </div>
-                            </div>
+                            </Reveal>
                         </div>
-                        <div className='col-lg-6 px-0'>
+                        <div className='col-md-6 px-0 xs-hide'>
                             <HomeCarousel/>
                         </div>
                     </div>
