@@ -395,7 +395,15 @@
             "multiToken": false,
             "address": "0xF1Ad680E2F9269C0306F6176DB4D782ae05A9a9a",
             "onChain": false,
-            "listable": false
+            "listable": false,
+            "metadata": {
+                "slug": "pixowls",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/pixowls/avatar.png",
+                "banner": "/img/collections/pixowls/banner.png",
+                "card": "/img/collections/pixowls/card.jpg"
+            }
         },
         {
             "name": "Cronos Red Panda Giveaways",
