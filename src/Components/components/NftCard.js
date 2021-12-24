@@ -2,6 +2,9 @@ import React, { memo } from 'react';
 import styled from "styled-components";
 import { useHistory  } from "react-router-dom";
 import { ethers } from "ethers";
+import {toast} from "react-toastify";
+import config from '../../Assets/networks/rpc_config.json';
+import api from "../../core/api";
 
 const Outer = styled.div`
   display: flex;
@@ -46,19 +49,25 @@ const NftCard = ({
         return `/collection/${nft.address}/${nft.id}`;
     }
 
+    const onCopyLinkButtonPressed = (url) => () =>{
+        console.log('aaaaa');
+        navigator.clipboard.writeText(url);
+        toast.success('Copied!');
+    }
+
     return (
-        <div className={className} style={{cursor: 'pointer'}} onClick={() => navigateTo(nftUrl())}>
+        <div className={className}>
             <div className="nft__item m-0">
 
                 <div className="nft__item_wrap" style={{height: `${height}px`, marginTop: '0'}}>
                     <Outer>
                         <span>
-                            <img onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
+                            <img onClick={() => navigateTo(nftUrl())} onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
                         </span>
                     </Outer>
                 </div>
                 <div className="nft__item_info">
-                    <span>
+                    <span onClick={() => navigateTo(nftUrl())}>
                         {nft.count && nft.count > 0 ?
                             <h4>{nft.name} (x{nft.count})</h4>
                             :
@@ -89,6 +98,9 @@ const NftCard = ({
                         {canUpdate &&
                         <span className="mx-1" onClick={onUpdateButtonPressed}>Update</span>
                         }
+                        <span className="mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))}>
+                            <i className="fa fa-link"></i>
+                        </span>
                     </div>
                 </div>
             </div>
