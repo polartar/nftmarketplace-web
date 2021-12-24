@@ -12,8 +12,8 @@ setDefaultBreakpoints([
 ]);
 
 const GlobalStyles = createGlobalStyle`
-  header#myHeader.navbar.sticky.white {
-    background: #ff9421;
+  header#myHeader.navbar.white {
+    background: #0078cb;
     border-bottom: 0;
     box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
   }
@@ -25,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
   }
   @media only screen and (max-width: 1199px) { 
     .navbar{
-      background: #ff9421;
+      background: #0078cb;
       border-bottom: 0;
       box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
     }
