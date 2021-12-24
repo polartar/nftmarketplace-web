@@ -132,7 +132,7 @@ const Collection = () => {
         <div>
             <GlobalStyles/>
 
-            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.png'})`}}>
+            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.jpg'})`}}>
                 <div className='mainbreadcumb'>
                 </div>
             </section>
