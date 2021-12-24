@@ -27,8 +27,11 @@ const footer= () => (
                             <div className="de-flex">
                                 <div className="de-flex-col">
                                     <span onClick={()=> window.open("", "_self")}>
-                                        <img alt="" className="f-logo d-1" src="./img/logo.png" />
-                                        <img alt="" className="f-logo d-3" src="./img/logo.png" />
+                                        <img
+                                            height="40px"
+                                            src="/img/web_logo.svg"
+                                            alt="#"
+                                        />
                                         <span className="copy">Copyright &copy; 2021 EbisusBay.com. All rights reserved</span>
                                     </span>
                                     <a href="/tos.html" target="_blank">
