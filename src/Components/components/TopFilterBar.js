@@ -106,7 +106,7 @@ const TopFilterBar = ({ showFilter = true, showSort = true, cacheName = null }) 
                     <Select
                         styles={customStyles}
                         placeholder={'Filter Collection...'}
-                        options={[defaultFilterValue, ...knownContracts.sort((a, b) => a.name > b.name ? 1 : -1)]}
+                        options={[defaultFilterValue, ...knownContracts.filter(c => c.listable).sort((a, b) => a.name > b.name ? 1 : -1)]}
                         getOptionLabel={(option) => option.name}
                         getOptionValue={(option) => option.address}
                         defaultValue={selectDefaultFilterValue()}
