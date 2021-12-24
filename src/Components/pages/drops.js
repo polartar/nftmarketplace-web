@@ -18,20 +18,6 @@ const Drops = () => (
             </div>
         </section>
 
-        <section className='container no-bottom no-top'>
-            <div className='row'>
-                <div className='col-lg-12'>
-                    <div className='text-center'>
-                        <h2>Latest Drops</h2>
-                        <div className="small-border"></div>
-                    </div>
-                </div>
-                <div className='col-lg-12'>
-                    <LatestDropsCollection/>
-                </div>
-            </div>
-        </section>
-
         <Footer />
 
     </div>
