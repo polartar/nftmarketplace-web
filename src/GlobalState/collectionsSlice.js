@@ -9,8 +9,8 @@ const collectionsSlice = createSlice({
         error: false,
         collections: [],
         sort: {
-            key: 'name',
-            direction: 'asc'
+            key: 'totalVolume',
+            direction: 'desc'
         }
     },
     reducers: {
@@ -29,7 +29,7 @@ export const { collectionsLoading, collectionsReceived } = collectionsSlice.acti
 
 export default collectionsSlice.reducer;
 
-export const getAllCollections = (sortKey = 'name', sortDirection = 'asc') => async(dispatch, state) => {
+export const getAllCollections = (sortKey = 'totalVolume', sortDirection = 'desc') => async(dispatch, state) => {
     try {
         dispatch(collectionsLoading());
         const response = await getCollectionMetadata();

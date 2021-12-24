@@ -15,24 +15,25 @@ const HotCollections = () => {
   const [hotCollections, setHotCollections] = useState([]);
 
   function arrangeCollections() {
-      let shortList = [
+      const shortList = [
           'crosmonauts',
           'petite-planets-gen2',
           'cronos-chimp-club',
           'mad-meerkats',
       ];
 
-      let featuredCollections = [];
+      const featuredCollections = [];
       shortList.forEach(function(val,index) {
           const collection = collections.find(c => c.metadata?.banner && c.metadata.slug === val);
           if (collection) featuredCollections.push(collection);
       });
 
-      let otherCollections = collections
+      const otherCollections = collections
           .filter(c => c.metadata?.banner && !shortList.includes(c.metadata.slug))
           .sort((a, b) => (a.name > b.name) ? 1 : -1);
 
-      setHotCollections([...featuredCollections, ...otherCollections]);
+      const listableCollectios = [...featuredCollections, ...otherCollections].filter(c => c.listable);
+      setHotCollections(listableCollectios);
   }
 
   useEffect(() => {
