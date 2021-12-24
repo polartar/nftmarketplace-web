@@ -40,17 +40,17 @@ const NftCard = ({
     }
 
     return (
-        <div className={className}>
+        <div className={className} style={{cursor: 'pointer'}} onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)}>
             <div className="nft__item m-0">
                 <div className="nft__item_wrap" style={{height: `${height}px`}}>
                     <Outer>
                         <span>
-                            <img onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)} onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
+                            <img onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
                         </span>
                     </Outer>
                 </div>
                 <div className="nft__item_info">
-                    <span onClick={() => navigateTo(`/collection/${nft.address}/${nft.id}`)}>
+                    <span>
                         {nft.count && nft.count > 0 ?
                             <h4>{nft.name} (x{nft.count})</h4>
                             :

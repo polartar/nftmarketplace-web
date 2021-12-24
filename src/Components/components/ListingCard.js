@@ -21,7 +21,7 @@ const ListingCard = ({ listing, className = 'd-item col-lg-3 col-md-6 col-sm-6 c
     }
 
     return (
-        <div className={className}>
+        <div className={className} style={{cursor: 'pointer'}} onClick={() => navigateTo(`/listing/${listing.listingId}`)}>
             <div className="nft__item m-0">
                 <div>
                     <h4>Listing #{listing.listingId}</h4>
@@ -29,12 +29,12 @@ const ListingCard = ({ listing, className = 'd-item col-lg-3 col-md-6 col-sm-6 c
                 <div className="nft__item_wrap" style={{height: `${height}px`}}>
                     <Outer>
                         <span>
-                            <img onClick={() => navigateTo(`/listing/${listing.listingId}`)} onLoad={onImgLoad} src={listing.nft.image} className="lazy nft__item_preview" alt=""/>
+                            <img onLoad={onImgLoad} src={listing.nft.image} className="lazy nft__item_preview" alt=""/>
                         </span>
                     </Outer>
                 </div>
                 <div className="nft__item_info mb-2">
-                    <span onClick={() => navigateTo(`/listing/${listing.listingId}`)}>
+                    <span>
                         <h4>{listing.nft.name}</h4>
                     </span>
                     <div className="has_offers">
