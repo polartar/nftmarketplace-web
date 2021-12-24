@@ -86,7 +86,7 @@ const Home = () => {
                             </Reveal>
                             <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                 <p className="lead">
-                                    Ebisu's Bay is the first NFT marketplace on Cronos. Create, buy, sell, trade and enjoy the #crofam NFT community
+                                    Ebisu's Bay is the first NFT marketplace on Cronos. Create, buy, sell, trade and enjoy the #CroFam NFT community.
                                 </p>
                             </Reveal>
                             <div className="spacer-10"></div>

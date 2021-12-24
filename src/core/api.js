@@ -193,7 +193,8 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 'multiToken' : true,
                                 'listable' : c.listable,
                                 'listed' : listing != null,
-                                'listingId' : (listing) ? listing['listingId'] : null
+                                'listingId' : (listing) ? listing['listingId'] : null,
+                                'price' : (listing) ? listing.price : null
                             }
 
                             onNftLoaded([nft]);
@@ -227,7 +228,8 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                     'multiToken' : false,
                                     'listable' : c.listable,
                                     'listed' : listing != null,
-                                    'listingId' : (listing) ? listing['listingId'] : null
+                                    'listingId' : (listing) ? listing['listingId'] : null,
+                                    'price' : (listing) ? listing.price : null
                                 }
                                 nfts.push(nft);
                             } else {
@@ -255,7 +257,8 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                         'properties' : [],
                                         'listable' : c.listable,
                                         'listed' : listing != null,
-                                        'listingId' : (listing) ? listing['listingId'] : null
+                                        'listingId' : (listing) ? listing['listingId'] : null,
+                                        'price' : (listing) ? listing.price : null
                                     }
                                 } else{
                                     json = await (await fetch(uri)).json();
@@ -292,7 +295,8 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                     'multiToken' : false,
                                     'listable' : c.listable,
                                     'listed' : listing != null,
-                                    'listingId' : (listing) ? listing['listingId'] : null
+                                    'listingId' : (listing) ? listing['listingId'] : null,
+                                    'price' : (listing) ? listing.price : null
                                 }
                                 nfts.push(nft);
                             }

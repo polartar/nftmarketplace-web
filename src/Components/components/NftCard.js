@@ -50,7 +50,6 @@ const NftCard = ({
     }
 
     const onCopyLinkButtonPressed = (url) => () =>{
-        console.log('aaaaa');
         navigator.clipboard.writeText(url);
         toast.success('Copied!');
     }
@@ -75,7 +74,7 @@ const NftCard = ({
                         }
                     </span>
                         <div className="has_offers">
-                            {nft.listed ?
+                            {(nft.listed && nft.price)?
                                 <>
                                     {ethers.utils.commify(nft.price)} CRO
                                 </>

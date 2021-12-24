@@ -16,10 +16,10 @@ const HotCollections = () => {
 
   function arrangeCollections() {
       let shortList = [
-          'mad-meerkats',
+          'crosmonauts',
           'petite-planets-gen2',
           'cronos-chimp-club',
-          'crosmonauts'
+          'mad-meerkats',
       ];
 
       let featuredCollections = [];
