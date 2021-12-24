@@ -95,6 +95,15 @@ const Collection = () => {
         dispatch(fetchListings());
     }
 
+    const traitStatName = (name, stats) => {
+        let ret = humanize(name);
+        if (stats && stats.count > 0) {
+            ret = ret.concat(` (${stats.count})`);
+        }
+
+        return ret;
+    }
+
     useEffect(async () => {
         let sort = {
             type: 'listingId',
@@ -230,12 +239,12 @@ const Collection = () => {
                                     <Accordion.Item eventKey={key} key={key}>
                                         <Accordion.Header>{trait[0]}</Accordion.Header>
                                         <Accordion.Body>
-                                            {Object.entries(trait[1]).map((stats, value) => (
+                                            {Object.entries(trait[1]).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats, value) => (
                                                 <div key={value}>
                                                     <Form.Check
                                                         type="checkbox"
                                                         id={stats[0]}
-                                                        label={humanize(stats[0])}
+                                                        label={traitStatName(stats[0], stats[1])}
                                                         onChange={(t) => handleCheck(t, trait[0])}
                                                     />
                                                 </div>
