@@ -130,7 +130,28 @@
             "multiToken": false,
             "address" : "0xaec3adc72e453ecb6009aa48e0ac967941b30c4e",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata" : {
+                "slug" : "cro-punks",
+                "verified": true,
+                "avatar": "/img/collections/cropunks/avatar.png",
+                "banner": "/img/collections/cropunks/1920_banner.png",
+                "card": "/img/collections/cropunks/600_preview.png"
+            }
+        },
+        {
+            "name" : "Winter Punks on Cronos",
+            "multiToken": false,
+            "address" : "0x1c8Ef727Cb7AF92B8eE3cdBB6778BeAa1aBc43ac",
+            "onChain" : false,
+            "listable" : true,
+            "metadata" : {
+                "slug" : "winter-punks",
+                "verified": true,
+                "avatar": "/img/collections/winterpunks/winter_ava.png",
+                "banner": "/img/collections/winterpunks/1920_bann_xmas.png",
+                "card": "/img/collections/winterpunks/600_preview_xmas.png"
+            }
         },
         {
             "name" : "CRO CROW",
