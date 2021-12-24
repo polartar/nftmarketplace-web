@@ -239,7 +239,7 @@ const Collection = () => {
                                     <Accordion.Item eventKey={key} key={key}>
                                         <Accordion.Header>{trait[0]}</Accordion.Header>
                                         <Accordion.Body>
-                                            {Object.entries(trait[1]).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats, value) => (
+                                            {Object.entries(trait[1]).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats, value) => (
                                                 <div key={value}>
                                                     <Form.Check
                                                         type="checkbox"
