@@ -85,11 +85,11 @@ const Collections = () => {
                                 return (
                                 <tr>
                                     <th scope="row">
-                                        <div className="coll_list_pp">
+                                        <div className="coll_list_pp" style={{cursor: 'pointer'}} onClick={viewCollection(collection.collection)}>
                                             {collection.metadata?.avatar ?
-                                                <img className="lazy" src={collection.metadata.avatar} alt=""/>
+                                                <img className="lazy" src={collection.metadata.avatar} alt="" />
                                             :
-                                                <Blockies seed={collection.collection.toLowerCase()} size={10} scale={5}/>
+                                                <Blockies seed={collection.collection.toLowerCase()} size={10} scale={5} />
                                             }
                                         </div>
                                         <span style={{cursor: 'pointer'}} onClick={viewCollection(collection.collection)}>
