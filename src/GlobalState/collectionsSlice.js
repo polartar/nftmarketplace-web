@@ -38,13 +38,14 @@ export const getAllCollections = (sortKey = 'name', sortDirection = 'asc') => as
             if (contract) {
                 response.collections[index].name = contract.name;
                 response.collections[index].metadata = contract.metadata;
+                response.collections[index].listable = contract.listable;
             }
         });
 
         const sortedCollections = sortCollections(response.collections, sortKey, sortDirection);
 
         dispatch(collectionsReceived({
-            collections: sortedCollections,
+            collections: sortedCollections.filter(c => c.listable),
             sort: {
                 key: sortKey,
                 direction: sortDirection

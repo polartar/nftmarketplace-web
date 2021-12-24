@@ -370,7 +370,6 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             isMember : ownedVip > 0 || ownedFounder > 0,
             marketContract: market,
             marketBalance :sales,
-            // ebisuContract: ebisu
         }))
     } catch (error) {
         console.log(error)

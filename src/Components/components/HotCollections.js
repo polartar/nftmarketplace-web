@@ -14,15 +14,30 @@ const HotCollections = () => {
 
   const [hotCollections, setHotCollections] = useState([]);
 
-  useEffect(() => {
-      let slugs = [
-          'cronos-chimp-club',
+  function arrangeCollections() {
+      let shortList = [
           'crosmonauts',
-          'mad-meerkats'
+          'petite-planets-gen2',
+          'cronos-chimp-club',
+          'mad-meerkats',
       ];
-      let featuredCollections = collections.filter(c => c.metadata && slugs.includes(c.metadata.slug));
-      setHotCollections(featuredCollections);
-}, [dispatch]);
+
+      let featuredCollections = [];
+      shortList.forEach(function(val,index) {
+          const collection = collections.find(c => c.metadata?.banner && c.metadata.slug === val);
+          if (collection) featuredCollections.push(collection);
+      });
+
+      let otherCollections = collections
+          .filter(c => c.metadata?.banner && !shortList.includes(c.metadata.slug))
+          .sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+      setHotCollections([...featuredCollections, ...otherCollections]);
+  }
+
+  useEffect(() => {
+      arrangeCollections();
+  }, [dispatch]);
 
   return (
       <div className='nft'>

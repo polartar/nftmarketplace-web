@@ -6,6 +6,7 @@
     "symbol" : "CRO",
     "explorer" : "http://cronos.crypto.org/explorer/",
     "api_base" : "https://api.ebisusbay.biz/",
+    "app_base" : "https://app.ebisusbay.biz/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
@@ -163,7 +164,26 @@
             "multiToken": false,
             "address" : "0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "crocos_nft",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crocs/crocos_avatar.jpg"
+            }
+        },
+        {
+            "name" : "CrocosXmasNFT",
+            "multiToken": false,
+            "address" : "0xeEeecAF68c6142D2f2F2628557A58cf4440a9BBD",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crocos_xmas_nft",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crocs/crocos_avatar.jpeg"
+            }
         },
         {
             "name" : "CRODrakes",
@@ -369,6 +389,34 @@
             "address": "0x01b7D7e3D4e2f496D0b25453A361e36eF5144686",
             "onChain": false,
             "listable": true
+        },
+        {
+            "name": "Pixowls",
+            "multiToken": false,
+            "address": "0xF1Ad680E2F9269C0306F6176DB4D782ae05A9a9a",
+            "onChain": false,
+            "listable": false
+        },
+        {
+            "name": "Cronos Red Panda Giveaways",
+            "multiToken": false,
+            "address": "0x790D8b9568e44087aB144C7E502c47Cb43d9F75d",
+            "onChain": false,
+            "listable": true
+        },
+        {
+            "name": "Cronos Nanas",
+            "multiToken": false,
+            "address": "0x70c6062100b09aF2Ec63345cda372d52423BE4aC",
+            "onChain": false,
+            "listable": false
+        },
+        {
+            "name": "Crypto Lovers",
+            "multiToken": false,
+            "address": "0xc342F9ba6483e2D397898AC3B20f7CBbD438eB08",
+            "onChain": false,
+            "listable": false
         }
 
     ],
@@ -487,8 +535,8 @@
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
             "maxMintPerTx": 20,
             "totalSupply": 5555,
-            "cost": "399",
-            "memberCost": "349",
+            "cost": "199",
+            "memberCost": "199",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",

@@ -176,17 +176,26 @@ const Drop = () => {
                 } else {
                     cost = regCost;
                 }
-                const extra = {
-                    'value' : cost.mul(numToMint)
+                let finalCost = cost.mul(numToMint);
+                let extra = {
+                    'value' : finalCost
                 };
                 if (dropObject.is1155) {
                     var response;
+
                     if (dropObject.title === "Founding Member") {
+                        console.log(referral);
+                        if(referral){
+                            finalCost = finalCost.sub(ethers.utils.parseEther('10.0').mul(numToMint));
+                            extra = {
+                                'value' : finalCost
+                            };
+                        };
                         const ref32 = ethers.utils.formatBytes32String(referral);
                         response = await contract.mint(1, numToMint, ref32, extra);
                     } else {
                         // Cronie
-                        console.log("here");
+
                         const gas = String(900015 * numToMint);
                         response = await contract.mint(numToMint, extra);
                     }
@@ -199,9 +208,18 @@ const Drop = () => {
                     if (method.includes("address") && method.includes("uint256")) {
                         response = await contract.mint(user.address, numToMint, extra);
                     } else {
+                        console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
                         response = await contract.mint(numToMint, extra);
                     }
                     const receipt = await response.wait();
+                    toast.success(`Success! ${receipt.hash}`);
+                    const anParam = {
+                        currency : 'CRO',
+                        value : ethers.utils.formatEther(finalCost),
+                        quantity : numToMint,
+                        items: [dropObject.title]
+                    };
+                    logEvent(getAnalytics(), 'purchase', anParam);
                 }
             }catch(error){
                 if(error.data){
@@ -270,12 +288,6 @@ const Drop = () => {
                                 }
 
                                 <div className="spacer-10"></div>
-                                <Reveal className='onStep d-inline' keyframes={inline} delay={800} duration={900}
-                                        triggerOnce>
-                                    <span onClick={() => window.open("#", "_self")}
-                                          className="btn-main inline lead">Explore</span>
-                                    <div className="mb-sm-30"></div>
-                                </Reveal>
                             </div>
                         </div>
                     </div>

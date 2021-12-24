@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector } from "react-redux";
 
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
@@ -19,7 +19,7 @@ const MyNfts = () => {
             <GlobalStyles/>
 
             <section className='jumbotron breadcumb no-bg'
-                     style={{backgroundImage: `url(${'/img/background/subheader.png'})`}}>
+                     style={{backgroundImage: `url(${'/img/background/subheader.jpg'})`}}>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>

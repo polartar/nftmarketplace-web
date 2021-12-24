@@ -29,7 +29,7 @@ const Marketplace = () => {
             <GlobalStyles/>
 
             <section className='jumbotron breadcumb no-bg'
-                     style={{backgroundImage: `url(${'./img/background/subheader.png'})`}}>
+                     style={{backgroundImage: `url(${'./img/background/subheader.jpg'})`}}>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>
@@ -64,10 +64,10 @@ const Marketplace = () => {
                         </div>
                     )}
                     <div className='col-lg-12'>
-                        <TopFilterBar/>
+                        <TopFilterBar cacheName='marketplace'/>
                     </div>
                 </div>
-                <ListingCollection/>
+                <ListingCollection cacheName='marketplace'/>
             </section>
 
 

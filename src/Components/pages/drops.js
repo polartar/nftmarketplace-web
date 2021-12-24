@@ -5,17 +5,6 @@ import {createGlobalStyle} from "styled-components";
 import DropsCarousel from '../components/DropsCarousel';
 
 const GlobalStyles = createGlobalStyle`
-  header#myHeader.navbar.sticky.white {
-    background: #ff9421;
-    border-bottom: 0;
-    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
-  }
-  header#myHeader.navbar.white a{
-    color: #000;
-  }
-  header#myHeader.navbar.sticky.white a{
-    color: #fff;
-  }
 `;
 
 const Drops = () => (
@@ -25,20 +14,6 @@ const Drops = () => (
             <div className='container'>
                 <div className='row'>
                     <DropsCarousel/>
-                </div>
-            </div>
-        </section>
-
-        <section className='container no-bottom no-top'>
-            <div className='row'>
-                <div className='col-lg-12'>
-                    <div className='text-center'>
-                        <h2>Latest Drops</h2>
-                        <div className="small-border"></div>
-                    </div>
-                </div>
-                <div className='col-lg-12'>
-                    <LatestDropsCollection/>
                 </div>
             </div>
         </section>

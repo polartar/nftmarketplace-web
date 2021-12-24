@@ -95,6 +95,15 @@ const Collection = () => {
         dispatch(fetchListings());
     }
 
+    const traitStatName = (name, stats) => {
+        let ret = humanize(name);
+        if (stats && stats.count > 0) {
+            ret = ret.concat(` (${stats.count})`);
+        }
+
+        return ret;
+    }
+
     useEffect(async () => {
         let sort = {
             type: 'listingId',
@@ -132,7 +141,7 @@ const Collection = () => {
         <div>
             <GlobalStyles/>
 
-            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.png'})`}}>
+            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.jpg'})`}}>
                 <div className='mainbreadcumb'>
                 </div>
             </section>
@@ -230,12 +239,12 @@ const Collection = () => {
                                     <Accordion.Item eventKey={key} key={key}>
                                         <Accordion.Header>{trait[0]}</Accordion.Header>
                                         <Accordion.Body>
-                                            {Object.entries(trait[1]).map((stats, value) => (
+                                            {Object.entries(trait[1]).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats, value) => (
                                                 <div key={value}>
                                                     <Form.Check
                                                         type="checkbox"
                                                         id={stats[0]}
-                                                        label={humanize(stats[0])}
+                                                        label={traitStatName(stats[0], stats[1])}
                                                         onChange={(t) => handleCheck(t, trait[0])}
                                                     />
                                                 </div>

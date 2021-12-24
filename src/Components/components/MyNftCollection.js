@@ -9,14 +9,12 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     Grid, Stack, Step, StepContent, StepLabel, Stepper,
     TextField, Typography
 } from "@mui/material";
 import {toast} from "react-toastify";
 import {ethers} from "ethers";
-import {useHistory} from "react-router-dom";
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import * as PropTypes from "prop-types";
 
