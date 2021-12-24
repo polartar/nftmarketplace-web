@@ -116,7 +116,7 @@ const Collection = () => {
         }
 
         dispatch(init(sort, filter));
-        dispatch(fetchListings());
+        // dispatch(fetchListings());
     }, [dispatch]);
 
     useEffect(() => {
