@@ -417,7 +417,15 @@
             "multiToken": false,
             "address": "0x70c6062100b09aF2Ec63345cda372d52423BE4aC",
             "onChain": false,
-            "listable": false
+            "listable": false,
+            "metadata": {
+                "slug": "cronos-nanas",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosnanas/avatar.png",
+                "banner": "/img/collections/cronosnanas/banner.png",
+                "card": "/img/collections/cronosnanas/card.png"
+            }
         },
         {
             "name": "Crypto Lovers",
