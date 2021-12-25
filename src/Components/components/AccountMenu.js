@@ -168,17 +168,17 @@ const AccountMenu = function() {
                                 <button className="btn_menu" title="Copy Address" onClick={handleCopy(walletAddress)}>Copy</button>
                             </div>
                         </div>
+                        <div className="d-wallet">
+                            <h4>Market Balance</h4>
+                            <div className="d-flex justify-content-between">
+                                <span>{user.marketBalance} CRO</span>
+                                {user.marketBalance !== '0.0' &&
+                                    <button className="btn_menu" title="Withdraw Balance" onClick={withdrawBalance}>Withdraw</button>
+                                }
+                            </div>
+                        </div>
                         {user.isMember &&
-                            <>
-                                <div className="d-wallet">
-                                    <h4>Market Balance</h4>
-                                    <div className="d-flex justify-content-between">
-                                        <span>{user.marketBalance} CRO</span>
-                                        {user.marketBalance !== '0.0' &&
-                                            <button className="btn_menu" title="Withdraw Balance" onClick={withdrawBalance}>Withdraw</button>
-                                        }
-                                    </div>
-                                </div>
+                        <>
                                 <div className="d-wallet">
                                     <h4>Referral Balance</h4>
                                     <div className="d-flex justify-content-between">
