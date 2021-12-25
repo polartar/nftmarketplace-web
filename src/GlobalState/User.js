@@ -4,7 +4,6 @@ import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
-import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
@@ -305,7 +304,6 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
 
 
         web3provider.on('DeFiConnectorDeactivate', (error) => {
-            console.log("HERE");
             dispatch(onLogout());
         });
 
@@ -314,6 +312,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         });
 
         web3provider.on('accountsChanged', (accounts) => {
+            dispatch(onLogout());
             dispatch(connectAccount());
         });
 
