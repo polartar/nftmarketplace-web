@@ -451,9 +451,16 @@
         {
             "name": "Crypto Lovers",
             "multiToken": false,
-            "address": "0xc342F9ba6483e2D397898AC3B20f7CBbD438eB08",
+            "address": "0xe7907F66a464729D7Ca521dfCe01816d06D226Dc",
             "onChain": false,
             "listable": false
+        },
+        {
+            "name": "CroSlothtyXmas",
+            "multiToken": false,
+            "address": "0x303D2a6143cFc67C26Db2879eA955f7d076c4cBc",
+            "onChain": false,
+            "listable": true
         }
 
     ],
