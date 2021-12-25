@@ -11,19 +11,6 @@ import config from "../../Assets/networks/rpc_config.json";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
-  header#myHeader.navbar.white {
-    background-color: #ff9421;
-    border-bottom: 0;
-    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
-  }
-  header#myHeader.navbar.sticky.white {
-    background: #ff9421;
-    border-bottom: 0;
-    box-shadow: 0 4px 20px 0 rgba(10,10,10, .8);
-  }
-  header#myHeader.navbar.sticky.white a{
-    color: #fff;
-  }
 `;
 
 const Nft = () => {

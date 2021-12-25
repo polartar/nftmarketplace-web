@@ -130,7 +130,28 @@
             "multiToken": false,
             "address" : "0xaec3adc72e453ecb6009aa48e0ac967941b30c4e",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata" : {
+                "slug" : "cro-punks",
+                "verified": true,
+                "avatar": "/img/collections/cropunks/avatar.png",
+                "banner": "/img/collections/cropunks/1920_banner.png",
+                "card": "/img/collections/cropunks/600_preview.png"
+            }
+        },
+        {
+            "name" : "Winter Punks on Cronos",
+            "multiToken": false,
+            "address" : "0x1c8Ef727Cb7AF92B8eE3cdBB6778BeAa1aBc43ac",
+            "onChain" : false,
+            "listable" : true,
+            "metadata" : {
+                "slug" : "winter-punks",
+                "verified": true,
+                "avatar": "/img/collections/winterpunks/winter_ava.png",
+                "banner": "/img/collections/winterpunks/1920_bann_xmas.png",
+                "card": "/img/collections/winterpunks/600_preview_xmas.png"
+            }
         },
         {
             "name" : "CRO CROW",
@@ -395,7 +416,15 @@
             "multiToken": false,
             "address": "0xF1Ad680E2F9269C0306F6176DB4D782ae05A9a9a",
             "onChain": false,
-            "listable": false
+            "listable": false,
+            "metadata": {
+                "slug": "pixowls",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/pixowls/avatar.png",
+                "banner": "/img/collections/pixowls/banner.png",
+                "card": "/img/collections/pixowls/card.jpg"
+            }
         },
         {
             "name": "Cronos Red Panda Giveaways",
@@ -409,7 +438,15 @@
             "multiToken": false,
             "address": "0x70c6062100b09aF2Ec63345cda372d52423BE4aC",
             "onChain": false,
-            "listable": false
+            "listable": false,
+            "metadata": {
+                "slug": "cronos-nanas",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosnanas/avatar.png",
+                "banner": "/img/collections/cronosnanas/banner.png",
+                "card": "/img/collections/cronosnanas/card.png"
+            }
         },
         {
             "name": "Crypto Lovers",
