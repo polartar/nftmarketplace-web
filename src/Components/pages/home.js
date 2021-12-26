@@ -5,7 +5,6 @@ import { createGlobalStyle } from 'styled-components';
 import ListingCollection from "../components/ListingCollection";
 import {useHistory} from "react-router-dom";
 import HotCollections from "../components/HotCollections";
-import HomeCarousel from "../components/HomeCarousel";
 import { keyframes } from "@emotion/react";
 import {siPrefixedNumber} from "../../utils";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
@@ -44,6 +43,12 @@ const GlobalStyles = createGlobalStyle`
   .de_count h3 {
     font-size: 36px;
     margin-bottom: 0px;
+  }
+  
+  @media only screen and (max-width: 1199.98px) {
+    .min-width-on-column > span {
+      min-width: 200px;
+    }  
   }
   
   @media only screen and (max-width: 464px) {
@@ -91,9 +96,19 @@ const Home = () => {
                             </Reveal>
                             <div className="spacer-10"></div>
                             <Reveal className='onStep call-to-action' keyframes={inline} delay={800} duration={900} triggerOnce>
-                                <div className="d-inline">
-                                    <span onClick={()=> window.open('/marketplace', "_self")} className="btn-main inline lead mb-2">Explore</span>
-                                    <span onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")} className="btn-main btn-outline inline white lead" style={{outline: '1px solid #DDD'}}>Become a Creator</span>
+                                <div className="min-width-on-column mb-2 w-100 d-inline-flex flex-column flex-md-row flex-lg-column flex-xl-row gap-3   align-items-center">
+
+                                    <span onClick={()=> window.open('/marketplace', "_self")}
+                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main inline lead">Explore</span>
+
+                                    <span onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")}
+                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
+                                          style={{outline: '1px solid #DDD'}}>Become a Creator</span>
+
+                                    <span onClick={()=> history.push(`/drops/founding-member`)}
+                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
+                                          style={{outline: '1px solid #DDD'}}>Become a Member</span>
+
                                 </div>
                                 <div className="mb-sm-30"></div>
                             </Reveal>
