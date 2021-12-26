@@ -105,7 +105,7 @@ const Home = () => {
                                           className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
                                           style={{outline: '1px solid #DDD'}}>Become a Creator</span>
 
-                                    <span onClick={()=> history.push(`/drops/founding-member`)}
+                                    <span onClick={()=> window.open(`/drops/founding-member`, "_self")}
                                           className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
                                           style={{outline: '1px solid #DDD'}}>Become a Member</span>
 
