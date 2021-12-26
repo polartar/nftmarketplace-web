@@ -258,8 +258,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         providerOptions // required
     });
 
+    if (process.env.NODE_ENV !== 'production') {
+        console.log("Opening a dialog", web3Modal);
+    }
 
-    console.log("Opening a dialog", web3Modal);
     var web3provider;
     try {
         web3provider = await web3Modal.connect();
