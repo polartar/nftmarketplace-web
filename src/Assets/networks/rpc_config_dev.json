@@ -461,6 +461,13 @@
             "address": "0x303D2a6143cFc67C26Db2879eA955f7d076c4cBc",
             "onChain": false,
             "listable": true
+        },
+        {
+            "name": "Ant Mint Pass",
+            "multiToken": false,
+            "address": "0x844DaCD5A52DB9368E6C606f739599598031da84",
+            "onChain": false,
+            "listable": false
         }
 
     ],
