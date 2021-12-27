@@ -2,7 +2,7 @@
     "name" : "Cronos",
     "chain_id" : "25",
     "write_rpc" : "https://evm-cronos.crypto.org/",
-    "read_rpc" : "https://rpc.nebkas.ro/",
+    "read_rpc" : "https://a1.nebkas.ro/",
     "symbol" : "CRO",
     "explorer" : "http://cronos.crypto.org/explorer/",
     "api_base" : "https://api.ebisusbay.biz/",
@@ -130,7 +130,28 @@
             "multiToken": false,
             "address" : "0xaec3adc72e453ecb6009aa48e0ac967941b30c4e",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata" : {
+                "slug" : "cro-punks",
+                "verified": true,
+                "avatar": "/img/collections/cropunks/avatar.png",
+                "banner": "/img/collections/cropunks/1920_banner.png",
+                "card": "/img/collections/cropunks/600_preview.png"
+            }
+        },
+        {
+            "name" : "Winter Punks on Cronos",
+            "multiToken": false,
+            "address" : "0x1c8Ef727Cb7AF92B8eE3cdBB6778BeAa1aBc43ac",
+            "onChain" : false,
+            "listable" : true,
+            "metadata" : {
+                "slug" : "winter-punks",
+                "verified": true,
+                "avatar": "/img/collections/winterpunks/winter_ava.png",
+                "banner": "/img/collections/winterpunks/1920_bann_xmas.png",
+                "card": "/img/collections/winterpunks/600_preview_xmas.png"
+            }
         },
         {
             "name" : "CRO CROW",
@@ -430,7 +451,21 @@
         {
             "name": "Crypto Lovers",
             "multiToken": false,
-            "address": "0xc342F9ba6483e2D397898AC3B20f7CBbD438eB08",
+            "address": "0xe7907F66a464729D7Ca521dfCe01816d06D226Dc",
+            "onChain": false,
+            "listable": false
+        },
+        {
+            "name": "CroSlothtyXmas",
+            "multiToken": false,
+            "address": "0x303D2a6143cFc67C26Db2879eA955f7d076c4cBc",
+            "onChain": false,
+            "listable": true
+        },
+        {
+            "name": "Ant Mint Pass",
+            "multiToken": false,
+            "address": "0x844DaCD5A52DB9368E6C606f739599598031da84",
             "onChain": false,
             "listable": false
         }
