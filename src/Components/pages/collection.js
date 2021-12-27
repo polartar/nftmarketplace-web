@@ -128,8 +128,6 @@ const Collection = ({cacheName = 'collection'}) => {
             sort.type = cachedSort.type;
             sort.direction = cachedSort.direction;
         }
-        console.log({ cachedFilter})
-        console.log({ cachedSort})
 
         dispatch(init(sort, filter));
         // dispatch(fetchListings());
