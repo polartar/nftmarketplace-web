@@ -209,7 +209,16 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         for(let i = 0; i < count; i++){
                             const id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
                             const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
-                            let uri = await readContract.tokenURI(id);
+
+                            let uri;
+                            if (c.name === 'Ant Mint Pass') {
+                                //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
+                                //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
+                                uri = 'https://gateway.pinata.cloud/ipfs/QmUw7AwUuGd95PzmHozfChLomBJ4g7GTocr35HawkJ9dNS';
+                            } else {
+                                uri = await readContract.tokenURI(id);
+                            }
+
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
                                 const parsed = JSON.parse(json);
