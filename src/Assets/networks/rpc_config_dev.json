@@ -92,7 +92,15 @@
             "multiToken" : false,
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata": {
+                "slug": "slothy",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croslothy/avatar.gif",
+                "banner": "/img/collections/croslothy/banner.jpg",
+                "card": "/img/collections/croslothy/card.jpg"
+            }
         },
         {
             "name" : "Crosmonauts",
