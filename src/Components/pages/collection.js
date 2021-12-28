@@ -116,7 +116,11 @@ const Collection = () => {
         }
 
         dispatch(init(sort, filter));
-        // dispatch(fetchListings());
+
+        if (!hasTraits()) {
+            dispatch(fetchListings());
+        }
+
     }, [dispatch]);
 
     useEffect(() => {
@@ -134,7 +138,9 @@ const Collection = () => {
 
 
     useEffect(async () => {
-        dispatch(filterListingsByTrait(filteredTraits));
+        if (hasTraits()) {
+            dispatch(filterListingsByTrait(filteredTraits));
+        }
     }, [filteredTraits]);
 
     return (

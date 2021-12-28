@@ -158,7 +158,14 @@
             "multiToken": false,
             "address" : "0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata" : {
+                "slug" : "crocrow",
+                "verified": true,
+                "avatar": "/img/collections/crocrow/avatar.png",
+                "banner": "/img/collections/crocrow/banner.png",
+                "card": "/img/collections/crocrow/card.png"
+            }
         },
         {
             "name": "Cronies",
@@ -409,7 +416,15 @@
             "multiToken": false,
             "address": "0x01b7D7e3D4e2f496D0b25453A361e36eF5144686",
             "onChain": false,
-            "listable": true
+            "listable": true,
+            "metadata": {
+                "slug": "cro-sharks",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crosharks/avatar.jpg",
+                "banner": "/img/collections/crosharks/banner.jpg",
+                "card": "/img/collections/crosharks/card.jpg"
+            }
         },
         {
             "name": "Pixowls",
