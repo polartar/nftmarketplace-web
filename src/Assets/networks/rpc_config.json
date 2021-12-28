@@ -158,7 +158,14 @@
             "multiToken": false,
             "address" : "0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5",
             "onChain" : false,
-            "listable" : true
+            "listable" : true,
+            "metadata" : {
+                "slug" : "crocrow",
+                "verified": true,
+                "avatar": "/img/collections/crocrow/avatar.png",
+                "banner": "/img/collections/crocrow/banner.png",
+                "card": "/img/collections/crocrow/card.png"
+            }
         },
         {
             "name": "Cronies",
@@ -409,7 +416,15 @@
             "multiToken": false,
             "address": "0x01b7D7e3D4e2f496D0b25453A361e36eF5144686",
             "onChain": false,
-            "listable": true
+            "listable": true,
+            "metadata": {
+                "slug": "cro-sharks",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crosharks/avatar.jpg",
+                "banner": "/img/collections/crosharks/banner.jpg",
+                "card": "/img/collections/crosharks/card.jpg"
+            }
         },
         {
             "name": "Pixowls",
@@ -461,6 +476,28 @@
             "address": "0x303D2a6143cFc67C26Db2879eA955f7d076c4cBc",
             "onChain": false,
             "listable": true
+        },
+        {
+            "name": "Ant Mint Pass",
+            "multiToken": false,
+            "address": "0x844DaCD5A52DB9368E6C606f739599598031da84",
+            "onChain": false,
+            "listable": false
+        },
+        {
+            "name": "CroSkull",
+            "multiToken": false,
+            "address": "0xF87A517A5CaecaA03d7cCa770789BdB61e09e05F",
+            "onChain": false,
+            "listable": false,
+            "metadata": {
+                "slug": "croskull",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croskull/avatar.jpg",
+                "banner": "/img/collections/croskull/banner.jpg",
+                "card": "/img/collections/croskull/card.jpg"
+            }
         }
 
     ],

@@ -5,7 +5,6 @@ import { createGlobalStyle } from 'styled-components';
 import ListingCollection from "../components/ListingCollection";
 import {useHistory} from "react-router-dom";
 import HotCollections from "../components/HotCollections";
-import HomeCarousel from "../components/HomeCarousel";
 import { keyframes } from "@emotion/react";
 import {siPrefixedNumber} from "../../utils";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
@@ -46,9 +45,23 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 0px;
   }
   
+  @media only screen and (max-width: 1199.98px) {
+    .min-width-on-column > span {
+      min-width: 200px;
+    }  
+  }
+  
   @media only screen and (max-width: 464px) {
     .header-card .call-to-action {
         text-align: center !important
+    }
+    
+    //  jumbotron
+    .h-vh {
+      height: unset !important;
+      min-height: 100vh;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
     }
   }
 `;
@@ -91,9 +104,19 @@ const Home = () => {
                             </Reveal>
                             <div className="spacer-10"></div>
                             <Reveal className='onStep call-to-action' keyframes={inline} delay={800} duration={900} triggerOnce>
-                                <div className="d-inline">
-                                    <span onClick={()=> window.open('/marketplace', "_self")} className="btn-main inline lead mb-2">Explore</span>
-                                    <span onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")} className="btn-main btn-outline inline white lead" style={{outline: '1px solid #DDD'}}>Become a Creator</span>
+                                <div className="min-width-on-column mb-2 w-100 d-inline-flex flex-column flex-md-row flex-lg-column flex-xl-row gap-3   align-items-center">
+
+                                    <span onClick={()=> window.open('/marketplace', "_self")}
+                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main inline lead">Explore</span>
+
+                                    <span onClick={()=> window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank")}
+                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
+                                          style={{outline: '1px solid #DDD'}}>Become a Creator</span>
+
+                                    <span onClick={()=> window.open(`/drops/founding-member`, "_self")}
+                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
+                                          style={{outline: '1px solid #DDD'}}>Become a Member</span>
+
                                 </div>
                                 <div className="mb-sm-30"></div>
                             </Reveal>
@@ -103,21 +126,21 @@ const Home = () => {
                                     <div className="spacer-single"></div>
                                     {marketData &&
                                         <div className="row">
-                                            <div className="col-sm-4 col-6 mb30">
+                                            <div className="col-sm-4 col-md-6 col-12  mb30">
                                                 <div className="de_count text-left">
                                                     <h3><span>{siPrefixedNumber(Number(marketData.totalVolume).toFixed(0))}</span></h3>
                                                     <h5 className="id-color">Volume</h5>
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-4 col-6 mb30">
+                                            <div className="col-sm-4 col-md-6 col-12 mb30">
                                                 <div className="de_count text-left">
                                                     <h3><span>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</span></h3>
                                                     <h5 className="id-color">NFTs Sold</h5>
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-4 col-6 mb30">
+                                            <div className="col-sm-4 col-md-6 col-12 mb30">
                                                 <div className="de_count text-left">
                                                     <h3><span>{siPrefixedNumber(marketData.totalActive)}</span></h3>
                                                     <h5 className="id-color">Active Listings</h5>
