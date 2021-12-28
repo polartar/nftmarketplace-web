@@ -494,9 +494,9 @@
                 "slug": "croskull",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/croskull/avatar.jpeg",
-                "banner": "/img/collections/croskull/banner.jpeg",
-                "card": "/img/collections/croskull/card.jpeg"
+                "avatar": "/img/collections/croskull/avatar.jpg",
+                "banner": "/img/collections/croskull/banner.jpg",
+                "card": "/img/collections/croskull/card.jpg"
             }
         }
 
