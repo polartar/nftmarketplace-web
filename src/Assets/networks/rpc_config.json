@@ -483,6 +483,21 @@
             "address": "0x844DaCD5A52DB9368E6C606f739599598031da84",
             "onChain": false,
             "listable": false
+        },
+        {
+            "name": "CroSkull",
+            "multiToken": false,
+            "address": "0xF87A517A5CaecaA03d7cCa770789BdB61e09e05F",
+            "onChain": false,
+            "listable": false,
+            "metadata": {
+                "slug": "croskull",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croskull/avatar.jpg",
+                "banner": "/img/collections/croskull/banner.jpg",
+                "card": "/img/collections/croskull/card.jpg"
+            }
         }
 
     ],
