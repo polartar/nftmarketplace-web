@@ -24,7 +24,7 @@ import CollectionFilterBar from "../components/CollectionFilterBar";
 const GlobalStyles = createGlobalStyle`
 `;
 
-const Collection = () => {
+const Collection = ({cacheName = 'collection'}) => {
     const { address } = useParams();
     const dispatch = useDispatch();
 
@@ -35,7 +35,8 @@ const Collection = () => {
     const[filteredTraits, setFilteredTraits] = useState([]);
     const[metadata, setMetadata] = useState(null);
 
-    const listings = useSelector((state) => state.collection.listings)
+    const collection = useSelector((state) => state.collection);
+    const listings = useSelector((state) => state.collection.listings);
     const collectionStats = useSelector((state) => state.collection.stats);
     const hasRank = useSelector((state) => state.collection.hasRank);
     const canLoadMore = useSelector((state) => {
@@ -106,14 +107,27 @@ const Collection = () => {
     }
 
     useEffect(async () => {
+        let filter = {
+            type: 'collection',
+            address: address
+        }
+
         let sort = {
             type: 'listingId',
             direction: 'desc'
         }
 
-        let filter = {
-            type: 'collection',
-            address: address
+        const cachedFilter = collection.cachedFilter[cacheName];
+        const cachedSort = collection.cachedSort[cacheName];
+
+        if (cachedFilter) {
+            filter.type = cachedFilter.type;
+            filter.address = cachedFilter.address;
+        }
+
+        if (cachedSort) {
+            sort.type = cachedSort.type;
+            sort.direction = cachedSort.direction;
         }
 
         dispatch(init(sort, filter));
@@ -235,7 +249,7 @@ const Collection = () => {
                         </div>
                     )}
                 <div className='row'>
-                    <CollectionFilterBar showFilter={false}/>
+                    <CollectionFilterBar showFilter={false} cacheName={cacheName}/>
                 </div>
                 <div className="row">
                     {hasTraits() &&

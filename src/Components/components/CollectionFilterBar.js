@@ -5,8 +5,10 @@ import { sort } from './constants/filters';
 import { sortListings, resetListings, searchListings } from "../../GlobalState/collectionSlice";
 import {Form} from "react-bootstrap";
 
-const CollectionFilterBar = () => {
+const CollectionFilterBar = ({cacheName = null}) => {
     const dispatch = useDispatch();
+
+    const collection = useSelector((state) => state.collection)
 
     const sortOptions = useSelector((state) => {
         let sortOptions = sort;
@@ -17,7 +19,11 @@ const CollectionFilterBar = () => {
     });
     
     const handleSort = useCallback((option) => {
-        dispatch(sortListings(option.key, option.direction));
+        dispatch(sortListings({
+            type: option.key,
+            direction: option.direction,
+            label: option.label
+        }, cacheName));
     }, [dispatch]);
 
     const handleSearch = debounce((event) => {
@@ -28,11 +34,6 @@ const CollectionFilterBar = () => {
     const handleClear = useCallback(() => {
         dispatch(resetListings());
     }, [dispatch]);
-
-    const defaultSortValue = {
-        key: null,
-        label: 'None'
-    };
 
     const customStyles = {
         option: (base, state) => ({
@@ -71,7 +72,24 @@ const CollectionFilterBar = () => {
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
         };
+    }
+
+    const defaultSortValue = {
+        key: null,
+        label: 'None'
     };
+
+    const selectDefaultSortValue = () => {
+        const cached = collection.cachedSort[cacheName];
+        if (cached) {
+            return {
+                label: cached.label,
+                key: cached.direction
+            }
+        }
+
+        return defaultSortValue;
+    }
 
     return (
         <>
@@ -84,6 +102,7 @@ const CollectionFilterBar = () => {
                             options={[defaultSortValue,...sortOptions]}
                             getOptionLabel={(option) => option.label}
                             getOptionValue={(option) => option.key}
+                            defaultValue={selectDefaultSortValue()}
                             onChange={handleSort}
                         />
                     </div>

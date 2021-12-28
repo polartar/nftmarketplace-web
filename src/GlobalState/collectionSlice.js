@@ -18,7 +18,9 @@ const collectionSlice = createSlice({
         },
         totalPages: 0,
         stats: null,
-        hasRank: false
+        hasRank: false,
+        cachedFilter: {},
+        cachedSort: {},
     },
     reducers: {
         listingsLoading: (state, action) => {
@@ -33,27 +35,47 @@ const collectionSlice = createSlice({
             state.totalPages = action.payload.totalPages;
             state.hasRank = action.payload.hasRank;
         },
-        clearSet: (state) => {
+        clearSet: (state, action) => {
+            const hardClear = action.payload || false;
+
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
             state.query.filter = {};
             state.query.sort = {};
             state.query.search = null;
+
+            if (hardClear) {
+                state.cachedFilter = {};
+                state.cachedSort = {};
+            }
         },
         onFilter: (state, action) => {
+            const { cacheName, ...payload } = action.payload;
+
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
-            state.query.filter = action.payload;
+            state.query.filter = payload;
+
+            if (cacheName) {
+                state.cachedFilter[cacheName] = payload;
+            }
         },
         onSort: (state, action) => {
+            const { cacheName, ...payload } = action.payload;
+
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
-            state.query.sort = action.payload;
+            state.query.sort = payload;
+
+            if (cacheName) {
+                state.cachedSort[cacheName] = payload;
+            }
         },
         onSearch: (state, action) => {
+            console.log(action.payload)
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
@@ -85,7 +107,7 @@ export const {
 export default collectionSlice.reducer;
 
 export const init = (sort, filter) => async (dispatch) => {
-    dispatch(clearSet());
+    dispatch(clearSet(false));
 
     if (sort) {
         dispatch(onSort({
@@ -128,11 +150,8 @@ export const filterListings = (type, address) => async (dispatch) => {
     dispatch(fetchListings());
 }
 
-export const sortListings = (type, direction) => async (dispatch) => {
-    dispatch(onSort({
-        type: type,
-        direction: direction
-    }));
+export const sortListings = ({ type, direction, label }, cacheName) => async (dispatch) => {
+    dispatch(onSort({type, direction, label, cacheName }));
     dispatch(fetchListings());
 }
 
