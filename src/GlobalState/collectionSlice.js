@@ -19,11 +19,12 @@ const collectionSlice = createSlice({
         totalPages: 0,
         stats: null,
         hasRank: false,
+        cachedTraitsFilter: {},
         cachedFilter: {},
         cachedSort: {},
     },
     reducers: {
-        listingsLoading: (state, action) => {
+        listingsLoading: (state, _) => {
             state.loading = true;
             state.error = false;
         },
@@ -46,6 +47,7 @@ const collectionSlice = createSlice({
             state.query.search = null;
 
             if (hardClear) {
+                state.cachedAttributes = {};
                 state.cachedFilter = {};
                 state.cachedSort = {};
             }
@@ -82,10 +84,16 @@ const collectionSlice = createSlice({
             state.query.search = action.payload;
         },
         onTraitFilter: (state, action) => {
+            const { address, traits } = action.payload;
+
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
-            state.query.traits = action.payload;
+            state.query.traits = traits;
+
+            if (address) {
+                state.cachedTraitsFilter[address] = traits;
+            }
         },
         onCollectionStatsLoaded: (state, action) => {
             state.stats = action.payload.stats;
@@ -106,21 +114,23 @@ export const {
 
 export default collectionSlice.reducer;
 
-export const init = (sort, filter) => async (dispatch) => {
+export const init = (address, defaultSort, defaultTraitsFilter) => async (dispatch) => {
     dispatch(clearSet(false));
 
-    if (sort) {
+    dispatch(onFilter({
+        type: 'collection',
+        address: address
+    }));
+
+    if (defaultSort) {
         dispatch(onSort({
-            type: sort.type,
-            direction: sort.direction
+            type: defaultSort.type,
+            direction: defaultSort.direction
         }));
     }
 
-    if (filter) {
-        dispatch(onFilter({
-            type: filter.type,
-            address: filter.address
-        }));
+    if (defaultTraitsFilter) {
+        dispatch(onTraitFilter({ traits: defaultTraitsFilter, address }));
     }
 }
 
@@ -160,8 +170,8 @@ export const searchListings = (value) => async (dispatch) => {
     dispatch(fetchListings());
 }
 
-export const filterListingsByTrait = (traits) => async (dispatch) => {
-    dispatch(onTraitFilter(traits));
+export const filterListingsByTrait = ({ traits, address }) => async (dispatch) => {
+    dispatch(onTraitFilter({ traits, address}));
     dispatch(fetchListings());
 }
 
