@@ -39,7 +39,8 @@ const Collection = () => {
     const collectionStats = useSelector((state) => state.collection.stats);
     const hasRank = useSelector((state) => state.collection.hasRank);
     const canLoadMore = useSelector((state) => {
-        return state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages;
+        return state.collection.length > 0 &&
+            (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages);
     });
 
     const collectionName = () => {
