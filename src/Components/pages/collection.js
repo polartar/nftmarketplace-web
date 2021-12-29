@@ -41,7 +41,7 @@ const Collection = ({cacheName = 'collection'}) => {
     const listings = useSelector((state) => state.collection.listings);
     const hasRank = useSelector((state) => state.collection.hasRank);
     const canLoadMore = useSelector((state) => {
-        return state.collection.length > 0 &&
+        return state.collection.listings.length > 0 &&
             (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages);
     });
 
@@ -123,6 +123,14 @@ const Collection = ({cacheName = 'collection'}) => {
         let royalties = await readMarket.royalties(address)
         setRoyalty((royalties[1] / 10000) * 100);
     }, [dispatch, address]);
+
+    useEffect(async () => {
+        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
+
+        if (Object.keys(cachedTraitsFilter).length > 0) {
+            dispatch(filterListingsByTrait(cachedTraitsFilter));
+        }
+    }, [collectionCachedTraitsFilter]);
 
     const viewGetDefaultCheckValue = (traitCategory, id) => {
         const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
