@@ -118,6 +118,7 @@ const Drop = () => {
                 if(sTime > now){
                     setIsLive(false);
                 } else {
+                    readContract.startEditionOpen();
                     console.log(currentDrop.startTime);
                     console.log(`now: ${now}  sTime ${sTime}`)
                 }

@@ -278,8 +278,6 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             params: [{chainId: cid}]
         });
 
-
-
         var address = accounts[0];
         var signer = provider.getSigner();
         var cid = await web3provider.request({
