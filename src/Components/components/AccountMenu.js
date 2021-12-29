@@ -137,9 +137,7 @@ const AccountMenu = function() {
     }
 
     useEffect(() => {
-        if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") != null && walletAddress == null) {
-            dispatch(connectAccount(true));
-        }
+        dispatch(connectAccount());
     }, []);
 
     return (
