@@ -122,7 +122,8 @@
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
                 "function cost() view returns (uint256)",
-                "function startEditionOpen() public"
+                "function startEditionOpen() public",
+                "function setCost(uint, bool) public"
             ],
             "start": 1639591200000,
             "end": null,

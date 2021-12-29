@@ -46,6 +46,7 @@ const Drop = () => {
     const {slug} = useParams();
 
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const [isFirst, setIsFirst] = useState(true);
     const countdownRef = useRef();
     const dispatch = useDispatch();
 
@@ -97,7 +98,15 @@ const Drop = () => {
         if (user.provider) {
             try {
                 let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
+                console.log("start edition", writeContract);
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+                console.log("first");
+
+                if (isFirst) {
+                    console.log("first");
+                    await writeContract.startEditionOpen();
+                    setIsFirst(false);
+                }
             } catch(error) {
                 console.log(error);
             }
@@ -118,7 +127,6 @@ const Drop = () => {
                 if(sTime > now){
                     setIsLive(false);
                 } else {
-                    readContract.startEditionOpen();
                     console.log(currentDrop.startTime);
                     console.log(`now: ${now}  sTime ${sTime}`)
                 }
