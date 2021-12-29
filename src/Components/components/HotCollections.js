@@ -16,8 +16,9 @@ const HotCollections = () => {
 
   function arrangeCollections() {
       const shortList = [
-          'crosmonauts',
+          'croskull',
           'petite-planets-gen2',
+          'crosmonauts',
           'cronos-chimp-club',
           'mad-meerkats',
       ];
