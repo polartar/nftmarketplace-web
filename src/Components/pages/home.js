@@ -155,33 +155,34 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className='container no-top'>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <div className="spacer-double"></div>
-                            <h2 className='style-2'>New Listings</h2>
+            <section className='container'>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <div className='text-center'>
+                            <h2>Hot Collections</h2>
+                            <div className="small-border"></div>
                         </div>
                     </div>
-                    <ListingCollection showLoadMore={false}/>
                     <div className='col-lg-12'>
-                        <div className="spacer-single"></div>
-                        <span onClick={() => navigateTo(`/marketplace`)} className="btn-main lead m-auto">View Marketplace</span>
+                        <HotCollections/>
                     </div>
                 </div>
             </section>
 
-            <section className='container'>
+            <section className='container no-bottom'>
                 <div className='row'>
                     <div className='col-lg-12'>
-                        <h2 className='style-2'>Hot Collections</h2>
-                    </div>
-                </div>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <HotCollections/>
+                        <div className='text-center'>
+                            <h2>New Listings</h2>
+                            <div className="small-border"></div>
                         </div>
+                    </div>
+                    <div className='col-lg-12'>
+                        <ListingCollection showLoadMore={false}/>
+                    </div>
+                    <div className='col-lg-12'>
+                        <div className="spacer-single"></div>
+                        <span onClick={() => navigateTo(`/marketplace`)} className="btn-main lead m-auto">View Marketplace</span>
                     </div>
                 </div>
             </section>

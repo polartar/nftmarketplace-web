@@ -47,7 +47,26 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
         };
         query = {...query, ...sortProps}
     }
-    if (traits != null && Object.entries(traits).length > 0) query['traits'] = JSON.stringify(traits);
+
+    if (traits && Object.keys(traits).length > 0) {
+        //  traits      = { traitCategoryName1: {traitName2: true }, traitCategoryName3: {traitName4: false}}
+        //  traitFilter = { traitCategoryName1: ['traitName2']}
+        const traitFilter = Object.keys(traits).map((traitCategoryName) => {
+
+            const traitCategory = traits[traitCategoryName];
+
+            const traitCategoryKeys = Object.keys(traitCategory);
+
+            const truthyFilters = traitCategoryKeys
+                .filter((traitCategoryKey) => traitCategory[traitCategoryKey]);
+
+            return truthyFilters.length === 0 ? {} : { [traitCategoryName]: truthyFilters };
+
+        }).reduce((prev, curr) => ({ ...prev, ...curr }), {});
+
+        query['traits'] = JSON.stringify(traitFilter);
+    }
+
     if (search) query['search'] = search;
 
     const queryString = new URLSearchParams(query);

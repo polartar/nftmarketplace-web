@@ -32,15 +32,16 @@ const Collection = ({cacheName = 'collection'}) => {
     const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 
     const[royalty, setRoyalty] = useState(null);
-    const[filteredTraits, setFilteredTraits] = useState([]);
     const[metadata, setMetadata] = useState(null);
 
-    const collection = useSelector((state) => state.collection);
-    const listings = useSelector((state) => state.collection.listings);
+    const collectionCachedTraitsFilter = useSelector((state) => state.collection.cachedTraitsFilter);
+    const collectionCachedSort = useSelector((state) => state.collection.cachedSort);
     const collectionStats = useSelector((state) => state.collection.stats);
+
+    const listings = useSelector((state) => state.collection.listings);
     const hasRank = useSelector((state) => state.collection.hasRank);
     const canLoadMore = useSelector((state) => {
-        return state.collection.length > 0 &&
+        return state.collection.listings.length > 0 &&
             (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages);
     });
 
@@ -57,36 +58,19 @@ const Collection = ({cacheName = 'collection'}) => {
 
     const handleCheck = (event, traitCategory) => {
         const { id, checked } = event.target;
-        if (checked) {
-            setFilteredTraits(prev => {
-                let ft = {...prev};
 
-                if (!ft[traitCategory]) {
-                    ft[traitCategory] = [id];
-                } else {
-                    let arr = [...ft[traitCategory]];
-                    arr.push(id);
-                    ft[traitCategory] = arr;
-                }
+        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
 
-                return {...ft}
-            });
-        } else {
-            setFilteredTraits(prev => {
-                let ft = {...prev};
-
-                if (!ft[traitCategory]) {
-                    return {...ft};
+        dispatch(filterListingsByTrait({
+            traits: {
+                ...cachedTraitsFilter,
+                [traitCategory]: {
+                    ...cachedTraitsFilter[traitCategory] || {},
+                    [id]: checked
                 }
-                const filtered = ft[traitCategory].filter(t => t !== id);
-                if (filtered.length > 0) {
-                    ft[traitCategory] = filtered;
-                } else {
-                    delete ft[traitCategory];
-                }
-                return {...ft}
-            });
-        }
+            },
+            address
+        }))
     }
 
     const hasTraits = () => {
@@ -107,36 +91,25 @@ const Collection = ({cacheName = 'collection'}) => {
     }
 
     useEffect(async () => {
-        let filter = {
-            type: 'collection',
-            address: address
-        }
 
-        let sort = {
+        const defaultSort = {
             type: 'listingId',
             direction: 'desc'
         }
 
-        const cachedFilter = collection.cachedFilter[cacheName];
-        const cachedSort = collection.cachedSort[cacheName];
+        const defaultAttributeFilter = {}
 
-        if (cachedFilter) {
-            filter.type = cachedFilter.type;
-            filter.address = cachedFilter.address;
-        }
+        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
+        const cachedSort = collectionCachedSort[cacheName];
 
-        if (cachedSort) {
-            sort.type = cachedSort.type;
-            sort.direction = cachedSort.direction;
-        }
+        dispatch(init(
+            address,
+            cachedSort ? cachedSort : defaultSort,
+            cachedTraitsFilter ? cachedTraitsFilter : defaultAttributeFilter
+        ));
+        dispatch(fetchListings());
 
-        dispatch(init(sort, filter));
-
-        if (!hasTraits()) {
-            dispatch(fetchListings());
-        }
-
-    }, [dispatch]);
+    }, [dispatch, address]);
 
     useEffect(() => {
         let extraData = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
@@ -151,12 +124,31 @@ const Collection = ({cacheName = 'collection'}) => {
         setRoyalty((royalties[1] / 10000) * 100);
     }, [dispatch, address]);
 
+    const viewGetDefaultCheckValue = (traitCategory, id) => {
+        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
 
-    useEffect(async () => {
-        if (hasTraits()) {
-            dispatch(filterListingsByTrait(filteredTraits));
+        if (!cachedTraitsFilter || !cachedTraitsFilter[traitCategory]) {
+            return false;
         }
-    }, [filteredTraits]);
+
+        return cachedTraitsFilter[traitCategory][id] || false;
+    };
+
+    const viewTraitsList = () => {
+        if (!collectionStats || !collectionStats.traits) {
+            return [];
+        }
+
+        return Object.entries(collectionStats.traits);
+    }
+
+    const viewSelectedAttributesCount = () => {
+        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
+        return Object.values(cachedTraitsFilter)
+            .map(traitCategoryValue => Object.values(traitCategoryValue).filter(x => x === true).length)
+            .reduce((prev, curr) => prev + curr, 0);
+    };
+
 
     return (
         <div>
@@ -180,14 +172,14 @@ const Collection = ({cacheName = 'collection'}) => {
                                         <Blockies seed={address.toLowerCase()} size={15} scale={10}/>
                                     }
                                     {metadata?.verified &&
-                                        <i className="fa fa-check"></i>
+                                        <i className="fa fa-check"/>
                                     }
                                 </div>
 
                                 <div className="profile_name">
                                     <h4>
                                         {collectionName()}
-                                        <div className="clearfix"></div>
+                                        <div className="clearfix"/>
                                         <span id="wallet" className="profile_wallet">{address}</span>
 
                                         <button id="btn_copy" title="Copy Text" onClick={handleCopy(address)}>Copy</button>
@@ -254,19 +246,21 @@ const Collection = ({cacheName = 'collection'}) => {
                 <div className="row">
                     {hasTraits() &&
                         <div className='col-md-3'>
-                            <h3>Attributes</h3>
+                            <h3>Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
                             <Accordion>
-                                {collectionStats?.traits && Object.entries(collectionStats.traits).map((trait, key) => (
+                                {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                                     <Accordion.Item eventKey={key} key={key}>
-                                        <Accordion.Header>{trait[0]}</Accordion.Header>
+                                        <Accordion.Header>{traitCategoryName}</Accordion.Header>
                                         <Accordion.Body>
-                                            {Object.entries(trait[1]).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats, value) => (
-                                                <div key={value}>
+                                            {Object.entries(traitCategoryValues).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats) => (
+                                                <div key={`${traitCategoryName}-${stats[0]}`}>
                                                     <Form.Check
                                                         type="checkbox"
                                                         id={stats[0]}
                                                         label={traitStatName(stats[0], stats[1])}
-                                                        onChange={(t) => handleCheck(t, trait[0])}
+                                                        defaultChecked={viewGetDefaultCheckValue(traitCategoryName, stats[0])}
+                                                        value={viewGetDefaultCheckValue(traitCategoryName, stats[0])}
+                                                        onChange={(t) => handleCheck(t, traitCategoryName)}
                                                     />
                                                 </div>
                                             ))}
