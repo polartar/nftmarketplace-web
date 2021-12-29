@@ -27,7 +27,7 @@ function App() {
         const firebase = initializeApp(firebaseConfig);
         initializeAnalytics(firebase);
         dispatch(initProvider());
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className={"wraper " + (theme === 'dark' ? 'greyscheme' : '')}>
