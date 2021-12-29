@@ -497,7 +497,7 @@
             "multiToken": false,
             "address": "0xF87A517A5CaecaA03d7cCa770789BdB61e09e05F",
             "onChain": false,
-            "listable": false,
+            "listable": true,
             "metadata": {
                 "slug": "croskull",
                 "description": "",
