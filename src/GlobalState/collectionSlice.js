@@ -47,7 +47,7 @@ const collectionSlice = createSlice({
             state.query.search = null;
 
             if (hardClear) {
-                state.cachedAttributes = {};
+                state.cachedTraitsFilter = {};
                 state.cachedFilter = {};
                 state.cachedSort = {};
             }
