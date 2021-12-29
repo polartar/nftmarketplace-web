@@ -193,7 +193,7 @@ const Listing = () => {
                                                     {listing.nft.attributes && listing.nft.attributes.map((data, i) => {
                                                         return (
                                                             <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                                                                <a className="nft_attr">
+                                                                <div className="nft_attr">
                                                                     <h5>{humanize(data.trait_type)}</h5>
                                                                     <h4>{humanize(data.value)}</h4>
                                                                     {data.occurrence ? (
@@ -204,7 +204,7 @@ const Listing = () => {
                                                                             <span>{data.percent}% have this trait</span>
                                                                         )
                                                                     }
-                                                                </a>
+                                                                </div>
                                                             </div>
                                                         );
                                                     })}

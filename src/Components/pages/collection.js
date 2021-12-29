@@ -40,7 +40,7 @@ const Collection = ({cacheName = 'collection'}) => {
     const collectionStats = useSelector((state) => state.collection.stats);
     const hasRank = useSelector((state) => state.collection.hasRank);
     const canLoadMore = useSelector((state) => {
-        return state.collection.length > 0 &&
+        return state.collection.listings.length > 0 &&
             (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages);
     });
 
@@ -153,7 +153,7 @@ const Collection = ({cacheName = 'collection'}) => {
 
 
     useEffect(async () => {
-        if (hasTraits()) {
+        if (Object.keys(filteredTraits).length > 0) {
             dispatch(filterListingsByTrait(filteredTraits));
         }
     }, [filteredTraits]);
