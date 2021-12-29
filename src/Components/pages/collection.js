@@ -153,7 +153,7 @@ const Collection = ({cacheName = 'collection'}) => {
 
 
     useEffect(async () => {
-        if (Object.keys(filteredTraits).length > 0) {
+        if (hasTraits()) {
             dispatch(filterListingsByTrait(filteredTraits));
         }
     }, [filteredTraits]);
