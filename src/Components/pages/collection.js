@@ -124,20 +124,6 @@ const Collection = ({cacheName = 'collection'}) => {
         setRoyalty((royalties[1] / 10000) * 100);
     }, [dispatch, address]);
 
-    useEffect(async () => {
-        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
-
-        const count = Object.values(cachedTraitsFilter)
-            .reduce((prevCount, traitCategoryObj) => {
-                const truthyValues = Object.values(traitCategoryObj).filter(x => x === true);
-                return prevCount + truthyValues.length
-            }, 0);
-
-        if (count > 0) {
-            dispatch(filterListingsByTrait(cachedTraitsFilter));
-        }
-    }, [collectionCachedTraitsFilter]);
-
     const viewGetDefaultCheckValue = (traitCategory, id) => {
         const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
 
