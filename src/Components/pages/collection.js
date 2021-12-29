@@ -127,7 +127,13 @@ const Collection = ({cacheName = 'collection'}) => {
     useEffect(async () => {
         const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
 
-        if (Object.keys(cachedTraitsFilter).length > 0) {
+        const count = Object.values(cachedTraitsFilter)
+            .reduce((prevCount, traitCategoryObj) => {
+                const truthyValues = Object.values(traitCategoryObj).filter(x => x === true);
+                return prevCount + truthyValues.length
+            }, 0);
+
+        if (count > 0) {
             dispatch(filterListingsByTrait(cachedTraitsFilter));
         }
     }, [collectionCachedTraitsFilter]);
