@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import { getListingDetails } from "../../GlobalState/listingSlice";
-import { humanize } from "../../utils";
+import {humanize, shortAddress, timeSince} from "../../utils";
 import { useParams, useHistory  } from "react-router-dom";
 import {getNftDetails} from "../../GlobalState/nftSlice";
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
+import {ethers} from "ethers";
+import {NavLink} from "react-bootstrap";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -19,6 +21,7 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
+    const listings = useSelector((state) => state.nft.listings)
     const collectionMetadata = useSelector((state) => {
         return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
     });
@@ -34,6 +37,10 @@ const Nft = () => {
         history.push(`/collection/${address}`);
     }
 
+    const viewSeller = (seller) => () => {
+        history.push(`/seller/${seller}`);
+    }
+
     const fullImage = () => {
         if (nft.original_image.startsWith('ipfs://')) {
             const link = nft.original_image.split('://')[1];
@@ -42,6 +49,18 @@ const Nft = () => {
 
         return nft.original_image;
     }
+
+    const [openMenu, setOpenMenu] = React.useState(0);
+    const handleBtnClick = (index) => (element) => {
+        var elements = document.querySelectorAll('.tab');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('active');
+        }
+        element.target.parentElement.classList.add("active");
+
+        setOpenMenu(index);
+        console.log(openMenu, index);
+    };
 
     return (
         <div>
@@ -101,9 +120,18 @@ const Nft = () => {
                                 </div>
                                 }
                             </div>
+
+                            <div className="spacer-40"></div>
+
                             <div className="de_tab">
 
+                                <ul className="de_nav">
+                                    <li id='Mainbtn0' className="tab active"><span onClick={handleBtnClick(0)}>Details</span></li>
+                                    <li id='Mainbtn1' className="tab"><span onClick={handleBtnClick(1)}>History</span></li>
+                                </ul>
+
                                 <div className="de_tab_content">
+                                    {openMenu === 0 &&
                                     <div className="tab-1 onStep fadeIn">
                                         <div className="d-block mb-3">
                                             <div className="row mt-5 gx-3 gy-2">
@@ -147,6 +175,35 @@ const Nft = () => {
 
                                         </div>
                                     </div>
+                                    }
+                                    {openMenu === 1 && (
+                                        <div className="tab-2 onStep fadeIn">
+                                            {listings && listings.length > 0 ?
+                                                <>
+                                                    {listings.map((listing, index) => (
+                                                        <div className="p_list" key={index}>
+                                                            <div className="p_list_pp">
+                                                                <span>
+                                                                    <span onClick={viewSeller(listing.purchaser)}>
+                                                                        <Blockies seed={listing.purchaser} size={10} scale={5}/>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <div className="p_list_info">
+                                                                <span>{timeSince(listing.saleTime + "000")} ago</span>
+                                                                Bought by <b><a href="#" onClick={viewSeller(listing.purchaser)}>{shortAddress(listing.purchaser)}</a></b> for <b>{ethers.utils.commify(listing.price)} CRO</b>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </>
+                                            :
+                                                <>
+                                                    <span>No history found for this item</span>
+                                                </>
+                                            }
+
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

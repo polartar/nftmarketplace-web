@@ -17,6 +17,7 @@ const api = {
     listings:  '/listings',
     collections: '/collections',
     marketData: '/marketdata',
+    nft: '/nft',
 }
 
 export default api;
@@ -381,6 +382,30 @@ export async function getNftSalesForAddress(walletAddress) {
         console.log(error);
 
         return [];
+    }
+}
+
+export async function getNftNew(collectionId, nftId) {
+    try{
+        const queryString = new URLSearchParams({
+            collection: collectionId.toLowerCase(),
+            tokenId: nftId
+        });
+
+        const url = new URL(api.nft, `${api.baseUrl}`);
+        const uri = `${url}?${queryString}`;
+
+        const result = await (await fetch(uri)).json();
+        console.log(result)
+
+        if (!result.nft) {
+            result.nft = await getNft(collectionId, nftId);
+        }
+
+        return result;
+    }catch(error){
+        console.log(error)
+        return await getNft(collectionId, nftId);
     }
 }
 

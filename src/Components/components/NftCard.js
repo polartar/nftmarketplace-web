@@ -42,9 +42,9 @@ const NftCard = ({
     }
 
     const nftUrl = () => {
-        if (nft.listed) {
-            return `/listing/${nft.listingId}`;
-        }
+        // if (nft.listed) {
+        //     return `/listing/${nft.listingId}`;
+        // }
 
         return `/collection/${nft.address}/${nft.id}`;
     }
