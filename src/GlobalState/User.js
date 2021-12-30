@@ -38,6 +38,7 @@ const userSlice = createSlice({
 
         // My NFTs
         fetchingNfts: false,
+        nftsInitialized: false,
         nfts: [],
 
         // My Sales
@@ -89,8 +90,12 @@ const userSlice = createSlice({
         onNftsAdded(state, action){
             state.nfts.push(...action.payload);
         },
+        onNftsReplace(state, action){
+            state.nfts = action.payload;
+        },
         nftsFetched(state){
             state.fetchingNfts = false;
+            state.nftsInitialized = true;
         },
         onNftLoading(state, action){
             state.currentNft = null;
@@ -172,6 +177,7 @@ export const {
     onNftsLoaded,
     onNftLoading,
     onNftsAdded,
+    onNftsReplace,
     nftsFetched,
     onNftLoaded,
     mySoldNftsFetching,
@@ -480,11 +486,24 @@ export const chainConnect = (type) => async(dispatch) => {
     }
 }
 
-export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
-    dispatch(fetchingNfts());
+export const fetchNfts = (walletAddress, walletProvider, nftsInitialized) => async (dispatch) => {
+    if (!nftsInitialized) {
+        dispatch(fetchingNfts());
+        const response = await getNftsForAddress(walletAddress, walletProvider, (nfts) => {
+            dispatch(onNftsAdded(nfts));
+        });
+        dispatch(setIsMember(response.isMember));
+        dispatch(nftsFetched());
+
+        return;
+    }
+
+    const loadedNfts = [];
     const response = await getNftsForAddress(walletAddress, walletProvider, (nfts) => {
-        dispatch(onNftsAdded(nfts));
+        loadedNfts.push(...nfts);
     });
+    dispatch(fetchingNfts());
+    dispatch(onNftsReplace(loadedNfts));
     dispatch(setIsMember(response.isMember));
     dispatch(nftsFetched());
 }

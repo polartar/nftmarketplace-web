@@ -55,7 +55,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
     }
 
     useEffect(() => {
-        dispatch(fetchNfts(user.address, user.provider));
+        dispatch(fetchNfts(user.address, user.provider, user.nftsInitialized));
     }, []);
 
     useEffect(() => {
