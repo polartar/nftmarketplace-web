@@ -18,7 +18,7 @@ const nftSlice = createSlice({
             state.loading = false;
             state.error = false;
             state.nft = action.payload.nft;
-            state.listings = action.payload.listings;
+            state.listings = action.payload.listings ?? [];
         }
     },
 });
