@@ -4,7 +4,7 @@ import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingReceived} from "../../GlobalState/listingSlice";
 import { humanize } from "../../utils";
-import { useParams, useHistory  } from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
@@ -20,7 +20,6 @@ const GlobalStyles = createGlobalStyle`
 const Listing = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const listing = useSelector((state) => state.listing.listing)
     const isLoading = useSelector((state) => state.listing.loading)
@@ -39,14 +38,6 @@ const Listing = () => {
     useEffect(() => {
         dispatch(getListingDetails(id));
     }, [dispatch, id]);
-
-    const viewCollection = () => () => {
-        history.push(`/collection/${listing.nftAddress}`);
-    }
-
-    const viewSeller = () => () => {
-        history.push(`/seller/${listing.seller}`);
-    }
 
     const fullImage = () => {
         if (listing.nft.original_image.startsWith('ipfs://')) {
@@ -139,34 +130,38 @@ const Listing = () => {
                                     <div className="col">
                                         <h6>Seller</h6>
                                         <div className="item_author">
-                                            <div className="author_list_pp">
-                                            <span onClick={viewSeller()}>
-                                                <Blockies seed={listing.seller} size={10} scale={5}/>
-                                            </span>
-                                            </div>
-                                            <div className="author_list_info">
-                                                <span>{`${listing.seller.substring(0, 4)}...${listing.seller.substring(listing.seller.length-3, listing.seller.length)}`}</span>
-                                            </div>
+                                            <Link to={`/seller/${listing.seller}`}>
+                                                <div className="author_list_pp">
+                                                    <span>
+                                                        <Blockies seed={listing.seller} size={10} scale={5}/>
+                                                    </span>
+                                                </div>
+                                                <div className="author_list_info">
+                                                    <span>{`${listing.seller.substring(0, 4)}...${listing.seller.substring(listing.seller.length-3, listing.seller.length)}`}</span>
+                                                </div>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div className="col">
                                         <h6>Collection</h6>
                                         <div className="item_author">
-                                            <div className="author_list_pp">
-                                                <span onClick={viewCollection()}>
-                                                    {collectionMetadata?.avatar ?
-                                                        <img className="lazy" src={collectionMetadata.avatar} alt=""/>
-                                                        :
-                                                        <Blockies seed={listing.nftAddress} size={10} scale={5}/>
-                                                    }
-                                                    {collectionMetadata?.verified &&
-                                                        <i className="fa fa-check"></i>
-                                                    }
-                                                </span>
-                                            </div>
-                                            <div className="author_list_info">
-                                                <span>{collectionName ?? "View Collection"}</span>
-                                            </div>
+                                            <Link to={`/collection/${listing.nftAddress}`}>
+                                                <div className="author_list_pp">
+                                                    <span>
+                                                            {collectionMetadata?.avatar ?
+                                                                <img className="lazy" src={collectionMetadata.avatar} alt=""/>
+                                                                :
+                                                                <Blockies seed={listing.nftAddress} size={10} scale={5}/>
+                                                            }
+                                                            {collectionMetadata?.verified &&
+                                                                <i className="fa fa-check"></i>
+                                                            }
+                                                    </span>
+                                                </div>
+                                                <div className="author_list_info">
+                                                    <span>{collectionName ?? "View Collection"}</span>
+                                                </div>
+                                            </Link>
                                         </div>
                                     </div>
                                     {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
