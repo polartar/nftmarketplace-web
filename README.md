@@ -31,6 +31,18 @@ docker-compose down
 docker exec -it --user root ebisusbay-frontend /bin/bash
 ```
 
+### Allow app to be accessed by external devices on the local network
+Open up package.json and edit the start script to include `--host 0.0.0.0`. e.g.:
+```
+"start": "react-scripts start --host 0.0.0.0",
+```
+
+### Enable HTTPS on localhost
+Modify the start command to the following:
+```
+set HTTPS=true&&npm start
+```
+
 ### Useful commands
 Delete:
   - all stopped containers
