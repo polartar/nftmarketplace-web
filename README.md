@@ -42,6 +42,7 @@ Modify the start command to the following:
 ```
 set HTTPS=true&&npm start
 ```
+Additional info can be found here: https://create-react-app.dev/docs/using-https-in-development/
 
 ### Useful commands
 Delete:
