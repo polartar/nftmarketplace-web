@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import {getAllCollections} from "../../GlobalState/collectionsSlice";
-import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {ethers} from "ethers";
 import Blockies from "react-blockies";
 import {Spinner} from "react-bootstrap";
@@ -24,7 +24,6 @@ const Collections = () => {
     const mobileListBreakpoint = 1000;
 
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const [tableMobileView, setTableMobileView] = useState(window.innerWidth > mobileListBreakpoint);
 
@@ -36,14 +35,9 @@ const Collections = () => {
         return state.collections.sort;
     });
 
-    const viewCollection = (collectionAddress) => () => {
-        history.push(`/collection/${collectionAddress}`);
-    }
-
     useEffect(async () => {
         dispatch(getAllCollections());
     }, []);
-
 
     useEffect(() => {
         const onResize = ({ currentTarget }) => {
@@ -119,15 +113,19 @@ const Collections = () => {
                                 <tr key={index}>
                                     <th scope="row" className='row gap-4 border-bottom-0'>
                                         <div className="col-12">
-                                            <div className="coll_list_pp" style={{cursor: 'pointer'}} onClick={viewCollection(collection.collection)}>
-                                                {collection.metadata?.avatar ?
-                                                    <img className="lazy" src={collection.metadata.avatar} alt="" />
-                                                    :
-                                                    <Blockies seed={collection.collection.toLowerCase()} size={10} scale={5} />
-                                                }
+                                            <div className="coll_list_pp" style={{cursor: 'pointer'}}>
+                                                <Link to={`/collection/${collection.collection}`}>
+                                                    {collection.metadata?.avatar ?
+                                                        <img className="lazy" src={collection.metadata.avatar} alt="" />
+                                                        :
+                                                        <Blockies seed={collection.collection.toLowerCase()} size={10} scale={5} />
+                                                    }
+                                                </Link>
                                             </div>
-                                            <span style={{cursor: 'pointer'}} onClick={viewCollection(collection.collection)}>
-                                                {collection?.name ?? 'Unknown'}
+                                            <span>
+                                                <Link to={`/collection/${collection.collection}`}>
+                                                    {collection?.name ?? 'Unknown'}
+                                                </Link>
                                             </span>
                                         </div>
 
