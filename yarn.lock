@@ -1417,7 +1417,7 @@
     "@walletconnect/window-metadata" "1.0.0"
     "detect-browser" "5.2.0"
 
-"@deficonnect/client@^1.6.8", "@deficonnect/client@^1.6.9":
+"@deficonnect/client@^1.6.7", "@deficonnect/client@^1.6.9":
   "integrity" "sha512-2MOVVJMP0reKHCl/GQL8jj8+GqBApNbaWX+BntxOqv4OYQSjFVboLEt2FwOWl/I37JTMiONOEd+Vsuz5RyMTUw=="
   "resolved" "https://registry.npmjs.org/@deficonnect/client/-/client-1.6.9.tgz"
   "version" "1.6.9"
@@ -1427,7 +1427,7 @@
     "@deficonnect/types" "^1.6.9"
     "@deficonnect/utils" "^1.6.9"
 
-"@deficonnect/core@^1.6.8", "@deficonnect/core@^1.6.9":
+"@deficonnect/core@^1.6.7", "@deficonnect/core@^1.6.9":
   "integrity" "sha512-eXekzMn8UXdlekjaN+04qMM5EPpSo4cdvMSpq2K/ut2PU0PKkA0wywxlToo8ZN/7U0nKss5Fxd7oXEATK/3pqw=="
   "resolved" "https://registry.npmjs.org/@deficonnect/core/-/core-1.6.9.tgz"
   "version" "1.6.9"
@@ -1446,7 +1446,7 @@
     "eventemitter3" "4.0.7"
     "xhr2-cookies" "1.1.0"
 
-"@deficonnect/iso-crypto@^1.6.8", "@deficonnect/iso-crypto@^1.6.9":
+"@deficonnect/iso-crypto@^1.6.7", "@deficonnect/iso-crypto@^1.6.9":
   "integrity" "sha512-NrK2vV/l/pjxurXtaoJhsfcug5ZUEipE0hzmOuPlt6dsB+K6tR3ieYU0V2+lXgfie7DxA2JMs7mBPLFTC83Oww=="
   "resolved" "https://registry.npmjs.org/@deficonnect/iso-crypto/-/iso-crypto-1.6.9.tgz"
   "version" "1.6.9"
@@ -1476,12 +1476,12 @@
     "@deficonnect/utils" "^1.6.9"
     "ws" "7.5.3"
 
-"@deficonnect/types@^1.6.8", "@deficonnect/types@^1.6.9":
+"@deficonnect/types@^1.6.7", "@deficonnect/types@^1.6.9":
   "integrity" "sha512-iFnol/WQ81k/itEpZjK0nZ3c0nsgNmzEWDgxov9GQfHItVNchNuM9uXOjQDpNJGal+M3Zu6Rh5LJADSrellNFQ=="
   "resolved" "https://registry.npmjs.org/@deficonnect/types/-/types-1.6.9.tgz"
   "version" "1.6.9"
 
-"@deficonnect/utils@^1.6.8", "@deficonnect/utils@^1.6.9":
+"@deficonnect/utils@^1.6.7", "@deficonnect/utils@^1.6.9":
   "integrity" "sha512-DXR4T87SKrFdOM0ARAzFan+OlMlzMUS9JHhCCV/kMAAM68jUZQbmtDxg2aIpLWeHvZ4woq9TaxEB9N5P2Yn8MA=="
   "resolved" "https://registry.npmjs.org/@deficonnect/utils/-/utils-1.6.9.tgz"
   "version" "1.6.9"
@@ -1494,7 +1494,7 @@
     "js-sha3" "0.8.0"
     "query-string" "6.13.5"
 
-"@deficonnect/web3-provider@^1.6.7-alpha.25", "@deficonnect/web3-provider@^1.6.8":
+"@deficonnect/web3-provider@^1.6.7", "@deficonnect/web3-provider@^1.6.9":
   "integrity" "sha512-NRB9FdU9Cy99PVL1GNn7RZPBqV/v8TXB3beD/xBkQMsyeBYE3GlFltZzxOvzFdrgv7Y1Uf3NnFYOVHjihEC45g=="
   "resolved" "https://registry.npmjs.org/@deficonnect/web3-provider/-/web3-provider-1.6.9.tgz"
   "version" "1.6.9"
@@ -6523,21 +6523,21 @@
   dependencies:
     "abstract-leveldown" "~2.6.0"
 
-"deficonnect@^1.1.1":
-  "integrity" "sha512-gsz6T69cr6d+tlNp/X1oWMIeoFWlslb37v8LMx4pqKJIeRxL/tQhJyN9YoQQMySzyJb5ST4XtlTuOhJy/vBVVw=="
-  "resolved" "https://registry.npmjs.org/deficonnect/-/deficonnect-1.1.5.tgz"
-  "version" "1.1.5"
+"deficonnect@1.1.2":
+  "integrity" "sha512-bMM6ombZ4Q8q1qGe0P4O3pag5Q+LRP4l3OtNk1pR8BLGwy86gNVY4SqWtWAjT+NzOKeUQ4R6T4tdeuH2yPLb/A=="
+  "resolved" "https://registry.npmjs.org/deficonnect/-/deficonnect-1.1.2.tgz"
+  "version" "1.1.2"
   dependencies:
     "@cosmjs/amino" "^0.26.0"
     "@cosmjs/encoding" "^0.26.0"
     "@cosmjs/proto-signing" "^0.26.0"
     "@cosmjs/stargate" "^0.26.1"
-    "@deficonnect/client" "^1.6.8"
-    "@deficonnect/core" "^1.6.8"
-    "@deficonnect/iso-crypto" "^1.6.8"
-    "@deficonnect/types" "^1.6.8"
-    "@deficonnect/utils" "^1.6.8"
-    "@deficonnect/web3-provider" "^1.6.8"
+    "@deficonnect/client" "^1.6.7"
+    "@deficonnect/core" "^1.6.7"
+    "@deficonnect/iso-crypto" "^1.6.7"
+    "@deficonnect/types" "^1.6.7"
+    "@deficonnect/utils" "^1.6.7"
+    "@deficonnect/web3-provider" "^1.6.7"
     "@types/qrcode" "^1.4.1"
     "@types/react-modal" "^3.12.0"
     "@web3-react/injected-connector" "^6.0.7"
