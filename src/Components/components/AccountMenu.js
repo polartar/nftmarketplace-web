@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { nanoid } from 'nanoid'
 import {ethers} from 'ethers'
+import {NavLink} from "react-bootstrap";
 
 const AccountMenu = function() {
     const dispatch = useDispatch();
@@ -137,18 +138,16 @@ const AccountMenu = function() {
     }
 
     useEffect(() => {
-        if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") != null && walletAddress == null) {
-            dispatch(connectAccount(true));
-        }
+        dispatch(connectAccount());
     }, []);
 
     return (
         <div className='mainside'>
             {!walletAddress && (
                 <div className='connect-wal'>
-                    <button id="walletButton" className="btn-main" onClick={connectWalletPressed}>
+                    <NavLink onClick={connectWalletPressed}>
                         Connect Wallet
-                    </button>
+                    </NavLink>
                 </div>
             )}
             {walletAddress && !correctChain && (

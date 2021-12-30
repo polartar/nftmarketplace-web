@@ -233,7 +233,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             if (c.name === 'Ant Mint Pass') {
                                 //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
                                 //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
-                                uri = 'https://gateway.pinata.cloud/ipfs/QmUw7AwUuGd95PzmHozfChLomBJ4g7GTocr35HawkJ9dNS';
+                                uri = 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
                             } else {
                                 uri = await readContract.tokenURI(id);
                             }
@@ -329,7 +329,10 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 nfts.push(nft);
                             }
                         }
-                        onNftLoaded(nfts);
+
+                        if (nfts.length > 0) {
+                            onNftLoaded(nfts);
+                        }
                     }
                 }catch(error){
                     console.log('error fetching ' + knownContracts[i].name);

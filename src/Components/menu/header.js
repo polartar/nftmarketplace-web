@@ -65,7 +65,8 @@ const Header = function() {
                             <NavLink to="/">
                                 <img
                                     height="40px"
-                                    src="/img/web_logo.svg"
+                                    src="/img/logo.png"
+                                    className="img-fluid d-block"
                                     alt="#"
                                 />
                             </NavLink>

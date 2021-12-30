@@ -45,8 +45,12 @@ const Collection = ({cacheName = 'collection'}) => {
             (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages);
     });
 
+    const collectionMetadata = useSelector((state) => {
+        return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
+    });
+
     const collectionName = () => {
-        const contract = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
+        const contract = knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase());
 
         return contract ? contract.name : 'Collection';
     }
@@ -195,7 +199,7 @@ const Collection = ({cacheName = 'collection'}) => {
             <section className='container no-top'>
                     {collectionStats && (
                         <div className="row">
-                            {hasRank &&
+                            {hasRank && collectionMetadata?.rarity === 'rarity_sniper' &&
                                 <div className="row">
                                     <div className="col-lg-8 col-sm-10 mx-auto text-end fst-italic" style={{fontSize: '0.8em'}}>
                                         Rarity scores and ranks provided by <a href="https://raritysniper.com/" target="_blank"><span className="color">Rarity Sniper</span></a>
