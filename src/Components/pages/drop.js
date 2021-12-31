@@ -113,18 +113,11 @@ const Drop = () => {
                     currentDrop.memberCost = cost;
                     currentDrop.cost = cost;
                 }
-                const sTime = new Date(currentDrop.start);
-                const now = new Date();
-                if(sTime > now){
-                    setIsLive(false);
-                } else {
-                    console.log(currentDrop.startTime);
-                    console.log(`now: ${now}  sTime ${sTime}`)
-                }
             }
         } catch(error) {
             console.log(error);
         }
+        calculateStatus(currentDrop);
         setLoading(false);
         setDropObject(currentDrop);
     }, [user]);
@@ -141,8 +134,24 @@ const Drop = () => {
         }
     }, [membership, user, cronies])
 
-    const [isLive, setIsLive] = useState(true);
-    const [startTime, setStartTime] = useState(1638565200000);
+    const statuses = {
+        UNSET: -1,
+        NOT_STARTED: 0,
+        LIVE: 1,
+        ENDED: 2
+    }
+    const [status, setStatus] = useState(statuses.UNSET);
+    const calculateStatus = (drop) => {
+        const sTime = new Date(drop.start);
+        const eTime = new Date(drop.end);
+        const now = new Date();
+
+        if (sTime > now) setStatus(statuses.NOT_STARTED);
+        else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
+        else if (drop.end && eTime < now) setStatus(statuses.ENDED);
+        else setStatus(statuses.NOT_STARTED);
+    }
+
     const [loading, setLoading] = useState(true);
 
     const [minting, setMinting] = useState(false);
@@ -241,7 +250,7 @@ const Drop = () => {
     };
 
     const convertTime = (time) => {
-        let date = new Date(time * 1000);
+        let date = new Date(time);
         const fullDateString = date.toLocaleString('default', {timeZone: 'UTC'});
         const month = date.toLocaleString('default', { month: 'long', timeZone: 'UTC' });
         let dateString = `${fullDateString.split(", ")[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`
@@ -272,14 +281,14 @@ const Drop = () => {
                                     }
                                 </Reveal>
                                 }
-                                {isLive && drop.end &&
+                                {status === statuses.LIVE && drop.end &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <p className="lead col-white">
                                         Ends in: <Countdown date={drop.end}/>
                                     </p>
                                 </Reveal>
                                 }
-                                {!isLive &&
+                                {status === statuses.NOT_STARTED &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <p className="lead col-white">
                                         Starts in: <Countdown date={drop.start}/>
@@ -358,7 +367,7 @@ const Drop = () => {
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
                                 }
-                                {isLive ?
+                                {status === statuses.LIVE &&
                                     <>
                                         <div>
                                             <Form.Label>Quantity</Form.Label>
@@ -378,7 +387,8 @@ const Drop = () => {
                                                     onClick={mintNow}>Mint {numToMint}</button>
                                         </div>
                                     </>
-                                    :
+                                }
+                                {status === statuses.ENDED &&
                                     <p className="mt-5">MINT HAS ENDED</p>
                                 }
                             </div>
