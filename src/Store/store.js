@@ -27,14 +27,18 @@ const rootReducer = combineReducers({
 });
 
 const middleware = [thunk];
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 
 const configureStore = () => {
-    // return createStore(rootReducer, enhancer);
+    const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENABLE_DEVTOOLS === 'true';
+
+    if (enableDevTools) {
+        const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+        return createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
+    }
+
     return createStore(rootReducer, applyMiddleware(...middleware));
-  };
+};
 
 const store = configureStore();
 

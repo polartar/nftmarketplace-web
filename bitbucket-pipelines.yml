@@ -40,6 +40,8 @@ pipelines:
           size: 1x
           script:
             - apt-get update
+            # Set environment variables
+            - REACT_APP_DEVTOOLS=true
             # Print Node.js version
             - node --version
             # Print npm version
@@ -93,6 +95,8 @@ pipelines:
           size: 1x
           script:
             - apt-get update
+            # Set environment variables
+            - REACT_APP_DEVTOOLS=true
             # Print Node.js version
             - node --version
             # Print npm version
@@ -146,6 +150,8 @@ pipelines:
           size: 1x
           script:
             - apt-get update
+            # Set environment variables
+            - REACT_APP_DEVTOOLS=false
             # Print Node.js version
             - node --version
             # Print npm version
