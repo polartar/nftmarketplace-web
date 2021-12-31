@@ -101,12 +101,13 @@ const Drop = () => {
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
 
                 if (isFirst) {
+                    // console.log("start");
                     // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                     // const regCost = ethers.utils.parseEther(dropObject.cost);
                     // await writeContract.startEditionOpen();
                     // await writeContract.setCost(memberCost, true);
                     // await writeContract.setCost(regCost, false);
-                    setIsFirst(false);
+                    // setIsFirst(false);
                 }
             } catch(error) {
                 console.log(error);
