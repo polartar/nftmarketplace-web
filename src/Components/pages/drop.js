@@ -376,11 +376,13 @@ const Drop = () => {
                                 }
                                 {isLive ?
                                     <>
-                                        <div>
-                                            <Form.Label>Quantity</Form.Label>
-                                            <Form.Range value={numToMint} min="1" max="10"
-                                                        onChange={e => setNumToMint(e.target.value)}/>
-                                        </div>
+                                        {drop.maxMintPerTx > 1 &&
+                                            <div>
+                                                <Form.Label>Quantity</Form.Label>
+                                                <Form.Range value={numToMint} min="1" max={drop.maxMintPerTx}
+                                                            onChange={e => setNumToMint(e.target.value)}/>
+                                            </div>
+                                        }
                                         {dropObject?.referral &&
                                             <Form.Group className="mb-3" controlId="formReferralCode">
                                                 <Form.Label>Referral Code</Form.Label>
@@ -391,7 +393,13 @@ const Drop = () => {
                                         }
                                         <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15'
-                                                    onClick={mintNow}>Mint {numToMint}</button>
+                                                    onClick={mintNow}>
+                                                {drop.maxMintPerTx > 1 ?
+                                                    <>Mint {numToMint}</>
+                                                    :
+                                                    <>Mint</>
+                                                }
+                                            </button>
                                         </div>
                                     </>
                                     :
