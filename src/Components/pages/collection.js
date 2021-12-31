@@ -153,6 +153,12 @@ const Collection = ({cacheName = 'collection'}) => {
             .reduce((prev, curr) => prev + curr, 0);
     };
 
+    const clearAttributeFilters = () => {
+        dispatch(filterListingsByTrait({
+            traits: {},
+            address
+        }))
+    }
 
     return (
         <div>
@@ -250,7 +256,10 @@ const Collection = ({cacheName = 'collection'}) => {
                 <div className="row">
                     {hasTraits() &&
                         <div className='col-md-3'>
-                            <h3>Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
+                            <div className="d-flex justify-content-between">
+                                <h3 className="d-inline-block">Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
+                                <div className="d-inline-block fst-italic" style={{fontSize: '0.8em', cursor: 'pointer'}} onClick={clearAttributeFilters}>Clear All</div>
+                            </div>
                             <Accordion>
                                 {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                                     <Accordion.Item eventKey={key} key={key}>
