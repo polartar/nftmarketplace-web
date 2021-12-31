@@ -276,8 +276,11 @@ const Listing = () => {
                                                 <button className='btn-main lead mb-5 mr15'
                                                         onClick={showBuy()}>Buy Now
                                                 </button>
-                                            </div> :
-                                            <div>LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }</div>
+                                            </div>
+                                            :
+                                            <div className="mt-5">
+                                                LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }
+                                            </div>
                                         }
                                     </div>
                                 </div>
