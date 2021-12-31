@@ -3,12 +3,22 @@ import Blockies from "react-blockies";
 import {useDispatch, useSelector} from "react-redux";
 import useOnclickOutside from "react-cool-onclickoutside";
 import {useHistory} from "react-router-dom";
-import {connectAccount, onLogout, setTheme, withdrewRewards, withdrewPayments, registeredCode} from "../../GlobalState/User";
+import {
+    connectAccount,
+    onLogout,
+    setTheme,
+    withdrewRewards,
+    withdrewPayments,
+    registeredCode,
+    setShowWrongChainModal, chainConnect
+} from "../../GlobalState/User";
+import rpcConfig from '../../Assets/networks/rpc_config.json'
+
 import {toast} from "react-toastify";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { nanoid } from 'nanoid'
 import {ethers} from 'ethers'
-import {NavLink} from "react-bootstrap";
+import { Modal, NavLink } from "react-bootstrap";
 
 const AccountMenu = function() {
     const dispatch = useDispatch();
@@ -141,6 +151,15 @@ const AccountMenu = function() {
         dispatch(connectAccount());
     }, []);
 
+    const onWrongChainModalClose = () => {
+        dispatch(setShowWrongChainModal(false));
+    }
+
+    const onWrongChainModalChangeChain = () => {
+        dispatch(setShowWrongChainModal(false));
+        dispatch(chainConnect());
+    }
+
     return (
         <div className='mainside'>
             {!walletAddress && (
@@ -150,8 +169,12 @@ const AccountMenu = function() {
                     </NavLink>
                 </div>
             )}
-            {walletAddress && !correctChain && (
-                <p>Wrong Chain!</p>
+            {walletAddress && !correctChain && !user.showWrongChainModal && (
+                <div className='connect-wal'>
+                <NavLink onClick={onWrongChainModalChangeChain}>
+                Switch network
+                </NavLink>
+                </div>
             )}
             {walletAddress && correctChain && (
                 <div id="de-click-menu-profile" className="de-menu-profile">
@@ -239,6 +262,17 @@ const AccountMenu = function() {
                     }
                 </div>
             )}
+
+            <Modal show={user.showWrongChainModal} onHide={onWrongChainModalClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Wrong network!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>To continue, you need to switch the network to <span style={{fontWeight: 'bold'}}>{ rpcConfig.name }</span>. </Modal.Body>
+                <Modal.Footer>
+                    <button className="p-4 pt-2 pb-2 btn_menu inline white lead " onClick={onWrongChainModalClose}>Close</button>
+                    <button className="p-4 pt-2 pb-2 btn_menu inline white lead btn-outline" onClick={onWrongChainModalChangeChain}>Switch</button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

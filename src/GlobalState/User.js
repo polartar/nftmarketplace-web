@@ -35,6 +35,7 @@ const userSlice = createSlice({
         marketContract: null,
         // ebisuContract : null,
         correctChain : false,
+        showWrongChainModal : false,
 
         // My NFTs
         fetchingNfts: false,
@@ -144,6 +145,9 @@ const userSlice = createSlice({
         setIsMember(state, action){
             state.isMember = action.payload;
         },
+        setShowWrongChainModal(state, action){
+            state.showWrongChainModal = action.payload;
+        },
         onLogout(state) {
             state.connectingWallet = false;
             const web3Modal = new Web3Modal({
@@ -191,6 +195,7 @@ export const {
     listingUpdate,
     transferedNFT,
     setIsMember,
+    setShowWrongChainModal,
     onBasicAccountData,
     onLogout,
     elonContract,
@@ -298,9 +303,15 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             console.log('chain_id:  ', config.chain_id)
         }
         var correctChain = cid === Number(config.chain_id);
+
         if (!correctChain) {
             correctChain = cid === config.chain_id
         }
+
+        if (!correctChain) {
+            await dispatch(setShowWrongChainModal(true));
+        }
+
         //console.log(correctChain);
         await dispatch(onBasicAccountData({
             address: address,
