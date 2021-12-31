@@ -17,6 +17,11 @@ import { getAnalytics, logEvent } from '@firebase/analytics'
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
+.jumbotron.tint{
+  background-color: rgba(0,0,0,0.6);
+  background-blend-mode: multiply;
+}
+
 `;
 const fadeInUp = keyframes`
   0% {
@@ -263,7 +268,7 @@ const Drop = () => {
         <div>
             <GlobalStyles/>
             <>
-                <section className="jumbotron no-bg" style={{backgroundImage: `url(${'/img/background/7.jpg'})`}}>
+                <section className={`jumbotron no-bg ${drop.imgBanner ? 'tint' : ''}`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/7.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
