@@ -155,7 +155,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className='container'>
+            <section className='container no-bottom'>
                 <div className='row'>
                     <div className='col-lg-12'>
                         <div className='text-center'>
@@ -169,7 +169,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className='container no-bottom'>
+            <section className='container'>
                 <div className='row'>
                     <div className='col-lg-12'>
                         <div className='text-center'>

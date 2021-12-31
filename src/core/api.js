@@ -330,7 +330,10 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 nfts.push(nft);
                             }
                         }
-                        onNftLoaded(nfts);
+
+                        if (nfts.length > 0) {
+                            onNftLoaded(nfts);
+                        }
                     }
                 }catch(error){
                     console.log('error fetching ' + knownContracts[i].name);
