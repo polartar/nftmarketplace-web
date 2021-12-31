@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getListing } from "../core/api";
+import {getListing, getNftSalesHistory} from "../core/api";
 
 const listingSlice = createSlice({
     name: 'listing',
@@ -7,6 +7,7 @@ const listingSlice = createSlice({
         loading: false,
         error: false,
         listing: null,
+        history: [],
     },
     reducers: {
         listingLoading: (state) => {
@@ -14,7 +15,8 @@ const listingSlice = createSlice({
         },
         listingReceived: (state, action) => {
             state.loading = false;
-            state.listing = action.payload;
+            state.listing = action.payload.listing;
+            state.history = action.payload.history ?? [];
         }
     },
 });
@@ -23,8 +25,10 @@ export const { listingLoading, listingReceived } = listingSlice.actions;
 
 export default listingSlice.reducer;
 
-export const getListingDetails = (listingId) => async (dispatch, getState) => {
+export const getListingDetails = (listingId) => async (dispatch) => {
     dispatch(listingLoading());
     const listing = await getListing(listingId);
-    dispatch(listingReceived(listing));
+    const history = await getNftSalesHistory(listing.nftAddress, listing.nftId);
+    console.log(history);
+    dispatch(listingReceived({listing, history}));
 }

@@ -2,14 +2,12 @@ import React, { memo, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
-import { getListingDetails } from "../../GlobalState/listingSlice";
 import {humanize, shortAddress, timeSince} from "../../utils";
-import { useParams, useHistory  } from "react-router-dom";
+import {useParams, useHistory, Link} from "react-router-dom";
 import {getNftDetails} from "../../GlobalState/nftSlice";
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
 import {ethers} from "ethers";
-import {NavLink} from "react-bootstrap";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -21,7 +19,7 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
-    const listings = useSelector((state) => state.nft.listings)
+    const listings = useSelector((state) => state.nft.history.filter(i => i.state !== 0))
     const collectionMetadata = useSelector((state) => {
         return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
     });
@@ -32,10 +30,6 @@ const Nft = () => {
     useEffect(() => {
         dispatch(getNftDetails(address, id));
     }, [dispatch, id]);
-
-    const viewCollection = () => () => {
-        history.push(`/collection/${address}`);
-    }
 
     const viewSeller = (seller) => () => {
         history.push(`/seller/${seller}`);
@@ -88,18 +82,20 @@ const Nft = () => {
                                 <div className="col">
                                     <h6>Collection</h6>
                                     <div className="item_author">
-                                        <div className="author_list_pp">
-                                            <span onClick={viewCollection()}>
-                                                {collectionMetadata?.avatar ?
-                                                    <img className="lazy" src={collectionMetadata.avatar} alt=""/>
-                                                    :
-                                                    <Blockies seed={address} size={10} scale={5}/>
-                                                }
-                                                {collectionMetadata?.verified &&
-                                                    <i className="fa fa-check"></i>
-                                                }
-                                            </span>
-                                        </div>
+                                        <Link to={`/collection/${address}`}>
+                                            <div className="author_list_pp">
+                                                <span>
+                                                    {collectionMetadata?.avatar ?
+                                                        <img className="lazy" src={collectionMetadata.avatar} alt=""/>
+                                                        :
+                                                        <Blockies seed={address} size={10} scale={5}/>
+                                                    }
+                                                    {collectionMetadata?.verified &&
+                                                        <i className="fa fa-check"></i>
+                                                    }
+                                                </span>
+                                            </div>
+                                        </Link>
                                         <div className="author_list_info">
                                             <span>{collectionName ?? "View Collection"}</span>
                                         </div>
@@ -133,65 +129,73 @@ const Nft = () => {
                                 <div className="de_tab_content">
                                     {openMenu === 0 &&
                                     <div className="tab-1 onStep fadeIn">
-                                        <div className="d-block mb-3">
-                                            <div className="row mt-5 gx-3 gy-2">
-                                                {nft.attributes && nft.attributes.map((data, i) => {
-                                                    return (
-                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                                                            <a className="nft_attr">
-                                                                <h5>{humanize(data.trait_type)}</h5>
-                                                                <h4>{humanize(data.value)}</h4>
-                                                                {data.occurrence ? (
-                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
-                                                                    )
-                                                                    :
-                                                                    data.percent && (
-                                                                        <span>{data.percent}% have this trait</span>
-                                                                    )
-                                                                }
-                                                            </a>
-                                                        </div>
-                                                    );
-                                                })}
-                                                {nft.properties && nft.properties.map((data, i) => {
-                                                    return (
-                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                                                            <div className="nft_attr">
-                                                                <h5>{humanize(data.trait_type)}</h5>
-                                                                <h4>{humanize(data.value)}</h4>
-                                                                {data.occurrence ? (
-                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
-                                                                    )
-                                                                    :
-                                                                    data.percent && (
-                                                                        <span>{data.percent}% have this trait</span>
-                                                                    )
-                                                                }
+                                        {(nft.attributes && nft.attributes.length > 0) ||  (nft.properties && nft.properties.length > 0) ?
+                                            <div className="d-block mb-3">
+                                                <div className="row mt-5 gx-3 gy-2">
+                                                    {nft.attributes && nft.attributes.map((data, i) => {
+                                                        return (
+                                                            <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                <a className="nft_attr">
+                                                                    <h5>{humanize(data.trait_type)}</h5>
+                                                                    <h4>{humanize(data.value)}</h4>
+                                                                    {data.occurrence ? (
+                                                                            <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                        )
+                                                                        :
+                                                                        data.percent && (
+                                                                            <span>{data.percent}% have this trait</span>
+                                                                        )
+                                                                    }
+                                                                </a>
                                                             </div>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
+                                                        );
+                                                    })}
+                                                    {nft.properties && nft.properties.map((data, i) => {
+                                                        return (
+                                                            <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                <div className="nft_attr">
+                                                                    <h5>{humanize(data.trait_type)}</h5>
+                                                                    <h4>{humanize(data.value)}</h4>
+                                                                    {data.occurrence ? (
+                                                                            <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                        )
+                                                                        :
+                                                                        data.percent && (
+                                                                            <span>{data.percent}% have this trait</span>
+                                                                        )
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
 
-                                        </div>
+                                            </div>
+                                            :
+                                            <>
+                                                <span>No traits found for this item</span>
+                                            </>
+                                        }
                                     </div>
                                     }
-                                    {openMenu === 1 && (
+                                    {openMenu === 1 &&
                                         <div className="tab-2 onStep fadeIn">
                                             {listings && listings.length > 0 ?
                                                 <>
                                                     {listings.map((listing, index) => (
                                                         <div className="p_list" key={index}>
-                                                            <div className="p_list_pp">
-                                                                <span>
-                                                                    <span onClick={viewSeller(listing.purchaser)}>
-                                                                        <Blockies seed={listing.purchaser} size={10} scale={5}/>
+                                                            <Link to={`/seller/${listing.purchaser}`}>
+                                                                <div className="p_list_pp">
+                                                                    <span>
+                                                                        <span onClick={viewSeller(listing.purchaser)}>
+                                                                            <Blockies seed={listing.purchaser} size={10} scale={5}/>
+                                                                        </span>
                                                                     </span>
-                                                                </span>
-                                                            </div>
+                                                                </div>
+                                                            </Link>
                                                             <div className="p_list_info">
                                                                 <span>{timeSince(listing.saleTime + "000")} ago</span>
-                                                                Bought by <b><a href="#" onClick={viewSeller(listing.purchaser)}>{shortAddress(listing.purchaser)}</a></b> for <b>{ethers.utils.commify(listing.price)} CRO</b>
+                                                                Bought by <b><Link to={`/seller/${listing.purchaser}`}>{shortAddress(listing.purchaser)}</Link></b> for <b>{ethers.utils.commify(listing.price)} CRO</b>
                                                             </div>
                                                         </div>
                                                     ))}
@@ -203,7 +207,7 @@ const Nft = () => {
                                             }
 
                                         </div>
-                                    )}
+                                    }
                                 </div>
                             </div>
                         </div>

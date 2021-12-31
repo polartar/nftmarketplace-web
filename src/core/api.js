@@ -388,6 +388,25 @@ export async function getNftSalesForAddress(walletAddress) {
     }
 }
 
+export async function getNftSalesHistory(collectionId, nftId) {
+    try{
+        const queryString = new URLSearchParams({
+            collection: collectionId.toLowerCase(),
+            tokenId: nftId
+        });
+
+        const url = new URL(api.nft, `${api.baseUrl}`);
+        const uri = `${url}?${queryString}`;
+
+        const result = await (await fetch(uri)).json();
+
+        return result.listings ?? [];
+    }catch(error){
+        console.log(error)
+        return [];
+    }
+}
+
 export async function getNftNew(collectionId, nftId) {
     try{
         const queryString = new URLSearchParams({
