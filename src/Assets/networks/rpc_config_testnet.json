@@ -73,6 +73,35 @@
             "address" : "0xEf05151db4e0c96fff0921481300e2d53618Ee96",
             "onChain" : false,
             "listable" : true
+        },
+        {
+            "name" : "Deplone",
+            "multiToken" : false,
+            "address" : "0x74De32e6e64ACc9b969BE899CC13D73F1E62DaAC",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "deplone",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/deplone/avatar.jpg",
+                "banner": "/img/collections/deplone/banner.jpg",
+                "card": "/img/drops/deplone/drop.gif"
+            }
+        }, {
+            "name" : "LazyHorse",
+            "multiToken" : false,
+            "address" : "0xeDec18794210Ca0378354340B440C0f26B050274",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "lazyhorse",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/deplone/avatar.jpg",
+                "card": "/img/drops/lazyhorse/drop_card.png",
+                "banner": "/img/collections/deplone/banner.jpg"
+            }
         }
     ],
     "drops": [
