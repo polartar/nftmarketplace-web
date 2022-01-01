@@ -17,6 +17,7 @@ const api = {
     listings:  '/listings',
     collections: '/collections',
     marketData: '/marketdata',
+    nft: '/nft',
 }
 
 export default api;
@@ -47,7 +48,26 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
         };
         query = {...query, ...sortProps}
     }
-    if (traits != null && Object.entries(traits).length > 0) query['traits'] = JSON.stringify(traits);
+
+    if (traits && Object.keys(traits).length > 0) {
+        //  traits      = { traitCategoryName1: {traitName2: true }, traitCategoryName3: {traitName4: false}}
+        //  traitFilter = { traitCategoryName1: ['traitName2']}
+        const traitFilter = Object.keys(traits).map((traitCategoryName) => {
+
+            const traitCategory = traits[traitCategoryName];
+
+            const traitCategoryKeys = Object.keys(traitCategory);
+
+            const truthyFilters = traitCategoryKeys
+                .filter((traitCategoryKey) => traitCategory[traitCategoryKey]);
+
+            return truthyFilters.length === 0 ? {} : { [traitCategoryName]: truthyFilters };
+
+        }).reduce((prev, curr) => ({ ...prev, ...curr }), {});
+
+        query['traits'] = JSON.stringify(traitFilter);
+    }
+
     if (search) query['search'] = search;
 
     const queryString = new URLSearchParams(query);
@@ -209,8 +229,14 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         for(let i = 0; i < count; i++){
                             const id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
                             const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
-                            let uri = await readContract.tokenURI(id);
-                            console.log(`${c.name}#${id}  ${uri}`)
+                            let uri;
+                            if (c.name === 'Ant Mint Pass') {
+                                //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
+                                //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
+                                uri = 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
+                            } else {
+                                uri = await readContract.tokenURI(id);
+                            }
 
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
@@ -303,7 +329,10 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 nfts.push(nft);
                             }
                         }
-                        onNftLoaded(nfts);
+
+                        if (nfts.length > 0) {
+                            onNftLoaded(nfts);
+                        }
                     }
                 }catch(error){
                     console.log('error fetching ' + knownContracts[i].name);
@@ -355,6 +384,49 @@ export async function getNftSalesForAddress(walletAddress) {
         console.log(error);
 
         return [];
+    }
+}
+
+export async function getNftSalesHistory(collectionId, nftId) {
+    try{
+        const queryString = new URLSearchParams({
+            collection: collectionId.toLowerCase(),
+            tokenId: nftId
+        });
+
+        const url = new URL(api.nft, `${api.baseUrl}`);
+        const uri = `${url}?${queryString}`;
+
+        const result = await (await fetch(uri)).json();
+
+        return result.listings ?? [];
+    }catch(error){
+        console.log(error)
+        return [];
+    }
+}
+
+export async function getNftNew(collectionId, nftId) {
+    try{
+        const queryString = new URLSearchParams({
+            collection: collectionId.toLowerCase(),
+            tokenId: nftId
+        });
+
+        const url = new URL(api.nft, `${api.baseUrl}`);
+        const uri = `${url}?${queryString}`;
+
+        const result = await (await fetch(uri)).json();
+        console.log(result)
+
+        if (!result.nft) {
+            result.nft = await getNft(collectionId, nftId);
+        }
+
+        return result;
+    }catch(error){
+        console.log(error)
+        return await getNft(collectionId, nftId);
     }
 }
 

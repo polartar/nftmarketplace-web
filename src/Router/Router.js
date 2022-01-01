@@ -21,7 +21,10 @@ export const AppRouter = () => {
     });
 
     function PrivateRoute({ component: Component, ...rest }) {
-        console.log('wallet='+walletConnected);
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('wallet='+walletConnected);
+        }
+
         return (
             <Route {...rest} render={props => {
                 if (!walletConnected) {

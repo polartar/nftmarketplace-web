@@ -73,7 +73,7 @@
         }, {
             "name" : "LazyHorse",
             "multiToken" : false,
-            "address" : "0xeDec18794210Ca0378354340B440C0f26B050274",
+            "address" : "0x3fc2bac73bC7ceFA6Efb00a49dD646841f70240D",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -123,7 +123,7 @@
             "subtitle": "",
             "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
             "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "0xeDec18794210Ca0378354340B440C0f26B050274",
+            "address": "0x3fc2bac73bC7ceFA6Efb00a49dD646841f70240D",
             "maxMintPerTx": 20,
             "totalSupply": 111,
             "cost": "15",

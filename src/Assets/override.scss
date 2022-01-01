@@ -92,6 +92,13 @@ canvas {
     z-index: 1;
 }
 
+/* NFT Details Avatar for Blockies */
+.p_list_pp canvas {
+    width: 100%;
+    border-radius: 100% !important;
+    cursor: pointer;
+}
+
 /* User menu buttons */
 .btn_menu {
     font-size: 12px;

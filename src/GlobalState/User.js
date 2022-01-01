@@ -4,7 +4,6 @@ import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
-import { ERC721, ERC1155 } from '../Contracts/Abis'
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
@@ -36,9 +35,11 @@ const userSlice = createSlice({
         marketContract: null,
         // ebisuContract : null,
         correctChain : false,
+        showWrongChainModal : false,
 
         // My NFTs
         fetchingNfts: false,
+        nftsInitialized: false,
         nfts: [],
 
         // My Sales
@@ -90,8 +91,12 @@ const userSlice = createSlice({
         onNftsAdded(state, action){
             state.nfts.push(...action.payload);
         },
+        onNftsReplace(state, action){
+            state.nfts = action.payload;
+        },
         nftsFetched(state){
             state.fetchingNfts = false;
+            state.nftsInitialized = true;
         },
         onNftLoading(state, action){
             state.currentNft = null;
@@ -140,6 +145,9 @@ const userSlice = createSlice({
         setIsMember(state, action){
             state.isMember = action.payload;
         },
+        setShowWrongChainModal(state, action){
+            state.showWrongChainModal = action.payload;
+        },
         onLogout(state) {
             state.connectingWallet = false;
             const web3Modal = new Web3Modal({
@@ -173,6 +181,7 @@ export const {
     onNftsLoaded,
     onNftLoading,
     onNftsAdded,
+    onNftsReplace,
     nftsFetched,
     onNftLoaded,
     mySoldNftsFetching,
@@ -186,6 +195,7 @@ export const {
     listingUpdate,
     transferedNFT,
     setIsMember,
+    setShowWrongChainModal,
     onBasicAccountData,
     onLogout,
     elonContract,
@@ -259,8 +269,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         providerOptions // required
     });
 
+    if (process.env.NODE_ENV !== 'production') {
+        console.log("Opening a dialog", web3Modal);
+    }
 
-    console.log("Opening a dialog", web3Modal);
     var web3provider;
     try {
         web3provider = await web3Modal.connect();
@@ -289,9 +301,15 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             console.log('chain_id:  ', config.chain_id)
         }
         var correctChain = cid === Number(config.chain_id);
+
         if (!correctChain) {
             correctChain = cid === config.chain_id
         }
+
+        if (!correctChain) {
+            await dispatch(setShowWrongChainModal(true));
+        }
+
         //console.log(correctChain);
         await dispatch(onBasicAccountData({
             address: address,
@@ -303,7 +321,6 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
 
 
         web3provider.on('DeFiConnectorDeactivate', (error) => {
-            console.log("HERE");
             dispatch(onLogout());
         });
 
@@ -312,6 +329,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         });
 
         web3provider.on('accountsChanged', (accounts) => {
+            dispatch(onLogout());
             dispatch(connectAccount());
         });
 
@@ -477,11 +495,24 @@ export const chainConnect = (type) => async(dispatch) => {
     }
 }
 
-export const fetchNfts = (walletAddress, walletProvider) => async(dispatch) =>{
-    dispatch(fetchingNfts());
+export const fetchNfts = (walletAddress, walletProvider, nftsInitialized) => async (dispatch) => {
+    if (!nftsInitialized) {
+        dispatch(fetchingNfts());
+        const response = await getNftsForAddress(walletAddress, walletProvider, (nfts) => {
+            dispatch(onNftsAdded(nfts));
+        });
+        dispatch(setIsMember(response.isMember));
+        dispatch(nftsFetched());
+
+        return;
+    }
+
+    const loadedNfts = [];
     const response = await getNftsForAddress(walletAddress, walletProvider, (nfts) => {
-        dispatch(onNftsAdded(nfts));
+        loadedNfts.push(...nfts);
     });
+    dispatch(fetchingNfts());
+    dispatch(onNftsReplace(loadedNfts));
     dispatch(setIsMember(response.isMember));
     dispatch(nftsFetched());
 }
