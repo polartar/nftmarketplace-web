@@ -210,6 +210,8 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             const id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
                             const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
                             let uri = await readContract.tokenURI(id);
+                            console.log(`${c.name}#${id}  ${uri}`)
+
                             if(c.onChain){
                                 const json = Buffer.from(uri.split(',')[1], 'base64');
                                 const parsed = JSON.parse(json);
