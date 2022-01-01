@@ -268,7 +268,7 @@ const Drop = () => {
         <div>
             <GlobalStyles/>
             <>
-                <section className={`jumbotron no-bg ${drop.imgBanner ? 'tint' : ''}`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/7.jpg'})`}}>
+                <section className={`jumbotron breadcumb h-vh ${drop.imgBanner ? 'tint' : ''}`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/7.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
