@@ -216,40 +216,60 @@ const Collection = ({cacheName = 'collection'}) => {
                                 </div>
                             }
                             <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
-                                <a className="nft_attr">
+                                <div className="nft_attr">
                                     <div className="row">
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Floor</h5>
-                                            <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
+                                            {collectionStats.floorPrice ?
+                                                <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Volume</h5>
-                                            <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
+                                            {collectionStats.totalVolume ?
+                                                <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Sales</h5>
-                                            <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
+                                            {collectionStats.numberOfSales ?
+                                                <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Avg. Sale</h5>
                                             <h4>
-                                                {isNaN(collectionStats.averageSalePrice) ?
-                                                    "N/A"
+                                                {collectionStats.averageSalePrice ?
+                                                    <h4>{siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0))} CRO</h4>
                                                     :
-                                                    siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0)) + " CRO"
+                                                    <h4>-</h4>
                                                 }
                                             </h4>
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Royalty</h5>
-                                            <h4>{royalty}%</h4>
+                                            {royalty ?
+                                                <h4>{royalty}%</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Active Listings</h5>
-                                            <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
+                                            {collectionStats.numberActive ?
+                                                <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     )}
