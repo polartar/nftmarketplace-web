@@ -126,22 +126,22 @@ const Home = () => {
                                     <div className="spacer-single"></div>
                                     {marketData &&
                                         <div className="row">
-                                            <div className="col-sm-4 col-md-6 col-12  mb30">
-                                                <div className="de_count text-left">
+                                            <div className="col-4 col-sm-4 col-md-4 col-12  mb30 ">
+                                                <div className="de_count text-center text-md-start">
                                                     <h3><span>{siPrefixedNumber(Number(marketData.totalVolume).toFixed(0))}</span></h3>
                                                     <h5 className="id-color">Volume</h5>
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-4 col-md-6 col-12 mb30">
-                                                <div className="de_count text-left">
+                                            <div className="col-4 col-sm-4 col-md-4 col-12 mb30 ">
+                                                <div className="de_count text-center text-md-start">
                                                     <h3><span>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</span></h3>
                                                     <h5 className="id-color">NFTs Sold</h5>
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-4 col-md-6 col-12 mb30">
-                                                <div className="de_count text-left">
+                                            <div className="col-4 col-sm-4 col-md-4 col-12 mb30 ">
+                                                <div className="de_count text-center text-md-start">
                                                     <h3><span>{siPrefixedNumber(marketData.totalActive)}</span></h3>
                                                     <h5 className="id-color">Active Listings</h5>
                                                 </div>

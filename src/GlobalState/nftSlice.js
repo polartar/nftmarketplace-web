@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNft } from "../core/api";
+import {getNft, getNftNew} from "../core/api";
 
 const nftSlice = createSlice({
     name: 'nft',
@@ -7,6 +7,7 @@ const nftSlice = createSlice({
         loading: false,
         error: false,
         nft: null,
+        history: [],
     },
     reducers: {
         nftLoading: (state) => {
@@ -16,7 +17,8 @@ const nftSlice = createSlice({
         nftReceived: (state, action) => {
             state.loading = false;
             state.error = false;
-            state.nft = action.payload;
+            state.nft = action.payload.nft;
+            state.history = action.payload.listings ?? [];
         }
     },
 });
@@ -27,6 +29,6 @@ export default nftSlice.reducer;
 
 export const getNftDetails = (collectionId, nftId) => async (dispatch, getState) => {
     dispatch(nftLoading());
-    const nft = await getNft(collectionId, nftId);
+    const nft = await getNftNew(collectionId, nftId);
     dispatch(nftReceived(nft));
 }

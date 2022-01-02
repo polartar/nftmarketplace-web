@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingReceived} from "../../GlobalState/listingSlice";
-import { humanize } from "../../utils";
+import {humanize, shortAddress, timeSince} from "../../utils";
 import {useParams, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -22,6 +22,7 @@ const Listing = () => {
     const dispatch = useDispatch();
 
     const listing = useSelector((state) => state.listing.listing)
+    const history = useSelector((state) => state.listing.history.filter(i => i.state === 1))
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
 
@@ -47,6 +48,18 @@ const Listing = () => {
 
         return listing.nft.original_image;
     }
+
+    const [openMenu, setOpenMenu] = React.useState(0);
+    const handleBtnClick = (index) => (element) => {
+        var elements = document.querySelectorAll('.tab');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('active');
+        }
+        element.target.parentElement.classList.add("active");
+
+        setOpenMenu(index);
+        console.log(openMenu, index);
+    };
 
     const showBuy = () => async () => {
         if(user.address){
@@ -179,34 +192,83 @@ const Listing = () => {
                                         </div>
                                     }
                                 </div>
+
+                                <div className="spacer-40"></div>
+
                                 <div className="de_tab">
 
-                                    <div className="de_tab_content">
-                                        <div className="tab-1 onStep fadeIn">
-                                            <div className="d-block mb-3">
-                                                <div className="row mt-5 gx-3 gy-2">
-                                                    {listing.nft.attributes && listing.nft.attributes.map((data, i) => {
-                                                        return (
-                                                            <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                                                                <div className="nft_attr">
-                                                                    <h5>{humanize(data.trait_type)}</h5>
-                                                                    <h4>{humanize(data.value)}</h4>
-                                                                    {data.occurrence ? (
-                                                                            <span>{Math.round(data.occurrence * 100)}% have this trait</span>
-                                                                        )
-                                                                    :
-                                                                        data.percent && (
-                                                                            <span>{data.percent}% have this trait</span>
-                                                                        )
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                    <ul className="de_nav">
+                                        <li id='Mainbtn0' className="tab active"><span onClick={handleBtnClick(0)}>Details</span></li>
+                                        <li id='Mainbtn1' className="tab"><span onClick={handleBtnClick(1)}>History</span></li>
+                                    </ul>
 
+                                    <div className="de_tab_content">
+
+                                        {openMenu === 0 &&
+                                            <div className="tab-1 onStep fadeIn">
+                                                {listing.nft.attributes && listing.nft.attributes.length > 0 ?
+                                                    <>
+                                                        <div className="d-block mb-3">
+                                                            <div className="row mt-5 gx-3 gy-2">
+                                                                {listing.nft.attributes.map((data, i) => {
+                                                                    return (
+                                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                            <div className="nft_attr">
+                                                                                <h5>{humanize(data.trait_type)}</h5>
+                                                                                <h4>{humanize(data.value)}</h4>
+                                                                                {data.occurrence ? (
+                                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                                    )
+                                                                                    :
+                                                                                    data.percent && (
+                                                                                        <span>{data.percent}% have this trait</span>
+                                                                                    )
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <span>No traits found for this item</span>
+                                                    </>
+                                                }
                                             </div>
+                                        }
+                                        {openMenu === 1 &&
+                                            <div className="tab-2 onStep fadeIn">
+                                            {history && history.length > 0 ?
+                                                <>
+                                                    {history.map((item, index) => (
+                                                        <div className="p_list" key={index}>
+                                                            <Link to={`/seller/${item.purchaser}`}>
+                                                                <div className="p_list_pp">
+                                                                    <span>
+                                                                        <span>
+                                                                            <Blockies seed={item.purchaser} size={10}
+                                                                                      scale={5}/>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </Link>
+                                                            <div className="p_list_info">
+                                                                <span>{timeSince(item.saleTime + "000")} ago</span>
+                                                                Bought by <b><Link to={`/seller/${item.purchaser}`}>{shortAddress(item.purchaser)}</Link></b> for <b>{ethers.utils.commify(item.price)} CRO</b>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </>
+                                                :
+                                                <>
+                                                    <span>No history found for this item</span>
+                                                </>
+                                            }
+
                                         </div>
+                                        }
 
                                         {/* button for checkout */}
                                         {listing.state === 0 ?
@@ -214,8 +276,11 @@ const Listing = () => {
                                                 <button className='btn-main lead mb-5 mr15'
                                                         onClick={showBuy()}>Buy Now
                                                 </button>
-                                            </div> :
-                                            <div>LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }</div>
+                                            </div>
+                                            :
+                                            <div className="mt-5">
+                                                LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }
+                                            </div>
                                         }
                                     </div>
                                 </div>

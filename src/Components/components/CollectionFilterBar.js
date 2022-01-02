@@ -88,7 +88,7 @@ const CollectionFilterBar = ({cacheName = null}) => {
             }
         }
 
-        return defaultSortValue;
+        return null;
     }
 
     return (

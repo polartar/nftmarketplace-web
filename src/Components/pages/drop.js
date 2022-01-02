@@ -17,6 +17,11 @@ import { getAnalytics, logEvent } from '@firebase/analytics'
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
+.jumbotron.tint{
+  background-color: rgba(0,0,0,0.6);
+  background-blend-mode: multiply;
+}
+
 `;
 const fadeInUp = keyframes`
   0% {
@@ -46,6 +51,7 @@ const Drop = () => {
     const {slug} = useParams();
 
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const [isFirst, setIsFirst] = useState(true);
     const countdownRef = useRef();
     const dispatch = useDispatch();
 
@@ -98,6 +104,16 @@ const Drop = () => {
             try {
                 let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+
+                if (isFirst) {
+                    // console.log("start");
+                    // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
+                    // const regCost = ethers.utils.parseEther(dropObject.cost);
+                    // await writeContract.startEditionOpen();
+                    // await writeContract.setCost(memberCost, true);
+                    // await writeContract.setCost(regCost, false);
+                    // setIsFirst(false);
+                }
             } catch(error) {
                 console.log(error);
             }
@@ -113,18 +129,11 @@ const Drop = () => {
                     currentDrop.memberCost = cost;
                     currentDrop.cost = cost;
                 }
-                const sTime = new Date(currentDrop.start);
-                const now = new Date();
-                if(sTime > now){
-                    setIsLive(false);
-                } else {
-                    console.log(currentDrop.startTime);
-                    console.log(`now: ${now}  sTime ${sTime}`)
-                }
             }
         } catch(error) {
             console.log(error);
         }
+        calculateStatus(currentDrop);
         setLoading(false);
         setDropObject(currentDrop);
     }, [user]);
@@ -141,8 +150,24 @@ const Drop = () => {
         }
     }, [membership, user, cronies])
 
-    const [isLive, setIsLive] = useState(true);
-    const [startTime, setStartTime] = useState(1638565200000);
+    const statuses = {
+        UNSET: -1,
+        NOT_STARTED: 0,
+        LIVE: 1,
+        ENDED: 2
+    }
+    const [status, setStatus] = useState(statuses.UNSET);
+    const calculateStatus = (drop) => {
+        const sTime = new Date(drop.start);
+        const eTime = new Date(drop.end);
+        const now = new Date();
+
+        if (sTime > now) setStatus(statuses.NOT_STARTED);
+        else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
+        else if (drop.end && eTime < now) setStatus(statuses.ENDED);
+        else setStatus(statuses.NOT_STARTED);
+    }
+
     const [loading, setLoading] = useState(true);
 
     const [minting, setMinting] = useState(false);
@@ -241,7 +266,7 @@ const Drop = () => {
     };
 
     const convertTime = (time) => {
-        let date = new Date(time * 1000);
+        let date = new Date(time);
         const fullDateString = date.toLocaleString('default', {timeZone: 'UTC'});
         const month = date.toLocaleString('default', { month: 'long', timeZone: 'UTC' });
         let dateString = `${fullDateString.split(", ")[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`
@@ -252,12 +277,27 @@ const Drop = () => {
         <div>
             <GlobalStyles/>
             <>
-                <section className="jumbotron no-bg" style={{backgroundImage: `url(${'/img/background/7.jpg'})`}}>
+                <section className={`jumbotron breadcumb h-vh ${drop.imgBanner ? 'tint' : ''}`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/7.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
                                 <div className="spacer-single"></div>
                                 <div className="spacer-double"></div>
+
+                                {status === statuses.LIVE && drop.end &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <p className="lead col-white">
+                                        Ends in: <Countdown date={drop.end}/>
+                                    </p>
+                                </Reveal>
+                                }
+                                {status === statuses.NOT_STARTED &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <h4 className="col-white">
+                                        Starts in: <span className="text-uppercase color"><Countdown date={drop.start}/></span>
+                                    </h4>
+                                </Reveal>
+                                }
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
@@ -270,20 +310,6 @@ const Drop = () => {
                                     {drop.foundersOnly &&
                                     <h3 className="col-white">Founding Member Presale</h3>
                                     }
-                                </Reveal>
-                                }
-                                {isLive && drop.end &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                    <p className="lead col-white">
-                                        Ends in: <Countdown date={drop.end}/>
-                                    </p>
-                                </Reveal>
-                                }
-                                {!isLive &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                    <p className="lead col-white">
-                                        Starts in: <Countdown date={drop.start}/>
-                                    </p>
                                 </Reveal>
                                 }
 
@@ -358,13 +384,15 @@ const Drop = () => {
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
                                 }
-                                {isLive ?
+                                {status === statuses.LIVE &&
                                     <>
-                                        <div>
-                                            <Form.Label>Quantity</Form.Label>
-                                            <Form.Range value={numToMint} min="1" max="10"
-                                                        onChange={e => setNumToMint(e.target.value)}/>
-                                        </div>
+                                        {drop.maxMintPerTx > 1 &&
+                                            <div>
+                                                <Form.Label>Quantity</Form.Label>
+                                                <Form.Range value={numToMint} min="1" max={drop.maxMintPerTx}
+                                                            onChange={e => setNumToMint(e.target.value)}/>
+                                            </div>
+                                        }
                                         {dropObject?.referral &&
                                             <Form.Group className="mb-3" controlId="formReferralCode">
                                                 <Form.Label>Referral Code</Form.Label>
@@ -375,10 +403,17 @@ const Drop = () => {
                                         }
                                         <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15'
-                                                    onClick={mintNow}>Mint {numToMint}</button>
+                                                    onClick={mintNow}>
+                                                {drop.maxMintPerTx > 1 ?
+                                                    <>Mint {numToMint}</>
+                                                    :
+                                                    <>Mint</>
+                                                }
+                                            </button>
                                         </div>
                                     </>
-                                    :
+                                }
+                                {status === statuses.ENDED &&
                                     <p className="mt-5">MINT HAS ENDED</p>
                                 }
                             </div>
