@@ -29,6 +29,5 @@ export const getListingDetails = (listingId) => async (dispatch) => {
     dispatch(listingLoading());
     const listing = await getListing(listingId);
     const history = await getNftSalesHistory(listing.nftAddress, listing.nftId);
-    console.log(history);
     dispatch(listingReceived({listing, history}));
 }

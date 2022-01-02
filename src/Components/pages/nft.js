@@ -19,7 +19,7 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
-    const listings = useSelector((state) => state.nft.history.filter(i => i.state !== 0))
+    const listings = useSelector((state) => state.nft.history.filter(i => i.state === 1))
     const collectionMetadata = useSelector((state) => {
         return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
     });
