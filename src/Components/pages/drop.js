@@ -17,6 +17,11 @@ import { getAnalytics, logEvent } from '@firebase/analytics'
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
+.jumbotron.tint{
+  background-color: rgba(0,0,0,0.6);
+  background-blend-mode: multiply;
+}
+
 `;
 const fadeInUp = keyframes`
   0% {
@@ -46,6 +51,7 @@ const Drop = () => {
     const {slug} = useParams();
 
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+    const [isFirst, setIsFirst] = useState(true);
     const countdownRef = useRef();
     const dispatch = useDispatch();
 
@@ -98,6 +104,16 @@ const Drop = () => {
             try {
                 let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+
+                if (isFirst) {
+                    // console.log("start");
+                    // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
+                    // const regCost = ethers.utils.parseEther(dropObject.cost);
+                    // await writeContract.startEditionOpen();
+                    // await writeContract.setCost(memberCost, true);
+                    // await writeContract.setCost(regCost, false);
+                    // setIsFirst(false);
+                }
             } catch(error) {
                 console.log(error);
             }
@@ -261,7 +277,7 @@ const Drop = () => {
         <div>
             <GlobalStyles/>
             <>
-                <section className="jumbotron no-bg" style={{backgroundImage: `url(${'/img/background/7.jpg'})`}}>
+                <section className={`jumbotron breadcumb h-vh ${drop.imgBanner ? 'tint' : ''}`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/7.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
@@ -369,11 +385,13 @@ const Drop = () => {
                                 }
                                 {status === statuses.LIVE &&
                                     <>
-                                        <div>
-                                            <Form.Label>Quantity</Form.Label>
-                                            <Form.Range value={numToMint} min="1" max="10"
-                                                        onChange={e => setNumToMint(e.target.value)}/>
-                                        </div>
+                                        {drop.maxMintPerTx > 1 &&
+                                            <div>
+                                                <Form.Label>Quantity</Form.Label>
+                                                <Form.Range value={numToMint} min="1" max={drop.maxMintPerTx}
+                                                            onChange={e => setNumToMint(e.target.value)}/>
+                                            </div>
+                                        }
                                         {dropObject?.referral &&
                                             <Form.Group className="mb-3" controlId="formReferralCode">
                                                 <Form.Label>Referral Code</Form.Label>
@@ -384,7 +402,13 @@ const Drop = () => {
                                         }
                                         <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15'
-                                                    onClick={mintNow}>Mint {numToMint}</button>
+                                                    onClick={mintNow}>
+                                                {drop.maxMintPerTx > 1 ?
+                                                    <>Mint {numToMint}</>
+                                                    :
+                                                    <>Mint</>
+                                                }
+                                            </button>
                                         </div>
                                     </>
                                 }

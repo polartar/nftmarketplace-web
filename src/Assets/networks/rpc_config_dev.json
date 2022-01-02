@@ -265,10 +265,10 @@
             }
         },{
             "name" : "Petite Planets Gen 1 Governor Medals",
-             "multiToken" : false,
-             "address" : "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
-             "onChain" : false,
-             "listable" : true
+            "multiToken" : false,
+            "address" : "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
+            "onChain" : false,
+            "listable" : true
         }, {
             "name" : "Day One Supporter",
             "multiToken" : false,
@@ -568,6 +568,7 @@
             "slug": "ebisu",
             "imgNft": "/img/drops/ebisu/Ebisu.gif",
             "imgPreview": "/img/drops/ebisu/ebisu_card.gif",
+            "imgAvatar" : "/img/collections/barbara/ebisu/avatar.jpg",
             "title": "Ebisu by Barbara",
             "subtitle": "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
             "description": "Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods. Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters. May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.",
@@ -617,6 +618,7 @@
             "slug": "santa-cro",
             "imgNft": "/img/drops/cromoon/cromoondrop.gif",
             "imgPreview": "/img/drops/cromoon/cromoondrop.gif",
+            "imgAvatar" : "/img/collections/santacro/avatar.png",
             "title": "SantaCro",
             "subtitle": "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
             "description":  "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Let’s make this Christmas a special one together!",

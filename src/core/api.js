@@ -229,7 +229,6 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         for(let i = 0; i < count; i++){
                             const id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
                             const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
-
                             let uri;
                             if (c.name === 'Ant Mint Pass') {
                                 //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
