@@ -521,8 +521,22 @@
                 "card": "/img/collections/lazyhorse/card.png",
                 "banner": "/img/collections/lazyhorse/banner.png"
             }
+        },
+        {
+            "name" : "Cronos Lizards",
+            "multiToken" : false,
+            "address" : "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-lizards",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronoslizards/avatar.png",
+                "card": "/img/collections/cronoslizards/card.png",
+                "banner": "/img/collections/cronoslizards/banner.png"
+            }
         }
-
     ],
     "drops": [
         {
