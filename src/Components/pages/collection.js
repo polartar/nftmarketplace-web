@@ -95,7 +95,6 @@ const Collection = ({cacheName = 'collection'}) => {
     }
 
     useEffect(async () => {
-
         const defaultSort = {
             type: 'listingId',
             direction: 'desc'
@@ -153,6 +152,16 @@ const Collection = ({cacheName = 'collection'}) => {
             .reduce((prev, curr) => prev + curr, 0);
     };
 
+    const clearAttributeFilters = () => {
+        const inputs = document.querySelectorAll(".attribute-checkbox input[type=checkbox]");
+        for (const item of inputs) {
+            item.checked = false;
+        }
+        dispatch(filterListingsByTrait({
+            traits: {},
+            address
+        }))
+    }
 
     return (
         <div>
@@ -249,8 +258,15 @@ const Collection = ({cacheName = 'collection'}) => {
                 </div>
                 <div className="row">
                     {hasTraits() &&
-                        <div className='col-md-3'>
-                            <h3>Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
+                        <div className='col-md-3 mb-4'>
+                            <div className="d-flex justify-content-between align-middle mb-4">
+                                <h3 className="d-inline-block" style={{marginBottom:0}}>Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
+                                {viewSelectedAttributesCount() > 0 &&
+                                    <div className="d-inline-block fst-italic my-auto"
+                                         style={{fontSize: '0.8em', cursor: 'pointer'}}
+                                         onClick={clearAttributeFilters}>Clear</div>
+                                }
+                            </div>
                             <Accordion>
                                 {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                                     <Accordion.Item eventKey={key} key={key}>
@@ -261,6 +277,7 @@ const Collection = ({cacheName = 'collection'}) => {
                                                     <Form.Check
                                                         type="checkbox"
                                                         id={stats[0]}
+                                                        className="attribute-checkbox"
                                                         label={traitStatName(stats[0], stats[1])}
                                                         defaultChecked={viewGetDefaultCheckValue(traitCategoryName, stats[0])}
                                                         value={viewGetDefaultCheckValue(traitCategoryName, stats[0])}

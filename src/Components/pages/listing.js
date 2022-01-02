@@ -22,7 +22,7 @@ const Listing = () => {
     const dispatch = useDispatch();
 
     const listing = useSelector((state) => state.listing.listing)
-    const history = useSelector((state) => state.listing.history.filter(i => i.state !== 0))
+    const history = useSelector((state) => state.listing.history.filter(i => i.state === 1))
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
 
