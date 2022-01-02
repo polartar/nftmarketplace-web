@@ -527,7 +527,7 @@
             "multiToken" : false,
             "address" : "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "cronos-lizards",
                 "description": "",
