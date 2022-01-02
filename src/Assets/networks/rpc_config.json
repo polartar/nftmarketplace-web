@@ -193,7 +193,7 @@
             "multiToken": false,
             "address" : "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
             "onChain" : false,
-            "listable" : true
+            "listable" : false
         },
         {
             "name" : "CROCOSNFT",
@@ -527,7 +527,7 @@
             "multiToken" : false,
             "address" : "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-lizards",
                 "description": "",
