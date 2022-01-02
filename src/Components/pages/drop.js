@@ -283,6 +283,21 @@ const Drop = () => {
                             <div className="col-md-6">
                                 <div className="spacer-single"></div>
                                 <div className="spacer-double"></div>
+
+                                {status === statuses.LIVE && drop.end &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <p className="lead col-white">
+                                        Ends in: <Countdown date={drop.end}/>
+                                    </p>
+                                </Reveal>
+                                }
+                                {status === statuses.NOT_STARTED &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <h4 className="col-white">
+                                        Starts in: <span className="text-uppercase color"><Countdown date={drop.start}/></span>
+                                    </h4>
+                                </Reveal>
+                                }
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
@@ -295,20 +310,6 @@ const Drop = () => {
                                     {drop.foundersOnly &&
                                     <h3 className="col-white">Founding Member Presale</h3>
                                     }
-                                </Reveal>
-                                }
-                                {status === statuses.LIVE && drop.end &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                    <p className="lead col-white">
-                                        Ends in: <Countdown date={drop.end}/>
-                                    </p>
-                                </Reveal>
-                                }
-                                {status === statuses.NOT_STARTED &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                    <p className="lead col-white">
-                                        Starts in: <Countdown date={drop.start}/>
-                                    </p>
                                 </Reveal>
                                 }
 

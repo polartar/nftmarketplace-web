@@ -506,6 +506,21 @@
                 "banner": "/img/collections/croskull/banner.jpg",
                 "card": "/img/collections/croskull/card.jpg"
             }
+        },
+        {
+            "name" : "LazyHorse",
+            "multiToken" : false,
+            "address" : "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "lazy-horse",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png"
+            }
         }
 
     ],
@@ -564,80 +579,35 @@
             "foundersOnly": false
         },
         {
-            "id": 2,
-            "slug": "ebisu",
-            "imgNft": "/img/drops/ebisu/Ebisu.gif",
-            "imgPreview": "/img/drops/ebisu/ebisu_card.gif",
-            "imgAvatar" : "/img/collections/barbara/ebisu/avatar.jpg",
-            "title": "Ebisu by Barbara",
-            "subtitle": "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
-            "description": "Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods. Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters. May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.",
-            "author": { "name": "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/"},
-            "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
-            "maxMintPerTx": 10,
-            "totalSupply": "∞",
-            "cost": "150.0",
-            "memberCost": "100.0",
-            "abi": [
-                "function mint(uint256 count) public payable",
-                "function totalSupply() public view returns (uint256)"
-            ],
-            "start": 1639489543000,
-            "end": 1639929600000,
-            "referral": false,
-            "is1155": false,
-            "foundersOnly": false
-        },
-        {
-            "id": 3,
-            "slug": "crostmas",
-            "imgNft": "/img/drops/crostmas/crostmas_cards.webp",
-            "imgPreview": "/img/drops/crostmas/crostmas_cards.webp",
-            "imgAvatar": "/img/drops/crostmas/avatar.png",
-            "title": "CROstmas Cards",
-            "subtitle": "CROstmas Cards is a collection on Cronos network.",
-            "description":  "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",
-            "author": { "name": "CROstmas Cards", "link": "https://crostmascards.com"},
-            "address": "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
-            "maxMintPerTx": 50,
-            "totalSupply": 10000,
-            "cost": "10.0",
-            "memberCost": "10.0",
-            "abi": [
-                "function mint(address _to, uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)"
-            ],
-            "start": 1639489543000,
-            "end": null,
-            "referral": false,
-            "is1155": false,
-            "foundersOnly": false
-        },
-        {
-            "id": 4,
-            "slug": "santa-cro",
-            "imgNft": "/img/drops/cromoon/cromoondrop.gif",
-            "imgPreview": "/img/drops/cromoon/cromoondrop.gif",
-            "imgAvatar" : "/img/collections/santacro/avatar.png",
-            "title": "SantaCro",
-            "subtitle": "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
-            "description":  "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Let’s make this Christmas a special one together!",
-            "author": { "name": "CroMoon", "link": "https://cromoon.net/nfts"},
-            "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
+            "id": 6,
+            "slug": "lazy-horse",
+            "imgNft": "/img/drops/lazyhorse/drop.png",
+            "imgPreview": "/img/drops/lazyhorse/drop.png",
+            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
+            "imgBanner" : "/img/collections/lazyhorse/banner.png",
+            "title": "",
+            "subtitle": "",
+            "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+            "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
             "maxMintPerTx": 20,
-            "totalSupply": 5555,
-            "cost": "199",
-            "memberCost": "199",
+            "totalSupply": 2000,
+            "cost": "300",
+            "memberCost": "200",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)"
+                "function cost() view returns (uint256)",
+                "function startEditionOpen() public",
+                "function setCost(uint, bool) public"
             ],
-            "start": 1639591200000,
+            "start": 1641135600000,
             "end": null,
             "referral": false,
             "is1155": false
         }
+
+
     ]
 }
