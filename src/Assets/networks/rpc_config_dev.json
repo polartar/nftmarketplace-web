@@ -602,7 +602,7 @@
                 "function startEditionOpen() public",
                 "function setCost(uint, bool) public"
             ],
-            "start": 1641135600000,
+            "start": 1641132000000,
             "end": null,
             "referral": false,
             "is1155": false
