@@ -213,3 +213,32 @@ export function timeSince(date) {
   }
   return Math.floor(seconds) + " seconds";
 }
+
+/**
+ * @description returns a 7 character from start and end of id to print.
+ * @param id  0x0000000000000000000000000000000000000000
+ * @returns {string} 0x00...000
+ */
+export function getShortIdForView(id = '') {
+  return `${ id.substring(0, 4) }...${ id.substring(id.length - 3, id.length) }`;
+}
+
+/**
+ * @description create explorer url.
+ * @param transactionHash 0x000
+ */
+export function openWithCronosExplorer(transactionHash = '') {
+  window.open(`https://cronos.crypto.org/explorer/tx/${ transactionHash }`, '_blank');
+}
+
+export function createSuccessfulTransactionToastContent(transactionHash) {
+  return (
+      <span>Success!
+        <a className='link-primary' style={{paddingLeft: '1rem'}}
+           onClick={ () => openWithCronosExplorer(transactionHash) }>
+            ${ getShortIdForView(transactionHash) }
+        </a>
+      </span>
+  );
+}
+

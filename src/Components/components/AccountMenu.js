@@ -19,6 +19,7 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 import { nanoid } from 'nanoid'
 import {ethers} from 'ethers'
 import { Modal, NavLink } from "react-bootstrap";
+import { createSuccessfulTransactionToastContent } from "../../utils";
 
 const AccountMenu = function() {
     const dispatch = useDispatch();
@@ -82,7 +83,7 @@ const AccountMenu = function() {
             // setDoingWork(true);
             const tx = await user.membershipContract.withdrawPayments(user.address);
             const receipt = await tx.wait();
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             dispatch(withdrewRewards());
         } catch (error) {
             if (error.data) {
@@ -103,7 +104,7 @@ const AccountMenu = function() {
             // setDoingWork(true);
             const tx = await user.marketContract.withdrawPayments(user.address);
             const receipt = await tx.wait();
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             dispatch(withdrewPayments());
         }catch(error){
             if (error.data) {
@@ -126,7 +127,7 @@ const AccountMenu = function() {
             const encoded = ethers.utils.formatBytes32String(id)
             const tx = await user.membershipContract.register(encoded);
             const receipt = await tx.wait();
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             dispatch(registeredCode(id));
         }catch(error){
             if (error.data) {
