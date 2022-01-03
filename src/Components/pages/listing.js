@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingReceived} from "../../GlobalState/listingSlice";
-import {humanize, shortAddress, timeSince} from "../../utils";
+import {
+    createSuccessfulTransactionToastContent,
+    humanize,
+    shortAddress,
+    timeSince
+} from "../../utils";
 import {useParams, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -79,7 +84,7 @@ const Listing = () => {
                     'state' : 1,
                     'purchaser' : user.address
                 }));
-                toast.success(`Success! ${receipt.hash}`);
+                toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             }catch(error){
                 if(error.data){
                     toast.error(error.data.message);
