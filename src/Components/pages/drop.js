@@ -109,7 +109,7 @@ const Drop = () => {
                     // console.log("start");
                     // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                     // const regCost = ethers.utils.parseEther(dropObject.cost);
-                    // await writeContract.startEditionOpen();
+                    // // await writeContract.startEditionOpen();
                     // await writeContract.setCost(memberCost, true);
                     // await writeContract.setCost(regCost, false);
                     // setIsFirst(false);
