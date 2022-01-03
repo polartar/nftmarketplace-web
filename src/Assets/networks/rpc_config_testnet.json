@@ -59,7 +59,7 @@
         {
             "name" : "Deplone",
             "multiToken" : false,
-            "address" : "0x74De32e6e64ACc9b969BE899CC13D73F1E62DaAC",
+            "address" : "0x5FbDB2315678afecb367f032d93F642f64180aa3",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -98,7 +98,7 @@
             "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
             "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
             "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
-            "address": "0xf3644a8896A51b947Dd29CD3e91aE0cbF4dC785A",
+            "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
             "maxMintPerTx": 1,
             "totalSupply": 22,
             "cost": "15",
