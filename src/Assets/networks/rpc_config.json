@@ -512,7 +512,7 @@
             "multiToken" : false,
             "address" : "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "lazy-horse",
                 "description": "",
@@ -617,7 +617,7 @@
                 "function setCost(uint, bool) public"
             ],
             "start": 1641132000000,
-            "end": null,
+            "end": 1641132000001,
             "referral": false,
             "is1155": false
         }
