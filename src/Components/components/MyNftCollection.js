@@ -17,6 +17,7 @@ import {toast} from "react-toastify";
 import {ethers} from "ethers";
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import * as PropTypes from "prop-types";
+import { createSuccessfulTransactionToastContent } from "../../utils";
 
 function LoadingButton(props) {
     return null;
@@ -69,7 +70,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
             setDoingWork(true);
             const tx = await user.membershipContract.withdrawPayments(user.address);
             const receipt = await tx.wait();
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             dispatch(withdrewRewards());
         }catch(error){
             if(error.data){
@@ -221,7 +222,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
             let tx = await user.marketContract.makeListing(selectedNft.contract.address, selectedNft.id, price);
             let receipt = await tx.wait();
             dispatch(updateListed(selectedNft.contract.address, selectedNft.id, true));
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
         }catch(error){
             if(error.data){
                 toast.error(error.data.message);
@@ -274,7 +275,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
             let tx = await user.marketContract.cancelListing(nft.listingId);
             let receipt = await tx.wait();
             dispatch(updateListed(nft.contract.address, nft.id, false));
-            toast.success(`Success! ${receipt.hash}`);
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
         }catch(error){
             if(error.data){
                 toast.error(error.data.message);

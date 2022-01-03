@@ -14,6 +14,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
+import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -237,7 +238,7 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                     const receipt = await response.wait();
-                    toast.success(`Success! ${receipt.hash}`);
+                    toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
                     const anParam = {
                         currency : 'CRO',
                         value : ethers.utils.formatEther(finalCost),
