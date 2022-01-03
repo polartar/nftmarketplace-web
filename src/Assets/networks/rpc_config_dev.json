@@ -536,6 +536,21 @@
                 "card": "/img/collections/cronoslizards/card.png",
                 "banner": "/img/collections/cronoslizards/banner.png"
             }
+        },
+        {
+            "name" : "Cronos Monkey Business",
+            "multiToken" : false,
+            "address" : "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronos-monkey-business",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosmb/avatar.png",
+                "card": "/img/collections/cronosmb/card.png",
+                "banner": "/img/collections/cronosmb/banner.png"
+            }
         }
     ],
     "drops": [
