@@ -193,7 +193,7 @@
             "multiToken": false,
             "address" : "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
             "onChain" : false,
-            "listable" : false
+            "listable" : true
         },
         {
             "name" : "CROCOSNFT",
