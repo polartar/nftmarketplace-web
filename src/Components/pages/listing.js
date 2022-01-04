@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
-import {getListingDetails, listingReceived} from "../../GlobalState/listingSlice";
+import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
 import {
     createSuccessfulTransactionToastContent,
     humanize,
@@ -79,12 +79,12 @@ const Listing = () => {
                     'value' : price
                 });
                 const receipt = await tx.wait();
-                dispatch(listingReceived({
+                dispatch(listingUpdated({
                     listing: {
                         ...listing,
                         'state' : 1,
                         'purchaser' : user.address
-                    }
+                    },
                 }));
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             }catch(error){

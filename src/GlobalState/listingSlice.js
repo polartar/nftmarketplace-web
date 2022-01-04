@@ -17,11 +17,14 @@ const listingSlice = createSlice({
             state.loading = false;
             state.listing = action.payload.listing;
             state.history = action.payload.history ?? [];
+        },
+        listingUpdated: (state, action) => {
+            state.listing = action.payload.listing;
         }
     },
 });
 
-export const { listingLoading, listingReceived } = listingSlice.actions;
+export const { listingLoading, listingReceived, listingUpdated } = listingSlice.actions;
 
 export default listingSlice.reducer;
 
