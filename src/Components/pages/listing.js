@@ -80,9 +80,11 @@ const Listing = () => {
                 });
                 const receipt = await tx.wait();
                 dispatch(listingReceived({
-                    ...listing,
-                    'state' : 1,
-                    'purchaser' : user.address
+                    listing: {
+                        ...listing,
+                        'state' : 1,
+                        'purchaser' : user.address
+                    }
                 }));
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             }catch(error){
