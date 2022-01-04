@@ -406,7 +406,7 @@ export async function getNftSalesHistory(collectionId, nftId) {
     }
 }
 
-export async function getNftNew(collectionId, nftId) {
+export async function getNft(collectionId, nftId, useFallback = true) {
     try{
         const queryString = new URLSearchParams({
             collection: collectionId.toLowerCase(),
@@ -417,20 +417,19 @@ export async function getNftNew(collectionId, nftId) {
         const uri = `${url}?${queryString}`;
 
         const result = await (await fetch(uri)).json();
-        console.log(result)
 
-        if (!result.nft) {
-            result.nft = await getNft(collectionId, nftId);
+        if (useFallback && !result.nft) {
+            result.nft = await getNftFromFile(collectionId, nftId);
         }
 
         return result;
     }catch(error){
         console.log(error)
-        return await getNft(collectionId, nftId);
+        return await getNftFromFile(collectionId, nftId);
     }
 }
 
-export async function getNft(collectionId, nftId) {
+export async function getNftFromFile(collectionId, nftId) {
     try {
         let nft;
         try{

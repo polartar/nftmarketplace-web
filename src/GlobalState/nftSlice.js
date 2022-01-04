@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getNft, getNftNew} from "../core/api";
+import {getNftFromFile, getNft} from "../core/api";
 
 const nftSlice = createSlice({
     name: 'nft',
@@ -29,6 +29,6 @@ export default nftSlice.reducer;
 
 export const getNftDetails = (collectionId, nftId) => async (dispatch, getState) => {
     dispatch(nftLoading());
-    const nft = await getNftNew(collectionId, nftId);
+    const nft = await getNft(collectionId, nftId);
     dispatch(nftReceived(nft));
 }
