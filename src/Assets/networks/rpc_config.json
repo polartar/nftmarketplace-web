@@ -551,6 +551,21 @@
                 "card": "/img/collections/cronosmb/card.png",
                 "banner": "/img/collections/cronosmb/banner.png"
             }
+        },
+        {
+            "name" : "Crognomes",
+            "multiToken" : false,
+            "address" : "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "crognomes",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crognomes/avatar.png",
+                "card": "/img/collections/crognomes/card.png",
+                "banner": "/img/collections/crognomes/banner.png"
+            }
         }
     ],
     "drops": [
