@@ -30,7 +30,7 @@ export default api;
 //     })
 // });
 
-export async function sortAndFetchListings(page, sort, filterType, filterAddress, traits, search) {
+export async function sortAndFetchListings(page, sort, filterType, filterAddress, traits, powertraits, search) {
     let pagesize = 12;
 
     let query = {
@@ -66,6 +66,23 @@ export async function sortAndFetchListings(page, sort, filterType, filterAddress
         }).reduce((prev, curr) => ({ ...prev, ...curr }), {});
 
         query['traits'] = JSON.stringify(traitFilter);
+    }
+
+    if (powertraits && Object.keys(powertraits).length > 0) {
+        const traitFilter = Object.keys(powertraits).map((traitCategoryName) => {
+
+            const traitCategory = powertraits[traitCategoryName];
+
+            const traitCategoryKeys = Object.keys(traitCategory);
+
+            const truthyFilters = traitCategoryKeys
+                .filter((traitCategoryKey) => traitCategory[traitCategoryKey]);
+
+            return truthyFilters.length === 0 ? {} : { [traitCategoryName]: truthyFilters };
+
+        }).reduce((prev, curr) => ({ ...prev, ...curr }), {});
+
+        query['powertraits'] = JSON.stringify(traitFilter);
     }
 
     if (search) query['search'] = search;
@@ -136,6 +153,18 @@ export async function getCollectionMetadata(contractAddress, sort, filter) {
 export async function getCollectionTraits(contractAddress) {
     try {
         const internalUri = `https://app.ebisusbay.com/files/${contractAddress.toLowerCase()}/rarity.json`;
+
+        return await (await fetch(internalUri)).json();
+    } catch (error) {
+        console.log(error);
+    }
+
+    return null;
+}
+
+export async function getCollectionPowertraits(contractAddress) {
+    try {
+        const internalUri = `https://app.ebisusbay.com/files/${contractAddress.toLowerCase()}/powertraits.json`;
 
         return await (await fetch(internalUri)).json();
     } catch (error) {
