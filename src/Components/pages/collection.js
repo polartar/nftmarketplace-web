@@ -227,7 +227,7 @@ const Collection = ({cacheName = 'collection'}) => {
                             }
                         </div>
                     }
-                    <div className={hasTraits() ? 'col-md-9' : 'col-md-12'}>
+                    <div className={hasTraits() || hasPowertraits() ? 'col-md-9' : 'col-md-12'}>
                         <CollectionListingsGroup
                             listings={listings}
                             canLoadMore={canLoadMore}
