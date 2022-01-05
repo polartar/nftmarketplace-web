@@ -72,17 +72,45 @@ const PowertraitsFilter = ({address}) => {
         }))
     }
 
+    const toggleAll = () => {
+        const container = document.getElementById('powertraits');
+
+        let shouldHide = false;
+        if (container) {
+            shouldHide = container.style.display === 'block';
+            container.style.display = shouldHide ? 'none' : 'block';
+        }
+
+        const icon = document.getElementById('powertraits-expand-icon');
+        icon.classList.remove('fa-minus', 'fa-plus');
+        icon.classList.add(shouldHide ? 'fa-plus' : 'fa-minus');
+    }
+
     return (
-        <>
-            <div className="d-flex justify-content-between align-middle mb-4">
-                <h3 className="d-inline-block" style={{marginBottom:0}}>In-Game Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
+        <div className="my-4">
+            <div className="mb-4">
+                <div className="d-flex justify-content-between align-middle">
+                    <h3 className="d-inline-block" onClick={toggleAll} style={{cursor:'pointer', marginBottom:0}}>
+                        In-Game Attributes
+                    </h3>
+
+                    <div className="d-inline-block fst-italic my-auto me-2"
+                         style={{fontSize: '0.8em', cursor: 'pointer'}}>
+                        <i id="powertraits-expand-icon" className="fa fa-minus"></i>
+                    </div>
+                </div>
                 {viewSelectedAttributesCount() > 0 &&
-                <div className="d-inline-block fst-italic my-auto"
-                     style={{fontSize: '0.8em', cursor: 'pointer'}}
-                     onClick={clearAttributeFilters}>Clear</div>
+                    <div className="d-flex justify-content-between align-middle">
+                        <span>{viewSelectedAttributesCount()} selected</span>
+                        <div className="d-inline-block fst-italic my-auto me-2"
+                             style={{fontSize: '0.8em', cursor: 'pointer'}}
+                             onClick={clearAttributeFilters}>
+                            Clear
+                        </div>
+                    </div>
                 }
             </div>
-            <Accordion>
+            <Accordion id="powertraits">
                 {viewPowertraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                     <Accordion.Item eventKey={key} key={key}>
                         <Accordion.Header>{traitCategoryName}</Accordion.Header>
@@ -104,7 +132,7 @@ const PowertraitsFilter = ({address}) => {
                     </Accordion.Item>
                 ))}
             </Accordion>
-        </>
+        </div>
     );
 };
 
