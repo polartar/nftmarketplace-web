@@ -8,6 +8,7 @@ const nftSlice = createSlice({
         error: false,
         nft: null,
         history: [],
+        powertraits: [],
     },
     reducers: {
         nftLoading: (state) => {
@@ -19,6 +20,7 @@ const nftSlice = createSlice({
             state.error = false;
             state.nft = action.payload.nft;
             state.history = action.payload.listings ?? [];
+            state.powertraits = action.payload.powertraits ?? [];
         }
     },
 });
