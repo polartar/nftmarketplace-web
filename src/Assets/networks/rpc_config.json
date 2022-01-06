@@ -172,7 +172,8 @@
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
-                "card": "/img/collections/crocrow/card.png"
+                "card": "/img/collections/crocrow/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {
