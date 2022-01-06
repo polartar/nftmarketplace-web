@@ -288,6 +288,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     }
 
     try {
+        dispatch(connectingWallet({'connecting' : true}));
         var provider = new ethers.providers.Web3Provider(web3provider);
 
         let accounts = await web3provider.request({
