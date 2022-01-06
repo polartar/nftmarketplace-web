@@ -42,9 +42,11 @@ const CollectionListingsGroup = ({ showLoadMore = true, listings = [], canLoadMo
                     }
                 }}
             >
-                <div className='row'>
+                <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
-                        <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                            <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                        </div>
                     ))}
                 </div>
             </InfiniteScroll>
@@ -53,9 +55,13 @@ const CollectionListingsGroup = ({ showLoadMore = true, listings = [], canLoadMo
     else {
         return (
             <div className='row'>
-                {listings && listings.map( (listing, index) => (
-                    <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
-                ))}
+                <div className='card-group'>
+                    {listings && listings.map( (listing, index) => (
+                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                            <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                        </div>
+                    ))}
+                </div>
                 { showLoadMore && canLoadMore &&
                     <div className='col-lg-12'>
                         <div className="spacer-single"></div>

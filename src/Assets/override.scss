@@ -285,3 +285,29 @@ canvas {
         }
     }
 }
+
+.eb-nft__card {
+    border: solid 1px #ddd;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    background: #ffffff;
+    transition: .7s;
+    &:hover{
+        box-shadow: 2px 2px 30px 0px rgba(10, 10, 10, 0.1);
+        transition: .7s;
+    }
+}
+.eb-nft__card img {
+    width: 100%;
+    height: auto !important;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+.eb-nft__card .card-footer {
+    background-color: rgba(255,255,255,.03);
+    border-top: none;
+}
+
+
