@@ -578,8 +578,8 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/deplone/avatar.jpg",
-                "banner": "/img/collections/deplone/page_banner.jpg",
-                "card": "/img/drops/deplone/drop.gif"
+                "banner": "/img/collections/deplone/banner.jpg",
+                "card": "/img/collections/deplone/card.jpg"
             }
         }
     ],
