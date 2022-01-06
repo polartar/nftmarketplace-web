@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
 import {useParams} from "react-router-dom";
-import {Form} from "react-bootstrap";
+import {Form, Spinner} from "react-bootstrap";
 import config from '../../Assets/networks/rpc_config.json'
 import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
@@ -15,6 +15,7 @@ import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
+import MintButton from "../Drop/MintButton";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -313,7 +314,14 @@ const Drop = () => {
                                     }
                                 </Reveal>
                                 }
-
+                                {status === statuses.LIVE &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                                    <MintButton
+                                        mintCallback={mintNow}
+                                        numToMint={numToMint}
+                                        title="Mint Now" />
+                                </Reveal>
+                                }
                                 <div className="spacer-10"></div>
                             </div>
                         </div>
@@ -403,14 +411,10 @@ const Drop = () => {
                                             </Form.Group>
                                         }
                                         <div className="d-flex flex-row mt-5">
-                                            <button className='btn-main lead mb-5 mr15'
-                                                    onClick={mintNow}>
-                                                {drop.maxMintPerTx > 1 ?
-                                                    <>Mint {numToMint}</>
-                                                    :
-                                                    <>Mint</>
-                                                }
-                                            </button>
+                                            <MintButton
+                                                mintCallback={mintNow}
+                                                maxMintPerTx={drop.maxMintPerTx}
+                                                numToMint={numToMint} />
                                         </div>
                                     </>
                                 }
