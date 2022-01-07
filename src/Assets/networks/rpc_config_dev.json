@@ -172,7 +172,8 @@
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
-                "card": "/img/collections/crocrow/card.png"
+                "card": "/img/collections/crocrow/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {
@@ -508,6 +509,81 @@
             }
         },
         {
+            "name" : "LazyHorse",
+            "multiToken" : false,
+            "address" : "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "lazy-horse",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos Lizards",
+            "multiToken" : false,
+            "address" : "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-lizards",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronoslizards/avatar.png",
+                "card": "/img/collections/cronoslizards/card.png",
+                "banner": "/img/collections/cronoslizards/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos Monkey Business",
+            "multiToken" : false,
+            "address" : "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-monkey-business",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosmb/avatar.png",
+                "card": "/img/collections/cronosmb/card.png",
+                "banner": "/img/collections/cronosmb/banner.png"
+            }
+        },
+        {
+            "name" : "Crognomes",
+            "multiToken" : false,
+            "address" : "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "crognomes",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crognomes/avatar.png",
+                "card": "/img/collections/crognomes/card.png",
+                "banner": "/img/collections/crognomes/banner.png"
+            }
+        },
+        {
+            "name" : "Admiration",
+            "multiToken" : false,
+            "address" : "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "admiration",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/deplone/avatar.jpg",
+                "banner": "/img/collections/deplone/banner.jpg",
+                "card": "/img/collections/deplone/card.jpg"
+            }
+        },
+        {
             "name" : "Deplone",
             "multiToken" : false,
             "address" : "0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E",
@@ -567,7 +643,6 @@
                 "banner": "/img/collections/fractals/banner.png"
             }
         }
-
     ],
     "drops": [
         {
@@ -624,77 +699,26 @@
             "foundersOnly": false
         },
         {
-            "id": 2,
-            "slug": "ebisu",
-            "imgNft": "/img/drops/ebisu/Ebisu.gif",
-            "imgPreview": "/img/drops/ebisu/ebisu_card.gif",
-            "imgAvatar" : "/img/collections/barbara/ebisu/avatar.jpg",
-            "title": "Ebisu by Barbara",
-            "subtitle": "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
-            "description": "Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods. Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters. May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.",
-            "author": { "name": "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/"},
-            "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
-            "maxMintPerTx": 10,
-            "totalSupply": "∞",
-            "cost": "150.0",
-            "memberCost": "100.0",
-            "abi": [
-                "function mint(uint256 count) public payable",
-                "function totalSupply() public view returns (uint256)"
-            ],
-            "start": 1639489543000,
-            "end": 1639929600000,
-            "referral": false,
-            "is1155": false,
-            "foundersOnly": false
-        },
-        {
-            "id": 3,
-            "slug": "crostmas",
-            "imgNft": "/img/drops/crostmas/crostmas_cards.webp",
-            "imgPreview": "/img/drops/crostmas/crostmas_cards.webp",
-            "imgAvatar": "/img/drops/crostmas/avatar.png",
-            "title": "CROstmas Cards",
-            "subtitle": "CROstmas Cards is a collection on Cronos network.",
-            "description":  "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",
-            "author": { "name": "CROstmas Cards", "link": "https://crostmascards.com"},
-            "address": "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
-            "maxMintPerTx": 50,
-            "totalSupply": 10000,
-            "cost": "10.0",
-            "memberCost": "10.0",
-            "abi": [
-                "function mint(address _to, uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)"
-            ],
-            "start": 1639489543000,
-            "end": null,
-            "referral": false,
-            "is1155": false,
-            "foundersOnly": false
-        },
-        {
-            "id": 4,
-            "slug": "santa-cro",
-            "imgNft": "/img/drops/cromoon/cromoondrop.gif",
-            "imgPreview": "/img/drops/cromoon/cromoondrop.gif",
-            "imgAvatar" : "/img/collections/santacro/avatar.png",
-            "title": "SantaCro",
-            "subtitle": "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
-            "description":  "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Let’s make this Christmas a special one together!",
-            "author": { "name": "CroMoon", "link": "https://cromoon.net/nfts"},
-            "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
-            "maxMintPerTx": 20,
-            "totalSupply": 5555,
-            "cost": "199",
-            "memberCost": "199",
+            "id": 5,
+            "slug": "admiration",
+            "imgNft": "/img/drops/deplone/drop.gif",
+            "imgPreview": "/img/drops/deplone/drop.gif",
+            "imgAvatar" : "/img/collections/deplone/avatar.jpg",
+            "imgBanner" : "/img/collections/deplone/banner.jpg",
+            "title": "Admiration",
+            "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
+            "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
+            "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
+            "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
+            "maxMintPerTx": 1,
+            "totalSupply": 22,
+            "cost": "300",
+            "memberCost": "250",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)"
+                "function mint(uint256 _mintAmount) public payable"
             ],
-            "start": 1639591200000,
+            "start": 1641751200000,
             "end": null,
             "referral": false,
             "is1155": false
@@ -810,5 +834,6 @@
             "referral": false,
             "is1155": false
         }
+   
     ]
 }

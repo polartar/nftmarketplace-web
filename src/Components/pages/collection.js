@@ -9,17 +9,17 @@ import {
     init,
     fetchListings,
     getStats,
-    filterListingsByTrait
 } from '../../GlobalState/collectionSlice'
 import {Contract, ethers} from "ethers";
 import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
-import {humanize, siPrefixedNumber} from "../../utils";
-import {Accordion, Form} from "react-bootstrap";
+import {siPrefixedNumber} from "../../utils";
 import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
+import TraitsFilter from "../Collection/TraitsFilter";
+import PowertraitsFilter from "../Collection/PowertraitsFilter";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -60,38 +60,16 @@ const Collection = ({cacheName = 'collection'}) => {
         toast.success('Copied!');
     }
 
-    const handleCheck = (event, traitCategory) => {
-        const { id, checked } = event.target;
-
-        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
-
-        dispatch(filterListingsByTrait({
-            traits: {
-                ...cachedTraitsFilter,
-                [traitCategory]: {
-                    ...cachedTraitsFilter[traitCategory] || {},
-                    [id]: checked
-                }
-            },
-            address
-        }))
-    }
-
     const hasTraits = () => {
         return collectionStats?.traits != null;
     }
 
-    const loadMore = () => {
-        dispatch(fetchListings());
+    const hasPowertraits = () => {
+        return collectionStats?.powertraits != null;
     }
 
-    const traitStatName = (name, stats) => {
-        let ret = humanize(name);
-        if (stats && stats.count > 0) {
-            ret = ret.concat(` (${stats.count})`);
-        }
-
-        return ret;
+    const loadMore = () => {
+        dispatch(fetchListings());
     }
 
     useEffect(async () => {
@@ -126,42 +104,6 @@ const Collection = ({cacheName = 'collection'}) => {
         let royalties = await readMarket.royalties(address)
         setRoyalty((royalties[1] / 10000) * 100);
     }, [dispatch, address]);
-
-    const viewGetDefaultCheckValue = (traitCategory, id) => {
-        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
-
-        if (!cachedTraitsFilter || !cachedTraitsFilter[traitCategory]) {
-            return false;
-        }
-
-        return cachedTraitsFilter[traitCategory][id] || false;
-    };
-
-    const viewTraitsList = () => {
-        if (!collectionStats || !collectionStats.traits) {
-            return [];
-        }
-
-        return Object.entries(collectionStats.traits);
-    }
-
-    const viewSelectedAttributesCount = () => {
-        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
-        return Object.values(cachedTraitsFilter)
-            .map(traitCategoryValue => Object.values(traitCategoryValue).filter(x => x === true).length)
-            .reduce((prev, curr) => prev + curr, 0);
-    };
-
-    const clearAttributeFilters = () => {
-        const inputs = document.querySelectorAll(".attribute-checkbox input[type=checkbox]");
-        for (const item of inputs) {
-            item.checked = false;
-        }
-        dispatch(filterListingsByTrait({
-            traits: {},
-            address
-        }))
-    }
 
     return (
         <div>
@@ -216,40 +158,58 @@ const Collection = ({cacheName = 'collection'}) => {
                                 </div>
                             }
                             <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
-                                <a className="nft_attr">
+                                <div className="nft_attr">
                                     <div className="row">
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Floor</h5>
-                                            <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
+                                            {collectionStats.floorPrice ?
+                                                <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Volume</h5>
-                                            <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
+                                            {collectionStats.totalVolume ?
+                                                <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Sales</h5>
-                                            <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
+                                            {collectionStats.numberOfSales ?
+                                                <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Avg. Sale</h5>
-                                            <h4>
-                                                {isNaN(collectionStats.averageSalePrice) ?
-                                                    "N/A"
-                                                    :
-                                                    siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0)) + " CRO"
-                                                }
-                                            </h4>
+                                            {collectionStats.averageSalePrice ?
+                                                <h4>{siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0))} CRO</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Royalty</h5>
-                                            <h4>{royalty}%</h4>
+                                            {royalty ?
+                                                <h4>{royalty}%</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                         <div className="col-md-2 col-xs-4">
                                             <h5>Active Listings</h5>
-                                            <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
+                                            {collectionStats.numberActive ?
+                                                <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
+                                                :
+                                                <h4>-</h4>
+                                            }
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -257,41 +217,17 @@ const Collection = ({cacheName = 'collection'}) => {
                     <CollectionFilterBar showFilter={false} cacheName={cacheName}/>
                 </div>
                 <div className="row">
-                    {hasTraits() &&
+                    {(hasTraits() || hasPowertraits()) &&
                         <div className='col-md-3 mb-4'>
-                            <div className="d-flex justify-content-between align-middle mb-4">
-                                <h3 className="d-inline-block" style={{marginBottom:0}}>Attributes { viewSelectedAttributesCount() ? `(${viewSelectedAttributesCount()} selected)` : '' }</h3>
-                                {viewSelectedAttributesCount() > 0 &&
-                                    <div className="d-inline-block fst-italic my-auto"
-                                         style={{fontSize: '0.8em', cursor: 'pointer'}}
-                                         onClick={clearAttributeFilters}>Clear</div>
-                                }
-                            </div>
-                            <Accordion>
-                                {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
-                                    <Accordion.Item eventKey={key} key={key}>
-                                        <Accordion.Header>{traitCategoryName}</Accordion.Header>
-                                        <Accordion.Body>
-                                            {Object.entries(traitCategoryValues).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats) => (
-                                                <div key={`${traitCategoryName}-${stats[0]}`}>
-                                                    <Form.Check
-                                                        type="checkbox"
-                                                        id={stats[0]}
-                                                        className="attribute-checkbox"
-                                                        label={traitStatName(stats[0], stats[1])}
-                                                        defaultChecked={viewGetDefaultCheckValue(traitCategoryName, stats[0])}
-                                                        value={viewGetDefaultCheckValue(traitCategoryName, stats[0])}
-                                                        onChange={(t) => handleCheck(t, traitCategoryName)}
-                                                    />
-                                                </div>
-                                            ))}
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                ))}
-                            </Accordion>
+                            {hasTraits() &&
+                                <TraitsFilter address={address} />
+                            }
+                            {hasPowertraits() &&
+                                <PowertraitsFilter address={address} />
+                            }
                         </div>
                     }
-                    <div className={hasTraits() ? 'col-md-9' : 'col-md-12'}>
+                    <div className={hasTraits() || hasPowertraits() ? 'col-md-9' : 'col-md-12'}>
                         <CollectionListingsGroup
                             listings={listings}
                             canLoadMore={canLoadMore}

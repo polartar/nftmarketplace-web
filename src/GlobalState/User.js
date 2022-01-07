@@ -166,6 +166,11 @@ const userSlice = createSlice({
             state.rewards = "Loading...";
             state.marketBalance = "Loading...";
             state.isMember = false;
+            state.fetchingNfts = false;
+            state.nftsInitialized = false;
+            state.nfts = [];
+            state.mySoldNftsFetching = false;
+            state.mySoldNfts = [];
         },
         onThemeChanged(state, action) {
             console.log('onThemeChanged', action.payload);
@@ -283,6 +288,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
     }
 
     try {
+        dispatch(connectingWallet({'connecting' : true}));
         var provider = new ethers.providers.Web3Provider(web3provider);
 
         let accounts = await web3provider.request({
