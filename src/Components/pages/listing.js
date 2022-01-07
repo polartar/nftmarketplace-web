@@ -28,6 +28,7 @@ const Listing = () => {
 
     const listing = useSelector((state) => state.listing.listing)
     const history = useSelector((state) => state.listing.history.filter(i => i.state === 1))
+    const powertraits = useSelector((state) => state.listing.powertraits)
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
 
@@ -206,7 +207,12 @@ const Listing = () => {
 
                                     <ul className="de_nav">
                                         <li id='Mainbtn0' className="tab active"><span onClick={handleBtnClick(0)}>Details</span></li>
-                                        <li id='Mainbtn1' className="tab"><span onClick={handleBtnClick(1)}>History</span></li>
+                                        {powertraits && powertraits.length > 0 &&
+                                            <li id='Mainbtn1' className="tab">
+                                                <span onClick={handleBtnClick(1)}>In-Game Attributes</span>
+                                            </li>
+                                        }
+                                        <li id='Mainbtn2' className="tab"><span onClick={handleBtnClick(2)}>History</span></li>
                                     </ul>
 
                                     <div className="de_tab_content">
@@ -247,6 +253,38 @@ const Listing = () => {
                                         }
                                         {openMenu === 1 &&
                                             <div className="tab-2 onStep fadeIn">
+                                                {powertraits && powertraits.length > 0 ?
+                                                    <>
+                                                        <div className="d-block mb-3">
+                                                            <div className="row mt-5 gx-3 gy-2">
+                                                                {powertraits.map((data, i) => {
+                                                                    return (
+                                                                        <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                            <div className="nft_attr">
+                                                                                <h5>{data.trait_type}</h5>
+                                                                                <h4>
+                                                                                    {data.value > 0 ?
+                                                                                        <>+ {data.value}</>
+                                                                                    :
+                                                                                        <>{data.value}</>
+                                                                                    }
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <span>No in-game attributes found for this item</span>
+                                                    </>
+                                                }
+                                            </div>
+                                        }
+                                        {openMenu === 2 &&
+                                            <div className="tab-3 onStep fadeIn">
                                             {history && history.length > 0 ?
                                                 <>
                                                     {history.map((item, index) => (
