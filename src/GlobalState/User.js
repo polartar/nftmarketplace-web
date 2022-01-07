@@ -397,7 +397,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
 
             // Loot Balance
             try {
-                const lootContract = new ethers.Contract(config.known_tokens.loot, ERC721, signer);
+                const lootContract = new ethers.Contract(config.known_tokens.loot.address, ERC721, signer);
                 lootBalance = ethers.utils.formatEther(await lootContract.balanceOf(address));
             } catch (error) {
                 console.log('Error checking LOOT balance', error);
