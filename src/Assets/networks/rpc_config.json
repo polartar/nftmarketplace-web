@@ -12,6 +12,13 @@
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
     "ebisu_contract": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+    "known_tokens": {
+        "loot": {
+            "name": "LOOT",
+            "symbol": "LOOT",
+            "address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B"
+        }
+    },
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
@@ -765,7 +772,7 @@
         },
         {
             "id": 7,
-            "slug": "LootCougers",
+            "slug": "crougars",
             "imgNft": "/img/drops/lootcougers/drop.gif",
             "imgPreview": "/img/drops/lootcougers/drop.gif",
             "imgAvatar" : "/img/collections/lootcougers/avatar.png",

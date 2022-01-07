@@ -189,6 +189,13 @@ const Drop = () => {
 
     const [numToMint, setNumToMint] = useState(1);
 
+    const isEligibleForMemberPrice = (user) => {
+        if(user.isMember){
+            return true;
+        } else {
+            return drop.slug === 'crougars' && user.lootBalance >= 1000000;
+        }
+    }
 
     const mintNow = async() => {
         if(user.address){
@@ -198,7 +205,7 @@ const Drop = () => {
                 const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(dropObject.cost);
                 let cost;
-                if(user.isMember){
+                if(isEligibleForMemberPrice(user)){
                     cost = memberCost;
                 } else {
                     cost = regCost;
