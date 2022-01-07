@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {sortAndFetchListings, getCollectionMetadata, getCollectionTraits} from '../core/api';
+import {sortAndFetchListings, getCollectionMetadata, getCollectionTraits, getCollectionPowertraits} from '../core/api';
 import config from '../Assets/networks/rpc_config.json'
 export const knownContracts = config.known_contracts;
 
@@ -14,12 +14,14 @@ const collectionSlice = createSlice({
             filter: {},
             sort: {},
             search: null,
-            traits: {}
+            traits: {},
+            powertraits: {}
         },
         totalPages: 0,
         stats: null,
         hasRank: false,
         cachedTraitsFilter: {},
+        cachedPowertraitsFilter: {},
         cachedFilter: {},
         cachedSort: {},
     },
@@ -48,6 +50,7 @@ const collectionSlice = createSlice({
 
             if (hardClear) {
                 state.cachedTraitsFilter = {};
+                state.cachedPowertraitsFilter = {};
                 state.cachedFilter = {};
                 state.cachedSort = {};
             }
@@ -84,15 +87,23 @@ const collectionSlice = createSlice({
             state.query.search = action.payload;
         },
         onTraitFilter: (state, action) => {
-            const { address, traits } = action.payload;
+            const { address, traits, powertraits } = action.payload;
 
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
-            state.query.traits = traits;
 
-            if (address) {
+            if (traits) {
+                state.query.traits = traits;
+            }
+            if (powertraits) {
+                state.query.powertraits = powertraits;
+            }
+            if (address && traits) {
                 state.cachedTraitsFilter[address] = traits;
+            }
+            if (address && powertraits) {
+                state.cachedPowertraitsFilter[address] = powertraits;
             }
         },
         onCollectionStatsLoaded: (state, action) => {
@@ -144,6 +155,7 @@ export const fetchListings = () => async (dispatch, getState) => {
         state.collection.query.filter.type,
         state.collection.query.filter.address,
         state.collection.query.traits,
+        state.collection.query.powertraits,
         state.collection.query.search
     );
 
@@ -170,8 +182,8 @@ export const searchListings = (value) => async (dispatch) => {
     dispatch(fetchListings());
 }
 
-export const filterListingsByTrait = ({ traits, address }) => async (dispatch) => {
-    dispatch(onTraitFilter({ traits, address}));
+export const filterListingsByTrait = ({ traits, powertraits, address }) => async (dispatch) => {
+    dispatch(onTraitFilter({ traits, powertraits, address}));
     dispatch(fetchListings());
 }
 
@@ -184,8 +196,13 @@ export const getStats = (address) => async(dispatch) => {
     try {
         const response = await getCollectionMetadata(address);
         const traits  = await getCollectionTraits(address);
+        const powertraits  = await getCollectionPowertraits(address);
         dispatch(onCollectionStatsLoaded({
-            stats: {...response.collections[0], ...{traits: traits}},
+            stats: {
+                ...response.collections[0], ...{
+                    traits: traits,
+                    powertraits: powertraits
+            }},
         }));
     } catch(error) {
         console.log(error);

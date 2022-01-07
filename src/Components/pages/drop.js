@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
 import {useParams} from "react-router-dom";
-import {Form} from "react-bootstrap";
+import {Form, Spinner} from "react-bootstrap";
 import config from '../../Assets/networks/rpc_config.json'
 import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
@@ -14,6 +14,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
+import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
+import MintButton from "../Drop/MintButton";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -187,6 +189,13 @@ const Drop = () => {
 
     const [numToMint, setNumToMint] = useState(1);
 
+    const isEligibleForMemberPrice = (user) => {
+        if(user.isMember){
+            return true;
+        } else {
+            return drop.slug === 'crougars' && user.lootBalance >= 1000000;
+        }
+    }
 
     const mintNow = async() => {
         if(user.address){
@@ -196,7 +205,7 @@ const Drop = () => {
                 const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(dropObject.cost);
                 let cost;
-                if(user.isMember){
+                if(isEligibleForMemberPrice(user)){
                     cost = memberCost;
                 } else {
                     cost = regCost;
@@ -237,7 +246,7 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                     const receipt = await response.wait();
-                    toast.success(`Success! ${receipt.hash}`);
+                    toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
                     const anParam = {
                         currency : 'CRO',
                         value : ethers.utils.formatEther(finalCost),
@@ -277,12 +286,27 @@ const Drop = () => {
         <div>
             <GlobalStyles/>
             <>
-                <section className={`jumbotron breadcumb h-vh ${drop.imgBanner ? 'tint' : ''}`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/7.jpg'})`}}>
+                <section className={`jumbotron breadcumb h-vh tint`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
                                 <div className="spacer-single"></div>
                                 <div className="spacer-double"></div>
+
+                                {status === statuses.LIVE && drop.end &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <p className="lead col-white">
+                                        Ends in: <Countdown date={drop.end}/>
+                                    </p>
+                                </Reveal>
+                                }
+                                {status === statuses.NOT_STARTED &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <h4 className="col-white">
+                                        Starts in: <span className="text-uppercase color"><Countdown date={drop.start}/></span>
+                                    </h4>
+                                </Reveal>
+                                }
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
@@ -297,21 +321,14 @@ const Drop = () => {
                                     }
                                 </Reveal>
                                 }
-                                {status === statuses.LIVE && drop.end &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                    <p className="lead col-white">
-                                        Ends in: <Countdown date={drop.end}/>
-                                    </p>
+                                {status === statuses.LIVE &&
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                                    <MintButton
+                                        mintCallback={mintNow}
+                                        numToMint={numToMint}
+                                        title="Mint Now" />
                                 </Reveal>
                                 }
-                                {status === statuses.NOT_STARTED &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
-                                    <p className="lead col-white">
-                                        Starts in: <Countdown date={drop.start}/>
-                                    </p>
-                                </Reveal>
-                                }
-
                                 <div className="spacer-10"></div>
                             </div>
                         </div>
@@ -401,14 +418,10 @@ const Drop = () => {
                                             </Form.Group>
                                         }
                                         <div className="d-flex flex-row mt-5">
-                                            <button className='btn-main lead mb-5 mr15'
-                                                    onClick={mintNow}>
-                                                {drop.maxMintPerTx > 1 ?
-                                                    <>Mint {numToMint}</>
-                                                    :
-                                                    <>Mint</>
-                                                }
-                                            </button>
+                                            <MintButton
+                                                mintCallback={mintNow}
+                                                maxMintPerTx={drop.maxMintPerTx}
+                                                numToMint={numToMint} />
                                         </div>
                                     </>
                                 }

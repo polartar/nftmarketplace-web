@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getListing, getNftSalesHistory} from "../core/api";
+import {getListing, getNft, getNftSalesHistory} from "../core/api";
 
 const listingSlice = createSlice({
     name: 'listing',
@@ -7,7 +7,9 @@ const listingSlice = createSlice({
         loading: false,
         error: false,
         listing: null,
+        nft: null,
         history: [],
+        powertraits: [],
     },
     reducers: {
         listingLoading: (state) => {
@@ -17,17 +19,23 @@ const listingSlice = createSlice({
             state.loading = false;
             state.listing = action.payload.listing;
             state.history = action.payload.history ?? [];
+            state.powertraits = action.payload.powertraits ?? [];
+        },
+        listingUpdated: (state, action) => {
+            state.listing = action.payload.listing;
         }
     },
 });
 
-export const { listingLoading, listingReceived } = listingSlice.actions;
+export const { listingLoading, listingReceived, listingUpdated } = listingSlice.actions;
 
 export default listingSlice.reducer;
 
 export const getListingDetails = (listingId) => async (dispatch) => {
     dispatch(listingLoading());
     const listing = await getListing(listingId);
-    const history = await getNftSalesHistory(listing.nftAddress, listing.nftId);
-    dispatch(listingReceived({listing, history}));
+    const nft = await getNft(listing.nftAddress, listing.nftId, false);
+    const history = nft?.listings ?? [];
+    const powertraits = nft.nft?.powertraits ?? [];
+    dispatch(listingReceived({listing, history, powertraits}));
 }
