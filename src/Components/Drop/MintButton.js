@@ -11,13 +11,13 @@ const MintButton = ({mintCallback, maxMintPerTx, numToMint, title}) => {
     return (
         <>
             {user.connectingWallet ?
-                <Button className='btn-main lead mb-5 mr15' disabled>
+                <button className='btn-main lead mb-5 mr15' disabled>
                     <Spinner animation="border" role="status" size="sm">
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
-                </Button>
+                </button>
                 :
-                <Button className='btn-main lead mb-5 mr15' onClick={mintCallback}>
+                <button className='btn-main lead mb-5 mr15' onClick={mintCallback}>
                     {title ?
                         <>{title}</>
                         :
@@ -29,7 +29,7 @@ const MintButton = ({mintCallback, maxMintPerTx, numToMint, title}) => {
                             }
                         </>
                     }
-                </Button>
+                </button>
             }
         </>
     );
