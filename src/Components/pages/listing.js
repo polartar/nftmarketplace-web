@@ -27,7 +27,11 @@ const Listing = () => {
     const dispatch = useDispatch();
 
     const listing = useSelector((state) => state.listing.listing)
-    const history = useSelector((state) => state.listing.history.filter(i => i.state === 1))
+    const history = useSelector((state) =>
+        state.listing.history
+            .filter(i => i.state === 1)
+            .sort((a, b) => (a.saleTime < b.saleTime) ? 1 : -1)
+    )
     const powertraits = useSelector((state) => state.listing.powertraits)
     const isLoading = useSelector((state) => state.listing.loading)
     const user = useSelector((state) => state.user)
