@@ -13,6 +13,61 @@ pipelines:
   #         - node --version
   #         - npm install --no-audit
   #         #- npm run test
+  custom: # Pipelines that can only be triggered manually or by schedule
+    deploy-to-sandbox:
+      - step:
+          name: Integration test
+          image: node:16
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
+          script:
+            - apt-get update
+            - node --version
+            - npm install --no-audit
+            #- npm run test
+          artifacts:
+            - node_modules/**
+      - step:
+          name: Build
+          image: node:16
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
+          script:
+            - apt-get update
+            # Set environment variables
+            - REACT_APP_DEVTOOLS=true
+            # Print Node.js version
+            - node --version
+            # Print npm version
+            - npm --version
+            # RPC config
+            - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
+            # Build frontend
+            - CI=false npm run build
+          artifacts:
+            - build/**
+      - step:
+          name: Deploy
+          image: amazon/aws-cli
+          deployment: Sandbox
+          runs-on:
+            - 'self.hosted'
+            - 'linux'
+            - 'web'
+          size: 1x
+          script:
+            # Print AWS CLI version
+            - aws --version
+            # Deployment
+            - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
+            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
   branches:
     testnet:
       - step:
