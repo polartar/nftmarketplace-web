@@ -630,9 +630,9 @@
                 "slug": "crougars",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/lootcougers/avatar.png",
-                "card": "/img/collections/lootcougers/card.gif",
-                "banner": "/img/collections/lootcougers/banner.png"
+                "avatar": "/img/collections/crougars/avatar.png",
+                "card": "/img/collections/crougars/card.gif",
+                "banner": "/img/collections/crougars/banner.png"
             }
         },
         {
@@ -759,12 +759,12 @@
         },
         {
             "id": 6,
-            "slug": "LazyHorse",
+            "slug": "lazyhorse",
             "imgNft": "/img/drops/lazyhorse/drop.png",
             "imgPreview": "/img/drops/lazyhorse/drop.png",
             "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
             "imgBanner" : "/img/collections/lazyhorse/banner.png",
-            "title": "",
+            "title": "LazyHorse",
             "subtitle": "",
             "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
             "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
@@ -788,12 +788,12 @@
         {
             "id": 7,
             "slug": "crougars",
-            "imgNft": "/img/drops/lootcougers/drop.gif",
-            "imgPreview": "/img/drops/lootcougers/drop.gif",
-            "imgAvatar" : "/img/collections/lootcougers/avatar.png",
-            "imgBanner" : "/img/collections/lootcougers/banner.png",
+            "imgNft": "/img/drops/crougars/drop.gif",
+            "imgPreview": "/img/drops/crougars/drop.gif",
+            "imgAvatar" : "/img/collections/crougars/avatar.png",
+            "imgBanner" : "/img/collections/crougars/banner.png",
             "title": "CROugars",
-            "subtitle": "",
+            "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
             "description":  "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
             "author": { "name": "CROugars", "link": "https://crougar.com/"},
             "address": "",
