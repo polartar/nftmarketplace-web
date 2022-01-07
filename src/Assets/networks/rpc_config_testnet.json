@@ -213,7 +213,7 @@
             "maxMintPerTx": 1,
             "totalSupply": 25,
             "cost": "15",
-            "memberCost": "10",
+            "memberCost": "15",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
