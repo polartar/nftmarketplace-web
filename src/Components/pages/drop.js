@@ -107,11 +107,11 @@ const Drop = () => {
 
                 if (isFirst) {
                     // console.log("start");
-                    // // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
+                    // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                     // const regCost = ethers.utils.parseEther(dropObject.cost);
                     // // await writeContract.startEditionOpen();
-                    // // await writeContract.setCost(memberCost, true);
-                    // await writeContract.setCost(regCost);
+                    // await writeContract.setCost(memberCost, true);
+                    // await writeContract.setCost(regCost, false);
                     // setIsFirst(false);
                 }
             } catch(error) {
