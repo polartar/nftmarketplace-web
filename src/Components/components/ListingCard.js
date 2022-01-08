@@ -13,13 +13,13 @@ const Outer = styled.div`
 `;
 
 //react functional component
-const ListingCard = ({ listing, className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4', clockTop = true, height, onImgLoad }) => {
+const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
 
     return (
         <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
             <div className="card eb-nft__card h-100">
                 <Outer>
-                    <img src={listing.nft.image} className="card-img-top" />
+                    <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
                 </Outer>
                 <div className="card-body d-flex flex-column">
                     <h5 className="card-title mt-auto">{listing.nft.name}</h5>
