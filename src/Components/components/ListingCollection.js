@@ -4,6 +4,9 @@ import ListingCard from './ListingCard';
 import {init, fetchListings} from "../../GlobalState/marketplaceSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {Spinner} from "react-bootstrap";
+import { SortOption } from '../Models/sort-option.model';
+
+import { FilterOption } from "../Models/filter-option.model";
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
@@ -26,45 +29,43 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
         return state.marketplace;
     });
 
-    const isFilteredOnCollection = useSelector((state) => {
-        return marketplace.curFilter !== null &&
-            marketplace.curFilter.type === 'collection' &&
-            marketplace.curFilter.address !== null;
-    });
-
     useEffect(async () => {
-        let sort = {
-            type: 'listingId',
-            direction: 'desc'
+        if (collectionId) {
+            const sortOption = new SortOption();
+            sortOption.key = 'listingId';
+            sortOption.direction = 'desc';
+            sortOption.label = 'By Id';
+
+            const filterOption = new FilterOption();
+            filterOption.type = 'collection';
+            filterOption.address = collectionId;
+            filterOption.name = 'By Collection';
+
+            dispatch(init(sortOption, filterOption));
+            dispatch(fetchListings());
+            return;
         }
 
-        let filter = {
-            type: null,
-            address: null
+        if (sellerId) {
+            const sortOption = new SortOption();
+            sortOption.key = 'listingId';
+            sortOption.direction = 'desc';
+            sortOption.label = 'By Id';
+
+            const filterOption = new FilterOption();
+            filterOption.type = 'seller';
+            filterOption.address = sellerId;
+            filterOption.name = 'By Seller';
+
+            dispatch(init(sortOption, filterOption));
+            dispatch(fetchListings());
+            return;
         }
 
-        if(collectionId){
-            filter.type = 'collection';
-            filter.address = collectionId;
-        } else if(sellerId){
-            filter.type = 'seller';
-            filter.address = sellerId;
-        } else {
-            //  if cacheName is supplied filter and sort values remain same after changing pages.
-            const cachedFilter = marketplace.cachedFilter[cacheName];
-            const cachedSort = marketplace.cachedSort[cacheName];
+        const filterOption = marketplace.cachedFilter[cacheName] ?? FilterOption.default();
+        const sortOption = marketplace.cachedSort[cacheName] ?? SortOption.default();
 
-            if (cachedFilter) {
-                filter.type = cachedFilter.type;
-                filter.address = cachedFilter.address;
-            }
-
-            if (cachedSort) {
-                sort.type = cachedSort.type;
-                sort.direction = cachedSort.direction;
-            }
-        }
-        dispatch(init(sort, filter));
+        dispatch(init(sortOption, filterOption));
         dispatch(fetchListings());
 
     }, [dispatch]);

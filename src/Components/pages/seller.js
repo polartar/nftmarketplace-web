@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import {useParams} from "react-router-dom";
+import { sortOptions } from "../components/constants/sort-options";
+import { SortOption } from '../Models/sort-option.model';
+import { useDispatch, useSelector } from "react-redux";
+import { sortListings } from "../../GlobalState/marketplaceSlice";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -11,7 +15,28 @@ const GlobalStyles = createGlobalStyle`
 
 
 const Seller = () => {
+    const cacheName = 'sellerPage';
+
+    const dispatch = useDispatch();
     const { address } = useParams();
+
+    const marketplace = useSelector((state) => {
+        return state.marketplace;
+    });
+
+    const selectDefaultSortValue = marketplace.cachedSort[cacheName] ?? SortOption.default();
+
+    const selectSortOptions = useSelector((state) => {
+        if(state.marketplace.hasRank) {
+            return sortOptions;
+        }
+
+        return sortOptions.filter((s) => s.key !== 'rank');
+    });
+
+    const onSortChange = useCallback((sortOption) => {
+        dispatch(sortListings(sortOption, cacheName));
+    }, [dispatch]);
 
     return (
         <div>
@@ -34,7 +59,13 @@ const Seller = () => {
             <section className='container'>
                 <div className='row'>
                     <div className='col-lg-12'>
-                        <TopFilterBar showFilter={false}/>
+                        <TopFilterBar showFilter={false}
+                                      showSort={true}
+                                      sortPlaceHolder='Sort Listings...'
+                                      sortOptions={[SortOption.default(), ...selectSortOptions]}
+                                      defaultSortValue={selectDefaultSortValue}
+                                      onSortChange={onSortChange}
+                        />
                     </div>
                 </div>
                 <ListingCollection sellerId={address}/>
