@@ -172,7 +172,8 @@
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
-                "card": "/img/collections/crocrow/card.png"
+                "card": "/img/collections/crocrow/card.png",
+                "rarity": "rarity_sniper"
             }
         },
         {
@@ -566,6 +567,21 @@
                 "card": "/img/collections/crognomes/card.png",
                 "banner": "/img/collections/crognomes/banner.png"
             }
+        },
+        {
+            "name" : "Admiration",
+            "multiToken" : false,
+            "address" : "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "admiration",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/deplone/avatar.jpg",
+                "banner": "/img/collections/deplone/banner.jpg",
+                "card": "/img/collections/deplone/card.jpg"
+            }
         }
     ],
     "drops": [
@@ -623,31 +639,27 @@
             "foundersOnly": false
         },
         {
-            "id": 6,
-            "slug": "lazy-horse",
-            "imgNft": "/img/drops/lazyhorse/drop.png",
-            "imgPreview": "/img/drops/lazyhorse/drop.png",
-            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
-            "imgBanner" : "/img/collections/lazyhorse/banner.png",
-            "title": "",
-            "subtitle": "",
-            "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
-            "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
-            "maxMintPerTx": 20,
-            "totalSupply": 2000,
+            "id": 5,
+            "slug": "admiration",
+            "imgNft": "/img/drops/deplone/drop.gif",
+            "imgPreview": "/img/drops/deplone/drop.gif",
+            "imgAvatar" : "/img/collections/deplone/avatar.jpg",
+            "imgBanner" : "/img/collections/deplone/banner.jpg",
+            "title": "Admiration",
+            "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
+            "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
+            "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
+            "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
+            "maxMintPerTx": 1,
+            "totalSupply": 22,
             "cost": "300",
-            "memberCost": "200",
+            "memberCost": "250",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)",
-                "function startEditionOpen() public",
-                "function setCost(uint, bool) public"
+                "function mint(uint256 _mintAmount) public payable"
             ],
-            "start": 1641132000000,
-            "end": 1641132000001,
+            "start": 1641751200000,
+            "end": null,
             "referral": false,
             "is1155": false
         }

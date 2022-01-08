@@ -19,7 +19,12 @@ const Nft = () => {
     const history = useHistory();
 
     const nft = useSelector((state) => state.nft.nft)
-    const listings = useSelector((state) => state.nft.history.filter(i => i.state === 1))
+    const listings = useSelector((state) =>
+        state.nft.history
+            .filter(i => i.state === 1)
+            .sort((a, b) => (a.saleTime < b.saleTime) ? 1 : -1)
+    )
+    const powertraits = useSelector((state) => state.nft.nft?.powertraits)
     const collectionMetadata = useSelector((state) => {
         return knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase())?.metadata;
     });
@@ -123,63 +128,100 @@ const Nft = () => {
 
                                 <ul className="de_nav">
                                     <li id='Mainbtn0' className="tab active"><span onClick={handleBtnClick(0)}>Details</span></li>
-                                    <li id='Mainbtn1' className="tab"><span onClick={handleBtnClick(1)}>History</span></li>
+                                    {powertraits && powertraits.length > 0 &&
+                                        <li id='Mainbtn1' className="tab">
+                                            <span onClick={handleBtnClick(1)}>In-Game Attributes</span>
+                                        </li>
+                                    }
+                                    <li id='Mainbtn2' className="tab"><span onClick={handleBtnClick(2)}>History</span></li>
                                 </ul>
 
                                 <div className="de_tab_content">
                                     {openMenu === 0 &&
-                                    <div className="tab-1 onStep fadeIn">
-                                        {(nft.attributes && nft.attributes.length > 0) ||  (nft.properties && nft.properties.length > 0) ?
-                                            <div className="d-block mb-3">
-                                                <div className="row mt-5 gx-3 gy-2">
-                                                    {nft.attributes && nft.attributes.map((data, i) => {
-                                                        return (
-                                                            <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                                                                <a className="nft_attr">
-                                                                    <h5>{humanize(data.trait_type)}</h5>
-                                                                    <h4>{humanize(data.value)}</h4>
-                                                                    {data.occurrence ? (
-                                                                            <span>{Math.round(data.occurrence * 100)}% have this trait</span>
-                                                                        )
-                                                                        :
-                                                                        data.percent && (
-                                                                            <span>{data.percent}% have this trait</span>
-                                                                        )
-                                                                    }
-                                                                </a>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                    {nft.properties && nft.properties.map((data, i) => {
-                                                        return (
-                                                            <div key={i} className="col-lg-4 col-md-6 col-sm-6">
-                                                                <div className="nft_attr">
-                                                                    <h5>{humanize(data.trait_type)}</h5>
-                                                                    <h4>{humanize(data.value)}</h4>
-                                                                    {data.occurrence ? (
-                                                                            <span>{Math.round(data.occurrence * 100)}% have this trait</span>
-                                                                        )
-                                                                        :
-                                                                        data.percent && (
-                                                                            <span>{data.percent}% have this trait</span>
-                                                                        )
-                                                                    }
+                                        <div className="tab-1 onStep fadeIn">
+                                            {(nft.attributes && nft.attributes.length > 0) ||  (nft.properties && nft.properties.length > 0) ?
+                                                <div className="d-block mb-3">
+                                                    <div className="row mt-5 gx-3 gy-2">
+                                                        {nft.attributes && nft.attributes.map((data, i) => {
+                                                            return (
+                                                                <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                    <a className="nft_attr">
+                                                                        <h5>{humanize(data.trait_type)}</h5>
+                                                                        <h4>{humanize(data.value)}</h4>
+                                                                        {data.occurrence ? (
+                                                                                <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                            )
+                                                                            :
+                                                                            data.percent && (
+                                                                                <span>{data.percent}% have this trait</span>
+                                                                            )
+                                                                        }
+                                                                    </a>
                                                                 </div>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            );
+                                                        })}
+                                                        {nft.properties && nft.properties.map((data, i) => {
+                                                            return (
+                                                                <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                    <div className="nft_attr">
+                                                                        <h5>{humanize(data.trait_type)}</h5>
+                                                                        <h4>{humanize(data.value)}</h4>
+                                                                        {data.occurrence ? (
+                                                                                <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                            )
+                                                                            :
+                                                                            data.percent && (
+                                                                                <span>{data.percent}% have this trait</span>
+                                                                            )
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
 
-                                            </div>
-                                            :
-                                            <>
-                                                <span>No traits found for this item</span>
-                                            </>
-                                        }
-                                    </div>
+                                                </div>
+                                                :
+                                                <>
+                                                    <span>No traits found for this item</span>
+                                                </>
+                                            }
+                                        </div>
                                     }
                                     {openMenu === 1 &&
                                         <div className="tab-2 onStep fadeIn">
+                                            {powertraits && powertraits.length > 0 ?
+                                                <>
+                                                    <div className="d-block mb-3">
+                                                        <div className="row mt-5 gx-3 gy-2">
+                                                            {powertraits.map((data, i) => {
+                                                                return (
+                                                                    <div key={i} className="col-lg-4 col-md-6 col-sm-6">
+                                                                        <div className="nft_attr">
+                                                                            <h5>{data.trait_type}</h5>
+                                                                            <h4>
+                                                                                {data.value > 0 ?
+                                                                                    <>+ {data.value}</>
+                                                                                    :
+                                                                                    <>{data.value}</>
+                                                                                }
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                </>
+                                                :
+                                                <>
+                                                    <span>No in-game attributes found for this item</span>
+                                                </>
+                                            }
+                                        </div>
+                                    }
+                                    {openMenu === 2 &&
+                                        <div className="tab-3 onStep fadeIn">
                                             {listings && listings.length > 0 ?
                                                 <>
                                                     {listings.map((listing, index) => (
