@@ -200,7 +200,8 @@
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
                 "function cost() view returns (uint256)",
-                "function setCost(uint, bool) public"
+                "function setCost(uint, bool) public",
+                "function isWhiteList(address _address) public view returns (bool)"
             ],
             "start": 1639591200000,
             "end": null,

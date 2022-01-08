@@ -189,11 +189,21 @@ const Drop = () => {
 
     const [numToMint, setNumToMint] = useState(1);
 
-    const isEligibleForMemberPrice = (user) => {
+    const isEligibleForMemberPrice = async (user) => {
         if(user.isMember){
             return true;
         } else {
-            return drop.slug === 'crougars' && user.lootBalance >= 1000000;
+            if (drop.slug === 'crougers') {
+                const readContract = await new ethers.Contract(drop.address, drop.abi, readProvider);
+                let isWhiteListed = false;
+                try {
+                    isWhiteListed = await readContract.isWhiteList(user.address)
+                } catch (error) {
+                    console.log('Error while checking drop whitelist', error);
+                }
+                return user.lootBalance >= 1000000 || isWhiteListed;
+            }
+            return false;
         }
     }
 
