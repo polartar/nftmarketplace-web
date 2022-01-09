@@ -12,6 +12,13 @@
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
     "ebisu_contract": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+    "known_tokens": {
+        "loot": {
+            "name": "LOOT",
+            "symbol": "LOOT",
+            "address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B"
+        }
+    },
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
@@ -582,6 +589,66 @@
                 "banner": "/img/collections/deplone/banner.jpg",
                 "card": "/img/collections/deplone/card.jpg"
             }
+        },
+        {
+            "name" : "Deplone",
+            "multiToken" : false,
+            "address" : "0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "deplone",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/deplone/avatar.jpg",
+                "banner": "/img/collections/deplone/page_banner.jpg",
+                "card": "/img/drops/deplone/drop.gif"
+            }
+        },
+        {
+            "name" : "LazyHorse",
+            "multiToken" : false,
+            "address" : "0x3fc2bac73bC7ceFA6Efb00a49dD646841f70240D",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "lazyhorse",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png"
+            }
+        },
+        {
+            "name" : "CROugars",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crougars",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crougars/avatar.png",
+                "card": "/img/collections/crougars/card.gif",
+                "banner": "/img/collections/crougars/banner.png"
+            }
+        },
+        {
+            "name" : "Fractals",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "fractals",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/fractals/avatar.png",
+                "card": "/img/collections/fractals/card.png",
+                "banner": "/img/collections/fractals/banner.png"
+            }
         }
     ],
     "drops": [
@@ -659,6 +726,117 @@
                 "function mint(uint256 _mintAmount) public payable"
             ],
             "start": 1641751200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 5,
+            "slug": "deplone",
+            "imgNft": "/img/drops/deplone/drop.gif",
+            "imgPreview": "/img/drops/deplone/drop.gif",
+            "imgAvatar" : "/img/collections/deplone/avatar.jpg",
+            "imgBanner" : "/img/collections/deplone/banner.jpg",
+            "title": "Deplone",
+            "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
+            "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
+            "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
+            "address": "0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E",
+            "maxMintPerTx": 1,
+            "totalSupply": 22,
+            "cost": "300",
+            "memberCost": "250",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 6,
+            "slug": "lazyhorse",
+            "imgNft": "/img/drops/lazyhorse/drop.png",
+            "imgPreview": "/img/drops/lazyhorse/drop.png",
+            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
+            "imgBanner" : "/img/collections/lazyhorse/banner.png",
+            "title": "LazyHorse",
+            "subtitle": "",
+            "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+            "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "0x3fc2bac73bC7ceFA6Efb00a49dD646841f70240D",
+            "maxMintPerTx": 20,
+            "totalSupply": 2000,
+            "cost": "300",
+            "memberCost": "200",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 7,
+            "slug": "crougars",
+            "imgNft": "/img/drops/crougars/drop.gif",
+            "imgPreview": "/img/drops/crougars/drop.gif",
+            "imgAvatar" : "/img/collections/crougars/avatar.png",
+            "imgBanner" : "/img/collections/crougars/banner.png",
+            "title": "CROugars",
+            "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
+            "description":  "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
+            "author": { "name": "CROugars", "link": "https://crougar.com/"},
+            "address": "",
+            "maxMintPerTx": 20,
+            "totalSupply": 2222,
+            "cost": "250",
+            "memberCost": "200",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 8,
+            "slug": "Fractals",
+            "imgNft": "/img/drops/fractals/drop.png",
+            "imgPreview": "/img/drops/fractals/drop.png",
+            "imgAvatar" : "/img/collections/fractals/avatar.png",
+            "imgBanner" : "/img/collections/fractals/banner.png",
+            "title": "Fractals",
+            "subtitle": "",
+            "description":  "The Fractals connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+            "author": { "name": "Fractals", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "",
+            "maxMintPerTx": 1,
+            "totalSupply": 25,
+            "cost": "250",
+            "memberCost": "250",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint) public"
+            ],
+            "start": 1639591200000,
             "end": null,
             "referral": false,
             "is1155": false

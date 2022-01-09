@@ -111,7 +111,7 @@ const Drop = () => {
                     // console.log("start");
                     // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                     // const regCost = ethers.utils.parseEther(dropObject.cost);
-                    // await writeContract.startEditionOpen();
+                    // // await writeContract.startEditionOpen();
                     // await writeContract.setCost(memberCost, true);
                     // await writeContract.setCost(regCost, false);
                     // setIsFirst(false);
@@ -189,6 +189,23 @@ const Drop = () => {
 
     const [numToMint, setNumToMint] = useState(1);
 
+    const isEligibleForMemberPrice = async (user) => {
+        if(user.isMember){
+            return true;
+        } else {
+            if (drop.slug === 'crougers') {
+                const readContract = await new ethers.Contract(drop.address, drop.abi, readProvider);
+                let isWhiteListed = false;
+                try {
+                    isWhiteListed = await readContract.isWhiteList(user.address)
+                } catch (error) {
+                    console.log('Error while checking drop whitelist', error);
+                }
+                return user.lootBalance >= 1000000 || isWhiteListed;
+            }
+            return false;
+        }
+    }
 
     const mintNow = async() => {
         if(user.address){
@@ -198,7 +215,7 @@ const Drop = () => {
                 const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(dropObject.cost);
                 let cost;
-                if(user.isMember){
+                if(isEligibleForMemberPrice(user)){
                     cost = memberCost;
                 } else {
                     cost = regCost;
