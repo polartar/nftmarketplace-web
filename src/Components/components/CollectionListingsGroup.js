@@ -5,19 +5,10 @@ import {Spinner} from "react-bootstrap";
 
 const CollectionListingsGroup = ({ showLoadMore = true, listings = [], canLoadMore = false, loadMore}) => {
 
-    const [height, setHeight] = useState(0);
-
-    const onImgLoad = ({target:img}) => {
-        let currentHeight = height;
-        if(currentHeight < img.offsetHeight) {
-            setHeight(img.offsetHeight);
-        }
-    }
-
     if (showLoadMore) {
         return (
             <InfiniteScroll
-                dataLength={listings.length}
+                dataLength={5}
                 next={loadMore}
                 hasMore={canLoadMore}
                 style={{ overflow: 'hidden' }}
@@ -46,10 +37,7 @@ const CollectionListingsGroup = ({ showLoadMore = true, listings = [], canLoadMo
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
                             <ListingCard
-                                key={index}
                                 listing={listing}
-                                onImgLoad={onImgLoad}
-                                height={height}
                                 imgClass="collection"
                             />
                         </div>
@@ -63,12 +51,9 @@ const CollectionListingsGroup = ({ showLoadMore = true, listings = [], canLoadMo
             <div className='row'>
                 <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
-                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
                             <ListingCard
-                                key={index}
                                 listing={listing}
-                                onImgLoad={onImgLoad}
-                                height={height}
                                 imgClass="collection"
                             />
                         </div>

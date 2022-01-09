@@ -9,14 +9,6 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
 
     const dispatch = useDispatch();
     const listings = useSelector((state) => state.marketplace.listings)
-    const [height, setHeight] = useState(0);
-
-    const onImgLoad = ({target:img}) => {
-        let currentHeight = height;
-        if(currentHeight < img.offsetHeight) {
-            setHeight(img.offsetHeight);
-        }
-    }
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
@@ -104,7 +96,10 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                 <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                            <ListingCard
+                                listing={listing}
+                                imgClass="marketplace"
+                            />
                         </div>
                     ))}
                 </div>
@@ -118,10 +113,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
                             <ListingCard
-                                key={index}
                                 listing={listing}
-                                onImgLoad={onImgLoad}
-                                height={height}
                                 imgClass="marketplace"
                             />
                         </div>
