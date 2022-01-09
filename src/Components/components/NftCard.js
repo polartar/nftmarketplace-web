@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import styled from "styled-components";
-import { useHistory  } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { ethers } from "ethers";
 import {toast} from "react-toastify";
 import config from '../../Assets/networks/rpc_config.json';
@@ -18,9 +18,6 @@ const Outer = styled.div`
 //react functional component
 const NftCard = ({
     nft,
-    className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4',
-    height,
-    onImgLoad,
     canTransfer = false,
     canSell = false,
     canCancel = false,
@@ -30,6 +27,7 @@ const NftCard = ({
     onCancelButtonPressed,
     onUpdateButtonPressed,
     newTab = false,
+    imgClass = 'marketplace'
 }) => {
     const history = useHistory();
 
@@ -55,53 +53,51 @@ const NftCard = ({
     }
 
     return (
-        <div className={className}>
-            <div className="nft__item m-0">
-
-                <div className="nft__item_wrap" style={{height: `${height}px`, marginTop: '0'}}>
-                    <Outer>
-                        <span>
-                            <img onClick={() => navigateTo(nftUrl())} onLoad={onImgLoad} src={nft.image} className="lazy nft__item_preview" alt=""/>
-                        </span>
-                    </Outer>
-                </div>
-                <div className="nft__item_info">
-                    <span onClick={() => navigateTo(nftUrl())}>
+        <div className="card eb-nft__card h-100 shadow">
+            <img onClick={() => navigateTo(nftUrl())} src={nft.image} className="card-img-top marketplace"  style={{cursor:'pointer'}}/>
+            {nft.rank &&
+            <div className="badge bg-rarity text-wrap mt-1 mx-1">
+                Rank: #{nft.rank}
+            </div>
+            }
+            <div className="card-body d-flex flex-column">
+                <div className="card-title mt-auto">
+                    <span onClick={() => navigateTo(nftUrl())} style={{cursor:'pointer'}}>
                         {nft.count && nft.count > 0 ?
                             <h4>{nft.name} (x{nft.count})</h4>
                             :
                             <h4>{nft.name}</h4>
                         }
                     </span>
-                        <div className="has_offers">
-                            {(nft.listed && nft.price)?
-                                <>
-                                    {ethers.utils.commify(nft.price)} CRO
-                                </>
-                                :
-                                <>
-                                    &nbsp;
-                                </>
-                            }
-                        </div>
-                    <div className="nft__item_action mb-2">
-                        {canTransfer &&
-                        <span className="mx-1" onClick={onTransferButtonPressed}>Transfer</span>
-                        }
-                        {canSell &&
-                        <span className="mx-1" onClick={onSellButtonPressed}>Sell</span>
-                        }
-                        {canCancel &&
-                        <span className="mx-1" onClick={onCancelButtonPressed}>Cancel</span>
-                        }
-                        {canUpdate &&
-                        <span className="mx-1" onClick={onUpdateButtonPressed}>Update</span>
-                        }
-                        <span className="mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))}>
-                            <i className="fa fa-link"></i>
-                        </span>
-                    </div>
                 </div>
+                <p className="card-text">
+                    {(nft.listed && nft.price)?
+                        <>
+                            {ethers.utils.commify(nft.price)} CRO
+                        </>
+                        :
+                        <>
+                            &nbsp;
+                        </>
+                    }
+                </p>
+            </div>
+            <div className="card-footer d-flex justify-content-between">
+                {canTransfer &&
+                <span className="mx-1" onClick={onTransferButtonPressed} style={{cursor:'pointer'}}>Transfer</span>
+                }
+                {canSell &&
+                <span className="mx-1" onClick={onSellButtonPressed} style={{cursor:'pointer'}}>Sell</span>
+                }
+                {canCancel &&
+                <span className="mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer'}}>Cancel</span>
+                }
+                {canUpdate &&
+                <span className="mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer'}}>Update</span>
+                }
+                <span className="mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer'}}>
+                    <i className="fa fa-link"></i>
+                </span>
             </div>
         </div>
     );

@@ -13,33 +13,23 @@ const Outer = styled.div`
 `;
 
 //react functional component
-const ListingCard = ({ listing, className = 'd-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4', clockTop = true, height, onImgLoad }) => {
+const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
 
     return (
-        <div className={className}>
-            <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
-                <div className="nft__item m-0">
-                    <div>
-                        <h4>Listing #{listing.listingId}</h4>
+        <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
+            <div className="card eb-nft__card h-100 shadow">
+                <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
+                {listing.nft.rank &&
+                    <div className="badge bg-rarity text-wrap mt-1 mx-1">
+                        Rank: #{listing.nft.rank}
                     </div>
-                    <div className="nft__item_wrap" style={{height: `${height}px`}}>
-                        <Outer>
-                            <span>
-                                <img onLoad={onImgLoad} src={listing.nft.image} className="lazy nft__item_preview" alt=""/>
-                            </span>
-                        </Outer>
-                    </div>
-                    <div className="nft__item_info mb-2">
-                        <span>
-                            <h4>{listing.nft.name}</h4>
-                        </span>
-                        <div className="has_offers">
-                            {ethers.utils.commify(listing.price)} CRO
-                        </div>
-                    </div>
+                }
+                <div className="card-body d-flex flex-column">
+                    <h6 className="card-title mt-auto">{listing.nft.name}</h6>
+                    <p className="card-text">{ethers.utils.commify(listing.price)} CRO</p>
                 </div>
-            </Link>
-        </div>
+            </div>
+        </Link>
     );
 };
 
