@@ -19,9 +19,13 @@ const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
         <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
             <div className="card eb-nft__card h-100 shadow">
                 <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
-                {listing.nft.rank &&
+                {listing.nft.rank ?
                     <div className="badge bg-rarity text-wrap mt-1 mx-1">
                         Rank: #{listing.nft.rank}
+                    </div>
+                    :
+                    <div className="badge bg-rarity-none text-wrap mt-1 mx-1">
+                        Rank: N/A
                     </div>
                 }
                 <div className="card-body d-flex flex-column">
