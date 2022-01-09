@@ -591,26 +591,11 @@
             }
         },
         {
-            "name" : "Deplone",
-            "multiToken" : false,
-            "address" : "",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "deplone",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/deplone/avatar.jpg",
-                "banner": "/img/collections/deplone/page_banner.jpg",
-                "card": "/img/drops/deplone/drop.gif"
-            }
-        },
-        {
             "name" : "CROugars",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "crougars",
                 "description": "",
@@ -625,7 +610,7 @@
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
