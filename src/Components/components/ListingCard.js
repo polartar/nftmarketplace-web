@@ -17,12 +17,15 @@ const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
 
     return (
         <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
-            <div className="card eb-nft__card h-100">
-                <Outer>
-                    <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
-                </Outer>
+            <div className="card eb-nft__card h-100 shadow">
+                <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
+                {listing.nft.rank &&
+                    <div className="badge bg-rarity text-wrap mt-1 mx-1">
+                        Rank: #{listing.nft.rank}
+                    </div>
+                }
                 <div className="card-body d-flex flex-column">
-                    <h5 className="card-title mt-auto">{listing.nft.name}</h5>
+                    <h6 className="card-title mt-auto">{listing.nft.name}</h6>
                     <p className="card-text">{ethers.utils.commify(listing.price)} CRO</p>
                 </div>
             </div>
