@@ -1,18 +1,34 @@
-import React from 'react';
-import { useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import MyNftCollection from "../components/MyNftCollection";
 import {Redirect} from "react-router-dom";
+import { fetchNfts } from "../../GlobalState/User";
+import { getAnalytics, logEvent } from "@firebase/analytics";
 
 const GlobalStyles = createGlobalStyle`
 `;
 
 const MyNfts = () => {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user)
+    const isLoading = useSelector((state) => state.user.fetchingNfts)
+    const nfts = useSelector((state) => user.nfts)
+
     const walletAddress = useSelector((state) => state.user.address)
 
+    useEffect(() => {
+        dispatch(fetchNfts(user.address, user.provider, user.nftsInitialized));
+    }, []);
+
+    useEffect(() => {
+        logEvent(getAnalytics(), 'screen_view', {
+            firebase_screen : 'my_nfts'
+        })
+    }, []);
 
     const Content = () => (
         <>
@@ -39,6 +55,9 @@ const MyNfts = () => {
                 </div>
                 <MyNftCollection
                     walletAddress={walletAddress}
+                    nfts={nfts}
+                    isLoading={isLoading}
+                    user={user}
                 />
             </section>
 
