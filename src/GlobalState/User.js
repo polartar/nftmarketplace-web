@@ -11,6 +11,7 @@ import { DeFiWeb3Connector } from 'deficonnect'
 import  WalletConnectProvider from '@deficonnect/web3-provider'
 import cdcLogo from '../Assets/cdc_logo.svg'
 import { getNftSalesForAddress, getNftsForAddress } from "../core/api";
+import {ERC721} from "../Contracts/Abis";
 
 const userSlice = createSlice({
     name : 'user',
@@ -36,6 +37,9 @@ const userSlice = createSlice({
         // ebisuContract : null,
         correctChain : false,
         showWrongChainModal : false,
+
+        // Other balances
+        lootBalance: 0,
 
         // My NFTs
         fetchingNfts: false,
@@ -63,6 +67,7 @@ const userSlice = createSlice({
             state.marketBalance = action.payload.marketBalance;
             // state.ebisuContract = action.payload.ebisuContract;
             state.gettingContractData = false;
+            state.lootBalance = action.payload.lootBalance;
         },
 
         onCorrectChain(state, action) {
@@ -171,6 +176,7 @@ const userSlice = createSlice({
             state.nfts = [];
             state.mySoldNftsFetching = false;
             state.mySoldNfts = [];
+            state.lootBalance = 0;
         },
         onThemeChanged(state, action) {
             console.log('onThemeChanged', action.payload);
@@ -360,21 +366,42 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ownedVip = 0;
         let market;
         let sales;
+        let lootBalance;
         // let ebisu;
 
         if(signer && correctChain){
             // ebisu = new Contract(config.ebisu_contract, Elon, signer);
             mc = new Contract(config.membership_contract, Membership.abi, signer);
-            mc.connect(signer);
+            // mc.connect(signer);
             cc = new Contract(config.cronie_contract, Cronies.abi, signer);
-            cc.connect(signer);
+            // cc.connect(signer);
             const rawCode = await mc.codes(address);
             code = ethers.utils.parseBytes32String(rawCode);
             rewards = ethers.utils.formatEther(await mc.payments(address));
-            ownedFounder = await mc.balanceOf(address, 1);
-            ownedVip = await mc.balanceOf(address, 2);
-            market = new Contract(config.market_contract, Market.abi, signer);
-            sales = ethers.utils.formatEther(await market.payments(address));
+            try {
+                ownedFounder = await mc.balanceOf(address, 1);
+            } catch (error) {
+                console.log('Error checking Founder balance', error);
+            }
+            try {
+                ownedVip = await mc.balanceOf(address, 2);
+            } catch (error) {
+                console.log('Error checking VIP balance', error);
+            }
+            try {
+                market = new Contract(config.market_contract, Market.abi, signer);
+                sales = ethers.utils.formatEther(await market.payments(address));
+            } catch (error) {
+                console.log('Error retrieving market balance for user', address, error);
+            }
+
+            // Loot Balance
+            try {
+                const lootContract = new ethers.Contract(config.known_tokens.loot.address, ERC721, signer);
+                lootBalance = ethers.utils.formatEther(await lootContract.balanceOf(address));
+            } catch (error) {
+                console.log('Error checking LOOT balance', error);
+            }
         }
 
 
@@ -389,9 +416,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             code: code,
             balance: balance,
             rewards: rewards,
-            isMember : ownedVip > 0 || ownedFounder > 0,
+            isMember: ownedVip > 0 || ownedFounder > 0,
             marketContract: market,
-            marketBalance :sales,
+            marketBalance: sales,
+            lootBalance: lootBalance
         }))
     } catch (error) {
         console.log(error)

@@ -285,3 +285,83 @@ canvas {
         }
     }
 }
+
+/* Custom Listing Cards */
+.eb-nft__card {
+    border: solid 1px #ddd;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    background: #ffffff;
+    transition: .7s;
+
+    img {
+        width: 100%;
+        height: auto !important;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        -moz-border-radius-topleft: 8px;
+        -moz-border-radius-topright: 8px;
+        -webkit-border-top-left-radius: 8px;
+        -webkit-border-top-right-radius: 8px;
+    }
+
+    .card-footer {
+        background-color: rgba(255,255,255,.03);
+        border-top: none;
+    }
+
+    .card-img-top {
+        width: 100% !important;
+    }
+    .card-img-top.marketplace {
+        object-fit: contain;
+    }
+    .card-img-top.collection {
+        object-fit: cover;
+    }
+    .bg-rarity {
+        background-image: linear-gradient(to right, #35669e, #218cff);
+    }
+    .bg-rarity-none {
+        background-image: linear-gradient(to right, #e0e0e0, #e4e5e6);
+        color: #000;
+    }
+    &:hover{
+        box-shadow: 2px 2px 30px 0px rgba(10, 10, 10, 0.1);
+        transition: .7s;
+    }
+
+    @media (min-width: 576px) {
+        .card-img-top.marketplace {
+            width: 100% !important;
+            max-height: 222px !important;
+            object-fit: cover !important;
+        }
+    }
+    @media (min-width: 768px) {
+        .card-img-top.marketplace {
+            max-height: 330px !important;
+            object-fit: contain !important;
+        }
+    }
+    @media (min-width: 992px) {
+        .card-img-top.marketplace {
+            max-height: 294px !important;
+            object-fit: contain !important;
+        }
+    }
+    @media (min-width: 1200px) {
+        .card-img-top.marketplace {
+            max-height: 261px !important;
+            object-fit: contain !important;
+        }
+    }
+    @media (min-width: 1400px) {
+        .card-img-top.marketplace {
+            max-height: 306px !important;
+            object-fit: contain !important;
+        }
+    }
+}
+

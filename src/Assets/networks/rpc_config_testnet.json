@@ -12,6 +12,13 @@
     "cronie_contract" : "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
     "elon_contract": "0x2fE1f2722fa215A68b92aECaD425259C0D645972",
     "ebisu_contract" : "0x65A422AB9c95fc94208E010B8d4ab50F7E79af19",
+    "known_tokens": {
+        "loot": {
+            "name": "LOOT",
+            "symbol": "LOOT",
+            "address": "0x2074D6a15c5F908707196C5ce982bd0598A666f9"
+        }
+    },
     "known_contracts" :  [
         {
             "name": "EbisusBay VIP",
@@ -59,7 +66,7 @@
         {
             "name" : "Deplone",
             "multiToken" : false,
-            "address" : "0x74De32e6e64ACc9b969BE899CC13D73F1E62DaAC",
+            "address" : "0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -84,6 +91,36 @@
                 "card": "/img/collections/lazyhorse/card.png",
                 "banner": "/img/collections/lazyhorse/banner.png"
             }
+        },
+        {
+            "name" : "CROugars",
+            "multiToken" : false,
+            "address" : "0x7B1A84D5766B5670C0dab14fA9526b39c284E11A",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crougars",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crougars/avatar.png",
+                "card": "/img/collections/crougars/card.gif",
+                "banner": "/img/collections/crougars/banner.png"
+            }
+        },
+        {
+            "name" : "Fractals",
+            "multiToken" : false,
+            "address" : "0x4C2c10BD29bB91db5996b018baf2307D17A69ca9",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "fractals",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/fractals/avatar.png",
+                "card": "/img/collections/fractals/card.png",
+                "banner": "/img/collections/fractals/banner.png"
+            }
         }
     ],
     "drops": [
@@ -98,14 +135,16 @@
             "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
             "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
             "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
-            "address": "0xf3644a8896A51b947Dd29CD3e91aE0cbF4dC785A",
+            "address": "0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E",
             "maxMintPerTx": 1,
             "totalSupply": 22,
             "cost": "15",
             "memberCost": "10",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable"
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint, bool) public"
             ],
             "start": 1639591200000,
             "end": null,
@@ -114,12 +153,12 @@
         },
         {
             "id": 6,
-            "slug": "LazyHorse",
+            "slug": "lazyhorse",
             "imgNft": "/img/drops/lazyhorse/drop.png",
             "imgPreview": "/img/drops/lazyhorse/drop.png",
             "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
             "imgBanner" : "/img/collections/lazyhorse/banner.png",
-            "title": "",
+            "title": "lazyhorse",
             "subtitle": "",
             "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
             "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
@@ -133,8 +172,64 @@
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
                 "function cost() view returns (uint256)",
-                "function startEditionOpen() public",
                 "function setCost(uint, bool) public"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 7,
+            "slug": "crougars",
+            "imgNft": "/img/drops/crougars/drop.gif",
+            "imgPreview": "/img/drops/crougars/drop.gif",
+            "imgAvatar" : "/img/collections/crougars/avatar.png",
+            "imgBanner" : "/img/collections/crougars/banner.png",
+            "title": "CROugars",
+            "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
+            "description":  "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
+            "author": { "name": "CROugars", "link": "https://crougar.com/"},
+            "address": "0x7B1A84D5766B5670C0dab14fA9526b39c284E11A",
+            "maxMintPerTx": 20,
+            "totalSupply": 2222,
+            "cost": "15",
+            "memberCost": "10",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public",
+                "function isWhiteList(address _address) public view returns (bool)"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 8,
+            "slug": "Fractals",
+            "imgNft": "/img/drops/fractals/drop.png",
+            "imgPreview": "/img/drops/fractals/drop.png",
+            "imgAvatar" : "/img/collections/fractals/avatar.png",
+            "imgBanner" : "/img/collections/fractals/banner.png",
+            "title": "Fractals",
+            "subtitle": "",
+            "description":  "The Fractals connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+            "author": { "name": "Fractals", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "0x4C2c10BD29bB91db5996b018baf2307D17A69ca9",
+            "maxMintPerTx": 1,
+            "totalSupply": 25,
+            "cost": "15",
+            "memberCost": "15",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint) public"
             ],
             "start": 1639591200000,
             "end": null,

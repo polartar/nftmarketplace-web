@@ -16,6 +16,7 @@ import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
 import MintButton from "../Drop/MintButton";
+import CrougarsWl from '../../Assets/crougars_wl.txt';
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -111,7 +112,7 @@ const Drop = () => {
                     // console.log("start");
                     // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                     // const regCost = ethers.utils.parseEther(dropObject.cost);
-                    // await writeContract.startEditionOpen();
+                    // // await writeContract.startEditionOpen();
                     // await writeContract.setCost(memberCost, true);
                     // await writeContract.setCost(regCost, false);
                     // setIsFirst(false);
@@ -189,6 +190,29 @@ const Drop = () => {
 
     const [numToMint, setNumToMint] = useState(1);
 
+    const isEligibleForMemberPrice = async (user) => {
+        if(user.isMember){
+            return true;
+        } else {
+            if (drop.slug === 'crougars') {
+                let isWhiteListed = false;
+                try {
+                    await fetch(CrougarsWl)
+                        .then(r => r.text())
+                        .then(text => {
+                            const addresses =  text
+                                .replace(/['"]+/g, '')
+                                .split(",\n");
+                            isWhiteListed = addresses.includes(user.address);
+                        })
+                } catch (error) {
+                    console.log('Error while checking drop whitelist', error);
+                }
+                return user.lootBalance >= 1000000 || isWhiteListed;
+            }
+            return false;
+        }
+    }
 
     const mintNow = async() => {
         if(user.address){
@@ -198,7 +222,7 @@ const Drop = () => {
                 const memberCost = ethers.utils.parseEther(dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(dropObject.cost);
                 let cost;
-                if(user.isMember){
+                if(await isEligibleForMemberPrice(user)){
                     cost = memberCost;
                 } else {
                     cost = regCost;

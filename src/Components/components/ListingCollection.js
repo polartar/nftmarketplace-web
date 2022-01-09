@@ -12,14 +12,6 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
 
     const dispatch = useDispatch();
     const listings = useSelector((state) => state.marketplace.listings)
-    const [height, setHeight] = useState(0);
-
-    const onImgLoad = ({target:img}) => {
-        let currentHeight = height;
-        if(currentHeight < img.offsetHeight) {
-            setHeight(img.offsetHeight);
-        }
-    }
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
@@ -102,9 +94,14 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                     }
                 }}
             >
-                <div className='row'>
+                <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
-                        <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
+                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                            <ListingCard
+                                listing={listing}
+                                imgClass="marketplace"
+                            />
+                        </div>
                     ))}
                 </div>
             </InfiniteScroll>
@@ -113,9 +110,16 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     else {
         return (
             <div className='row'>
-                {listings && listings.map( (listing, index) => (
-                    <ListingCard listing={listing} key={index} onImgLoad={onImgLoad} height={height} />
-                ))}
+                <div className='card-group'>
+                    {listings && listings.map( (listing, index) => (
+                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                            <ListingCard
+                                listing={listing}
+                                imgClass="marketplace"
+                            />
+                        </div>
+                    ))}
+                </div>
                 { showLoadMore && canLoadMore &&
                     <div className='col-lg-12'>
                         <div className="spacer-single"/>
