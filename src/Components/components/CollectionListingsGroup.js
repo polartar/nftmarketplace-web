@@ -8,7 +8,7 @@ const CollectionListingsGroup = ({ showLoadMore = true, listings = [], canLoadMo
     if (showLoadMore) {
         return (
             <InfiniteScroll
-                dataLength={5}
+                dataLength={listings.length}
                 next={loadMore}
                 hasMore={canLoadMore}
                 style={{ overflow: 'hidden' }}
