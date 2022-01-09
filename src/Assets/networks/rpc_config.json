@@ -591,26 +591,11 @@
             }
         },
         {
-            "name" : "Deplone",
-            "multiToken" : false,
-            "address" : "",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "deplone",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/deplone/avatar.jpg",
-                "banner": "/img/collections/deplone/page_banner.jpg",
-                "card": "/img/drops/deplone/drop.gif"
-            }
-        },
-        {
             "name" : "CROugars",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "crougars",
                 "description": "",
@@ -625,7 +610,7 @@
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
@@ -708,10 +693,11 @@
             "memberCost": "250",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable"
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)"
             ],
             "start": 1641751200000,
-            "end": null,
+            "end": 1641751300000,
             "referral": false,
             "is1155": false
         },

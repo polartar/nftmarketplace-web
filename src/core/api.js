@@ -252,7 +252,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             onNftLoaded([nft]);
                         }
 
-                    } else {
+                    } else if (c.address) {
                         var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
                         const readContract = new Contract(c.address, ERC721, readProvider);

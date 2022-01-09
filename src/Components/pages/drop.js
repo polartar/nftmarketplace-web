@@ -413,7 +413,18 @@ const Drop = () => {
 
                                 {drop.end &&
                                 <div className="me-4">
-                                    <h6 className="mb-1">Minting Ends</h6>
+                                    <h6 className="mb-1">
+                                        {status === statuses.ENDED ?
+                                            <>
+                                                Minting Ended
+                                            </>
+                                            :
+                                            <>
+                                                Minting Ends
+                                            </>
+                                        }
+
+                                    </h6>
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
                                 }
