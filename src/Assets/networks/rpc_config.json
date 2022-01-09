@@ -708,7 +708,8 @@
             "memberCost": "250",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable"
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)"
             ],
             "start": 1641751200000,
             "end": null,
