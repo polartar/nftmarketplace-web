@@ -39,7 +39,7 @@ const userSlice = createSlice({
         showWrongChainModal : false,
 
         // Other balances
-        lootBalance: 0,
+        lootBalance: null,
 
         // My NFTs
         fetchingNfts: false,

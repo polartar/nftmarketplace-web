@@ -17,6 +17,7 @@ import { getAnalytics, logEvent } from '@firebase/analytics'
 import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
 import MintButton from "../Drop/MintButton";
 import CrougarsWl from '../../Assets/crougars_wl.txt';
+import {ERC721} from "../../Contracts/Abis";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -111,7 +112,7 @@ const Drop = () => {
             }
         }
         try {
-            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(dropObject.address)) {
+            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
             }
@@ -151,15 +152,12 @@ const Drop = () => {
         const now = new Date();
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
+        else if (drop.currentSupply >= drop.totalSupply &&
+            !isCroniesDrop(drop.address) &&
+            !isFounderDrop(drop.address)
+        ) setStatus(statuses.SOLD_OUT)
         else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
-        else if (drop.end && eTime < now) {
-            // @todo refactor this out
-            if (drop.currentSupply >= drop.totalSupply &&
-                !isCroniesDrop(drop.address) &&
-                !isFounderDrop(drop.address)
-            ) setStatus(statuses.SOLD_OUT)
-            else setStatus(statuses.EXPIRED);
-        }
+        else if (drop.end && eTime < now) setStatus(statuses.EXPIRED);
         else setStatus(statuses.NOT_STARTED);
     }
 
@@ -173,23 +171,40 @@ const Drop = () => {
             return true;
         } else {
             if (drop.slug === 'crougars') {
-                let isWhiteListed = false;
-                try {
-                    await fetch(CrougarsWl)
-                        .then(r => r.text())
-                        .then(text => {
-                            const addresses =  text
-                                .replace(/['"]+/g, '')
-                                .split(",\n");
-                            isWhiteListed = addresses.includes(user.address);
-                        })
-                } catch (error) {
-                    console.log('Error while checking drop whitelist', error);
-                }
-                return user.lootBalance >= 1000000 || isWhiteListed;
+                return crougarsEligibilityCheck(user);
             }
             return false;
         }
+    }
+
+    const crougarsEligibilityCheck = async (user) => {
+        let isWhiteListed = false;
+        try {
+            await fetch(CrougarsWl)
+                .then(r => r.text())
+                .then(text => {
+                    const addresses =  text
+                        .replace(/['"]+/g, '')
+                        .split(",\n");
+                    isWhiteListed = addresses.includes(user.address);
+                })
+        } catch (error) {
+            console.log('Error while checking CROugars whitelist', error);
+        }
+
+        // If there was an error retrieving loot balance on wallet connect, then do a final attempt to retrieve it
+        let lootBalance = user.lootBalance;
+        if (!lootBalance && user.provider) {
+            try {
+                const lootContract = new ethers.Contract(config.known_tokens.loot.address, ERC721, user.provider.getSigner());
+                lootBalance = ethers.utils.formatEther(await lootContract.balanceOf(user.address));
+            } catch (error) {
+                lootBalance = 0;
+                console.log('Error while doing a final check for LOOT balance', error);
+            }
+        } else if (!user.provider) lootBalance = 0;
+
+        return lootBalance >= 1000000 || isWhiteListed;
     }
 
     const mintNow = async() => {
