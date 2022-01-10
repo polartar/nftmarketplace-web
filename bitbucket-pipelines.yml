@@ -1,4 +1,8 @@
 definitions:
+  updateOS: &update
+    apt-get update
+  printVersion: &version
+    node --version && npm --version
   steps:
     - step: &test
         name: Test
@@ -61,13 +65,10 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - apt-get update
+            - *update
+            - *version
             # Set environment variables
             - REACT_APP_DEVTOOLS=true
-            # Print Node.js version
-            - node --version
-            # Print npm version
-            - npm --version
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
             # Build frontend
@@ -89,13 +90,10 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - apt-get update
+            - *update
+            - *version
             # Set environment variables
             - REACT_APP_DEVTOOLS=true
-            # Print Node.js version
-            - node --version
-            # Print npm version
-            - npm --version
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_testnet.json ./src/Assets/networks/rpc_config.json
             # Build frontend
@@ -116,13 +114,10 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - apt-get update
+            - *update
+            - *version
             # Set environment variables
             - REACT_APP_DEVTOOLS=true
-            # Print Node.js version
-            - node --version
-            # Print npm version
-            - npm --version
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
             # Build frontend
@@ -143,13 +138,12 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - apt-get update
+            - *update
+            - *version
             # Set environment variables
             - REACT_APP_DEVTOOLS=false
-            # Print Node.js version
-            - node --version
-            # Print npm version
-            - npm --version
+            # RPC config
+            - cp -p ./src/Assets/networks/rpc_config.json ./src/Assets/networks/rpc_config.json
             # Build frontend
             - CI=false npm run build
           artifacts:
