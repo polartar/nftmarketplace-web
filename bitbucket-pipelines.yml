@@ -171,14 +171,32 @@ pipelines:
             - 'linux'
             - 'web'
           size: 1x
+          # script:
+          #   #- ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
+          #   # Print AWS CLI version
+          #   - aws --version
+          #   # Deployment
+          #   - aws s3 sync build/ s3://${S3_BUCKET} --delete
+          #   - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
+          #   - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
           script:
-            #- ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
-            # Print AWS CLI version
-            - aws --version
-            # Deployment
-            - aws s3 sync build/ s3://${S3_BUCKET} --delete
-            - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
+            # AWS S3 deploy
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                S3_BUCKET: $S3_BUCKET
+                LOCAL_PATH: 'build'
+                DELETE_FLAG: true
+            # AWS CloudFront create invalidation
+            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: $CF_DIST_ID
+                PATHS: '/404.html /asset-manifest.json /index.html /manifest.json /robots.txt /static/* /tos.html /vector*'
     prod:
       - step:
           name: Integration test
