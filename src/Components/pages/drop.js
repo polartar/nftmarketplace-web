@@ -151,15 +151,12 @@ const Drop = () => {
         const now = new Date();
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
+        else if (drop.currentSupply >= drop.totalSupply &&
+            !isCroniesDrop(drop.address) &&
+            !isFounderDrop(drop.address)
+        ) setStatus(statuses.SOLD_OUT)
         else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
-        else if (drop.end && eTime < now) {
-            // @todo refactor this out
-            if (drop.currentSupply >= drop.totalSupply &&
-                !isCroniesDrop(drop.address) &&
-                !isFounderDrop(drop.address)
-            ) setStatus(statuses.SOLD_OUT)
-            else setStatus(statuses.EXPIRED);
-        }
+        else if (drop.end && eTime < now) setStatus(statuses.EXPIRED);
         else setStatus(statuses.NOT_STARTED);
     }
 
