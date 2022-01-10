@@ -591,26 +591,11 @@
             }
         },
         {
-            "name" : "Deplone",
-            "multiToken" : false,
-            "address" : "0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "deplone",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/deplone/avatar.jpg",
-                "banner": "/img/collections/deplone/page_banner.jpg",
-                "card": "/img/drops/deplone/drop.gif"
-            }
-        },
-        {
             "name" : "CROugars",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "crougars",
                 "description": "",
@@ -625,7 +610,7 @@
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
@@ -708,10 +693,11 @@
             "memberCost": "250",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable"
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)"
             ],
             "start": 1641751200000,
-            "end": null,
+            "end": 1641751300000,
             "referral": false,
             "is1155": false
         },
@@ -794,11 +780,11 @@
                 "function cost() view returns (uint256)",
                 "function setCost(uint) public"
             ],
-            "start": 1639591200000,
+            "start": 1659591200000,
             "end": null,
             "referral": false,
             "is1155": false
         }
-   
+
     ]
 }

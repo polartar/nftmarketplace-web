@@ -111,7 +111,7 @@ const Drop = () => {
             }
         }
         try {
-            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(dropObject.address)) {
+            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
             }
