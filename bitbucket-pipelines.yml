@@ -16,7 +16,7 @@ pipelines:
   custom: # Pipelines that can only be triggered manually or by schedule
     deploy-to-sandbox:
       - step:
-          name: Integration test
+          name: Test
           image: node:16
           runs-on:
             - 'self.hosted'
@@ -61,13 +61,29 @@ pipelines:
             - 'linux'
             - 'web'
           size: 1x
+          #trigger: manual
+          clone:
+            enabled: false
           script:
-            # Print AWS CLI version
-            - aws --version
-            # Deployment
-            - aws s3 sync build/ s3://${S3_BUCKET} --delete
+            # AWS S3 deploy
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                S3_BUCKET: $S3_BUCKET
+                LOCAL_PATH: 'build'
+                DELETE_FLAG: 'true'
+            # Custom No-Store metadata for index.html
             - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
-            - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/404.html" "/asset-manifest.json" "/index.html" "/manifest.json" "/robots.txt" "/static/*" "/tos.html" "/vector*"
+            # AWS CloudFront create invalidation
+            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: $CF_DIST_ID
+                PATHS: '/img/* /mock_data/* /static/* /404.html /android-chrome-192x192.png /android-chrome-512x512.png /apple-touch-icon.png /asset-manifest.json /browserconfig.xml /favicon-16x16.png /favicon-32x32.png /favicon.ico /index.html /manifest.json /mstile-150x150.png /robots.txt /safari-pinned-tab.svg /site.webmanifest /tos.html /vector-face.svg'
   branches:
     testnet:
       - step:
