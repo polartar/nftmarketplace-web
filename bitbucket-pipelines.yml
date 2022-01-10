@@ -13,8 +13,8 @@ definitions:
           - 'web'
         size: 1x
         script:
-          - apt-get update
-          - node --version
+          - *update
+          - *version
           - npm install --no-audit
           #- npm run test
         artifacts:
