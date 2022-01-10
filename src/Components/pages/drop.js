@@ -185,8 +185,8 @@ const Drop = () => {
                 .then(text => {
                     const addresses =  text
                         .replace(/['"]+/g, '')
-                        .split(",\n");
-                    isWhiteListed = addresses.includes(user.address);
+                        .split(",\r\n");
+                    isWhiteListed = addresses.map(a => a.toLowerCase()).includes(user.address.toLowerCase());
                 })
         } catch (error) {
             console.log('Error while checking CROugars whitelist', error);
