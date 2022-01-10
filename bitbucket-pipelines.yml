@@ -172,7 +172,7 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
+            #- ([[ "$BITBUCKET_BRANCH" == "dev" ]]) || (echo "This build should only be run on dev" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
@@ -225,7 +225,7 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - ([[ "$BITBUCKET_BRANCH" == "prod" ]]) || (echo "This build should only be run on prod" && exit 1)
+            #- ([[ "$BITBUCKET_BRANCH" == "prod" ]]) || (echo "This build should only be run on prod" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
