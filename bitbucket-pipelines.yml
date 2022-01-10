@@ -1,35 +1,57 @@
+definitions:
+  steps:
+    - step: &test
+        name: Test
+        image: node:16
+        runs-on:
+          - 'self.hosted'
+          - 'linux'
+          - 'web'
+        size: 1x
+        script:
+          - apt-get update
+          - node --version
+          - npm install --no-audit
+          #- npm run test
+        artifacts:
+          - node_modules/**
+    - step: &deploy
+        name: Deploy
+        image: amazon/aws-cli
+        deployment: changethis
+        runs-on:
+          - 'self.hosted'
+          - 'linux'
+          - 'web'
+        size: 1x
+        #trigger: manual
+        clone:
+          enabled: false
+        script:
+          # AWS S3 deploy
+          - pipe: atlassian/aws-s3-deploy:1.1.0
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              S3_BUCKET: $S3_BUCKET
+              LOCAL_PATH: 'build'
+              DELETE_FLAG: 'true'
+          # Custom No-Store metadata for index.html
+          - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
+          # AWS CloudFront create invalidation
+          - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              DISTRIBUTION_ID: $CF_DIST_ID
+              PATHS: '/img/* /mock_data/* /static/* /404.html /android-chrome-192x192.png /android-chrome-512x512.png /apple-touch-icon.png /asset-manifest.json /browserconfig.xml /favicon-16x16.png /favicon-32x32.png /favicon.ico /index.html /manifest.json /mstile-150x150.png /robots.txt /safari-pinned-tab.svg /site.webmanifest /tos.html /vector-face.svg'
+
 pipelines:
-  # default:
-  #   - step:
-  #       name: Integration test
-  #       image: node:16
-  #       runs-on:
-  #         - 'self.hosted'
-  #         - 'linux'
-  #         - 'web'
-  #       size: 1x
-  #       script:
-  #         - apt-get update
-  #         - node --version
-  #         - npm install --no-audit
-  #         #- npm run test
   custom: # Pipelines that can only be triggered manually or by schedule
     deploy-to-sandbox:
-      - step:
-          name: Test
-          image: node:16
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          script:
-            - apt-get update
-            - node --version
-            - npm install --no-audit
-            #- npm run test
-          artifacts:
-            - node_modules/**
+      - step: *test
       - step:
           name: Build
           image: node:16
@@ -53,54 +75,11 @@ pipelines:
           artifacts:
             - build/**
       - step:
-          name: Deploy
-          image: amazon/aws-cli
+          <<: *deploy
           deployment: Sandbox
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          #trigger: manual
-          clone:
-            enabled: false
-          script:
-            # AWS S3 deploy
-            - pipe: atlassian/aws-s3-deploy:1.1.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                S3_BUCKET: $S3_BUCKET
-                LOCAL_PATH: 'build'
-                DELETE_FLAG: 'true'
-            # Custom No-Store metadata for index.html
-            - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
-            # AWS CloudFront create invalidation
-            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                DISTRIBUTION_ID: $CF_DIST_ID
-                PATHS: '/img/* /mock_data/* /static/* /404.html /android-chrome-192x192.png /android-chrome-512x512.png /apple-touch-icon.png /asset-manifest.json /browserconfig.xml /favicon-16x16.png /favicon-32x32.png /favicon.ico /index.html /manifest.json /mstile-150x150.png /robots.txt /safari-pinned-tab.svg /site.webmanifest /tos.html /vector-face.svg'
   branches:
     testnet:
-      - step:
-          name: Test
-          image: node:16
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          script:
-            - apt-get update
-            - node --version
-            - npm install --no-audit
-            #- npm run test
-          artifacts:
-            - node_modules/**
+      - step: *test
       - step:
           name: Build
           image: node:16
@@ -124,53 +103,10 @@ pipelines:
           artifacts:
             - build/**
       - step:
-          name: Deploy
-          image: amazon/aws-cli
+          <<: *deploy
           deployment: Testnet
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          #trigger: manual
-          clone:
-            enabled: false
-          script:
-            # AWS S3 deploy
-            - pipe: atlassian/aws-s3-deploy:1.1.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                S3_BUCKET: $S3_BUCKET
-                LOCAL_PATH: 'build'
-                DELETE_FLAG: 'true'
-            # Custom No-Store metadata for index.html
-            - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
-            # AWS CloudFront create invalidation
-            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                DISTRIBUTION_ID: $CF_DIST_ID
-                PATHS: '/img/* /mock_data/* /static/* /404.html /android-chrome-192x192.png /android-chrome-512x512.png /apple-touch-icon.png /asset-manifest.json /browserconfig.xml /favicon-16x16.png /favicon-32x32.png /favicon.ico /index.html /manifest.json /mstile-150x150.png /robots.txt /safari-pinned-tab.svg /site.webmanifest /tos.html /vector-face.svg'
     dev:
-      - step:
-          name: Test
-          image: node:16
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          script:
-            - apt-get update
-            - node --version
-            - npm install --no-audit
-            #- npm run test
-          artifacts:
-            - node_modules/**
+      - step: *test
       - step:
           name: Build
           image: node:16
@@ -194,53 +130,10 @@ pipelines:
           artifacts:
             - build/**
       - step:
-          name: Deploy
-          image: amazon/aws-cli
+          <<: *deploy
           deployment: Development
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          #trigger: manual
-          clone:
-            enabled: false
-          script:
-            # AWS S3 deploy
-            - pipe: atlassian/aws-s3-deploy:1.1.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                S3_BUCKET: $S3_BUCKET
-                LOCAL_PATH: 'build'
-                DELETE_FLAG: 'true'
-            # Custom No-Store metadata for index.html
-            - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
-            # AWS CloudFront create invalidation
-            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                DISTRIBUTION_ID: $CF_DIST_ID
-                PATHS: '/img/* /mock_data/* /static/* /404.html /android-chrome-192x192.png /android-chrome-512x512.png /apple-touch-icon.png /asset-manifest.json /browserconfig.xml /favicon-16x16.png /favicon-32x32.png /favicon.ico /index.html /manifest.json /mstile-150x150.png /robots.txt /safari-pinned-tab.svg /site.webmanifest /tos.html /vector-face.svg'
     prod:
-      - step:
-          name: Test
-          image: node:16
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          script:
-            - apt-get update
-            - node --version
-            - npm install --no-audit
-            #- npm run test
-          artifacts:
-            - node_modules/**
+      - step: *test
       - step:
           name: Build
           image: node:16
@@ -262,34 +155,5 @@ pipelines:
           artifacts:
             - build/**
       - step:
-          name: Deploy
-          image: amazon/aws-cli
+          <<: *deploy
           deployment: Production
-          runs-on:
-            - 'self.hosted'
-            - 'linux'
-            - 'web'
-          size: 1x
-          #trigger: manual
-          clone:
-            enabled: false
-          script:
-            # AWS S3 deploy
-            - pipe: atlassian/aws-s3-deploy:1.1.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                S3_BUCKET: $S3_BUCKET
-                LOCAL_PATH: 'build'
-                DELETE_FLAG: 'true'
-            # Custom No-Store metadata for index.html
-            - aws s3 cp build/index.html s3://${S3_BUCKET}/index.html --metadata-directive REPLACE --cache-control No-Store
-            # AWS CloudFront create invalidation
-            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                DISTRIBUTION_ID: $CF_DIST_ID
-                PATHS: '/img/* /mock_data/* /static/* /404.html /android-chrome-192x192.png /android-chrome-512x512.png /apple-touch-icon.png /asset-manifest.json /browserconfig.xml /favicon-16x16.png /favicon-32x32.png /favicon.ico /index.html /manifest.json /mstile-150x150.png /robots.txt /safari-pinned-tab.svg /site.webmanifest /tos.html /vector-face.svg'
