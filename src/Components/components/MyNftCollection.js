@@ -304,23 +304,25 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
     return (
         <>
             <div className='row'>
-                {nfts && nfts.map( (nft, index) => (
-                    <NftCard
-                        nft={nft}
-                        key={index}
-                        onImgLoad={onImgLoad}
-                        height={height}
-                        canTransfer={true}
-                        canSell={nft.listable && !nft.listed}
-                        canCancel={nft.listed && nft.listingId}
-                        canUpdate={nft.listable && nft.listed}
-                        onTransferButtonPressed={showTransferDialog(nft)}
-                        onSellButtonPressed={showListDialog(nft)}
-                        onUpdateButtonPressed={showListDialog(nft)}
-                        onCancelButtonPressed={showCancelDialog(nft)}
-                        newTab={true}
-                    />
-                ))}
+                <div className='card-group'>
+                    {nfts && nfts.map( (nft, index) => (
+                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                            <NftCard
+                                nft={nft}
+                                key={index}
+                                canTransfer={true}
+                                canSell={nft.listable && !nft.listed}
+                                canCancel={nft.listed && nft.listingId}
+                                canUpdate={nft.listable && nft.listed}
+                                onTransferButtonPressed={showTransferDialog(nft)}
+                                onSellButtonPressed={showListDialog(nft)}
+                                onUpdateButtonPressed={showListDialog(nft)}
+                                onCancelButtonPressed={showCancelDialog(nft)}
+                                newTab={true}
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
             {isLoading &&
                 <div className='row mt-4'>
