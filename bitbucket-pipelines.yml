@@ -117,7 +117,7 @@ pipelines:
             - 'web'
           size: 1x
           script:
-            - ([[ "$BITBUCKET_BRANCH" == "testnet" ]]) || (echo "This build should only be run on testnet" && exit 1)
+            #- ([[ "$BITBUCKET_BRANCH" == "testnet" ]]) || (echo "This build should only be run on testnet" && exit 1)
             # Print AWS CLI version
             - aws --version
             # Deployment
