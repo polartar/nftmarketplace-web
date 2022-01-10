@@ -24,8 +24,8 @@ const GlobalStyles = createGlobalStyle`
   background-color: rgba(0,0,0,0.6);
   background-blend-mode: multiply;
 }
-
 `;
+
 const fadeInUp = keyframes`
   0% {
     opacity: 0;
@@ -50,13 +50,26 @@ const inline = keyframes`
    }
 `;
 
+const statuses = {
+    UNSET: -1,
+    NOT_STARTED: 0,
+    LIVE: 1,
+    EXPIRED: 2,
+    SOLD_OUT: 3
+}
+
 const Drop = () => {
     const {slug} = useParams();
 
     const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
-    const [isFirst, setIsFirst] = useState(true);
-    const countdownRef = useRef();
     const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(true);
+    const [minting, setMinting] = useState(false);
+    const [referral, setReferral] = useState("");
+    const [dropObject, setDropObject] = useState(null);
+    const [status, setStatus] = useState(statuses.UNSET);
+    const [numToMint, setNumToMint] = useState(1);
 
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
@@ -68,20 +81,7 @@ const Drop = () => {
     useEffect(() => {
         dispatch(fetchMemberInfo());
         dispatch(fetchCronieInfo());
-    }, [])
-
-    // useEffect(() => {
-    //   countdownRef.current.start();
-    // },[]);
-
-    // useLayoutEffect(() => {
-    //   (async () => {
-    //     const response = await fetch("https://us-central1-ebisusbay.cloudfunctions.net/dropLive");
-    //     const data = await response.json();
-    //     setStartTime(data.liveAt);
-    //     setIsLive(data.isLive);
-    //   })();
-    // }, []);
+    }, []);
 
     const user = useSelector((state) => {
         return state.user;
@@ -99,39 +99,21 @@ const Drop = () => {
         return state.cronies;
     });
 
-    const [dropObject, setDropObject] = useState(null);
-
     useEffect(async() => {
+        setDropObject(drop);
         let currentDrop = drop;
         if (user.provider) {
             try {
                 let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
-
-                if (isFirst) {
-                    // console.log("start");
-                    // const memberCost = ethers.utils.parseEther(dropObject.memberCost);
-                    // const regCost = ethers.utils.parseEther(dropObject.cost);
-                    // // await writeContract.startEditionOpen();
-                    // await writeContract.setCost(memberCost, true);
-                    // await writeContract.setCost(regCost, false);
-                    // setIsFirst(false);
-                }
             } catch(error) {
                 console.log(error);
             }
         }
         try {
-            if (currentDrop.address !== "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5" && currentDrop.address !== "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
+            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(dropObject.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
-                if(slug === 'santa-cro'){
-                    let bnCost = await readContract.cost();
-                    console.log(`got cost ${bnCost}`)
-                    let cost = ethers.utils.formatEther(bnCost);
-                    currentDrop.memberCost = cost;
-                    currentDrop.cost = cost;
-                }
             }
         } catch(error) {
             console.log(error);
@@ -141,25 +123,28 @@ const Drop = () => {
         setDropObject(currentDrop);
     }, [user]);
 
-
-    useEffect(async() => {
+    useEffect(() => {
         if (dropObject) {
-            if (dropObject.address === "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5") {
+            if (isFounderDrop(dropObject.address)) {
                 setDropObject(Object.assign({currentSupply: membership.founders.count}, dropObject));
             }
-            if (dropObject.address === "0xD961956B319A10CBdF89409C0aE7059788A4DaBb") {
+            if (isCroniesDrop(dropObject.address)) {
                 setDropObject(Object.assign({currentSupply: cronies.count}, dropObject));
             }
         }
     }, [membership, user, cronies])
 
-    const statuses = {
-        UNSET: -1,
-        NOT_STARTED: 0,
-        LIVE: 1,
-        ENDED: 2
+    // @todo refactor out
+    const isCroniesDrop = (address) => {
+        const croniesDrop = drops.find(d => d.slug === 'cronies');
+        return croniesDrop.address === address;
     }
-    const [status, setStatus] = useState(statuses.UNSET);
+    // @todo refactor out
+    const isFounderDrop = (address) => {
+        const croniesDrop = drops.find(d => d.slug === 'founding-member');
+        return croniesDrop.address === address;
+    }
+
     const calculateStatus = (drop) => {
         const sTime = new Date(drop.start);
         const eTime = new Date(drop.end);
@@ -167,28 +152,21 @@ const Drop = () => {
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
         else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
-        else if (drop.end && eTime < now) setStatus(statuses.ENDED);
+        else if (drop.end && eTime < now) {
+            // @todo refactor this out
+            if (drop.currentSupply >= drop.totalSupply &&
+                !isCroniesDrop(drop.address) &&
+                !isFounderDrop(drop.address)
+            ) setStatus(statuses.SOLD_OUT)
+            else setStatus(statuses.EXPIRED);
+        }
         else setStatus(statuses.NOT_STARTED);
     }
 
-    const [loading, setLoading] = useState(true);
-
-    const [minting, setMinting] = useState(false);
-    const closeMinting = () => {
-        setMinting(false);
-    };
-    const [error, setError] = React.useState({
-        error: false,
-        message: ""
-    });
-
-    const [referral, setReferral] = useState("");
     const handleChangeReferralCode = (event) => {
         const { value } = event.target;
         setReferral(value);
     }
-
-    const [numToMint, setNumToMint] = useState(1);
 
     const isEligibleForMemberPrice = async (user) => {
         if(user.isMember){
@@ -414,7 +392,7 @@ const Drop = () => {
                                 {drop.end &&
                                 <div className="me-4">
                                     <h6 className="mb-1">
-                                        {status === statuses.ENDED ?
+                                        {status === statuses.EXPIRED ?
                                             <>
                                                 Minting Ended
                                             </>
@@ -453,7 +431,10 @@ const Drop = () => {
                                         </div>
                                     </>
                                 }
-                                {status === statuses.ENDED &&
+                                {status === statuses.SOLD_OUT &&
+                                <p className="mt-5">MINT HAS SOLD OUT</p>
+                                }
+                                {status === statuses.EXPIRED &&
                                     <p className="mt-5">MINT HAS ENDED</p>
                                 }
                             </div>
