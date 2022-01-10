@@ -158,7 +158,7 @@ const Listing = () => {
                                             <Link to={`/seller/${listing.seller}`}>
                                                 <div className="author_list_pp">
                                                     <span>
-                                                        <Blockies seed={listing.seller} size={10} scale={5}/>
+                                                        <Blockies seed={listing.seller.toLowerCase()} size={10} scale={5}/>
                                                     </span>
                                                 </div>
                                                 <div className="author_list_info">
