@@ -188,7 +188,7 @@ pipelines:
                 AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
                 S3_BUCKET: $S3_BUCKET
                 LOCAL_PATH: 'build'
-                DELETE_FLAG: true
+                DELETE_FLAG: 'true'
             # AWS CloudFront create invalidation
             - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
               variables:
