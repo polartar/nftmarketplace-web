@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import nebkas from "../../Assets/nebkas-logo.png"
 import weAreFi from "../../Assets/wearefi-logo.png"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faTwitter, faMedium } from '@fortawesome/free-brands-svg-icons'
-import {faSquare} from "@fortawesome/free-solid-svg-icons";
+import { faSquare, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import LayeredIcon from "./LayeredIcon";
 
 const footer= () => (
@@ -61,6 +60,13 @@ const footer= () => (
                                         <a href="https://blog.ebisusbay.com" target="_blank">
                                             <LayeredIcon
                                                 icon={faMedium}
+                                                bgIcon={faSquare}
+                                                shrink={7}
+                                            />
+                                        </a>
+                                        <a href="mailto:support@ebisusbay.com">
+                                            <LayeredIcon
+                                                icon={faEnvelope}
                                                 bgIcon={faSquare}
                                                 shrink={7}
                                             />
