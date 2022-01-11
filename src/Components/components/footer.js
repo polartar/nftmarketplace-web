@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import nebkas from "../../Assets/nebkas-logo.png"
 import weAreFi from "../../Assets/wearefi-logo.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDiscord, faTwitter, faMedium } from '@fortawesome/free-brands-svg-icons'
+import {faSquare} from "@fortawesome/free-solid-svg-icons";
 
 const footer= () => (
   <footer className="footer-light">
@@ -39,8 +42,19 @@ const footer= () => (
                                     </a>
                                 </div>
                                 <div className="de-flex-col">
-                                    <div className="social-icons">
-                                        <span onClick={()=> window.open("https://twitter.com/EbisusBay", "_blank")}><i className="fa fa-twitter fa-lg"></i></span>
+                                    <div className="eb-social-icons">
+                                        <span className="fa-layers fa-fw fa-2x" onClick={()=> window.open("https://discord.gg/ebisusbay", "_blank")}>
+                                            <FontAwesomeIcon icon={faSquare} className="layer1" />
+                                            <FontAwesomeIcon icon={faDiscord} inverse transform="shrink-8"/>
+                                        </span>
+                                        <span className="fa-layers fa-fw fa-2x" onClick={()=> window.open("https://twitter.com/EbisusBay", "_blank")}>
+                                            <FontAwesomeIcon icon={faSquare} className="layer1" />
+                                            <FontAwesomeIcon icon={faTwitter} inverse transform="shrink-7"/>
+                                        </span>
+                                        <span className="fa-layers fa-fw fa-2x" onClick={()=> window.open("https://blog.ebisusbay.com", "_blank")}>
+                                            <FontAwesomeIcon icon={faSquare} className="layer1" />
+                                            <FontAwesomeIcon icon={faMedium} inverse transform="shrink-7"/>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

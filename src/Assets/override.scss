@@ -3,6 +3,7 @@ $color: #218cff;
 $gray: #bbb;
 $black: #111;
 $white: #fff;
+$color_more: #35669e;
 
 
 
@@ -365,3 +366,9 @@ canvas {
     }
 }
 
+.eb-social-icons {
+    .layer1 {
+        border-radius: 5px;
+        color: $color_more
+    }
+}
