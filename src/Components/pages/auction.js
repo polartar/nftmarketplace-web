@@ -13,10 +13,11 @@ import {useParams, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
-import {Spinner} from "react-bootstrap"
+import {Form, Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
+import AuctionContract from '../../Contracts/Auction.json'
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -71,17 +72,24 @@ const Auction = () => {
         console.log(openMenu, index);
     };
 
-    const showBuy = () => async () => {
+    const [bidAmount, setBidAmount] = useState(0);
+    const handleChangeBidAmount = (event) => {
+        const { value } = event.target;
+        setBidAmount(value);
+    }
+
+    const showBidDialog = () => async () => {
+        setOpenCheckout(true);
+    }
+
+    const executeBid = () => async () => {
         if(user.address){
-            setBuying(true);
             try{
-                let price = listing.price;
-                if(typeof price === 'string' ){
-                    price = ethers.utils.parseEther(price);
-                }
-                console.log(user.marketContract, listing.listingId, listing.price, price);
-                const tx = await user.marketContract.makePurchase(listing.listingId, {
-                    'value' : price
+                let bid = ethers.utils.parseUnits(bidAmount);
+                let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
+                console.log(writeContract, listing.auctionId, listing.auctionHash, bid.toString());
+                const tx = await writeContract.bid(listing.auctionHash, {
+                    'value' : bid
                 });
                 const receipt = await tx.wait();
                 dispatch(auctionUpdated({
@@ -101,8 +109,6 @@ const Auction = () => {
                     console.log(error);
                     toast.error("Unknown Error");
                 }
-            }finally{
-                setBuying(false);
             }
         } else{
             if(user.needsOnboard){
@@ -114,11 +120,6 @@ const Auction = () => {
                 dispatch(chainConnect());
             }
         }
-
-    }
-
-    const showBidDialog = () => async () => {
-        setOpenCheckout(true);
     }
 
     return (
@@ -353,24 +354,27 @@ const Auction = () => {
                 </div>
               <p>Add form here to place bid</p>
                 <div className='heading mt-3'>
-                    <p>Your balance</p>
+                    <p>Your bid</p>
                     <div className='subtotal'>
-                        xxx CRO
+                        <Form.Control type="text"
+                                      placeholder="Enter Enter Bid"
+                                      onChange={handleChangeBidAmount}
+                        />
                     </div>
                 </div>
               <div className='heading'>
                 <p>Service fee 2.5%</p>
                 <div className='subtotal'>
-                0.00325 ETH
+                xxx CRO
                 </div>
               </div>
               <div className='heading'>
                 <p>You will pay</p>
                 <div className='subtotal'>
-                0.013325 ETH
+                xxx CRO
                 </div>
               </div>
-                <button className='btn-main lead mb-5'>Checkout</button>
+                <button className='btn-main lead mb-5' onClick={executeBid()}>Confirm Bid</button>
             </div>
         </div>
         }
