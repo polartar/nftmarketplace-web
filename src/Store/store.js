@@ -6,6 +6,7 @@ import { cronies } from "../GlobalState/Cronies";
 import marketplaceReducer from "../GlobalState/marketplaceSlice";
 import auctionsReducer from "../GlobalState/auctionsSlice";
 import listingReducer from "../GlobalState/listingSlice";
+import auctionReducer from "../GlobalState/auctionSlice";
 import nftReducer from "../GlobalState/nftSlice";
 import collectionsReducer from "../GlobalState/collectionsSlice";
 import collectionReducer from "../GlobalState/collectionSlice";
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     marketplace: marketplaceReducer,
     auctions: auctionsReducer,
     listing: listingReducer,
+    auction: auctionReducer,
     nft: nftReducer,
     user: user,
     initState: initState,

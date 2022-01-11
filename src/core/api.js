@@ -587,5 +587,45 @@ export async function sortAndFetchAuctions(page, sort, filterType, filterAddress
             }
         ]
     }
+}
 
+export async function getAuction(auctionId) {
+    return {
+        "auctionId": 1,
+        "nftAddress": '0xBf792Bdfd565Bc9D4619ed085d4E8B8EA4d9E79E',
+        "nftId": {"type":"BigNumber","hex":"0x13"},
+        "seller": '0x6bE5E7da4aD8523f9C622544A938F344a1f62Cf5',
+        "highestBidder": '0xE0338607c3033568aC0a6BB42d70F05FA7Ff7940',
+        "highestBid": 375,
+        "endAt": 1641977672000,
+        "state": 0,
+        "nft": {
+            "name": "#867",
+            "edition": 867,
+            "image": "https://app.ebisusbay.com/files/0xdccced571dcbc82bbeadf95af20ee4442e21208c/images/867.webp",
+            "original_image": "ipfs://QmRqzyUjiZpkpnJayhhkHNPZnuwmxhEBjpF3ASYLvpe6ER/867.webp",
+            "description": "CROugars is a limited collection of 2,222 cougar NFTs with concrete utility. Deployed on the Cronos Chain.",
+            "attributes": [
+                {"trait_type": "Backgrounds", "value": "Purple", "occurrence": 0.0833},
+                {"trait_type": "Body", "value": "Yellow", "occurrence": 0.1139},
+                {"trait_type": "Clothing", "value": "None", "occurrence": 0.0324},
+                {"trait_type": "Ears", "value": "Silver Stud", "occurrence": 0.1544},
+                {"trait_type": "Hats", "value": "Cowboy Hat", "occurrence": 0.0891},
+                {"trait_type": "Eyes", "value": "Regular", "occurrence": 0.1449},
+                {"trait_type": "Mouths", "value": "Mask", "occurrence": 0.0432},
+                {"trait_type": "Trait Count", "value": "6", "occurrence": 0.2295229522952295}
+            ],
+            "powertraits": null,
+            "simplifiedAttributes": {
+                "Backgrounds": "Purple",
+                "Body": "Yellow",
+                "Clothing": "None",
+                "Ears": "Silver Stud",
+                "Hats": "Cowboy Hat",
+                "Eyes": "Regular",
+                "Mouths": "Mask",
+                "Trait Count": "6"
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ import Marketplace from '../Components/pages/marketplace';
 import Collection from '../Components/pages/collection';
 import Seller from '../Components/pages/seller';
 import Listing from '../Components/pages/listing';
+import Auction from '../Components/pages/auction';
 import Nft from '../Components/pages/nft';
 import MyNfts from '../Components/pages/myNfts';
 import Header from "../Components/menu/header";
@@ -53,6 +54,7 @@ export const AppRouter = () => {
                 <Route exact path="/drops" component={Drops} />
                 <Route exact path="/drops/:slug" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>
+                <Route exact path="/auction/:id" component={Auction}/>
                 <Route exact path="/collections" component={Collections}/>
                 <Route exact path="/collection/:address" component={Collection} />
                 <Route exact path="/collection/:address/:id" component={Nft} />
