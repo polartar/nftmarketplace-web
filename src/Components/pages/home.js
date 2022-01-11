@@ -73,7 +73,7 @@ const Jumbotron = {
     }))`
       background-image: url('./img/background/Ebisus-bg-1_L.jpg');
       background-size: cover;
-      height: max(95vh, 800px);
+      height: max(100vh, 800px);
       display: flex;
       align-items: center;
       
