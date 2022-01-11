@@ -33,6 +33,9 @@ const Auction = () => {
             .filter(i => i.state === 1)
             .sort((a, b) => (a.saleTime < b.saleTime) ? 1 : -1)
     )
+    const bids = useSelector((state) =>
+        state.listing.bids
+    )
     const powertraits = useSelector((state) => state.auction.powertraits)
     const isLoading = useSelector((state) => state.auction.loading)
     const user = useSelector((state) => state.user)
@@ -220,7 +223,8 @@ const Auction = () => {
                                                 <span onClick={handleBtnClick(1)}>In-Game Attributes</span>
                                             </li>
                                         }
-                                        <li id='Mainbtn2' className="tab"><span onClick={handleBtnClick(2)}>History</span></li>
+                                        <li id='Mainbtn2' className="tab"><span onClick={handleBtnClick(2)}>Bids</span></li>
+                                        <li id='Mainbtn3' className="tab"><span onClick={handleBtnClick(3)}>History</span></li>
                                     </ul>
 
                                     <div className="de_tab_content">
@@ -293,6 +297,37 @@ const Auction = () => {
                                         }
                                         {openMenu === 2 &&
                                             <div className="tab-3 onStep fadeIn">
+                                            {bids && bids.length > 0 ?
+                                                <>
+                                                    {history.map((item, index) => (
+                                                        <div className="p_list" key={index}>
+                                                            <Link to={`/seller/${item.bidder}`}>
+                                                                <div className="p_list_pp">
+                                                                    <span>
+                                                                        <span>
+                                                                            <Blockies seed={item.bidder} size={10}
+                                                                                      scale={5}/>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </Link>
+                                                            <div className="p_list_info">
+                                                                <span>{timeSince(item.bidTime + "000")} ago</span>
+                                                                Bought by <b><Link to={`/seller/${item.bidder}`}>{shortAddress(item.bidder)}</Link></b> for <b>{ethers.utils.commify(item.amount)} CRO</b>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </>
+                                                :
+                                                <>
+                                                    <span>No bids have been placed yet</span>
+                                                </>
+                                            }
+
+                                        </div>
+                                        }
+                                        {openMenu === 3 &&
+                                        <div className="tab-4 onStep fadeIn">
                                             {history && history.length > 0 ?
                                                 <>
                                                     {history.map((item, index) => (
