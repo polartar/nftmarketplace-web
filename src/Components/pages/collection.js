@@ -20,6 +20,8 @@ import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
 import TraitsFilter from "../Collection/TraitsFilter";
 import PowertraitsFilter from "../Collection/PowertraitsFilter";
+import {faCheck, faCircle} from "@fortawesome/free-solid-svg-icons";
+import LayeredIcon from "../components/LayeredIcon";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -127,7 +129,11 @@ const Collection = ({cacheName = 'collection'}) => {
                                         <Blockies seed={address.toLowerCase()} size={15} scale={10}/>
                                     }
                                     {metadata?.verified &&
-                                        <i className="fa fa-check"/>
+                                        <LayeredIcon
+                                            icon={faCheck}
+                                            bgIcon={faCircle}
+                                            shrink={8}
+                                        />
                                     }
                                 </div>
 

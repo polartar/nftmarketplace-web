@@ -5,6 +5,7 @@ import weAreFi from "../../Assets/wearefi-logo.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faTwitter, faMedium } from '@fortawesome/free-brands-svg-icons'
 import {faSquare} from "@fortawesome/free-solid-svg-icons";
+import LayeredIcon from "./LayeredIcon";
 
 const footer= () => (
   <footer className="footer-light">
@@ -43,18 +44,27 @@ const footer= () => (
                                 </div>
                                 <div className="de-flex-col">
                                     <div className="eb-social-icons">
-                                        <span className="fa-layers fa-fw fa-2x" onClick={()=> window.open("https://discord.gg/ebisusbay", "_blank")}>
-                                            <FontAwesomeIcon icon={faSquare} className="layer1" />
-                                            <FontAwesomeIcon icon={faDiscord} inverse transform="shrink-8"/>
-                                        </span>
-                                        <span className="fa-layers fa-fw fa-2x" onClick={()=> window.open("https://twitter.com/EbisusBay", "_blank")}>
-                                            <FontAwesomeIcon icon={faSquare} className="layer1" />
-                                            <FontAwesomeIcon icon={faTwitter} inverse transform="shrink-7"/>
-                                        </span>
-                                        <span className="fa-layers fa-fw fa-2x" onClick={()=> window.open("https://blog.ebisusbay.com", "_blank")}>
-                                            <FontAwesomeIcon icon={faSquare} className="layer1" />
-                                            <FontAwesomeIcon icon={faMedium} inverse transform="shrink-7"/>
-                                        </span>
+                                        <a href="https://discord.gg/ebisusbay" target="_blank">
+                                            <LayeredIcon
+                                                icon={faDiscord}
+                                                bgIcon={faSquare}
+                                                shrink={8}
+                                            />
+                                        </a>
+                                        <a href="https://twitter.com/EbisusBay" target="_blank">
+                                            <LayeredIcon
+                                                icon={faTwitter}
+                                                bgIcon={faSquare}
+                                                shrink={7}
+                                            />
+                                        </a>
+                                        <a href="https://blog.ebisusbay.com" target="_blank">
+                                            <LayeredIcon
+                                                icon={faMedium}
+                                                bgIcon={faSquare}
+                                                shrink={7}
+                                            />
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -366,9 +366,41 @@ canvas {
     }
 }
 
-.eb-social-icons {
-    .layer1 {
+/* FontAwesome 5 SVG icon overrides */
+.eb-icon_stack .layer-1 {
+    color: $color;
+}
+.eb-social-icons .eb-icon_stack {
+    .layer-1 {
         border-radius: 5px;
         color: $color_more
+    }
+}
+.profile_avatar .d_profile_img .eb-icon_stack {
+    margin: -20px 0 0 80px;
+    display: block;
+    position: absolute;
+    padding: 10px;
+}
+.d_coll .profile_avatar .eb-icon_stack {
+    margin-right: -30px;
+}
+#eb-scroll-to-top {
+    cursor: pointer;
+    width: max-content;
+    height: max-content;
+    position: fixed;
+    right: 10px;
+    z-index: 999;
+    &.init{
+        bottom: -60px;
+        transition: all 0.3s ease;
+    }
+    &.show{
+        bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    div{
+        background: none !important;
     }
 }
