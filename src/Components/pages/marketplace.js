@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import ListingCollection from '../components/ListingCollection';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import { filterListings, getMarketData, sortListings } from "../../GlobalState/marketplaceSlice";

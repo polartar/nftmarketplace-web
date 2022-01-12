@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import MyNftCollection from "../components/MyNftCollection";
