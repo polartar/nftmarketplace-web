@@ -14,6 +14,7 @@ import Drops from "../Components/pages/drops";
 import Drop from "../Components/pages/drop";
 import MySales from "../Components/pages/mySales";
 import Collections from "../Components/pages/collections";
+import ManageAuctions from "../Components/pages/manageAuctions";
 
 export const AppRouter = () => {
 
@@ -54,6 +55,7 @@ export const AppRouter = () => {
                 <Route exact path="/drops" component={Drops} />
                 <Route exact path="/drops/:slug" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>
+                <Route exact path="/auctions/manage" component={ManageAuctions}/>
                 <Route exact path="/auction/:id" component={Auction}/>
                 <Route exact path="/collections" component={Collections}/>
                 <Route exact path="/collection/:address" component={Collection} />

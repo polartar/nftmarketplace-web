@@ -9,7 +9,7 @@ const auctionSlice = createSlice({
         auction: null,
         nft: null,
         history: [],
-        bids: [],
+        bidHistory: [],
         powertraits: [],
     },
     reducers: {
@@ -20,7 +20,7 @@ const auctionSlice = createSlice({
             state.loading = false;
             state.auction = action.payload.listing;
             state.history = action.payload.history ?? [];
-            state.bids = action.payload.bids ?? [];
+            state.bidHistory = action.payload.listing.bidHistory ?? [];
             state.powertraits = action.payload.powertraits ?? [];
         },
         auctionUpdated: (state, action) => {
