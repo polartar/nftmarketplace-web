@@ -23,6 +23,20 @@ body > div#root > div.wraper {
     }
 }
 
+//  Hide partners in other places than homepage.
+footer {
+    &[data-is-in-home-page=false] {
+        padding-top: 0;
+        & > div:first-child {
+            display: none;
+        }
+        & > div:last-child {
+            border-top: none;
+            margin-top: 0;
+        }
+    }
+}
+
 
 /* Hot Collections Avatar for Blockies */
 .slick-slide canvas {

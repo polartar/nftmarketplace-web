@@ -1,10 +1,14 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { memo } from 'react';
+import { useLocation } from "react-router-dom";
 import nebkas from "../../Assets/nebkas-logo.png"
 import weAreFi from "../../Assets/wearefi-logo.png"
 
-const footer= () => (
-  <footer className="footer-light">
+const Footer = () => {
+    const location = useLocation()
+
+
+    return (
+        <footer className="footer-light" data-is-in-home-page={(location.pathname === '/').toString()}>
             <div className="container text-center">
                 <h5>Partners</h5>
                 <div className="row">
@@ -20,6 +24,7 @@ const footer= () => (
                     </div>
                 </div>
             </div>
+
             <div className="subfooter">
                 <div className="container">
                     <div className="row">
@@ -49,5 +54,7 @@ const footer= () => (
                 </div>
             </div>
         </footer>
-);
-export default footer;
+    )
+};
+
+export default memo(Footer);
