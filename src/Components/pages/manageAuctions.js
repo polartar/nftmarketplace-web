@@ -7,8 +7,9 @@ import {ethers} from "ethers";
 import config from "../../Assets/networks/rpc_config.json";
 import AuctionContract from "../../Contracts/Auction.json";
 import {toast} from "react-toastify";
-import {createSuccessfulTransactionToastContent, humanize} from "../../utils";
+import {createSuccessfulTransactionToastContent} from "../../utils";
 import CreateAuction from "../Auctions/CreateAuction";
+import ManageAuctionList from "../Auctions/ManageAuctionList";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -72,7 +73,9 @@ const ManageAuctions = () => {
                     </ul>
 
                     <div className="de_tab_content">
-
+                        {openMenu === 0 &&
+                        <ManageAuctionList />
+                        }
                         {openMenu === 1 &&
                         <CreateAuction />
                         }
