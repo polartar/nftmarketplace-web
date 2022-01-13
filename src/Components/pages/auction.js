@@ -77,11 +77,37 @@ const Auction = () => {
         setOpenMenu(index);
     };
 
+    const serviceFee = 0.025;
     const [bidAmount, setBidAmount] = useState(0);
+    const [bidFee, setBidFee] = useState(0);
+    const [bidAmountTotal, setBidAmountTotal] = useState(0);
+    const [bidError, setBidError] = useState('');
+
     const handleChangeBidAmount = (event) => {
         const { value } = event.target;
-        setBidAmount(value);
+        const newBid = parseFloat(value);
+        setBidAmount(newBid);
+        setBidFee(calculateServiceFee(newBid));
+        setBidAmountTotal(calculateTotal(newBid));
+
+        // test if bid is gte than current highest bid
+        if(newBid <= listing.highestBid) {
+            setBidError('Bid must be higher than current highest bid');
+        } else {
+            setBidError('');
+        }
+
+        // calculated total cost and compare to user balance
+        if(calculateTotal(newBid) > user.marketBalance) {
+            setBidError('Not enough balance to bid');
+        } else {
+            setBidError('');
+        }
+
     }
+
+    const calculateServiceFee = amount => amount * serviceFee;
+    const calculateTotal = amount => amount + calculateServiceFee(amount);
 
     const showBidDialog = () => async () => {
         setOpenCheckout(true);
@@ -501,33 +527,45 @@ const Auction = () => {
         { openCheckout && user &&
         <div className='checkout'>
             <div className='maincheckout'>
-            <button className='btn-close' onClick={() => setOpenCheckout(false)}>x</button>
+                <button className='btn-close' onClick={() => setOpenCheckout(false)}>x</button>
                 <div className='heading'>
                     <h3>Place Bid</h3>
                 </div>
-              <p>Add form here to place bid</p>
+                <p>Add form here to place bid</p>
                 <div className='heading mt-3'>
                     <p>Your bid</p>
                     <div className='subtotal'>
-                        <Form.Control type="text"
-                                      placeholder="Enter Enter Bid"
-                                      onChange={handleChangeBidAmount}
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Enter Bid"
+                          onChange={handleChangeBidAmount}
                         />
                     </div>
                 </div>
-              <div className='heading'>
-                <p>Service fee 2.5%</p>
-                <div className='subtotal'>
-                xxx CRO
+                {bidError &&
+                    <div
+                      className='error'
+                      style={{
+                          color: 'red',
+                          marginLeft: '5px',
+                      }}
+                    >
+                        {bidError}
+                    </div>
+                }
+                <div className='heading'>
+                    <p>Service fee 2.5%</p>
+                    <div className='subtotal'>
+                        {bidAmount ? bidFee.toFixed(4) : 0} CRO
+                    </div>
                 </div>
-              </div>
-              <div className='heading'>
-                <p>You will pay</p>
-                <div className='subtotal'>
-                xxx CRO
+                <div className='heading'>
+                    <p>You will pay</p>
+                    <div className='subtotal'>
+                        {bidAmount ? bidAmountTotal.toFixed(4) : 0} CRO
+                    </div>
                 </div>
-              </div>
-                <button className='btn-main lead mb-5' onClick={executeBid()}>Confirm Bid</button>
+                <button className='btn-main lead mb-5' onClick={() => executeBid()} disabled={bidError !== ''}>Confirm Bid</button>
             </div>
         </div>
         }
