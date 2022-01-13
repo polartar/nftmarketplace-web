@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
