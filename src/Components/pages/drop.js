@@ -138,12 +138,12 @@ const Drop = () => {
     // @todo refactor out
     const isCroniesDrop = (address) => {
         const croniesDrop = drops.find(d => d.slug === 'cronies');
-        return croniesDrop.address === address;
+        return croniesDrop?.address === address;
     }
     // @todo refactor out
     const isFounderDrop = (address) => {
         const croniesDrop = drops.find(d => d.slug === 'founding-member');
-        return croniesDrop.address === address;
+        return croniesDrop?.address === address;
     }
 
     const calculateStatus = (drop) => {

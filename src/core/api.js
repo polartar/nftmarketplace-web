@@ -539,68 +539,8 @@ export async function getNftFromFile(collectionId, nftId) {
 }
 
 
-export async function sortAndFetchAuctions(page, sort, filterType, filterAddress, traits, powertraits, search) {
-    let pagesize = 12;
-
-    let query = {
-        state: 0,
-        page: page,
-        pageSize: pagesize,
-        sortBy: 'tokenId',
-        direction: 'asc'
-    };
-    if (filterAddress != null) query[filterType] = filterAddress.toLowerCase();
-    if (sort != null && sort.type != null) {
-        const sortProps = {
-            sortBy: sort.type,
-            direction: sort.direction
-        };
-        query = {...query, ...sortProps}
-    }
-
-    if (traits && Object.keys(traits).length > 0) {
-        //  traits      = { traitCategoryName1: {traitName2: true }, traitCategoryName3: {traitName4: false}}
-        //  traitFilter = { traitCategoryName1: ['traitName2']}
-        const traitFilter = Object.keys(traits).map((traitCategoryName) => {
-
-            const traitCategory = traits[traitCategoryName];
-
-            const traitCategoryKeys = Object.keys(traitCategory);
-
-            const truthyFilters = traitCategoryKeys
-                .filter((traitCategoryKey) => traitCategory[traitCategoryKey]);
-
-            return truthyFilters.length === 0 ? {} : { [traitCategoryName]: truthyFilters };
-
-        }).reduce((prev, curr) => ({ ...prev, ...curr }), {});
-
-        query['traits'] = JSON.stringify(traitFilter);
-    }
-
-    if (powertraits && Object.keys(powertraits).length > 0) {
-        const traitFilter = Object.keys(powertraits).map((traitCategoryName) => {
-
-            const traitCategory = powertraits[traitCategoryName];
-
-            const traitCategoryKeys = Object.keys(traitCategory);
-
-            const truthyFilters = traitCategoryKeys
-                .filter((traitCategoryKey) => traitCategory[traitCategoryKey]);
-
-            return truthyFilters.length === 0 ? {} : { [traitCategoryName]: truthyFilters };
-
-        }).reduce((prev, curr) => ({ ...prev, ...curr }), {});
-
-        query['powertraits'] = JSON.stringify(traitFilter);
-    }
-
-    if (search) query['search'] = search;
-
-    const queryString = new URLSearchParams(query);
-
+export async function sortAndFetchAuctions(page) {
     const url = new URL(api.auctions, `${api.baseUrl}`);
-    // const uri = `${url}?${queryString}`;
-    console.log(url);
     return await (await fetch(url)).json();
 }
 

@@ -55,8 +55,8 @@ export const AppRouter = () => {
                 <Route exact path="/drops" component={Drops} />
                 <Route exact path="/drops/:slug" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>
-                <Route exact path="/auctions/manage" component={ManageAuctions}/>
-                <Route exact path="/auction/:id" component={Auction}/>
+                <Route exact path="/manage/auctions" component={ManageAuctions}/>
+                <Route exact path="/auctions/:id" component={Auction}/>
                 <Route exact path="/collections" component={Collections}/>
                 <Route exact path="/collection/:address" component={Collection} />
                 <Route exact path="/collection/:address/:id" component={Nft} />

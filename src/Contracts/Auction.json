@@ -80,6 +80,19 @@
       "inputs": [
         {
           "indexed": true,
+          "internalType": "bytes32",
+          "name": "auctionHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CreateAuction",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
           "internalType": "address",
           "name": "previousOwner",
           "type": "address"
@@ -323,6 +336,47 @@
           "type": "bytes32"
         }
       ],
+      "name": "getAllBids",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "bidder",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "created",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "hasWithdrawn",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct BidInfo[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_auctionHash",
+          "type": "bytes32"
+        }
+      ],
       "name": "getAuction",
       "outputs": [
         {
@@ -419,6 +473,25 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_auctionHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "minimumBid",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "owner",
       "outputs": [
@@ -447,6 +520,13 @@
         }
       ],
       "name": "start",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "startAll",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

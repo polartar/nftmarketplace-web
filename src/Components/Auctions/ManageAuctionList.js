@@ -6,11 +6,12 @@ import config from "../../Assets/networks/rpc_config.json";
 import AuctionContract from "../../Contracts/Auction.json";
 import {toast} from "react-toastify";
 import {createSuccessfulTransactionToastContent} from "../../utils";
-import AuctionCard from "../components/AuctionCard";
 import {sortAndFetchAuctions} from "../../core/api";
 import Clock from "../components/Clock";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import {chainConnect, connectAccount} from "../../GlobalState/User";
+import {Link} from "react-router-dom";
+import {auctionState} from "../../core/api/enums";
 
 const ManageAuctionList = () => {
     const dispatch = useDispatch();
@@ -19,14 +20,13 @@ const ManageAuctionList = () => {
     const [auctions, setAuctions] = useState([]);
 
     useEffect(async () => {
-        const response = await sortAndFetchAuctions(0);
-        setAuctions(response.auctions)
+        const response = await sortAndFetchAuctions();
+        setAuctions(response.auctions.filter(a => [auctionState.NOT_STARTED, auctionState.ACTIVE].includes(a.state)))
     }, []);
 
     const handleStartClick = (auction) => async () => {
         if(user.address) {
             let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
-            console.log('starting auction...', auction);
             try {
                 const tx = await writeContract.start(auction.auctionHash);
                 const receipt = await tx.wait();
@@ -96,8 +96,13 @@ const ManageAuctionList = () => {
                                 </p>
                             </div>
                             <div className="card-footer d-flex justify-content-between">
-                                <button className="btn-main lead mr15" onClick={handleStartClick(auction)}>Start</button>
-                                <button className="btn-main lead mr15" onClick={handleCancelClick(auction)}>Cancel</button>
+                                {auction.state === auctionState.NOT_STARTED &&
+                                    <button className="btn-main lead mr15" onClick={handleStartClick(auction)}>Start</button>
+                                }
+                                {auction.state === auctionState.ACTIVE &&
+                                    <button className="btn-main lead mr15" onClick={handleCancelClick(auction)}>Cancel</button>
+                                }
+                                <Link to={`/auctions/${auction.auctionId}`}>View</Link>
                             </div>
                         </div>
                     </div>
