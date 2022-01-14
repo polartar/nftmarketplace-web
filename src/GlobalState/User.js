@@ -22,10 +22,7 @@ const userSlice = createSlice({
         web3modal: null,
         connectingWallet: false,
         gettingContractData: true,
-        balance : "Loading...",
         code : "",
-        rewards: "Loading...",
-        marketBalance : "Loading...",
         isMember : false,
         cronies : [],
         founderCount : 0,
@@ -38,8 +35,10 @@ const userSlice = createSlice({
         correctChain : false,
         showWrongChainModal : false,
 
-        // Other balances
-        lootBalance: null,
+        // Primary Balances
+        rewards: null,
+        marketBalance : null,
+        balance : null,
 
         // My NFTs
         fetchingNfts: false,
@@ -67,7 +66,6 @@ const userSlice = createSlice({
             state.marketBalance = action.payload.marketBalance;
             // state.ebisuContract = action.payload.ebisuContract;
             state.gettingContractData = false;
-            state.lootBalance = action.payload.lootBalance;
         },
 
         onCorrectChain(state, action) {
@@ -167,16 +165,15 @@ const userSlice = createSlice({
             state.provider = null;
             localStorage.clear();
             state.address = "";
-            state.balance = "Loading...";
-            state.rewards = "Loading...";
-            state.marketBalance = "Loading...";
+            state.balance = null;
+            state.rewards = null;
+            state.marketBalance = null;
             state.isMember = false;
             state.fetchingNfts = false;
             state.nftsInitialized = false;
             state.nfts = [];
             state.mySoldNftsFetching = false;
             state.mySoldNfts = [];
-            state.lootBalance = 0;
         },
         onThemeChanged(state, action) {
             console.log('onThemeChanged', action.payload);
@@ -366,7 +363,6 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ownedVip = 0;
         let market;
         let sales;
-        let lootBalance;
         // let ebisu;
 
         if(signer && correctChain){
@@ -380,12 +376,10 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             market = new Contract(config.market_contract, Market.abi, signer);
             sales = ethers.utils.formatEther(await market.payments(address));
 
-            // Loot Balance
             try {
-                const lootContract = new Contract(config.known_tokens.loot.address, ERC721, signer);
-                lootBalance = ethers.utils.formatEther(await lootContract.balanceOf(address));
+                balance = ethers.utils.formatEther(await provider.getBalance(address));
             } catch (error) {
-                console.log('Error checking LOOT balance', error);
+                console.log('Error checking CRO balance', error);
             }
         }
 
@@ -403,8 +397,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             rewards: rewards,
             isMember: ownedVip > 0 || ownedFounder > 0,
             marketContract: market,
-            marketBalance: sales,
-            lootBalance: lootBalance
+            marketBalance: sales
         }))
     } catch (error) {
         console.log(error)
