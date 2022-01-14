@@ -8,6 +8,7 @@
     "api_base" : "https://api.ebisusbay.com/",
     "app_base" : "https://app.ebisusbay.com/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
+    "auction_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
@@ -591,24 +592,9 @@
             }
         },
         {
-            "name" : "Deplone",
-            "multiToken" : false,
-            "address" : "",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "deplone",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/deplone/avatar.jpg",
-                "banner": "/img/collections/deplone/page_banner.jpg",
-                "card": "/img/drops/deplone/drop.gif"
-            }
-        },
-        {
             "name" : "CROugars",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -625,7 +611,7 @@
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
@@ -708,37 +694,11 @@
             "memberCost": "250",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _mintAmount) public payable"
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)"
             ],
             "start": 1641751200000,
-            "end": null,
-            "referral": false,
-            "is1155": false
-        },
-        {
-            "id": 5,
-            "slug": "deplone",
-            "imgNft": "/img/drops/deplone/drop.gif",
-            "imgPreview": "/img/drops/deplone/drop.gif",
-            "imgAvatar" : "/img/collections/deplone/avatar.jpg",
-            "imgBanner" : "/img/collections/deplone/banner.jpg",
-            "title": "Deplone",
-            "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
-            "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
-            "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
-            "address": "",
-            "maxMintPerTx": 1,
-            "totalSupply": 22,
-            "cost": "300",
-            "memberCost": "250",
-            "foundersOnly": false,
-            "abi": [
-                "function mint(uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)",
-                "function setCost(uint, bool) public"
-            ],
-            "start": 1639591200000,
-            "end": null,
+            "end": 1641751300000,
             "referral": false,
             "is1155": false
         },
@@ -781,8 +741,8 @@
             "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
             "description":  "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
             "author": { "name": "CROugars", "link": "https://crougar.com/"},
-            "address": "",
-            "maxMintPerTx": 20,
+            "address": "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
+            "maxMintPerTx": 5,
             "totalSupply": 2222,
             "cost": "250",
             "memberCost": "200",
@@ -793,7 +753,7 @@
                 "function cost() view returns (uint256)",
                 "function setCost(uint, bool) public"
             ],
-            "start": 1639591200000,
+            "start": 1641848400000,
             "end": null,
             "referral": false,
             "is1155": false
@@ -821,7 +781,7 @@
                 "function cost() view returns (uint256)",
                 "function setCost(uint) public"
             ],
-            "start": 1639591200000,
+            "start": 1659591200000,
             "end": null,
             "referral": false,
             "is1155": false

@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
 import {siPrefixedNumber} from "../../utils";
+import AuctionCollection from "../components/AuctionCollection";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -19,6 +20,17 @@ const Marketplace = () => {
     const marketData = useSelector((state) => {
         return state.marketplace.marketData;
     })
+
+    const [openMenu, setOpenMenu] = React.useState(0);
+    const handleBtnClick = (index) => (element) => {
+        var elements = document.querySelectorAll('.tab');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('active');
+        }
+        element.target.parentElement.classList.add("active");
+
+        setOpenMenu(index);
+    };
 
     useEffect(async function() {
         dispatch(getMarketData())
@@ -63,11 +75,32 @@ const Marketplace = () => {
                             </a>
                         </div>
                     )}
+                </div>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <div className="items_filter">
+                            <ul className="de_nav">
+                                <li id='Mainbtn' className="tab active">
+                                    <span onClick={handleBtnClick(0)}>On Sale</span>
+                                </li>
+                                <li id='Mainbtn1' className="tab">
+                                    <span onClick={handleBtnClick(1)}>Auctions</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className='row'>
                     <div className='col-lg-12'>
                         <TopFilterBar cacheName='marketplace'/>
                     </div>
                 </div>
-                <ListingCollection cacheName='marketplace'/>
+                {openMenu === 0 &&
+                    <ListingCollection cacheName='marketplace'/>
+                }
+                {openMenu === 1 &&
+                    <AuctionCollection cacheName='auctions'/>
+                }
             </section>
 
 

@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import styled from "styled-components";
 import { Link  } from "react-router-dom";
 import { ethers } from "ethers";
+import Clock from "./Clock";
 
 const Outer = styled.div`
   display: flex;
@@ -13,10 +14,10 @@ const Outer = styled.div`
 `;
 
 //react functional component
-const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
+const AuctionCard = ({ listing, imgClass = 'marketplace' }) => {
 
     return (
-        <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
+        <Link className="linkPointer" to={`/auction/${listing.auctionId}`}>
             <div className="card eb-nft__card h-100 shadow">
                 <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
                 {listing.nft.rank ?
@@ -28,13 +29,15 @@ const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
                         Rank: N/A
                     </div>
                 }
+                <div className="eb-de_countdown text-center">
+                    Ends In: <Clock deadline={listing.endAt} />
+                </div>
                 <div className="card-body d-flex flex-column">
                     <h6 className="card-title mt-auto">{listing.nft.name}</h6>
-                    <p className="card-text">{ethers.utils.commify(listing.price)} CRO</p>
                 </div>
             </div>
         </Link>
     );
 };
 
-export default memo(ListingCard);
+export default memo(AuctionCard);

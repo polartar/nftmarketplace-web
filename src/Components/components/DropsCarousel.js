@@ -111,7 +111,7 @@ export default class Responsive extends Component {
         <div className='nft-big'>
           <GlobalStyles />
           <Slider {...settings}>
-              { drops && drops.reverse().map((drop, index) => (
+              { drops && drops.filter(d => d.address).reverse().map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">
                           <div className="row align-items-center">

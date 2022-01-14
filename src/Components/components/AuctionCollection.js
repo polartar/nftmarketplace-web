@@ -1,14 +1,15 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListingCard from './ListingCard';
-import {init, fetchListings} from "../../GlobalState/marketplaceSlice";
+import {init, fetchListings} from "../../GlobalState/auctionsSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {Spinner} from "react-bootstrap";
+import AuctionCard from "./AuctionCard";
 
-const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
+const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
     const dispatch = useDispatch();
-    const listings = useSelector((state) => state.marketplace.listings)
+    const listings = useSelector((state) => state.auctions.auctions)
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
@@ -96,7 +97,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                 <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <ListingCard
+                            <AuctionCard
                                 listing={listing}
                                 imgClass="marketplace"
                             />
@@ -112,7 +113,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                 <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <ListingCard
+                            <AuctionCard
                                 listing={listing}
                                 imgClass="marketplace"
                             />
@@ -130,4 +131,4 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     }
 };
 
-export default memo(ListingCollection);
+export default memo(AuctionCollection);

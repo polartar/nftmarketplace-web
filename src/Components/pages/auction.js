@@ -2,8 +2,9 @@ import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
-import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
+import {getAuctionDetails, auctionUpdated} from "../../GlobalState/auctionSlice";
 import {
+    caseInsensitiveCompare,
     createSuccessfulTransactionToastContent,
     humanize,
     shortAddress,
@@ -13,27 +14,33 @@ import {useParams, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
-import {Spinner} from "react-bootstrap"
+import {Form, Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
+import AuctionContract from '../../Contracts/Auction.json'
+import {auctionState} from "../../core/api/enums";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
 `;
 
-const Listing = () => {
+const Auction = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
 
-    const listing = useSelector((state) => state.listing.listing)
+    const listing = useSelector((state) => state.auction.auction)
     const history = useSelector((state) =>
         state.listing.history
             .filter(i => i.state === 1)
             .sort((a, b) => (a.saleTime < b.saleTime) ? 1 : -1)
     )
-    const powertraits = useSelector((state) => state.listing.powertraits)
-    const isLoading = useSelector((state) => state.listing.loading)
+    const bidHistory = useSelector((state) =>
+        state.auction.bidHistory
+            .filter(i => !i.withdrawn)
+    )
+    const powertraits = useSelector((state) => state.auction.powertraits)
+    const isLoading = useSelector((state) => state.auction.loading)
     const user = useSelector((state) => state.user)
 
     const collectionMetadata = useSelector((state) => {
@@ -47,7 +54,7 @@ const Listing = () => {
     const [buying, setBuying] = useState(false);
 
     useEffect(() => {
-        dispatch(getListingDetails(id));
+        dispatch(getAuctionDetails(id));
     }, [dispatch, id]);
 
     const fullImage = () => {
@@ -68,29 +75,87 @@ const Listing = () => {
         element.target.parentElement.classList.add("active");
 
         setOpenMenu(index);
-        console.log(openMenu, index);
     };
 
-    const showBuy = () => async () => {
+    const serviceFee = 0.025;
+    const [bidAmount, setBidAmount] = useState(0);
+    const [bidFee, setBidFee] = useState(0);
+    const [bidAmountTotal, setBidAmountTotal] = useState(0);
+    const [bidError, setBidError] = useState('');
+
+    const handleChangeBidAmount = (event) => {
+        const { value } = event.target;
+        const newBid = parseFloat(value);
+        setBidAmount(newBid);
+        setBidFee(calculateServiceFee(newBid));
+        setBidAmountTotal(calculateTotal(newBid));
+
+        // test if bid is gte than current highest bid
+        if(newBid <= listing.highestBid) {
+            setBidError('Bid must be higher than current highest bid');
+        } else {
+            setBidError('');
+        }
+
+        // calculated total cost and compare to user balance
+        if(calculateTotal(newBid) > user.marketBalance) {
+            setBidError('Not enough balance to bid');
+        } else {
+            setBidError('');
+        }
+
+    }
+
+    const calculateServiceFee = amount => amount * serviceFee;
+    const calculateTotal = amount => amount + calculateServiceFee(amount);
+
+    const showBidDialog = () => async () => {
+        setOpenCheckout(true);
+    }
+
+    const executeBid = () => async () => {
+        await runFunction(async (writeContract) => {
+            let bid = ethers.utils.parseUnits(bidAmount);
+            console.log('placing bid...', listing.auctionId, listing.auctionHash, bid.toString());
+            return await writeContract.bid(listing.auctionHash, {
+                'value' : bid
+            });
+        })
+    }
+
+    const executeWithdrawBid = () => async () => {
+        await runFunction(async (writeContract) => {
+            console.log('withdrawing bid...', listing.auctionId, listing.auctionHash);
+            return await writeContract.withdraw(listing.auctionHash);
+        })
+    }
+
+    const executeStartAuction = () => async () => {
+        await runFunction(async (writeContract) => {
+            console.log('starting auction...', listing.auctionId, listing.auctionHash);
+            return await writeContract.start(listing.auctionHash);
+        })
+    }
+
+    const executeCancelAuction = () => async () => {
+        await runFunction(async (writeContract) => {
+            console.log('cancelling auction...', listing.auctionId, listing.auctionHash);
+            return await writeContract.cancel(listing.auctionHash);
+        })
+    }
+
+    const executeIncreaseAuctionTime = (minutes) => async () => {
+        await runFunction(async (writeContract) => {
+            console.log(`adding ${minutes}m to the auction time...`, listing.auctionId, listing.auctionHash);
+            return await writeContract.updateRuntime(listing.auctionHash, minutes);
+        })
+    }
+
+    const runFunction = async(fn) => {
         if(user.address){
-            setBuying(true);
             try{
-                let price = listing.price;
-                if(typeof price === 'string' ){
-                    price = ethers.utils.parseEther(price);
-                }
-                console.log(user.marketContract, listing.listingId, listing.price, price);
-                const tx = await user.marketContract.makePurchase(listing.listingId, {
-                    'value' : price
-                });
-                const receipt = await tx.wait();
-                dispatch(listingUpdated({
-                    listing: {
-                        ...listing,
-                        'state' : 1,
-                        'purchaser' : user.address
-                    },
-                }));
+                let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
+                const receipt = await fn(writeContract);
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             }catch(error){
                 if(error.data){
@@ -101,8 +166,6 @@ const Listing = () => {
                     console.log(error);
                     toast.error("Unknown Error");
                 }
-            }finally{
-                setBuying(false);
             }
         } else{
             if(user.needsOnboard){
@@ -114,8 +177,76 @@ const Listing = () => {
                 dispatch(chainConnect());
             }
         }
-
     }
+
+    const BuyerButtons = (props) => {
+        const isHighestBidder = bidHistory[0] && caseInsensitiveCompare(user.address, bidHistory[0].bidder);
+        return (
+            <div className="mt-4">
+                <h4>Buyer Options</h4>
+                <div className="d-flex flex-row justify-content-between">
+                    {user.address ?
+                        <>
+                            {listing.state === auctionState.ACTIVE && !isHighestBidder &&
+                                <button className='btn-main lead mb-5 mr15'
+                                        onClick={showBidDialog()}>Place Bid
+                                </button>
+                            }
+                            {listing.state === auctionState.ACTIVE && isHighestBidder &&
+                                <button className='btn-main lead mb-5 mr15'
+                                        onClick={executeWithdrawBid()}>Withdraw Bid
+                                </button>
+                            }
+                        </>
+                        :
+                        <>
+                            <span>Connect wallet above to place bid</span>
+                        </>
+                    }
+                </div>
+            </div>
+        );
+    };
+
+    const SellerButtons = (props) => {
+        const hasEnded = new Date(listing.endsAt) < Date.now();
+        const awaitingAcceptance = hasEnded
+        return (
+            <div className="mt-4">
+                <h4>Seller Options</h4>
+                <div className="d-flex flex-row justify-content-between">
+                    {user.address ?
+                        <>
+                            {listing.state === auctionState.NOT_STARTED &&
+                                <button className='btn-main lead mb-5 mr15'
+                                        onClick={executeStartAuction()}>Start Auction
+                                </button>
+                            }
+                            {listing.state === auctionState.ACTIVE &&
+                                <>
+                                    <button className='btn-main lead mb-5 mr15'
+                                            onClick={executeCancelAuction()}>Cancel
+                                    </button>
+                                    <button className='btn-main lead mb-5 mr15'
+                                            onClick={executeIncreaseAuctionTime(5)}>Increase Time (5m)
+                                    </button>
+                                </>
+                            }
+                            {listing.state === auctionState.ACTIVE && hasEnded &&
+                                <button className='btn-main lead mb-5 mr15'
+                                        onClick={showBidDialog()}>Accept Bid
+                                </button>
+                            }
+                        </>
+                        :
+                        <>
+                            <span>Connect wallet above to manage auction</span>
+                        </>
+                    }
+                </div>
+            </div>
+        )
+    };
 
     return (
         <div>
@@ -135,21 +266,31 @@ const Listing = () => {
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
                             {listing &&
-                                <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                                <>
+                                    <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                                    {listing.nft.original_image &&
+                                        <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
+                                            <span onClick={() => window.open(fullImage(), "_blank")}>
+                                                View Full Image <i className="fa fa-external-link"></i>
+                                            </span>
+                                        </div>
+                                    }
+
+                                    <p className="mt-2">Current bid: {ethers.utils.commify(listing.highestBid)} CRO</p>
+                                    {!caseInsensitiveCompare(user.address, listing.seller) &&
+                                        <BuyerButtons state={listing.state} />
+                                    }
+                                    {caseInsensitiveCompare(user.address, listing.seller) &&
+                                        <SellerButtons state={listing.state} />
+                                    }
+                                </>
                             }
-                            {listing && listing.nft.original_image &&
-                                <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
-                                    <span onClick={() => window.open(fullImage(), "_blank")}>
-                                        View Full Image <i className="fa fa-external-link"></i>
-                                    </span>
-                                </div>
-                            }
+
                         </div>
                         <div className="col-md-6">
                             {listing &&
                             <div className="item_info">
                                 <h2>{listing.nft.name}</h2>
-                                <h3>{ethers.utils.commify(listing.price)} CRO</h3>
                                 <p>{listing.nft.description}</p>
                                 <div className="row">
                                     <div className="col">
@@ -216,7 +357,8 @@ const Listing = () => {
                                                 <span onClick={handleBtnClick(1)}>In-Game Attributes</span>
                                             </li>
                                         }
-                                        <li id='Mainbtn2' className="tab"><span onClick={handleBtnClick(2)}>History</span></li>
+                                        <li id='Mainbtn2' className="tab"><span onClick={handleBtnClick(2)}>Bids</span></li>
+                                        <li id='Mainbtn3' className="tab"><span onClick={handleBtnClick(3)}>History</span></li>
                                     </ul>
 
                                     <div className="de_tab_content">
@@ -289,6 +431,36 @@ const Listing = () => {
                                         }
                                         {openMenu === 2 &&
                                             <div className="tab-3 onStep fadeIn">
+                                            {bidHistory && bidHistory.length > 0 ?
+                                                <>
+                                                    {bidHistory.map((item, index) => (
+                                                        <div className="p_list" key={index}>
+                                                            <Link to={`/seller/${item.bidder}`}>
+                                                                <div className="p_list_pp">
+                                                                    <span>
+                                                                        <span>
+                                                                            <Blockies seed={item.bidder} size={10}
+                                                                                      scale={5}/>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </Link>
+                                                            <div className="p_list_info">
+                                                                <b><Link to={`/seller/${item.bidder}`}>{shortAddress(item.bidder)}</Link></b> bid <b>{ethers.utils.commify(item.price)} CRO</b>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </>
+                                                :
+                                                <>
+                                                    <span>No bids have been placed yet</span>
+                                                </>
+                                            }
+
+                                        </div>
+                                        }
+                                        {openMenu === 3 &&
+                                        <div className="tab-4 onStep fadeIn">
                                             {history && history.length > 0 ?
                                                 <>
                                                     {history.map((item, index) => (
@@ -320,15 +492,26 @@ const Listing = () => {
                                         }
 
                                         {/* button for checkout */}
-                                        {listing.state === 0 ?
+                                        {listing.state === auctionState.ACTIVE &&
                                             <div className="d-flex flex-row mt-5">
                                                 <button className='btn-main lead mb-5 mr15'
-                                                        onClick={showBuy()}>Buy Now
+                                                        onClick={showBidDialog()}>Place Bid
                                                 </button>
                                             </div>
-                                            :
+                                        }
+                                        {listing.state === auctionState.SOLD_OR_CANCELLED &&
                                             <div className="mt-5">
-                                                LISTING HAS BEEN {(listing.state === 1) ? 'SOLD' : 'CANCELLED' }
+                                                AUCTION HAS BEEN SOLD
+                                            </div>
+                                        }
+                                        {listing.state === auctionState.CANCELLED &&
+                                            <div className="mt-5">
+                                                AUCTION HAS BEEN CANCELLED
+                                            </div>
+                                        }
+                                        {listing.state === auctionState.NOT_STARTED &&
+                                            <div className="mt-5">
+                                                AUCTION HAS NOT STARTED
                                             </div>
                                         }
                                     </div>
@@ -344,30 +527,45 @@ const Listing = () => {
         { openCheckout && user &&
         <div className='checkout'>
             <div className='maincheckout'>
-            <button className='btn-close' onClick={() => setOpenCheckout(false)}>x</button>
+                <button className='btn-close' onClick={() => setOpenCheckout(false)}>x</button>
                 <div className='heading'>
-                    <h3>Checkout</h3>
+                    <h3>Place Bid</h3>
                 </div>
-              <p>You are about to purchase a <span className="bold">{listing.nft.name}</span></p>
+                <p>Add form here to place bid</p>
                 <div className='heading mt-3'>
-                    <p>Your balance</p>
+                    <p>Your bid</p>
                     <div className='subtotal'>
-                        {ethers.utils.formatEther(user.balance)} CRO
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Enter Bid"
+                          onChange={handleChangeBidAmount}
+                        />
                     </div>
                 </div>
-              <div className='heading'>
-                <p>Service fee 2.5%</p>
-                <div className='subtotal'>
-                0.00325 ETH
+                {bidError &&
+                    <div
+                      className='error'
+                      style={{
+                          color: 'red',
+                          marginLeft: '5px',
+                      }}
+                    >
+                        {bidError}
+                    </div>
+                }
+                <div className='heading'>
+                    <p>Service fee 2.5%</p>
+                    <div className='subtotal'>
+                        {bidAmount ? bidFee.toFixed(4) : 0} CRO
+                    </div>
                 </div>
-              </div>
-              <div className='heading'>
-                <p>You will pay</p>
-                <div className='subtotal'>
-                0.013325 ETH
+                <div className='heading'>
+                    <p>You will pay</p>
+                    <div className='subtotal'>
+                        {bidAmount ? bidAmountTotal.toFixed(4) : 0} CRO
+                    </div>
                 </div>
-              </div>
-                <button className='btn-main lead mb-5'>Checkout</button>
+                <button className='btn-main lead mb-5' onClick={() => executeBid()} disabled={bidError !== ''}>Confirm Bid</button>
             </div>
         </div>
         }
@@ -376,4 +574,4 @@ const Listing = () => {
     );
 }
 
-export default memo(Listing);
+export default memo(Auction);
