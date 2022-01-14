@@ -26,8 +26,8 @@ export class SortOption {
 
     toApi() {
         return {
-            sortBy: this.key || 'tokenId',
-            direction: this.direction || 'asc'
+            sortBy: this.key || 'listingId',
+            direction: this.direction || 'desc'
         };
     }
 
