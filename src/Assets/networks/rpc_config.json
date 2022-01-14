@@ -684,7 +684,7 @@
             "multiToken" : false,
             "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "cronos-dogs",
                 "description": "",
