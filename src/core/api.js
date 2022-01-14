@@ -40,8 +40,8 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
         state: 0,
         page: page,
         pageSize: pagesize,
-        sortBy: 'tokenId',
-        direction: 'asc'
+        sortBy: 'listingId',
+        direction: 'desc'
     };
 
     if (filter && filter instanceof FilterOption) {
