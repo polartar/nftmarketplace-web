@@ -619,6 +619,21 @@
                 "card": "/img/collections/fractals/card.png",
                 "banner": "/img/collections/fractals/banner.png"
             }
+        },
+        {
+            "name" : "Cronos Fox Fraternity",
+            "multiToken" : false,
+            "address" : "0x75233B3C8b60b7191704C0f6100850dc769bb857",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronos-fox-fraternity",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/foxfraternity/avatar.jpg",
+                "card": "/img/collections/foxfraternity/card.jpg",
+                "banner": "/img/collections/foxfraternity/banner.jpg"
+            }
         }
     ],
     "drops": [
@@ -784,7 +799,35 @@
             "end": null,
             "referral": false,
             "is1155": false
+        },
+        {
+            "id": 9,
+            "slug": "cronos-fox-fraternity",
+            "imgNft": "/img/drops/foxfraternity/drop.gif",
+            "imgPreview": "/img/drops/foxfraternity/drop.gif",
+            "imgAvatar" : "/img/collections/foxfraternity/avatar.jpg",
+            "imgBanner" : "/img/drops/foxfraternity/banner.jpg",
+            "title": "Cronos Fox Fraternity",
+            "subtitle": "",
+            "description":  "CFF is a 4,444 NFT collection on the Cronos Blockchain. Each NFT was created from over 122 Different Traits, like skin, headgear, body, etc. They are all good looking Bros, but some of them have special perks.\n\nEntering the Fox Fraternity, doesn't just mean possessing a NFT. You will be part of a brotherhood and get exclusive Benefits. This include Giveaways, Airdrops, Gifts, etc.",
+            "author": { "name": "Cronos Fox Fraternity", "link": "https://www.cronosfoxfraternity.com/"},
+            "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
+            "maxMintPerTx": 1,
+            "totalSupply": 4444,
+            "cost": "199",
+            "memberCost": "199",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint) public"
+            ],
+            "start": 1642204800000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
         }
-
     ]
 }

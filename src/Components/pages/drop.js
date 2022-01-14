@@ -388,6 +388,9 @@ const Drop = () => {
                                 </div>
                                 <p>{drop.description}</p>
 
+                                {drop.disclaimer &&
+                                    <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
+                                }
 
                                 <div className="d-flex flex-row">
                                     <div className="me-4">
