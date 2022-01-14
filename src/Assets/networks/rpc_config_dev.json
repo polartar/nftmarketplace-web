@@ -649,7 +649,7 @@
             "p2": "We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.",
             "description": "Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted. We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.",
             "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com"},
-            "address": "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
+            "address": "",
             "maxMintPerTx": 5,
             "totalSupply": "∞",
             "cost": "100.0",
