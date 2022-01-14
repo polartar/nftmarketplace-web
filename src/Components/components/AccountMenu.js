@@ -18,7 +18,7 @@ import {toast} from "react-toastify";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { nanoid } from 'nanoid'
 import {ethers} from 'ethers'
-import { Modal, NavLink } from "react-bootstrap";
+import {Modal, NavLink, Spinner} from "react-bootstrap";
 import { createSuccessfulTransactionToastContent } from "../../utils";
 
 const AccountMenu = function() {
@@ -192,7 +192,33 @@ const AccountMenu = function() {
                             </div>
                         </div>
                         <div className="d-wallet">
-                            <h4>Market Balance</h4>
+                            <h4>CRO Balance</h4>
+                            <div className="d-flex justify-content-between">
+                                <span>
+                                    {!user.connectingWallet ?
+                                        <span>
+                                            {user.balance ?
+                                                <>
+                                                    {Math.round(user.balance * 100) / 100} CRO
+                                                </>
+                                                :
+                                                <>
+                                                    N/A
+                                                </>
+                                            }
+                                        </span>
+                                        :
+                                        <span>
+                                            <Spinner animation="border" role="status" size={"sm"}>
+                                                <span className="visually-hidden">Loading...</span>
+                                            </Spinner>
+                                        </span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                        <div className="d-wallet">
+                            <h4>Market Escrow</h4>
                             <div className="d-flex justify-content-between">
                                 <span>{user.marketBalance} CRO</span>
                                 {user.marketBalance !== '0.0' &&
