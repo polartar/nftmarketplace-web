@@ -137,10 +137,10 @@ const userSlice = createSlice({
             state.code = action.payload;
         },
         withdrewRewards(state){
-            state.rewards = '0.0';
+            state.rewards = 0;
         },
         withdrewPayments(state){
-            state.marketBalance = '0.0'
+            state.marketBalance = 0
         },
         transferedNFT(state, action){
             //todo
