@@ -1,4 +1,6 @@
-export const sort = [
+import { SortOption } from "../../Models/sort-option.model";
+
+const sort = [
     {
         key: 'listingId',
         direction: 'desc',
@@ -25,3 +27,5 @@ export const sort = [
         label: 'Rarity (Least)'
     },
 ];
+
+export const sortOptions = sort.map(x => SortOption.fromJson(x));

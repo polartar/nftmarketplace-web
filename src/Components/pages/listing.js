@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
 import {

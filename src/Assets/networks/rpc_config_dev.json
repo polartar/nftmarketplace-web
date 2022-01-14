@@ -595,7 +595,7 @@
             "multiToken" : false,
             "address" : "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "crougars",
                 "description": "",
