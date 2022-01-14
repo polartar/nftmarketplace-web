@@ -663,6 +663,36 @@
             "address" : "0xF0a2BF982eD9dd6c83163b5B6E01744039D9EB6D",
             "onChain" : false,
             "listable" : false
+        },
+        {
+            "name" : "Crxillion",
+            "multiToken" : false,
+            "address" : "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-fox-fraternity",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crxillion/avatar.png",
+                "card": "/img/collections/crxillion/card.png",
+                "banner": "/img/collections/crxillion/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos Dogs",
+            "multiToken" : false,
+            "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-fox-fraternity",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosdogs/avatar.png",
+                "card": "/img/collections/cronosdogs/card.jpg",
+                "banner": "/img/collections/cronosdogs/banner.png"
+            }
         }
     ],
     "drops": [
