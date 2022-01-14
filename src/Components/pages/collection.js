@@ -106,7 +106,7 @@ const Collection = ({cacheName = 'collection'}) => {
     useEffect(async () => {
         dispatch(getStats(address));
         let royalties = await readMarket.royalties(address)
-        setRoyalty((royalties[1] / 10000) * 100);
+        setRoyalty(Math.round(royalties[1]) / 100);
     }, [dispatch, address]);
 
     return (
