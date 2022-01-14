@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
 import {
@@ -158,7 +158,7 @@ const Listing = () => {
                                             <Link to={`/seller/${listing.seller}`}>
                                                 <div className="author_list_pp">
                                                     <span>
-                                                        <Blockies seed={listing.seller} size={10} scale={5}/>
+                                                        <Blockies seed={listing.seller.toLowerCase()} size={10} scale={5}/>
                                                     </span>
                                                 </div>
                                                 <div className="author_list_info">

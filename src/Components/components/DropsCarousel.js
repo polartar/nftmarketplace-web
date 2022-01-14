@@ -46,12 +46,44 @@ class CustomSlide extends Component {
   }
 }
 
+const statuses = {
+  UNSET: -1,
+  NOT_STARTED: 0,
+  LIVE: 1,
+  EXPIRED: 2,
+  SOLD_OUT: 3
+}
+
 export default class Responsive extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = { deadline: "January, 10, 2022", deadline1: "February, 10, 2022", deadline2: "February, 1, 2022", height: 0 };
-    }
+    super(props);
+    this.state = {};
+  }
+
+  // @todo refactor out
+  isCroniesDrop(drop) {
+    return drop.slug === 'cronies';
+  }
+  // @todo refactor out
+  isFounderDrop(drop) {
+    return drop.slug === 'founding-member';
+  }
+
+  calculateStatus(drop) {
+    const sTime = new Date(drop.start);
+    const eTime = new Date(drop.end);
+    const now = new Date();
+
+    if (sTime > now) return statuses.NOT_STARTED;
+    else if (drop.currentSupply >= drop.totalSupply &&
+        drop.slug !== 'founding-member' &&
+        drop.slug !== 'cronies'
+    ) return statuses.SOLD_OUT;
+    else if (!drop.end || eTime > now) return statuses.LIVE;
+    else if (drop.end && eTime < now) return statuses.EXPIRED;
+    else return statuses.NOT_STARTED;
+  }
 
   render() {
     var settings = {
@@ -149,43 +181,24 @@ export default class Responsive extends Component {
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
-                                            {new Date(drop.start) < Date.now() ?
-                                                <>
-                                                  {drop.end != null ?
-                                                        <>
-                                                          {new Date(drop.end) < Date.now() ?
-                                                              <>
-                                                                <div className="de_countdown">
-                                                                  ENDED
-                                                                </div>
-                                                              </>
-                                                              :
-                                                              <>
-                                                                <span className="d-title">Drop ends in</span>
-                                                                <div className="de_countdown">
-                                                                  <Clock deadline={drop.end}/>
-                                                                </div>
-                                                                <h5>{new Date(drop.end).toDateString()}, {new Date(drop.end).toTimeString()}</h5>
-                                                              </>
-                                                          }
-                                                        </>
-                                                        :
-                                                        <>
-                                                          <span className="d-title">Drop ends in</span>
-                                                          <h3>Drop is Live!</h3>
-                                                        </>
-                                                  }
-                                                </>
-                                              :
-                                                <>
-                                                  <span className="d-title">Drop starts in</span>
-                                                  <div className="de_countdown">
-                                                    <Clock deadline={drop.start} />
-                                                  </div>
-                                                  <h5>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h5>
-                                                </>
+                                            {this.calculateStatus(drop) === statuses.NOT_STARTED &&
+                                              <>
+                                                <span className="d-title">Drop starts in</span>
+                                                <div className="de_countdown">
+                                                  <Clock deadline={drop.start} />
+                                                </div>
+                                                <h5>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h5>
+                                              </>
                                             }
-
+                                            {this.calculateStatus(drop) === statuses.LIVE &&
+                                              <h3>Drop is Live!</h3>
+                                            }
+                                            {this.calculateStatus(drop) === statuses.EXPIRED &&
+                                              <h3>Drop Ended</h3>
+                                            }
+                                            {this.calculateStatus(drop) === statuses.SOLD_OUT &&
+                                              <h3>Sold Out</h3>
+                                            }
                                           </div>
                                       </div>
                                       <div className="spacer-10"></div>

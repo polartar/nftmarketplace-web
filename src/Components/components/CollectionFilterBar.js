@@ -1,7 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import Select from 'react-select';
 import {useDispatch, useSelector} from 'react-redux';
-import { sort } from './constants/filters';
+import { sortOptions } from './constants/sort-options';
+import { SortOption } from '../Models/sort-option.model';
 import { sortListings, resetListings, searchListings } from "../../GlobalState/collectionSlice";
 import {Form} from "react-bootstrap";
 
@@ -10,20 +11,18 @@ const CollectionFilterBar = ({cacheName = null}) => {
 
     const collection = useSelector((state) => state.collection)
 
-    const sortOptions = useSelector((state) => {
-        let sortOptions = sort;
-        if(!state.collection.hasRank) {
-            sortOptions = sort.filter((s) => s.key !== 'rank');
+    const selectDefaultSortValue = collection.cachedSort[cacheName] ?? SortOption.default();
+
+    const selectSortOptions = useSelector((state) => {
+        if(state.collection.hasRank) {
+            return sortOptions;
         }
-        return sortOptions;
+
+        return sortOptions.filter((s) => s.key !== 'rank');
     });
-    
-    const handleSort = useCallback((option) => {
-        dispatch(sortListings({
-            type: option.key,
-            direction: option.direction,
-            label: option.label
-        }, cacheName));
+
+    const onSortChange = useCallback((sortOption) => {
+        dispatch(sortListings(sortOption, cacheName));
     }, [dispatch]);
 
     const handleSearch = debounce((event) => {
@@ -74,22 +73,6 @@ const CollectionFilterBar = ({cacheName = null}) => {
         };
     }
 
-    const defaultSortValue = {
-        key: null,
-        label: 'None'
-    };
-
-    const selectDefaultSortValue = () => {
-        const cached = collection.cachedSort[cacheName];
-        if (cached) {
-            return {
-                label: cached.label,
-                key: cached.direction
-            }
-        }
-
-        return null;
-    }
 
     return (
         <>
@@ -99,11 +82,11 @@ const CollectionFilterBar = ({cacheName = null}) => {
                         <Select
                             styles={customStyles}
                             placeholder={'Sort Listings...'}
-                            options={[defaultSortValue,...sortOptions]}
-                            getOptionLabel={(option) => option.label}
-                            getOptionValue={(option) => option.key}
-                            defaultValue={selectDefaultSortValue()}
-                            onChange={handleSort}
+                            options={[SortOption.default(), ...selectSortOptions]}
+                            getOptionLabel={(option) => option.getOptionLabel}
+                            getOptionValue={(option) => option.getOptionValue}
+                            defaultValue={selectDefaultSortValue}
+                            onChange={onSortChange}
                         />
                     </div>
                 </div>
