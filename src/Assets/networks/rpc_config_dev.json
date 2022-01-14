@@ -501,6 +501,21 @@
             "listable": false
         },
         {
+            "name": "CROMages",
+            "multiToken": false,
+            "address": "0xb0faE50ebe0cE5aee08898d73042cD28E6A89D48",
+            "onChain": false,
+            "listable": true,
+            "metadata": {
+                "slug": "cromages",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromages/avatar.gif",
+                "banner": "/img/collections/cromages/banner.png",
+                "card": "/img/collections/cromages/card.png"
+            }
+        },
+        {
             "name": "CroSkull",
             "multiToken": false,
             "address": "0xF87A517A5CaecaA03d7cCa770789BdB61e09e05F",
