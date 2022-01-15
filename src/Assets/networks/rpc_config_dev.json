@@ -693,6 +693,20 @@
                 "card": "/img/collections/cronosdogs/card.jpg",
                 "banner": "/img/collections/cronosdogs/banner.png"
             }
+        },
+        {
+            "name" : "Smart Mars",
+            "multiToken" : false,
+            "address" : "0x4B2e1f709Df771F2111f74522F79A97F95aAf1D6",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "IcyCro",
+            "multiToken" : false,
+            "address" : "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
+            "onChain" : false,
+            "listable" : false
         }
     ],
     "drops": [
