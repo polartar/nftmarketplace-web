@@ -295,7 +295,8 @@
             "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
             "onChain" : false,
             "listable" : true
-        }, {
+        },
+        {
             "name" : "CronosEyezNFT",
             "multiToken" : false,
             "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
@@ -305,11 +306,27 @@
                 "slug": "cronoseyez",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/cronoseyez/avatar.jpg",
-                "banner": "/img/collections/cronoseyez/banner.jpg",
-                "card": "/img/collections/cronoseyez/card.jpg"
+                "avatar": "/img/collections/cronoseyez/gen1/avatar.jpg",
+                "banner": "/img/collections/cronoseyez/gen1/banner.jpg",
+                "card": "/img/collections/cronoseyez/gen1/card.jpg"
             }
-        }, {
+        },
+        {
+            "name" : "CronosEyez Gen 2",
+            "multiToken" : false,
+            "address" : "0x15730353272C88229a91804854078aa9B3A70448",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronoseyez-gen2",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronoseyez/gen2/avatar.png",
+                "banner": "/img/collections/cronoseyez/gen2/banner.png",
+                "card": "/img/collections/cronoseyez/gen2/card.png"
+            }
+        },
+        {
             "name" : "CROstmas Gnome",
             "multiToken" : false,
             "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
