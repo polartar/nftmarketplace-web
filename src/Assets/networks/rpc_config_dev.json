@@ -710,6 +710,21 @@
                 "card": "/img/collections/cronosdogs/card.jpg",
                 "banner": "/img/collections/cronosdogs/banner.png"
             }
+        },
+        {
+            "name" : "Cronos Goats",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronos-goats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosgoats/avatar.gif",
+                "card": "/img/collections/cronosgoats/card.png",
+                "banner": "/img/collections/cronosgoats/banner.png"
+            }
         }
     ],
     "drops": [
@@ -904,6 +919,34 @@
             "referral": false,
             "is1155": false,
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
+        },
+        {
+            "id": 10,
+            "slug": "cronos-goats",
+            "imgNft": "/img/drops/cronosgoats/drop.png",
+            "imgPreview": "/img/drops/cronosgoats/drop.png",
+            "imgAvatar" : "/img/collections/cronosgoats/avatar.gif",
+            "imgBanner" : "/img/collections/cronosgoats/banner.png",
+            "title": "Cronos Goats",
+            "subtitle": "",
+            "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
+            "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/"},
+            "address": "",
+            "maxMintPerTx": 1,
+            "totalSupply": 1000,
+            "cost": "218",
+            "memberCost": "168",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint) public"
+            ],
+            "start": 1642276800000,
+            "end": null,
+            "referral": false,
+            "is1155": false
         }
     ]
 }
