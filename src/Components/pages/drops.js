@@ -11,7 +11,7 @@ const Drops = () => (
     <div>
         <GlobalStyles/>
         <section className="jumbotron breadcumb no-bg h-vh" style={{backgroundImage: `url(${'./img/background/12.jpg'})`}}>
-            <div className='container'>
+            <div className='container pt0 pt-3'>
                 <div className='row'>
                     <DropsCarousel/>
                 </div>
