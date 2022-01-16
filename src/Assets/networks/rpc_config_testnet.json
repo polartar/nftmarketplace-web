@@ -133,8 +133,8 @@
                 "slug": "cronos goats",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/goats/avatar.png",
-                "card": "/img/collections/goats/card.png",
+                "avatar": "/img/collections/goats/avatar.gif",
+                "card": "/img/collections/goats/preview_banner.png",
                 "banner": "/img/collections/goats/banner.png"
             }
         }
@@ -257,7 +257,7 @@
             "slug": "Cronos goats",
             "imgNft": "/img/drops/goats/drop.png",
             "imgPreview": "/img/drops/goats/drop.png",
-            "imgAvatar" : "/img/collections/goats/avatar.png",
+            "imgAvatar" : "/img/collections/goats/avatar.gif",
             "imgBanner" : "/img/collections/goats/banner.png",
             "title": "Cronos goats",
             "subtitle": "",
