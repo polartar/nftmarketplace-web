@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import {
-    knownContracts,
     init,
     fetchListings,
     getStats,
@@ -20,6 +19,10 @@ import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
 import TraitsFilter from "../Collection/TraitsFilter";
 import PowertraitsFilter from "../Collection/PowertraitsFilter";
+import { SortOption } from '../Models/sort-option.model';
+import { FilterOption } from "../Models/filter-option.model";
+
+const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -73,20 +76,21 @@ const Collection = ({cacheName = 'collection'}) => {
     }
 
     useEffect(async () => {
-        const defaultSort = {
-            type: 'listingId',
-            direction: 'desc'
-        }
+        const sortOption = SortOption.default();
+        sortOption.key = 'listingId';
+        sortOption.direction = 'desc';
+        sortOption.label = 'By Id';
 
-        const defaultAttributeFilter = {}
-
-        const cachedTraitsFilter = collectionCachedTraitsFilter[address] || {};
-        const cachedSort = collectionCachedSort[cacheName];
+        const filterOption = FilterOption.default();
+        filterOption.type = 'collection';
+        filterOption.address = address;
+        filterOption.name = 'Specific collection';
 
         dispatch(init(
-            address,
-            cachedSort ? cachedSort : defaultSort,
-            cachedTraitsFilter ? cachedTraitsFilter : defaultAttributeFilter
+            filterOption,
+            collectionCachedSort[cacheName] ?? sortOption,
+            collectionCachedTraitsFilter[address] ?? {},
+            address
         ));
         dispatch(fetchListings());
 
@@ -102,7 +106,7 @@ const Collection = ({cacheName = 'collection'}) => {
     useEffect(async () => {
         dispatch(getStats(address));
         let royalties = await readMarket.royalties(address)
-        setRoyalty((royalties[1] / 10000) * 100);
+        setRoyalty(Math.round(royalties[1]) / 100);
     }, [dispatch, address]);
 
     return (
@@ -214,7 +218,10 @@ const Collection = ({cacheName = 'collection'}) => {
                         </div>
                     )}
                 <div className='row'>
-                    <CollectionFilterBar showFilter={false} cacheName={cacheName}/>
+                    <CollectionFilterBar showFilter={false}
+                                         cacheName={cacheName}
+
+                    />
                 </div>
                 <div className="row">
                     {(hasTraits() || hasPowertraits()) &&

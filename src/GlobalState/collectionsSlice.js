@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getCollectionMetadata, getListing} from "../core/api";
-import {knownContracts, onRankingsLoaded} from "./marketplaceSlice";
+import {getCollectionMetadata} from "../core/api";
+import config from "../Assets/networks/rpc_config.json";
+export const knownContracts = config.known_contracts;
 
 const collectionsSlice = createSlice({
     name: 'collections',

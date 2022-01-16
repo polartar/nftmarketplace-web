@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import {getAuctionDetails, auctionUpdated} from "../../GlobalState/auctionSlice";
 import {
@@ -523,7 +522,6 @@ const Auction = () => {
                 </section>
             }
 
-        <Footer /> 
         { openCheckout && user &&
         <div className='checkout'>
             <div className='maincheckout'>

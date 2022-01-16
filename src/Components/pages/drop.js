@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
@@ -167,44 +167,7 @@ const Drop = () => {
     }
 
     const isEligibleForMemberPrice = async (user) => {
-        if(user.isMember){
-            return true;
-        } else {
-            if (drop.slug === 'crougars') {
-                return crougarsEligibilityCheck(user);
-            }
-            return false;
-        }
-    }
-
-    const crougarsEligibilityCheck = async (user) => {
-        let isWhiteListed = false;
-        try {
-            await fetch(CrougarsWl)
-                .then(r => r.text())
-                .then(text => {
-                    const addresses =  text
-                        .replace(/['"]+/g, '')
-                        .split(",\r\n");
-                    isWhiteListed = addresses.map(a => a.toLowerCase()).includes(user.address.toLowerCase());
-                })
-        } catch (error) {
-            console.log('Error while checking CROugars whitelist', error);
-        }
-
-        // If there was an error retrieving loot balance on wallet connect, then do a final attempt to retrieve it
-        let lootBalance = user.lootBalance;
-        if (!lootBalance && user.provider) {
-            try {
-                const lootContract = new ethers.Contract(config.known_tokens.loot.address, ERC721, user.provider.getSigner());
-                lootBalance = ethers.utils.formatEther(await lootContract.balanceOf(user.address));
-            } catch (error) {
-                lootBalance = 0;
-                console.log('Error while doing a final check for LOOT balance', error);
-            }
-        } else if (!user.provider) lootBalance = 0;
-
-        return lootBalance >= 1000000 || isWhiteListed;
+        return user.isMember;
     }
 
     const mintNow = async() => {
@@ -257,13 +220,32 @@ const Drop = () => {
                     }
                     const receipt = await response.wait();
                     toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-                    const anParam = {
-                        currency : 'CRO',
-                        value : ethers.utils.formatEther(finalCost),
-                        quantity : numToMint,
-                        items: [dropObject.title]
-                    };
-                    logEvent(getAnalytics(), 'purchase', anParam);
+
+                    {
+                        const dropObjectAnalytics = {
+                            address: dropObject.address,
+                            id: dropObject.id,
+                            title: dropObject.title,
+                            slug: dropObject.slug,
+                            author_name: dropObject.author.name,
+                            author_link: dropObject.author.link,
+                            maxMintPerTx: dropObject.maxMintPerTx,
+                            totalSupply: dropObject.totalSupply,
+                            cost: dropObject.cost,
+                            memberCost: dropObject.memberCost,
+                            foundersOnly: dropObject.foundersOnly,
+                        }
+
+                        const purchaseAnalyticParams = {
+                            currency : 'CRO',
+                            value: ethers.utils.formatEther(finalCost),
+                            transaction_id: receipt.transactionHash,
+                            quantity : numToMint,
+                            items: [dropObjectAnalytics]
+                        };
+
+                        logEvent(getAnalytics(), 'purchase', purchaseAnalyticParams);
+                    }
                 }
             }catch(error){
                 if(error.data){
@@ -388,6 +370,9 @@ const Drop = () => {
                                 </div>
                                 <p>{drop.description}</p>
 
+                                {drop.disclaimer &&
+                                    <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
+                                }
 
                                 <div className="d-flex flex-row">
                                     <div className="me-4">
