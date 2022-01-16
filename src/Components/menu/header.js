@@ -37,7 +37,7 @@ const Header = function() {
 
     useEffect(() => {
         const header = document.getElementById("myHeader");
-        const totop = document.getElementById("scroll-to-top");
+        const totop = document.getElementById("eb-scroll-to-top");
         const sticky = header.offsetTop;
         const scrollCallBack = window.addEventListener("scroll", () => {
             btn_icon(false);

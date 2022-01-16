@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {faChevronUp, faCircle} from "@fortawesome/free-solid-svg-icons";
+import LayeredIcon from "../components/LayeredIcon";
 
 export default class ScrollToTop extends Component {
 
@@ -37,10 +39,14 @@ export default class ScrollToTop extends Component {
   render() {
     const { is_visible } = this.state;
     return (
-      <div id='scroll-to-top' className='init'>
+      <div id='eb-scroll-to-top' className='init'>
         {is_visible && (
           <div onClick={() => this.scrollToTop()}>
-            <i className=""></i>
+            <LayeredIcon
+                icon={faChevronUp}
+                bgIcon={faCircle}
+                shrink={8}
+            />
           </div>
         )}
       </div>

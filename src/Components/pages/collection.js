@@ -21,6 +21,8 @@ import TraitsFilter from "../Collection/TraitsFilter";
 import PowertraitsFilter from "../Collection/PowertraitsFilter";
 import { SortOption } from '../Models/sort-option.model';
 import { FilterOption } from "../Models/filter-option.model";
+import {faCheck, faCircle} from "@fortawesome/free-solid-svg-icons";
+import LayeredIcon from "../components/LayeredIcon";
 
 const knownContracts = config.known_contracts;
 
@@ -131,7 +133,11 @@ const Collection = ({cacheName = 'collection'}) => {
                                         <Blockies seed={address.toLowerCase()} size={15} scale={10}/>
                                     }
                                     {metadata?.verified &&
-                                        <i className="fa fa-check"/>
+                                        <LayeredIcon
+                                            icon={faCheck}
+                                            bgIcon={faCircle}
+                                            shrink={8}
+                                        />
                                     }
                                 </div>
 
