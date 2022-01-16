@@ -31,6 +31,11 @@ const marketplaceSlice = createSlice({
             state.curPage = action.payload.page;
             state.totalPages = action.payload.totalPages;
             state.hasRank = action.payload.hasRank;
+
+            if (state.listings.length > 420 && !state.listings.find(l => l.special)) {
+                let extraListing = {special: true};
+                state.listings.splice(420, 0, extraListing);
+            }
         },
         clearSet: (state, action) => {
             const hardClear = action.payload || false;
