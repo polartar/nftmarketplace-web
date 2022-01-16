@@ -501,6 +501,21 @@
             "listable": false
         },
         {
+            "name": "CROMages",
+            "multiToken": false,
+            "address": "0xb0faE50ebe0cE5aee08898d73042cD28E6A89D48",
+            "onChain": false,
+            "listable": true,
+            "metadata": {
+                "slug": "cromages",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromages/avatar.gif",
+                "banner": "/img/collections/cromages/banner.png",
+                "card": "/img/collections/cromages/card.png"
+            }
+        },
+        {
             "name": "CroSkull",
             "multiToken": false,
             "address": "0xF87A517A5CaecaA03d7cCa770789BdB61e09e05F",
@@ -595,13 +610,13 @@
             "multiToken" : false,
             "address" : "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "crougars",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/crougars/avatar.png",
-                "card": "/img/collections/crougars/card.gif",
+                "card": "/img/collections/crougars/card.png",
                 "banner": "/img/collections/crougars/banner.png"
             }
         },
@@ -619,6 +634,79 @@
                 "card": "/img/collections/fractals/card.png",
                 "banner": "/img/collections/fractals/banner.png"
             }
+        },
+        {
+            "name" : "Cronos Fox Fraternity",
+            "multiToken" : false,
+            "address" : "0x75233B3C8b60b7191704C0f6100850dc769bb857",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronos-fox-fraternity",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/foxfraternity/avatar.jpg",
+                "card": "/img/collections/foxfraternity/card.jpg",
+                "banner": "/img/collections/foxfraternity/banner.jpg"
+            }
+        },
+        {
+            "name" : "MAG Brew Vikings Special Edition",
+            "multiToken" : false,
+            "address" : "0xAaACC4EdEaD913D8c8A90D7eb10F79490c9a39B8",
+            "onChain" : false,
+            "listable" : false
+        },
+        {
+            "name" : "CroSkullAmbassadors",
+            "multiToken" : false,
+            "address" : "0xF0a2BF982eD9dd6c83163b5B6E01744039D9EB6D",
+            "onChain" : false,
+            "listable" : false
+        },
+        {
+            "name" : "Crxillion",
+            "multiToken" : false,
+            "address" : "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crxillion",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crxillion/avatar.png",
+                "card": "/img/collections/crxillion/card.png",
+                "banner": "/img/collections/crxillion/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos Dogs",
+            "multiToken" : false,
+            "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronos-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosdogs/avatar.png",
+                "card": "/img/collections/cronosdogs/card.jpg",
+                "banner": "/img/collections/cronosdogs/banner.png"
+            }
+        },
+        {
+            "name" : "Smart Mars",
+            "multiToken" : false,
+            "address" : "0x4B2e1f709Df771F2111f74522F79A97F95aAf1D6",
+            "onChain" : false,
+            "listable" : true
+        },
+        {
+            "name" : "IcyCro",
+            "multiToken" : false,
+            "address" : "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
+            "onChain" : false,
+            "listable" : false
         }
     ],
     "drops": [
@@ -634,7 +722,7 @@
             "p2": "We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.",
             "description": "Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted. We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.",
             "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com"},
-            "address": "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
+            "address": "",
             "maxMintPerTx": 5,
             "totalSupply": "∞",
             "cost": "100.0",
@@ -686,7 +774,7 @@
             "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
             "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
             "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
-            "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
+            "address": "",
             "maxMintPerTx": 1,
             "totalSupply": 22,
             "cost": "300",
@@ -740,7 +828,7 @@
             "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
             "description":  "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
             "author": { "name": "CROugars", "link": "https://crougar.com/"},
-            "address": "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
+            "address": "",
             "maxMintPerTx": 5,
             "totalSupply": 2222,
             "cost": "250",
@@ -784,7 +872,35 @@
             "end": null,
             "referral": false,
             "is1155": false
+        },
+        {
+            "id": 9,
+            "slug": "cronos-fox-fraternity",
+            "imgNft": "/img/drops/foxfraternity/drop.gif",
+            "imgPreview": "/img/drops/foxfraternity/drop.gif",
+            "imgAvatar" : "/img/collections/foxfraternity/avatar.jpg",
+            "imgBanner" : "/img/drops/foxfraternity/banner.jpg",
+            "title": "Cronos Fox Fraternity",
+            "subtitle": "",
+            "description":  "CFF is a 4,444 NFT collection on the Cronos Blockchain. Each NFT was created from over 122 Different Traits, like skin, headgear, body, etc. They are all good looking Bros, but some of them have special perks.\n\nEntering the Fox Fraternity, doesn't just mean possessing a NFT. You will be part of a brotherhood and get exclusive Benefits. This include Giveaways, Airdrops, Gifts, etc.",
+            "author": { "name": "Cronos Fox Fraternity", "link": "https://www.cronosfoxfraternity.com/"},
+            "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
+            "maxMintPerTx": 1,
+            "totalSupply": 4444,
+            "cost": "199",
+            "memberCost": "199",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint) public"
+            ],
+            "start": 1642204800000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
         }
-
     ]
 }

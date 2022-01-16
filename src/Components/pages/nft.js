@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import styled, { createGlobalStyle } from 'styled-components';
 import {humanize, shortAddress, timeSince} from "../../utils";
 import {useParams, useHistory, Link} from "react-router-dom";
