@@ -1,15 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import {Accordion, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 import {humanize} from "../../utils";
 import {filterListingsByTrait} from "../../GlobalState/collectionSlice";
 import './Filters.css';
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const TraitsFilter = ({address}) => {
     const dispatch = useDispatch();
 
     const collectionStats = useSelector((state) => state.collection.stats);
     const collectionCachedTraitsFilter = useSelector((state) => state.collection.cachedTraitsFilter);
+
+    const [hideAttributes, setHideAttributes] = useState(false);
 
     const viewTraitsList = () => {
         if (!collectionStats || !collectionStats.traits) {
@@ -73,31 +78,17 @@ const TraitsFilter = ({address}) => {
         }))
     }
 
-    const toggleAll = () => {
-        const container = document.getElementById('traits');
-
-        let shouldHide = false;
-        if (container) {
-            shouldHide = container.style.display === 'block';
-            container.style.display = shouldHide ? 'none' : 'block';
-        }
-
-        const icon = document.getElementById('traits-expand-icon');
-        icon.classList.remove('fa-minus', 'fa-plus');
-        icon.classList.add(shouldHide ? 'fa-plus' : 'fa-minus');
-    }
-
     return (
         <>
             <div className="mb-4">
                 <div className="d-flex justify-content-between align-middle">
-                    <h3 className="d-inline-block" onClick={toggleAll} style={{cursor:'pointer', marginBottom:0}}>
+                    <h3 className="d-inline-block" onClick={() => setHideAttributes(!hideAttributes)} style={{cursor:'pointer', marginBottom:0}}>
                         Attributes
                     </h3>
 
                     <div className="d-inline-block fst-italic my-auto me-2"
                          style={{fontSize: '0.8em', cursor: 'pointer'}}>
-                        <i id="traits-expand-icon" className="fa fa-minus"></i>
+                        <FontAwesomeIcon id="traits-expand-icon" icon={hideAttributes ? faPlus: faMinus }/>
                     </div>
                 </div>
                 {viewSelectedAttributesCount() > 0 &&
@@ -111,7 +102,7 @@ const TraitsFilter = ({address}) => {
                     </div>
                 }
             </div>
-            <Accordion id="traits">
+            <Accordion id="traits" className={hideAttributes ? 'd-none' : ''}>
                 {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                     <Accordion.Item eventKey={key} key={key}>
                         <Accordion.Header>{traitCategoryName}</Accordion.Header>

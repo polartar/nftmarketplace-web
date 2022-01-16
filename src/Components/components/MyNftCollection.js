@@ -16,6 +16,8 @@ import {
 import {toast} from "react-toastify";
 import {ethers} from "ethers";
 import * as PropTypes from "prop-types";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { createSuccessfulTransactionToastContent } from "../../utils";
 
 function LoadingButton(props) {
@@ -373,10 +375,10 @@ const MyNftCollection = (
                                                     <div>
                                                         <button className='btn-main lead mb-5 mr15' disabled={!nextEnabled} onClick={handleNext}>
                                                             {!nextEnabled && index !== 1 ?
-                                                                <>
-                                                                    <i className="fa fa-circle-o-notch fa-spin me-2"></i>
-                                                                    Working...
-                                                                </>
+                                                                <span className='d-flex align-items-center'>
+                                                                    <FontAwesomeIcon icon={faSpinner} className='fa-spin'/>
+                                                                    <span className='ps-2'>Working...</span>
+                                                                </span>
                                                                 :
                                                                 <>
                                                                     {index === listingSteps.length - 1 ? 'Finish' : 'Continue'}
