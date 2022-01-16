@@ -6,6 +6,13 @@ $white: #fff;
 
 
 
+// fix when h-vh causes overlapping
+// https://ebisusbay.atlassian.net/browse/WEB-396
+.h-min-100-vh {
+    height: unset!important;
+    min-height: 100vh;
+}
+
 //  to fix the footer to the bottom of page when there is not enough content.
 body > div#root > div.wraper {
     //  first child is header
