@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Accordion, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,7 @@ const PowertraitsFilter = ({address}) => {
     const collectionStats = useSelector((state) => state.collection.stats);
     const collectionCachedTraitsFilter = useSelector((state) => state.collection.cachedPowertraitsFilter);
 
-    const [hideAttributes, setHideAttributes] = useState(false);
+    const [hideAttributes, setHideAttributes] = useState(window.innerWidth < 768);
 
     const viewPowertraitsList = () => {
         if (!collectionStats || !collectionStats.powertraits) {
@@ -75,6 +75,13 @@ const PowertraitsFilter = ({address}) => {
             address
         }))
     }
+
+    useEffect(() => {
+        const container = document.getElementById('powertraits');
+        if (container) {
+            container.style.display = hideAttributes ? 'none' : 'block';
+        }
+    }, [hideAttributes])
 
     return (
         <div className="my-4">
