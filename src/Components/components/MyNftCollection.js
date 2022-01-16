@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import {toast} from "react-toastify";
 import {ethers} from "ethers";
-import { getAnalytics, logEvent } from '@firebase/analytics'
 import * as PropTypes from "prop-types";
 import { createSuccessfulTransactionToastContent } from "../../utils";
 
@@ -31,67 +30,25 @@ LoadingButton.propTypes = {
     disabled: PropTypes.bool,
     children: PropTypes.node
 };
-const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
+const MyNftCollection = (
+    {
+        nfts = [],
+        isLoading = false,
+        user = null,
+
+    }) => {
 
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.user)
-    const isLoading = useSelector((state) => state.user.fetchingNfts)
-    const nfts = useSelector((state) => user.nfts)
-    const [height, setHeight] = useState(0);
-
-    const [alertOpen, setAlertOpen] = useState(true);
     const [askTransfer, setAskTransfer] = useState(false);
 
-
-    const [progressText, setProgressText] = useState('Working...');
-    const [doingWork, setDoingWork] = useState(false);
     const [selectedNft, setSelectedNft] = useState(null);
     const [transferAddress, setTransferAddress] = useState(null);
-
-    const onImgLoad = ({target:img}) => {
-        let currentHeight = height;
-        if(currentHeight < img.offsetHeight) {
-            setHeight(img.offsetHeight);
-        }
-    }
-
-    useEffect(() => {
-        dispatch(fetchNfts(user.address, user.provider, user.nftsInitialized));
-    }, []);
-
-    useEffect(() => {
-        logEvent(getAnalytics(), 'screen_view', {
-            firebase_screen : 'my_nfts'
-        })
-    }, []);
-
-    const withdrawPayments = async () => {
-        try {
-            setDoingWork(true);
-            const tx = await user.membershipContract.withdrawPayments(user.address);
-            const receipt = await tx.wait();
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-            dispatch(withdrewRewards());
-        }catch(error){
-            if(error.data){
-                toast.error(error.data.message);
-            } else if(error.message){
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        }finally{
-            setDoingWork(false);
-        }
-    }
 
     /// TRANSFER------------------
 
     const transferNft = async () => {
         try{
             closeTransfer();
-            setDoingWork(true);
             let tx;
             if(selectedNft.multiToken){
                 tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id, 1, []);
@@ -110,8 +67,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                 console.log(error);
                 toast.error("Unknown Error");
             }
-        }finally{
-            setDoingWork(false);
         }
     }
 
@@ -144,7 +99,7 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
         },
 
     ];
-    const [showMemberOnly, setShowMemberOnly] = useState(false);
+
     const [startSale, setStartSale] = useState(false);
     const [activeStep, setActiveStep] = useState(0);
     const [nextEnabled, setNextEnabled] = useState(false);
@@ -217,7 +172,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
     const makeListing = async () => {
         try{
             setNextEnabled(false);
-            setDoingWork(true);
             const price = ethers.utils.parseEther(salePrice);
             let tx = await user.marketContract.makeListing(selectedNft.contract.address, selectedNft.id, price);
             let receipt = await tx.wait();
@@ -233,7 +187,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                 toast.error("Unknown Error");
             }
         } finally{
-            setDoingWork(false);
             setStartSale(false);
             setSelectedNft(null);
             setActiveStep(0);
@@ -255,10 +208,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
         setNextEnabled(false);
     }
 
-    const cancelMemberOnly = () => {
-        setShowMemberOnly(false);
-    }
-
     const handleNext = () => {
         if(activeStep === 0){
             setApprovalForAll();
@@ -271,7 +220,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
 
     const showCancelDialog = (nft) => async () => {
         try{
-            setDoingWork(true);
             let tx = await user.marketContract.cancelListing(nft.listingId);
             let receipt = await tx.wait();
             dispatch(updateListed(nft.contract.address, nft.id, false));
@@ -285,8 +233,6 @@ const MyNftCollection = ({ showLoadMore = true, walletAddress = null}) => {
                 console.log(error);
                 toast.error("Unknown Error");
             }
-        }finally{
-            setDoingWork(false);
         }
 
     }

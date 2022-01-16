@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {sortAndFetchListings, getCollectionMetadata, getMarketMetadata} from '../core/api';
-import config from '../Assets/networks/rpc_config.json'
-export const knownContracts = config.known_contracts;
+import { SortOption } from '../Components/Models/sort-option.model';
+import { FilterOption } from "../Components/Models/filter-option.model";
 
 const marketplaceSlice = createSlice({
     name: 'marketplace',
@@ -10,8 +10,8 @@ const marketplaceSlice = createSlice({
         error: false,
         listings: [],
         curPage: 0,
-        curFilter: {},
-        curSort: {},
+        curFilter: FilterOption.default(),
+        curSort: SortOption.default(),
         totalPages: 0,
         collection: null,
         marketData: null,
@@ -38,8 +38,8 @@ const marketplaceSlice = createSlice({
             state.listings = [];
             state.curPage = 0;
             state.totalPages = 0;
-            state.curFilter = {};
-            state.curSort = {};
+            state.curFilter = FilterOption.default();
+            state.curSort = SortOption.default();
 
             if (hardClear) {
                 state.cachedFilter = {};
@@ -47,27 +47,27 @@ const marketplaceSlice = createSlice({
             }
         },
         onFilter: (state, action) => {
-            const { cacheName, ...payload } = action.payload;
+            const { cacheName, option } = action.payload;
 
             state.listings = [];
             state.totalPages = 0;
             state.curPage = 0;
-            state.curFilter = payload;
+            state.curFilter = option;
 
             if (cacheName) {
-                state.cachedFilter[cacheName] = payload;
+                state.cachedFilter[cacheName] = option;
             }
         },
         onSort: (state, action) => {
-            const { cacheName, ...payload } = action.payload;
+            const { cacheName, option } = action.payload;
 
             state.listings = [];
             state.totalPages = 0;
             state.curPage = 0;
-            state.curSort = payload;
+            state.curSort = option;
 
             if (cacheName) {
-                state.cachedSort[cacheName] = payload;
+                state.cachedSort[cacheName] = option;
             }
         },
         onCollectionDataLoaded: (state, action) => {
@@ -97,21 +97,16 @@ export const {
 
 export default marketplaceSlice.reducer;
 
-export const init = (sort, filter) => async (dispatch, getState) => {
+export const init = (sortOption, filterOption) => async (dispatch, getState) => {
     dispatch(clearSet(false));
 
-    if (sort) {
-        dispatch(onSort({
-            type: sort.type,
-            direction: sort.direction
-        }));
+    if (sortOption && sortOption instanceof SortOption) {
+        dispatch(onSort({ option: sortOption }));
     }
 
-    if (filter) {
-        dispatch(onFilter({
-            type: filter.type,
-            address: filter.address
-        }));
+    if (filterOption && filterOption instanceof FilterOption) {
+        dispatch(onFilter({ option: filterOption }));
+
     }
 }
 
@@ -122,8 +117,7 @@ export const fetchListings = () => async (dispatch, getState) => {
     const response = await sortAndFetchListings(
         state.marketplace.curPage + 1,
         state.marketplace.curSort,
-        state.marketplace.curFilter.type,
-        state.marketplace.curFilter.address
+        state.marketplace.curFilter
     );
 
     response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
@@ -131,23 +125,13 @@ export const fetchListings = () => async (dispatch, getState) => {
     dispatch(listingsReceived(response));
 }
 
-export const filterListings = ({ type, address, label }, cacheName) => async (dispatch) => {
-    dispatch(onFilter({
-        type: type,
-        address: address,
-        label: label,
-        cacheName: cacheName
-    }));
+export const filterListings = (filterOption, cacheName) => async (dispatch) => {
+    dispatch(onFilter({ option: filterOption, cacheName }));
     dispatch(fetchListings());
 }
 
-export const sortListings = ({ type, direction, label }, cacheName) => async (dispatch) => {
-    dispatch(onSort({
-        type: type,
-        direction: direction,
-        label: label,
-        cacheName: cacheName
-    }));
+export const sortListings = (sortOption, cacheName) => async (dispatch) => {
+    dispatch(onSort({ option: sortOption, cacheName }));
     dispatch(fetchListings());
 }
 

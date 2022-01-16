@@ -5,6 +5,9 @@ import { ERC1155, ERC721 } from '../Contracts/Abis'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { dataURItoBlob } from "../Store/utils";
 import moment from "moment";
+import { SortOption } from '../Components/Models/sort-option.model';
+
+import { FilterOption } from "../Components/Models/filter-option.model";
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
@@ -30,23 +33,23 @@ export default api;
 //     })
 // });
 
-export async function sortAndFetchListings(page, sort, filterType, filterAddress, traits, powertraits, search) {
+export async function sortAndFetchListings(page, sort, filter, traits, powertraits, search) {
     let pagesize = 12;
 
     let query = {
         state: 0,
         page: page,
         pageSize: pagesize,
-        sortBy: 'tokenId',
-        direction: 'asc'
+        sortBy: 'listingId',
+        direction: 'desc'
     };
-    if (filterAddress != null) query[filterType] = filterAddress.toLowerCase();
-    if (sort != null && sort.type != null) {
-        const sortProps = {
-            sortBy: sort.type,
-            direction: sort.direction
-        };
-        query = {...query, ...sortProps}
+
+    if (filter && filter instanceof FilterOption) {
+        query = {...query, ...filter.toApi()};
+    }
+
+    if (sort && sort instanceof SortOption) {
+        query = {...query, ...sort.toApi()};
     }
 
     if (traits && Object.keys(traits).length > 0) {

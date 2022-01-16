@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import LatestDropsCollection from "../components/LatestDropsCollection";
 import {createGlobalStyle} from "styled-components";
 import DropsCarousel from '../components/DropsCarousel';

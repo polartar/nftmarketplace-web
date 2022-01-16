@@ -1,12 +1,16 @@
-import React, {useEffect} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import ListingCollection from '../components/ListingCollection';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
-import {getMarketData} from "../../GlobalState/marketplaceSlice";
+import { filterListings, getMarketData, sortListings } from "../../GlobalState/marketplaceSlice";
 import {siPrefixedNumber} from "../../utils";
+import { sortOptions } from "../components/constants/sort-options";
+import { SortOption } from '../Models/sort-option.model';
+import { collectionFilterOptions} from "../components/constants/filter-options";
+import { FilterOption } from "../Models/filter-option.model";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -14,15 +18,42 @@ const GlobalStyles = createGlobalStyle`
 
 
 const Marketplace = () => {
+    const cacheName = 'marketplace';
+
     const dispatch = useDispatch();
+
+    const marketplace = useSelector((state) => {
+        return state.marketplace;
+    });
 
     const marketData = useSelector((state) => {
         return state.marketplace.marketData;
-    })
+    });
 
     useEffect(async function() {
         dispatch(getMarketData())
     }, []);
+
+
+    const selectDefaultFilterValue = marketplace.cachedFilter[cacheName] ?? FilterOption.default();
+    const selectDefaultSortValue = marketplace.cachedSort[cacheName] ?? SortOption.default();
+
+    const selectFilterOptions = collectionFilterOptions;
+    const selectSortOptions = useSelector((state) => {
+        if(state.marketplace.hasRank) {
+            return sortOptions;
+        }
+
+        return sortOptions.filter((s) => s.key !== 'rank');
+    });
+
+    const onFilterChange = useCallback((filterOption) => {
+        dispatch(filterListings(filterOption, cacheName));
+    }, [dispatch]);
+
+    const onSortChange = useCallback((sortOption) => {
+        dispatch(sortListings(sortOption, cacheName));
+    }, [dispatch]);
 
     return (
         <div>
@@ -64,7 +95,17 @@ const Marketplace = () => {
                         </div>
                     )}
                     <div className='col-lg-12'>
-                        <TopFilterBar cacheName='marketplace'/>
+                        <TopFilterBar showFilter={true}
+                                      showSort={true}
+                                      sortOptions={[SortOption.default(), ...selectSortOptions]}
+                                      filterOptions={[FilterOption.default(), ...selectFilterOptions]}
+                                      defaultSortValue={selectDefaultSortValue}
+                                      defaultFilterValue={selectDefaultFilterValue}
+                                      filterPlaceHolder='Filter Collection...'
+                                      sortPlaceHolder='Sort Listings...'
+                                      onFilterChange={onFilterChange}
+                                      onSortChange={onSortChange}
+                        />
                     </div>
                 </div>
                 <ListingCollection cacheName='marketplace'/>
