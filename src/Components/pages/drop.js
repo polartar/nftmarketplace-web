@@ -220,13 +220,32 @@ const Drop = () => {
                     }
                     const receipt = await response.wait();
                     toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-                    const anParam = {
-                        currency : 'CRO',
-                        value : ethers.utils.formatEther(finalCost),
-                        quantity : numToMint,
-                        items: [dropObject.title]
-                    };
-                    logEvent(getAnalytics(), 'purchase', anParam);
+
+                    {
+                        const dropObjectAnalytics = {
+                            address: dropObject.address,
+                            id: dropObject.id,
+                            title: dropObject.title,
+                            slug: dropObject.slug,
+                            author_name: dropObject.author.name,
+                            author_link: dropObject.author.link,
+                            maxMintPerTx: dropObject.maxMintPerTx,
+                            totalSupply: dropObject.totalSupply,
+                            cost: dropObject.cost,
+                            memberCost: dropObject.memberCost,
+                            foundersOnly: dropObject.foundersOnly,
+                        }
+
+                        const purchaseAnalyticParams = {
+                            currency : 'CRO',
+                            value: ethers.utils.formatEther(finalCost),
+                            transaction_id: receipt.transactionHash,
+                            quantity : numToMint,
+                            items: [dropObjectAnalytics]
+                        };
+
+                        logEvent(getAnalytics(), 'purchase', purchaseAnalyticParams);
+                    }
                 }
             }catch(error){
                 if(error.data){
