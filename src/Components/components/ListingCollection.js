@@ -7,6 +7,7 @@ import {Spinner} from "react-bootstrap";
 import { SortOption } from '../Models/sort-option.model';
 
 import { FilterOption } from "../Models/filter-option.model";
+import HiddenCard from "./HiddenCard";
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
@@ -97,10 +98,14 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                 <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <ListingCard
-                                listing={listing}
-                                imgClass="marketplace"
-                            />
+                            {listing.special ?
+                                <HiddenCard />
+                                :
+                                <ListingCard
+                                    listing={listing}
+                                    imgClass="marketplace"
+                                />
+                            }
                         </div>
                     ))}
                 </div>
@@ -113,10 +118,14 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
                 <div className='card-group'>
                     {listings && listings.map( (listing, index) => (
                         <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <ListingCard
-                                listing={listing}
-                                imgClass="marketplace"
-                            />
+                            {listing.special ?
+                                <HiddenCard />
+                                :
+                                <ListingCard
+                                    listing={listing}
+                                    imgClass="marketplace"
+                                />
+                            }
                         </div>
                     ))}
                 </div>
