@@ -8,7 +8,8 @@ import config from "../../Assets/networks/rpc_config.json";
 import {humanize} from "../../utils";
 import Blockies from "react-blockies";
 import LayeredIcon from "./LayeredIcon";
-import { faCheck, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -102,6 +103,7 @@ export default class Responsive extends Component {
     else return statuses.NOT_STARTED;
   }
 
+
   render() {
     var settings = {
       infinite: false,
@@ -155,11 +157,31 @@ export default class Responsive extends Component {
       ]
     };
 
+    const PrevArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+          <div className={className} style={style} onClick={onClick} >
+            <FontAwesomeIcon icon={faChevronLeft}/>
+          </div>
+      );
+    }
+
+    const NextArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+          <div className={className} style={style} onClick={onClick} >
+            <FontAwesomeIcon icon={faChevronRight}/>
+          </div>
+      );
+    }
 
     return (
         <div className='nft-big'>
           <GlobalStyles />
-          <Slider {...settings}>
+          <Slider {...settings}
+                  prevArrow={<PrevArrow />}
+                  nextArrow={<NextArrow />}
+          >
               { drops && drops.filter(d => d.address).reverse().map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">

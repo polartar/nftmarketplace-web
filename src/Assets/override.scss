@@ -418,3 +418,24 @@ canvas {
         background: none !important;
     }
 }
+
+/*react-slick FontAwesome 5 fix.*/
+.slick-slider > .slick-arrow::before {
+    content: unset !important;
+}
+
+.slick-slider > .slick-arrow {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.slick-slider > .slick-arrow > svg {
+    width: 1rem !important;
+    height: 1rem !important;
+    opacity: 1;
+    visibility: visible;
+    color: black;
+}
+

@@ -1,11 +1,13 @@
 import React, {memo, useEffect, useState} from "react";
 import { useDispatch } from 'react-redux';
 import Slider from "react-slick";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { settings } from "./constants";
 import CustomSlide from "./CustomSlide";
 import config from '../../Assets/networks/rpc_config.json'
+import { faArrowLeft, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 export const collections = config.known_contracts;
 
 const HotCollections = () => {
@@ -41,9 +43,32 @@ const HotCollections = () => {
       arrangeCollections();
   }, [dispatch]);
 
+    const PrevArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={style} onClick={onClick} >
+                <FontAwesomeIcon icon={faChevronLeft}/>
+            </div>
+        );
+    }
+
+    const NextArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={style} onClick={onClick} >
+                <FontAwesomeIcon icon={faChevronRight}/>
+            </div>
+        );
+    }
+
   return (
       <div className='nft'>
-        <Slider {...settings}>
+          <FontAwesomeIcon icon={faArrowLeft}/>
+
+          <Slider {...settings}
+            prevArrow={<PrevArrow />}
+            nextArrow={<NextArrow />}
+        >
           { hotCollections && hotCollections.map((item, index) => (
             <CustomSlide
               key={index}
