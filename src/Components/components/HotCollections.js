@@ -63,12 +63,12 @@ const HotCollections = () => {
 
   return (
       <div className='nft'>
-          <FontAwesomeIcon icon={faArrowLeft}/>
 
           <Slider {...settings}
             prevArrow={<PrevArrow />}
             nextArrow={<NextArrow />}
-        >
+          >
+
           { hotCollections && hotCollections.map((item, index) => (
             <CustomSlide
               key={index}
