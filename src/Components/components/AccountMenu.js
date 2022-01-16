@@ -3,6 +3,19 @@ import Blockies from "react-blockies";
 import {useDispatch, useSelector} from "react-redux";
 import useOnclickOutside from "react-cool-onclickoutside";
 import {useHistory} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faBolt,
+    faImage,
+    faShoppingBasket,
+    faSignOutAlt
+} from "@fortawesome/free-solid-svg-icons";
+import {toast} from "react-toastify";
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { nanoid } from 'nanoid'
+import {ethers} from 'ethers'
+import { Modal, NavLink, Spinner } from "react-bootstrap";
+
 import {
     connectAccount,
     onLogout,
@@ -14,11 +27,6 @@ import {
 } from "../../GlobalState/User";
 import rpcConfig from '../../Assets/networks/rpc_config.json'
 
-import {toast} from "react-toastify";
-import MetaMaskOnboarding from '@metamask/onboarding';
-import { nanoid } from 'nanoid'
-import {ethers} from 'ethers'
-import {Modal, NavLink, Spinner} from "react-bootstrap";
 import { createSuccessfulTransactionToastContent } from "../../utils";
 
 const AccountMenu = function() {
@@ -303,17 +311,20 @@ const AccountMenu = function() {
                         <ul className="de-submenu-profile">
                             <li>
                                 <span onClick={() => navigateTo(`/nfts`)}>
-                                    <i className="fa fa-photo"></i> My NFTs
+                                    <span> <FontAwesomeIcon icon={faImage}/> </span>
+                                    <span>My NFTs</span>
                                 </span>
                             </li>
                             <li>
                                 <span onClick={() => navigateTo(`/sales`)}>
-                                    <i className="fa fa-shopping-basket"></i> My Sales
+                                    <span> <FontAwesomeIcon icon={faShoppingBasket}/> </span>
+                                    <span>My Sales</span>
                                 </span>
                             </li>
                             <li>
                                 <span onClick={clearCookies}>
-                                    <i className="fa fa-flash"></i> Clear Cookies
+                                    <span> <FontAwesomeIcon icon={faBolt}/> </span>
+                                    <span>Clear Cookies</span>
                                 </span>
                             </li>
                         </ul>
@@ -321,7 +332,8 @@ const AccountMenu = function() {
                         <ul className="de-submenu-profile">
                             <li>
                                 <span onClick={logout}>
-                                    <i className="fa fa-sign-out"></i> Disconnect Wallet
+                                    <span> <FontAwesomeIcon icon={faSignOutAlt}/> </span>
+                                    <span>Disconnect Wallet</span>
                                 </span>
                             </li>
                         </ul>

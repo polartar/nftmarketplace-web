@@ -2,10 +2,12 @@ import React, { memo } from 'react';
 import { useLocation } from "react-router-dom";
 import nebkas from "../../Assets/nebkas-logo.png"
 import weAreFi from "../../Assets/wearefi-logo.png"
+import { faDiscord, faTwitter, faMedium } from '@fortawesome/free-brands-svg-icons'
+import { faSquare, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import LayeredIcon from "./LayeredIcon";
 
 const Footer = () => {
     const location = useLocation()
-
 
     return (
         <footer className="footer-light" data-is-in-home-page={ (location.pathname === '/').toString() }>
@@ -36,9 +38,34 @@ const Footer = () => {
                         </div>
 
                         <div className="col-10 social-icons d-flex justify-content-end">
-                            <span onClick={ () => window.open("https://twitter.com/EbisusBay", "_blank") }>
-                                <i className="fa fa-twitter fa-lg"/>
-                            </span>
+                            <a href="https://discord.gg/ebisusbay" target="_blank">
+                                <LayeredIcon
+                                    icon={faDiscord}
+                                    bgIcon={faSquare}
+                                    shrink={8}
+                                />
+                            </a>
+                            <a href="https://twitter.com/EbisusBay" target="_blank">
+                                <LayeredIcon
+                                    icon={faTwitter}
+                                    bgIcon={faSquare}
+                                    shrink={7}
+                                />
+                            </a>
+                            <a href="https://blog.ebisusbay.com" target="_blank">
+                                <LayeredIcon
+                                    icon={faMedium}
+                                    bgIcon={faSquare}
+                                    shrink={7}
+                                />
+                            </a>
+                            <a href="mailto:support@ebisusbay.com">
+                                <LayeredIcon
+                                    icon={faEnvelope}
+                                    bgIcon={faSquare}
+                                    shrink={7}
+                                />
+                            </a>
                         </div>
 
                         <a href="/tos.html" target="_blank" className='col-12 pt-3 text-center'>
