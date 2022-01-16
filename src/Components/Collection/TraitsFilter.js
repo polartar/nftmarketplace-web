@@ -105,7 +105,7 @@ const TraitsFilter = ({address}) => {
             <Accordion id="traits" className={hideAttributes ? 'd-none' : ''}>
                 {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                     <Accordion.Item eventKey={key} key={key}>
-                        <Accordion.Header>{traitCategoryName}</Accordion.Header>
+                        <Accordion.Header>{humanize(traitCategoryName)}</Accordion.Header>
                         <Accordion.Body>
                             {Object.entries(traitCategoryValues).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats) => (
                                 <div key={`${traitCategoryName}-${stats[0]}`}>
