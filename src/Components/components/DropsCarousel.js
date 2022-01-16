@@ -3,10 +3,13 @@ import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Clock from "./Clock";
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import config from "../../Assets/networks/rpc_config.json";
 import {humanize} from "../../utils";
 import Blockies from "react-blockies";
+import LayeredIcon from "./LayeredIcon";
+import { faCheck, faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -34,6 +37,21 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 `;
+
+
+const VerifiedIcon = styled.span`
+  font-size: 8px;
+  color: #ffffff;
+  background: $color;
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+`;
+
 
 class CustomSlide extends Component {
   render() {
@@ -84,6 +102,7 @@ export default class Responsive extends Component {
     else if (drop.end && eTime < now) return statuses.EXPIRED;
     else return statuses.NOT_STARTED;
   }
+
 
   render() {
     var settings = {
@@ -138,11 +157,31 @@ export default class Responsive extends Component {
       ]
     };
 
+    const PrevArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+          <div className={className} style={style} onClick={onClick} >
+            <FontAwesomeIcon icon={faChevronLeft}/>
+          </div>
+      );
+    }
+
+    const NextArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+          <div className={className} style={style} onClick={onClick} >
+            <FontAwesomeIcon icon={faChevronRight}/>
+          </div>
+      );
+    }
 
     return (
         <div className='nft-big'>
           <GlobalStyles />
-          <Slider {...settings}>
+          <Slider {...settings}
+                  prevArrow={<PrevArrow />}
+                  nextArrow={<NextArrow />}
+          >
               { drops && drops.filter(d => d.address).reverse().map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">
@@ -160,7 +199,13 @@ export default class Responsive extends Component {
                                                   :
                                                   <Blockies seed={drop.slug} size={10} scale={5}/>
                                               }
-                                              <i className="fa fa-check"></i>
+                                              <VerifiedIcon>
+                                                <LayeredIcon
+                                                    icon={faCheck}
+                                                    bgIcon={faCircle}
+                                                    shrink={7}
+                                                />
+                                              </VerifiedIcon>
                                           </div>
                                           <div className="author_list_info">
                                               <div className='title'>{drop.author.name}</div>
