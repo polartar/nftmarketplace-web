@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import {getAllCollections} from "../../GlobalState/collectionsSlice";
 import {Link} from "react-router-dom";

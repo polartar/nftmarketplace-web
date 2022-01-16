@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../components/footer';
-import { createGlobalStyle } from 'styled-components';
+import Footer from '../components/Footer';
+import styled, { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
 import {
     createSuccessfulTransactionToastContent,
@@ -17,9 +17,26 @@ import {Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
+import LayeredIcon from "../components/LayeredIcon";
+import { faCheck, faCircle, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
+`;
+
+
+const VerifiedIcon = styled.span`
+  font-size: 8px;
+  color: #ffffff;
+  background: $color;
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
 `;
 
 const Listing = () => {
@@ -140,7 +157,8 @@ const Listing = () => {
                             {listing && listing.nft.original_image &&
                                 <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
                                     <span onClick={() => window.open(fullImage(), "_blank")}>
-                                        View Full Image <i className="fa fa-external-link"></i>
+                                        <span className='p-2'>View Full Image</span>
+                                        <FontAwesomeIcon icon={faExternalLinkAlt} />
                                     </span>
                                 </div>
                             }
@@ -158,7 +176,7 @@ const Listing = () => {
                                             <Link to={`/seller/${listing.seller}`}>
                                                 <div className="author_list_pp">
                                                     <span>
-                                                        <Blockies seed={listing.seller} size={10} scale={5}/>
+                                                        <Blockies seed={listing.seller.toLowerCase()} size={10} scale={5}/>
                                                     </span>
                                                 </div>
                                                 <div className="author_list_info">
@@ -179,7 +197,12 @@ const Listing = () => {
                                                                 <Blockies seed={listing.nftAddress} size={10} scale={5}/>
                                                             }
                                                             {collectionMetadata?.verified &&
-                                                                <i className="fa fa-check"></i>
+                                                                <VerifiedIcon>
+                                                                    <LayeredIcon
+                                                                        icon={faCheck}
+                                                                        bgIcon={faCircle}
+                                                                    />
+                                                                </VerifiedIcon>
                                                             }
                                                     </span>
                                                 </div>

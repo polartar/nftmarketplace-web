@@ -143,7 +143,7 @@ pipelines:
             # Set environment variables
             - REACT_APP_DEVTOOLS=false
             # RPC config
-            - cp -p ./src/Assets/networks/rpc_config.json ./src/Assets/networks/rpc_config.json
+            #- cp -p ./src/Assets/networks/rpc_config.json ./src/Assets/networks/rpc_config.json
             # Build frontend
             - CI=false npm run build
           artifacts:

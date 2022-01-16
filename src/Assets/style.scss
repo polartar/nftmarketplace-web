@@ -4952,26 +4952,39 @@ blockquote {
         list-style: none;
         margin: 0;
         padding: 0;
+
         li {
           padding: 5px 0;
-            span {
+
+          & > span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
             cursor: pointer;
-            color: #0d0c22 !important;
-            background: none;
-            padding: 0;
-            font-weight: bold;
-            font-size: 14px;
-            display: block;
-            text-align: left;
-            &:hover{
+
+            &:hover {
               box-shadow: none;
             }
-            i {
-              padding: 7px 9px;
+
+            & > span:first-child {
               background: #eee;
-              border-radius: 30px;
+              font-size: 0.9rem;
+              border-radius: 50%;
               width: 28px;
-              margin-right: 5px;
+              height: 28px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            & > span:last-child {
+              color: #0d0c22 !important;
+              background: none;
+              padding: 0;
+              font-weight: bold;
+              font-size: 14px;
+              display: block;
+              text-align: left;
             }
           }
         }

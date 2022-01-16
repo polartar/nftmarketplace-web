@@ -1,78 +1,21 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import Select from 'react-select';
-import {useDispatch, useSelector} from 'react-redux';
-import { sort } from './constants/filters';
-import { filterListings, sortListings, resetListings, knownContracts } from "../../GlobalState/marketplaceSlice";
+import { SortOption } from '../Models/sort-option.model';
+import { FilterOption } from "../Models/filter-option.model";
 
-const TopFilterBar = ({ showFilter = true, showSort = true, cacheName = null }) => {
-    const dispatch = useDispatch();
-
-    const marketplace = useSelector((state) => {
-        return state.marketplace;
-    });
-
-    const sortOptions = useSelector((state) => {
-        let sortOptions = sort;
-        if(!state.marketplace.hasRank) {
-            sortOptions = sort.filter((s) => s.key !== 'rank');
-        }
-        return sortOptions;
-    });
-
-    const handleCategory = useCallback((option) => {
-        dispatch(filterListings({
-            type: 'collection',
-            address: option.address,
-            label: option.name
-        }, cacheName));
-    }, [dispatch]);
-
-    const handleSort = useCallback((option) => {
-        dispatch(sortListings({
-            type: option.key,
-            direction: option.direction,
-            label: option.label
-        }, cacheName));
-    }, [dispatch]);
-
-    const handleClear = useCallback(() => {
-        dispatch(resetListings());
-    }, [dispatch]);
-
-    const defaultFilterValue = {
-        name: 'All',
-        address: null
-    };
-
-    const defaultSortValue = {
-        label: 'None',
-        value: null,
-    };
-
-    const selectDefaultFilterValue = () => {
-        const cached = marketplace.cachedFilter[cacheName];
-
-        if (cached) {
-            return {
-                name: cached.label,
-                address: cached.address
-            }
-        }
-
-        return defaultFilterValue;
-    }
-
-    const selectDefaultSortValue = () => {
-        const cached = marketplace.cachedSort[cacheName];
-        if (cached) {
-            return {
-                label: cached.label,
-                value: cached.value
-            }
-        }
-
-        return defaultSortValue;
-    }
+const TopFilterBar = (
+    {
+        showFilter = true,
+        showSort = true,
+        sortOptions= [],
+        filterOptions= [],
+        defaultSortValue = SortOption.default(),
+        defaultFilterValue = FilterOption.default(),
+        filterPlaceHolder = '',
+        sortPlaceHolder = '',
+        onFilterChange = () => {},
+        onSortChange = () => {},
+    }) => {
 
     const customStyles = {
         option: (base, state) => ({
@@ -105,12 +48,12 @@ const TopFilterBar = ({ showFilter = true, showSort = true, cacheName = null }) 
                 <div className='dropdownSelect one'>
                     <Select
                         styles={customStyles}
-                        placeholder={'Filter Collection...'}
-                        options={[defaultFilterValue, ...knownContracts.filter(c => c.listable).sort((a, b) => a.name > b.name ? 1 : -1)]}
-                        getOptionLabel={(option) => option.name}
-                        getOptionValue={(option) => option.address}
-                        defaultValue={selectDefaultFilterValue()}
-                        onChange={handleCategory}
+                        placeholder={filterPlaceHolder}
+                        options={filterOptions}
+                        getOptionLabel={(option) => option.getOptionLabel}
+                        getOptionValue={(option) => option.getOptionValue}
+                        defaultValue={defaultFilterValue}
+                        onChange={onFilterChange}
                     />
                 </div>
             )}
@@ -118,12 +61,12 @@ const TopFilterBar = ({ showFilter = true, showSort = true, cacheName = null }) 
                 <div className='dropdownSelect two'>
                     <Select
                         styles={customStyles}
-                        placeholder={'Sort Listings...'}
-                        options={[defaultSortValue,...sortOptions]}
-                        getOptionLabel={(option) => option.label}
-                        getOptionValue={(option) => option.key}
-                        defaultValue={selectDefaultSortValue()}
-                        onChange={handleSort}
+                        placeholder={sortPlaceHolder}
+                        options={sortOptions}
+                        getOptionLabel={(option) => option.getOptionLabel}
+                        getOptionValue={(option) => option.getOptionValue}
+                        defaultValue={defaultSortValue}
+                        onChange={onSortChange}
                     />
                 </div>
             )}

@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {sortAndFetchListings, getCollectionMetadata, getCollectionTraits, getCollectionPowertraits} from '../core/api';
-import config from '../Assets/networks/rpc_config.json'
-export const knownContracts = config.known_contracts;
 
 const collectionSlice = createSlice({
     name: 'collection',
@@ -56,27 +54,27 @@ const collectionSlice = createSlice({
             }
         },
         onFilter: (state, action) => {
-            const { cacheName, ...payload } = action.payload;
+            const { cacheName, option } = action.payload;
 
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
-            state.query.filter = payload;
+            state.query.filter = option;
 
             if (cacheName) {
-                state.cachedFilter[cacheName] = payload;
+                state.cachedFilter[cacheName] = option;
             }
         },
         onSort: (state, action) => {
-            const { cacheName, ...payload } = action.payload;
+            const { cacheName, option } = action.payload;
 
             state.listings = [];
             state.totalPages = 0;
             state.query.page = 0;
-            state.query.sort = payload;
+            state.query.sort = option;
 
             if (cacheName) {
-                state.cachedSort[cacheName] = payload;
+                state.cachedSort[cacheName] = option;
             }
         },
         onSearch: (state, action) => {
@@ -125,23 +123,18 @@ export const {
 
 export default collectionSlice.reducer;
 
-export const init = (address, defaultSort, defaultTraitsFilter) => async (dispatch) => {
+export const init = (filterOption, sortOption, traitFilterOption, address) => async (dispatch) => {
     dispatch(clearSet(false));
 
-    dispatch(onFilter({
-        type: 'collection',
-        address: address
-    }));
+    dispatch(onFilter({ option: filterOption}));
 
-    if (defaultSort) {
-        dispatch(onSort({
-            type: defaultSort.type,
-            direction: defaultSort.direction
-        }));
+    if (sortOption) {
+        dispatch(onSort({ option: sortOption }));
     }
 
-    if (defaultTraitsFilter) {
-        dispatch(onTraitFilter({ traits: defaultTraitsFilter, address }));
+    //  TODO: needs DTO
+    if (traitFilterOption) {
+        dispatch(onTraitFilter({ traits: traitFilterOption, address }));
     }
 }
 
@@ -152,8 +145,7 @@ export const fetchListings = () => async (dispatch, getState) => {
     const response = await sortAndFetchListings(
         state.collection.query.page + 1,
         state.collection.query.sort,
-        state.collection.query.filter.type,
-        state.collection.query.filter.address,
+        state.collection.query.filter,
         state.collection.query.traits,
         state.collection.query.powertraits,
         state.collection.query.search
@@ -164,16 +156,13 @@ export const fetchListings = () => async (dispatch, getState) => {
     dispatch(listingsReceived(response));
 }
 
-export const filterListings = (type, address) => async (dispatch) => {
-    dispatch(onFilter({
-        type: type,
-        address: address
-    }));
+export const filterListings = (filterOption, cacheName) => async (dispatch) => {
+    dispatch(onFilter({ option: filterOption, cacheName}));
     dispatch(fetchListings());
 }
 
-export const sortListings = ({ type, direction, label }, cacheName) => async (dispatch) => {
-    dispatch(onSort({type, direction, label, cacheName }));
+export const sortListings = (sortOption, cacheName) => async (dispatch) => {
+    dispatch(onSort({ option: sortOption, cacheName }));
     dispatch(fetchListings());
 }
 

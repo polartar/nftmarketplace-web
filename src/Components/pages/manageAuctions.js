@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useSelector } from "react-redux";
 
-import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 import {ethers} from "ethers";
 import config from "../../Assets/networks/rpc_config.json";
@@ -82,8 +81,6 @@ const ManageAuctions = () => {
                     </div>
                 </div>
             </section>
-
-            <Footer/>
         </div>
     );
 };

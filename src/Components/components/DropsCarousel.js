@@ -3,10 +3,13 @@ import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Clock from "./Clock";
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import config from "../../Assets/networks/rpc_config.json";
 import {humanize} from "../../utils";
 import Blockies from "react-blockies";
+import LayeredIcon from "./LayeredIcon";
+import { faCheck, faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -35,6 +38,21 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+
+const VerifiedIcon = styled.span`
+  font-size: 8px;
+  color: #ffffff;
+  background: $color;
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+`;
+
+
 class CustomSlide extends Component {
   render() {
     const { index, ...props } = this.props;
@@ -46,12 +64,45 @@ class CustomSlide extends Component {
   }
 }
 
+const statuses = {
+  UNSET: -1,
+  NOT_STARTED: 0,
+  LIVE: 1,
+  EXPIRED: 2,
+  SOLD_OUT: 3
+}
+
 export default class Responsive extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = { deadline: "January, 10, 2022", deadline1: "February, 10, 2022", deadline2: "February, 1, 2022", height: 0 };
-    }
+    super(props);
+    this.state = {};
+  }
+
+  // @todo refactor out
+  isCroniesDrop(drop) {
+    return drop.slug === 'cronies';
+  }
+  // @todo refactor out
+  isFounderDrop(drop) {
+    return drop.slug === 'founding-member';
+  }
+
+  calculateStatus(drop) {
+    const sTime = new Date(drop.start);
+    const eTime = new Date(drop.end);
+    const now = new Date();
+
+    if (sTime > now) return statuses.NOT_STARTED;
+    else if (drop.currentSupply >= drop.totalSupply &&
+        drop.slug !== 'founding-member' &&
+        drop.slug !== 'cronies'
+    ) return statuses.SOLD_OUT;
+    else if (!drop.end || eTime > now) return statuses.LIVE;
+    else if (drop.end && eTime < now) return statuses.EXPIRED;
+    else return statuses.NOT_STARTED;
+  }
+
 
   render() {
     var settings = {
@@ -106,11 +157,31 @@ export default class Responsive extends Component {
       ]
     };
 
+    const PrevArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+          <div className={className} style={style} onClick={onClick} >
+            <FontAwesomeIcon icon={faChevronLeft}/>
+          </div>
+      );
+    }
+
+    const NextArrow = (props) => {
+      const { className, style, onClick } = props;
+      return (
+          <div className={className} style={style} onClick={onClick} >
+            <FontAwesomeIcon icon={faChevronRight}/>
+          </div>
+      );
+    }
 
     return (
         <div className='nft-big'>
           <GlobalStyles />
-          <Slider {...settings}>
+          <Slider {...settings}
+                  prevArrow={<PrevArrow />}
+                  nextArrow={<NextArrow />}
+          >
               { drops && drops.filter(d => d.address).reverse().map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">
@@ -128,7 +199,13 @@ export default class Responsive extends Component {
                                                   :
                                                   <Blockies seed={drop.slug} size={10} scale={5}/>
                                               }
-                                              <i className="fa fa-check"></i>
+                                              <VerifiedIcon>
+                                                <LayeredIcon
+                                                    icon={faCheck}
+                                                    bgIcon={faCircle}
+                                                    shrink={7}
+                                                />
+                                              </VerifiedIcon>
                                           </div>
                                           <div className="author_list_info">
                                               <div className='title'>{drop.author.name}</div>
@@ -149,43 +226,24 @@ export default class Responsive extends Component {
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
-                                            {new Date(drop.start) < Date.now() ?
-                                                <>
-                                                  {drop.end != null ?
-                                                        <>
-                                                          {new Date(drop.end) < Date.now() ?
-                                                              <>
-                                                                <div className="de_countdown">
-                                                                  ENDED
-                                                                </div>
-                                                              </>
-                                                              :
-                                                              <>
-                                                                <span className="d-title">Drop ends in</span>
-                                                                <div className="de_countdown">
-                                                                  <Clock deadline={drop.end}/>
-                                                                </div>
-                                                                <h5>{new Date(drop.end).toDateString()}, {new Date(drop.end).toTimeString()}</h5>
-                                                              </>
-                                                          }
-                                                        </>
-                                                        :
-                                                        <>
-                                                          <span className="d-title">Drop ends in</span>
-                                                          <h3>Drop is Live!</h3>
-                                                        </>
-                                                  }
-                                                </>
-                                              :
-                                                <>
-                                                  <span className="d-title">Drop starts in</span>
-                                                  <div className="de_countdown">
-                                                    <Clock deadline={drop.start} />
-                                                  </div>
-                                                  <h5>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h5>
-                                                </>
+                                            {this.calculateStatus(drop) === statuses.NOT_STARTED &&
+                                              <>
+                                                <span className="d-title">Drop starts in</span>
+                                                <div className="de_countdown">
+                                                  <Clock deadline={drop.start} />
+                                                </div>
+                                                <h5>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h5>
+                                              </>
                                             }
-
+                                            {this.calculateStatus(drop) === statuses.LIVE &&
+                                              <h3>Drop is Live!</h3>
+                                            }
+                                            {this.calculateStatus(drop) === statuses.EXPIRED &&
+                                              <h3>Drop Ended</h3>
+                                            }
+                                            {this.calculateStatus(drop) === statuses.SOLD_OUT &&
+                                              <h3>Sold Out</h3>
+                                            }
                                           </div>
                                       </div>
                                       <div className="spacer-10"></div>

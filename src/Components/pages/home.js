@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import { createGlobalStyle, default as styled } from 'styled-components';
 import ListingCollection from "../components/ListingCollection";
 import {useHistory} from "react-router-dom";
@@ -73,7 +73,7 @@ const Jumbotron = {
     }))`
       background-image: url('./img/background/Ebisus-bg-1_L.jpg');
       background-size: cover;
-      height: max(95vh, 800px);
+      height: max(100vh, 800px);
       display: flex;
       align-items: center;
       
