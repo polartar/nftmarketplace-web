@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Accordion, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -14,7 +14,7 @@ const TraitsFilter = ({address}) => {
     const collectionStats = useSelector((state) => state.collection.stats);
     const collectionCachedTraitsFilter = useSelector((state) => state.collection.cachedTraitsFilter);
 
-    const [hideAttributes, setHideAttributes] = useState(false);
+    const [hideAttributes, setHideAttributes] = useState(window.innerWidth < 768);
 
     const viewTraitsList = () => {
         if (!collectionStats || !collectionStats.traits) {
@@ -78,6 +78,13 @@ const TraitsFilter = ({address}) => {
         }))
     }
 
+    useEffect(() => {
+        const container = document.getElementById('traits');
+        if (container) {
+            container.style.display = hideAttributes ? 'none' : 'block';
+        }
+    }, [hideAttributes])
+
     return (
         <>
             <div className="mb-4">
@@ -105,7 +112,7 @@ const TraitsFilter = ({address}) => {
             <Accordion id="traits" className={hideAttributes ? 'd-none' : ''}>
                 {viewTraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                     <Accordion.Item eventKey={key} key={key}>
-                        <Accordion.Header>{traitCategoryName}</Accordion.Header>
+                        <Accordion.Header>{humanize(traitCategoryName)}</Accordion.Header>
                         <Accordion.Body>
                             {Object.entries(traitCategoryValues).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats) => (
                                 <div key={`${traitCategoryName}-${stats[0]}`}>

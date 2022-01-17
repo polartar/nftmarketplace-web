@@ -133,9 +133,9 @@
                 "slug": "cronos goats",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/goats/avatar.gif",
-                "card": "/img/collections/goats/preview_banner.png",
-                "banner": "/img/collections/goats/banner.png"
+                "avatar": "/img/collections/cronosgoats/avatar.gif",
+                "card": "/img/collections/cronosgoats/card.png",
+                "banner": "/img/collections/cronosgoats/banner.png"
             }
         }
     ],
@@ -255,10 +255,10 @@
         {
             "id": 9,
             "slug": "Cronos goats",
-            "imgNft": "/img/drops/goats/drop.png",
-            "imgPreview": "/img/drops/goats/drop.png",
-            "imgAvatar" : "/img/collections/goats/avatar.gif",
-            "imgBanner" : "/img/collections/goats/banner.png",
+            "imgNft": "/img/drops/cronosgoats/drop.png",
+            "imgPreview": "/img/drops/cronosgoats/drop.png",
+            "imgAvatar" : "/img/collections/cronosgoats/avatar.gif",
+            "imgBanner" : "/img/collections/cronosgoats/banner.png",
             "title": "Cronos goats",
             "subtitle": "",
             "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",

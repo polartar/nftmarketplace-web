@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Accordion, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,7 @@ const PowertraitsFilter = ({address}) => {
     const collectionStats = useSelector((state) => state.collection.stats);
     const collectionCachedTraitsFilter = useSelector((state) => state.collection.cachedPowertraitsFilter);
 
-    const [hideAttributes, setHideAttributes] = useState(false);
+    const [hideAttributes, setHideAttributes] = useState(window.innerWidth < 768);
 
     const viewPowertraitsList = () => {
         if (!collectionStats || !collectionStats.powertraits) {
@@ -76,6 +76,13 @@ const PowertraitsFilter = ({address}) => {
         }))
     }
 
+    useEffect(() => {
+        const container = document.getElementById('powertraits');
+        if (container) {
+            container.style.display = hideAttributes ? 'none' : 'block';
+        }
+    }, [hideAttributes])
+
     return (
         <div className="my-4">
             <div className="mb-4">
@@ -103,7 +110,7 @@ const PowertraitsFilter = ({address}) => {
             <Accordion id="powertraits" className={hideAttributes ? 'd-none' : ''}>
                 {viewPowertraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                     <Accordion.Item eventKey={key} key={key}>
-                        <Accordion.Header>{traitCategoryName}</Accordion.Header>
+                        <Accordion.Header>{humanize(traitCategoryName)}</Accordion.Header>
                         <Accordion.Body>
                             {Object.entries(traitCategoryValues).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats) => (
                                 <div key={`${traitCategoryName}-${stats[0]}`}>
