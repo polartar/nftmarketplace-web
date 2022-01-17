@@ -126,7 +126,7 @@
         {
             "name" : "Cronos goats",
             "multiToken" : false,
-            "address" : "0xa406Ac362509B9BbD054DA37701EB60F4c589f6A",
+            "address" : "0xF313649E3DD661b09D511257A7E77F4e6b12d1fA",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -263,7 +263,7 @@
             "subtitle": "",
             "description":  "The Cronos goats connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
             "author": { "name": "Cronos goats", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "0xa406Ac362509B9BbD054DA37701EB60F4c589f6A",
+            "address": "0xF313649E3DD661b09D511257A7E77F4e6b12d1fA",
             "maxMintPerTx": 10,
             "totalSupply": 1000,
             "cost": "15",
