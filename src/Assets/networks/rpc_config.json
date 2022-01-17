@@ -955,8 +955,7 @@
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)",
-                "function setCost(uint) public"
+                "function setCost(uint, bool) external"
             ],
             "start": 1642276800000,
             "end": null,
