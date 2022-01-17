@@ -22,6 +22,8 @@ import {auctionState} from "../../core/api/enums";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faCircle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import LayeredIcon from "../components/LayeredIcon";
+import BuyerActionBar from "../Auctions/BuyerActionBar";
+import SellerActionBar from "../Auctions/SellerActionBar";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -92,201 +94,6 @@ const Auction = () => {
         setOpenMenu(index);
     };
 
-    const [bidAmount, setBidAmount] = useState(0);
-    const [minimumBid, setMinimumBid] = useState(1);
-    const [bidError, setBidError] = useState('');
-
-    const handleChangeBidAmount = (event) => {
-        const { value } = event.target;
-        const newBid = parseFloat(value);
-        setBidAmount(newBid);
-
-        // test if bid is gte than current highest bid
-        // const bidIncrement = auctionConfig.bid.increments.find(i => i.min >= listing.highestBid).increment;
-        const bidIncrement = 5;
-        const minBid = bidIncrement > 0 ? (listing.highestBid + bidIncrement) : (listing.highestBid + 1);
-        if(newBid < minBid) {
-            setBidError(`Bid must be at least ${minBid} CRO`);
-        } else {
-            setBidError(false);
-        }
-
-        // // calculated total cost and compare to user balance
-        // if(newBid > user.balance) {
-        //     setBidError('Not enough balance to bid');
-        // } else {
-        //     setBidError('');
-        // }
-    }
-
-    const showBidDialog = () => async () => {
-        setOpenCheckout(true);
-    }
-
-    const executeBid = () => async () => {
-        await runFunction(async (writeContract) => {
-            let bid = ethers.utils.parseUnits(bidAmount.toString());
-            console.log('placing bid...', listing.auctionId, listing.auctionHash, bid.toString());
-            return (await writeContract.bid(listing.auctionHash, {
-                'value' : bid
-            })).wait();
-        })
-    }
-
-    const executeWithdrawBid = () => async () => {
-        await runFunction(async (writeContract) => {
-            console.log('withdrawing bid...', listing.auctionId, listing.auctionHash);
-            return (await writeContract.withdraw(listing.auctionHash)).wait();
-        })
-    }
-
-    const executeStartAuction = () => async () => {
-        await runFunction(async (writeContract) => {
-            console.log('starting auction...', listing.auctionId, listing.auctionHash);
-            return (await writeContract.start(listing.auctionHash)).wait();
-        })
-    }
-
-    const executeCancelAuction = () => async () => {
-        await runFunction(async (writeContract) => {
-            console.log('cancelling auction...', listing.auctionId, listing.auctionHash);
-            return (await writeContract.cancel(listing.auctionHash)).wait();
-        })
-    }
-
-    const executeIncreaseAuctionTime = (minutes) => async () => {
-        await runFunction(async (writeContract) => {
-            console.log(`adding ${minutes}m to the auction time...`, listing.auctionId, listing.auctionHash);
-            return (await writeContract.updateRuntime(listing.auctionHash, minutes)).wait();
-        })
-    }
-
-    const runFunction = async(fn) => {
-        if(user.address){
-            try{
-                let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
-                const receipt = await fn(writeContract)
-                toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-                dispatch(getAuctionDetails(id));
-            }catch(error){
-                if(error.data){
-                    toast.error(error.data.message);
-                } else if(error.message){
-                    toast.error(error.message);
-                } else {
-                    console.log(error);
-                    toast.error("Unknown Error");
-                }
-            }
-        } else{
-            if(user.needsOnboard){
-                const onboarding = new MetaMaskOnboarding();
-                onboarding.startOnboarding();
-            } else if(!user.address){
-                dispatch(connectAccount());
-            } else if(!user.correctChain){
-                dispatch(chainConnect());
-            }
-        }
-    }
-
-    const BuyerButtons = (props) => {
-        const isHighestBidder = bidHistory[0] && caseInsensitiveCompare(user.address, bidHistory[0].bidder);
-        const hasEnded = ![auctionState.NOT_STARTED, auctionState.ACTIVE].includes(listing.state);
-        return (
-            <Card className="mb-4 border-1 shadow" style={{color: '#141619', borderColor: '#cdcfcf'}}>
-                <Card.Body>
-                    <div className="d-flex flex-row justify-content-between">
-                        <div className={`my-auto fw-bold ${listing.state !== auctionState.ACTIVE ? 'mx-auto' : ''}`} style={{color:'#000'}}>
-                            {listing.state === auctionState.NOT_STARTED &&
-                                <>Starting Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
-                            }
-                            {listing.state === auctionState.ACTIVE &&
-                                <>Current Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
-                            }
-                            {listing.state === auctionState.SOLD &&
-                                <>AUCTION HAS BEEN SOLD</>
-                            }
-                            {listing.state === auctionState.CANCELLED &&
-                                <>AUCTION HAS BEEN CANCELLED</>
-                            }
-                        </div>
-                        {listing.state === auctionState.ACTIVE &&
-                            <>
-                                {user.address ?
-                                    <>
-                                        {user.correctChain ?
-                                            <>
-                                                {listing.state === auctionState.ACTIVE && !isHighestBidder &&
-                                                <button className="btn-main lead mr15"
-                                                        onClick={showBidDialog()}>Place Bid
-                                                </button>
-                                                }
-                                                {listing.state === auctionState.ACTIVE && isHighestBidder &&
-                                                <button className='btn-main lead mr15'
-                                                        onClick={executeWithdrawBid()}>Withdraw Bid
-                                                </button>
-                                                }
-                                            </>
-                                            :
-                                            <>
-                                                <span className="my-auto">Switch network to bid</span>
-                                            </>
-                                        }
-                                    </>
-                                    :
-                                    <>
-                                        <span className="my-auto">Connect wallet above to place bid</span>
-                                    </>
-                                }
-                            </>
-                        }
-                    </div>
-                </Card.Body>
-            </Card>
-        );
-    };
-
-    const SellerButtons = (props) => {
-        const hasEnded = new Date(listing.endsAt) < Date.now();
-        const awaitingAcceptance = hasEnded
-        return (
-            <div className="mt-4">
-                <h4>Seller Options</h4>
-                <div className="d-flex flex-row justify-content-between">
-                    {user.address ?
-                        <>
-                            {listing.state === auctionState.NOT_STARTED &&
-                                <button className='btn-main lead mb-5 mr15'
-                                        onClick={executeStartAuction()}>Start Auction
-                                </button>
-                            }
-                            {listing.state === auctionState.ACTIVE &&
-                                <>
-                                    <button className='btn-main lead mb-5 mr15'
-                                            onClick={executeCancelAuction()}>Cancel
-                                    </button>
-                                    <button className='btn-main lead mb-5 mr15'
-                                            onClick={executeIncreaseAuctionTime(5)}>Increase Time (5m)
-                                    </button>
-                                </>
-                            }
-                            {listing.state === auctionState.ACTIVE && hasEnded &&
-                                <button className='btn-main lead mb-5 mr15'
-                                        onClick={showBidDialog()}>Accept Bid
-                                </button>
-                            }
-                        </>
-                        :
-                        <>
-                            <span>Connect wallet above to manage auction</span>
-                        </>
-                    }
-                </div>
-            </div>
-        )
-    };
-
     return (
         <div>
             <GlobalStyles/>
@@ -317,7 +124,7 @@ const Auction = () => {
                                     }
 
                                     {caseInsensitiveCompare(user.address, listing.seller) &&
-                                        <SellerButtons state={listing.state} />
+                                        <SellerActionBar />
                                     }
                                 </>
                             }
@@ -329,7 +136,7 @@ const Auction = () => {
                                 <h2>{listing.nft.name}</h2>
                                 <p>{listing.nft.description}</p>
                                 <div className="row">
-                                    <BuyerButtons />
+                                    <BuyerActionBar />
                                 </div>
                                 <div className="row">
                                     <div className="col">
@@ -542,41 +349,6 @@ const Auction = () => {
                     </div>
                 </section>
             }
-
-        { openCheckout && user &&
-        <div className='checkout'>
-            <div className='maincheckout'>
-                <button className='btn-close' onClick={() => setOpenCheckout(false)}>x</button>
-                <div className='heading'>
-                    <h3>Place Bid</h3>
-                </div>
-                <p>Your bid must be at least {listing.highestBid + minimumBid} CRO</p>
-                <div className='heading mt-3'>
-                    <p>Your bid (CRO)</p>
-                    <div className='subtotal'>
-                        <Form.Control
-                          type="text"
-                          placeholder="Enter Enter Bid"
-                          onChange={handleChangeBidAmount}
-                        />
-                    </div>
-                </div>
-                {bidError &&
-                    <div
-                      className='error'
-                      style={{
-                          color: 'red',
-                          marginLeft: '5px',
-                      }}
-                    >
-                        {bidError}
-                    </div>
-                }
-                <button className='btn-main lead mb-5' onClick={executeBid()} disabled={!!bidError}>Confirm Bid</button>
-            </div>
-        </div>
-        }
-
         </div>
     );
 }
