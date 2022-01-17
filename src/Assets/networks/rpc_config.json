@@ -708,6 +708,21 @@
             "address" : "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
             "onChain" : false,
             "listable" : false
+        },
+        {
+            "name" : "Cronos goats",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos goats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/goats/avatar.gif",
+                "card": "/img/collections/goats/preview_banner.png",
+                "banner": "/img/collections/goats/banner.png"
+            }
         }
     ],
     "drops": [
@@ -902,6 +917,33 @@
             "referral": false,
             "is1155": false,
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
+        },
+        {
+            "id": 10,
+            "slug": "Cronos goats",
+            "imgNft": "/img/drops/goats/drop.png",
+            "imgPreview": "/img/drops/goats/drop.png",
+            "imgAvatar" : "/img/collections/goats/avatar.gif",
+            "imgBanner" : "/img/collections/goats/banner.png",
+            "title": "Cronos goats",
+            "subtitle": "",
+            "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
+            "author": { "name": "Cronos goats", "link": "https://www.cronogoat.com/"},
+            "address": "",
+            "maxMintPerTx": 10,
+            "totalSupply": 1000,
+            "cost": "168",
+            "memberCost": "218",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _amount) external payable",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint, bool) external"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
         }
     ]
 }
