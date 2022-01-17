@@ -7,6 +7,8 @@ import config from "../../Assets/networks/rpc_config.json";
 import AuctionContract from "../../Contracts/Auction.json";
 import {toast} from "react-toastify";
 import {createSuccessfulTransactionToastContent} from "../../utils";
+import {ERC721} from "../../Contracts/Abis";
+import {Spinner} from "react-bootstrap";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -17,16 +19,47 @@ const CreateAuction = () => {
     const [nftAddress, setNftAddress] = useState("");
     const [nftId, setNftId] = useState("");
     const [startingBid, setStartingBid] = useState("");
+    const [executing, setExecuting] = useState(false);
 
     async function onCreatePressed() {
+        if (!nftAddress || !nftId || !startingBid) return;
+
         let bid = ethers.utils.parseUnits(startingBid);
-        let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
         console.log('writing...', nftAddress, nftId, bid);
         try {
-            const tx = await writeContract.createAuction(nftAddress, nftId, bid);
+            setExecuting(true);
+            await setApprovalForAll();
+            const tx = await user.auctionContract.createAuction(nftAddress, nftId, bid);
             const receipt = await tx.wait();
             toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
+            setNftAddress("");
+            setNftId("")
+            setStartingBid("");
         } catch (error) {
+            if(error.data){
+                toast.error(error.data.message);
+            } else if(error.message){
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        } finally {
+            setExecuting(false);
+        }
+    }
+
+    const setApprovalForAll = async() => {
+        console.log()
+        try{
+            const isApproved = await user.auctionContract.isApproved(nftAddress, user.address);
+            console.log('approved?', isApproved);
+            if (!isApproved) {
+                let writeContract = await new ethers.Contract(nftAddress, ERC721, user.provider.getSigner());
+                let tx = await writeContract.setApprovalForAll(user.auctionContract.address, true);
+                await tx.wait();
+            }
+        }catch(error){
             if(error.data){
                 toast.error(error.data.message);
             } else if(error.message){
@@ -71,8 +104,19 @@ const CreateAuction = () => {
                     />
                 </form>
                 <br />
-                <button id="mintButton" className="btn-main" onClick={onCreatePressed}>
-                    Create
+                <button id="mintButton" className="btn-main" onClick={onCreatePressed} disabled={executing}>
+                    {executing ?
+                        <>
+                            Creating
+                            <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </>
+                        :
+                        <>
+                            Create
+                        </>
+                    }
                 </button>
             </div>
         </div>

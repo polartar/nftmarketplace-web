@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import {getAuctionDetails, auctionUpdated} from "../../GlobalState/auctionSlice";
 import {
     caseInsensitiveCompare,
@@ -13,15 +13,32 @@ import {useParams, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
-import {Form, Spinner} from "react-bootstrap"
+import {Card, Form, Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
 import AuctionContract from '../../Contracts/Auction.json'
 import {auctionState} from "../../core/api/enums";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck, faCircle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
+import LayeredIcon from "../components/LayeredIcon";
+import auctionConfig from "../../core/configs/auction.json";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
+`;
+
+const VerifiedIcon = styled.span`
+  font-size: 8px;
+  color: #ffffff;
+  background: $color;
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
 `;
 
 const Auction = () => {
@@ -76,37 +93,31 @@ const Auction = () => {
         setOpenMenu(index);
     };
 
-    const serviceFee = 0.025;
     const [bidAmount, setBidAmount] = useState(0);
-    const [bidFee, setBidFee] = useState(0);
-    const [bidAmountTotal, setBidAmountTotal] = useState(0);
+    const [minimumBid, setMinimumBid] = useState(1);
     const [bidError, setBidError] = useState('');
 
     const handleChangeBidAmount = (event) => {
         const { value } = event.target;
         const newBid = parseFloat(value);
         setBidAmount(newBid);
-        setBidFee(calculateServiceFee(newBid));
-        setBidAmountTotal(calculateTotal(newBid));
 
         // test if bid is gte than current highest bid
-        if(newBid <= listing.highestBid) {
-            setBidError('Bid must be higher than current highest bid');
+        const bidIncrement = auctionConfig.bid.increments.find(i => i.min >= listing.highestBid).increment;
+        const minBid = bidIncrement > 0 ? (listing.highestBid + bidIncrement) : (listing.highestBid + 1);
+        if(newBid < minBid) {
+            setBidError(`Bid must be at least ${minBid} CRO`);
         } else {
-            setBidError('');
+            setBidError(false);
         }
 
-        // calculated total cost and compare to user balance
-        if(calculateTotal(newBid) > user.marketBalance) {
-            setBidError('Not enough balance to bid');
-        } else {
-            setBidError('');
-        }
-
+        // // calculated total cost and compare to user balance
+        // if(newBid > user.balance) {
+        //     setBidError('Not enough balance to bid');
+        // } else {
+        //     setBidError('');
+        // }
     }
-
-    const calculateServiceFee = amount => amount * serviceFee;
-    const calculateTotal = amount => amount + calculateServiceFee(amount);
 
     const showBidDialog = () => async () => {
         setOpenCheckout(true);
@@ -114,7 +125,7 @@ const Auction = () => {
 
     const executeBid = () => async () => {
         await runFunction(async (writeContract) => {
-            let bid = ethers.utils.parseUnits(bidAmount);
+            let bid = ethers.utils.parseUnits(bidAmount.toString());
             console.log('placing bid...', listing.auctionId, listing.auctionHash, bid.toString());
             return await writeContract.bid(listing.auctionHash, {
                 'value' : bid
@@ -154,7 +165,7 @@ const Auction = () => {
         if(user.address){
             try{
                 let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
-                const receipt = await fn(writeContract);
+                const receipt = (await fn(writeContract)).wait();
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             }catch(error){
                 if(error.data){
@@ -181,29 +192,50 @@ const Auction = () => {
     const BuyerButtons = (props) => {
         const isHighestBidder = bidHistory[0] && caseInsensitiveCompare(user.address, bidHistory[0].bidder);
         return (
-            <div className="mt-4">
-                <h4>Buyer Options</h4>
-                <div className="d-flex flex-row justify-content-between">
-                    {user.address ?
-                        <>
-                            {listing.state === auctionState.ACTIVE && !isHighestBidder &&
-                                <button className='btn-main lead mb-5 mr15'
-                                        onClick={showBidDialog()}>Place Bid
-                                </button>
+            <Card className="mb-4 border-1 shadow" style={{color: '#141619', borderColor: '#cdcfcf'}}>
+                <Card.Body>
+                    <div className="d-flex flex-row justify-content-between">
+                        <div className="my-auto fw-bold" style={{color:'#000'}}>
+                            {listing.state === auctionState.NOT_STARTED ?
+                                <>
+                                    Starting Bid:
+                                </>
+                                :
+                                <>
+                                    Current Bid:
+                                </>
                             }
-                            {listing.state === auctionState.ACTIVE && isHighestBidder &&
-                                <button className='btn-main lead mb-5 mr15'
-                                        onClick={executeWithdrawBid()}>Withdraw Bid
-                                </button>
-                            }
-                        </>
-                        :
-                        <>
-                            <span>Connect wallet above to place bid</span>
-                        </>
-                    }
-                </div>
-            </div>
+                            <span className="fs-3 ms-1">0.5 CRO</span>
+                        </div>
+                        {user.address ?
+                            <>
+                                {user.correctChain ?
+                                    <>
+                                        {listing.state === auctionState.ACTIVE && !isHighestBidder &&
+                                            <button className="btn-main lead mr15"
+                                                    onClick={showBidDialog()}>Place Bid
+                                            </button>
+                                        }
+                                        {listing.state === auctionState.ACTIVE && isHighestBidder &&
+                                            <button className='btn-main lead mr15'
+                                                    onClick={executeWithdrawBid()}>Withdraw Bid
+                                            </button>
+                                        }
+                                    </>
+                                    :
+                                    <>
+                                        <span className="my-auto">Switch network to bid</span>
+                                    </>
+                                }
+                            </>
+                            :
+                            <>
+                                <span className="my-auto">Connect wallet above to place bid</span>
+                            </>
+                        }
+                    </div>
+                </Card.Body>
+            </Card>
         );
     };
 
@@ -270,15 +302,12 @@ const Auction = () => {
                                     {listing.nft.original_image &&
                                         <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
                                             <span onClick={() => window.open(fullImage(), "_blank")}>
-                                                View Full Image <i className="fa fa-external-link"></i>
+                                                <span className='p-2'>View Full Image</span>
+                                                <FontAwesomeIcon icon={faExternalLinkAlt} />
                                             </span>
                                         </div>
                                     }
 
-                                    <p className="mt-2">Current bid: {ethers.utils.commify(listing.highestBid)} CRO</p>
-                                    {!caseInsensitiveCompare(user.address, listing.seller) &&
-                                        <BuyerButtons state={listing.state} />
-                                    }
                                     {caseInsensitiveCompare(user.address, listing.seller) &&
                                         <SellerButtons state={listing.state} />
                                     }
@@ -291,6 +320,9 @@ const Auction = () => {
                             <div className="item_info">
                                 <h2>{listing.nft.name}</h2>
                                 <p>{listing.nft.description}</p>
+                                <div className="row">
+                                    <BuyerButtons />
+                                </div>
                                 <div className="row">
                                     <div className="col">
                                         <h6>Seller</h6>
@@ -319,7 +351,12 @@ const Auction = () => {
                                                                 <Blockies seed={listing.nftAddress} size={10} scale={5}/>
                                                             }
                                                             {collectionMetadata?.verified &&
-                                                                <i className="fa fa-check"></i>
+                                                                <VerifiedIcon>
+                                                                    <LayeredIcon
+                                                                        icon={faCheck}
+                                                                        bgIcon={faCircle}
+                                                                    />
+                                                                </VerifiedIcon>
                                                             }
                                                     </span>
                                                 </div>
@@ -490,14 +527,6 @@ const Auction = () => {
                                         </div>
                                         }
 
-                                        {/* button for checkout */}
-                                        {listing.state === auctionState.ACTIVE &&
-                                            <div className="d-flex flex-row mt-5">
-                                                <button className='btn-main lead mb-5 mr15'
-                                                        onClick={showBidDialog()}>Place Bid
-                                                </button>
-                                            </div>
-                                        }
                                         {listing.state === auctionState.SOLD_OR_CANCELLED &&
                                             <div className="mt-5">
                                                 AUCTION HAS BEEN SOLD
@@ -529,9 +558,9 @@ const Auction = () => {
                 <div className='heading'>
                     <h3>Place Bid</h3>
                 </div>
-                <p>Add form here to place bid</p>
+                <p>Your bid must be at least {listing.highestBid + minimumBid} CRO</p>
                 <div className='heading mt-3'>
-                    <p>Your bid</p>
+                    <p>Your bid (CRO)</p>
                     <div className='subtotal'>
                         <Form.Control
                           type="text"
@@ -551,19 +580,7 @@ const Auction = () => {
                         {bidError}
                     </div>
                 }
-                <div className='heading'>
-                    <p>Service fee 2.5%</p>
-                    <div className='subtotal'>
-                        {bidAmount ? bidFee.toFixed(4) : 0} CRO
-                    </div>
-                </div>
-                <div className='heading'>
-                    <p>You will pay</p>
-                    <div className='subtotal'>
-                        {bidAmount ? bidAmountTotal.toFixed(4) : 0} CRO
-                    </div>
-                </div>
-                <button className='btn-main lead mb-5' onClick={() => executeBid()} disabled={bidError !== ''}>Confirm Bid</button>
+                <button className='btn-main lead mb-5' onClick={executeBid()} disabled={!!bidError}>Confirm Bid</button>
             </div>
         </div>
         }

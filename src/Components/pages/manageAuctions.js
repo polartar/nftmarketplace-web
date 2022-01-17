@@ -29,7 +29,6 @@ const ManageAuctions = () => {
         element.target.parentElement.classList.add("active");
 
         setOpenMenu(index);
-        console.log(openMenu, index);
     };
 
     async function onCreatePressed() {

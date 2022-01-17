@@ -17,7 +17,7 @@ const Outer = styled.div`
 const AuctionCard = ({ listing, imgClass = 'marketplace' }) => {
 
     return (
-        <Link className="linkPointer" to={`/auction/${listing.auctionId}`}>
+        <Link className="linkPointer" to={`/auctions/${listing.auctionId}`}>
             <div className="card eb-nft__card h-100 shadow">
                 <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
                 {listing.nft.rank ?
