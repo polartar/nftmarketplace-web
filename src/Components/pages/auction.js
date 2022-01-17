@@ -127,37 +127,37 @@ const Auction = () => {
         await runFunction(async (writeContract) => {
             let bid = ethers.utils.parseUnits(bidAmount.toString());
             console.log('placing bid...', listing.auctionId, listing.auctionHash, bid.toString());
-            return await writeContract.bid(listing.auctionHash, {
+            return (await writeContract.bid(listing.auctionHash, {
                 'value' : bid
-            });
+            })).wait();
         })
     }
 
     const executeWithdrawBid = () => async () => {
         await runFunction(async (writeContract) => {
             console.log('withdrawing bid...', listing.auctionId, listing.auctionHash);
-            return await writeContract.withdraw(listing.auctionHash);
+            return (await writeContract.withdraw(listing.auctionHash)).wait();
         })
     }
 
     const executeStartAuction = () => async () => {
         await runFunction(async (writeContract) => {
             console.log('starting auction...', listing.auctionId, listing.auctionHash);
-            return await writeContract.start(listing.auctionHash);
+            return (await writeContract.start(listing.auctionHash)).wait();
         })
     }
 
     const executeCancelAuction = () => async () => {
         await runFunction(async (writeContract) => {
             console.log('cancelling auction...', listing.auctionId, listing.auctionHash);
-            return await writeContract.cancel(listing.auctionHash);
+            return (await writeContract.cancel(listing.auctionHash)).wait();
         })
     }
 
     const executeIncreaseAuctionTime = (minutes) => async () => {
         await runFunction(async (writeContract) => {
             console.log(`adding ${minutes}m to the auction time...`, listing.auctionId, listing.auctionHash);
-            return await writeContract.updateRuntime(listing.auctionHash, minutes);
+            return (await writeContract.updateRuntime(listing.auctionHash, minutes)).wait();
         })
     }
 
@@ -165,8 +165,9 @@ const Auction = () => {
         if(user.address){
             try{
                 let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
-                const receipt = (await fn(writeContract)).wait();
+                const receipt = await fn(writeContract)
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
+                dispatch(getAuctionDetails(id));
             }catch(error){
                 if(error.data){
                     toast.error(error.data.message);
@@ -191,46 +192,53 @@ const Auction = () => {
 
     const BuyerButtons = (props) => {
         const isHighestBidder = bidHistory[0] && caseInsensitiveCompare(user.address, bidHistory[0].bidder);
+        const hasEnded = ![auctionState.NOT_STARTED, auctionState.ACTIVE].includes(listing.state);
         return (
             <Card className="mb-4 border-1 shadow" style={{color: '#141619', borderColor: '#cdcfcf'}}>
                 <Card.Body>
                     <div className="d-flex flex-row justify-content-between">
-                        <div className="my-auto fw-bold" style={{color:'#000'}}>
-                            {listing.state === auctionState.NOT_STARTED ?
-                                <>
-                                    Starting Bid:
-                                </>
-                                :
-                                <>
-                                    Current Bid:
-                                </>
+                        <div className={`my-auto fw-bold ${listing.state !== auctionState.ACTIVE ? 'mx-auto' : ''}`} style={{color:'#000'}}>
+                            {listing.state === auctionState.NOT_STARTED &&
+                                <>Starting Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
                             }
-                            <span className="fs-3 ms-1">0.5 CRO</span>
+                            {listing.state === auctionState.ACTIVE &&
+                                <>Current Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
+                            }
+                            {listing.state === auctionState.SOLD &&
+                                <>AUCTION HAS BEEN SOLD</>
+                            }
+                            {listing.state === auctionState.CANCELLED &&
+                                <>AUCTION HAS BEEN CANCELLED</>
+                            }
                         </div>
-                        {user.address ?
+                        {listing.state === auctionState.ACTIVE &&
                             <>
-                                {user.correctChain ?
+                                {user.address ?
                                     <>
-                                        {listing.state === auctionState.ACTIVE && !isHighestBidder &&
-                                            <button className="btn-main lead mr15"
-                                                    onClick={showBidDialog()}>Place Bid
-                                            </button>
-                                        }
-                                        {listing.state === auctionState.ACTIVE && isHighestBidder &&
-                                            <button className='btn-main lead mr15'
-                                                    onClick={executeWithdrawBid()}>Withdraw Bid
-                                            </button>
+                                        {user.correctChain ?
+                                            <>
+                                                {listing.state === auctionState.ACTIVE && !isHighestBidder &&
+                                                <button className="btn-main lead mr15"
+                                                        onClick={showBidDialog()}>Place Bid
+                                                </button>
+                                                }
+                                                {listing.state === auctionState.ACTIVE && isHighestBidder &&
+                                                <button className='btn-main lead mr15'
+                                                        onClick={executeWithdrawBid()}>Withdraw Bid
+                                                </button>
+                                                }
+                                            </>
+                                            :
+                                            <>
+                                                <span className="my-auto">Switch network to bid</span>
+                                            </>
                                         }
                                     </>
                                     :
                                     <>
-                                        <span className="my-auto">Switch network to bid</span>
+                                        <span className="my-auto">Connect wallet above to place bid</span>
                                     </>
                                 }
-                            </>
-                            :
-                            <>
-                                <span className="my-auto">Connect wallet above to place bid</span>
                             </>
                         }
                     </div>
@@ -525,22 +533,6 @@ const Auction = () => {
                                             }
 
                                         </div>
-                                        }
-
-                                        {listing.state === auctionState.SOLD_OR_CANCELLED &&
-                                            <div className="mt-5">
-                                                AUCTION HAS BEEN SOLD
-                                            </div>
-                                        }
-                                        {listing.state === auctionState.CANCELLED &&
-                                            <div className="mt-5">
-                                                AUCTION HAS BEEN CANCELLED
-                                            </div>
-                                        }
-                                        {listing.state === auctionState.NOT_STARTED &&
-                                            <div className="mt-5">
-                                                AUCTION HAS NOT STARTED
-                                            </div>
                                         }
                                     </div>
                                 </div>
