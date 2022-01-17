@@ -22,7 +22,6 @@ import {auctionState} from "../../core/api/enums";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faCircle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import LayeredIcon from "../components/LayeredIcon";
-import auctionConfig from "../../core/configs/auction.json";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -103,7 +102,8 @@ const Auction = () => {
         setBidAmount(newBid);
 
         // test if bid is gte than current highest bid
-        const bidIncrement = auctionConfig.bid.increments.find(i => i.min >= listing.highestBid).increment;
+        // const bidIncrement = auctionConfig.bid.increments.find(i => i.min >= listing.highestBid).increment;
+        const bidIncrement = 5;
         const minBid = bidIncrement > 0 ? (listing.highestBid + bidIncrement) : (listing.highestBid + 1);
         if(newBid < minBid) {
             setBidError(`Bid must be at least ${minBid} CRO`);
