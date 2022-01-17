@@ -235,6 +235,33 @@
             "end": null,
             "referral": false,
             "is1155": false
+        },
+        {
+            "id": 9,
+            "slug": "Cronos goats",
+            "imgNft": "/img/drops/cronosgoats/drop.png",
+            "imgPreview": "/img/drops/cronosgoats/drop.png",
+            "imgAvatar" : "/img/collections/cronosgoats/avatar.gif",
+            "imgBanner" : "/img/collections/cronosgoats/banner.png",
+            "title": "Cronos goats",
+            "subtitle": "",
+            "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
+            "author": { "name": "Cronos goats", "link": "https://www.cronogoat.com/"},
+            "address": "0xF313649E3DD661b09D511257A7E77F4e6b12d1fA",
+            "maxMintPerTx": 10,
+            "totalSupply": 1000,
+            "cost": "15",
+            "memberCost": "10",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _amount) external payable",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint, bool) external"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
         }
     ]
 }
