@@ -1,34 +1,20 @@
 import React, { memo, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import {humanize, shortAddress, timeSince} from "../../utils";
 import {useParams, useHistory, Link} from "react-router-dom";
 import {getNftDetails} from "../../GlobalState/nftSlice";
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
 import {ethers} from "ethers";
-import LayeredIcon from "../components/LayeredIcon";
-import { faCheck, faCircle, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ProfilePreview from "../components/ProfilePreview";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
 `;
-
-const VerifiedIcon = styled.span`
-  font-size: 8px;
-  color: #ffffff;
-  background: $color;
-  border-radius: 100%;
-  -moz-border-radius: 100%;
-  -webkit-border-radius: 100%;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  z-index: 2;
-`;
-
 
 const Nft = () => {
     const { address, id } = useParams();
@@ -101,48 +87,22 @@ const Nft = () => {
                         <div className="item_info">
                             <h2>{nft.name}</h2>
                             <p>{nft.description}</p>
-                            <div className="row">
-                                <div className="col">
-                                    <h6>Collection</h6>
-                                    <div className="item_author">
-                                        <Link to={`/collection/${address}`}>
-                                            <div className="author_list_pp bg-danger">
-                                                <span>
-                                                    {collectionMetadata?.avatar ?
-                                                        <img className="lazy" src={collectionMetadata.avatar} alt=""/>
-                                                        :
-                                                        <Blockies seed={address} size={10} scale={5}/>
-                                                    }
-                                                    {collectionMetadata?.verified &&
-                                                        <VerifiedIcon>
-                                                            <LayeredIcon
-                                                                icon={faCheck}
-                                                                bgIcon={faCircle}
-                                                                shrink={8}
-                                                            />
-                                                        </VerifiedIcon>
-                                                    }
-                                                </span>
-                                            </div>
-                                        </Link>
-                                        <div className="author_list_info">
-                                            <span>{collectionName ?? "View Collection"}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="row" style={{gap: '2rem 0'}}>
+
+                                <ProfilePreview
+                                    type='Collection'
+                                    title={collectionName ?? 'View Collection'}
+                                    avatar={collectionMetadata?.avatar}
+                                    address={address}
+                                    verified={collectionMetadata?.verified}
+                                    to={`/collection/${address}`}
+                                />
+
                                 {(typeof nft.rank !== 'undefined' && nft.rank !== null) &&
-                                <div className="col">
-                                    {collectionMetadata?.rarity ?
-                                        <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
-                                        :
-                                        <h6>Rarity Rank</h6>
-                                    }
-                                    <div className="item_author">
-                                        <div className="author_list_info">
-                                            <span>{nft.rank}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <ProfilePreview
+                                        type={collectionMetadata?.rarity ? `${humanize(collectionMetadata.rarity)} Rank` : 'Rarity Rank'}
+                                        title={nft.rank}
+                                    />
                                 }
                             </div>
 
