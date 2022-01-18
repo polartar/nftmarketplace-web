@@ -16,6 +16,9 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const MyNfts = () => {
+
+    const EBISUSBAY_ADDRESS = '0x3F1590A5984C89e6d5831bFB76788F3517Cdf034';
+
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
@@ -60,7 +63,24 @@ const MyNfts = () => {
             return;
         }
 
-        const filteredNfts = nftsToFilter.filter(nft => filterOption.getOptionValue === nft.address);
+        const filteredNfts = nftsToFilter.filter(nft => {
+            const isSameAddress = filterOption.getOptionValue === nft.address;
+
+            //  Separate Founder and VIP collections in MyNFTs filter
+            if (nft.address !== EBISUSBAY_ADDRESS) {
+                return isSameAddress;
+            }
+
+            const hasId = !!nft.id;
+
+            if (!hasId) {
+                return isSameAddress;
+            }
+
+            const isSameId = filterOption.id === nft.id;
+
+            return isSameId && isSameAddress;
+        });
 
         const filteredAndListedNfts = filteredNfts.filter(nft => nft.listed);
 

@@ -2,6 +2,7 @@ export class FilterOption {
     type = 'collection';
     address = null;
     name = 'All';
+    id = null;
 
     get getOptionLabel() {
         return this.name;
@@ -11,11 +12,12 @@ export class FilterOption {
         return this.address;
     }
 
-    static fromJson({ address, name }) {
+    static fromJson({ address, name, id = null }) {
         const filterOption = new FilterOption();
 
         filterOption.address = address;
         filterOption.name = name;
+        filterOption.id = id;
 
         return filterOption;
     }
