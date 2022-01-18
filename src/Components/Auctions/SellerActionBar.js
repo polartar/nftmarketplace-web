@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import { createGlobalStyle } from 'styled-components';
@@ -18,8 +18,11 @@ import {chainConnect, connectAccount} from "../../GlobalState/User";
 const SellerActionBar = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+    const [awaitingAcceptace, setAwaitingAcceptace] = useState(false);
+    const [isComplete, setIsComplete] = useState(false);
     const [executingStart, setExecutingStart] = useState(false);
     const [executingCancel, setExecutingCancel] = useState(false);
+    const [executingAcceptBid, setExecutingAcceptBid] = useState(false);
     const listing = useSelector((state) => state.auction.auction)
 
     const executeStartAuction = () => async () => {
@@ -38,6 +41,15 @@ const SellerActionBar = () => {
             return (await writeContract.cancel(listing.auctionHash)).wait();
         })
         setExecutingCancel(false);
+    }
+
+    const executeAcceptBid = () => async () => {
+        setExecutingAcceptBid(true);
+        await runFunction(async (writeContract) => {
+            console.log('accepting highest bid...', listing.auctionId, listing.auctionHash, listing.highestBidder);
+            return (await writeContract.accept(listing.auctionHash)).wait();
+        })
+        setExecutingAcceptBid(false);
     }
 
     const executeIncreaseAuctionTime = (minutes) => async () => {
@@ -76,8 +88,11 @@ const SellerActionBar = () => {
         }
     }
 
-    const hasEnded = new Date(listing.endsAt) < Date.now();
-    const awaitingAcceptance = hasEnded
+    useEffect(() => {
+        setAwaitingAcceptace(listing.state === auctionState.ACTIVE && listing.endAt < Date.now());
+        setIsComplete(listing.state === auctionState.SOLD || listing.state === auctionState.CANCELLED)
+    }, [listing]);
+
     return (
         <div className="mt-4">
             <h4>Seller Options</h4>
@@ -101,7 +116,7 @@ const SellerActionBar = () => {
                             }
                         </button>
                         }
-                        {listing.state === auctionState.ACTIVE &&
+                        {!awaitingAcceptace && !isComplete &&
                         <>
                             <button className='btn-main lead mb-5 mr15'
                                     onClick={executeCancelAuction()} disabled={executingCancel}>
@@ -123,9 +138,21 @@ const SellerActionBar = () => {
                             </button>
                         </>
                         }
-                        {listing.state === auctionState.ACTIVE && hasEnded &&
-                        <button className='btn-main lead mb-5 mr15'>Accept Bid
-                        </button>
+                        {awaitingAcceptace && !isComplete &&
+                            <button className='btn-main lead mb-5 mr15' onClick={executeAcceptBid()} disabled={executingAcceptBid}>
+                                {executingAcceptBid ?
+                                    <>
+                                        Accepting Bid
+                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    </>
+                                    :
+                                    <>
+                                        Accept Bid
+                                    </>
+                                }
+                            </button>
                         }
                     </>
                     :

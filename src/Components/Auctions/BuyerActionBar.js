@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import { createGlobalStyle } from 'styled-components';
@@ -13,10 +13,24 @@ import {auctionState} from "../../core/api/enums";
 import {getAuctionDetails} from "../../GlobalState/auctionSlice";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import {chainConnect, connectAccount} from "../../GlobalState/User";
+import Clock from "../components/Clock";
+import Countdown from "react-countdown";
 
 
 const BuyerActionBar = () => {
     const dispatch = useDispatch();
+
+    const [bidAmount, setBidAmount] = useState(0);
+    const [minimumBid, setMinimumBid] = useState(1);
+    const [bidError, setBidError] = useState('');
+    const [awaitingAcceptance, setAwaitingAcceptance] = useState(() => {
+        console.log('heyy');
+        return false;
+    });
+    const [isComplete, setIsComplete] = useState(false);
+    const [executingBid, setExecutingBid] = useState(false);
+    const [executingWithdraw, setExecutingWithdraw] = useState(false);
+
     const user = useSelector((state) => state.user);
     const bidHistory = useSelector((state) => state.auction.bidHistory.filter(i => !i.withdrawn))
     const listing = useSelector((state) => state.auction.auction)
@@ -80,11 +94,12 @@ const BuyerActionBar = () => {
         }
     }
 
-    const [bidAmount, setBidAmount] = useState(0);
-    const [minimumBid, setMinimumBid] = useState(1);
-    const [bidError, setBidError] = useState('');
-    const [executingBid, setExecutingBid] = useState(false);
-    const [executingWithdraw, setExecutingWithdraw] = useState(false);
+    useEffect(async () => {
+        // @todo set minimum bid
+        setAwaitingAcceptance(listing.state === auctionState.ACTIVE && listing.endAt < Date.now());
+        setIsComplete(listing.state === auctionState.SOLD || listing.state === auctionState.CANCELLED)
+    }, [listing]);
+
 
     const handleChangeBidAmount = (event) => {
         const { value } = event.target;
@@ -103,25 +118,33 @@ const BuyerActionBar = () => {
     }
 
     return (
-        <>
+        <div>
             <Card className="mb-4 border-1 shadow" style={{color: '#141619', borderColor: '#cdcfcf'}}>
+                {!awaitingAcceptance && !isComplete &&
+                    <div style={{background:'#DDD'}}>
+                        Ends in: <Countdown date={listing.endAt * 1000}/>
+                    </div>
+                }
                 <Card.Body>
                     <div className="d-flex flex-row justify-content-between">
-                        <div className={`my-auto fw-bold ${listing.state !== auctionState.ACTIVE ? 'mx-auto' : ''}`} style={{color:'#000'}}>
+                        <div className={`my-auto fw-bold ${awaitingAcceptance || isComplete ? 'mx-auto' : ''}`} style={{color:'#000'}}>
                             {listing.state === auctionState.NOT_STARTED &&
-                            <>Starting Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
+                                <>Starting Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
                             }
-                            {listing.state === auctionState.ACTIVE &&
-                            <>Current Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
+                            {!awaitingAcceptance && !isComplete &&
+                                <>Current Bid: <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
+                            }
+                            {awaitingAcceptance &&
+                                <>AUCTION HAS ENDED</>
                             }
                             {listing.state === auctionState.SOLD &&
-                            <>AUCTION HAS BEEN SOLD</>
+                                <>AUCTION HAS BEEN SOLD FOR {ethers.utils.commify(listing.highestBid)} CRO</>
                             }
                             {listing.state === auctionState.CANCELLED &&
-                            <>AUCTION HAS BEEN CANCELLED</>
+                                <>AUCTION HAS BEEN CANCELLED</>
                             }
                         </div>
-                        {listing.state === auctionState.ACTIVE &&
+                        {!awaitingAcceptance && !isComplete &&
                         <>
                             {user.address ?
                                 <>
@@ -211,7 +234,7 @@ const BuyerActionBar = () => {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 };
 export default BuyerActionBar;
