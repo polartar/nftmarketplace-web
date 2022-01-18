@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import Opesc from "../../Assets/opesc.jpeg"
+import Opesc from "../../Assets/opesc.jpg"
 
 const HiddenCard = () => {
     return (
