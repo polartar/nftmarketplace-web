@@ -962,7 +962,7 @@
             "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
             "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/"},
             "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
-            "maxMintPerTx": 1,
+            "maxMintPerTx": 5,
             "totalSupply": 1000,
             "cost": "218",
             "memberCost": "168",
