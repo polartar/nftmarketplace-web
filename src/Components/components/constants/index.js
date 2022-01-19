@@ -2,7 +2,7 @@ export const settings = {
   infinite: false,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToScroll: 3,
   initialSlide: 0,
   adaptiveHeight: 300,
   responsive: [

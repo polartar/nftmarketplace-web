@@ -22,7 +22,7 @@
     },
     "known_contracts" :  [
         {
-            "name": "EbisusBay VIP",
+            "name": "Ebisu's Bay VIP",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
             "multiToken" : true,
@@ -36,7 +36,7 @@
             }
         },
         {
-            "name": "EbisusBay Founder",
+            "name": "Ebisu's Bay Founder",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
             "multiToken" : true,
@@ -296,7 +296,8 @@
             "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
             "onChain" : false,
             "listable" : true
-        }, {
+        },
+        {
             "name" : "CronosEyezNFT",
             "multiToken" : false,
             "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
@@ -306,11 +307,27 @@
                 "slug": "cronoseyez",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/cronoseyez/avatar.jpg",
-                "banner": "/img/collections/cronoseyez/banner.jpg",
-                "card": "/img/collections/cronoseyez/card.jpg"
+                "avatar": "/img/collections/cronoseyez/gen1/avatar.jpg",
+                "banner": "/img/collections/cronoseyez/gen1/banner.jpg",
+                "card": "/img/collections/cronoseyez/gen1/card.jpg"
             }
-        }, {
+        },
+        {
+            "name" : "CronosEyez Gen 2",
+            "multiToken" : false,
+            "address" : "0x15730353272C88229a91804854078aa9B3A70448",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronoseyez-gen2",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronoseyez/gen2/avatar.png",
+                "banner": "/img/collections/cronoseyez/gen2/banner.png",
+                "card": "/img/collections/cronoseyez/gen2/card.png"
+            }
+        },
+        {
             "name" : "CROstmas Gnome",
             "multiToken" : false,
             "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
@@ -708,6 +725,36 @@
             "address" : "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
             "onChain" : false,
             "listable" : false
+        },
+        {
+            "name" : "Cronos Goats",
+            "multiToken" : false,
+            "address" : "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronos-goats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosgoats/avatar.gif",
+                "card": "/img/collections/cronosgoats/card.png",
+                "banner": "/img/collections/cronosgoats/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos Ragdoll",
+            "multiToken" : false,
+            "address" : "0x21E68422011a330beFdf45b0E45072c947316C95",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-ragdoll",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosragdoll/avatar.png",
+                "card": "/img/collections/cronosragdoll/card.png",
+                "banner": "/img/collections/cronosragdoll/banner.png"
+            }
         }
     ],
     "drops": [
@@ -902,6 +949,33 @@
             "referral": false,
             "is1155": false,
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
+        },
+        {
+            "id": 10,
+            "slug": "cronos-goats",
+            "imgNft": "/img/drops/cronosgoats/drop.png",
+            "imgPreview": "/img/drops/cronosgoats/drop.png",
+            "imgAvatar" : "/img/collections/cronosgoats/avatar.gif",
+            "imgBanner" : "/img/collections/cronosgoats/banner.png",
+            "title": "Cronos Goats",
+            "subtitle": "",
+            "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
+            "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/"},
+            "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
+            "maxMintPerTx": 1,
+            "totalSupply": 1000,
+            "cost": "218",
+            "memberCost": "168",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint, bool) external"
+            ],
+            "start": 1642536000000,
+            "end": null,
+            "referral": false,
+            "is1155": false
         }
     ]
 }
