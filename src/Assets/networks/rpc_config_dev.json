@@ -486,7 +486,7 @@
             "multiToken": false,
             "address": "0x70c6062100b09aF2Ec63345cda372d52423BE4aC",
             "onChain": false,
-            "listable": false,
+            "listable": true,
             "metadata": {
                 "slug": "cronos-nanas",
                 "description": "",
