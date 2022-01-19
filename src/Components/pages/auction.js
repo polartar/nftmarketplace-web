@@ -24,6 +24,7 @@ import {faCheck, faCircle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-
 import LayeredIcon from "../components/LayeredIcon";
 import BuyerActionBar from "../Auctions/BuyerActionBar";
 import SellerActionBar from "../Auctions/SellerActionBar";
+import ProfilePreview from "../components/ProfilePreview";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -138,63 +139,20 @@ const Auction = () => {
                                 <div className="row">
                                     <BuyerActionBar />
                                 </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <h6>Seller</h6>
-                                        <div className="item_author">
-                                            <Link to={`/seller/${listing.seller}`}>
-                                                <div className="author_list_pp">
-                                                    <span>
-                                                        <Blockies seed={listing.seller} size={10} scale={5}/>
-                                                    </span>
-                                                </div>
-                                                <div className="author_list_info">
-                                                    <span>{`${listing.seller.substring(0, 4)}...${listing.seller.substring(listing.seller.length-3, listing.seller.length)}`}</span>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <h6>Collection</h6>
-                                        <div className="item_author">
-                                            <Link to={`/collection/${listing.nftAddress}`}>
-                                                <div className="author_list_pp">
-                                                    <span>
-                                                            {collectionMetadata?.avatar ?
-                                                                <img className="lazy" src={collectionMetadata.avatar} alt=""/>
-                                                                :
-                                                                <Blockies seed={listing.nftAddress} size={10} scale={5}/>
-                                                            }
-                                                            {collectionMetadata?.verified &&
-                                                                <VerifiedIcon>
-                                                                    <LayeredIcon
-                                                                        icon={faCheck}
-                                                                        bgIcon={faCircle}
-                                                                    />
-                                                                </VerifiedIcon>
-                                                            }
-                                                    </span>
-                                                </div>
-                                                <div className="author_list_info">
-                                                    <span>{collectionName ?? "View Collection"}</span>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                    {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
-                                        <div className="col">
-                                            {collectionMetadata?.rarity ?
-                                                <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
-                                                :
-                                                <h6>Rarity Rank</h6>
-                                            }
-                                            <div className="item_author">
-                                                <div className="author_list_info">
-                                                    <span>{listing.nft.rank}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
+                                <div className="row" style={{gap: '2rem 0'}}>
+                                    <ProfilePreview
+                                        type='Seller'
+                                        address={listing.seller}
+                                        to={`/seller/${listing.seller}`}
+                                    />
+                                    <ProfilePreview
+                                        type='Collection'
+                                        title={collectionName ?? 'View Collection'}
+                                        avatar={collectionMetadata?.avatar}
+                                        address={listing.nftAddress}
+                                        verified={collectionMetadata?.verified}
+                                        to={`/collection/${listing.nftAddress}`}
+                                    />
                                 </div>
 
                                 <div className="spacer-40"></div>
