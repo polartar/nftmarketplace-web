@@ -20,7 +20,7 @@ import history from "./history";
 Sentry.init({
 	dsn: process.env.REACT_APP_SENTRY_DSN,
 	debug: process.env.NODE_ENV !== 'production',
-	enabled: process.env.NODE_ENV === 'production',
+	enabled: true,
 	release: 'main',
 	integrations: [
 		new Integrations.BrowserTracing({
