@@ -71,7 +71,7 @@ const BuyerActionBar = () => {
                 let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
                 const receipt = await fn(writeContract)
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-                dispatch(getAuctionDetails(listing.id));
+                dispatch(getAuctionDetails(listing.auctionId));
             }catch(error){
                 if(error.data){
                     toast.error(error.data.message);
@@ -122,7 +122,7 @@ const BuyerActionBar = () => {
             <Card className="mb-4 border-1 shadow" style={{color: '#141619', borderColor: '#cdcfcf'}}>
                 {!awaitingAcceptance && !isComplete &&
                     <div style={{background:'#DDD'}}>
-                        Ends in: <Countdown date={listing.endAt * 1000}/>
+                        Ends in: <Countdown date={listing.endAt}/>
                     </div>
                 }
                 <Card.Body>
