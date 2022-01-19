@@ -17,6 +17,9 @@ import {Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ProfilePreview from "../components/ProfilePreview";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -140,7 +143,8 @@ const Listing = () => {
                             {listing && listing.nft.original_image &&
                                 <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
                                     <span onClick={() => window.open(fullImage(), "_blank")}>
-                                        View Full Image <i className="fa fa-external-link"></i>
+                                        <span className='p-2'>View Full Image</span>
+                                        <FontAwesomeIcon icon={faExternalLinkAlt} />
                                     </span>
                                 </div>
                             }
@@ -151,57 +155,25 @@ const Listing = () => {
                                 <h2>{listing.nft.name}</h2>
                                 <h3>{ethers.utils.commify(listing.price)} CRO</h3>
                                 <p>{listing.nft.description}</p>
-                                <div className="row">
-                                    <div className="col">
-                                        <h6>Seller</h6>
-                                        <div className="item_author">
-                                            <Link to={`/seller/${listing.seller}`}>
-                                                <div className="author_list_pp">
-                                                    <span>
-                                                        <Blockies seed={listing.seller.toLowerCase()} size={10} scale={5}/>
-                                                    </span>
-                                                </div>
-                                                <div className="author_list_info">
-                                                    <span>{`${listing.seller.substring(0, 4)}...${listing.seller.substring(listing.seller.length-3, listing.seller.length)}`}</span>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <h6>Collection</h6>
-                                        <div className="item_author">
-                                            <Link to={`/collection/${listing.nftAddress}`}>
-                                                <div className="author_list_pp">
-                                                    <span>
-                                                            {collectionMetadata?.avatar ?
-                                                                <img className="lazy" src={collectionMetadata.avatar} alt=""/>
-                                                                :
-                                                                <Blockies seed={listing.nftAddress} size={10} scale={5}/>
-                                                            }
-                                                            {collectionMetadata?.verified &&
-                                                                <i className="fa fa-check"></i>
-                                                            }
-                                                    </span>
-                                                </div>
-                                                <div className="author_list_info">
-                                                    <span>{collectionName ?? "View Collection"}</span>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
+                                <div className="row" style={{gap: '2rem 0'}}>
+                                    <ProfilePreview
+                                        type='Seller'
+                                        address={listing.seller}
+                                        to={`/seller/${listing.seller}`}
+                                    />
+                                    <ProfilePreview
+                                        type='Collection'
+                                        title={collectionName ?? 'View Collection'}
+                                        avatar={collectionMetadata?.avatar}
+                                        address={listing.nftAddress}
+                                        verified={collectionMetadata?.verified}
+                                        to={`/collection/${listing.nftAddress}`}
+                                    />
                                     {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
-                                        <div className="col">
-                                            {collectionMetadata?.rarity ?
-                                                <h6>{humanize(collectionMetadata.rarity)} Rank</h6>
-                                                :
-                                                <h6>Rarity Rank</h6>
-                                            }
-                                            <div className="item_author">
-                                                <div className="author_list_info">
-                                                    <span>{listing.nft.rank}</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <ProfilePreview
+                                            type={collectionMetadata?.rarity ? `${humanize(collectionMetadata.rarity)} Rank` : 'Rarity Rank'}
+                                            title={listing.nft.rank}
+                                        />
                                     }
                                 </div>
 
@@ -340,7 +312,7 @@ const Listing = () => {
                 </section>
             }
 
-        <Footer /> 
+        <Footer />
         { openCheckout && user &&
         <div className='checkout'>
             <div className='maincheckout'>

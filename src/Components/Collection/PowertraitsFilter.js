@@ -1,6 +1,8 @@
-import React, { memo } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Accordion, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import {humanize} from "../../utils";
 import {filterListingsByTrait} from "../../GlobalState/collectionSlice";
 
@@ -9,6 +11,8 @@ const PowertraitsFilter = ({address}) => {
 
     const collectionStats = useSelector((state) => state.collection.stats);
     const collectionCachedTraitsFilter = useSelector((state) => state.collection.cachedPowertraitsFilter);
+
+    const [hideAttributes, setHideAttributes] = useState(window.innerWidth < 768);
 
     const viewPowertraitsList = () => {
         if (!collectionStats || !collectionStats.powertraits) {
@@ -72,31 +76,24 @@ const PowertraitsFilter = ({address}) => {
         }))
     }
 
-    const toggleAll = () => {
+    useEffect(() => {
         const container = document.getElementById('powertraits');
-
-        let shouldHide = false;
         if (container) {
-            shouldHide = container.style.display === 'block';
-            container.style.display = shouldHide ? 'none' : 'block';
+            container.style.display = hideAttributes ? 'none' : 'block';
         }
-
-        const icon = document.getElementById('powertraits-expand-icon');
-        icon.classList.remove('fa-minus', 'fa-plus');
-        icon.classList.add(shouldHide ? 'fa-plus' : 'fa-minus');
-    }
+    }, [hideAttributes])
 
     return (
         <div className="my-4">
             <div className="mb-4">
                 <div className="d-flex justify-content-between align-middle">
-                    <h3 className="d-inline-block" onClick={toggleAll} style={{cursor:'pointer', marginBottom:0}}>
+                    <h3 className="d-inline-block" onClick={() => setHideAttributes(!hideAttributes)} style={{cursor:'pointer', marginBottom:0}}>
                         In-Game Attributes
                     </h3>
 
                     <div className="d-inline-block fst-italic my-auto me-2"
                          style={{fontSize: '0.8em', cursor: 'pointer'}}>
-                        <i id="powertraits-expand-icon" className="fa fa-minus"></i>
+                        <FontAwesomeIcon id="powertraits-expand-icon" icon={hideAttributes ? faPlus: faMinus }/>
                     </div>
                 </div>
                 {viewSelectedAttributesCount() > 0 &&
@@ -110,10 +107,10 @@ const PowertraitsFilter = ({address}) => {
                     </div>
                 }
             </div>
-            <Accordion id="powertraits">
+            <Accordion id="powertraits" className={hideAttributes ? 'd-none' : ''}>
                 {viewPowertraitsList().map(([traitCategoryName, traitCategoryValues], key) => (
                     <Accordion.Item eventKey={key} key={key}>
-                        <Accordion.Header>{traitCategoryName}</Accordion.Header>
+                        <Accordion.Header>{humanize(traitCategoryName)}</Accordion.Header>
                         <Accordion.Body>
                             {Object.entries(traitCategoryValues).filter(t => t[1].count > 0).sort((a, b) => (a[0] > b[0]) ? 1 : -1).map((stats) => (
                                 <div key={`${traitCategoryName}-${stats[0]}`}>
