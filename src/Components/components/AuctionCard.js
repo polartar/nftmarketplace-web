@@ -20,15 +20,6 @@ const AuctionCard = ({ listing, imgClass = 'marketplace' }) => {
         <Link className="linkPointer" to={`/auctions/${listing.auctionId}`}>
             <div className="card eb-nft__card h-100 shadow">
                 <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
-                {listing.nft.rank ?
-                    <div className="badge bg-rarity text-wrap mt-1 mx-1">
-                        Rank: #{listing.nft.rank}
-                    </div>
-                    :
-                    <div className="badge bg-rarity-none text-wrap mt-1 mx-1">
-                        Rank: N/A
-                    </div>
-                }
                 <div className="eb-de_countdown text-center">
                     Ends In: <Clock deadline={listing.endAt} />
                 </div>
