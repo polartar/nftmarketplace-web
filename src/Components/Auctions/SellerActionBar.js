@@ -65,7 +65,7 @@ const SellerActionBar = () => {
                 let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
                 const receipt = await fn(writeContract)
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-                dispatch(getAuctionDetails(listing.id));
+                dispatch(getAuctionDetails(listing.auctionId));
             }catch(error){
                 if(error.data){
                     toast.error(error.data.message);
