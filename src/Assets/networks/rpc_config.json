@@ -784,6 +784,21 @@
                 "card": "/img/collections/weirdapesclub/card.png",
                 "banner": "/img/collections/weirdapesclub/banner.png"
             }
+        },
+        {
+            "name" : "IcySquidGame Vikings",
+            "multiToken" : false,
+            "address" : "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "icysquidgame-vikings",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/icysquidgame/avatar.png",
+                "card": "/img/collections/icysquidgame/card.jpg",
+                "banner": "/img/collections/icysquidgame/banner.jpg"
+            }
         }
     ],
     "drops": [
