@@ -769,6 +769,21 @@
                 "card": "/img/collections/foolyfish/card.png",
                 "banner": "/img/collections/foolyfish/banner.png"
             }
+        },
+        {
+            "name" : "Weird Apes Club",
+            "multiToken" : false,
+            "address" : "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "weird-apes-club",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/weirdapesclub/avatar.png",
+                "card": "/img/collections/weirdapesclub/card.png",
+                "banner": "/img/collections/weirdapesclub/banner.png"
+            }
         }
     ],
     "drops": [
