@@ -730,7 +730,7 @@
             "multiToken" : false,
             "address" : "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-goats",
                 "description": "",
