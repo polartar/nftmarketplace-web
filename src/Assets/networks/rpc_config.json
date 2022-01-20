@@ -799,6 +799,36 @@
                 "card": "/img/collections/icysquidgame/card.jpg",
                 "banner": "/img/collections/icysquidgame/banner.jpg"
             }
+        },
+        {
+            "name" : "Blue Skull Potions",
+            "multiToken" : false,
+            "address" : "0xB929D3002208f405180D3C07616F88EDa45F3e14",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "blue-skull-potions",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croskull/bluepotions/avatar.jpg",
+                "card": "/img/collections/croskull/bluepotions/card.jpg",
+                "banner": "/img/collections/croskull/bluepotions/banner.jpg"
+            }
+        },
+        {
+            "name" : "Red Skull Potions",
+            "multiToken" : false,
+            "address" : "0x3A8DEFcfBf2aD87F2D338Fe7E1d74ac0dBeAb74A",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "red-skull-potions",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croskull/redpotions/avatar.jpg",
+                "card": "/img/collections/croskull/redpotions/card.jpg",
+                "banner": "/img/collections/croskull/redpotions/banner.jpg"
+            }
         }
     ],
     "drops": [
