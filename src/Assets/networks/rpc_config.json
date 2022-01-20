@@ -754,6 +754,21 @@
                 "card": "/img/collections/cronosragdoll/card.png",
                 "banner": "/img/collections/cronosragdoll/banner.png"
             }
+        },
+        {
+            "name" : "Fooly Fish",
+            "multiToken" : false,
+            "address" : "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "fooly-fish",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/foolyfish/avatar.png",
+                "card": "/img/collections/foolyfish/card.png",
+                "banner": "/img/collections/foolyfish/banner.png"
+            }
         }
     ],
     "drops": [
