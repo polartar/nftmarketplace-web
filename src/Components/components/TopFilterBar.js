@@ -15,6 +15,8 @@ const TopFilterBar = (
         sortPlaceHolder = '',
         onFilterChange = () => {},
         onSortChange = () => {},
+        sortValue = undefined,
+        filterValue = undefined
     }) => {
 
     const customStyles = {
@@ -53,6 +55,7 @@ const TopFilterBar = (
                         getOptionLabel={(option) => option.getOptionLabel}
                         getOptionValue={(option) => option.getOptionValue}
                         defaultValue={defaultFilterValue}
+                        value={filterValue}
                         onChange={onFilterChange}
                     />
                 </div>
@@ -66,6 +69,7 @@ const TopFilterBar = (
                         getOptionLabel={(option) => option.getOptionLabel}
                         getOptionValue={(option) => option.getOptionValue}
                         defaultValue={defaultSortValue}
+                        value={sortValue}
                         onChange={onSortChange}
                     />
                 </div>

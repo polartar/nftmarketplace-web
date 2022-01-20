@@ -1,8 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import NftCard from './NftCard';
-import {withdrewRewards, transferedNFT, updateListed, fetchNfts} from '../../GlobalState/User';
-import {Spinner} from "react-bootstrap";
+import { connect, useDispatch } from 'react-redux';
+import { MyNftPageActions, updateListed } from '../../GlobalState/User';
 import {
     Box,
     Button, CardMedia, Container,
@@ -19,6 +17,7 @@ import * as PropTypes from "prop-types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { createSuccessfulTransactionToastContent } from "../../utils";
+import NftCardList from "./NftCardList";
 
 function LoadingButton(props) {
     return null;
@@ -32,60 +31,85 @@ LoadingButton.propTypes = {
     disabled: PropTypes.bool,
     children: PropTypes.node
 };
+
+const ListDialogStepEnum = {
+    WaitingForTransferApproval: 0,
+    EnteringPrice: 1,
+    ConfirmListing: 2
+}
+
+Object.freeze(ListDialogStepEnum);
+
+const mapStateToProps = (state) => ({
+    walletAddress: state.user.address,
+    marketContract: state.user.marketContract,
+    myNftPageTransferDialog: state.user.myNftPageTransferDialog,
+    myNftPageListDialog: state.user.myNftPageListDialog,
+    myNftPageCancelDialog: state.user.myNftPageCancelDialog,
+});
+
 const MyNftCollection = (
     {
-        nfts = [],
-        isLoading = false,
-        user = null,
-
+        walletAddress,
+        marketContract,
+        myNftPageTransferDialog,
+        myNftPageListDialog,
+        myNftPageCancelDialog,
     }) => {
 
     const dispatch = useDispatch();
-    const [askTransfer, setAskTransfer] = useState(false);
 
-    const [selectedNft, setSelectedNft] = useState(null);
-    const [transferAddress, setTransferAddress] = useState(null);
+
+    /// CANCEL------------------
+
+    useEffect(async () => {
+        if (myNftPageCancelDialog) {
+            dispatch(MyNftPageActions.CancelListing(myNftPageCancelDialog, marketContract));
+        }
+    }, [ myNftPageCancelDialog ]);
 
     /// TRANSFER------------------
 
-    const transferNft = async () => {
-        try{
-            closeTransfer();
-            let tx;
-            if(selectedNft.multiToken){
-                tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id, 1, []);
-            } else {
-                tx = await selectedNft.contract.safeTransferFrom(user.address, transferAddress, selectedNft.id);
-            }
-            const receipt = await tx.wait();
-            toast.success(`Transfer successful!`);
-            dispatch(transferedNFT(selectedNft));
-        }catch(error){
-            if(error.data){
-                toast.error(error.data.message);
-            } else if(error.message){
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
+    const [transferAddress, setTransferAddress] = useState(null);
+
+
+    useEffect(async () => {
+        if (!myNftPageTransferDialog) {
+            setTransferAddress(null);
         }
+    }, [ myNftPageTransferDialog ]);
+
+    const onTransferDialogAddressValueChange = (inputEvent) => {
+        const address = inputEvent.target.value;
+        setTransferAddress(address);
     }
 
-    const showTransferDialog = (nft) => () => {
-        setSelectedNft(nft);
-        setAskTransfer(true);
+    const onTransferDialogConfirm = async () => {
+        dispatch(MyNftPageActions.TransferDialogConfirm(myNftPageTransferDialog, walletAddress, transferAddress));
     }
 
-    const closeTransfer = () =>{
-        setAskTransfer(false);
+    const onTransferDialogCancel = () =>{
+        dispatch(MyNftPageActions.HideMyNftPageTransferDialog());
     }
 
-    /// END TRANSFER-=------------
 
-    ////--- SALE -------- >>
+    /// LIST------------------
+
+    useEffect(async () => {
+        if (myNftPageListDialog) {
+            await showListDialog(myNftPageListDialog);
+        } else {
+            setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
+        }
+    }, [ myNftPageListDialog ]);
+
 
     const [salePrice, setSalePrice] = useState(null);
+
+    const onListingDialogPriceValueChange = (inputEvent) => {
+        setSalePrice(inputEvent.target.value);
+    }
+
     const listingSteps = [
         {
             label: 'Approve Transfer',
@@ -102,30 +126,32 @@ const MyNftCollection = (
 
     ];
 
-    const [startSale, setStartSale] = useState(false);
-    const [activeStep, setActiveStep] = useState(0);
+    const [listDialogActiveStep, setListDialogActiveStep] = useState(ListDialogStepEnum.WaitingForTransferApproval);
     const [nextEnabled, setNextEnabled] = useState(false);
 
-    const [royalty, setRoyalty] = useState(0);
     const [fee, setFee] = useState(0);
-    const [youReceive, setYouReceive] = useState(0);
+    const [royalty, setRoyalty] = useState(0);
 
+    useEffect(() => {
+        if(salePrice && salePrice.length > 0 && salePrice[0] != '0'){
+            setNextEnabled(true);
+        } else {
+            setNextEnabled(false);
+        }
+    }, [salePrice])
 
-    const calculateExtraFees = (price) => async () => {
-        setYouReceive(price - ((fee / 100) * price) - ((royalty / 100) * price));
-    }
-
-    const showListDialog = (nft) => async () => {
+    const showListDialog = async (nft) => {
         try{
-            setSelectedNft(nft);
-            setStartSale(true);
-            let fees = await user.marketContract.fee(user.address);
-            let royalties = await user.marketContract.royalties(nft.address)
+            const fees = await marketContract.fee(walletAddress);
+            const royalties = await marketContract.royalties(nft.address)
+
             setFee((fees / 10000) * 100);
             setRoyalty((royalties[1] / 10000) * 100);
-            const transferEnabled = await nft.contract.isApprovedForAll(user.address, user.marketContract.address);
+
+            const transferEnabled = await nft.contract.isApprovedForAll(walletAddress, marketContract.address);
+
             if(transferEnabled){
-                setActiveStep(1);
+                setListDialogActiveStep(ListDialogStepEnum.EnteringPrice);
             } else {
                 setNextEnabled(true);
             }
@@ -138,24 +164,21 @@ const MyNftCollection = (
                 console.log(error);
                 toast.error("Unknown Error");
             }
-            setStartSale(false);
-            setSelectedNft(null);
-            setActiveStep(0);
+            setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
         }
-        // finally {
-        // setStartSale(false);
-        // setSelectedNft(null);
-        // setActiveStep(0);
-        // }
-
     }
 
-    const setApprovalForAll = async() => {
+
+    const listDialogSetApprovalForAllStep = async () => {
         try{
-            let tx = await selectedNft.contract.setApprovalForAll(user.marketContract.address, true);
+            const selectedNft = myNftPageListDialog;
+
+            const tx = await selectedNft.contract.setApprovalForAll(marketContract.address, true);
             await tx.wait();
+
             setNextEnabled(false);
-            setActiveStep(1);
+            setListDialogActiveStep(ListDialogStepEnum.EnteringPrice);
+
         }catch(error){
             if(error.data){
                 toast.error(error.data.message);
@@ -165,136 +188,53 @@ const MyNftCollection = (
                 console.log(error);
                 toast.error("Unknown Error");
             }
-            setStartSale(false);
-            setSelectedNft(null);
-            setActiveStep(0);
+            setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
         }
     }
 
-    const makeListing = async () => {
-        try{
-            setNextEnabled(false);
-            const price = ethers.utils.parseEther(salePrice);
-            let tx = await user.marketContract.makeListing(selectedNft.contract.address, selectedNft.id, price);
-            let receipt = await tx.wait();
-            dispatch(updateListed(selectedNft.contract.address, selectedNft.id, true));
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-        }catch(error){
-            if(error.data){
-                toast.error(error.data.message);
-            } else if(error.message){
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        } finally{
-            setStartSale(false);
-            setSelectedNft(null);
-            setActiveStep(0);
-        }
+    const listDialogConfirmListingStep = async () => {
+        const selectedNft = myNftPageListDialog;
+
+        setNextEnabled(false);
+
+        dispatch(MyNftPageActions.ListingDialogConfirm({
+            selectedNft,
+            salePrice,
+            marketContract
+        }));
     }
-
-    useEffect(() => {
-        if(salePrice && salePrice.length > 0 && salePrice[0] != '0'){
-            setNextEnabled(true);
-        } else {
-            setNextEnabled(false);
-        }
-    }, [salePrice])
-
 
     const cancelList = () =>{
-        setStartSale(false);
-        setActiveStep(0);
+        dispatch(MyNftPageActions.HideMyNftPageListDialog());
+        setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
         setNextEnabled(false);
     }
 
     const handleNext = () => {
-        if(activeStep === 0){
-            setApprovalForAll();
-        } else if(activeStep === 1){
-            setActiveStep(2);
-        } else if(activeStep === 2){
-            makeListing();
+        if(listDialogActiveStep === ListDialogStepEnum.WaitingForTransferApproval){
+            listDialogSetApprovalForAllStep();
+
+        } else if(listDialogActiveStep === ListDialogStepEnum.EnteringPrice){
+            setListDialogActiveStep(ListDialogStepEnum.ConfirmListing);
+
+        } else if(listDialogActiveStep === ListDialogStepEnum.ConfirmListing){
+            listDialogConfirmListingStep();
         }
     };
 
-    const showCancelDialog = (nft) => async () => {
-        try{
-            let tx = await user.marketContract.cancelListing(nft.listingId);
-            let receipt = await tx.wait();
-            dispatch(updateListed(nft.contract.address, nft.id, false));
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-        }catch(error){
-            if(error.data){
-                toast.error(error.data.message);
-            } else if(error.message){
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        }
-
-    }
-
-    //// END SALE
-    const [showCopied, setShowCopied] = useState(false);
-    const copyClosed = () => {
-        setShowCopied(false);
-    }
-    const copyLink = (nft) => () =>{
-        navigator.clipboard.writeText(window.location.origin + '/listing/' + nft.listingId)
-        setShowCopied(true);
+    const getYouReceiveViewValue = () => {
+        const youReceive = salePrice - ((fee / 100) * salePrice) - ((royalty / 100) * salePrice);
+        return ethers.utils.commify(youReceive.toFixed(2))
     }
 
     return (
         <>
-            <div className='row'>
-                <div className='card-group'>
-                    {nfts && nfts.map( (nft, index) => (
-                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2"
-                             key={`${nft.address}-${nft.id}-${nft.listed}-${index}`}
-                        >
-                            <NftCard
-                                nft={nft}
-                                key={index}
-                                canTransfer={true}
-                                canSell={nft.listable && !nft.listed}
-                                canCancel={nft.listed && nft.listingId}
-                                canUpdate={nft.listable && nft.listed}
-                                onTransferButtonPressed={showTransferDialog(nft)}
-                                onSellButtonPressed={showListDialog(nft)}
-                                onUpdateButtonPressed={showListDialog(nft)}
-                                onCancelButtonPressed={showCancelDialog(nft)}
-                                newTab={true}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-            {isLoading &&
-                <div className='row mt-4'>
-                    <div className='col-lg-12 text-center'>
-                        <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                    </div>
-                </div>
-            }
-            {!isLoading && nfts.length === 0 &&
-                <div className='row mt-4'>
-                    <div className='col-lg-12 text-center'>
-                        <span>Nothing to see here...</span>
-                    </div>
-                </div>
-            }
+            <NftCardList/>
 
-            {(selectedNft) ?
+            {(myNftPageTransferDialog) ?
                 <Dialog
-                    onClose={closeTransfer}
-                    open={askTransfer}>
+                    onClose={onTransferDialogCancel}
+                    open={!!myNftPageTransferDialog}>
                     <DialogContent>
                         <DialogTitle>
                             Start Transfer
@@ -302,38 +242,36 @@ const MyNftCollection = (
                         <Grid container spacing={{sm : 4}} columns={2}>
                             <Grid item xs={2} md={1} key='1'>
                                 <Container>
-                                    <CardMedia component='img' src={selectedNft.image} width='150' />
+                                    <CardMedia component='img' src={myNftPageTransferDialog.image} width='150' />
                                 </Container>
                             </Grid>
                             <Grid item xs={1} key='2' >
-                                <TextField label="Address" variant="outlined" onChange={ (e) => {
-                                    setTransferAddress(e.target.value);
-                                }}/>
+                                <TextField label="Address" variant="outlined" onChange={onTransferDialogAddressValueChange}/>
                             </Grid>
                         </Grid>
 
                         <DialogActions>
-                            <Button onClick={closeTransfer}>Cancel</Button>
-                            <Button onClick={transferNft}>OK</Button>
+                            <Button onClick={onTransferDialogCancel}>Cancel</Button>
+                            <Button onClick={onTransferDialogConfirm}>OK</Button>
                         </DialogActions>
                     </DialogContent>
                 </Dialog>
                 : null}
 
-            {(selectedNft) ?
+            {(myNftPageListDialog) ?
                 <Dialog
                     onClose={cancelList}
-                    open={startSale}>
+                    open={!!myNftPageListDialog}>
                     <DialogContent>
-                        <DialogTitle>List {selectedNft.name}</DialogTitle>
+                        <DialogTitle>List {myNftPageListDialog.name}</DialogTitle>
                         <Grid container spacing={{sm : 4}} columns={2}>
                             <Grid item xs={2} md={1} key='1'>
                                 <Container>
-                                    <CardMedia component='img' src={selectedNft.image} width='150' />
+                                    <CardMedia component='img' src={myNftPageListDialog.image} width='150' />
                                 </Container>
                             </Grid>
                             <Grid item xs={1} key='2' >
-                                <Stepper activeStep={activeStep} orientation="vertical">
+                                <Stepper activeStep={listDialogActiveStep} orientation="vertical">
                                     {listingSteps.map((step, index) => (
                                         <Step key={step.label}>
                                             <StepLabel
@@ -349,15 +287,14 @@ const MyNftCollection = (
                                                 <Typography>{step.description}</Typography>
                                                 {(index === 1) ?
                                                     <Stack>
-                                                        <TextField sx={{ marginTop: "10px", marginBottom: "10px" }}type='number' label="Price" variant="outlined" onChange={ (e) => {
-                                                            dispatch(calculateExtraFees(e.target.value));
-                                                            setSalePrice(e.target.value);
-                                                        }}/>
+                                                        <TextField sx={{ marginTop: "10px", marginBottom: "10px" }}
+                                                                   type='number'
+                                                                   label="Price"
+                                                                   variant="outlined"
+                                                                   onChange={onListingDialogPriceValueChange}/>
                                                         <Typography>
                                                             Buyer pays: <span className='bold'>
-                                                        {(salePrice)?
-                                                            ethers.utils.commify(salePrice) : 0
-                                                        }</span> CRO
+                                                        { (salePrice) ? ethers.utils.commify(salePrice) : 0 }</span> CRO
                                                         </Typography>
                                                         <Typography>
                                                             Service Fee: <span className='bold'>{fee}</span>%
@@ -367,7 +304,7 @@ const MyNftCollection = (
                                                         </Typography>
 
                                                         <Typography>
-                                                            You receive: <span className='bold'>{ethers.utils.commify(youReceive.toFixed(2))}</span> CRO
+                                                            You receive: <span className='bold'>{getYouReceiveViewValue()}</span> CRO
                                                         </Typography>
                                                     </Stack>
                                                     : null
@@ -402,4 +339,4 @@ const MyNftCollection = (
     );
 };
 
-export default memo(MyNftCollection);
+export default connect(mapStateToProps)(memo(MyNftCollection));
