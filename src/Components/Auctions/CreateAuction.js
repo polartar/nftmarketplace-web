@@ -50,10 +50,8 @@ const CreateAuction = () => {
     }
 
     const setApprovalForAll = async() => {
-        console.log()
         try{
             const isApproved = await user.auctionContract.isApproved(nftAddress, user.address);
-            console.log('approved?', isApproved);
             if (!isApproved) {
                 let writeContract = await new ethers.Contract(nftAddress, ERC721, user.provider.getSigner());
                 let tx = await writeContract.setApprovalForAll(user.auctionContract.address, true);

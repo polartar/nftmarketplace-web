@@ -14,7 +14,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
-import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
+import {createSuccessfulTransactionToastContent, getShortIdForView, newlineText} from "../../utils";
 import MintButton from "../Drop/MintButton";
 import CrougarsWl from '../../Assets/crougars_wl.txt';
 import {ERC721} from "../../Contracts/Abis";
@@ -368,7 +368,7 @@ const Drop = () => {
                                         className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
                                     </div>
                                 </div>
-                                <p>{drop.description}</p>
+                                <p>{newlineText(drop.description)}</p>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
