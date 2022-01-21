@@ -7,11 +7,13 @@ import {Spinner} from "react-bootstrap";
 import AuctionCard from "./AuctionCard";
 import Clock from "./Clock";
 import {Link} from "react-router-dom";
+import auction from "../pages/auction";
+import {auctionState} from "../../core/api/enums";
 
 const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
     const dispatch = useDispatch();
-    const listings = useSelector((state) => state.auctions.auctions)
+    const listings = useSelector((state) => state.auctions.auctions.filter(a => a.state === auctionState.SOLD))
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;

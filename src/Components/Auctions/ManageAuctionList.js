@@ -91,17 +91,13 @@ const ManageAuctionList = () => {
                     <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
                         <div className="card eb-nft__card h-100 shadow">
                             <img src={auction.nft.image} className={`card-img-top marketplace`} />
-                            {auction.nft.rank ?
-                                <div className="badge bg-rarity text-wrap mt-1 mx-1">
-                                    Rank: #{auction.nft.rank}
-                                </div>
-                                :
-                                <div className="badge bg-rarity-none text-wrap mt-1 mx-1">
-                                    Rank: N/A
-                                </div>
-                            }
                             <div className="eb-de_countdown text-center">
-                                Ends In: <Clock deadline={auction.endAt} />
+                                Ends In:
+                                {auction.state !== auctionState.NOT_STARTED ?
+                                    <Clock deadline={auction.endAt} />
+                                    :
+                                    <div className="fw-bold">Not Started</div>
+                                }
                             </div>
                             <div className="card-body d-flex flex-column">
                                 <h6 className="card-title mt-auto">{auction.nft.name}</h6>
