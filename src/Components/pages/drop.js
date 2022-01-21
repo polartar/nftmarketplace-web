@@ -14,7 +14,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
-import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
+import {createSuccessfulTransactionToastContent, getShortIdForView, newlineText} from "../../utils";
 import MintButton from "../Drop/MintButton";
 import CrougarsWl from '../../Assets/crougars_wl.txt';
 import {ERC721} from "../../Contracts/Abis";
@@ -138,12 +138,12 @@ const Drop = () => {
     // @todo refactor out
     const isCroniesDrop = (address) => {
         const croniesDrop = drops.find(d => d.slug === 'cronies');
-        return croniesDrop.address === address;
+        return croniesDrop?.address === address;
     }
     // @todo refactor out
     const isFounderDrop = (address) => {
         const croniesDrop = drops.find(d => d.slug === 'founding-member');
-        return croniesDrop.address === address;
+        return croniesDrop?.address === address;
     }
 
     const calculateStatus = (drop) => {
@@ -313,14 +313,6 @@ const Drop = () => {
                                     }
                                 </Reveal>
                                 }
-                                {status === statuses.LIVE &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                    <MintButton
-                                        mintCallback={mintNow}
-                                        numToMint={numToMint}
-                                        title="Mint Now" />
-                                </Reveal>
-                                }
                                 <div className="spacer-10"></div>
                             </div>
                         </div>
@@ -368,7 +360,7 @@ const Drop = () => {
                                         className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
                                     </div>
                                 </div>
-                                <p>{drop.description}</p>
+                                <p>{newlineText(drop.description)}</p>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
@@ -424,10 +416,24 @@ const Drop = () => {
                                             </Form.Group>
                                         }
                                         <div className="d-flex flex-row mt-5">
-                                            <MintButton
-                                                mintCallback={mintNow}
-                                                maxMintPerTx={drop.maxMintPerTx}
-                                                numToMint={numToMint} />
+                                            <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
+                                                {minting ?
+                                                    <>
+                                                        Minting...
+                                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </Spinner>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
+                                                            <>Mint {numToMint}</>
+                                                            :
+                                                            <>Mint</>
+                                                        }
+                                                    </>
+                                                }
+                                            </button>
                                         </div>
                                     </>
                                 }

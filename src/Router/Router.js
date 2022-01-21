@@ -6,6 +6,7 @@ import Marketplace from '../Components/pages/marketplace';
 import Collection from '../Components/pages/collection';
 import Seller from '../Components/pages/seller';
 import Listing from '../Components/pages/listing';
+import Auction from '../Components/pages/auction';
 import Nft from '../Components/pages/nft';
 import MyNfts from '../Components/pages/myNfts';
 import Header from "../Components/menu/header";
@@ -13,6 +14,8 @@ import Drops from "../Components/pages/drops";
 import Drop from "../Components/pages/drop";
 import MySales from "../Components/pages/mySales";
 import Collections from "../Components/pages/collections";
+import ManageAuctions from "../Components/pages/manageAuctions";
+import CharityBall from "../Components/pages/charityBall";
 
 export const AppRouter = () => {
 
@@ -53,10 +56,13 @@ export const AppRouter = () => {
                 <Route exact path="/drops" component={Drops} />
                 <Route exact path="/drops/:slug" component={Drop} />
                 <Route exact path="/listing/:id" component={Listing}/>
+                <Route exact path="/manage/auctions" component={ManageAuctions}/>
+                <Route exact path="/auctions/:id" component={Auction}/>
                 <Route exact path="/collections" component={Collections}/>
                 <Route exact path="/collection/:address" component={Collection} />
                 <Route exact path="/collection/:address/:id" component={Nft} />
                 <Route exact path="/seller/:address" component={Seller} />
+                <Route exact path="/charity-ball" component={CharityBall} />
                 <Route path='*' render={() => (
                     <Redirect to="/" />
                 )}/>
