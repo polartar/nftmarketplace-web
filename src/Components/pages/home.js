@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Footer from '../components/Footer';
 import { createGlobalStyle, default as styled } from 'styled-components';
 import ListingCollection from "../components/ListingCollection";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import HotCollections from "../components/HotCollections";
 import { keyframes } from "@emotion/react";
 import {siPrefixedNumber} from "../../utils";
@@ -204,6 +204,26 @@ const Home = () => {
                 { !mobile && <div className="container">{JumbotronData()}</div>}
             </Jumbotron.Host>
             { mobile && JumbotronData()}
+
+
+            <section className='container no-bottom'>
+                <div className='row'>
+                    <div className="col-12">
+                        <div className="feature-box style-4 text-center">
+                            <div className="text">
+                                <h2>Ebisu's Bay Annual Charity Ball</h2>
+                                <div className="small-border"></div>
+                                <p>There is no better feeling than the wholesomeness of giving to those less fortunate. Ebisu’s Bay has received fantastic support from our community in helping us create something that is a pillar within the Cronos community. This is why we are excited to host the first of many, our <span className="fw-bold">Ebisu’s Bay Annual Charity Ball</span>!</p>
+                                <p>Ebisu’s Bay is hosting a charity auction January 21 2022; various projects have chosen charities and donated beautiful one-of-a-kind art where the community can bid for these limited-edition pieces. All proceeds will be going to the chosen charities.</p>
+                                <div className="d-flex flex-row justify-content-evenly">
+                                    <a href="https://blog.ebisusbay.com/ebisus-bay-charity-ball-2fe3efb601be" className="btn-main m-auto">More Information</a>
+                                    <Link to="/charity-ball" className="btn-main m-auto">View Auctions</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section className='container no-bottom'>
                 <div className='row'>
