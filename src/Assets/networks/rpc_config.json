@@ -830,6 +830,21 @@
                 "card": "/img/collections/croskull/redpotions/card.jpg",
                 "banner": "/img/collections/croskull/redpotions/banner.jpg"
             }
+        },
+        {
+            "name" : "Lazy Horse Race Club",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "Lazy Horse Race Club",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png"
+            }
         }
     ],
     "drops": [
@@ -1048,6 +1063,34 @@
                 "function setCost(uint, bool) external"
             ],
             "start": 1642536000000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "Lazy Horse Race Club",
+            "imgNft": "/img/drops/lazyhorse2/drop.png",
+            "imgPreview": "/img/drops/lazyhorse2/drop.png",
+            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
+            "imgBanner" : "/img/collections/lazyhorse/banner.png",
+            "title": "LazyHorse",
+            "subtitle": "",
+            "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+            "author": { "name": "Lazyhorse", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "",
+            "maxMintPerTx": 20,
+            "totalSupply": 10000,
+            "cost": "300",
+            "memberCost": "275",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1642809600000,
             "end": null,
             "referral": false,
             "is1155": false
