@@ -835,7 +835,7 @@
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "Lazy Horse Race Club",
                 "description": "",
