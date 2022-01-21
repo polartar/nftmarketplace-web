@@ -70,7 +70,7 @@ const ManageAuctions = () => {
                         <li id='Mainbtn1' className="tab"><span onClick={handleBtnClick(1)}>Create</span></li>
                     </ul>
 
-                    <div className="de_tab_content">
+                    <div className="de_tab_content mt-3">
                         {openMenu === 0 &&
                         <ManageAuctionList />
                         }
