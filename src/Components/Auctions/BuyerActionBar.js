@@ -199,7 +199,7 @@ const BuyerActionBar = () => {
         <div>
             <Card className="mb-4 border-1 shadow" style={{color: '#141619', borderColor: '#cdcfcf'}}>
                 {listing.state === auctionState.ACTIVE && !awaitingAcceptance && !isComplete &&
-                    <div className="text-center" style={{background:'#DDD'}}>
+                    <div className="text-center badge m-1 fs-6" style={{backgroundImage: 'linear-gradient(to right, #35669e, #218cff)'}}>
                         Ends in: <Countdown date={listing.endAt}/>
                     </div>
                 }

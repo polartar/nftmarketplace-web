@@ -1,46 +1,25 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import styled, { createGlobalStyle } from 'styled-components';
-import {getAuctionDetails, auctionUpdated} from "../../GlobalState/auctionSlice";
+import {getAuctionDetails} from "../../GlobalState/auctionSlice";
 import {
     caseInsensitiveCompare,
-    createSuccessfulTransactionToastContent,
     humanize, newlineText,
     shortAddress,
     timeSince
 } from "../../utils";
 import {useParams, Link, Redirect} from "react-router-dom";
 import {ethers} from "ethers";
-import MetaMaskOnboarding from '@metamask/onboarding';
-import { connectAccount, chainConnect } from '../../GlobalState/User'
-import {Card, Form, Spinner} from "react-bootstrap"
-import { toast } from 'react-toastify';
+import {Spinner} from "react-bootstrap"
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
-import AuctionContract from '../../Contracts/Auction.json'
-import {auctionState} from "../../core/api/enums";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faCircle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
-import LayeredIcon from "../components/LayeredIcon";
+import {faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import BuyerActionBar from "../Auctions/BuyerActionBar";
-import SellerActionBar from "../Auctions/SellerActionBar";
 import ProfilePreview from "../components/ProfilePreview";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
-`;
-
-const VerifiedIcon = styled.span`
-  font-size: 8px;
-  color: #ffffff;
-  background: $color;
-  border-radius: 100%;
-  -moz-border-radius: 100%;
-  -webkit-border-radius: 100%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
 `;
 
 const Auction = () => {
