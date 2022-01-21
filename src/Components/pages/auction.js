@@ -133,10 +133,6 @@ const Auction = () => {
                                             </span>
                                         </div>
                                         }
-
-                                        {caseInsensitiveCompare(user.address, listing.seller) &&
-                                            <SellerActionBar />
-                                        }
                                     </>
                                     }
 
