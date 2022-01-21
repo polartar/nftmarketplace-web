@@ -1108,7 +1108,7 @@
                 "function cost() view returns (uint256)",
                 "function setCost(uint, bool) public"
             ],
-            "start": 1642536000000,
+            "start": 1642788000000,
             "end": null,
             "referral": false,
             "is1155": false
