@@ -1182,12 +1182,12 @@
             "imgAvatar": "/img/collections/lazyhorse/avatar.png"
         },
         {
-            "hash": "",
+            "id": 0,
+            "hash": "0x2e72dbba4fe290a8b1ab03983fab4fe1273701193866e2217a63c3cf7fb4adff",
             "title": "Space Crystal Unicorns",
             "description": "Hello everyoune, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
             "link": "http://www.ritmclub.ru/",
-            "imgAvatar": "/img/collections/lazyhorse/avatar.png",
-            "redirectToDrop": "space-crystal-unicorns"
+            "imgAvatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg"
         }
     ]
 }

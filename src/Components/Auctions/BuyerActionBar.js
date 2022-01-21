@@ -235,16 +235,25 @@ const BuyerActionBar = () => {
                         </div>
                         {((!isAuctionOwner && !isComplete) || (awaitingAcceptance && isHighestBidder))  &&
                         <>
-                            {user.address ?
+                            {listing.state !== auctionState.NOT_STARTED ?
                                 <>
-                                    {user.correctChain ?
-                                        <ActionButtons />
+                                    {user.address ?
+                                        <>
+                                            {user.correctChain ?
+                                                <ActionButtons />
+                                                :
+                                                <span className="my-auto">Switch network to bid</span>
+                                            }
+                                        </>
                                         :
-                                        <span className="my-auto">Switch network to bid</span>
+                                        <span className="my-auto">Connect wallet above to place bid</span>
                                     }
                                 </>
                                 :
-                                <span className="my-auto">Connect wallet above to place bid</span>
+                                <>
+                                    <span className="my-auto">Auction has not started yet</span>
+                                </>
+
                             }
                         </>
                         }
