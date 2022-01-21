@@ -3,6 +3,19 @@ import Blockies from "react-blockies";
 import {useDispatch, useSelector} from "react-redux";
 import useOnclickOutside from "react-cool-onclickoutside";
 import {useHistory} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faBolt,
+    faImage,
+    faShoppingBasket,
+    faSignOutAlt
+} from "@fortawesome/free-solid-svg-icons";
+import {toast} from "react-toastify";
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { nanoid } from 'nanoid'
+import {ethers} from 'ethers'
+import { Modal, NavLink, Spinner } from "react-bootstrap";
+
 import {
     connectAccount,
     onLogout,
@@ -14,11 +27,6 @@ import {
 } from "../../GlobalState/User";
 import rpcConfig from '../../Assets/networks/rpc_config.json'
 
-import {toast} from "react-toastify";
-import MetaMaskOnboarding from '@metamask/onboarding';
-import { nanoid } from 'nanoid'
-import {ethers} from 'ethers'
-import { Modal, NavLink } from "react-bootstrap";
 import { createSuccessfulTransactionToastContent } from "../../utils";
 
 const AccountMenu = function() {
@@ -192,11 +200,56 @@ const AccountMenu = function() {
                             </div>
                         </div>
                         <div className="d-wallet">
-                            <h4>Market Balance</h4>
+                            <h4>Wallet Balance</h4>
                             <div className="d-flex justify-content-between">
-                                <span>{user.marketBalance} CRO</span>
-                                {user.marketBalance !== '0.0' &&
-                                    <button className="btn_menu" title="Withdraw Balance" onClick={withdrawBalance}>Withdraw</button>
+                                {!user.connectingWallet ?
+                                    <span>
+                                        {user.balance ?
+                                            <>
+                                                {Math.round(user.balance * 100) / 100} CRO
+                                            </>
+                                            :
+                                            <>
+                                                N/A
+                                            </>
+                                        }
+                                    </span>
+                                    :
+                                    <span>
+                                        <Spinner animation="border" role="status" size={"sm"}>
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div className="d-wallet">
+                            <h4>Market Escrow</h4>
+                            <div className="d-flex justify-content-between">
+                                {!user.connectingWallet ?
+                                    <>
+                                        {user.marketBalance ?
+                                            <>
+                                                <span>
+                                                    {Math.round(user.marketBalance * 100) / 100} CRO
+                                                </span>
+                                                {user.marketBalance !== '0.0' &&
+                                                <button className="btn_menu" title="Withdraw Balance"
+                                                        onClick={withdrawBalance}>Withdraw</button>
+                                                }
+                                            </>
+                                            :
+                                            <>
+                                                N/A
+                                            </>
+                                        }
+                                    </>
+                                    :
+                                    <span>
+                                        <Spinner animation="border" role="status" size={"sm"}>
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    </span>
                                 }
                             </div>
                         </div>
@@ -205,9 +258,30 @@ const AccountMenu = function() {
                                 <div className="d-wallet">
                                     <h4>Referral Balance</h4>
                                     <div className="d-flex justify-content-between">
-                                        <span>{user.rewards} CRO</span>
-                                        {user.rewards !== '0.0' &&
-                                            <button className="btn_menu" title="Withdraw Referral Rewards" onClick={withdrawRewards}>Withdraw</button>
+                                        {!user.connectingWallet ?
+                                            <>
+                                                {user.rewards ?
+                                                    <>
+                                                        <span>
+                                                            {Math.round(user.rewards * 100) / 100} CRO
+                                                        </span>
+                                                        {user.rewards !== '0.0' &&
+                                                        <button className="btn_menu" title="Withdraw Referral Rewards"
+                                                                onClick={withdrawRewards}>Withdraw</button>
+                                                        }
+                                                    </>
+                                                    :
+                                                    <>
+                                                        N/A
+                                                    </>
+                                                }
+                                            </>
+                                            :
+                                            <span>
+                                                <Spinner animation="border" role="status" size={"sm"}>
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </Spinner>
+                                            </span>
                                         }
                                     </div>
                                 </div>
@@ -237,17 +311,20 @@ const AccountMenu = function() {
                         <ul className="de-submenu-profile">
                             <li>
                                 <span onClick={() => navigateTo(`/nfts`)}>
-                                    <i className="fa fa-photo"></i> My NFTs
+                                    <span> <FontAwesomeIcon icon={faImage}/> </span>
+                                    <span>My NFTs</span>
                                 </span>
                             </li>
                             <li>
                                 <span onClick={() => navigateTo(`/sales`)}>
-                                    <i className="fa fa-shopping-basket"></i> My Sales
+                                    <span> <FontAwesomeIcon icon={faShoppingBasket}/> </span>
+                                    <span>My Sales</span>
                                 </span>
                             </li>
                             <li>
                                 <span onClick={clearCookies}>
-                                    <i className="fa fa-flash"></i> Clear Cookies
+                                    <span> <FontAwesomeIcon icon={faBolt}/> </span>
+                                    <span>Clear Cookies</span>
                                 </span>
                             </li>
                         </ul>
@@ -255,7 +332,8 @@ const AccountMenu = function() {
                         <ul className="de-submenu-profile">
                             <li>
                                 <span onClick={logout}>
-                                    <i className="fa fa-sign-out"></i> Disconnect Wallet
+                                    <span> <FontAwesomeIcon icon={faSignOutAlt}/> </span>
+                                    <span>Disconnect Wallet</span>
                                 </span>
                             </li>
                         </ul>

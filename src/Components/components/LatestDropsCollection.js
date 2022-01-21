@@ -5,13 +5,36 @@ import 'slick-carousel/slick/slick-theme.css';
 import { settings } from "./constants";
 import CustomSlide from "./CustomSlide";
 import config from "../../Assets/networks/rpc_config.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 export const drops = config.drops;
 
 const LatestDropsCollection = () => {
 
+    const PrevArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={style} onClick={onClick} >
+                <FontAwesomeIcon icon={faChevronLeft}/>
+            </div>
+        );
+    }
+
+    const NextArrow = (props) => {
+        const { className, style, onClick } = props;
+        return (
+            <div className={className} style={style} onClick={onClick} >
+                <FontAwesomeIcon icon={faChevronRight}/>
+            </div>
+        );
+    }
+
   return (
       <div className='nft'>
-        <Slider {...settings}>
+        <Slider {...settings}
+                prevArrow={<PrevArrow />}
+                nextArrow={<NextArrow />}
+        >
           { drops && drops.map((drop, index) => (
             <CustomSlide
               key={index}

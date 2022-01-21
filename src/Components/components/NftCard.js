@@ -3,8 +3,11 @@ import styled from "styled-components";
 import {Link, useHistory} from "react-router-dom";
 import { ethers } from "ethers";
 import {toast} from "react-toastify";
+import { faCheck, faCircle, faExternalLinkAlt, faLink } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
 import api from "../../core/api";
+import LayeredIcon from "./LayeredIcon";
 
 const Outer = styled.div`
   display: flex;
@@ -96,7 +99,7 @@ const NftCard = ({
                 <span className="mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer'}}>Update</span>
                 }
                 <span className="mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer'}}>
-                    <i className="fa fa-link"></i>
+                    <FontAwesomeIcon icon={faLink}/>
                 </span>
             </div>
         </div>
