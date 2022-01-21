@@ -107,8 +107,13 @@ const Collection = ({cacheName = 'collection'}) => {
 
     useEffect(async () => {
         dispatch(getStats(address));
-        let royalties = await readMarket.royalties(address)
-        setRoyalty(Math.round(royalties[1]) / 100);
+        try {
+            let royalties = await readMarket.royalties(address)
+            setRoyalty(Math.round(royalties[1]) / 100);
+        } catch (error) {
+            console.log('error retrieving royalties for collection', error)
+            setRoyalty('N/A');
+        }
     }, [dispatch, address]);
 
     return (

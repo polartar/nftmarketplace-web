@@ -486,7 +486,7 @@
             "multiToken": false,
             "address": "0x70c6062100b09aF2Ec63345cda372d52423BE4aC",
             "onChain": false,
-            "listable": false,
+            "listable": true,
             "metadata": {
                 "slug": "cronos-nanas",
                 "description": "",
@@ -730,7 +730,7 @@
             "multiToken" : false,
             "address" : "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-goats",
                 "description": "",
@@ -753,6 +753,81 @@
                 "avatar": "/img/collections/cronosragdoll/avatar.png",
                 "card": "/img/collections/cronosragdoll/card.png",
                 "banner": "/img/collections/cronosragdoll/banner.png"
+            }
+        },
+        {
+            "name" : "Fooly Fish",
+            "multiToken" : false,
+            "address" : "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "fooly-fish",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/foolyfish/avatar.png",
+                "card": "/img/collections/foolyfish/card.png",
+                "banner": "/img/collections/foolyfish/banner.png"
+            }
+        },
+        {
+            "name" : "Weird Apes Club",
+            "multiToken" : false,
+            "address" : "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "weird-apes-club",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/weirdapesclub/avatar.png",
+                "card": "/img/collections/weirdapesclub/card.png",
+                "banner": "/img/collections/weirdapesclub/banner.png"
+            }
+        },
+        {
+            "name" : "IcySquidGame Vikings",
+            "multiToken" : false,
+            "address" : "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "icysquidgame-vikings",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/icysquidgame/avatar.png",
+                "card": "/img/collections/icysquidgame/card.jpg",
+                "banner": "/img/collections/icysquidgame/banner.jpg"
+            }
+        },
+        {
+            "name" : "Blue Skull Potions",
+            "multiToken" : false,
+            "address" : "0xB929D3002208f405180D3C07616F88EDa45F3e14",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "blue-skull-potions",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croskull/bluepotions/avatar.jpg",
+                "card": "/img/collections/croskull/bluepotions/card.jpg",
+                "banner": "/img/collections/croskull/bluepotions/banner.jpg"
+            }
+        },
+        {
+            "name" : "Red Skull Potions",
+            "multiToken" : false,
+            "address" : "0x3A8DEFcfBf2aD87F2D338Fe7E1d74ac0dBeAb74A",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "red-skull-potions",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/croskull/redpotions/avatar.jpg",
+                "card": "/img/collections/croskull/redpotions/card.jpg",
+                "banner": "/img/collections/croskull/redpotions/banner.jpg"
             }
         }
     ],
