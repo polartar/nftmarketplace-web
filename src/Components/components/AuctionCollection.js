@@ -13,7 +13,8 @@ import {auctionState} from "../../core/api/enums";
 const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
     const dispatch = useDispatch();
-    const listings = useSelector((state) => state.auctions.auctions.filter(a => a.state !== auctionState.SOLD))
+    const listings = useSelector((state) => state.auctions.auctions)
+    const isLoading = useSelector((state) => state.auctions.loading)
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
@@ -73,20 +74,31 @@ const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId
     if (showLoadMore) {
         return (
             <>
-                {listings?.length > 0 ?
-                    <div className='card-group'>
-                        {listings && listings.map( (listing, index) => (
-                            <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                                <AuctionCard
-                                    listing={listing}
-                                    imgClass="marketplace"
-                                />
-                            </div>
-                        ))}
+                {isLoading ?
+                    <div className="text-center">
+                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
                     </div>
                     :
-                    <div className="text-center">Charity auctions will be available soon!</div>
+                    <>
+                        {listings?.length > 0 ?
+                            <div className='card-group'>
+                                {listings && listings.map( (listing, index) => (
+                                    <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                                        <AuctionCard
+                                            listing={listing}
+                                            imgClass="marketplace"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                            :
+                            <div className="text-center">Charity auctions will be available soon!</div>
+                        }
+                    </>
                 }
+
             </>
         );
     }
