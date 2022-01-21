@@ -13,7 +13,7 @@ import {auctionState} from "../../core/api/enums";
 const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
     const dispatch = useDispatch();
-    const listings = useSelector((state) => state.auctions.auctions.filter(a => a.state === auctionState.SOLD))
+    const listings = useSelector((state) => state.auctions.auctions.filter(a => a.state !== auctionState.SOLD))
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
@@ -72,36 +72,40 @@ const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId
 
     if (showLoadMore) {
         return (
-            <div className='card-group'>
-                {listings && listings.map( (listing, index) => (
-                    <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                        <AuctionCard
-                            listing={listing}
-                            imgClass="marketplace"
-                        />
+            <>
+                {listings?.length > 0 ?
+                    <div className='card-group'>
+                        {listings && listings.map( (listing, index) => (
+                            <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                                <AuctionCard
+                                    listing={listing}
+                                    imgClass="marketplace"
+                                />
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                    :
+                    <div className="text-center">Charity auctions will be available soon!</div>
+                }
+            </>
         );
     }
     else {
         return (
             <div className='row'>
-                <div className='card-group'>
-                    {listings && listings.map( (listing, index) => (
-                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <AuctionCard
-                                listing={listing}
-                                imgClass="marketplace"
-                            />
-                        </div>
-                    ))}
-                </div>
-                { showLoadMore && canLoadMore &&
-                    <div className='col-lg-12'>
-                        <div className="spacer-single"/>
-                        <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
+                {listings?.length > 0 ?
+                    <div className='card-group'>
+                        {listings && listings.map( (listing, index) => (
+                            <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                                <AuctionCard
+                                    listing={listing}
+                                    imgClass="marketplace"
+                                />
+                            </div>
+                        ))}
                     </div>
+                    :
+                    <span>Charity auctions will be available soon!</span>
                 }
             </div>
         );

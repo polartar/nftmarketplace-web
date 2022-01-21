@@ -160,13 +160,13 @@ const Auction = () => {
                                                 {openMenu === 0 &&
                                                 <div className="tab-1 onStep fadeIn">
                                                     {charityMetadata &&
-                                                    <>
+                                                    <div key="charity-meta">
                                                         <p>{newlineText(charityMetadata.description)}</p>
                                                         <p>Donate directly at <a href={charityMetadata} target="_blank" className="fw-bold">{charityMetadata.link}</a></p>
-                                                    </>
+                                                    </div>
                                                     }
                                                     {listing.nft.attributes && listing.nft.attributes.length > 0 ?
-                                                        <>
+                                                        <div key="charity-attributes">
                                                             <div className="d-block mb-3">
                                                                 <div className="row mt-5 gx-3 gy-2">
                                                                     {listing.nft.attributes.map((data, i) => {
@@ -189,7 +189,7 @@ const Auction = () => {
                                                                     })}
                                                                 </div>
                                                             </div>
-                                                        </>
+                                                        </div>
                                                         :
                                                         <>
                                                             <span>No traits found for this item</span>
