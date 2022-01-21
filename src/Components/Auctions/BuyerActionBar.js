@@ -148,50 +148,58 @@ const BuyerActionBar = () => {
     const ActionButtons = () => {
         const hasBeenOutbid = myBid() > 0 && !isHighestBidder;
         return (
-            <span className="my-auto">
+            <>
                 {listing.state === auctionState.ACTIVE && !isHighestBidder && !hasBeenOutbid &&
-                    <button className="btn-main lead mr15"
-                            onClick={showBidDialog()} disabled={executingBid}>Place Bid</button>
+                    <span className="my-auto">
+                        <button className="btn-main lead mr15"
+                                onClick={showBidDialog()} disabled={executingBid}>Place Bid</button>
+                    </span>
                 }
                 {listing.state === auctionState.ACTIVE && !awaitingAcceptance && hasBeenOutbid &&
                     <>
+                        <span className="my-auto">
+                            <button className='btn-main lead mr15'
+                                    onClick={executeWithdrawBid()} disabled={executingWithdraw}>
+                                {executingWithdraw ?
+                                    <>
+                                        Withdrawing
+                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    </>
+                                    :
+                                    <>
+                                        Withdraw Bid
+                                    </>
+                                }
+                            </button>
+                        </span>
+                        <span className="my-auto">
+                            <button className='btn-main lead mr15'
+                                    onClick={showIncreaseBidDialog()} disabled={executingBid}>Increase Bid</button>
+                        </span>
+                    </>
+                }
+                {listing.state === auctionState.ACTIVE && awaitingAcceptance && isHighestBidder &&
+                    <span className="my-auto">
                         <button className='btn-main lead mr15'
-                                onClick={executeWithdrawBid()} disabled={executingWithdraw}>
-                            {executingWithdraw ?
+                                onClick={executeAcceptBid()} disabled={executingAcceptBid}>
+                            {executingAcceptBid ?
                                 <>
-                                    Withdrawing
+                                    Accepting
                                     <Spinner animation="border" role="status" size="sm" className="ms-1">
                                         <span className="visually-hidden">Loading...</span>
                                     </Spinner>
                                 </>
                                 :
                                 <>
-                                    Withdraw Bid
+                                    Accept Auction
                                 </>
                             }
                         </button>
-                        <button className='btn-main lead mr15'
-                                onClick={showIncreaseBidDialog()} disabled={executingBid}>Increase Bid</button>
-                    </>
+                    </span>
                 }
-                {listing.state === auctionState.ACTIVE && awaitingAcceptance && isHighestBidder &&
-                    <button className='btn-main lead mr15'
-                            onClick={executeAcceptBid()} disabled={executingAcceptBid}>
-                        {executingAcceptBid ?
-                            <>
-                                Accepting
-                                <Spinner animation="border" role="status" size="sm" className="ms-1">
-                                    <span className="visually-hidden">Loading...</span>
-                                </Spinner>
-                            </>
-                            :
-                            <>
-                                Accept Auction
-                            </>
-                        }
-                    </button>
-                }
-            </span>
+            </>
         )
     }
 
