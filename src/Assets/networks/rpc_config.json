@@ -845,6 +845,21 @@
                 "card": "/img/collections/lazyhorse/card.png",
                 "banner": "/img/collections/lazyhorse/banner.png"
             }
+        },
+        {
+            "name" : "Space Crystal Unicorns",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "space-crystal-unicorns",
+                "description": "They are magical! Their strength lies in feeling and finding those in need.",
+                "verified": true,
+                "avatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg",
+                "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
+                "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
+            }
         }
     ],
     "drops": [
