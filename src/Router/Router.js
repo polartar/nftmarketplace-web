@@ -15,6 +15,7 @@ import Drop from "../Components/pages/drop";
 import MySales from "../Components/pages/mySales";
 import Collections from "../Components/pages/collections";
 import ManageAuctions from "../Components/pages/manageAuctions";
+import CharityBall from "../Components/pages/charityBall";
 
 export const AppRouter = () => {
 
@@ -61,6 +62,7 @@ export const AppRouter = () => {
                 <Route exact path="/collection/:address" component={Collection} />
                 <Route exact path="/collection/:address/:id" component={Nft} />
                 <Route exact path="/seller/:address" component={Seller} />
+                <Route exact path="/charity-ball" component={CharityBall} />
                 <Route path='*' render={() => (
                     <Redirect to="/" />
                 )}/>

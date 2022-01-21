@@ -109,20 +109,6 @@ const Marketplace = () => {
                 </div>
                 <div className='row'>
                     <div className='col-lg-12'>
-                        <div className="items_filter">
-                            <ul className="de_nav">
-                                <li id='Mainbtn' className="tab active">
-                                    <span onClick={handleBtnClick(0)}>On Sale</span>
-                                </li>
-                                <li id='Mainbtn1' className="tab">
-                                    <span onClick={handleBtnClick(1)}>Auctions</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-lg-12'>
                         <TopFilterBar showFilter={true}
                                       showSort={true}
                                       sortOptions={[SortOption.default(), ...selectSortOptions]}
@@ -136,12 +122,7 @@ const Marketplace = () => {
                         />
                     </div>
                 </div>
-                {openMenu === 0 &&
-                    <ListingCollection cacheName='marketplace'/>
-                }
-                {openMenu === 1 &&
-                    <AuctionCollection cacheName='auctions'/>
-                }
+                <ListingCollection cacheName='marketplace'/>
             </section>
 
 

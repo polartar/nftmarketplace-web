@@ -72,54 +72,16 @@ const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId
 
     if (showLoadMore) {
         return (
-            <InfiniteScroll
-                dataLength={listings.length}
-                next={loadMore}
-                hasMore={canLoadMore}
-                style={{ overflow: 'hidden' }}
-                loader={
-                    <div className='row'>
-                        <div className='col-lg-12 text-center'>
-                            <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>
-                        </div>
+            <div className='card-group'>
+                {listings && listings.map( (listing, index) => (
+                    <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                        <AuctionCard
+                            listing={listing}
+                            imgClass="marketplace"
+                        />
                     </div>
-                }
-                endMessage={() => {
-                    if (listings.length) {
-                        return (
-                            <div className='row mt-4'>
-                                <div className='col-lg-12 text-center'>
-                                    <span>Nothing to see here...</span>
-                                </div>
-                            </div>
-                        )
-                    }
-                }}
-            >
-                <div className='card-group'>
-                    <div key="drop" className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                        <Link className="linkPointer" to={`/drops/space-crystal-unicorns`}>
-                            <div className="card eb-nft__card h-100 shadow">
-                                <img src="/img/drops/barbara/spacecrystalunicorns/drop.jpg" className={`card-img-top marketplace`} />
-
-                                <div className="card-body d-flex flex-column">
-                                    <h6 className="card-title mt-auto">Space Crystal Unicorns</h6>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    {listings && listings.map( (listing, index) => (
-                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <AuctionCard
-                                listing={listing}
-                                imgClass="marketplace"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </InfiniteScroll>
+                ))}
+            </div>
         );
     }
     else {
