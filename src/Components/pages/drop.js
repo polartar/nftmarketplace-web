@@ -313,14 +313,6 @@ const Drop = () => {
                                     }
                                 </Reveal>
                                 }
-                                {status === statuses.LIVE &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                    <MintButton
-                                        mintCallback={mintNow}
-                                        numToMint={numToMint}
-                                        title="Mint Now" />
-                                </Reveal>
-                                }
                                 <div className="spacer-10"></div>
                             </div>
                         </div>
@@ -424,10 +416,24 @@ const Drop = () => {
                                             </Form.Group>
                                         }
                                         <div className="d-flex flex-row mt-5">
-                                            <MintButton
-                                                mintCallback={mintNow}
-                                                maxMintPerTx={drop.maxMintPerTx}
-                                                numToMint={numToMint} />
+                                            <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
+                                                {minting ?
+                                                    <>
+                                                        Minting...
+                                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </Spinner>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
+                                                            <>Mint {numToMint}</>
+                                                            :
+                                                            <>Mint</>
+                                                        }
+                                                    </>
+                                                }
+                                            </button>
                                         </div>
                                     </>
                                 }
