@@ -148,7 +148,7 @@ const BuyerActionBar = () => {
     const ActionButtons = () => {
         const hasBeenOutbid = myBid() > 0 && !isHighestBidder;
         return (
-            <>
+            <span className="my-auto">
                 {listing.state === auctionState.ACTIVE && !isHighestBidder && !hasBeenOutbid &&
                     <button className="btn-main lead mr15"
                             onClick={showBidDialog()} disabled={executingBid}>Place Bid</button>
@@ -191,7 +191,7 @@ const BuyerActionBar = () => {
                         }
                     </button>
                 }
-            </>
+            </span>
         )
     }
 
