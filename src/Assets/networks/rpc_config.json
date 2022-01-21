@@ -849,7 +849,7 @@
         {
             "name" : "Space Crystal Unicorns",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -1096,7 +1096,7 @@
                 "name": "Barbara",
                 "link": "http://www.ritmclub.ru/"
             },
-            "address": "0x9895BB43014764794c8E2504E91A901388e852DB",
+            "address": "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
             "maxMintPerTx": 10,
             "totalSupply": "∞",
             "cost": "150",
