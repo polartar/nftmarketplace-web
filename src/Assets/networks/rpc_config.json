@@ -1126,7 +1126,7 @@
             "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
             "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
             "maxMintPerTx": 20,
-            "totalSupply": 10000,
+            "totalSupply": 8000,
             "cost": "300",
             "memberCost": "275",
             "foundersOnly": false,
