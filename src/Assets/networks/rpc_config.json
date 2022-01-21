@@ -8,6 +8,7 @@
     "api_base" : "https://api.ebisusbay.com/",
     "app_base" : "https://app.ebisusbay.com/",
     "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
+    "auction_contract" : "0x08254C5B77615E7B4d2f7df0Dc36e1AEb9025D10",
     "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
     "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
     "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
@@ -829,6 +830,36 @@
                 "card": "/img/collections/croskull/redpotions/card.jpg",
                 "banner": "/img/collections/croskull/redpotions/banner.jpg"
             }
+        },
+        {
+            "name" : "Lazy Horse Member NFT (PONY)",
+            "multiToken" : false,
+            "address" : "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "lazy-horse-pony",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png"
+            }
+        },
+        {
+            "name" : "Space Crystal Unicorns",
+            "multiToken" : false,
+            "address" : "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "space-crystal-unicorns",
+                "description": "They are magical! Their strength lies in feeling and finding those in need.",
+                "verified": true,
+                "avatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg",
+                "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
+                "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
+            }
         }
     ],
     "drops": [
@@ -1050,6 +1081,112 @@
             "end": null,
             "referral": false,
             "is1155": false
+        },
+        {
+            "id": 10,
+            "slug": "space-crystal-unicorns",
+            "imgNft": "/img/drops/barbara/spacecrystalunicorns/hearthodler.gif",
+            "imgPreview": "/img/drops/barbara/spacecrystalunicorns/drop.jpg",
+            "imgAvatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg",
+            "imgBanner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg",
+            "title": "Space Crystal Unicorns",
+            "subtitle": "They are magical! Their strength lies in feeling and finding those in need. All funds raised will be used to support hippotherapy classes for children with disabilities.",
+            "description": "Hello everyone, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
+            "author": {
+                "name": "Barbara",
+                "link": "http://www.ritmclub.ru/"
+            },
+            "address": "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
+            "maxMintPerTx": 10,
+            "totalSupply": "∞",
+            "cost": "150",
+            "memberCost": "150",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1642536000000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "lazy-horse-pony",
+            "imgNft": "/img/drops/lazyhorse/pony/drop.png",
+            "imgPreview": "/img/drops/lazyhorse/pony/drop.png",
+            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
+            "imgBanner" : "/img/collections/lazyhorse/banner.png",
+            "title": "The Lazy Horse Member NFT (PONY)",
+            "subtitle": "",
+            "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+            "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
+            "maxMintPerTx": 20,
+            "totalSupply": 10000,
+            "cost": "300",
+            "memberCost": "275",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        }
+    ],
+    "auctions": [
+        {
+            "hash": "0xbf4208f46ff433f6164b7959a0608a47bb2a715baa9a551e80c682b414e0c9dff",
+            "title": "Horse 1",
+            "description": "The Lazy Horse Race Club will be supporting SaddleUp!, a charity based out of Nashville, TN. Specifically, proceeds will be donated to the Lauren and Charlotte Uribe Pony Fund. This fund's purpose is to provide 10 therapy horses to help replenish SaddleUp!'s therapy herd, helping to provide thousands of additional therapy sessions for children and adults with intellectual or developmental disabilities.",
+            "link": "https://www.saddleupnashville.org/how-you-can-help/",
+            "imgAvatar": "/img/collections/lazyhorse/avatar.png"
+        },
+        {
+
+            "hash": "0xc2e0aa1bb3c371e2cef1f9cdc91dc4d859dd8ccd35a540e2f5e066ea869d9f43",
+            "title": "Horse 2",
+            "description": "The Lazy Horse Race Club will be supporting SaddleUp!, a charity based out of Nashville, TN. Specifically, proceeds will be donated to the Lauren and Charlotte Uribe Pony Fund. This fund's purpose is to provide 10 therapy horses to help replenish SaddleUp!'s therapy herd, helping to provide thousands of additional therapy sessions for children and adults with intellectual or developmental disabilities.",
+            "link": "https://www.saddleupnashville.org/how-you-can-help/",
+            "imgAvatar": "/img/collections/lazyhorse/avatar.png"
+        },
+        {
+            "hash": "0x96a6de55059aeefd739fda0acdb82d7b0eb9f3c5d27b953664453bd94f673c52",
+            "title": "Croskull 1",
+            "description": "The CroSkull team will be supporting Cancer Research UK, a charity within England and Wales. Proceeds will be donated and used to provide labs with research chemicals, continue operation of mobile awareness units to provide early diagnosis to visitors, provide free cancer clinical trials to those in need, tools for advanced DNA sequencing, and chat support for those emotionally affected by their own or a loved one's diagnosis and treatment.",
+            "link": "https://www.cancerresearchuk.org/about-cancer/bone-cancer",
+            "imgAvatar": "/img/collections/lazyhorse/avatar.png"
+        },
+        {
+
+            "hash": "0xafca64614fedc7c503e44bbaf99f95d3c46d614b05ae3d2975af490aaa69daea",
+            "title": "Croskull 2",
+            "description": "The CroSkull team will be supporting Cancer Research UK, a charity within England and Wales. Proceeds will be donated and used to provide labs with research chemicals, continue operation of mobile awareness units to provide early diagnosis to visitors, provide free cancer clinical trials to those in need, tools for advanced DNA sequencing, and chat support for those emotionally affected by their own or a loved one's diagnosis and treatment.",
+            "link": "https://www.cancerresearchuk.org/about-cancer/bone-cancer",
+            "imgAvatar": "/img/collections/lazyhorse/avatar.png"
+        },
+        {
+            "hash": "0x99f01faa9599773cd53676aa2d6eb10f2139c0de0c6c22ea6cb71d9febcf485b",
+            "title": "Chimps",
+            "description": "Chimp info...",
+            "link": "https://www.cancerresearchuk.org/about-cancer/bone-cancer",
+            "imgAvatar": "/img/collections/lazyhorse/avatar.png"
+        },
+        {
+            "hash": "",
+            "title": "Space Crystal Unicorns",
+            "description": "Hello everyoune, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
+            "link": "http://www.ritmclub.ru/",
+            "imgAvatar": "/img/collections/lazyhorse/avatar.png",
+            "redirectToDrop": "space-crystal-unicorns"
         }
     ]
 }

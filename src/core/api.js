@@ -21,6 +21,7 @@ const api = {
     collections: '/collections',
     marketData: '/marketdata',
     nft: '/nft',
+    auctions: '/auctions'
 }
 
 export default api;
@@ -537,5 +538,22 @@ export async function getNftFromFile(collectionId, nftId) {
         return nft;
     } catch (error) {
         console.log(error);
+    }
+}
+
+
+export async function sortAndFetchAuctions(page) {
+    const url = new URL(api.auctions, `${api.baseUrl}`);
+    return await (await fetch(url)).json();
+}
+
+export async function getAuction(auctionId) {
+    try{
+        const uri = `${api.baseUrl}${api.auctions}?auctionId=${auctionId}`;
+        var rawListing = await (await fetch(uri)).json();
+
+        return rawListing['auctions'][0];
+    }catch(error){
+        console.log(error)
     }
 }
