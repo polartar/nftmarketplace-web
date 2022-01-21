@@ -137,6 +137,21 @@
                 "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
                 "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
             }
+        },
+        {
+            "name" : "The Lazy Horse Member NFT (PONY)",
+            "multiToken" : false,
+            "address" : "0xEd8d78449402f44C8e9B0a38de785D0CaD73F76e",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "lazy-horse-pony",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png"
+            }
         }
     ],
     "drops": [
@@ -306,6 +321,34 @@
                 "function setCost(uint, bool) public"
             ],
             "start": 1643098329000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "lazy-horse-pony",
+            "imgNft": "/img/drops/lazyhorse/pony/drop.png",
+            "imgPreview": "/img/drops/lazyhorse/pony/drop.png",
+            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
+            "imgBanner" : "/img/collections/lazyhorse/banner.png",
+            "title": "The Lazy Horse Member NFT (PONY)",
+            "subtitle": "",
+            "description":  "DESCRIPTION NEEDED",
+            "author": { "name": "Cronos Goats", "link": "https://www.lazyhorseraceclub.com/"},
+            "address": "0xEd8d78449402f44C8e9B0a38de785D0CaD73F76e",
+            "maxMintPerTx": 20,
+            "totalSupply": 2000,
+            "cost": "2",
+            "memberCost": "1",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) external"
+            ],
+            "start": 1642536000000,
             "end": null,
             "referral": false,
             "is1155": false
