@@ -860,6 +860,21 @@
                 "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
                 "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
             }
+        },
+        {
+            "name" : "Honorary Chimps",
+            "multiToken" : false,
+            "address" : "0x387cd44676CDEe5E398eC1a152A5136d9f4E1760",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "honorary-chimps",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/chimps/avatar.png",
+                "banner": "/img/collections/chimps/banner.png",
+                "card": "/img/collections/chimps/card.png"
+            }
         }
     ],
     "drops": [
