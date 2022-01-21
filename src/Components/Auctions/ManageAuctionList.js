@@ -46,6 +46,21 @@ const ManageAuctionList = () => {
         }
     }
 
+    const mapStateToHumanReadable = (listing) => {
+        switch (listing.state) {
+            case auctionState.NOT_STARTED:
+                return "Not Started";
+            case auctionState.ACTIVE:
+                return listing.endAt < Date.now() ? "Awaiting Acceptance" : "Active";
+            case auctionState.CANCELLED:
+                return "Cancelled";
+            case auctionState.SOLD:
+                return "Sold"
+            default:
+                return "Unknown";
+        }
+    }
+
     const handleCancelClick = (auction) => async () => {
         if(user.address) {
             let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
@@ -92,16 +107,10 @@ const ManageAuctionList = () => {
                                 <h6 className="card-title mt-auto">{auction.nft.name}</h6>
                                 <p className="card-text">
                                     {ethers.utils.commify(auction.highestBid)} CRO <br/>
-                                    State: {auction.state}
+                                    State: {mapStateToHumanReadable(auction)}
                                 </p>
                             </div>
                             <div className="card-footer d-flex justify-content-between">
-                                {auction.state === auctionState.NOT_STARTED &&
-                                    <button className="btn-main lead mr15" onClick={handleStartClick(auction)}>Start</button>
-                                }
-                                {auction.state === auctionState.ACTIVE &&
-                                    <button className="btn-main lead mr15" onClick={handleCancelClick(auction)}>Cancel</button>
-                                }
                                 <Link to={`/auctions/${auction.auctionId}`}>View</Link>
                             </div>
                         </div>
