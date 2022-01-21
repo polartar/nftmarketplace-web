@@ -55,6 +55,5 @@ export const getAuctionDetails = (auctionId) => async (dispatch) => {
         minBid = listing.minimumBid;
         console.log('Failed to retrieve minimum bid. Falling back to api value', listing.auctionId);
     }
-    console.log(listing);
     dispatch(auctionReceived({listing, history, powertraits, minBid}));
 }
