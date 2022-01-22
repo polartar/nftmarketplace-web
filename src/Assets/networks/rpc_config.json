@@ -819,9 +819,9 @@
         {
             "name" : "Red Skull Potions",
             "multiToken" : false,
-            "address" : "0x3A8DEFcfBf2aD87F2D338Fe7E1d74ac0dBeAb74A",
+            "address" : "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "red-skull-potions",
                 "description": "",
@@ -859,6 +859,21 @@
                 "avatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg",
                 "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
                 "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
+            }
+        },
+        {
+            "name" : "Honorary Chimps",
+            "multiToken" : false,
+            "address" : "0x387cd44676CDEe5E398eC1a152A5136d9f4E1760",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "honorary-chimps",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/chimps/avatar.png",
+                "banner": "/img/collections/chimps/banner.png",
+                "card": "/img/collections/chimps/card.png"
             }
         }
     ],

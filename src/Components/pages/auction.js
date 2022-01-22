@@ -32,10 +32,7 @@ const Auction = () => {
             .filter(i => i.state === 1)
             .sort((a, b) => (a.saleTime < b.saleTime) ? 1 : -1)
     )
-    const bidHistory = useSelector((state) =>
-        state.auction.bidHistory
-            .filter(i => !i.withdrawn)
-    )
+    const bidHistory = useSelector((state) => state.auction.bidHistory)
     const powertraits = useSelector((state) => state.auction.powertraits)
     const isLoading = useSelector((state) => state.auction.loading)
     const user = useSelector((state) => state.user)

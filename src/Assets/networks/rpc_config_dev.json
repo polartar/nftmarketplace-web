@@ -860,6 +860,21 @@
                 "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
                 "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
             }
+        },
+        {
+            "name" : "Honorary Chimps",
+            "multiToken" : false,
+            "address" : "0x387cd44676CDEe5E398eC1a152A5136d9f4E1760",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "honorary-chimps",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/chimps/avatar.png",
+                "banner": "/img/collections/chimps/banner.png",
+                "card": "/img/collections/chimps/card.png"
+            }
         }
     ],
     "drops": [
@@ -1124,7 +1139,7 @@
             "subtitle": "",
             "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
             "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B ",
+            "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
             "maxMintPerTx": 20,
             "totalSupply": 8000,
             "cost": "300",
