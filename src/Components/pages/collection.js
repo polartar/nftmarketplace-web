@@ -132,7 +132,6 @@ const Collection = ({cacheName = 'collection'}) => {
                 <div className='row'>
                     <div className="col-md-12">
                         <div className="d_profile">
-                            {collectionStats&&
                             <div className="profile_avatar">
                                 <div className="d_profile_img">
                                     {metadata?.avatar ?
@@ -158,7 +157,6 @@ const Collection = ({cacheName = 'collection'}) => {
                                     </h4>
                                 </div>
                             </div>
-                            }
                         </div>
                     </div>
                 </div>
