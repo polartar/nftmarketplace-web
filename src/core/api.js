@@ -267,6 +267,9 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
                                 //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
                                 uri = 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
+                            } else if (c.name == "Red Skull Potions") {
+                                // fix for CroSkull's Red Skull Potions
+                                uri = `https://gateway.pinata.cloud/ipfs/QmQd9sFZv9aTenGD4q4LWDQWnkM4CwBtJSL82KLveJUNTT/${id}`;
                             } else {
                                 uri = await readContract.tokenURI(id);
                             }
