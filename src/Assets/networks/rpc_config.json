@@ -821,7 +821,7 @@
             "multiToken" : false,
             "address" : "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "red-skull-potions",
                 "description": "",
