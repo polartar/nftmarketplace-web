@@ -119,6 +119,25 @@
             }
         },
         {
+            "name" : "CroMonkeys",
+            "multiToken" : false,
+            "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cromonkeys",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromonkeys/avatar.gif",
+                "card": "/img/collections/cromonkeys/card.png",
+                "banner": "/img/collections/cromonkeys/banner.png",
+                "maxSupply": 1000,
+                "website": "https://cromonkeys.com/",
+                "twitter": "https://twitter.com/CROMonkeysNFT",
+                "discord": "https://discord.com/invite/84s8UgD7vC"
+            }
+        },
+        {
             "name" : "Cronos Slothty",
             "multiToken" : false,
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
