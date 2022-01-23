@@ -11,6 +11,7 @@ import {ethers} from "ethers";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfilePreview from "../components/ProfilePreview";
+import {croSkullRedPotionImageHack} from "../../hacks";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -71,11 +72,11 @@ const Nft = () => {
                 <div className='row mt-md-5 pt-md-4'>
                     <div className="col-md-6 text-center">
                         {nft &&
-                            <img src={nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            <img src={croSkullRedPotionImageHack(address, nft.image)} className="img-fluid img-rounded mb-sm-30" alt=""/>
                         }
                         {nft && nft.original_image &&
                             <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
-                                <span onClick={() => window.open(fullImage(), "_blank")}>
+                                <span onClick={() => window.open(croSkullRedPotionImageHack(address, fullImage()), "_blank")}>
                                   <span className='p-2'>View Full Image</span>
                                   <FontAwesomeIcon icon={faExternalLinkAlt} />
                                 </span>

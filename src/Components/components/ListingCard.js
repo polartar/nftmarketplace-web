@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import styled from "styled-components";
 import { Link  } from "react-router-dom";
 import { ethers } from "ethers";
+import {croSkullRedPotionImage, croSkullRedPotionImageHack, isCroSkullRedPotion} from "../../hacks";
 
 const Outer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
     return (
         <Link className="linkPointer" to={`/listing/${listing.listingId}`}>
             <div className="card eb-nft__card h-100 shadow">
-                <img src={listing.nft.image} className={`card-img-top ${imgClass}`} />
+                <img src={croSkullRedPotionImageHack(listing.nftAddress, listing.nft.image)} className={`card-img-top ${imgClass}`} />
                 {listing.nft.rank ?
                     <div className="badge bg-rarity text-wrap mt-1 mx-1">
                         Rank: #{listing.nft.rank}

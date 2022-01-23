@@ -20,6 +20,7 @@ import config from "../../Assets/networks/rpc_config.json";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfilePreview from "../components/ProfilePreview";
+import {croSkullRedPotionImageHack} from "../../hacks";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -138,11 +139,11 @@ const Listing = () => {
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
                             {listing &&
-                                <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                                <img src={croSkullRedPotionImageHack(listing.nftAddress, listing.nft.image)} className="img-fluid img-rounded mb-sm-30" alt=""/>
                             }
                             {listing && listing.nft.original_image &&
                                 <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
-                                    <span onClick={() => window.open(fullImage(), "_blank")}>
+                                    <span onClick={() => window.open(croSkullRedPotionImageHack(listing.nftAddress, fullImage()), "_blank")}>
                                         <span className='p-2'>View Full Image</span>
                                         <FontAwesomeIcon icon={faExternalLinkAlt} />
                                     </span>
