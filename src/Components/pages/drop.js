@@ -14,10 +14,13 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
-import {createSuccessfulTransactionToastContent, getShortIdForView, newlineText} from "../../utils";
+import {
+    createSuccessfulTransactionToastContent,
+    isCroniesDrop,
+    isFounderDrop,
+    newlineText
+} from "../../utils";
 import MintButton from "../Drop/MintButton";
-import CrougarsWl from '../../Assets/crougars_wl.txt';
-import {ERC721} from "../../Contracts/Abis";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -112,7 +115,13 @@ const Drop = () => {
             }
         }
         try {
-            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(currentDrop.address)) {
+            if (isFounderDrop(currentDrop.address)) {
+                currentDrop = Object.assign({currentSupply: membership.founders.count}, currentDrop);
+            }
+            else if (isCroniesDrop(currentDrop.address)) {
+                currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
+            }
+            else {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
             }
@@ -122,29 +131,7 @@ const Drop = () => {
         calculateStatus(currentDrop);
         setLoading(false);
         setDropObject(currentDrop);
-    }, [user]);
-
-    useEffect(() => {
-        if (dropObject) {
-            if (isFounderDrop(dropObject.address)) {
-                setDropObject(Object.assign({currentSupply: membership.founders.count}, dropObject));
-            }
-            if (isCroniesDrop(dropObject.address)) {
-                setDropObject(Object.assign({currentSupply: cronies.count}, dropObject));
-            }
-        }
-    }, [membership, user, cronies])
-
-    // @todo refactor out
-    const isCroniesDrop = (address) => {
-        const croniesDrop = drops.find(d => d.slug === 'cronies');
-        return croniesDrop?.address === address;
-    }
-    // @todo refactor out
-    const isFounderDrop = (address) => {
-        const croniesDrop = drops.find(d => d.slug === 'founding-member');
-        return croniesDrop?.address === address;
-    }
+    }, [user, membership, cronies]);
 
     const calculateStatus = (drop) => {
         const sTime = new Date(drop.start);
@@ -360,7 +347,7 @@ const Drop = () => {
                                         className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
                                     </div>
                                 </div>
-                                <p>{newlineText(drop.description)}</p>
+                                <div>{newlineText(drop.description)}</div>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
