@@ -127,7 +127,7 @@
         {
             "name" : "Fractals",
             "multiToken" : false,
-            "address" : "0xA12834C29B70D2AB32925a836c114391Bb803Df7",
+            "address" : "0xBE06783f7a02cFF726c0d4A6F11e8B3c237030a3",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -251,17 +251,17 @@
             "subtitle": "",
             "description":  "The Fractals connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
             "author": { "name": "Fractals", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "0xA12834C29B70D2AB32925a836c114391Bb803Df7",
+            "address": "0xBE06783f7a02cFF726c0d4A6F11e8B3c237030a3",
             "maxMintPerTx": 1,
-            "totalSupply": 25,
+            "totalSupply": 50,
             "cost": "15",
-            "memberCost": "15",
+            "memberCost": "10",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
                 "function cost() view returns (uint256)",
-                "function setCost(uint) public"
+                "function setCost(uint,bool) public"
             ],
             "start": 1639591200000,
             "end": null,
