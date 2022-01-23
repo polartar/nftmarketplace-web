@@ -158,7 +158,7 @@ const Auction = () => {
                                                 <div className="tab-1 onStep fadeIn">
                                                     {charityMetadata &&
                                                     <div key="charity-meta">
-                                                        <p key="1">{newlineText(charityMetadata.description)}</p>
+                                                        <div>{newlineText(charityMetadata.description)}</div>
                                                         <p>Donate directly at <a href={charityMetadata.link} target="_blank" className="fw-bold">{charityMetadata.link}</a></p>
                                                     </div>
                                                     }

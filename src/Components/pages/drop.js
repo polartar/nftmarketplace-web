@@ -360,7 +360,7 @@ const Drop = () => {
                                         className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
                                     </div>
                                 </div>
-                                <p>{newlineText(drop.description)}</p>
+                                <div>{newlineText(drop.description)}</div>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
