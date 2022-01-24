@@ -178,7 +178,11 @@ const Drop = () => {
                 const memberCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20MemberCost : dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20Cost : dropObject.cost);
                 let cost;
-                if(await isEligibleForMemberPrice(user)){
+                if (dropObject.abi.join().includes("isReducedTime()")) {
+                    let readContract = await new ethers.Contract(dropObject.address, dropObject.abi, readProvider);
+                    const isReduced = await readContract.isReducedTime();
+                    cost = isReduced ? memberCost : regCost;
+                } else if(await isEligibleForMemberPrice(user)){
                     cost = memberCost;
                 } else {
                     cost = regCost;
@@ -191,7 +195,6 @@ const Drop = () => {
                     var response;
 
                     if (dropObject.title === "Founding Member") {
-                        console.log(referral);
                         if(referral){
                             finalCost = finalCost.sub(ethers.utils.parseEther('10.0').mul(numToMint));
                             extra = {
@@ -202,7 +205,6 @@ const Drop = () => {
                         response = await contract.mint(1, numToMint, ref32, extra);
                     } else {
                         // Cronie
-
                         const gas = String(900015 * numToMint);
                         response = await contract.mint(numToMint, extra);
                     }
@@ -211,7 +213,7 @@ const Drop = () => {
                     for (const abiMethod of dropObject.abi) {
                         if (abiMethod.includes("mint") && !abiMethod.includes("view")) method = abiMethod;
                     }
-                    var response;
+
                     if(isErc20) {
                         let erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
                         await erc20Contract.approve(dropObject.address, finalCost);

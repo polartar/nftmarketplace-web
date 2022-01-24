@@ -142,7 +142,7 @@
         {
             "name" : "Cronos goats",
             "multiToken" : false,
-            "address" : "0xD96B7563027968b2BB8D946eC6Fad7735B10F8c1",
+            "address" : "0xF313649E3DD661b09D511257A7E77F4e6b12d1fA",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -152,6 +152,21 @@
                 "avatar": "/img/collections/cronosgoats/avatar.gif",
                 "card": "/img/collections/cronosgoats/card.png",
                 "banner": "/img/collections/cronosgoats/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos gods",
+            "multiToken" : false,
+            "address" : "0xc25914a85652a160CE4b74e678354aB336A1C217",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos gods",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosgods/avatar.gif",
+                "card": "/img/collections/cronosgods/card.png",
+                "banner": "/img/collections/cronosgods/banner.png"
             }
         }
     ],
@@ -334,13 +349,14 @@
             "subtitle": "",
             "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey. Chance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods. Holders Get Random Loot Airdrop. Holders have a chance to win a share of $10,000 in CRO. 15% goes toward charities in the Virgin Islands. Have a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space.  One of a kind. We offer many more things visit https://www.cronogods.com/",
             "author": { "name": "Fractals", "link": "https://www.cronogods.com/"},
-            "address": "0xD96B7563027968b2BB8D946eC6Fad7735B10F8c1",
+            "address": "0xc25914a85652a160CE4b74e678354aB336A1C217",
+            "erc20Address": "0x2074D6a15c5F908707196C5ce982bd0598A666f9",
             "maxMintPerTx": 5,
             "totalSupply": 1520,
-            "cost": "15",
-            "memberCost": "10",
-            "erc20Cost": "21",
-            "erc20MemberCost": "17",
+            "cost": "350",
+            "memberCost": "295",
+            "erc20Cost": "43800000",
+            "erc20MemberCost": "37000000",
             "erc20Unit": "Loot",
             "foundersOnly": false,
             "abi": [
@@ -350,7 +366,13 @@
                 "function mintCost(address) view returns (uint256)",
                 "function mintLootCost(address) view returns (uint256)",
                 "function setCost(uint,bool) public",
-                "function setLootCost(uint,bool) public"
+                "function setLootCost(uint,bool) public",
+                "function isReducedTime() public view returns(bool)",
+                "function withdraw() public payable",
+                "function withdrawPayments(address) public"
+            ],
+            "erc20Abi": [
+                "function approve(address, uint256) public"
             ],
             "start": 1639591200000,
             "end": null,
