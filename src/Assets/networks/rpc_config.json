@@ -1162,7 +1162,7 @@
             "multiToken" : false,
             "address" : "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "weird-apes-club",
                 "description": "",
