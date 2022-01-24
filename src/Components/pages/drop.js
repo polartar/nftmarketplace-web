@@ -209,14 +209,26 @@ const Drop = () => {
                 } else {
                     let method;
                     for (const abiMethod of dropObject.abi) {
-                        if (abiMethod.includes("mint")) method = abiMethod;
+                        if (abiMethod.includes("mint") && !abiMethod.includes("view")) method = abiMethod;
                     }
                     var response;
+                    if(isErc20) {
+                        let erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
+                        await erc20Contract.approve(dropObject.address, finalCost);
+                    }                    
                     if (method.includes("address") && method.includes("uint256")) {
-                        response = await contract.mint(user.address, numToMint, extra);
+                        if (isErc20) {
+                            response = await contract.mintWithLoot(user.address, numToMint);
+                        } else {
+                            response = await contract.mint(user.address, numToMint, extra);
+                        }                        
                     } else {
                         console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
-                        response = await contract.mint(numToMint, extra);
+                        if (isErc20) {
+                            response = await contract.mintWithLoot(numToMint);
+                        } else {
+                            response = await contract.mint(numToMint, extra);
+                        }                        
                     }
                     const receipt = await response.wait();
                     toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
@@ -323,7 +335,6 @@ const Drop = () => {
                                         drop.erc20Unit && 
                                             <MintButton
                                                 mintCallback={mintNow}
-                                                maxMintPerTx={drop.maxMintPerTx}
                                                 title={`Mint with ${drop.erc20Unit}`}
                                                 isERC20={true}
                                                 numToMint={numToMint} 
@@ -455,7 +466,7 @@ const Drop = () => {
                                                     <MintButton
                                                         mintCallback={mintNow}
                                                         maxMintPerTx={drop.maxMintPerTx}
-                                                        title={`Mint with ${drop.erc20Unit}`}
+                                                        text={`Mint with ${drop.erc20Unit}`}
                                                         isERC20={true}
                                                         numToMint={numToMint} 
                                                     />
