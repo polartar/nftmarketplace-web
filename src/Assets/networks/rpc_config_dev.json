@@ -636,7 +636,7 @@
             "multiToken": false,
             "address" : "0x9DD120Ed601c0bdc5725F9cbf529Cb70fc0ECAFB",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-dolphinos",
                 "description": "",
