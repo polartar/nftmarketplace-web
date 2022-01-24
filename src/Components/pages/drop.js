@@ -379,19 +379,23 @@ const Drop = () => {
                                         <h6 className="mb-1">Mint Price</h6>
                                         <h5>{dropObject?.cost} CRO</h5>
                                         {
-                                            dropObject?.erc20Cost && dropObject?.erc20Unit &&  <h5>{`${dropObject?.erc20Cost} ${dropObject?.erc20Unit}`}</h5>
+                                            dropObject?.erc20Cost && dropObject?.erc20Unit && 
+                                                <h5>{`${dropObject?.erc20Cost} ${dropObject?.erc20Unit}`}</h5>
                                         }
                                     </div>
-                                    {((dropObject?.cost !== dropObject?.memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
-                                    <div>
-                                        <h6 className="mb-1">Founding Member Price</h6>
-                                        {
-                                            (dropObject?.cost !== dropObject?.memberCost) && <h5>{dropObject?.memberCost} CRO</h5>
-                                        }
-                                        {
-                                            (dropObject?.erc20Cost !== dropObject?.erc20MemberCost) && <h5>{`${dropObject?.erc20MemberCost} ${dropObject?.erc20Unit}`}</h5>
-                                        }
-                                    </div>
+                                    {
+                                        ((dropObject?.cost !== dropObject?.memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
+                                            <div>
+                                                <h6 className="mb-1">Founding Member Price</h6>
+                                                {
+                                                    (dropObject?.cost !== dropObject?.memberCost) && 
+                                                        <h5>{dropObject?.memberCost} CRO</h5>
+                                                }
+                                                {
+                                                    (dropObject?.erc20Cost !== dropObject?.erc20MemberCost) &&
+                                                        <h5>{`${dropObject?.erc20MemberCost} ${dropObject?.erc20Unit}`}</h5>
+                                                }
+                                            </div>
                                     }
                                 </div>
 

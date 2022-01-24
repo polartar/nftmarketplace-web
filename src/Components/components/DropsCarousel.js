@@ -222,7 +222,15 @@ export default class Responsive extends Component {
                                           <div className='col'>
                                               <span className="d-title">Mint Price</span>
                                               <h3>{humanize(drop.cost)} CRO</h3>
+                                              {
+                                                drop.erc20Cost && drop.erc20Unit && 
+                                                  <h3>{humanize(drop.erc20Cost)} {drop.erc20Unit}</h3>
+                                              }
                                               <h5>Members: {humanize(drop.memberCost)} CRO</h5>
+                                              {
+                                                drop.erc20MemberCost && drop.erc20Unit && 
+                                                  <h5>Members: {humanize(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
+                                              }
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
