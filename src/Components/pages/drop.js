@@ -170,13 +170,13 @@ const Drop = () => {
         return user.isMember;
     }
 
-    const mintNow = async() => {
+    const mintNow = async(isErc20 = false) => {
         if(user.address){
             setMinting(true);
             const contract = dropObject.writeContract;
             try{
-                const memberCost = ethers.utils.parseEther(dropObject.memberCost);
-                const regCost = ethers.utils.parseEther(dropObject.cost);
+                const memberCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20MemberCost : dropObject.memberCost);
+                const regCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20Cost : dropObject.cost);
                 let cost;
                 if(await isEligibleForMemberPrice(user)){
                     cost = memberCost;
@@ -319,6 +319,16 @@ const Drop = () => {
                                         mintCallback={mintNow}
                                         numToMint={numToMint}
                                         title="Mint Now" />
+                                     {
+                                        drop.erc20Unit && 
+                                            <MintButton
+                                                mintCallback={mintNow}
+                                                maxMintPerTx={drop.maxMintPerTx}
+                                                title={`Mint with ${drop.erc20Unit}`}
+                                                isERC20={true}
+                                                numToMint={numToMint} 
+                                            />
+                                    }
                                 </Reveal>
                                 }
                                 <div className="spacer-10"></div>
@@ -440,6 +450,16 @@ const Drop = () => {
                                                 mintCallback={mintNow}
                                                 maxMintPerTx={drop.maxMintPerTx}
                                                 numToMint={numToMint} />
+                                            {
+                                                drop.erc20Unit && 
+                                                    <MintButton
+                                                        mintCallback={mintNow}
+                                                        maxMintPerTx={drop.maxMintPerTx}
+                                                        title={`Mint with ${drop.erc20Unit}`}
+                                                        isERC20={true}
+                                                        numToMint={numToMint} 
+                                                    />
+                                            }
                                         </div>
                                     </>
                                 }
