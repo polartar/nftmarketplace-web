@@ -1124,7 +1124,7 @@
             "multiToken" : false,
             "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cromonkeys",
                 "description": "",
