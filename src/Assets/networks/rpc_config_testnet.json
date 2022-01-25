@@ -365,6 +365,8 @@
                 "function totalSupply() public view returns (uint256)",
                 "function setCost(uint,bool) public",
                 "function setLootCost(uint,bool) public",
+                "function mintCost(address) external view returns(uint256)",
+                "function mintLootCost(address) external view returns(uint256)",
                 "function isReducedTime() public view returns(bool)"
             ],
             "erc20Abi": [
