@@ -1280,6 +1280,25 @@
                 "banner": "/img/collections/chimps/banner.png",
                 "card": "/img/collections/chimps/card.png"
             }
+        },
+        {
+            "name" : "Crognomes",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "crognomes",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crognomes/avatar.png",
+                "card": "/img/collections/crognomes/card.png",
+                "banner": "/img/collections/crognomes/banner.png",
+                "maxSupply": 2000,
+                "website": "https://www.crognomes.com/",
+                "twitter": "https://twitter.com/CroGnomes",
+                "discord": "https://discord.gg/WkRgkSQ2hJ"
+            }
         }
     ],
     "drops": [
@@ -1560,6 +1579,35 @@
             "end": null,
             "referral": false,
             "is1155": false
+        },
+        {
+            "id": 12,
+            "slug": "crognomes",
+            "imgNft": "/img/drops/crognomes/drop.png",
+            "imgPreview": "/img/drops/crognomes/drop.png",
+            "imgAvatar" : "/img/collections/crognomes/avatar.png",
+            "imgBanner" : "/img/collections/crognomes/banner.png",
+            "title": "Crognomes",
+            "subtitle": "2000 secretive hard working Crognomes living on the cronos blockchain who might share the location of the secret mines if taken care of well enough.",
+            "description": "\"Have you ever wondered where all those shiny crypto cards actually come from?\n\nThose glistening ruby, shiny indigo & luminescent jade crystals that are needed for those ooooh so sweet cashbacks are harvested deep inside the hidden cryptomines. The location of these mines are a well-kept secret by the Crognomes... \n\nWhile they’re no tattletales, the Crognomes might share the secret location of these Cryptomines with you, if you provide them safe refuge in your cryptowallet. \n\nCrognomes have been known to sneak in their wives, the Crognomides, when they’re feeling lonely. So you can expect these Crognomides to show up in your wallet as well!* If you leave them alone for a long enough time, you will find your family of 2 has grown ever larger. \n\nStart your own Crognome-family and adopt your Crognome today!\n\n*In order to make sure that the Crognomides find their husband in your cryptowallet in time, you will need to have minted your Crognomes NFTs BEFORE 9PM UTC on the 26th of January! All Crognome NFTs minted after that will have the option to safely usher their Crognomides into their cryptowallet by minting a safe route. \nThis route can be minted for 50 CRO\"",
+            "author": { "name": "Crognomes", "link": "https://www.crognomes.com/"},
+            "address": "0x570966a3503aE3fc2191f68dae3a6395eeFB897A",
+            "maxMintPerTx": 10,
+            "totalSupply": 2000,
+            "cost": "275",
+            "memberCost": "245",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1643144400000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "previewOnly": true
         }
     ],
     "auctions": [
