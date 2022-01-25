@@ -1460,7 +1460,7 @@
             "author": { "name": "Cronos Fox Fraternity", "link": "https://www.cronosfoxfraternity.com/"},
             "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
             "maxMintPerTx": 1,
-            "totalSupply": 4444,
+            "totalSupply": 2222,
             "cost": "199",
             "memberCost": "199",
             "foundersOnly": false,
