@@ -268,3 +268,8 @@ export const isFounderDrop = (address) => {
   const croniesDrop = drops.find(d => d.slug === 'founding-member');
   return croniesDrop?.address === address;
 }
+
+export const isCrognomesDrop = (address) => {
+  const croniesDrop = drops.find(d => d.slug === 'crognomes');
+  return croniesDrop?.address === address;
+}

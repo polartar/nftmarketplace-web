@@ -15,7 +15,7 @@ import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import {
-    createSuccessfulTransactionToastContent,
+    createSuccessfulTransactionToastContent, isCrognomesDrop, isCrognomesV2Drop,
     isCroniesDrop,
     isFounderDrop,
     newlineText
@@ -120,6 +120,12 @@ const Drop = () => {
             }
             else if (isCroniesDrop(currentDrop.address)) {
                 currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
+            }
+            else if (isCrognomesDrop(currentDrop.address)) {
+                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+                const supply = await readContract.totalSupply();
+                const offsetSupply = supply.add(901);
+                currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
             }
             else {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
