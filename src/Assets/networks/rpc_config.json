@@ -920,7 +920,7 @@
             "onChain" : false,
             "listable" : false,
             "metadata": {
-                "slug": "crognomes",
+                "slug": "crognomes-v1",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/crognomes/avatar.png",
