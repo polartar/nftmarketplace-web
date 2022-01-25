@@ -363,13 +363,9 @@
                 "function mint(uint256 _mintAmount) public payable",
                 "function mintWithLoot(uint256 _mintAmount) public",
                 "function totalSupply() public view returns (uint256)",
-                "function mintCost(address) view returns (uint256)",
-                "function mintLootCost(address) view returns (uint256)",
                 "function setCost(uint,bool) public",
                 "function setLootCost(uint,bool) public",
-                "function isReducedTime() public view returns(bool)",
-                "function withdraw() public payable",
-                "function withdrawPayments(address) public"
+                "function isReducedTime() public view returns(bool)"
             ],
             "erc20Abi": [
                 "function approve(address, uint256) public"
