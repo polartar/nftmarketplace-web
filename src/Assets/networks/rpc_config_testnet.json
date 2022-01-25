@@ -352,6 +352,38 @@
             "end": null,
             "referral": false,
             "is1155": false
+        },
+        {
+            "id": 13,
+            "slug": "maries-cyborgs",
+            "imgNft": "/img/drops/mariecyborg/drop.gif",
+            "imgPreview": "/img/drops/mariecyborg/drop.gif",
+            "imgAvatar" : "/img/collections/mariecyborg/avatar.png",
+            "imgBanner" : "/img/collections/mariecyborg/banner.png",
+            "title": "Marie's Cyborgs",
+            "subtitle": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
+            "description":  "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
+            "author": { "name": "Marie Cyborg", "link": ""},
+            "address": "0x506909a360F063F426a223D84EBB205A7AB21114",
+            "maxMintPerTx": 25,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2500,
+            "cost": "400",
+            "memberCost": "350",
+            "whitelistCost": "300",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
+            "mediaPosition": "left"
         }
     ],
     "auctions": [

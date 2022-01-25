@@ -21,6 +21,9 @@ import {
     newlineText
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
+import ReactPlayer from 'react-player'
+import marie from '../../Contracts/marie.json'
+import nft from "./nft";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -260,7 +263,10 @@ const Drop = () => {
         let dateString = `${fullDateString.split(", ")[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`
         return dateString
     }
-
+    const vidRef = useRef(null);
+    const handlePlayVideo = () => {
+        vidRef.current.play();
+    }
     return (
         <div>
             <GlobalStyles/>
@@ -268,7 +274,17 @@ const Drop = () => {
                 <section className={`jumbotron breadcumb h-vh tint`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
-                            <div className="col-md-6">
+                            <div className={`col-lg-6 ${drop.mediaPosition === 'left' ? 'order-1' : 'order-2'}`}>
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <ReactPlayer
+                                        url={drop.video}
+                                        controls={true}
+                                        width='100%'
+                                        height='100%'
+                                    />
+                                </Reveal>
+                            </div>
+                            <div className={`col-lg-6 ${drop.mediaPosition === 'left' ? 'order-2' : 'order-1'}`}>
                                 <div className="spacer-single"></div>
                                 <div className="spacer-double"></div>
 
