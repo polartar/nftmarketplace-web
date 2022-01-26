@@ -19,6 +19,37 @@ import store from './Store/store';
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginReact from '@bugsnag/plugin-react'
 
+function initSite24x7ErrorLogging(s, r, key) {
+	if (!window.performance || !window.performance.timing || !window.performance.navigation || !key) {
+		return;
+	}
+
+	const headScript = document.getElementsByTagName('head')[0];
+	const script = document.createElement('script');
+
+	script.async = true;
+	script.setAttribute('src', s + key);
+
+	if (!window[r]) {
+		window[r] = function () {
+			if (window[r].q) {
+				window[r].q.push(arguments);
+			}
+		};
+	}
+
+	window.onerror = function (message, source, lineno, colno, error = new Error(message)) {
+		if (window[r].q) {
+			window[r].q.push([ "captureException", error ]);
+		}
+	}
+
+	headScript.appendChild(script);
+}
+
+initSite24x7ErrorLogging('//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=', 's247r', process.env.REACT_APP_SITE24X7_KEY);
+
+
 Bugsnag.start({
 	apiKey: '2930ae7912b5df1173da9e102e6f91cd',
 	plugins: [new BugsnagPluginReact()]
