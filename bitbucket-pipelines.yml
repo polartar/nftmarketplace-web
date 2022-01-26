@@ -132,6 +132,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
+          Deployment: DevelopmentBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
@@ -162,8 +163,6 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=false
             # RPC config
             #- cp -p ./src/Assets/networks/rpc_config.json ./src/Assets/networks/rpc_config.json
             # Build frontend
