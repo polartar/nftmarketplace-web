@@ -69,6 +69,8 @@ const MyNfts = () => {
 
 
     useEffect(() => {
+        //  error to test site24x7
+        ''.map();
         dispatch(fetchNfts(user.address, user.provider, user.nftsInitialized));
     }, []);
 
