@@ -21,7 +21,7 @@ const Drops = () => (
             </div>
         </section>
 
-        <section className='container no-bottom'>
+        <section className='container no-top'>
             <div className='row'>
                 <div className='col-lg-12'>
                     <div className='text-center'>
