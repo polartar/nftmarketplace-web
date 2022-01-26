@@ -11,6 +11,7 @@ import { sortOptions } from "../components/constants/sort-options";
 import { SortOption } from '../Models/sort-option.model';
 import { collectionFilterOptions} from "../components/constants/filter-options";
 import { FilterOption } from "../Models/filter-option.model";
+import AuctionCollection from "../components/AuctionCollection";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -29,6 +30,17 @@ const Marketplace = () => {
     const marketData = useSelector((state) => {
         return state.marketplace.marketData;
     });
+
+    const [openMenu, setOpenMenu] = React.useState(0);
+    const handleBtnClick = (index) => (element) => {
+        var elements = document.querySelectorAll('.tab');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('active');
+        }
+        element.target.parentElement.classList.add("active");
+
+        setOpenMenu(index);
+    };
 
     useEffect(async function() {
         dispatch(getMarketData())
@@ -94,6 +106,8 @@ const Marketplace = () => {
                             </a>
                         </div>
                     )}
+                </div>
+                <div className='row'>
                     <div className='col-lg-12'>
                         <TopFilterBar showFilter={true}
                                       showSort={true}

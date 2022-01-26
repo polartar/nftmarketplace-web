@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
@@ -14,15 +14,18 @@ import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
-import {siPrefixedNumber} from "../../utils";
+import {caseInsensitiveCompare, siPrefixedNumber} from "../../utils";
 import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
 import TraitsFilter from "../Collection/TraitsFilter";
 import PowertraitsFilter from "../Collection/PowertraitsFilter";
 import { SortOption } from '../Models/sort-option.model';
 import { FilterOption } from "../Models/filter-option.model";
-import {faCheck, faCircle} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faCircle, faGlobe, faLink} from "@fortawesome/free-solid-svg-icons";
 import LayeredIcon from "../components/LayeredIcon";
+import {faDiscord, faMedium, faTelegram, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {NavLink} from "react-bootstrap";
+import SocialsBar from "../Collection/SocialsBar";
 
 const knownContracts = config.known_contracts;
 
@@ -107,15 +110,20 @@ const Collection = ({cacheName = 'collection'}) => {
 
     useEffect(async () => {
         dispatch(getStats(address));
-        let royalties = await readMarket.royalties(address)
-        setRoyalty(Math.round(royalties[1]) / 100);
+        try {
+            let royalties = await readMarket.royalties(address)
+            setRoyalty(Math.round(royalties[1]) / 100);
+        } catch (error) {
+            console.log('error retrieving royalties for collection', error)
+            setRoyalty('N/A');
+        }
     }, [dispatch, address]);
 
     return (
         <div>
             <GlobalStyles/>
 
-            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.jpg'})`}}>
+            <section id='profile_banner' className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.jpg'})`, backgroundPosition: '50% 50%'}}>
                 <div className='mainbreadcumb'>
                 </div>
             </section>
@@ -124,7 +132,6 @@ const Collection = ({cacheName = 'collection'}) => {
                 <div className='row'>
                     <div className="col-md-12">
                         <div className="d_profile">
-                            {collectionStats&&
                             <div className="profile_avatar">
                                 <div className="d_profile_img">
                                     {metadata?.avatar ?
@@ -137,6 +144,7 @@ const Collection = ({cacheName = 'collection'}) => {
                                             icon={faCheck}
                                             bgIcon={faCircle}
                                             shrink={8}
+                                            stackClass="eb-avatar_badge"
                                         />
                                     }
                                 </div>
@@ -145,13 +153,10 @@ const Collection = ({cacheName = 'collection'}) => {
                                     <h4>
                                         {collectionName()}
                                         <div className="clearfix"/>
-                                        <span id="wallet" className="profile_wallet">{address}</span>
-
-                                        <button id="btn_copy" title="Copy Text" onClick={handleCopy(address)}>Copy</button>
+                                        <SocialsBar collection={knownContracts.find(c => caseInsensitiveCompare(c.address, address))} />
                                     </h4>
                                 </div>
                             </div>
-                            }
                         </div>
                     </div>
                 </div>

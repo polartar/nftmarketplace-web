@@ -17,6 +17,13 @@ const VerifiedIcon = styled.span`
 `;
 
 const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url, verified }) => {
+
+    const navigateTo = (url) => {
+        if (url) {
+            window.open(url, "_self")
+        }
+    }
+
   return (
     <div className='itm' index={index}>
       <div className="nft_coll">
@@ -24,7 +31,7 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
               <span><img src={banner} className="lazy img-fluid" alt=""/></span>
           </div>
           <div className="nft_coll_pp">
-              <span onClick={()=> window.open(url, "_self")}>
+              <span onClick={()=> navigateTo(url)}>
                   {avatar ?
                       <img className="lazy" src={avatar} alt=""/>
                       :
@@ -42,7 +49,7 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
               </span>
           </div>
           <div className="nft_coll_info">
-              <span onClick={()=> window.open(url, "_self")}><h4>{ title }</h4></span>
+              <span onClick={()=> navigateTo(url)}><h4>{ title }</h4></span>
               <span>{ subtitle }</span>
           </div>
       </div>
