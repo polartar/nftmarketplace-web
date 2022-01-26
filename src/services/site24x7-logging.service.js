@@ -45,10 +45,12 @@ export class Site24x7LoggingService {
         initSite24x7ErrorLogging(window, document, Site24x7LoggingService.s, Site24x7LoggingService.r, process.env.REACT_APP_SITE24X7_KEY);
     }
 
-    // static site24x7ErrorHandler = function (message, error = new Error(message)) {
-    //     if (window[Site24x7LoggingService.r].q) {
-    //         window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
-    //     }
-    // };
+    static site24x7ErrorHandler = function (error) {
+        if (window[Site24x7LoggingService.r].q) {
+            window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
+        } else {
+            console.warn(`window.${ Site24x7LoggingService.r }.q is not defined`);
+        }
+    };
 
 }
