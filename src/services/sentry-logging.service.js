@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import history from "../history";
+import { Site24x7LoggingService } from "./site24x7-logging.service";
 
 export class SentryLoggingService {
 
@@ -17,6 +18,11 @@ export class SentryLoggingService {
             ],
             normalizeDepth: 20,
             tracesSampleRate: 1.0,
+            beforeSend: (event, hint) => {
+                event.exception.values.forEach(exception => {
+                    Site24x7LoggingService.site24x7ErrorHandler(exception);
+                });
+            }
         });
 
     }

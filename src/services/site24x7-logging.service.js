@@ -1,4 +1,8 @@
 export class Site24x7LoggingService {
+    static s = '//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=';
+
+    static r = 's247r';
+
     static init() {
         function initSite24x7ErrorLogging(appWindow, appDocument,  s, r, key) {
             if (!appWindow.performance || !appWindow.performance.timing || !appWindow.performance.navigation || !key) {
@@ -20,15 +24,16 @@ export class Site24x7LoggingService {
                 };
             }
 
-            const site24x7ErrorHandler = function (message, source, lineno, colno, error = new Error(message)) {
-                if (appWindow[r].q) {
-                    appWindow[r].q.push([ "captureException", error ]);
-                }
-            };
-
-            appWindow.onerror = site24x7ErrorHandler
             headScript.appendChild(script);
         }
-        initSite24x7ErrorLogging(window, document, '//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=', 's247r', process.env.REACT_APP_SITE24X7_KEY);
+
+        initSite24x7ErrorLogging(window, document, Site24x7LoggingService.s, Site24x7LoggingService.r, process.env.REACT_APP_SITE24X7_KEY);
     }
+
+    static site24x7ErrorHandler = function (message, error = new Error(message)) {
+        if (window[Site24x7LoggingService.r].q) {
+            window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
+        }
+    };
+
 }
