@@ -21,6 +21,7 @@ import BugsnagPluginReact from '@bugsnag/plugin-react'
 
 function initSite24x7ErrorLogging(s, r, key) {
 	if (!window.performance || !window.performance.timing || !window.performance.navigation || !key) {
+		console.warn('Cannot initialize 24x7 error logging');
 		return;
 	}
 
