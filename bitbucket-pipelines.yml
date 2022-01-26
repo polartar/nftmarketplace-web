@@ -140,12 +140,10 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=true
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - CI=false REACT_APP_DEVTOOLS=$REACT_APP_DEVTOOLS REACT_APP_SITE24X7_KEY=$REACT_APP_SITE24X7_KEY npm run build
           artifacts:
             - build/**
       - step:
@@ -169,7 +167,7 @@ pipelines:
             # RPC config
             #- cp -p ./src/Assets/networks/rpc_config.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - CI=false REACT_APP_DEVTOOLS=$REACT_APP_DEVTOOLS REACT_APP_SITE24X7_KEY=$REACT_APP_SITE24X7_KEY npm run build
           artifacts:
             - build/**
       - step:
