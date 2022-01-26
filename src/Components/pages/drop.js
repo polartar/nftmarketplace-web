@@ -14,10 +14,13 @@ import {useSelector, useDispatch} from 'react-redux'
 import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
-import { createSuccessfulTransactionToastContent, getShortIdForView } from "../../utils";
+import {
+    createSuccessfulTransactionToastContent, isCrognomesDrop, isCrognomesV2Drop,
+    isCroniesDrop,
+    isFounderDrop,
+    newlineText
+} from "../../utils";
 import MintButton from "../Drop/MintButton";
-import CrougarsWl from '../../Assets/crougars_wl.txt';
-import {ERC721} from "../../Contracts/Abis";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -67,6 +70,7 @@ const Drop = () => {
 
     const [loading, setLoading] = useState(true);
     const [minting, setMinting] = useState(false);
+    const [mintingERC20, setMintingERC20] = useState(false);
     const [referral, setReferral] = useState("");
     const [dropObject, setDropObject] = useState(null);
     const [status, setStatus] = useState(statuses.UNSET);
@@ -112,7 +116,19 @@ const Drop = () => {
             }
         }
         try {
-            if (!isFounderDrop(currentDrop.address) && !isCroniesDrop(currentDrop.address)) {
+            if (isFounderDrop(currentDrop.address)) {
+                currentDrop = Object.assign({currentSupply: membership.founders.count}, currentDrop);
+            }
+            else if (isCroniesDrop(currentDrop.address)) {
+                currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
+            }
+            else if (isCrognomesDrop(currentDrop.address)) {
+                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+                const supply = await readContract.totalSupply();
+                const offsetSupply = supply.add(901);
+                currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
+            }
+            else {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
             }
@@ -122,29 +138,7 @@ const Drop = () => {
         calculateStatus(currentDrop);
         setLoading(false);
         setDropObject(currentDrop);
-    }, [user]);
-
-    useEffect(() => {
-        if (dropObject) {
-            if (isFounderDrop(dropObject.address)) {
-                setDropObject(Object.assign({currentSupply: membership.founders.count}, dropObject));
-            }
-            if (isCroniesDrop(dropObject.address)) {
-                setDropObject(Object.assign({currentSupply: cronies.count}, dropObject));
-            }
-        }
-    }, [membership, user, cronies])
-
-    // @todo refactor out
-    const isCroniesDrop = (address) => {
-        const croniesDrop = drops.find(d => d.slug === 'cronies');
-        return croniesDrop?.address === address;
-    }
-    // @todo refactor out
-    const isFounderDrop = (address) => {
-        const croniesDrop = drops.find(d => d.slug === 'founding-member');
-        return croniesDrop?.address === address;
-    }
+    }, [user, membership, cronies]);
 
     const calculateStatus = (drop) => {
         const sTime = new Date(drop.start);
@@ -172,7 +166,11 @@ const Drop = () => {
 
     const mintNow = async(isErc20 = false) => {
         if(user.address){
-            setMinting(true);
+            if (isErc20) {
+                setMintingERC20(true);
+            } else {
+                setMinting(true);
+            }
             const contract = dropObject.writeContract;
             try{
                 const memberCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20MemberCost : dropObject.memberCost);
@@ -273,7 +271,11 @@ const Drop = () => {
                     toast.error("Unknown Error");
                 }
             }finally{
-                setMinting(false);
+                if (isErc20) {
+                    setMintingERC20(false);
+                } else {
+                    setMinting(false);
+                }
             }
         } else {
             dispatch(connectAccount());
@@ -327,23 +329,6 @@ const Drop = () => {
                                     }
                                 </Reveal>
                                 }
-                                {status === statuses.LIVE &&
-                                <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                    <MintButton
-                                        mintCallback={mintNow}
-                                        numToMint={numToMint}
-                                        title="Mint Now" />
-                                     {
-                                        drop.erc20Unit && 
-                                            <MintButton
-                                                mintCallback={mintNow}
-                                                title={`Mint with ${drop.erc20Unit}`}
-                                                isERC20={true}
-                                                numToMint={numToMint} 
-                                            />
-                                    }
-                                </Reveal>
-                                }
                                 <div className="spacer-10"></div>
                             </div>
                         </div>
@@ -391,7 +376,7 @@ const Drop = () => {
                                         className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
                                     </div>
                                 </div>
-                                <p>{drop.description}</p>
+                                <div>{newlineText(drop.description)}</div>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
@@ -459,19 +444,45 @@ const Drop = () => {
                                             </Form.Group>
                                         }
                                         <div className="d-flex flex-row mt-5">
-                                            <MintButton
-                                                mintCallback={mintNow}
-                                                maxMintPerTx={drop.maxMintPerTx}
-                                                numToMint={numToMint} />
+                                            <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
+                                                {minting ?
+                                                    <>
+                                                        Minting...
+                                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </Spinner>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
+                                                            <>Mint {numToMint}</>
+                                                            :
+                                                            <>Mint</>
+                                                        }
+                                                    </>
+                                                }
+                                            </button>
                                             {
                                                 drop.erc20Unit && 
-                                                    <MintButton
-                                                        mintCallback={mintNow}
-                                                        maxMintPerTx={drop.maxMintPerTx}
-                                                        text={`Mint with ${drop.erc20Unit}`}
-                                                        isERC20={true}
-                                                        numToMint={numToMint} 
-                                                    />
+                                                    <button className='btn-main lead mb-5 mr15' onClick={() => mintNow(true)} disabled={mintingERC20}>
+                                                        {
+                                                            mintingERC20 ?
+                                                            <>
+                                                                Minting...
+                                                                <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                                    <span className="visually-hidden">Loading...</span>
+                                                                </Spinner>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
+                                                                    <>MintWith {drop.erc20Unit} {numToMint}</>
+                                                                    :
+                                                                    <>Mint With {drop.erc20Unit}</>
+                                                                }
+                                                            </>
+                                                        }
+                                                    </button>
                                             }
                                         </div>
                                     </>

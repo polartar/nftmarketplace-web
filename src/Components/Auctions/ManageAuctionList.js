@@ -46,6 +46,21 @@ const ManageAuctionList = () => {
         }
     }
 
+    const mapStateToHumanReadable = (listing) => {
+        switch (listing.state) {
+            case auctionState.NOT_STARTED:
+                return "Not Started";
+            case auctionState.ACTIVE:
+                return listing.endAt < Date.now() ? "Awaiting Acceptance" : "Active";
+            case auctionState.CANCELLED:
+                return "Cancelled";
+            case auctionState.SOLD:
+                return "Sold"
+            default:
+                return "Unknown";
+        }
+    }
+
     const handleCancelClick = (auction) => async () => {
         if(user.address) {
             let writeContract = await new ethers.Contract(config.auction_contract, AuctionContract.abi, user.provider.getSigner());
@@ -76,32 +91,22 @@ const ManageAuctionList = () => {
                     <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
                         <div className="card eb-nft__card h-100 shadow">
                             <img src={auction.nft.image} className={`card-img-top marketplace`} />
-                            {auction.nft.rank ?
-                                <div className="badge bg-rarity text-wrap mt-1 mx-1">
-                                    Rank: #{auction.nft.rank}
-                                </div>
-                                :
-                                <div className="badge bg-rarity-none text-wrap mt-1 mx-1">
-                                    Rank: N/A
-                                </div>
-                            }
                             <div className="eb-de_countdown text-center">
-                                Ends In: <Clock deadline={auction.endAt} />
+                                Ends In:
+                                {auction.state !== auctionState.NOT_STARTED ?
+                                    <Clock deadline={auction.endAt} />
+                                    :
+                                    <div className="fw-bold">Not Started</div>
+                                }
                             </div>
                             <div className="card-body d-flex flex-column">
                                 <h6 className="card-title mt-auto">{auction.nft.name}</h6>
                                 <p className="card-text">
                                     {ethers.utils.commify(auction.highestBid)} CRO <br/>
-                                    State: {auction.state}
+                                    State: {mapStateToHumanReadable(auction)}
                                 </p>
                             </div>
                             <div className="card-footer d-flex justify-content-between">
-                                {auction.state === auctionState.NOT_STARTED &&
-                                    <button className="btn-main lead mr15" onClick={handleStartClick(auction)}>Start</button>
-                                }
-                                {auction.state === auctionState.ACTIVE &&
-                                    <button className="btn-main lead mr15" onClick={handleCancelClick(auction)}>Cancel</button>
-                                }
                                 <Link to={`/auctions/${auction.auctionId}`}>View</Link>
                             </div>
                         </div>

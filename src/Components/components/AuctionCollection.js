@@ -5,11 +5,16 @@ import {init, fetchListings} from "../../GlobalState/auctionsSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {Spinner} from "react-bootstrap";
 import AuctionCard from "./AuctionCard";
+import Clock from "./Clock";
+import {Link} from "react-router-dom";
+import auction from "../pages/auction";
+import {auctionState} from "../../core/api/enums";
 
 const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId = null, cacheName = null}) => {
 
     const dispatch = useDispatch();
     const listings = useSelector((state) => state.auctions.auctions)
+    const isLoading = useSelector((state) => state.auctions.loading)
 
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
@@ -68,63 +73,51 @@ const AuctionCollection = ({ showLoadMore = true, collectionId = null , sellerId
 
     if (showLoadMore) {
         return (
-            <InfiniteScroll
-                dataLength={listings.length}
-                next={loadMore}
-                hasMore={canLoadMore}
-                style={{ overflow: 'hidden' }}
-                loader={
-                    <div className='row'>
-                        <div className='col-lg-12 text-center'>
-                            <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>
-                        </div>
+            <>
+                {isLoading ?
+                    <div className="text-center">
+                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
                     </div>
-                }
-                endMessage={() => {
-                    if (listings.length) {
-                        return (
-                            <div className='row mt-4'>
-                                <div className='col-lg-12 text-center'>
-                                    <span>Nothing to see here...</span>
-                                </div>
+                    :
+                    <>
+                        {listings?.length > 0 ?
+                            <div className='card-group'>
+                                {listings && listings.map( (listing, index) => (
+                                    <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                                        <AuctionCard
+                                            listing={listing}
+                                            imgClass="marketplace"
+                                        />
+                                    </div>
+                                ))}
                             </div>
-                        )
-                    }
-                }}
-            >
-                <div className='card-group'>
-                    {listings && listings.map( (listing, index) => (
-                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <AuctionCard
-                                listing={listing}
-                                imgClass="marketplace"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </InfiniteScroll>
+                            :
+                            <div className="text-center">Charity auctions will be available soon!</div>
+                        }
+                    </>
+                }
+
+            </>
         );
     }
     else {
         return (
             <div className='row'>
-                <div className='card-group'>
-                    {listings && listings.map( (listing, index) => (
-                        <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                            <AuctionCard
-                                listing={listing}
-                                imgClass="marketplace"
-                            />
-                        </div>
-                    ))}
-                </div>
-                { showLoadMore && canLoadMore &&
-                    <div className='col-lg-12'>
-                        <div className="spacer-single"/>
-                        <span onClick={loadMore} className="btn-main lead m-auto">Load More</span>
+                {listings?.length > 0 ?
+                    <div className='card-group'>
+                        {listings && listings.map( (listing, index) => (
+                            <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                                <AuctionCard
+                                    listing={listing}
+                                    imgClass="marketplace"
+                                />
+                            </div>
+                        ))}
                     </div>
+                    :
+                    <span>Charity auctions will be available soon!</span>
                 }
             </div>
         );

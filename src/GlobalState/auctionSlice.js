@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getAuction, getListing, getNft, getNftSalesHistory} from "../core/api";
+import {getAuction, getNft} from "../core/api";
+import {Contract, ethers} from "ethers";
+import Auction from '../Contracts/Auction.json'
+import config from "../Assets/networks/rpc_config.json";
+const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
 
 const auctionSlice = createSlice({
     name: 'listing',
@@ -11,6 +15,7 @@ const auctionSlice = createSlice({
         history: [],
         bidHistory: [],
         powertraits: [],
+        minBid: null
     },
     reducers: {
         auctionLoading: (state) => {
@@ -22,6 +27,7 @@ const auctionSlice = createSlice({
             state.history = action.payload.history ?? [];
             state.bidHistory = action.payload.listing.bidHistory ?? [];
             state.powertraits = action.payload.powertraits ?? [];
+            state.minBid = action.payload.minBid;
         },
         auctionUpdated: (state, action) => {
             state.listing = action.payload.listing;
@@ -39,5 +45,15 @@ export const getAuctionDetails = (auctionId) => async (dispatch) => {
     const nft = await getNft(listing.nftAddress, listing.nftId, false);
     const history = nft?.listings ?? [];
     const powertraits = nft.nft?.powertraits ?? [];
-    dispatch(auctionReceived({listing, history, powertraits}));
+
+    let minBid;
+    try {
+        const readContract = new Contract(config.auction_contract, Auction.abi, readProvider);
+        minBid = await readContract.minimumBid(listing.auctionHash);
+        minBid = ethers.utils.formatEther(minBid);
+    } catch (error) {
+        minBid = listing.minimumBid;
+        console.log('Failed to retrieve minimum bid. Falling back to api value', listing.auctionId);
+    }
+    dispatch(auctionReceived({listing, history, powertraits, minBid}));
 }

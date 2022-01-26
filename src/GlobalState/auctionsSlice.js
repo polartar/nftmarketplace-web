@@ -120,7 +120,6 @@ export const fetchListings = () => async (dispatch, getState) => {
         state.marketplace.curFilter.type,
         state.marketplace.curFilter.address
     );
-    console.log('auctions', response);
     response.hasRank = response.auctions.length > 0 && typeof response.auctions[0].nft.rank !== 'undefined';
 
     dispatch(auctionsReceived(response));
