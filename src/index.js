@@ -16,8 +16,8 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import store from './Store/store';
 
-import Bugsnag from '@bugsnag/js'
-import BugsnagPluginReact from '@bugsnag/plugin-react'
+// import Bugsnag from '@bugsnag/js'
+// import BugsnagPluginReact from '@bugsnag/plugin-react'
 
 function initSite24x7ErrorLogging(s, r, key) {
 	if (!window.performance || !window.performance.timing || !window.performance.navigation || !key) {
@@ -51,19 +51,19 @@ function initSite24x7ErrorLogging(s, r, key) {
 initSite24x7ErrorLogging('//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=', 's247r', process.env.REACT_APP_SITE24X7_KEY);
 
 
-Bugsnag.start({
-	apiKey: '2930ae7912b5df1173da9e102e6f91cd',
-	plugins: [new BugsnagPluginReact()]
-})
+// Bugsnag.start({
+// 	apiKey: '2930ae7912b5df1173da9e102e6f91cd',
+// 	plugins: [new BugsnagPluginReact()]
+// })
 
-const ErrorBoundary = Bugsnag.getPlugin('react')
-	.createErrorBoundary(React)
+// const ErrorBoundary = Bugsnag.getPlugin('react')
+// 	.createErrorBoundary(React)
 
 ReactDOM.render(
 	<Provider store={store}>
-		<ErrorBoundary>
+		{/*<ErrorBoundary>*/}
 			<App />
-		</ErrorBoundary>
+		{/*</ErrorBoundary>*/}
 	</Provider>, 
 	document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
