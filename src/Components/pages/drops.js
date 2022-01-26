@@ -3,6 +3,9 @@ import Footer from '../components/Footer';
 import LatestDropsCollection from "../components/LatestDropsCollection";
 import {createGlobalStyle} from "styled-components";
 import DropsCarousel from '../components/DropsCarousel';
+import HotCollections from "../components/HotCollections";
+import UpcomingDrops from "../Drops/UpcomingDrops";
+import PastDrops from "../Drops/PastDrops";
 
 const GlobalStyles = createGlobalStyle`
 `;
