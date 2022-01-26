@@ -7,8 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { settings } from "../components/constants";
 import CustomSlide from "../components/CustomSlide";
 import config from '../../Assets/networks/rpc_config.json'
-import { faArrowLeft, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import {caseInsensitiveCompare} from "../../utils";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import {drops} from "./PastDrops";
 export const collections = config.known_contracts;
 
@@ -19,10 +18,10 @@ const UpcomingDrops = () => {
   const [upcomingDrops, setUpcomingDrops] = useState([]);
 
   function arrangeCollections() {
+      console.log(Date.now());
       const nextDrops = drops.filter(d => !d.complete && d.published && d.start > Date.now());
       const dropCollections = nextDrops.map(d => {
-          const collection = collections.find(c => c.address && caseInsensitiveCompare(c.address, d.address));
-
+          const collection = collections.find(c => c.metadata.slug && c.metadata.slug === d.slug);
           return {collection, drop: d};
       })
       setUpcomingDrops(dropCollections.filter(d => d.collection));
