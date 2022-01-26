@@ -24,16 +24,31 @@ export class Site24x7LoggingService {
                 };
             }
 
+            const oldOnError = window.onerror;
+
+            window.onerror = function (b, c, d, f, g) {
+                if (oldOnError) {
+                    oldOnError(b, c, d, f, g);
+                }
+                if (!window[Site24x7LoggingService.r].q) {
+                    window[Site24x7LoggingService.r].q = [];
+                }
+
+                const exception = g || new Error(b);
+
+                window[Site24x7LoggingService.r].q.push([ "captureException", exception ]);
+            };
+
             headScript.appendChild(script);
         }
 
         initSite24x7ErrorLogging(window, document, Site24x7LoggingService.s, Site24x7LoggingService.r, process.env.REACT_APP_SITE24X7_KEY);
     }
 
-    static site24x7ErrorHandler = function (message, error = new Error(message)) {
-        if (window[Site24x7LoggingService.r].q) {
-            window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
-        }
-    };
+    // static site24x7ErrorHandler = function (message, error = new Error(message)) {
+    //     if (window[Site24x7LoggingService.r].q) {
+    //         window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
+    //     }
+    // };
 
 }

@@ -18,11 +18,11 @@ export class SentryLoggingService {
             ],
             normalizeDepth: 20,
             tracesSampleRate: 1.0,
-            beforeSend: (event, hint) => {
-                event.exception.values.forEach(exception => {
-                    Site24x7LoggingService.site24x7ErrorHandler(exception.value || '');
-                });
-            }
+            // beforeSend: (event, hint) => {
+            //     event.exception.values.forEach(exception => {
+            //         Site24x7LoggingService.site24x7ErrorHandler(exception.value || '');
+            //     });
+            // }
         });
 
     }
