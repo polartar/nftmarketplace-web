@@ -69,8 +69,10 @@ const MyNfts = () => {
 
 
     useEffect(() => {
-        //  error to test site24x7
-        ''.map();
+        setTimeout(() => {
+            console.log('destroying')
+            setFilteredNfts(null);
+        }, 4000)
         dispatch(fetchNfts(user.address, user.provider, user.nftsInitialized));
     }, []);
 

@@ -10,14 +10,12 @@ import './Assets/style.scss';
 import './Assets/style_grey.scss';
 import './Assets/override.scss'
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-//redux store
 import { Provider } from 'react-redux'
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+import * as serviceWorker from './serviceWorker';
 import store from './Store/store';
-
-// import Bugsnag from '@bugsnag/js'
-// import BugsnagPluginReact from '@bugsnag/plugin-react'
+import history from "./history";
 
 function initSite24x7ErrorLogging(s, r, key) {
 	if (!window.performance || !window.performance.timing || !window.performance.navigation || !key) {
@@ -51,20 +49,24 @@ function initSite24x7ErrorLogging(s, r, key) {
 initSite24x7ErrorLogging('//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=', 's247r', process.env.REACT_APP_SITE24X7_KEY);
 
 
-// Bugsnag.start({
-// 	apiKey: '2930ae7912b5df1173da9e102e6f91cd',
-// 	plugins: [new BugsnagPluginReact()]
-// })
-
-// const ErrorBoundary = Bugsnag.getPlugin('react')
-// 	.createErrorBoundary(React)
+Sentry.init({
+	dsn: process.env.REACT_APP_SENTRY_DSN,
+	debug: process.env.NODE_ENV !== 'production',
+	enabled: true,
+	release: 'main',
+	integrations: [
+		new Integrations.BrowserTracing({
+			routingInstrumentation: Sentry.reactRouterV5Instrumentation(history)
+		})
+	],
+	normalizeDepth: 20,
+	tracesSampleRate: 1.0,
+});
 
 ReactDOM.render(
 	<Provider store={store}>
-		{/*<ErrorBoundary>*/}
 			<App />
-		{/*</ErrorBoundary>*/}
-	</Provider>, 
+	</Provider>,
 	document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

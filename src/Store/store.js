@@ -1,6 +1,9 @@
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 
 import thunk from "redux-thunk";
+import * as Sentry from "@sentry/react";
+import createSentryMiddleware from "redux-sentry-middleware";
+
 import {memberships} from "../GlobalState/Memberships";
 import { cronies } from "../GlobalState/Cronies";
 import marketplaceReducer from "../GlobalState/marketplaceSlice";
@@ -32,18 +35,14 @@ const rootReducer = combineReducers({
 
 const middleware = [thunk];
 
+const reduxDevToolsComposeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const configureStore = () => {
-    const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENABLE_DEVTOOLS === 'true';
+const sentryEnhancedMiddlewares = applyMiddleware(...middleware, createSentryMiddleware(Sentry, {}));
 
-    if (enableDevTools) {
-        const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-        return createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
-    }
+const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENABLE_DEVTOOLS === 'true';
 
-    return createStore(rootReducer, applyMiddleware(...middleware));
-};
+const reduxDevToolsEnhancedMiddlewares = enableDevTools ? reduxDevToolsComposeEnhancers(sentryEnhancedMiddlewares) : sentryEnhancedMiddlewares;
 
-const store = configureStore();
+const store = createStore(rootReducer, reduxDevToolsEnhancedMiddlewares);
 
 export default store;
