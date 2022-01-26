@@ -66,7 +66,7 @@ const UpcomingDrops = () => {
                   banner={item.collection.metadata.card}
                   title={item.drop.title}
                   collectionId={item.drop.slug}
-                  url={`/drops/${item.drop.slug}`}
+                  url={item.drop.previewOnly ? null : `/drops/${item.drop.slug}`}
                   verified={true}
               />
           ))}
