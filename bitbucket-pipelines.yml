@@ -132,7 +132,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          Deployment: DevelopmentBuildStep
+          deployment: DevelopmentBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
