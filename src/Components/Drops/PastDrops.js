@@ -21,7 +21,7 @@ const PastDrops = () => {
   function arrangeCollections() {
       const completedDrops = drops.filter(d => d.complete && d.published);
       const dropCollections = completedDrops.map(d => {
-          const collection = collections.find(c => c.address && caseInsensitiveCompare(c.address, d.address));
+          const collection = collections.find(c => c.metadata.slug && c.metadata.slug === d.slug);
 
           return {collection, drop: d};
       })

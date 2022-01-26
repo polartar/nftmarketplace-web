@@ -982,7 +982,8 @@
                 "verified": true,
                 "avatar": "/img/collections/fractals/avatar.png",
                 "card": "/img/collections/fractals/card.png",
-                "banner": "/img/collections/fractals/banner.png"
+                "banner": "/img/collections/fractals/banner.png",
+                "maxSupply": 50
             }
         },
         {
@@ -1453,37 +1454,6 @@
             "complete": true
         },
         {
-            "id": 8,
-            "slug": "Fractals",
-            "imgNft": "/img/drops/fractals/drop.png",
-            "imgPreview": "/img/drops/fractals/drop.png",
-            "imgAvatar" : "/img/collections/fractals/avatar.png",
-            "imgBanner" : "/img/collections/fractals/banner.png",
-            "title": "Fractals",
-            "subtitle": "",
-            "description":  "The Fractals connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
-            "author": { "name": "Fractals", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "",
-            "maxMintPerTx": 1,
-            "totalSupply": 25,
-            "cost": "250",
-            "memberCost": "250",
-            "foundersOnly": false,
-            "abi": [
-                "function mint(uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)",
-                "function setCost(uint) public"
-            ],
-            "start": 1659591200000,
-            "end": null,
-            "referral": false,
-            "is1155": false,
-            "published": false,
-            "previewOnly": false,
-            "complete": false
-        },
-        {
             "id": 9,
             "slug": "cronos-fox-fraternity",
             "imgNft": "/img/drops/foxfraternity/drop.gif",
@@ -1639,6 +1609,37 @@
             "is1155": false,
             "published": true,
             "previewOnly": false,
+            "complete": false
+        },
+        {
+            "id": 13,
+            "slug": "fractals",
+            "imgNft": "/img/drops/fractals/drop.png",
+            "imgPreview": "/img/drops/fractals/drop.png",
+            "imgAvatar" : "/img/collections/fractals/avatar.png",
+            "imgBanner" : "/img/drops/fractals/banner.png",
+            "title": "Fractals",
+            "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
+            "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
+            "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/"},
+            "address": "",
+            "maxMintPerTx": 1,
+            "totalSupply": 50,
+            "cost": "300",
+            "memberCost": "250",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1643313600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "previewOnly": true,
             "complete": false
         }
     ],
