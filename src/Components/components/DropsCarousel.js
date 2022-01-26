@@ -182,7 +182,7 @@ export default class Responsive extends Component {
                   prevArrow={<PrevArrow />}
                   nextArrow={<NextArrow />}
           >
-              { drops && drops.filter(d => d.address).reverse().map((drop, index) => (
+              { drops && drops.filter(d => !d.complete && d.published).reverse().map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">
                           <div className="row align-items-center">

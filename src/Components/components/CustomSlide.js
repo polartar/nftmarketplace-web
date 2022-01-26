@@ -42,7 +42,11 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
               </span>
           </div>
           <div className="nft_coll_info">
-              <span onClick={()=> window.open(url, "_self")}><h4>{ title }</h4></span>
+              {url ?
+                  <span onClick={()=> window.open(url, "_self")}><h4>{ title }</h4></span>
+                  :
+                  <h4>{ title }</h4>
+              }
               <span>{ subtitle }</span>
           </div>
       </div>
