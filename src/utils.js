@@ -1,4 +1,5 @@
 import moment from "moment";
+import {drops} from "./Components/pages/drop";
 
 export function debounce(func, wait, immediate) {
   var timeout;
@@ -256,4 +257,19 @@ export function caseInsensitiveCompare(str1, str2) {
 
 export function newlineText(text) {
   return text.split('\n').map(str => <p>{str}</p>);
+}
+
+export const isCroniesDrop = (address) => {
+  const croniesDrop = drops.find(d => d.slug === 'cronies');
+  return croniesDrop?.address === address;
+}
+
+export const isFounderDrop = (address) => {
+  const croniesDrop = drops.find(d => d.slug === 'founding-member');
+  return croniesDrop?.address === address;
+}
+
+export const isCrognomesDrop = (address) => {
+  const croniesDrop = drops.find(d => d.slug === 'crognomes');
+  return croniesDrop?.address === address;
 }

@@ -123,7 +123,7 @@
             "multiToken" : false,
             "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cromonkeys",
                 "description": "",
@@ -282,7 +282,6 @@
                 "slug": "cronos-punk",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/crocs/crocos_avatar.jpg",
                 "maxSupply": 2720,
                 "website": "https://www.cronospunk.net/",
                 "twitter": "https://twitter.com/PunkCronos",
@@ -656,7 +655,7 @@
             "multiToken": false,
             "address" : "0x9DD120Ed601c0bdc5725F9cbf529Cb70fc0ECAFB",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-dolphinos",
                 "description": "",
@@ -915,13 +914,13 @@
             }
         },
         {
-            "name" : "Crognomes",
+            "name" : "Crognomes (v1)",
             "multiToken" : false,
             "address" : "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
             "onChain" : false,
             "listable" : false,
             "metadata": {
-                "slug": "crognomes",
+                "slug": "crognomes-v1",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/crognomes/avatar.png",
@@ -1163,7 +1162,7 @@
             "multiToken" : false,
             "address" : "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "weird-apes-club",
                 "description": "",
@@ -1281,6 +1280,25 @@
                 "banner": "/img/collections/chimps/banner.png",
                 "card": "/img/collections/chimps/card.png"
             }
+        },
+        {
+            "name" : "Crognomes",
+            "multiToken" : false,
+            "address" : "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "crognomes",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crognomes/avatar.png",
+                "card": "/img/collections/crognomes/card.png",
+                "banner": "/img/collections/crognomes/banner.png",
+                "maxSupply": 2000,
+                "website": "https://www.crognomes.com/",
+                "twitter": "https://twitter.com/CroGnomes",
+                "discord": "https://discord.gg/WkRgkSQ2hJ"
+            }
         }
     ],
     "drops": [
@@ -1308,7 +1326,10 @@
             "end": null,
             "referral": false,
             "is1155": true,
-            "foundersOnly": false
+            "foundersOnly": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": true
         },
         {
             "id": 1,
@@ -1335,7 +1356,10 @@
             "referral": true,
             "discount": "10.0",
             "is1155": true,
-            "foundersOnly": false
+            "foundersOnly": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": false
         },
         {
             "id": 5,
@@ -1361,7 +1385,10 @@
             "start": 1641751200000,
             "end": 1641751300000,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": true
         },
         {
             "id": 6,
@@ -1389,7 +1416,10 @@
             "start": 1639591200000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": true
         },
         {
             "id": 7,
@@ -1417,7 +1447,10 @@
             "start": 1641848400000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": true
         },
         {
             "id": 8,
@@ -1445,7 +1478,10 @@
             "start": 1659591200000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": false,
+            "previewOnly": false,
+            "complete": false
         },
         {
             "id": 9,
@@ -1460,7 +1496,7 @@
             "author": { "name": "Cronos Fox Fraternity", "link": "https://www.cronosfoxfraternity.com/"},
             "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
             "maxMintPerTx": 1,
-            "totalSupply": 4444,
+            "totalSupply": 2222,
             "cost": "199",
             "memberCost": "199",
             "foundersOnly": false,
@@ -1474,7 +1510,10 @@
             "end": null,
             "referral": false,
             "is1155": false,
-            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
+            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
+            "published": true,
+            "previewOnly": false,
+            "complete": false
         },
         {
             "id": 10,
@@ -1501,7 +1540,10 @@
             "start": 1642536000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": true
         },
         {
             "id": 10,
@@ -1532,7 +1574,10 @@
             "start": 1642788000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": false
         },
         {
             "id": 11,
@@ -1560,7 +1605,41 @@
             "start": 1642809600000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": false
+        },
+        {
+            "id": 12,
+            "slug": "crognomes",
+            "imgNft": "/img/drops/crognomes/drop.png",
+            "imgPreview": "/img/drops/crognomes/drop.png",
+            "imgAvatar" : "/img/collections/crognomes/avatar.png",
+            "imgBanner" : "/img/collections/crognomes/banner.png",
+            "title": "Crognomes",
+            "subtitle": "2000 secretive hard working Crognomes living on the cronos blockchain who might share the location of the secret mines if taken care of well enough.",
+            "description": "\"Have you ever wondered where all those shiny crypto cards actually come from?\n\nThose glistening ruby, shiny indigo & luminescent jade crystals that are needed for those ooooh so sweet cashbacks are harvested deep inside the hidden cryptomines. The location of these mines are a well-kept secret by the Crognomes... \n\nWhile they’re no tattletales, the Crognomes might share the secret location of these Cryptomines with you, if you provide them safe refuge in your cryptowallet. \n\nCrognomes have been known to sneak in their wives, the Crognomides, when they’re feeling lonely. So you can expect these Crognomides to show up in your wallet as well!* If you leave them alone for a long enough time, you will find your family of 2 has grown ever larger. \n\nStart your own Crognome-family and adopt your Crognome today!\n\n*In order to make sure that the Crognomides find their husband in your cryptowallet in time, you will need to have minted your Crognomes NFTs BEFORE 9PM UTC on the 26th of January! All Crognome NFTs minted after that will have the option to safely usher their Crognomides into their cryptowallet by minting a safe route. \nThis route can be minted for 50 CRO\"",
+            "author": { "name": "Crognomes", "link": "https://www.crognomes.com/"},
+            "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
+            "maxMintPerTx": 10,
+            "totalSupply": 2000,
+            "cost": "275",
+            "memberCost": "245",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1643144400000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "previewOnly": false,
+            "complete": false
         }
     ],
     "auctions": [
