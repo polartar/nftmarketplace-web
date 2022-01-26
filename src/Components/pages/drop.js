@@ -464,7 +464,7 @@ const Drop = () => {
                                             </button>
                                             {
                                                 drop.erc20Unit && 
-                                                    <button className='btn-main lead mb-5 mr15' onClick={() => mintNow(true)} disabled={mintingERC20}>
+                                                    <button className='btn-main lead mb-5 mr15 mx-1' onClick={() => mintNow(true)} disabled={mintingERC20}>
                                                         {
                                                             mintingERC20 ?
                                                             <>
