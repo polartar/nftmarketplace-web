@@ -1300,6 +1300,21 @@
                 "twitter": "https://twitter.com/CroGnomes",
                 "discord": "https://discord.gg/WkRgkSQ2hJ"
             }
+        },
+        {
+            "name" : "Anuah",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "anuah",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/anuah/avatar.png",
+                "card": "/img/collections/anuah/card.png",
+                "banner": "/img/collections/anuah/banner.png"
+            }
         }
     ],
     "drops": [
@@ -1605,6 +1620,37 @@
                 "function setCost(uint, bool) public"
             ],
             "start": 1643313600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "previewOnly": true,
+            "complete": false
+        },
+        {
+            "id": 14,
+            "slug": "anuah",
+            "imgNft": "/img/drops/anuah/drop.gif",
+            "imgPreview": "/img/drops/anuah/drop.gif",
+            "imgAvatar" : "/img/collections/anuah/avatar.png",
+            "imgBanner" : "/img/drops/anuah/banner2.jpg",
+            "title": "Anuah",
+            "subtitle": "SUBTITLE NEEDED",
+            "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
+            "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
+            "address": "",
+            "maxMintPerTx": 1,
+            "totalSupply": 50,
+            "cost": "600",
+            "memberCost": "500",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1643727600000,
             "end": null,
             "referral": false,
             "is1155": false,
