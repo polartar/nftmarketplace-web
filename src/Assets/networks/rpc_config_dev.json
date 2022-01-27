@@ -121,6 +121,25 @@
             }
         },
         {
+            "name" : "CroMonkeys",
+            "multiToken" : false,
+            "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cromonkeys",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromonkeys/avatar.gif",
+                "card": "/img/collections/cromonkeys/card.png",
+                "banner": "/img/collections/cromonkeys/banner.png",
+                "maxSupply": 1000,
+                "website": "https://cromonkeys.com/",
+                "twitter": "https://twitter.com/CROMonkeysNFT",
+                "discord": "https://discord.com/invite/84s8UgD7vC"
+            }
+        },
+        {
             "name" : "Cronos Slothty",
             "multiToken" : false,
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
@@ -1124,25 +1143,6 @@
             }
         },
         {
-            "name" : "CroMonkeys",
-            "multiToken" : false,
-            "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "cromonkeys",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/cromonkeys/avatar.gif",
-                "card": "/img/collections/cromonkeys/card.png",
-                "banner": "/img/collections/cromonkeys/banner.png",
-                "maxSupply": 1000,
-                "website": "https://cromonkeys.com/",
-                "twitter": "https://twitter.com/CROMonkeysNFT",
-                "discord": "https://discord.com/invite/84s8UgD7vC"
-            }
-        },
-        {
             "name" : "Fooly Fish",
             "multiToken" : false,
             "address" : "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
@@ -1223,9 +1223,9 @@
         {
             "name" : "Red Skull Potions",
             "multiToken" : false,
-            "address" : "0x3A8DEFcfBf2aD87F2D338Fe7E1d74ac0dBeAb74A",
+            "address" : "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "red-skull-potions",
                 "description": "",
@@ -1345,7 +1345,10 @@
             "end": null,
             "referral": false,
             "is1155": true,
-            "foundersOnly": false
+            "foundersOnly": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 1,
@@ -1372,7 +1375,10 @@
             "referral": true,
             "discount": "10.0",
             "is1155": true,
-            "foundersOnly": false
+            "foundersOnly": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         },
         {
             "id": 5,
@@ -1398,7 +1404,10 @@
             "start": 1641751200000,
             "end": 1641751300000,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 6,
@@ -1426,7 +1435,10 @@
             "start": 1639591200000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 7,
@@ -1454,7 +1466,10 @@
             "start": 1641848400000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 9,
@@ -1483,7 +1498,10 @@
             "end": null,
             "referral": false,
             "is1155": false,
-            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
+            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
+            "published": true,
+            "featured": false,
+            "complete": false
         },
         {
             "id": 10,
@@ -1497,7 +1515,7 @@
             "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
             "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/"},
             "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
-            "maxMintPerTx": 1,
+            "maxMintPerTx": 5,
             "totalSupply": 1000,
             "cost": "218",
             "memberCost": "168",
@@ -1510,7 +1528,10 @@
             "start": 1642536000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": false,
+            "complete": true
         },
         {
             "id": 10,
@@ -1541,7 +1562,10 @@
             "start": 1642788000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         },
         {
             "id": 11,
@@ -1569,7 +1593,10 @@
             "start": 1642809600000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         },
         {
             "id": 12,
@@ -1597,7 +1624,10 @@
             "start": 1643144400000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         },
         {
             "id": 13,
@@ -1627,6 +1657,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
+            "featured": true,
             "complete": false
         },
         {
@@ -1637,7 +1668,7 @@
             "imgAvatar" : "/img/collections/anuah/avatar.png",
             "imgBanner" : "/img/drops/anuah/banner2.jpg",
             "title": "Anuah",
-            "subtitle": "SUBTITLE NEEDED",
+            "subtitle": "",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
             "address": "",
@@ -1657,6 +1688,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
+            "featured": false,
             "complete": false
         }
     ],
@@ -1705,7 +1737,7 @@
             "id": 0,
             "hash": "0x2e72dbba4fe290a8b1ab03983fab4fe1273701193866e2217a63c3cf7fb4adff",
             "title": "Space Crystal Unicorns",
-            "description": "Hello everyoune, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
+            "description": "Hello everyone, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
             "link": "http://www.ritmclub.ru/",
             "imgAvatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg"
         }
