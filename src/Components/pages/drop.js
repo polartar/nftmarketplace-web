@@ -15,12 +15,13 @@ import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import {
-    createSuccessfulTransactionToastContent, isCrognomesDrop, isCrognomesV2Drop,
+    createSuccessfulTransactionToastContent, isCrognomesDrop,
     isCroniesDrop,
     isFounderDrop,
     newlineText
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
+import {dropState as statuses} from "../../core/api/enums";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -53,14 +54,6 @@ const inline = keyframes`
     display: inline-block;
    }
 `;
-
-const statuses = {
-    UNSET: -1,
-    NOT_STARTED: 0,
-    LIVE: 1,
-    EXPIRED: 2,
-    SOLD_OUT: 3
-}
 
 const Drop = () => {
     const {slug} = useParams();
@@ -105,7 +98,14 @@ const Drop = () => {
 
     useEffect(async() => {
         setDropObject(drop);
+        calculateStatus(drop);
         let currentDrop = drop;
+        if (!drop.address) {
+            currentDrop = Object.assign({currentSupply: 0}, currentDrop);
+            setDropObject(currentDrop);
+            return;
+        }
+
         if (user.provider) {
             try {
                 let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
@@ -134,7 +134,6 @@ const Drop = () => {
         } catch(error) {
             console.log(error);
         }
-        calculateStatus(currentDrop);
         setLoading(false);
         setDropObject(currentDrop);
     }, [user, membership, cronies]);
@@ -391,7 +390,7 @@ const Drop = () => {
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
                                 }
-                                {status === statuses.LIVE &&
+                                {status === statuses.LIVE && !drop.complete &&
                                     <>
                                         {drop.maxMintPerTx > 1 &&
                                             <div>
