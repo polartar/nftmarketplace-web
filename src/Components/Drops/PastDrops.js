@@ -69,6 +69,7 @@ const PastDrops = () => {
               banner={item.collection.metadata.card}
               title={item.drop.title}
               collectionId={item.drop.slug}
+              url={`/collection/${item.collection.address}`}
               verified={true}
             />
           ))}
