@@ -59,7 +59,6 @@ pipelines:
       - step:
           name: Build
           image: node:16
-          deployment: DevelopmentBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
@@ -71,7 +70,7 @@ pipelines:
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false REACT_APP_DEVTOOLS=true REACT_APP_SITE24X7_KEY=$REACT_APP_SITE24X7_KEY npm run build
+            - CI=false REACT_APP_DEVTOOLS=true REACT_APP_SITE24X7_KEY=bef6c40ae66428bcc2f3839666ad4f89 npm run build
           artifacts:
             - build/**
       - step:
