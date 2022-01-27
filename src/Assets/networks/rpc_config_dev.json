@@ -1724,26 +1724,6 @@
             "start": 1643144400000,
             "end": null,
             "referral": false,
-<<<<<<< HEAD
-            "is1155": false
-        },
-        {
-            "id": 11,
-            "slug": "Lazy Horse Race Club",
-            "imgNft": "/img/drops/lazyhorse2/drop.png",
-            "imgPreview": "/img/drops/lazyhorse2/drop.png",
-            "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
-            "imgBanner" : "/img/collections/lazyhorse/banner.png",
-            "title": "Lazy Horse Race Club",
-            "subtitle": "",
-            "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
-            "author": { "name": "Lazy Horse Race Club", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "0x430E413c79750BA31a84039BECFeC17a02F72BD6",
-            "maxMintPerTx": 20,
-            "totalSupply": 2000,
-            "cost": "5",
-            "memberCost": "1",
-=======
             "is1155": false,
             "published": true,
             "featured": true,
@@ -1796,7 +1776,6 @@
             "totalSupply": 50,
             "cost": "600",
             "memberCost": "500",
->>>>>>> dev
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
@@ -1804,12 +1783,6 @@
                 "function cost() view returns (uint256)",
                 "function setCost(uint, bool) public"
             ],
-<<<<<<< HEAD
-            "start": 1639591200000,
-            "end": null,
-            "referral": false,
-            "is1155": false
-=======
             "start": 1643727600000,
             "end": null,
             "referral": false,
@@ -1817,7 +1790,48 @@
             "published": true,
             "featured": false,
             "complete": false
->>>>>>> dev
+        },
+        {
+            "id": 15,
+            "slug": "CronosGods",
+            "imgNft": "/img/drops/cronosgods/drop.png",
+            "imgPreview": "/img/drops/cronosgods/drop.png",
+            "imgAvatar" : "/img/collections/cronosgods/avatar.png",
+            "imgBanner" : "/img/collections/cronosgods/banner.png",
+            "title": "CronosGods",
+            "subtitle": "",
+            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey. Chance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods. Holders Get Random Loot Airdrop. Holders have a chance to win a share of $10,000 in CRO. 15% goes toward charities in the Virgin Islands. Have a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space.  One of a kind. We offer many more things visit https://www.cronogods.com/",
+            "author": { "name": "CronosGods", "link": "https://www.cronogods.com/"},
+            "address": "",
+            "erc20Address": "",
+            "maxMintPerTx": 5,
+            "totalSupply": 1520,
+            "cost": "350",
+            "memberCost": "295",
+            "erc20Cost": "43800000",
+            "erc20MemberCost": "37000000",
+            "erc20Unit": "Loot",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function mintWithLoot(uint256 _mintAmount) public",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint,bool) public",
+                "function setLootCost(uint,bool) public",
+                "function mintCost(address) external view returns(uint256)",
+                "function mintLootCost(address) external view returns(uint256)",
+                "function isReducedTime() public view returns(bool)"
+            ],
+            "erc20Abi": [
+                "function approve(address, uint256) public"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         }
     ],
     "auctions": [

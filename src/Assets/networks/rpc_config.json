@@ -1305,21 +1305,6 @@
             }
         },
         {
-            "name" : "Cronos gods",
-            "multiToken" : false,
-            "address" : "",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "cronosgods",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/cronosgods/avatar.gif",
-                "card": "/img/collections/cronosgods/card.png",
-                "banner": "/img/collections/cronosgods/banner.png"
-            }
-        },
-        {
             "name" : "Aunah",
             "multiToken" : false,
             "address" : "",
@@ -1332,6 +1317,21 @@
                 "avatar": "/img/collections/anuah/avatar.png",
                 "card": "/img/collections/anuah/card.png",
                 "banner": "/img/collections/anuah/banner.png"
+            }
+        },
+        {
+            "name" : "Cronos gods",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronosgods",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosgods/avatar.gif",
+                "card": "/img/collections/cronosgods/card.png",
+                "banner": "/img/collections/cronosgods/banner.png"
             }
         }
     ],
