@@ -15,12 +15,13 @@ import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import {
-    createSuccessfulTransactionToastContent, isCrognomesDrop, isCrognomesV2Drop,
+    createSuccessfulTransactionToastContent, isCrognomesDrop,
     isCroniesDrop,
     isFounderDrop,
     newlineText
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
+import {dropState as statuses} from "../../core/api/enums";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -53,14 +54,6 @@ const inline = keyframes`
     display: inline-block;
    }
 `;
-
-const statuses = {
-    UNSET: -1,
-    NOT_STARTED: 0,
-    LIVE: 1,
-    EXPIRED: 2,
-    SOLD_OUT: 3
-}
 
 const Drop = () => {
     const {slug} = useParams();
