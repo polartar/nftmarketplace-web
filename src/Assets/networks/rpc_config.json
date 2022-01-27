@@ -1724,7 +1724,10 @@
             "start": 1643144400000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         },
         {
             "id": 13,

@@ -95,21 +95,6 @@
             }
         },
         {
-            "name" : "Lazy Horse Race Club",
-            "multiToken" : false,
-            "address" : "0x430E413c79750BA31a84039BECFeC17a02F72BD6",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "Lazy Horse Race Club",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/lazyhorse/avatar.png",
-                "card": "/img/collections/lazyhorse/card.png",
-                "banner": "/img/collections/lazyhorse/banner.png"
-            }
-        },
-        {
             "name" : "CROugars",
             "multiToken" : false,
             "address" : "0x7B1A84D5766B5670C0dab14fA9526b39c284E11A",
@@ -138,21 +123,6 @@
                 "card": "/img/collections/fractals/card.png",
                 "banner": "/img/collections/fractals/banner.png",
                 "maxSupply": 50
-            }
-        },
-        {
-            "name" : "Cronos goats",
-            "multiToken" : false,
-            "address" : "0xF313649E3DD661b09D511257A7E77F4e6b12d1fA",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "cronos goats",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/cronosgoats/avatar.gif",
-                "card": "/img/collections/cronosgoats/card.png",
-                "banner": "/img/collections/cronosgoats/banner.png"
             }
         },
         {
@@ -445,7 +415,7 @@
             "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
             "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
             "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/"},
-            "address": "0x4C2c10BD29bB91db5996b018baf2307D17A69ca9",
+            "address": "",
             "maxMintPerTx": 1,
             "totalSupply": 50,
             "cost": "300",
