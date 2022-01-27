@@ -187,6 +187,21 @@
                 "card": "/img/collections/anuah/card.png",
                 "banner": "/img/collections/anuah/banner.png"
             }
+        },
+        {
+            "name" : "Marie's Cyborgs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "maries-cyborgs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/mariecyborg/avatar.png",
+                "card": "/img/collections/mariecyborg/card.png",
+                "banner": "/img/collections/mariecyborg/banner.png"
+            }
         }
     ],
     "drops": [
@@ -477,6 +492,8 @@
             "end": null,
             "referral": false,
             "is1155": false,
+            "published": true,
+            "complete": false,
             "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
             "mediaPosition": "left"
         }
