@@ -126,7 +126,7 @@
             }
         },
         {
-            "name" : "Cronos gods",
+            "name" : "CronoGods",
             "multiToken" : false,
             "address" : "0xc25914a85652a160CE4b74e678354aB336A1C217",
             "onChain" : false,
