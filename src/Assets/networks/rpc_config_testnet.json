@@ -457,10 +457,12 @@
                 "function cost() view returns (uint256)",
                 "function setCost(uint, bool) public"
             ],
-            "start": 1639591200000,
+            "start": 1643313600000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "complete": false
         },
         {
             "id": 14,
