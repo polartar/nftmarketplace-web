@@ -11,6 +11,7 @@ import { faArrowLeft, faChevronLeft, faChevronRight } from "@fortawesome/free-so
 import {caseInsensitiveCompare} from "../../utils";
 export const drops = config.drops;
 export const collections = config.known_contracts;
+const defaultCardImage = '/img/collections/default/card.jpg';
 
 const PastDrops = () => {
 
@@ -66,7 +67,7 @@ const PastDrops = () => {
               key={index}
               index={index + 1}
               avatar={item.drop.imgAvatar}
-              banner={item.collection.metadata.card}
+              banner={item.collection.metadata.card ?? defaultCardImage}
               title={item.drop.title}
               collectionId={item.drop.slug}
               url={`/collection/${item.collection.address}`}
