@@ -18,13 +18,15 @@ const UpcomingDrops = () => {
   const [upcomingDrops, setUpcomingDrops] = useState([]);
 
   function arrangeCollections() {
-      console.log(Date.now());
       const nextDrops = drops.filter(d => !d.complete && d.published && d.start > Date.now());
       const dropCollections = nextDrops.map(d => {
           const collection = collections.find(c => c.metadata.slug && c.metadata.slug === d.slug);
           return {collection, drop: d};
       })
-      setUpcomingDrops(dropCollections.filter(d => d.collection));
+      setUpcomingDrops(dropCollections
+          .filter(d => d.collection)
+          .sort((a, b) => (a.drop.start > b.drop.start) ? 1 : -1)
+      );
   }
 
   useEffect(() => {
@@ -64,8 +66,9 @@ const UpcomingDrops = () => {
                   avatar={item.drop.imgAvatar}
                   banner={item.collection.metadata.card}
                   title={item.drop.title}
+                  subtitle={`${new Date(item.drop.start).toDateString()}, ${new Date(item.drop.start).toTimeString()}`}
                   collectionId={item.drop.slug}
-                  url={item.drop.previewOnly ? null : `/drops/${item.drop.slug}`}
+                  url={`/drops/${item.drop.slug}`}
                   verified={true}
               />
           ))}

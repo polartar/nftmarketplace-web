@@ -33,6 +33,7 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
+                "card": "/img/collections/ebisu/card.png",
                 "maxSupply": 1000,
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
@@ -52,6 +53,7 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
+                "card": "/img/collections/ebisu/card.png",
                 "maxSupply": 10000,
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
@@ -265,6 +267,7 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
+                "card": "/img/collections/cronies/card.png",
                 "maxSupply": 443,
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
@@ -973,7 +976,7 @@
         {
             "name" : "Fractals",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1302,13 +1305,13 @@
             }
         },
         {
-            "name" : "Anuah",
+            "name" : "Aunah",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
             "listable" : false,
             "metadata": {
-                "slug": "anuah",
+                "slug": "aunah",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/anuah/avatar.png",
@@ -1344,7 +1347,7 @@
             "is1155": true,
             "foundersOnly": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": true
         },
         {
@@ -1374,7 +1377,7 @@
             "is1155": true,
             "foundersOnly": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": false
         },
         {
@@ -1403,7 +1406,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": true
         },
         {
@@ -1434,7 +1437,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": true
         },
         {
@@ -1465,7 +1468,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": true
         },
         {
@@ -1497,7 +1500,7 @@
             "is1155": false,
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
             "published": true,
-            "previewOnly": false,
+            "featured": false,
             "complete": false
         },
         {
@@ -1527,7 +1530,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": false,
             "complete": true
         },
         {
@@ -1561,7 +1564,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": false
         },
         {
@@ -1592,7 +1595,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": false
         },
         {
@@ -1623,7 +1626,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": false,
+            "featured": true,
             "complete": false
         },
         {
@@ -1637,7 +1640,7 @@
             "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
             "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
             "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/"},
-            "address": "",
+            "address": "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
             "maxMintPerTx": 1,
             "totalSupply": 50,
             "cost": "300",
@@ -1654,18 +1657,18 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": true,
+            "featured": true,
             "complete": false
         },
         {
             "id": 14,
-            "slug": "anuah",
+            "slug": "aunah",
             "imgNft": "/img/drops/anuah/drop.gif",
             "imgPreview": "/img/drops/anuah/drop.gif",
             "imgAvatar" : "/img/collections/anuah/avatar.png",
             "imgBanner" : "/img/drops/anuah/banner2.jpg",
-            "title": "Anuah",
-            "subtitle": "SUBTITLE NEEDED",
+            "title": "Aunah",
+            "subtitle": "",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
             "address": "",
@@ -1685,7 +1688,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": true,
+            "featured": false,
             "complete": false
         }
     ],
