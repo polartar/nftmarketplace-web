@@ -153,6 +153,21 @@
                 "card": "/img/collections/cronosgoats/card.png",
                 "banner": "/img/collections/cronosgoats/banner.png"
             }
+        },
+        {
+            "name" : "Crazy scientists",
+            "multiToken" : false,
+            "address" : "0x0211DA0A31B5cEdc506F616ed4a0A93d5009c7DC",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "Crazy scientists",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crazyscientists/avatar.gif",
+                "card": "/img/collections/crazyscientists/banner.png",
+                "banner": "/img/collections/crazyscientists/banner.png"
+            }
         }
     ],
     "drops": [
@@ -317,6 +332,33 @@
                 "function totalSupply() public view returns (uint256)",
                 "function cost() view returns (uint256)",
                 "function setCost(uint, bool) public"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "Crazy scientists",
+            "imgNft": "/img/drops/crazyscientists/NewPreviewBanner.png",
+            "imgPreview": "/img/drops/crazyscientists/NewPreviewBanner.png",
+            "imgAvatar" : "/img/collections/crazyscientists/avatar.gif",
+            "imgBanner" : "/img/collections/crazyscientists/banner.png",
+            "title": "Crazy scientists",
+            "subtitle": "",
+            "description":  "",
+            "author": { "name": "Crazy scientists", "link": "https://www.crazyscientists.com/"},
+            "address": "0x0211DA0A31B5cEdc506F616ed4a0A93d5009c7DC",
+            "maxMintPerTx": 5,
+            "totalSupply": 1000,
+            "cost": "15",
+            "memberCost": "10",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _amount) external payable",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint, bool) external"
             ],
             "start": 1639591200000,
             "end": null,
