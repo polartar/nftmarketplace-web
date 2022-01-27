@@ -1,15 +1,14 @@
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import history from "../history";
-import { Site24x7LoggingService } from "./site24x7-logging.service";
 
 export class SentryLoggingService {
 
     static init() {
         Sentry.init({
             dsn: process.env.REACT_APP_SENTRY_DSN,
-            debug: process.env.NODE_ENV !== 'production',
-            enabled: true,
+            debug: false,
+            enabled: !!process.env.REACT_APP_SENTRY_DSN,
             release: 'main',
             integrations: [
                 new Integrations.BrowserTracing({
@@ -17,13 +16,7 @@ export class SentryLoggingService {
                 })
             ],
             normalizeDepth: 20,
-            tracesSampleRate: 1.0,
-            beforeSend: (event, hint) => {
-                event.exception.values.forEach(exception => {
-                    Site24x7LoggingService.site24x7ErrorHandler(new Error(exception.value || ''));
-                });
-                return event;
-            }
+            tracesSampleRate: 1.0
         });
 
     }

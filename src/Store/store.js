@@ -39,7 +39,7 @@ const reduxDevToolsComposeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE_
 
 const sentryEnhancedMiddlewares = applyMiddleware(...middleware, createSentryMiddleware(Sentry, {}));
 
-const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENABLE_DEVTOOLS === 'true';
+const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_DEVTOOLS === 'true';
 
 const reduxDevToolsEnhancedMiddlewares = enableDevTools ? reduxDevToolsComposeEnhancers(sentryEnhancedMiddlewares) : sentryEnhancedMiddlewares;
 
