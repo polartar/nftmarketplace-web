@@ -25,7 +25,10 @@ const PastDrops = () => {
 
           return {collection, drop: d};
       })
-      setPastDrops(dropCollections.filter(d => d.collection));
+      setPastDrops(dropCollections
+          .filter(d => d.collection)
+          .sort((a, b) => (a.drop.start < b.drop.start) ? 1 : -1)
+      );
   }
 
   useEffect(() => {
