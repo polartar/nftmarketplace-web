@@ -127,7 +127,7 @@
         {
             "name" : "Fractals",
             "multiToken" : false,
-            "address" : "0xBE06783f7a02cFF726c0d4A6F11e8B3c237030a3",
+            "address" : "0x4C2c10BD29bB91db5996b018baf2307D17A69ca9",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -445,7 +445,7 @@
             "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
             "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
             "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/"},
-            "address": "",
+            "address": "0x4C2c10BD29bB91db5996b018baf2307D17A69ca9",
             "maxMintPerTx": 1,
             "totalSupply": 50,
             "cost": "300",
