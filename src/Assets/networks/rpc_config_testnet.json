@@ -132,12 +132,12 @@
             "onChain" : false,
             "listable" : true,
             "metadata": {
-                "slug": "cronosgods",
+                "slug": "cronogods",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/cronosgods/avatar.gif",
-                "card": "/img/collections/cronosgods/card.png",
-                "banner": "/img/collections/cronosgods/banner.png"
+                "avatar": "/img/collections/cronogods/avatar.gif",
+                "card": "/img/collections/cronogods/card.png",
+                "banner": "/img/collections/cronogods/banner.png"
             }
         },
         {
