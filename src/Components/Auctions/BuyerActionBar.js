@@ -155,7 +155,7 @@ const BuyerActionBar = () => {
                                 onClick={showBidDialog()} disabled={executingBid}>Place Bid</button>
                     </span>
                 }
-                {listing.state === auctionState.ACTIVE && hasBeenOutbid &&
+                {hasBeenOutbid &&
                     <span className="my-auto">
                         <button className='btn-main lead mr15'
                                 onClick={executeWithdrawBid()} disabled={executingWithdraw}>
@@ -213,7 +213,7 @@ const BuyerActionBar = () => {
                 }
                 <Card.Body>
                     <div className="d-flex flex-row justify-content-between">
-                        <div className={`my-auto fw-bold ${awaitingAcceptance || isComplete ? 'mx-auto' : ''}`} style={{color:'#000'}}>
+                        <div className={`my-auto fw-bold ${!(myBid() > 0 && !isHighestBidder) && (awaitingAcceptance || isComplete) ? 'mx-auto' : ''}`} style={{color:'#000'}}>
                             {listing.state === auctionState.NOT_STARTED &&
                                 <><h6>Starting Bid:</h6> <span className="fs-3 ms-1">{ethers.utils.commify(listing.highestBid)} CRO</span></>
                             }
@@ -233,7 +233,7 @@ const BuyerActionBar = () => {
                                 <>AUCTION HAS BEEN CANCELLED</>
                             }
                         </div>
-                        {((!isAuctionOwner && !isComplete) || (awaitingAcceptance && isHighestBidder))  &&
+                        {((!isAuctionOwner && !isComplete) || (awaitingAcceptance && isHighestBidder) || (myBid() > 0 && !isHighestBidder))  &&
                         <>
                             {listing.state !== auctionState.NOT_STARTED ?
                                 <>
