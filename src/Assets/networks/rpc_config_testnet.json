@@ -161,7 +161,7 @@
             "onChain" : false,
             "listable" : true,
             "metadata": {
-                "slug": "cronos gods",
+                "slug": "cronosgods",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/cronosgods/avatar.gif",
@@ -484,7 +484,7 @@
             "title": "CronosGods",
             "subtitle": "",
             "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey. Chance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods. Holders Get Random Loot Airdrop. Holders have a chance to win a share of $10,000 in CRO. 15% goes toward charities in the Virgin Islands. Have a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space.  One of a kind. We offer many more things visit https://www.cronogods.com/",
-            "author": { "name": "Fractals", "link": "https://www.cronogods.com/"},
+            "author": { "name": "CronosGods", "link": "https://www.cronogods.com/"},
             "address": "0xc25914a85652a160CE4b74e678354aB336A1C217",
             "erc20Address": "0x2074D6a15c5F908707196C5ce982bd0598A666f9",
             "maxMintPerTx": 5,
