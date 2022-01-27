@@ -16,8 +16,8 @@ import store from './Store/store';
 import { SentryLoggingService } from "./services/sentry-logging.service";
 import { Site24x7LoggingService } from "./services/site24x7-logging.service";
 
-SentryLoggingService.init();
 Site24x7LoggingService.init();
+SentryLoggingService.init();
 
 ReactDOM.render(
 	<Provider store={store}>
