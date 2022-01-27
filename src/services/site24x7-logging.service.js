@@ -31,11 +31,14 @@ export class Site24x7LoggingService {
     }
 
     static site24x7ErrorHandler = function (error) {
-        if (window[Site24x7LoggingService.r].q) {
-            window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
-        } else {
-            console.warn(`window.${ Site24x7LoggingService.r }.q is not defined`);
+        if (window.s247r) {
+            window.s247r('captureException',error);
         }
+        // if (window[Site24x7LoggingService.r].q) {
+        //     window[Site24x7LoggingService.r].q.push([ "captureException", error ]);
+        // } else {
+        //     console.warn(`window.${ Site24x7LoggingService.r }.q is not defined`);
+        // }
     };
 
 }
