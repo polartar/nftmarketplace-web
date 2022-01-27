@@ -1627,7 +1627,6 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": true,
             "complete": false
         },
         {
@@ -1658,7 +1657,6 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "previewOnly": true,
             "complete": false
         }
     ],

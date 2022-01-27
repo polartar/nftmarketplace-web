@@ -105,7 +105,14 @@ const Drop = () => {
 
     useEffect(async() => {
         setDropObject(drop);
+        calculateStatus(drop);
         let currentDrop = drop;
+        if (!drop.address) {
+            currentDrop = Object.assign({currentSupply: 0}, currentDrop);
+            setDropObject(currentDrop);
+            return;
+        }
+
         if (user.provider) {
             try {
                 let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
@@ -134,7 +141,6 @@ const Drop = () => {
         } catch(error) {
             console.log(error);
         }
-        calculateStatus(currentDrop);
         setLoading(false);
         setDropObject(currentDrop);
     }, [user, membership, cronies]);
@@ -391,7 +397,7 @@ const Drop = () => {
                                     <h3>{convertTime(drop.end)}</h3>
                                 </div>
                                 }
-                                {status === statuses.LIVE &&
+                                {status === statuses.LIVE && !drop.complete &&
                                     <>
                                         {drop.maxMintPerTx > 1 &&
                                             <div>

@@ -248,15 +248,7 @@ export default class Responsive extends Component {
                                       </div>
                                       <div className="spacer-10"></div>
                                       <div className="d-buttons">
-                                        {drop.previewOnly ?
-                                          <>
-                                            Drop info available soon!
-                                          </>
-                                          :
-                                          <>
-                                            <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
-                                          </>
-                                        }
+                                        <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
                                       </div>
                                   </div>
                               </div>
