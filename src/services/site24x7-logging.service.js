@@ -6,13 +6,16 @@ export class Site24x7LoggingService {
     static init() {
         function initSite24x7ErrorLogging(appWindow, appDocument,  s, r, key) {
 
-            (function(w,d,s,r,k,h,m){
-                if(w.performance && w.performance.timing && w.performance.navigation) {
-                    w[r] = w[r] || function(){(w[r].q = w[r].q || []).push(arguments)};
-                    h=d.createElement('script');h.async=true;h.setAttribute('src',s+k);
-                    d.getElementsByTagName('head')[0].appendChild(h);
-                    (m = window.onerror),(window.onerror = function (b, c, d, f, g) {
-                        m && m(b, c, d, f, g),g || (g = new Error(b)),(w[r].q = w[r].q || []).push(["captureException",g]);})
+            (function(appWindow,appDocument,url,s247r,k,h,m){
+                if(appWindow.performance && appWindow.performance.timing && appWindow.performance.navigation) {
+                    appWindow[s247r] = appWindow[s247r] || function(){(appWindow[s247r].q = appWindow[s247r].q || []).push(arguments)};
+                    h=appDocument.createElement('script');h.async=true;h.setAttribute('src',url+k);
+                    appDocument.getElementsByTagName('head')[0].appendChild(h);
+                    (m = window.onerror);
+                    (window.onerror = function (b, c, d, f, g) {
+                        m && m(b, c, d, f, g);
+                        g || (g = new Error(b));
+                        (appWindow[s247r].q = appWindow[s247r].q || []).push(["captureException",g]);})
                 }
             })(window,document,'//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=','s247r',key);
 
