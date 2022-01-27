@@ -220,18 +220,18 @@
             }
         },
         {
-            "name" : "Cronos gods",
+            "name" : "Aunah",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
-                "slug": "cronosgods",
+                "slug": "aunah",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/cronosgods/avatar.gif",
-                "card": "/img/collections/cronosgods/card.png",
-                "banner": "/img/collections/cronosgods/banner.png"
+                "avatar": "/img/collections/anuah/avatar.png",
+                "card": "/img/collections/anuah/card.png",
+                "banner": "/img/collections/anuah/banner.png"
             }
         }
     ],
