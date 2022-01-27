@@ -66,7 +66,7 @@ const UpcomingDrops = () => {
                   avatar={item.drop.imgAvatar}
                   banner={item.collection.metadata.card}
                   title={item.drop.title}
-                  subtitle={`${new Date(item.drop.start).toDateString()}, ${new Date(item.drop.start).toTimeString()}`}
+                  subtitle={`${new Date(item.drop.start).toDateString()}`}
                   collectionId={item.drop.slug}
                   url={`/drops/${item.drop.slug}`}
                   verified={true}
