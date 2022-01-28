@@ -88,10 +88,10 @@ const MyNftCardList = ({ nfts = [], isLoading, listedOnly, activeFilterOption })
                                 canSell={ nft.listable && !nft.listed }
                                 canCancel={ nft.listed && nft.listingId }
                                 canUpdate={ nft.listable && nft.listed }
-                                onTransferButtonPressed={ () => dispatch(MyNftPageActions.ShowMyNftPageTransferDialog(nft)) }
-                                onSellButtonPressed={ () => dispatch(MyNftPageActions.ShowMyNftPageListDialog(nft)) }
-                                onUpdateButtonPressed={ () => dispatch(MyNftPageActions.ShowMyNftPageListDialog(nft)) }
-                                onCancelButtonPressed={ () => dispatch(MyNftPageActions.ShowMyNftPageCancelDialog(nft)) }
+                                onTransferButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageTransferDialog(nft)) }
+                                onSellButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageListDialog(nft)) }
+                                onUpdateButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageListDialog(nft)) }
+                                onCancelButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageCancelDialog(nft)) }
                                 newTab={ true }
                             />
                         </div>

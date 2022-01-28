@@ -595,27 +595,27 @@ export const setTheme = (theme) => async(dispatch) =>{
  * after ts migration we can add private keyword.
  */
 export class MyNftPageActions {
-    static ShowMyNftPageTransferDialog = (nft) => async(dispatch) => {
+    static showMyNftPageTransferDialog = (nft) => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageTransferDialog(nft));
     }
 
-    static HideMyNftPageTransferDialog = () => async(dispatch) => {
+    static hideMyNftPageTransferDialog = () => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageTransferDialog());
     }
 
-    static ShowMyNftPageListDialog = (nft) => async(dispatch) => {
+    static showMyNftPageListDialog = (nft) => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageListDialog(nft));
     }
 
-    static HideMyNftPageListDialog = () => async(dispatch) => {
+    static hideMyNftPageListDialog = () => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageListDialog(null));
     }
 
-    static ShowMyNftPageCancelDialog = (nft) => async(dispatch) => {
+    static showMyNftPageCancelDialog = (nft) => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageCancelDialog(nft));
     }
 
-    static HideNftPageCancelDialog = () => async(dispatch) => {
+    static hideNftPageCancelDialog = () => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageCancelDialog(null));
     }
 
@@ -629,7 +629,7 @@ export class MyNftPageActions {
 
     static TransferDialogConfirm = (selectedNft, walletAddress, transferAddress) => async(dispatch) => {
         try{
-            dispatch(MyNftPageActions.HideMyNftPageTransferDialog());
+            dispatch(MyNftPageActions.hideMyNftPageTransferDialog());
 
             const tx = selectedNft.multiToken
                 ? await selectedNft.contract.safeTransferFrom(walletAddress, transferAddress, selectedNft.id, 1, [])
@@ -659,14 +659,14 @@ export class MyNftPageActions {
 
             const receipt = await tx.wait();
 
-            dispatch(MyNftPageActions.HideNftPageCancelDialog());
+            dispatch(MyNftPageActions.hideNftPageCancelDialog());
 
             dispatch(updateListed(selectedNft.contract.address, selectedNft.id, false));
 
             toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
 
         }catch(error){
-            dispatch(MyNftPageActions.HideNftPageCancelDialog());
+            dispatch(MyNftPageActions.hideNftPageCancelDialog());
 
             if(error.data){
                 toast.error(error.data.message);
@@ -689,7 +689,7 @@ export class MyNftPageActions {
 
             dispatch(updateListed(selectedNft.contract.address, selectedNft.id, true, salePrice));
 
-            dispatch(MyNftPageActions.HideMyNftPageListDialog());
+            dispatch(MyNftPageActions.hideMyNftPageListDialog());
 
             toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
 

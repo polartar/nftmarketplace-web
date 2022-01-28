@@ -53,7 +53,7 @@ const MyNftTransferDialog = (
     }
 
     const onTransferDialogCancel = () =>{
-        dispatch(MyNftPageActions.HideMyNftPageTransferDialog());
+        dispatch(MyNftPageActions.hideMyNftPageTransferDialog());
     }
 
     return (

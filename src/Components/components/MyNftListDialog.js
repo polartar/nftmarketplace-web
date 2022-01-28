@@ -148,7 +148,7 @@ const MyNftListDialog = (
     }
 
     const cancelList = () =>{
-        dispatch(MyNftPageActions.HideMyNftPageListDialog());
+        dispatch(MyNftPageActions.hideMyNftPageListDialog());
         setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
         setNextEnabled(false);
     }
