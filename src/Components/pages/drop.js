@@ -23,7 +23,6 @@ import {
 import MintButton from "../Drop/MintButton";
 import {dropState as statuses} from "../../core/api/enums";
 import ReactPlayer from 'react-player'
-import marie from '../../Contracts/marie.json'
 import nft from "./nft";
 export const drops = config.drops;
 
@@ -71,6 +70,16 @@ const Drop = () => {
     const [status, setStatus] = useState(statuses.UNSET);
     const [numToMint, setNumToMint] = useState(1);
 
+    const [abi, setAbi] = useState(null);
+    const [maxMintPerAddress, setMaxMintPerAddress] = useState(0);
+    const [maxMintPerTx, setMaxMintPerTx] = useState(0);
+    const [maxSupply, setMaxSupply] = useState(0);
+    const [memberCost, setMemberCost] = useState(0);
+    const [regularCost, setRegularCost] = useState(0);
+    const [whitelistCost, setWhitelistCost] = useState(0);
+    const [totalSupply, setTotalSupply] = useState(0);
+    const [canMintQuantity, setCanMintQuantity] = useState(0);
+
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'drop',
@@ -100,18 +109,30 @@ const Drop = () => {
     });
 
     useEffect(async() => {
+        await retrieveDropInfo();
+    }, [user, membership, cronies]);
+
+    const retrieveDropInfo = async () => {
         setDropObject(drop);
         calculateStatus(drop);
         let currentDrop = drop;
+
+        // Don't do any contract stuff if the drop does not have an address
         if (!drop.address) {
             currentDrop = Object.assign({currentSupply: 0}, currentDrop);
             setDropObject(currentDrop);
             return;
         }
+        let abi = currentDrop.abi;
+        if (isOnNewContract(abi)) {
+            const abiJson = require(`../../Assets/abis/${currentDrop.abi}`);
+            abi = abiJson.abi;
+        }
+        setAbi(abi);
 
         if (user.provider) {
             try {
-                let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
+                let writeContract = await new ethers.Contract(currentDrop.address, abi, user.provider.getSigner());
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
             } catch(error) {
                 console.log(error);
@@ -125,21 +146,43 @@ const Drop = () => {
                 currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
             }
             else if (isCrognomesDrop(currentDrop.address)) {
-                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
             }
             else {
-                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
-                currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+                if (isOnNewContract(currentDrop.abi)) {
+                    let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                    const infos = await readContract.getInfos();
+                    const canMint = user.address ? await readContract.canMint(user.address) : 0;
+                    setMaxMintPerAddress(infos.maxMintPerAddress);
+                    setMaxMintPerTx(infos.maxMintPerTx);
+                    setMaxSupply(infos.maxSupply);
+                    setMemberCost(ethers.utils.formatEther(infos.memberCost));
+                    setRegularCost(ethers.utils.formatEther(infos.regularCost));
+                    setTotalSupply(infos.totalSupply);
+                    setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
+                    setCanMintQuantity(canMint);
+                } else {
+                    let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                    const currentSupply = await readContract.totalSupply();
+                    setMaxMintPerAddress(currentDrop.maxMintPerAddress ?? 100);
+                    setMaxMintPerTx(currentDrop.maxMintPerTx);
+                    setMaxSupply(currentDrop.totalSupply);
+                    setMemberCost(currentDrop.memberCost);
+                    setRegularCost(currentDrop.cost);
+                    setTotalSupply(currentSupply);
+                    setWhitelistCost(currentSupply.whitelistCost);
+                    setCanMintQuantity(currentDrop.maxMintPerTx);
+                }
             }
         } catch(error) {
             console.log(error);
         }
         setLoading(false);
         setDropObject(currentDrop);
-    }, [user, membership, cronies]);
+    }
 
     const calculateStatus = (drop) => {
         const sTime = new Date(drop.start);
@@ -165,25 +208,39 @@ const Drop = () => {
         return user.isMember;
     }
 
+    const calculateCost = async (user) => {
+        if (isOnNewContract(dropObject.abi)) {
+            let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
+            return await readContract.cost(user.address);
+        }
+
+        const memberCost = ethers.utils.parseEther(dropObject.memberCost);
+        const regCost = ethers.utils.parseEther(dropObject.cost);
+        if(user.isMember){
+            return memberCost;
+        } else {
+            return regCost;
+        }
+    }
+
+    const isOnNewContract = (dropAbi) => {
+        return typeof dropAbi === 'string';
+    }
+
     const mintNow = async() => {
         if(user.address){
             setMinting(true);
             const contract = dropObject.writeContract;
             try{
-                const memberCost = ethers.utils.parseEther(dropObject.memberCost);
-                const regCost = ethers.utils.parseEther(dropObject.cost);
-                let cost;
-                if(await isEligibleForMemberPrice(user)){
-                    cost = memberCost;
-                } else {
-                    cost = regCost;
-                }
+                const cost = await calculateCost(user);
+                console.log('b', cost.toString());
                 let finalCost = cost.mul(numToMint);
                 let extra = {
                     'value' : finalCost
                 };
+
+                var response;
                 if (dropObject.is1155) {
-                    var response;
 
                     if (dropObject.title === "Founding Member") {
                         console.log(referral);
@@ -202,16 +259,19 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                 } else {
-                    let method;
-                    for (const abiMethod of dropObject.abi) {
-                        if (abiMethod.includes("mint")) method = abiMethod;
-                    }
-                    var response;
-                    if (method.includes("address") && method.includes("uint256")) {
-                        response = await contract.mint(user.address, numToMint, extra);
-                    } else {
-                        console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
+                    if (isOnNewContract(dropObject.abi)) {
                         response = await contract.mint(numToMint, extra);
+                    } else {
+                        let method;
+                        for (const abiMethod of abi) {
+                            if (abiMethod.includes("mint")) method = abiMethod;
+                        }
+                        if (method.includes("address") && method.includes("uint256")) {
+                            response = await contract.mint(user.address, numToMint, extra);
+                        } else {
+                            console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
+                            response = await contract.mint(numToMint, extra);
+                        }
                     }
                     const receipt = await response.wait();
                     toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
@@ -241,6 +301,8 @@ const Drop = () => {
 
                         logEvent(getAnalytics(), 'purchase', purchaseAnalyticParams);
                     }
+
+                    await retrieveDropInfo();
                 }
             }catch(error){
                 if(error.data){
@@ -365,7 +427,7 @@ const Drop = () => {
                                 <h2>{drop.title}</h2>
                                 <div className="item_info_counts">
                                     <div
-                                        className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
+                                        className="item_info_type">{totalSupply.toString()}/{maxSupply.toString()} minted
                                     </div>
                                 </div>
                                 <div>{newlineText(drop.description)}</div>
@@ -377,12 +439,18 @@ const Drop = () => {
                                 <div className="d-flex flex-row">
                                     <div className="me-4">
                                         <h6 className="mb-1">Mint Price</h6>
-                                        <h5>{dropObject?.cost} CRO</h5>
+                                        <h5>{regularCost} CRO</h5>
                                     </div>
-                                    {(dropObject?.cost !== dropObject?.memberCost) &&
+                                    {(memberCost && regularCost !== memberCost) &&
+                                        <div>
+                                            <h6 className="mb-1">Founding Member Price</h6>
+                                            <h5>{memberCost} CRO</h5>
+                                        </div>
+                                    }
+                                    {(whitelistCost && memberCost !== whitelistCost) &&
                                     <div>
-                                        <h6 className="mb-1">Founding Member Price</h6>
-                                        <h5>{dropObject?.memberCost} CRO</h5>
+                                        <h6 className="mb-1">Whitelist Price</h6>
+                                        <h5>{whitelistCost} CRO</h5>
                                     </div>
                                     }
                                 </div>
@@ -408,10 +476,10 @@ const Drop = () => {
                                 }
                                 {status === statuses.LIVE && !drop.complete &&
                                     <>
-                                        {drop.maxMintPerTx > 1 &&
+                                        {canMintQuantity > 1 &&
                                             <div>
                                                 <Form.Label>Quantity</Form.Label>
-                                                <Form.Range value={numToMint} min="1" max={drop.maxMintPerTx}
+                                                <Form.Range value={numToMint} min="1" max={canMintQuantity}
                                                             onChange={e => setNumToMint(e.target.value)}/>
                                             </div>
                                         }
@@ -423,26 +491,28 @@ const Drop = () => {
                                                 <Form.Text className="text-muted"/>
                                             </Form.Group>
                                         }
-                                        <div className="d-flex flex-row mt-5">
-                                            <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
-                                                {minting ?
-                                                    <>
-                                                        Minting...
-                                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
-                                                            <span className="visually-hidden">Loading...</span>
-                                                        </Spinner>
-                                                    </>
-                                                    :
-                                                    <>
-                                                        {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
-                                                            <>Mint {numToMint}</>
-                                                            :
-                                                            <>Mint</>
-                                                        }
-                                                    </>
-                                                }
-                                            </button>
-                                        </div>
+                                        {canMintQuantity > 0 &&
+                                            <div className="d-flex flex-row mt-5">
+                                                <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
+                                                    {minting ?
+                                                        <>
+                                                            Minting...
+                                                            <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </Spinner>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            {canMintQuantity > 1 ?
+                                                                <>Mint {numToMint}</>
+                                                                :
+                                                                <>Mint</>
+                                                            }
+                                                        </>
+                                                    }
+                                                </button>
+                                            </div>
+                                        }
                                     </>
                                 }
                                 {status === statuses.SOLD_OUT &&
