@@ -1343,7 +1343,11 @@
                 "verified": true,
                 "avatar": "/img/collections/cronogods/avatar.gif",
                 "card": "/img/collections/cronogods/card.png",
-                "banner": "/img/collections/cronogods/banner.png"
+                "banner": "/img/collections/cronogods/banner.png",
+                "maxSupply": 1500,
+                "website": "https://www.cronogods.com/",
+                "twitter": "https://twitter.com/CronoGods",
+                "discord": "https://discord.gg/nQVhNmkY8g"
             }
         }
     ],
@@ -1677,7 +1681,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 11,
@@ -1770,7 +1774,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 14,
@@ -1785,7 +1789,7 @@
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
             "address": "",
             "maxMintPerTx": 1,
-            "totalSupply": 50,
+            "totalSupply": 81,
             "cost": "600",
             "memberCost": "500",
             "foundersOnly": false,

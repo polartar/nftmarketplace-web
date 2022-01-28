@@ -100,7 +100,6 @@ const Drop = () => {
     useEffect(() => {
         const init = async () => {
             setDropObject(drop);
-            calculateStatus(drop);
             let currentDrop = drop;
             if (!drop.address) {
                 currentDrop = Object.assign({currentSupply: 0}, currentDrop);
@@ -147,6 +146,7 @@ const Drop = () => {
                 console.log(error);
             }
             setLoading(false);
+            calculateStatus(currentDrop);
             setDropObject(currentDrop);
         }
         init();
