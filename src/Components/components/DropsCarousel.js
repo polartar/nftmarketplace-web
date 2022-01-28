@@ -113,7 +113,15 @@ export default class Responsive extends Component {
     const liveDrops = drops
         .filter(d => !d.complete && d.published && d.start < Date.now())
         .sort((a, b) => (a.id < b.id) ? 1 : -1);
-    this.featuredDrops = [...liveDrops, ...upcomingDrops];
+    this.featuredDrops = [...upcomingDrops, ...liveDrops];
+  }
+
+  navigateToDrop(drop) {
+    if (drop.redirect) {
+      window.open(drop.redirect, "_blank")
+    } else {
+      window.open(`/drops/${drop.slug}`, "_self")
+    }
   }
 
   render() {
@@ -243,6 +251,9 @@ export default class Responsive extends Component {
                                                 drop.erc20MemberCost && drop.erc20Unit && 
                                                   <h5>Members: {humanize(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
                                               }
+                                              {drop.whitelistCost &&
+                                                <h5>Whitelist: {humanize(drop.whitelistCost)} CRO</h5>
+                                              }
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
@@ -268,7 +279,7 @@ export default class Responsive extends Component {
                                       </div>
                                       <div className="spacer-10"></div>
                                       <div className="d-buttons">
-                                        <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
+                                        <span className="btn-main" onClick={()=> this.navigateToDrop(drop)}>View Drop</span>
                                       </div>
                                   </div>
                               </div>
