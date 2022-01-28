@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
+import api from "../../core/api";
+import LayeredIcon from "./LayeredIcon";
+import {croSkullRedPotionImageHack} from "../../hacks";
 
 
 const NftCard = ({
@@ -41,7 +44,7 @@ const NftCard = ({
 
     return (
         <div className="card eb-nft__card h-100 shadow">
-            <img onClick={() => navigateTo(nftUrl())} src={nft.image} className="card-img-top marketplace"  style={{cursor:'pointer'}}/>
+            <img onClick={() => navigateTo(nftUrl())} src={croSkullRedPotionImageHack(nft.address, nft.image)} className="card-img-top marketplace"  style={{cursor:'pointer'}}/>
             {nft.rank &&
             <div className="badge bg-rarity text-wrap mt-1 mx-1">
                 Rank: #{nft.rank}

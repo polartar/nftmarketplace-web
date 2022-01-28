@@ -21,6 +21,7 @@ const api = {
     collections: '/collections',
     marketData: '/marketdata',
     nft: '/nft',
+    auctions: '/auctions'
 }
 
 export default api;
@@ -266,6 +267,9 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
                                 //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
                                 uri = 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
+                            } else if (c.name == "Red Skull Potions") {
+                                // fix for CroSkull's Red Skull Potions
+                                uri = `https://gateway.pinata.cloud/ipfs/QmQd9sFZv9aTenGD4q4LWDQWnkM4CwBtJSL82KLveJUNTT/${id}`;
                             } else {
                                 uri = await readContract.tokenURI(id);
                             }
@@ -537,5 +541,22 @@ export async function getNftFromFile(collectionId, nftId) {
         return nft;
     } catch (error) {
         console.log(error);
+    }
+}
+
+
+export async function sortAndFetchAuctions(page) {
+    const url = new URL(api.auctions, `${api.baseUrl}`);
+    return await (await fetch(url)).json();
+}
+
+export async function getAuction(auctionId) {
+    try{
+        const uri = `${api.baseUrl}${api.auctions}?auctionId=${auctionId}`;
+        var rawListing = await (await fetch(uri)).json();
+
+        return rawListing['auctions'][0];
+    }catch(error){
+        console.log(error)
     }
 }

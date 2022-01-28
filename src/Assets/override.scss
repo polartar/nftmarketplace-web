@@ -397,13 +397,13 @@ canvas {
         color: $color_more
     }
 }
-.profile_avatar .d_profile_img .eb-icon_stack {
+.profile_avatar .d_profile_img .eb-avatar_badge {
     margin: -20px 0 0 80px;
     display: block;
     position: absolute;
     padding: 10px;
 }
-.d_coll .profile_avatar .eb-icon_stack {
+.d_coll .profile_avatar .eb-avatar_badge {
     margin-right: -30px;
 }
 #eb-scroll-to-top {
@@ -446,3 +446,36 @@ canvas {
     color: black;
 }
 
+.eb-de_countdown {
+    font-size: .8rem;
+    right: 20px;
+    background: #ffffff;
+    padding: 6px 10px;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border: solid 2px $color;
+    z-index: 1;
+    color: #0d0c22;
+    margin: 4px 4px;
+    .Clock-days{
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .Clock-hours{
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .Clock-minutes{
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .Clock-seconds{
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 5px;
+    }
+}

@@ -77,6 +77,8 @@ export default class Responsive extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.featuredDrops = drops;
+    this.arrangeCollections();
   }
 
   // @todo refactor out
@@ -103,6 +105,16 @@ export default class Responsive extends Component {
     else return statuses.NOT_STARTED;
   }
 
+  arrangeCollections() {
+    const twelveHours = 3600000 * 12;
+    const upcomingDrops = drops
+        .filter(d => !d.complete && d.published && (d.start > Date.now() && d.start - Date.now() < twelveHours))
+        .sort((a, b) => (a.start < b.start) ? 1 : -1);
+    const liveDrops = drops
+        .filter(d => !d.complete && d.published && d.start < Date.now())
+        .sort((a, b) => (a.id < b.id) ? 1 : -1);
+    this.featuredDrops = [...liveDrops, ...upcomingDrops];
+  }
 
   render() {
     var settings = {
@@ -182,7 +194,7 @@ export default class Responsive extends Component {
                   prevArrow={<PrevArrow />}
                   nextArrow={<NextArrow />}
           >
-              { drops && drops.filter(d => d.address).reverse().map((drop, index) => (
+              { this.featuredDrops && this.featuredDrops.map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">
                           <div className="row align-items-center">
@@ -222,7 +234,15 @@ export default class Responsive extends Component {
                                           <div className='col'>
                                               <span className="d-title">Mint Price</span>
                                               <h3>{humanize(drop.cost)} CRO</h3>
+                                              {
+                                                drop.erc20Cost && drop.erc20Unit && 
+                                                  <h3>{humanize(drop.erc20Cost)} {drop.erc20Unit}</h3>
+                                              }
                                               <h5>Members: {humanize(drop.memberCost)} CRO</h5>
+                                              {
+                                                drop.erc20MemberCost && drop.erc20Unit && 
+                                                  <h5>Members: {humanize(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
+                                              }
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
@@ -248,7 +268,7 @@ export default class Responsive extends Component {
                                       </div>
                                       <div className="spacer-10"></div>
                                       <div className="d-buttons">
-                                          <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
+                                        <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
                                       </div>
                                   </div>
                               </div>

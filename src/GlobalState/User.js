@@ -4,6 +4,7 @@ import config from '../Assets/networks/rpc_config.json'
 import Membership from '../Contracts/EbisusBayMembership.json'
 import Cronies from '../Contracts/CronosToken.json'
 import Market from '../Contracts/Marketplace.json'
+import Auction from '../Contracts/Auction.json'
 import Web3Modal from "web3modal";
 
 import detectEthereumProvider from '@metamask/detect-provider'
@@ -29,10 +30,14 @@ const userSlice = createSlice({
         founderCount : 0,
         vipCount : 0,
         needsOnboard: false,
+
+        // Contracts
         membershipContract: null,
         croniesContract: null,
         marketContract: null,
+        auctionContract: null,
         // ebisuContract : null,
+
         correctChain : false,
         showWrongChainModal : false,
 
@@ -68,6 +73,7 @@ const userSlice = createSlice({
             state.isMember = action.payload.isMember;
             state.marketContract = action.payload.marketContract;
             state.marketBalance = action.payload.marketBalance;
+            state.auctionContract = action.payload.auctionContract;
             // state.ebisuContract = action.payload.ebisuContract;
             state.gettingContractData = false;
         },
@@ -385,6 +391,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
         let ownedFounder = 0;
         let ownedVip = 0;
         let market;
+        let auction;
         let sales;
         // let ebisu;
 
@@ -397,6 +404,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             ownedFounder = await mc.balanceOf(address, 1);
             ownedVip = await mc.balanceOf(address, 2);
             market = new Contract(config.market_contract, Market.abi, signer);
+            auction = new Contract(config.auction_contract, Auction.abi, signer);
             sales = ethers.utils.formatEther(await market.payments(address));
 
             try {
@@ -420,6 +428,7 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             rewards: rewards,
             isMember: ownedVip > 0 || ownedFounder > 0,
             marketContract: market,
+            auctionContract: auction,
             marketBalance: sales
         }))
     } catch (error) {

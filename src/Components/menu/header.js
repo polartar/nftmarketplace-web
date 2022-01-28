@@ -102,6 +102,12 @@ const Header = function() {
                                             <span className='lines'></span>
                                         </NavLink>
                                     </div>
+                                    <div className='navbar-item'>
+                                        <NavLink to="/charity-ball">
+                                            Charity Auctions
+                                            <span className='lines'></span>
+                                        </NavLink>
+                                    </div>
                                 </div>
                             </div>
                             }
@@ -133,6 +139,12 @@ const Header = function() {
                                         <span className='lines'></span>
                                     </NavLink>
                                 </div>
+                                <div className='navbar-item'>
+                                        <NavLink to="/charity-ball">
+                                            Charity Auctions
+                                            <span className='lines'></span>
+                                        </NavLink>
+                                    </div>
                             </div>
                         </Breakpoint>
                     </BreakpointProvider>
