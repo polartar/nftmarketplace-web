@@ -50,7 +50,7 @@ const Marketplace = () => {
     const selectDefaultFilterValue = marketplace.cachedFilter[cacheName] ?? FilterOption.default();
     const selectDefaultSortValue = marketplace.cachedSort[cacheName] ?? SortOption.default();
 
-    const selectFilterOptions = collectionFilterOptions;
+    const selectFilterOptions = collectionFilterOptions.filter(c => c.listable);
     const selectSortOptions = useSelector((state) => {
         if(state.marketplace.hasRank) {
             return sortOptions;
