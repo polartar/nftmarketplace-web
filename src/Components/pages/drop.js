@@ -1,4 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ethers, constants } from 'ethers'
+import {useSelector, useDispatch} from 'react-redux'
+import {toast} from "react-toastify";
+import Countdown from 'react-countdown';
+import { getAnalytics, logEvent } from '@firebase/analytics'
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
@@ -9,11 +14,6 @@ import config from '../../Assets/networks/rpc_config.json'
 import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
-import { ethers} from 'ethers'
-import {useSelector, useDispatch} from 'react-redux'
-import {toast} from "react-toastify";
-import Countdown from 'react-countdown';
-import { getAnalytics, logEvent } from '@firebase/analytics'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
     isCroniesDrop,
@@ -97,46 +97,60 @@ const Drop = () => {
         return state.cronies;
     });
 
-    useEffect(async() => {
-        setDropObject(drop);
-        calculateStatus(drop);
-        let currentDrop = drop;
-        if (!drop.address) {
-            currentDrop = Object.assign({currentSupply: 0}, currentDrop);
-            setDropObject(currentDrop);
-            return;
-        }
+    useEffect(() => {
+        const init = async () => {
+            setDropObject(drop);
+            calculateStatus(drop);
+            let currentDrop = drop;
+            if (!drop.address) {
+                currentDrop = Object.assign({currentSupply: 0}, currentDrop);
+                setDropObject(currentDrop);
+                return;
+            }
 
-        if (user.provider) {
+            if (user.provider) {
+                try {
+                    let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
+                    currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+                    
+                    if (currentDrop.erc20Address) {
+                        const erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
+                        const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, ["function allowance(address owner, address spender) external view returns (uint256)"], readProvider);
+                        currentDrop = {
+                            ...currentDrop,
+                            erc20Contract,
+                            erc20ReadContract
+                        }
+                    }
+                } catch(error) {
+                    console.log(error);
+                }
+            }
             try {
-                let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
-                currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+                if (isFounderDrop(currentDrop.address)) {
+                    currentDrop = Object.assign({currentSupply: membership.founders.count}, currentDrop);
+                }
+                else if (isCroniesDrop(currentDrop.address)) {
+                    currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
+                }
+                else if (isCrognomesDrop(currentDrop.address)) {
+                    let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+                    const supply = await readContract.totalSupply();
+                    const offsetSupply = supply.add(901);
+                    currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
+                }
+                else {
+                    let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+                    currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+                }
             } catch(error) {
                 console.log(error);
             }
+            setLoading(false);
+            setDropObject(currentDrop);
         }
-        try {
-            if (isFounderDrop(currentDrop.address)) {
-                currentDrop = Object.assign({currentSupply: membership.founders.count}, currentDrop);
-            }
-            else if (isCroniesDrop(currentDrop.address)) {
-                currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
-            }
-            else if (isCrognomesDrop(currentDrop.address)) {
-                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
-                const supply = await readContract.totalSupply();
-                const offsetSupply = supply.add(901);
-                currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
-            }
-            else {
-                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
-                currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
-            }
-        } catch(error) {
-            console.log(error);
-        }
-        setLoading(false);
-        setDropObject(currentDrop);
+        init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, membership, cronies]);
 
     const calculateStatus = (drop) => {
@@ -165,18 +179,23 @@ const Drop = () => {
 
     const mintNow = async(isErc20 = false) => {
         if(user.address){
-            if (isErc20) {
+            if (!dropObject.writeContract) {
+                return;
+            }
+            if (isErc20 === true) {
                 setMintingERC20(true);
             } else {
                 setMinting(true);
             }
             const contract = dropObject.writeContract;
+            // await contract.withdraw();
+            // await contract.withdrawPayments("0xe456f9A32E5f11035ffBEa0e97D1aAFDA6e60F03");
             try{
-                const memberCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20MemberCost : dropObject.memberCost);
-                const regCost = ethers.utils.parseEther(isErc20 ? dropObject.erc20Cost : dropObject.cost);
+                const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
+                const regCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20Cost : dropObject.cost);
                 let cost;
                 if (dropObject.abi.join().includes("isReducedTime()")) {
-                    let readContract = await new ethers.Contract(dropObject.address, dropObject.abi, readProvider);
+                    const readContract = await new ethers.Contract(dropObject.address, dropObject.abi, readProvider);
                     const isReduced = await readContract.isReducedTime();
                     cost = isReduced ? memberCost : regCost;
                 } else if(await isEligibleForMemberPrice(user)){
@@ -211,19 +230,21 @@ const Drop = () => {
                         if (abiMethod.includes("mint") && !abiMethod.includes("view")) method = abiMethod;
                     }
 
-                    if(isErc20) {
-                        let erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
-                        await erc20Contract.approve(dropObject.address, finalCost);
+                    if(isErc20 === true) {
+                        const allowance = await dropObject.erc20ReadContract.allowance(user.address, dropObject.address);
+                        if (allowance.sub(finalCost) < 0) {
+                            await dropObject.erc20Contract.approve(dropObject.address, constants.MaxUint256);
+                        }                        
                     }                    
                     if (method.includes("address") && method.includes("uint256")) {
-                        if (isErc20) {
+                        if (isErc20 === true) {
                             response = await contract.mintWithLoot(user.address, numToMint);
                         } else {
                             response = await contract.mint(user.address, numToMint, extra);
                         }                        
                     } else {
                         console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
-                        if (isErc20) {
+                        if (isErc20 === true) {
                             response = await contract.mintWithLoot(numToMint);
                         } else {
                             response = await contract.mint(numToMint, extra);
@@ -270,7 +291,7 @@ const Drop = () => {
                     toast.error("Unknown Error");
                 }
             }finally{
-                if (isErc20) {
+                if (isErc20 === true) {
                     setMintingERC20(false);
                 } else {
                     setMinting(false);
@@ -475,9 +496,9 @@ const Drop = () => {
                                                             :
                                                             <>
                                                                 {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
-                                                                    <>MintWith {drop.erc20Unit} {numToMint}</>
+                                                                    <>Mint {numToMint} with {drop.erc20Unit}</>
                                                                     :
-                                                                    <>Mint With {drop.erc20Unit}</>
+                                                                    <>Mint with {drop.erc20Unit}</>
                                                                 }
                                                             </>
                                                         }
