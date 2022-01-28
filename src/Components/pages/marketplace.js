@@ -9,7 +9,7 @@ import { filterListings, getMarketData, sortListings } from "../../GlobalState/m
 import {siPrefixedNumber} from "../../utils";
 import { sortOptions } from "../components/constants/sort-options";
 import { SortOption } from '../Models/sort-option.model';
-import { collectionFilterOptions} from "../components/constants/filter-options";
+import { marketPlaceCollectionFilterOptions } from "../components/constants/filter-options";
 import { FilterOption } from "../Models/filter-option.model";
 import AuctionCollection from "../components/AuctionCollection";
 
@@ -50,7 +50,7 @@ const Marketplace = () => {
     const selectDefaultFilterValue = marketplace.cachedFilter[cacheName] ?? FilterOption.default();
     const selectDefaultSortValue = marketplace.cachedSort[cacheName] ?? SortOption.default();
 
-    const selectFilterOptions = collectionFilterOptions.filter(c => c.listable);
+    const selectFilterOptions = marketPlaceCollectionFilterOptions;
     const selectSortOptions = useSelector((state) => {
         if(state.marketplace.hasRank) {
             return sortOptions;
