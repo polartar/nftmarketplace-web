@@ -160,16 +160,16 @@ const Drop = () => {
         }
         try {
             if (isFounderDrop(currentDrop.address)) {
-                currentDrop = Object.assign({currentSupply: membership.founders.count}, currentDrop);
+                setDropInfo(currentDrop, membership.founders.count);
             }
             else if (isCroniesDrop(currentDrop.address)) {
-                currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
+                setDropInfo(currentDrop, cronies.count);
             }
             else if (isCrognomesDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
-                currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
+                setDropInfo(currentDrop, offsetSupply.toString());
             }
             else {
                 if (isOnNewContract(currentDrop.abi) && currentDrop.address) {
@@ -187,14 +187,7 @@ const Drop = () => {
                 } else {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                     const currentSupply = await readContract.totalSupply();
-                    setMaxMintPerAddress(currentDrop.maxMintPerAddress ?? 100);
-                    setMaxMintPerTx(currentDrop.maxMintPerTx);
-                    setMaxSupply(currentDrop.totalSupply);
-                    setMemberCost(currentDrop.memberCost);
-                    setRegularCost(currentDrop.cost);
-                    setTotalSupply(currentSupply);
-                    setWhitelistCost(currentDrop.whitelistCost);
-                    setCanMintQuantity(currentDrop.maxMintPerTx);
+                    setDropInfo(currentDrop, currentSupply);
                 }
             }
         } catch(error) {
@@ -203,6 +196,17 @@ const Drop = () => {
         setLoading(false);
         calculateStatus(currentDrop);
         setDropObject(currentDrop);
+    }
+
+    const setDropInfo = (drop, supply) => {
+        setMaxMintPerAddress(drop.maxMintPerAddress ?? 100);
+        setMaxMintPerTx(drop.maxMintPerTx);
+        setMaxSupply(drop.totalSupply);
+        setMemberCost(drop.memberCost);
+        setRegularCost(drop.cost);
+        setTotalSupply(supply);
+        setWhitelistCost(drop.whitelistCost);
+        setCanMintQuantity(drop.maxMintPerTx);
     }
 
     const calculateStatus = (drop) => {
