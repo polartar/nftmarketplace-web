@@ -182,7 +182,7 @@ export default class Responsive extends Component {
                   prevArrow={<PrevArrow />}
                   nextArrow={<NextArrow />}
           >
-              { drops && drops.filter(d => !d.complete && d.published).reverse().map((drop, index) => (
+              { drops && drops.filter(d => !d.complete && d.published && (d.featured || d.start < Date.now())).reverse().map((drop, index) => (
                   <CustomSlide className='itm' index={index}>
                       <div className="nft__item_lg">
                           <div className="row align-items-center">
@@ -222,7 +222,15 @@ export default class Responsive extends Component {
                                           <div className='col'>
                                               <span className="d-title">Mint Price</span>
                                               <h3>{humanize(drop.cost)} CRO</h3>
+                                              {
+                                                drop.erc20Cost && drop.erc20Unit && 
+                                                  <h3>{humanize(drop.erc20Cost)} {drop.erc20Unit}</h3>
+                                              }
                                               <h5>Members: {humanize(drop.memberCost)} CRO</h5>
+                                              {
+                                                drop.erc20MemberCost && drop.erc20Unit && 
+                                                  <h5>Members: {humanize(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
+                                              }
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
@@ -248,15 +256,7 @@ export default class Responsive extends Component {
                                       </div>
                                       <div className="spacer-10"></div>
                                       <div className="d-buttons">
-                                        {drop.previewOnly ?
-                                          <>
-                                            Drop info available soon!
-                                          </>
-                                          :
-                                          <>
-                                            <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
-                                          </>
-                                        }
+                                        <span className="btn-main" onClick={()=> window.open(`/drops/${drop.slug}`, "_self")}>View Drop</span>
                                       </div>
                                   </div>
                               </div>

@@ -7,8 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { settings } from "../components/constants";
 import CustomSlide from "../components/CustomSlide";
 import config from '../../Assets/networks/rpc_config.json'
-import { faArrowLeft, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import {caseInsensitiveCompare} from "../../utils";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import {drops} from "./PastDrops";
 export const collections = config.known_contracts;
 
@@ -21,11 +20,16 @@ const UpcomingDrops = () => {
   function arrangeCollections() {
       const nextDrops = drops.filter(d => !d.complete && d.published && d.start > Date.now());
       const dropCollections = nextDrops.map(d => {
-          const collection = collections.find(c => c.address && caseInsensitiveCompare(c.address, d.address));
-
+          const collection = collections.find(c => {
+              const collectionSlug = c.slug ?? c.metadata.slug;
+              return collectionSlug && collectionSlug === d.slug
+          });
           return {collection, drop: d};
       })
-      setUpcomingDrops(dropCollections.filter(d => d.collection));
+      setUpcomingDrops(dropCollections
+          .filter(d => d.collection)
+          .sort((a, b) => (a.drop.start > b.drop.start) ? 1 : -1)
+      );
   }
 
   useEffect(() => {
@@ -65,8 +69,9 @@ const UpcomingDrops = () => {
                   avatar={item.drop.imgAvatar}
                   banner={item.collection.metadata.card}
                   title={item.drop.title}
+                  subtitle={`${new Date(item.drop.start).toDateString()}`}
                   collectionId={item.drop.slug}
-                  url={item.drop.previewOnly ? null : `/drops/${item.drop.slug}`}
+                  url={`/drops/${item.drop.slug}`}
                   verified={true}
               />
           ))}
