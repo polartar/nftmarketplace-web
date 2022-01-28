@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const MyNfts = () => {
+
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
@@ -26,7 +27,7 @@ const MyNfts = () => {
 
     const [filteredNfts, setFilteredNfts] = useState([]);
 
-    const [possibleCollectionOptions, setPossibleCollectionOptions] = useState(collectionFilterOptions);
+    const [possibleCollectionOptions, setPossibleCollectionOptions] = useState([]);
 
     const [filterOption, setFilterOption] = useState(FilterOption.default());
 
@@ -35,10 +36,6 @@ const MyNfts = () => {
     const walletAddress = useSelector((state) => state.user.address)
 
     useEffect(() => {
-        //  reset filter when new nft arrives.
-        setFilterOption(FilterOption.default());
-        setListedOnly(false);
-
         //  get possible collections based on nfts.
         const possibleCollections = collectionFilterOptions.filter(collection => {
             const hasFromCollection = !!nfts.find(x => x.address === collection.address);
@@ -60,12 +57,28 @@ const MyNfts = () => {
             return;
         }
 
-        const filteredNfts = nftsToFilter.filter(nft => filterOption.getOptionValue === nft.address);
+        const filteredNfts = nftsToFilter.filter(nft => {
+            const isSameAddress = filterOption.getOptionValue === nft.address;
+
+            if (!nft.multiToken) {
+                return isSameAddress;
+            }
+
+            const hasId = !!nft.id;
+
+            if (!hasId) {
+                return isSameAddress;
+            }
+
+            const isSameId = filterOption.id === nft.id;
+
+            return isSameId && isSameAddress;
+        });
 
         const filteredAndListedNfts = filteredNfts.filter(nft => nft.listed);
 
         setFilteredNfts(listedOnly ? filteredAndListedNfts : filteredNfts);
-    }, [filterOption, listedOnly]);
+    }, [filterOption, listedOnly, nfts]);
 
 
     useEffect(() => {

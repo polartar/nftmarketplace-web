@@ -254,7 +254,9 @@ const MyNftCollection = (
             <div className='row'>
                 <div className='card-group'>
                     {nfts && nfts.map( (nft, index) => (
-                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
+                        <div className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2"
+                             key={`${nft.address}-${nft.id}-${nft.listed}-${index}`}
+                        >
                             <NftCard
                                 nft={nft}
                                 key={index}
