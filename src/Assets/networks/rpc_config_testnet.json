@@ -191,7 +191,7 @@
             "slug": "aunah",
             "name" : "Aunah",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xFdc26dde39BE26e01f25e26999AF26C672541174",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -460,7 +460,7 @@
             "subtitle": "SUBTITLE NEEDED",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
-            "address": "",
+            "address": "0xFdc26dde39BE26e01f25e26999AF26C672541174",
             "maxMintPerTx": 1,
             "totalSupply": 50,
             "cost": "600",
@@ -469,7 +469,7 @@
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
                 "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)",
+                "function mintCost(address) view returns (uint256)",
                 "function setCost(uint, bool) public"
             ],
             "start": 1643727600000,
