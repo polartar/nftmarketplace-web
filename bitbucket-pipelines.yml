@@ -85,6 +85,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
+          deployment: TestnetBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
