@@ -135,7 +135,7 @@ const Drop = () => {
 
         if (user.provider) {
             try {
-                let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
+                let writeContract = await new ethers.Contract(currentDrop.address, abi, user.provider.getSigner());
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
 
                 if (currentDrop.erc20Address) {
@@ -178,7 +178,6 @@ const Drop = () => {
                     setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
                     setCanMintQuantity(canMint);
                 } else {
-                    console.log('yes')
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                     const currentSupply = await readContract.totalSupply();
                     setMaxMintPerAddress(currentDrop.maxMintPerAddress ?? 100);
@@ -187,7 +186,7 @@ const Drop = () => {
                     setMemberCost(currentDrop.memberCost);
                     setRegularCost(currentDrop.cost);
                     setTotalSupply(currentSupply);
-                    setWhitelistCost(currentSupply.whitelistCost);
+                    setWhitelistCost(currentDrop.whitelistCost);
                     setCanMintQuantity(currentDrop.maxMintPerTx);
                 }
             }
