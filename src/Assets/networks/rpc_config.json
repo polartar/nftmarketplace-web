@@ -682,6 +682,18 @@
             }
         },
         {
+            "name" : "Afro Cronos Dogs",
+            "multiToken": false,
+            "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "afro-cronos-dogs",
+                "description": "",
+                "verified": true
+            }
+        },
+        {
             "name": "SantaCro",
             "multiToken": false,
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
