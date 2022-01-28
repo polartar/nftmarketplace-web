@@ -114,7 +114,7 @@ const Drop = () => {
                     
                     if (currentDrop.erc20Address) {
                         const erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
-                        const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, ["function allowance(address owner, address spender) external view returns (uint256)"], readProvider);
+                        const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, readProvider);
                         currentDrop = {
                             ...currentDrop,
                             erc20Contract,
@@ -188,8 +188,6 @@ const Drop = () => {
                 setMinting(true);
             }
             const contract = dropObject.writeContract;
-            // await contract.withdraw();
-            // await contract.withdrawPayments("0xe456f9A32E5f11035ffBEa0e97D1aAFDA6e60F03");
             try{
                 const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20Cost : dropObject.cost);
