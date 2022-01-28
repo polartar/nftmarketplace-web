@@ -157,7 +157,7 @@
         {
             "name" : "Crazy scientists",
             "multiToken" : false,
-            "address" : "0x1e5C170FefD844FA33C01B85A0817d27d2AA53D6",
+            "address" : "0x68f3669a93e7d1Decbd5A68466C75cb62B43E9C4",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -349,15 +349,15 @@
             "subtitle": "",
             "description":  "",
             "author": { "name": "Crazy scientists", "link": "https://www.crazyscientists.com/"},
-            "address": "0x1e5C170FefD844FA33C01B85A0817d27d2AA53D6",
+            "address": "0x68f3669a93e7d1Decbd5A68466C75cb62B43E9C4",
             "maxMintPerTx": 5,
             "totalSupply": 5555,
             "cost": "15",
             "memberCost": "10",
             "foundersOnly": false,
             "abi": [
-                "function mintCost(address) view returns (uint256)",
-                "function mint(uint256) payable",
+                "function mintCost(address _minter) view returns (uint256)",
+                "function mint(uint256 _amount) payable",
                 "function totalSupply() public view returns (uint256)"
             ],
             "start": 1639591200000,
