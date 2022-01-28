@@ -1038,6 +1038,18 @@
             }
         },
         {
+            "name" : "Afro Cronos Dogs",
+            "multiToken": false,
+            "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "afro-cronos-dogs",
+                "description": "",
+                "verified": true
+            }
+        },
+        {
             "name" : "Crxillion",
             "multiToken" : false,
             "address" : "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
