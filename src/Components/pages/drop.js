@@ -123,6 +123,8 @@ const Drop = () => {
             setDropObject(currentDrop);
             return;
         }
+
+        // Use the new contract format if applicable
         let abi = currentDrop.abi;
         if (isOnNewContract(abi)) {
             const abiJson = require(`../../Assets/abis/${currentDrop.abi}`);
@@ -204,10 +206,6 @@ const Drop = () => {
         setReferral(value);
     }
 
-    const isEligibleForMemberPrice = async (user) => {
-        return user.isMember;
-    }
-
     const calculateCost = async (user) => {
         if (isOnNewContract(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
@@ -233,7 +231,6 @@ const Drop = () => {
             const contract = dropObject.writeContract;
             try{
                 const cost = await calculateCost(user);
-                console.log('b', cost.toString());
                 let finalCost = cost.mul(numToMint);
                 let extra = {
                     'value' : finalCost
