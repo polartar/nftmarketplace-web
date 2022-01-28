@@ -14,6 +14,7 @@ import cdcLogo from '../Assets/cdc_logo.svg'
 import { getNftSalesForAddress, getNftsForAddress } from "../core/api";
 import { toast } from "react-toastify";
 import { createSuccessfulTransactionToastContent } from "../utils";
+import { FilterOption } from "../Components/Models/filter-option.model";
 
 const userSlice = createSlice({
     name : 'user',
@@ -53,6 +54,8 @@ const userSlice = createSlice({
         myNftPageTransferDialog: null,
         myNftPageListDialog: null,
         myNftPageCancelDialog: null,
+        myNftPageListedOnly: false,
+        myNftPageActiveFilterOption: FilterOption.default(),
 
         // My Sales
         mySoldNftsFetching: false,
@@ -119,6 +122,12 @@ const userSlice = createSlice({
         },
         setMyNftPageCancelDialog(state, action) {
             state.myNftPageCancelDialog = action.payload;
+        },
+        setMyNftPageListedOnly(state, action) {
+            state.myNftPageListedOnly = action.payload;
+        },
+        setMyNftPageActiveFilterOption(state, action) {
+            state.myNftPageActiveFilterOption = action.payload;
         },
         onNftLoading(state, action){
             state.currentNft = null;
@@ -608,6 +617,14 @@ export class MyNftPageActions {
 
     static HideNftPageCancelDialog = () => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageCancelDialog(null));
+    }
+
+    static setMyNftPageListedOnly = (status = false) => async(dispatch) => {
+        dispatch(userSlice.actions.setMyNftPageListedOnly(status));
+    }
+
+    static setMyNftPageActiveFilterOption = (filterOption) => async(dispatch) => {
+        dispatch(userSlice.actions.setMyNftPageActiveFilterOption(filterOption));
     }
 
     static TransferDialogConfirm = (selectedNft, walletAddress, transferAddress) => async(dispatch) => {

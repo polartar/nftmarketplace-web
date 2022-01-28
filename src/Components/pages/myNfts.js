@@ -1,41 +1,32 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { memo } from 'react';
+import { connect } from "react-redux";
 
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
-import MyNftCollection from "../components/MyNftCollection";
 import {Redirect} from "react-router-dom";
-import { fetchNfts } from "../../GlobalState/User";
-import { getAnalytics, logEvent } from "@firebase/analytics";
+import MyNftDispatcher from "../components/MyNftDispatcher";
+import NftCardList from "../components/MyNftCardList";
+import MyNftTransferDialog from "../components/MyNftTransferDialog";
+import MyNftCancelDialog from "../components/MyNftCancelDialog";
+import MyNftListDialog from "../components/MyNftListDialog";
 
 
 const GlobalStyles = createGlobalStyle`
 `;
 
 const mapStateToProps = (state) => ({
-    walletAddress: state.user.address,
-    walletProvider: state.user.provider,
-    nftsInitialized: state.user.nftsInitialized,
+    walletAddress: state.user.address
 });
 
-const MyNfts = ({ walletAddress, walletProvider, nftsInitialized }) => {
+const MyNfts = ({ walletAddress }) => {
 
-    const dispatch = useDispatch();
+    if (!walletAddress) {
+        return (<Redirect to='/marketplace'/>);
+    }
 
-    useEffect(() => {
-        dispatch(fetchNfts(walletAddress, walletProvider, nftsInitialized));
-    }, []);
-
-    useEffect(() => {
-        logEvent(getAnalytics(), 'screen_view', {
-            firebase_screen : 'my_nfts'
-        })
-    }, []);
-
-    const Content = () => (
-        <>
+    return (
+        <div>
             <GlobalStyles/>
-
             <section className='jumbotron breadcumb no-bg'
                      style={{backgroundImage: `url(${'/img/background/subheader.jpg'})`}}>
                 <div className='mainbreadcumb'>
@@ -50,21 +41,14 @@ const MyNfts = ({ walletAddress, walletProvider, nftsInitialized }) => {
             </section>
 
             <section className='container'>
-                <MyNftCollection/>
+                <MyNftDispatcher/>
+                <NftCardList/>
+                <MyNftTransferDialog/>
+                <MyNftCancelDialog/>
+                <MyNftListDialog/>
             </section>
 
             <Footer/>
-        </>
-    );
-
-
-    return (
-        <div>
-            {(walletAddress)?
-                <Content/>
-                :
-                <Redirect to='/marketplace'/>
-            }
         </div>
     );
 };

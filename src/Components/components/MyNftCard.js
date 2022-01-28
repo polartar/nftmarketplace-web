@@ -5,12 +5,10 @@ import { toast } from "react-toastify";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
-import api from "../../core/api";
-import LayeredIcon from "./LayeredIcon";
 import {croSkullRedPotionImageHack} from "../../hacks";
 
 
-const NftCard = ({
+const MyNftCard = ({
     nft,
     canTransfer = false,
     canSell = false,
@@ -93,4 +91,4 @@ const NftCard = ({
     );
 };
 
-export default memo(NftCard);
+export default memo(MyNftCard);

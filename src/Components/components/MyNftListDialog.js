@@ -1,11 +1,10 @@
 import React, { memo, useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { MyNftPageActions, updateListed } from '../../GlobalState/User';
+import { MyNftPageActions } from '../../GlobalState/User';
 import {
     Box,
-    Button, CardMedia, Container,
+    CardMedia, Container,
     Dialog,
-    DialogActions,
     DialogContent,
     DialogTitle,
     Grid, Stack, Step, StepContent, StepLabel, Stepper,
@@ -13,24 +12,8 @@ import {
 } from "@mui/material";
 import {toast} from "react-toastify";
 import {ethers} from "ethers";
-import * as PropTypes from "prop-types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { createSuccessfulTransactionToastContent } from "../../utils";
-import NftCardList from "./NftCardList";
-
-function LoadingButton(props) {
-    return null;
-}
-
-LoadingButton.propTypes = {
-    loading: PropTypes.bool,
-    variant: PropTypes.string,
-    onClick: PropTypes.func,
-    sx: PropTypes.shape({mr: PropTypes.number, mt: PropTypes.number}),
-    disabled: PropTypes.bool,
-    children: PropTypes.node
-};
 
 const ListDialogStepEnum = {
     WaitingForTransferApproval: 0,
@@ -43,57 +26,17 @@ Object.freeze(ListDialogStepEnum);
 const mapStateToProps = (state) => ({
     walletAddress: state.user.address,
     marketContract: state.user.marketContract,
-    myNftPageTransferDialog: state.user.myNftPageTransferDialog,
-    myNftPageListDialog: state.user.myNftPageListDialog,
-    myNftPageCancelDialog: state.user.myNftPageCancelDialog,
+    myNftPageListDialog: state.user.myNftPageListDialog
 });
 
-const MyNftCollection = (
+const MyNftListDialog = (
     {
         walletAddress,
         marketContract,
-        myNftPageTransferDialog,
-        myNftPageListDialog,
-        myNftPageCancelDialog,
+        myNftPageListDialog
     }) => {
 
     const dispatch = useDispatch();
-
-
-    /// CANCEL------------------
-
-    useEffect(async () => {
-        if (myNftPageCancelDialog) {
-            dispatch(MyNftPageActions.CancelListing(myNftPageCancelDialog, marketContract));
-        }
-    }, [ myNftPageCancelDialog ]);
-
-    /// TRANSFER------------------
-
-    const [transferAddress, setTransferAddress] = useState(null);
-
-
-    useEffect(async () => {
-        if (!myNftPageTransferDialog) {
-            setTransferAddress(null);
-        }
-    }, [ myNftPageTransferDialog ]);
-
-    const onTransferDialogAddressValueChange = (inputEvent) => {
-        const address = inputEvent.target.value;
-        setTransferAddress(address);
-    }
-
-    const onTransferDialogConfirm = async () => {
-        dispatch(MyNftPageActions.TransferDialogConfirm(myNftPageTransferDialog, walletAddress, transferAddress));
-    }
-
-    const onTransferDialogCancel = () =>{
-        dispatch(MyNftPageActions.HideMyNftPageTransferDialog());
-    }
-
-
-    /// LIST------------------
 
     useEffect(async () => {
         if (myNftPageListDialog) {
@@ -133,7 +76,7 @@ const MyNftCollection = (
     const [royalty, setRoyalty] = useState(0);
 
     useEffect(() => {
-        if(salePrice && salePrice.length > 0 && salePrice[0] != '0'){
+        if(salePrice && salePrice.length > 0 && salePrice[0] !== '0'){
             setNextEnabled(true);
         } else {
             setNextEnabled(false);
@@ -229,35 +172,6 @@ const MyNftCollection = (
 
     return (
         <>
-            <NftCardList/>
-
-            {(myNftPageTransferDialog) ?
-                <Dialog
-                    onClose={onTransferDialogCancel}
-                    open={!!myNftPageTransferDialog}>
-                    <DialogContent>
-                        <DialogTitle>
-                            Start Transfer
-                        </DialogTitle>
-                        <Grid container spacing={{sm : 4}} columns={2}>
-                            <Grid item xs={2} md={1} key='1'>
-                                <Container>
-                                    <CardMedia component='img' src={myNftPageTransferDialog.image} width='150' />
-                                </Container>
-                            </Grid>
-                            <Grid item xs={1} key='2' >
-                                <TextField label="Address" variant="outlined" onChange={onTransferDialogAddressValueChange}/>
-                            </Grid>
-                        </Grid>
-
-                        <DialogActions>
-                            <Button onClick={onTransferDialogCancel}>Cancel</Button>
-                            <Button onClick={onTransferDialogConfirm}>OK</Button>
-                        </DialogActions>
-                    </DialogContent>
-                </Dialog>
-                : null}
-
             {(myNftPageListDialog) ?
                 <Dialog
                     onClose={cancelList}
@@ -339,4 +253,4 @@ const MyNftCollection = (
     );
 };
 
-export default connect(mapStateToProps)(memo(MyNftCollection));
+export default connect(mapStateToProps)(memo(MyNftListDialog));
