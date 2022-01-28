@@ -1677,7 +1677,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 11,
@@ -1770,7 +1770,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 14,

@@ -361,7 +361,8 @@
             "start": 1642536000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "complete": true
         },
         {
             "id": 11,
@@ -447,7 +448,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 14,
