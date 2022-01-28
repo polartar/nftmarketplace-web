@@ -188,8 +188,6 @@ const Drop = () => {
                 setMinting(true);
             }
             const contract = dropObject.writeContract;
-            // await contract.withdraw();
-            // await contract.withdrawPayments("0xe456f9A32E5f11035ffBEa0e97D1aAFDA6e60F03");
             try{
                 const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
                 const regCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20Cost : dropObject.cost);
