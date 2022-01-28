@@ -1343,7 +1343,11 @@
                 "verified": true,
                 "avatar": "/img/collections/cronogods/avatar.gif",
                 "card": "/img/collections/cronogods/card.png",
-                "banner": "/img/collections/cronogods/banner.png"
+                "banner": "/img/collections/cronogods/banner.png",
+                "maxSupply": 1500,
+                "website": "https://www.cronogods.com/",
+                "twitter": "https://twitter.com/CronoGods",
+                "discord": "https://discord.gg/nQVhNmkY8g"
             }
         }
     ],
