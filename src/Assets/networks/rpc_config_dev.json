@@ -33,6 +33,7 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
+                "card": "/img/collections/ebisu/card.png",
                 "maxSupply": 1000,
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
@@ -52,6 +53,7 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
+                "card": "/img/collections/ebisu/card.png",
                 "maxSupply": 10000,
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
@@ -116,6 +118,25 @@
                 "website": "https://petiteplanets.com",
                 "twitter": "https://twitter.com/PetitePlanets",
                 "discord": "https://discord.gg/SaX7Suthbg"
+            }
+        },
+        {
+            "name" : "CroMonkeys",
+            "multiToken" : false,
+            "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cromonkeys",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromonkeys/avatar.gif",
+                "card": "/img/collections/cromonkeys/card.png",
+                "banner": "/img/collections/cromonkeys/banner.png",
+                "maxSupply": 1000,
+                "website": "https://cromonkeys.com/",
+                "twitter": "https://twitter.com/CROMonkeysNFT",
+                "discord": "https://discord.com/invite/84s8UgD7vC"
             }
         },
         {
@@ -246,6 +267,7 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
+                "card": "/img/collections/cronies/card.png",
                 "maxSupply": 443,
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
@@ -954,16 +976,18 @@
         {
             "name" : "Fractals",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/fractals/avatar.png",
                 "card": "/img/collections/fractals/card.png",
-                "banner": "/img/collections/fractals/banner.png"
+                "banner": "/img/collections/fractals/banner.png",
+                "maxSupply": 50,
+                "website": "https://www.instagram.com/maxx9498/"
             }
         },
         {
@@ -1010,6 +1034,18 @@
             "listable" : false,
             "metadata": {
                 "slug": "croskull-ambassadors",
+                "description": "",
+                "verified": true
+            }
+        },
+        {
+            "name" : "Afro Cronos Dogs",
+            "multiToken": false,
+            "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "afro-cronos-dogs",
                 "description": "",
                 "verified": true
             }
@@ -1120,25 +1156,6 @@
             }
         },
         {
-            "name" : "CroMonkeys",
-            "multiToken" : false,
-            "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "cromonkeys",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/cromonkeys/avatar.gif",
-                "card": "/img/collections/cromonkeys/card.png",
-                "banner": "/img/collections/cromonkeys/banner.png",
-                "maxSupply": 1000,
-                "website": "https://cromonkeys.com/",
-                "twitter": "https://twitter.com/CROMonkeysNFT",
-                "discord": "https://discord.com/invite/84s8UgD7vC"
-            }
-        },
-        {
             "name" : "Fooly Fish",
             "multiToken" : false,
             "address" : "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
@@ -1219,9 +1236,9 @@
         {
             "name" : "Red Skull Potions",
             "multiToken" : false,
-            "address" : "0x3A8DEFcfBf2aD87F2D338Fe7E1d74ac0dBeAb74A",
+            "address" : "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "red-skull-potions",
                 "description": "",
@@ -1299,6 +1316,40 @@
                 "twitter": "https://twitter.com/CroGnomes",
                 "discord": "https://discord.gg/WkRgkSQ2hJ"
             }
+        },
+        {
+            "name" : "Aunah",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "aunah",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/anuah/avatar.png",
+                "card": "/img/collections/anuah/card.png",
+                "banner": "/img/collections/anuah/banner.png"
+            }
+        },
+        {
+            "name" : "CronoGods",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronogods",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronogods/avatar.gif",
+                "card": "/img/collections/cronogods/card.png",
+                "banner": "/img/collections/cronogods/banner.png",
+                "maxSupply": 1500,
+                "website": "https://www.cronogods.com/",
+                "twitter": "https://twitter.com/CronoGods",
+                "discord": "https://discord.gg/nQVhNmkY8g"
+            }
         }
     ],
     "drops": [
@@ -1326,7 +1377,10 @@
             "end": null,
             "referral": false,
             "is1155": true,
-            "foundersOnly": false
+            "foundersOnly": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 1,
@@ -1353,7 +1407,95 @@
             "referral": true,
             "discount": "10.0",
             "is1155": true,
-            "foundersOnly": false
+            "foundersOnly": false,
+            "published": true,
+            "featured": true,
+            "complete": false
+        },
+        {
+            "id": 2,
+            "slug": "ebisu-by-barbara",
+            "imgNft": "/img/drops/ebisu/Ebisu.gif",
+            "imgPreview": "/img/drops/ebisu/ebisu_card.gif",
+            "imgAvatar" : "/img/collections/barbara/ebisu/avatar.jpg",
+            "title": "Ebisu by Barbara",
+            "subtitle": "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
+            "description": "Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods. Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters. May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.",
+            "author": { "name": "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/"},
+            "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+            "maxMintPerTx": 10,
+            "totalSupply": "∞",
+            "cost": "150.0",
+            "memberCost": "100.0",
+            "abi": [
+                "function mint(uint256 count) public payable",
+                "function totalSupply() public view returns (uint256)"
+            ],
+            "start": 1639489543000,
+            "end": 1639929600000,
+            "referral": false,
+            "is1155": false,
+            "foundersOnly": false,
+            "published": true,
+            "featured": false,
+            "complete": true
+        },
+        {
+            "id": 3,
+            "slug": "crostmas-gnome",
+            "imgNft": "/img/drops/crostmas/crostmas_cards.webp",
+            "imgPreview": "/img/drops/crostmas/crostmas_cards.webp",
+            "imgAvatar": "/img/drops/crostmas/avatar.png",
+            "title": "CROstmas Cards",
+            "subtitle": "CROstmas Cards is a collection on Cronos network.",
+            "description":  "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",
+            "author": { "name": "CROstmas Cards", "link": "https://crostmascards.com"},
+            "address": "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
+            "maxMintPerTx": 50,
+            "totalSupply": 10000,
+            "cost": "10.0",
+            "memberCost": "10.0",
+            "abi": [
+                "function mint(address _to, uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)"
+            ],
+            "start": 1639489543000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "foundersOnly": false,
+            "published": true,
+            "featured": false,
+            "complete": true
+        },
+        {
+            "id": 4,
+            "slug": "santa-cro",
+            "imgNft": "/img/drops/cromoon/cromoondrop.gif",
+            "imgPreview": "/img/drops/cromoon/cromoondrop.gif",
+            "imgAvatar" : "/img/collections/santacro/avatar.png",
+            "title": "SantaCro",
+            "subtitle": "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
+            "description":  "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Let’s make this Christmas a special one together!",
+            "author": { "name": "CroMoon", "link": "https://cromoon.net/nfts"},
+            "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
+            "maxMintPerTx": 20,
+            "totalSupply": 5555,
+            "cost": "199",
+            "memberCost": "199",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "featured": false,
+            "complete": true
         },
         {
             "id": 5,
@@ -1379,7 +1521,10 @@
             "start": 1641751200000,
             "end": 1641751300000,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 6,
@@ -1407,7 +1552,10 @@
             "start": 1639591200000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 7,
@@ -1435,35 +1583,10 @@
             "start": 1641848400000,
             "end": null,
             "referral": false,
-            "is1155": false
-        },
-        {
-            "id": 8,
-            "slug": "Fractals",
-            "imgNft": "/img/drops/fractals/drop.png",
-            "imgPreview": "/img/drops/fractals/drop.png",
-            "imgAvatar" : "/img/collections/fractals/avatar.png",
-            "imgBanner" : "/img/collections/fractals/banner.png",
-            "title": "Fractals",
-            "subtitle": "",
-            "description":  "The Fractals connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
-            "author": { "name": "Fractals", "link": "https://www.lazyhorseraceclub.com/"},
-            "address": "",
-            "maxMintPerTx": 1,
-            "totalSupply": 25,
-            "cost": "250",
-            "memberCost": "250",
-            "foundersOnly": false,
-            "abi": [
-                "function mint(uint256 _mintAmount) public payable",
-                "function totalSupply() public view returns (uint256)",
-                "function cost() view returns (uint256)",
-                "function setCost(uint) public"
-            ],
-            "start": 1659591200000,
-            "end": null,
-            "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 9,
@@ -1492,7 +1615,10 @@
             "end": null,
             "referral": false,
             "is1155": false,
-            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team"
+            "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
+            "published": true,
+            "featured": false,
+            "complete": false
         },
         {
             "id": 10,
@@ -1506,7 +1632,7 @@
             "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
             "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/"},
             "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
-            "maxMintPerTx": 1,
+            "maxMintPerTx": 5,
             "totalSupply": 1000,
             "cost": "218",
             "memberCost": "168",
@@ -1519,7 +1645,10 @@
             "start": 1642536000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": false,
+            "complete": true
         },
         {
             "id": 10,
@@ -1550,7 +1679,10 @@
             "start": 1642788000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
         },
         {
             "id": 11,
@@ -1578,7 +1710,10 @@
             "start": 1642809600000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         },
         {
             "id": 12,
@@ -1606,7 +1741,114 @@
             "start": 1643144400000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
+        },
+        {
+            "id": 13,
+            "slug": "fractals",
+            "imgNft": "/img/drops/fractals/drop.png",
+            "imgPreview": "/img/drops/fractals/drop.png",
+            "imgAvatar" : "/img/collections/fractals/avatar.png",
+            "imgBanner" : "/img/drops/fractals/banner.png",
+            "title": "Fractals",
+            "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
+            "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
+            "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/"},
+            "address": "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
+            "maxMintPerTx": 1,
+            "totalSupply": 50,
+            "cost": "300",
+            "memberCost": "250",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1643313600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": true
+        },
+        {
+            "id": 14,
+            "slug": "aunah",
+            "imgNft": "/img/drops/anuah/drop.gif",
+            "imgPreview": "/img/drops/anuah/drop.gif",
+            "imgAvatar" : "/img/collections/anuah/avatar.png",
+            "imgBanner" : "/img/drops/anuah/banner2.jpg",
+            "title": "Aunah",
+            "subtitle": "",
+            "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
+            "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
+            "address": "",
+            "maxMintPerTx": 1,
+            "totalSupply": 81,
+            "cost": "600",
+            "memberCost": "500",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1643727600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "featured": false,
+            "complete": false
+        },
+        {
+            "id": 15,
+            "slug": "cronogods",
+            "imgNft": "/img/drops/cronogods/drop.png",
+            "imgPreview": "/img/drops/cronogods/drop.png",
+            "imgAvatar" : "/img/collections/cronogods/avatar.gif",
+            "imgBanner" : "/img/collections/cronogods/banner.png",
+            "title": "CronoGods",
+            "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.",
+            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
+            "author": { "name": "CronoGods", "link": "https://www.cronogods.com/"},
+            "address": "",
+            "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
+            "maxMintPerTx": 5,
+            "totalSupply": 1520,
+            "cost": "350",
+            "memberCost": "295",
+            "erc20Cost": "43800000",
+            "erc20MemberCost": "37000000",
+            "erc20Unit": "Loot",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function mintWithLoot(uint256 _mintAmount) public",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint,bool) public",
+                "function setLootCost(uint,bool) public",
+                "function mintCost(address) external view returns(uint256)",
+                "function mintLootCost(address) external view returns(uint256)",
+                "function isReducedTime() public view returns(bool)"
+            ],
+            "erc20Abi": [
+                "function approve(address, uint256) public"
+            ],
+            "start": 1643554800000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "featured": true,
+            "complete": false
         }
     ],
     "auctions": [
@@ -1654,7 +1896,7 @@
             "id": 0,
             "hash": "0x2e72dbba4fe290a8b1ab03983fab4fe1273701193866e2217a63c3cf7fb4adff",
             "title": "Space Crystal Unicorns",
-            "description": "Hello everyoune, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
+            "description": "Hello everyone, \n\nI have always had a passion for art which most already know, but what most don’t know is that I am very fond of equestrian sports. Growing up I self-taught to become an equestrian rider. I have also judged equestrian events and competitions and organized charity festivals in support of children with disabilities. \n\nRiding horses can be very healing for children and their psycho-emotional state and for those who become more involved, assists with muscle development. I used to coach children for free but have retired from this. However, I keep in close contact with the equestrian club in my hometown and occasionally still assist by running the group classes for children. I also financially support and support them with media coverage, assisting with fund raising to help kids receive this amazing and free therapy with horses.\n\nTo support the equestrian club and children, I am auctioning a limited-edition 1:1 ‘Rare Heart Hodler’ NFT. It also comes with a T-shirt and an autographed card from myself. Additionally, 10 holders of the 'Heart Hodler' from the open edition will be randomly selected to receive a physical autographed card from myself",
             "link": "http://www.ritmclub.ru/",
             "imgAvatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg"
         }

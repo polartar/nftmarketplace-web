@@ -11,6 +11,7 @@ import { faArrowLeft, faChevronLeft, faChevronRight } from "@fortawesome/free-so
 import {caseInsensitiveCompare} from "../../utils";
 export const drops = config.drops;
 export const collections = config.known_contracts;
+const defaultCardImage = '/img/collections/default/card.jpg';
 
 const PastDrops = () => {
 
@@ -21,11 +22,14 @@ const PastDrops = () => {
   function arrangeCollections() {
       const completedDrops = drops.filter(d => d.complete && d.published);
       const dropCollections = completedDrops.map(d => {
-          const collection = collections.find(c => c.address && caseInsensitiveCompare(c.address, d.address));
+          const collection = collections.find(c => c.metadata.slug && c.metadata.slug === d.slug);
 
           return {collection, drop: d};
       })
-      setPastDrops(dropCollections.filter(d => d.collection));
+      setPastDrops(dropCollections
+          .filter(d => d.collection)
+          .sort((a, b) => (a.drop.start < b.drop.start) ? 1 : -1)
+      );
   }
 
   useEffect(() => {
@@ -63,9 +67,10 @@ const PastDrops = () => {
               key={index}
               index={index + 1}
               avatar={item.drop.imgAvatar}
-              banner={item.collection.metadata.card}
+              banner={item.collection.metadata.card ?? defaultCardImage}
               title={item.drop.title}
               collectionId={item.drop.slug}
+              url={`/collection/${item.collection.address}`}
               verified={true}
             />
           ))}
