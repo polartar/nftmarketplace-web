@@ -200,7 +200,12 @@
                 "verified": true,
                 "avatar": "/img/collections/mariecyborg/avatar.png",
                 "card": "/img/collections/mariecyborg/card.png",
-                "banner": "/img/collections/mariecyborg/banner.png"
+                "banner": "/img/collections/mariecyborg/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.mariescyborgs.io/",
+                "twitter": "https://twitter.com/mariescyborgs",
+                "discord": "https://discord.gg/mariescyborgs",
+                "telegram": "https://t.me/mariescyborgs"
             }
         }
     ],
