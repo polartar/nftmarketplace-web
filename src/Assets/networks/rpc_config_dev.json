@@ -1810,7 +1810,7 @@
             "memberCost": "295",
             "erc20Cost": "43800000",
             "erc20MemberCost": "37000000",
-            "erc20Unit": "Loot",
+            "erc20Unit": "LOOT",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
@@ -1823,7 +1823,8 @@
                 "function isReducedTime() public view returns(bool)"
             ],
             "erc20Abi": [
-                "function approve(address, uint256) public"
+                "function approve(address, uint256) public",
+                "function allowance(address owner, address spender) external view returns (uint256)"
             ],
             "start": 1643554800000,
             "end": null,

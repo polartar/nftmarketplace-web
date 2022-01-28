@@ -1823,7 +1823,8 @@
                 "function isReducedTime() public view returns(bool)"
             ],
             "erc20Abi": [
-                "function approve(address, uint256) public"
+                "function approve(address, uint256) public",
+                "function allowance(address owner, address spender) external view returns (uint256)"
             ],
             "start": 1643554800000,
             "end": null,

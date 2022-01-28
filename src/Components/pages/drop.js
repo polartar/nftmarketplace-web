@@ -115,7 +115,7 @@ const Drop = () => {
                     
                     if (currentDrop.erc20Address) {
                         const erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
-                        const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, ["function allowance(address owner, address spender) external view returns (uint256)"], readProvider);
+                        const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, readProvider);
                         currentDrop = {
                             ...currentDrop,
                             erc20Contract,
