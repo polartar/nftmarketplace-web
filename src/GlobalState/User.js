@@ -548,7 +548,13 @@ export const chainConnect = (type) => async(dispatch) => {
     }
 }
 
-export const fetchNfts = (walletAddress, walletProvider, nftsInitialized) => async (dispatch) => {
+export const fetchNfts = () => async (dispatch, getState) => {
+    const state = getState();
+
+    const walletAddress = state.user.address;
+    const walletProvider = state.user.provider;
+    const nftsInitialized = state.user.nftsInitialized;
+
     if (!nftsInitialized) {
         dispatch(fetchingNfts());
         const response = await getNftsForAddress(walletAddress, walletProvider, (nfts) => {
