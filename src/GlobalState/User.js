@@ -627,7 +627,7 @@ export class MyNftPageActions {
         dispatch(userSlice.actions.setMyNftPageActiveFilterOption(filterOption));
     }
 
-    static TransferDialogConfirm = (selectedNft, walletAddress, transferAddress) => async(dispatch) => {
+    static transferDialogConfirm = (selectedNft, walletAddress, transferAddress) => async(dispatch) => {
         try{
             dispatch(MyNftPageActions.hideMyNftPageTransferDialog());
 
@@ -653,7 +653,7 @@ export class MyNftPageActions {
         }
     }
 
-    static CancelListing = (selectedNft, marketContract) => async(dispatch) => {
+    static cancelListing = (selectedNft, marketContract) => async(dispatch) => {
         try{
             let tx = await marketContract.cancelListing(selectedNft.listingId);
 
@@ -679,7 +679,7 @@ export class MyNftPageActions {
         }
     }
 
-    static ListingDialogConfirm = ({ selectedNft, salePrice, marketContract }) => async (dispatch) => {
+    static listingDialogConfirm = ({ selectedNft, salePrice, marketContract }) => async (dispatch) => {
         try{
             const price = ethers.utils.parseEther(salePrice);
 

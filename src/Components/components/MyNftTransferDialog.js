@@ -49,7 +49,7 @@ const MyNftTransferDialog = (
     }
 
     const onTransferDialogConfirm = async () => {
-        dispatch(MyNftPageActions.TransferDialogConfirm(myNftPageTransferDialog, walletAddress, transferAddress));
+        dispatch(MyNftPageActions.transferDialogConfirm(myNftPageTransferDialog, walletAddress, transferAddress));
     }
 
     const onTransferDialogCancel = () =>{

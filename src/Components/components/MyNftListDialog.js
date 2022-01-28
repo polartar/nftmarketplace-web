@@ -140,7 +140,7 @@ const MyNftListDialog = (
 
         setNextEnabled(false);
 
-        dispatch(MyNftPageActions.ListingDialogConfirm({
+        dispatch(MyNftPageActions.listingDialogConfirm({
             selectedNft,
             salePrice,
             marketContract

@@ -19,7 +19,7 @@ const MyNftCancelDialog = (
 
     useEffect(async () => {
         if (myNftPageCancelDialog) {
-            dispatch(MyNftPageActions.CancelListing(myNftPageCancelDialog, marketContract));
+            dispatch(MyNftPageActions.cancelListing(myNftPageCancelDialog, marketContract));
         }
     }, [ myNftPageCancelDialog ]);
 
