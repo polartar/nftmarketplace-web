@@ -6,3 +6,8 @@ const knownContracts = config.known_contracts;
 export const collectionFilterOptions = knownContracts
     .sort((a, b) => a.name > b.name ? 1 : -1)
     .map(x => FilterOption.fromJson(x));
+
+export const marketPlaceCollectionFilterOptions = knownContracts
+    .filter(c => c.listable)
+    .sort((a, b) => a.name > b.name ? 1 : -1)
+    .map(x => FilterOption.fromJson(x));
