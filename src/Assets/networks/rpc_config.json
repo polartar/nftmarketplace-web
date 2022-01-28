@@ -1330,6 +1330,21 @@
                 "card": "/img/collections/anuah/card.png",
                 "banner": "/img/collections/anuah/banner.png"
             }
+        },
+        {
+            "name" : "CronoGods",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cronogods",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronogods/avatar.gif",
+                "card": "/img/collections/cronogods/card.png",
+                "banner": "/img/collections/cronogods/banner.png"
+            }
         }
     ],
     "drops": [
@@ -1569,7 +1584,7 @@
             "complete": true
         },
         {
-            "id": 9,
+            "id": 8,
             "slug": "cronos-fox-fraternity",
             "imgNft": "/img/drops/foxfraternity/drop.gif",
             "imgPreview": "/img/drops/foxfraternity/drop.gif",
@@ -1786,6 +1801,48 @@
             "is1155": false,
             "published": true,
             "featured": false,
+            "complete": false
+        },
+        {
+            "id": 15,
+            "slug": "cronogods",
+            "imgNft": "/img/drops/cronogods/drop.png",
+            "imgPreview": "/img/drops/cronogods/drop.png",
+            "imgAvatar" : "/img/collections/cronogods/avatar.gif",
+            "imgBanner" : "/img/collections/cronogods/banner.png",
+            "title": "CronoGods",
+            "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.",
+            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
+            "author": { "name": "CronoGods", "link": "https://www.cronogods.com/"},
+            "address": "",
+            "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
+            "maxMintPerTx": 5,
+            "totalSupply": 1520,
+            "cost": "350",
+            "memberCost": "295",
+            "erc20Cost": "43800000",
+            "erc20MemberCost": "37000000",
+            "erc20Unit": "Loot",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function mintWithLoot(uint256 _mintAmount) public",
+                "function totalSupply() public view returns (uint256)",
+                "function setCost(uint,bool) public",
+                "function setLootCost(uint,bool) public",
+                "function mintCost(address) external view returns(uint256)",
+                "function mintLootCost(address) external view returns(uint256)",
+                "function isReducedTime() public view returns(bool)"
+            ],
+            "erc20Abi": [
+                "function approve(address, uint256) public"
+            ],
+            "start": 1643554800000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "featured": true,
             "complete": false
         }
     ],
