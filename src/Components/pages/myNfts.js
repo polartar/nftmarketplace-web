@@ -17,8 +17,6 @@ const GlobalStyles = createGlobalStyle`
 
 const MyNfts = () => {
 
-    const EBISUSBAY_ADDRESS = '0x3F1590A5984C89e6d5831bFB76788F3517Cdf034';
-
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
@@ -29,7 +27,7 @@ const MyNfts = () => {
 
     const [filteredNfts, setFilteredNfts] = useState([]);
 
-    const [possibleCollectionOptions, setPossibleCollectionOptions] = useState(collectionFilterOptions);
+    const [possibleCollectionOptions, setPossibleCollectionOptions] = useState([]);
 
     const [filterOption, setFilterOption] = useState(FilterOption.default());
 
@@ -38,10 +36,6 @@ const MyNfts = () => {
     const walletAddress = useSelector((state) => state.user.address)
 
     useEffect(() => {
-        //  reset filter when new nft arrives.
-        setFilterOption(FilterOption.default());
-        setListedOnly(false);
-
         //  get possible collections based on nfts.
         const possibleCollections = collectionFilterOptions.filter(collection => {
             const hasFromCollection = !!nfts.find(x => x.address === collection.address);
@@ -66,8 +60,7 @@ const MyNfts = () => {
         const filteredNfts = nftsToFilter.filter(nft => {
             const isSameAddress = filterOption.getOptionValue === nft.address;
 
-            //  Separate Founder and VIP collections in MyNFTs filter
-            if (nft.address !== EBISUSBAY_ADDRESS) {
+            if (!nft.multiToken) {
                 return isSameAddress;
             }
 
@@ -85,7 +78,7 @@ const MyNfts = () => {
         const filteredAndListedNfts = filteredNfts.filter(nft => nft.listed);
 
         setFilteredNfts(listedOnly ? filteredAndListedNfts : filteredNfts);
-    }, [filterOption, listedOnly]);
+    }, [filterOption, listedOnly, nfts]);
 
 
     useEffect(() => {
