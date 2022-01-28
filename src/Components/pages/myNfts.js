@@ -1,88 +1,30 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, { memo, useEffect } from 'react';
+import { connect, useDispatch } from "react-redux";
 
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
-import TopFilterBar from '../components/TopFilterBar';
-import MyNftCollection from "../components/MyNftCollection";
 import {Redirect} from "react-router-dom";
+import NftCardList from "../components/MyNftCardList";
+import MyNftTransferDialog from "../components/MyNftTransferDialog";
+import MyNftCancelDialog from "../components/MyNftCancelDialog";
+import MyNftListDialog from "../components/MyNftListDialog";
 import { fetchNfts } from "../../GlobalState/User";
 import { getAnalytics, logEvent } from "@firebase/analytics";
-import { collectionFilterOptions } from "../components/constants/filter-options";
-import { FilterOption } from "../Models/filter-option.model";
-import { Form } from "react-bootstrap";
+
 
 const GlobalStyles = createGlobalStyle`
 `;
 
-const MyNfts = () => {
+const mapStateToProps = (state) => ({
+    walletAddress: state.user.address
+});
+
+const MyNfts = ({ walletAddress }) => {
 
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => state.user);
-
-    const isLoading = useSelector((state) => state.user.fetchingNfts);
-
-    const nfts = useSelector((state) => user.nfts);
-
-    const [filteredNfts, setFilteredNfts] = useState([]);
-
-    const [possibleCollectionOptions, setPossibleCollectionOptions] = useState([]);
-
-    const [filterOption, setFilterOption] = useState(FilterOption.default());
-
-    const [listedOnly, setListedOnly] = useState(false);
-
-    const walletAddress = useSelector((state) => state.user.address)
-
     useEffect(() => {
-        //  get possible collections based on nfts.
-        const possibleCollections = collectionFilterOptions.filter(collection => {
-            const hasFromCollection = !!nfts.find(x => x.address === collection.address);
-            return hasFromCollection;
-        });
-
-        setPossibleCollectionOptions(possibleCollections);
-    }, [nfts]);
-
-    const onFilterChange = useCallback((filterOption) => {
-        setFilterOption(filterOption);
-    }, [dispatch]);
-
-    useEffect(() => {
-        const nftsToFilter = listedOnly ? nfts.filter(nft => nft.listed) : nfts;
-
-        if (filterOption.getOptionValue === null) {
-            setFilteredNfts(nftsToFilter);
-            return;
-        }
-
-        const filteredNfts = nftsToFilter.filter(nft => {
-            const isSameAddress = filterOption.getOptionValue === nft.address;
-
-            if (!nft.multiToken) {
-                return isSameAddress;
-            }
-
-            const hasId = !!nft.id;
-
-            if (!hasId) {
-                return isSameAddress;
-            }
-
-            const isSameId = filterOption.id === nft.id;
-
-            return isSameId && isSameAddress;
-        });
-
-        const filteredAndListedNfts = filteredNfts.filter(nft => nft.listed);
-
-        setFilteredNfts(listedOnly ? filteredAndListedNfts : filteredNfts);
-    }, [filterOption, listedOnly, nfts]);
-
-
-    useEffect(() => {
-        dispatch(fetchNfts(user.address, user.provider, user.nftsInitialized));
+        dispatch(fetchNfts());
     }, []);
 
     useEffect(() => {
@@ -91,10 +33,13 @@ const MyNfts = () => {
         })
     }, []);
 
-    const Content = () => (
-        <>
-            <GlobalStyles/>
+    if (!walletAddress) {
+        return (<Redirect to='/marketplace'/>);
+    }
 
+    return (
+        <div>
+            <GlobalStyles/>
             <section className='jumbotron breadcumb no-bg'
                      style={{backgroundImage: `url(${'/img/background/subheader.jpg'})`}}>
                 <div className='mainbreadcumb'>
@@ -109,49 +54,14 @@ const MyNfts = () => {
             </section>
 
             <section className='container'>
-                <div className='row'>
-                    <div className='col-12 col-sm-6 col-lg-3'>
-                        <TopFilterBar className='col-6'
-                                      showFilter={true}
-                                      showSort={false}
-                                      filterOptions={[FilterOption.default(), ...possibleCollectionOptions]}
-                                      defaultFilterValue={filterOption}
-                                      filterPlaceHolder='Filter Collection...'
-                                      onFilterChange={onFilterChange}
-                        />
-                    </div>
-                    <div className='col-12 col-sm-6 col-md-4 m-0 text-nowrap d-flex align-items-center'>
-                        <div className="items_filter">
-                            <Form.Switch
-                                className=""
-                                label={'Only listed'}
-                                defaultChecked={listedOnly}
-                                onChange={() => setListedOnly(!listedOnly)}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <MyNftCollection
-                    walletAddress={walletAddress}
-                    nfts={filteredNfts}
-                    isLoading={isLoading}
-                    user={user}
-                />
+                <NftCardList/>
+                <MyNftTransferDialog/>
+                <MyNftCancelDialog/>
+                <MyNftListDialog/>
             </section>
 
             <Footer/>
-        </>
-    );
-
-
-    return (
-        <div>
-            {(walletAddress)?
-                <Content/>
-                :
-                <Redirect to='/marketplace'/>
-            }
         </div>
     );
 };
-export default MyNfts;
+export default connect(mapStateToProps)(memo(MyNfts));
