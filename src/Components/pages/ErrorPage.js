@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import Footer from '../components/Footer';
 import { createGlobalStyle, default as styled } from 'styled-components';
-import ListingCollection from "../components/ListingCollection";
-import {useHistory} from "react-router-dom";
-import HotCollections from "../components/HotCollections";
 import { keyframes } from "@emotion/react";
-import {siPrefixedNumber} from "../../utils";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
 import Reveal from "react-awesome-reveal";
 import { theme } from "../../Theme/theme";
@@ -71,7 +67,7 @@ const Jumbotron = {
     Host: styled.div.attrs(({theme}) => ({
         className: ''
     }))`
-      background-image: url('./img/background/Ebisus-bg-1_L.jpg');
+      background-image: url('/img/background/Ebisus-bg-1_L.jpg');
       background-size: cover;
       height: max(100vh, 800px);
       display: flex;
