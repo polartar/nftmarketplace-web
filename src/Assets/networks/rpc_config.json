@@ -1370,6 +1370,20 @@
                 "discord": "https://discord.gg/mariescyborgs",
                 "telegram": "https://t.me/mariescyborgs"
             }
+        },
+        {
+            "name" : "Trooprz",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "trooprz",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/trooprz/avatar.gif",
+                "website": "https://trooprz.army"
+            }
         }
     ],
     "drops": [
@@ -1899,6 +1913,34 @@
             "complete": false,
             "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
             "mediaPosition": "left"
+        },
+        {
+            "id": 17,
+            "slug": "trooprz",
+            "imgNft": "/img/drops/trooprz/drop.gif",
+            "imgPreview": "/img/drops/trooprz/drop.gif",
+            "imgAvatar" : "/img/collections/trooprz/avatar.gif",
+            "title": "Trooprz",
+            "subtitle": "",
+            "description": "",
+            "author": { "name": "Trooprz", "link": "https://trooprz.army/"},
+            "address": "",
+            "maxMintPerTx": 0,
+            "maxMintPerAddress": 0,
+            "totalSupply": 0,
+            "cost": "450",
+            "memberCost": "450",
+            "whitelistCost": "400",
+            "foundersOnly": false,
+            "abi": "marie.json",
+            "start": 1643410800000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false,
+            "featured": true,
+            "redirect": "https://trooprz.army/"
         }
     ],
     "auctions": [
