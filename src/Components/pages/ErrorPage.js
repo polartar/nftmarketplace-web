@@ -128,7 +128,7 @@ export const ErrorPage = () => {
                 <Reveal className='onStep call-to-action' keyframes={ inline } delay={ 800 } duration={ 900 } triggerOnce>
                     <div className="min-width-on-column mb-2 w-100 d-inline-flex flex-column flex-md-row flex-lg-column flex-xl-row gap-3   align-items-center">
                         <span onClick={ () => window.open('/', "_self") } className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main inline lead">
-                            GOTO HOMEPAGE
+                            GO TO HOMEPAGE
                         </span>
                     </div>
                 </Reveal>
