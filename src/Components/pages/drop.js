@@ -1,4 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ethers, constants } from 'ethers'
+import {useSelector, useDispatch} from 'react-redux'
+import {toast} from "react-toastify";
+import Countdown from 'react-countdown';
+import { getAnalytics, logEvent } from '@firebase/analytics'
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
@@ -9,11 +14,6 @@ import config from '../../Assets/networks/rpc_config.json'
 import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
-import { ethers} from 'ethers'
-import {useSelector, useDispatch} from 'react-redux'
-import {toast} from "react-toastify";
-import Countdown from 'react-countdown';
-import { getAnalytics, logEvent } from '@firebase/analytics'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
     isCroniesDrop,
@@ -65,6 +65,7 @@ const Drop = () => {
 
     const [loading, setLoading] = useState(true);
     const [minting, setMinting] = useState(false);
+    const [mintingERC20, setMintingERC20] = useState(false);
     const [referral, setReferral] = useState("");
     const [dropObject, setDropObject] = useState(null);
     const [status, setStatus] = useState(statuses.UNSET);
@@ -134,8 +135,18 @@ const Drop = () => {
 
         if (user.provider) {
             try {
-                let writeContract = await new ethers.Contract(currentDrop.address, abi, user.provider.getSigner());
+                let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
                 currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+
+                if (currentDrop.erc20Address) {
+                    const erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
+                    const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, ["function allowance(address owner, address spender) external view returns (uint256)"], readProvider);
+                    currentDrop = {
+                        ...currentDrop,
+                        erc20Contract,
+                        erc20ReadContract
+                    }
+                }
             } catch(error) {
                 console.log(error);
             }
@@ -148,7 +159,7 @@ const Drop = () => {
                 currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
             }
             else if (isCrognomesDrop(currentDrop.address)) {
-                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
@@ -167,6 +178,7 @@ const Drop = () => {
                     setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
                     setCanMintQuantity(canMint);
                 } else {
+                    console.log('yes')
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                     const currentSupply = await readContract.totalSupply();
                     setMaxMintPerAddress(currentDrop.maxMintPerAddress ?? 100);
@@ -183,6 +195,7 @@ const Drop = () => {
             console.log(error);
         }
         setLoading(false);
+        calculateStatus(currentDrop);
         setDropObject(currentDrop);
     }
 
@@ -206,31 +219,46 @@ const Drop = () => {
         setReferral(value);
     }
 
-    const calculateCost = async (user) => {
+    const calculateCost = async (user, isErc20) => {
         if (isOnNewContract(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
             return await readContract.cost(user.address);
         }
 
-        const memberCost = ethers.utils.parseEther(dropObject.memberCost);
-        const regCost = ethers.utils.parseEther(dropObject.cost);
-        if(user.isMember){
-            return memberCost;
+        const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
+        const regCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20Cost : dropObject.cost);
+        let cost;
+        if (dropObject.abi.join().includes("isReducedTime()")) {
+            const readContract = await new ethers.Contract(dropObject.address, dropObject.abi, readProvider);
+            const isReduced = await readContract.isReducedTime();
+            cost = isReduced ? memberCost : regCost;
+        } else if(user.isMember){
+            cost = memberCost;
         } else {
-            return regCost;
+            cost = regCost;
         }
+        return cost;
     }
 
     const isOnNewContract = (dropAbi) => {
         return typeof dropAbi === 'string';
     }
 
-    const mintNow = async() => {
+    const mintNow = async(isErc20 = false) => {
         if(user.address){
-            setMinting(true);
+            if (!dropObject.writeContract) {
+                return;
+            }
+            if (isErc20 === true) {
+                setMintingERC20(true);
+            } else {
+                setMinting(true);
+            }
             const contract = dropObject.writeContract;
+            // await contract.withdraw();
+            // await contract.withdrawPayments("0xe456f9A32E5f11035ffBEa0e97D1aAFDA6e60F03");
             try{
-                const cost = await calculateCost(user);
+                const cost = await calculateCost(user, isErc20);
                 let finalCost = cost.mul(numToMint);
                 let extra = {
                     'value' : finalCost
@@ -240,7 +268,6 @@ const Drop = () => {
                 if (dropObject.is1155) {
 
                     if (dropObject.title === "Founding Member") {
-                        console.log(referral);
                         if(referral){
                             finalCost = finalCost.sub(ethers.utils.parseEther('10.0').mul(numToMint));
                             extra = {
@@ -251,7 +278,6 @@ const Drop = () => {
                         response = await contract.mint(1, numToMint, ref32, extra);
                     } else {
                         // Cronie
-
                         const gas = String(900015 * numToMint);
                         response = await contract.mint(numToMint, extra);
                     }
@@ -260,14 +286,29 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     } else {
                         let method;
-                        for (const abiMethod of abi) {
-                            if (abiMethod.includes("mint")) method = abiMethod;
+                        for (const abiMethod of dropObject.abi) {
+                            if (abiMethod.includes("mint") && !abiMethod.includes("view")) method = abiMethod;
+                        }
+
+                        if(isErc20 === true) {
+                            const allowance = await dropObject.erc20ReadContract.allowance(user.address, dropObject.address);
+                            if (allowance.sub(finalCost) < 0) {
+                                await dropObject.erc20Contract.approve(dropObject.address, constants.MaxUint256);
+                            }
                         }
                         if (method.includes("address") && method.includes("uint256")) {
-                            response = await contract.mint(user.address, numToMint, extra);
+                            if (isErc20 === true) {
+                                response = await contract.mintWithLoot(user.address, numToMint);
+                            } else {
+                                response = await contract.mint(user.address, numToMint, extra);
+                            }
                         } else {
                             console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
-                            response = await contract.mint(numToMint, extra);
+                            if (isErc20 === true) {
+                                response = await contract.mintWithLoot(numToMint);
+                            } else {
+                                response = await contract.mint(numToMint, extra);
+                            }
                         }
                     }
                     const receipt = await response.wait();
@@ -313,7 +354,11 @@ const Drop = () => {
                     toast.error("Unknown Error");
                 }
             }finally{
-                setMinting(false);
+                if (isErc20 === true) {
+                    setMintingERC20(false);
+                } else {
+                    setMinting(false);
+                }
             }
         } else {
             dispatch(connectAccount());
@@ -437,12 +482,24 @@ const Drop = () => {
                                     <div className="me-4">
                                         <h6 className="mb-1">Mint Price</h6>
                                         <h5>{regularCost} CRO</h5>
+                                        {
+                                            dropObject?.erc20Cost && dropObject?.erc20Unit && 
+                                                <h5>{`${dropObject?.erc20Cost} ${dropObject?.erc20Unit}`}</h5>
+                                        }
                                     </div>
-                                    {(memberCost && regularCost !== memberCost) &&
-                                        <div>
-                                            <h6 className="mb-1">Founding Member Price</h6>
-                                            <h5>{memberCost} CRO</h5>
-                                        </div>
+                                    {
+                                        ((memberCost && regularCost !== memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
+                                            <div>
+                                                <h6 className="mb-1">Founding Member Price</h6>
+                                                {
+                                                    (dropObject?.cost !== dropObject?.memberCost) && 
+                                                        <h5>{dropObject?.memberCost} CRO</h5>
+                                                }
+                                                {
+                                                    (dropObject?.erc20Cost !== dropObject?.erc20MemberCost) &&
+                                                        <h5>{`${dropObject?.erc20MemberCost} ${dropObject?.erc20Unit}`}</h5>
+                                                }
+                                            </div>
                                     }
                                     {(whitelistCost && memberCost !== whitelistCost) &&
                                     <div>
@@ -488,27 +545,49 @@ const Drop = () => {
                                                 <Form.Text className="text-muted"/>
                                             </Form.Group>
                                         }
-                                        {canMintQuantity > 0 &&
-                                            <div className="d-flex flex-row mt-5">
-                                                <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
-                                                    {minting ?
-                                                        <>
-                                                            Minting...
-                                                            <Spinner animation="border" role="status" size="sm" className="ms-1">
-                                                                <span className="visually-hidden">Loading...</span>
-                                                            </Spinner>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            {canMintQuantity > 1 ?
-                                                                <>Mint {numToMint}</>
-                                                                :
-                                                                <>Mint</>
-                                                            }
-                                                        </>
-                                                    }
-                                                </button>
-                                            </div>
+
+                                        {canMintQuantity > 0 &&                                        <div className="d-flex flex-row mt-5">
+                                            <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
+                                                {minting ?
+                                                    <>
+                                                        Minting...
+                                                        <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </Spinner>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
+                                                            <>Mint {numToMint}</>
+                                                            :
+                                                            <>Mint</>
+                                                        }
+                                                    </>
+                                                }
+                                            </button>
+                                            {
+                                                drop.erc20Unit && 
+                                                    <button className='btn-main lead mb-5 mr15 mx-1' onClick={() => mintNow(true)} disabled={mintingERC20}>
+                                                        {
+                                                            mintingERC20 ?
+                                                            <>
+                                                                Minting...
+                                                                <Spinner animation="border" role="status" size="sm" className="ms-1">
+                                                                    <span className="visually-hidden">Loading...</span>
+                                                                </Spinner>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                {drop.maxMintPerTx && drop.maxMintPerTx > 1 ?
+                                                                    <>Mint {numToMint} with {drop.erc20Unit}</>
+                                                                    :
+                                                                    <>Mint with {drop.erc20Unit}</>
+                                                                }
+                                                            </>
+                                                        }
+                                                    </button>
+                                            }
+                                        </div>
                                         }
                                     </>
                                 }
