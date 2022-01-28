@@ -122,6 +122,13 @@ const Drop = () => {
         if (!drop.address) {
             currentDrop = Object.assign({currentSupply: 0}, currentDrop);
             setDropObject(currentDrop);
+            setMaxMintPerAddress(currentDrop.maxMintPerAddress ?? 100);
+            setMaxMintPerTx(currentDrop.maxMintPerTx);
+            setMaxSupply(currentDrop.totalSupply);
+            setMemberCost(currentDrop.memberCost);
+            setRegularCost(currentDrop.cost);
+            setWhitelistCost(currentDrop.whitelistCost);
+            setCanMintQuantity(currentDrop.maxMintPerTx);
             return;
         }
 
@@ -165,7 +172,7 @@ const Drop = () => {
                 currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
             }
             else {
-                if (isOnNewContract(currentDrop.abi)) {
+                if (isOnNewContract(currentDrop.abi) && currentDrop.address) {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                     const infos = await readContract.getInfos();
                     const canMint = user.address ? await readContract.canMint(user.address) : 0;
