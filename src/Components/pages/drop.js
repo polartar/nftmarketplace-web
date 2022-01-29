@@ -199,7 +199,7 @@ const Drop = () => {
                             };
                         };
                         const ref32 = ethers.utils.formatBytes32String(referral);
-                        response = await contract.mint(1, numToMint, ref32, extra);
+                        response = await contract.mint(numToMint,  extra);
                     } else {
                         // Cronie
 
