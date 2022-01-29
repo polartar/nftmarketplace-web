@@ -199,7 +199,7 @@ const Drop = () => {
                             };
                         };
                         const ref32 = ethers.utils.formatBytes32String(referral);
-                        response = await contract.mint(numToMint,  extra);
+                        response = await contract.mint(1, numToMint, ref32, extra);
                     } else {
                         // Cronie
 
@@ -213,7 +213,7 @@ const Drop = () => {
                     }
                     var response;
                     if (method.includes("address") && method.includes("uint256")) {
-                        response = await contract.mint(user.address, numToMint, extra);
+                        response = await contract.mint(numToMint);
                     } else {
                         console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
                         response = await contract.mint(numToMint, extra);
