@@ -1036,7 +1036,8 @@
                 "avatar": "/img/collections/fractals/avatar.png",
                 "card": "/img/collections/fractals/card.png",
                 "banner": "/img/collections/fractals/banner.png",
-                "maxSupply": 50
+                "maxSupply": 50,
+                "website": "https://www.instagram.com/maxx9498/"
             }
         },
         {
@@ -1381,7 +1382,45 @@
                 "verified": true,
                 "avatar": "/img/collections/cronogods/avatar.gif",
                 "card": "/img/collections/cronogods/card.png",
-                "banner": "/img/collections/cronogods/banner.png"
+                "banner": "/img/collections/cronogods/banner.png",
+                "maxSupply": 1500,
+                "website": "https://www.cronogods.com/",
+                "twitter": "https://twitter.com/CronoGods",
+                "discord": "https://discord.gg/nQVhNmkY8g"
+            }
+        },
+        {
+            "name" : "Marie's Cyborgs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "maries-cyborgs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/mariecyborg/avatar.png",
+                "card": "/img/collections/mariecyborg/card.png",
+                "banner": "/img/collections/mariecyborg/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.mariescyborgs.io/",
+                "twitter": "https://twitter.com/mariescyborgs",
+                "discord": "https://discord.gg/mariescyborgs",
+                "telegram": "https://t.me/mariescyborgs"
+            }
+        },
+        {
+            "name" : "Trooprz",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "trooprz",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/trooprz/avatar.gif",
+                "website": "https://trooprz.army"
             }
         }
     ],
@@ -1715,7 +1754,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 11,
@@ -1808,7 +1847,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 14,
@@ -1823,7 +1862,7 @@
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
             "address": "",
             "maxMintPerTx": 1,
-            "totalSupply": 50,
+            "totalSupply": 81,
             "cost": "600",
             "memberCost": "500",
             "foundersOnly": false,
@@ -1873,7 +1912,8 @@
                 "function isReducedTime() public view returns(bool)"
             ],
             "erc20Abi": [
-                "function approve(address, uint256) public"
+                "function approve(address, uint256) public",
+                "function allowance(address owner, address spender) external view returns (uint256)"
             ],
             "start": 1643554800000,
             "end": null,
@@ -1882,6 +1922,35 @@
             "published": true,
             "featured": true,
             "complete": false
+        },
+        {
+            "id": 16,
+            "slug": "maries-cyborgs",
+            "imgNft": "/img/drops/mariecyborg/drop.gif",
+            "imgPreview": "/img/drops/mariecyborg/drop.gif",
+            "imgAvatar" : "/img/collections/mariecyborg/avatar.png",
+            "imgBanner" : "/img/collections/mariecyborg/banner.png",
+            "title": "Marie's Cyborgs",
+            "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
+            "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
+            "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/"},
+            "address": "",
+            "maxMintPerTx": 25,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2500,
+            "cost": "400",
+            "memberCost": "350",
+            "whitelistCost": "300",
+            "foundersOnly": false,
+            "abi": "marie.json",
+            "start": 1643580000000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
+            "mediaPosition": "left"
         }
     ],
     "auctions": [
