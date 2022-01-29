@@ -140,6 +140,44 @@
             }
         },
         {
+            "name" : "CroMonkeys Land",
+            "multiToken" : false,
+            "address" : "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cromonkeys-land",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromonkeysland/avatar.gif",
+                "card": "/img/collections/cromonkeys/card.png",
+                "banner": "/img/collections/cromonkeys/banner.png",
+                "maxSupply": 2000,
+                "website": "https://cromonkeys.com/",
+                "twitter": "https://twitter.com/CROMonkeysNFT",
+                "discord": "https://discord.com/invite/84s8UgD7vC"
+            }
+        },{
+            "name" : "DogeApeSociety",
+            "multiToken" : false,
+            "address" : "0x0B037e9C1B89eD1Db1607a114a511eE5B07DdcAd",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "dogeapesociety",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/dogeapesociety/avatar.png",
+                "card": "/img/collections/dogeapesociety/card.png",
+                "banner": "/img/collections/dogeapesociety/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.dogeapesociety.com/",
+                "twitter": "https://twitter.com/DogeApeSociety",
+                "discord": "https://discord.gg/TDFcF8TUAs",
+                "telegram": "https://t.me/dogeapesociety"
+            }
+        },
+        {
             "name" : "Cronos Slothty",
             "multiToken" : false,
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
@@ -990,7 +1028,7 @@
             "multiToken" : false,
             "address" : "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
