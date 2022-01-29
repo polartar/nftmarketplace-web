@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {getCollectionMetadata} from "../core/api";
 import config from "../Assets/networks/rpc_config.json";
+import {caseInsensitiveCompare} from "../utils";
 export const knownContracts = config.known_contracts;
 
 const collectionsSlice = createSlice({
@@ -35,7 +36,14 @@ export const getAllCollections = (sortKey = 'totalVolume', sortDirection = 'desc
         dispatch(collectionsLoading());
         const response = await getCollectionMetadata();
         response.collections.forEach(function (collection, index) {
-            const contract = knownContracts.find(c => c.address.toUpperCase() === collection.collection.toUpperCase());
+
+            let contract;
+            if (caseInsensitiveCompare(collection.collection, '0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5')) {
+                contract = knownContracts.find(c => c.metadata?.slug === 'ebisu-vip');
+            } else {
+                contract = knownContracts.find(c => caseInsensitiveCompare(c.address, collection.collection));
+            }
+
             if (contract) {
                 response.collections[index].name = contract.name;
                 response.collections[index].metadata = contract.metadata;
