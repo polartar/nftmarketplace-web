@@ -213,6 +213,7 @@ const Drop = () => {
                     }
                     var response;
                     if (method.includes("address") && method.includes("uint256")) {
+                        console.log('1', numToMint);
                         response = await contract.mint(numToMint);
                     } else {
                         console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
