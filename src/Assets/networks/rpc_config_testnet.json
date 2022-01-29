@@ -157,7 +157,7 @@
         {
             "name" : "Crazy scientists",
             "multiToken" : false,
-            "address" : "0x68f3669a93e7d1Decbd5A68466C75cb62B43E9C4",
+            "address" : "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -349,7 +349,7 @@
             "subtitle": "",
             "description":  "",
             "author": { "name": "Crazy scientists", "link": "https://www.crazyscientists.com/"},
-            "address": "0x68f3669a93e7d1Decbd5A68466C75cb62B43E9C4",
+            "address": "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
             "maxMintPerTx": 5,
             "totalSupply": 5555,
             "cost": "15",

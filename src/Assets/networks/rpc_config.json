@@ -740,6 +740,21 @@
                 "card": "/img/collections/cronosgoats/card.png",
                 "banner": "/img/collections/cronosgoats/banner.png"
             }
+        },
+        {
+            "name" : "Crazy scientists",
+            "multiToken" : false,
+            "address" : "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "Crazy scientists",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crazyscientists/avatar.gif",
+                "card": "/img/collections/crazyscientists/banner.png",
+                "banner": "/img/collections/crazyscientists/banner.png"
+            }
         }
     ],
     "drops": [
@@ -958,6 +973,33 @@
                 "function setCost(uint, bool) external"
             ],
             "start": 1642276800000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "Crazy scientists",
+            "imgNft": "/img/drops/crazyscientists/NewPreviewBanner.png",
+            "imgPreview": "/img/drops/crazyscientists/NewPreviewBanner.png",
+            "imgAvatar" : "/img/collections/crazyscientists/avatar.gif",
+            "imgBanner" : "/img/collections/crazyscientists/banner.png",
+            "title": "Crazy scientists",
+            "subtitle": "",
+            "description":  "",
+            "author": { "name": "Crazy scientists", "link": "https://www.crazyscientists.com/"},
+            "address": "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
+            "maxMintPerTx": 5,
+            "totalSupply": 5555,
+            "cost": "15",
+            "memberCost": "10",
+            "foundersOnly": false,
+            "abi": [
+                "function mintCost(address _minter) view returns (uint256)",
+                "function mint(uint256 _amount) payable",
+                "function totalSupply() public view returns (uint256)"
+            ],
+            "start": 1639591200000,
             "end": null,
             "referral": false,
             "is1155": false
