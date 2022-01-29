@@ -10,29 +10,19 @@ import './Assets/style.scss';
 import './Assets/style_grey.scss';
 import './Assets/override.scss'
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-//redux store
 import { Provider } from 'react-redux'
+import * as serviceWorker from './serviceWorker';
 import store from './Store/store';
+import { SentryLoggingService } from "./services/sentry-logging.service";
+import { Site24x7LoggingService } from "./services/site24x7-logging.service";
 
-import Bugsnag from '@bugsnag/js'
-import BugsnagPluginReact from '@bugsnag/plugin-react'
-
-Bugsnag.start({
-	apiKey: '2930ae7912b5df1173da9e102e6f91cd',
-	plugins: [new BugsnagPluginReact()]
-})
-
-const ErrorBoundary = Bugsnag.getPlugin('react')
-	.createErrorBoundary(React)
+SentryLoggingService.init();
+Site24x7LoggingService.init();
 
 ReactDOM.render(
 	<Provider store={store}>
-		<ErrorBoundary>
 			<App />
-		</ErrorBoundary>
-	</Provider>, 
+	</Provider>,
 	document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
