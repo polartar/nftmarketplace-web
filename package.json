@@ -59,7 +59,7 @@
     "web3modal": "github:Gobblo/web3modal"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start --host 0.0.0.0",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -1335,7 +1335,7 @@
         {
             "name" : "CronoGods",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1854,7 +1854,7 @@
             "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.",
             "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
             "author": { "name": "CronoGods", "link": "https://www.cronogods.com/"},
-            "address": "",
+            "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
             "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
             "maxMintPerTx": 5,
             "totalSupply": 1520,
