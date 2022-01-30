@@ -308,6 +308,11 @@ const Drop = () => {
                             if (isErc20 === true) {
                                 response = await contract.mintWithLoot(user.address, numToMint);
                             } else {
+                                
+                                extra = {
+                                    ...extra,
+                                    'gasPrice' : ethers.utils.parseUnits('5000', 'gwei')
+                                };
                                 response = await contract.mint(user.address, numToMint, extra);
                             }
                         } else {
@@ -315,6 +320,11 @@ const Drop = () => {
                             if (isErc20 === true) {
                                 response = await contract.mintWithLoot(numToMint);
                             } else {
+                                
+                                extra = {
+                                    ...extra,
+                                    'gasPrice' : ethers.utils.parseUnits('5000', 'gwei')
+                                };
                                 response = await contract.mint(numToMint, extra);
                             }
                         }
