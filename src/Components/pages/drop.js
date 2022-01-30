@@ -78,6 +78,7 @@ const Drop = () => {
     const [memberCost, setMemberCost] = useState(0);
     const [regularCost, setRegularCost] = useState(0);
     const [whitelistCost, setWhitelistCost] = useState(0);
+    const [specialWhitelistCost, setSpecialWhitelistCost] = useState(0);
     const [totalSupply, setTotalSupply] = useState(0);
     const [canMintQuantity, setCanMintQuantity] = useState(0);
 
@@ -120,15 +121,7 @@ const Drop = () => {
 
         // Don't do any contract stuff if the drop does not have an address
         if (!drop.address) {
-            currentDrop = Object.assign({currentSupply: 0}, currentDrop);
-            setDropObject(currentDrop);
-            setMaxMintPerAddress(currentDrop.maxMintPerAddress ?? 100);
-            setMaxMintPerTx(currentDrop.maxMintPerTx);
-            setMaxSupply(currentDrop.totalSupply);
-            setMemberCost(currentDrop.memberCost);
-            setRegularCost(currentDrop.cost);
-            setWhitelistCost(currentDrop.whitelistCost);
-            setCanMintQuantity(currentDrop.maxMintPerTx);
+            setDropInfo(currentDrop, 0);
             return;
         }
 
@@ -213,6 +206,7 @@ const Drop = () => {
         setRegularCost(drop.cost);
         setTotalSupply(supply);
         setWhitelistCost(drop.whitelistCost);
+        setSpecialWhitelistCost(drop.specialWhitelistCost);
         setCanMintQuantity(drop.maxMintPerTx);
     }
 
@@ -507,7 +501,7 @@ const Drop = () => {
                                     </div>
                                     {
                                         ((memberCost && regularCost !== memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
-                                            <div>
+                                            <div className="me-4">
                                                 <h6 className="mb-1">Founding Member Price</h6>
                                                 {
                                                     (dropObject?.cost !== dropObject?.memberCost) && 
@@ -519,10 +513,16 @@ const Drop = () => {
                                                 }
                                             </div>
                                     }
-                                    {(whitelistCost && memberCost !== whitelistCost) &&
-                                    <div>
+                                    {(whitelistCost) &&
+                                    <div className="me-4">
                                         <h6 className="mb-1">Whitelist Price</h6>
                                         <h5>{whitelistCost} CRO</h5>
+                                    </div>
+                                    }
+                                    {(specialWhitelistCost) &&
+                                    <div className="me-4">
+                                        <h6 className="mb-1">Special Whitelist</h6>
+                                        <h5>{specialWhitelistCost} CRO</h5>
                                     </div>
                                     }
                                 </div>
@@ -564,7 +564,8 @@ const Drop = () => {
                                             </Form.Group>
                                         }
 
-                                        {canMintQuantity > 0 &&                                        <div className="d-flex flex-row mt-5">
+                                        {canMintQuantity > 0 &&
+                                        <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
                                                 {minting ?
                                                     <>
