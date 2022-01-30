@@ -1858,7 +1858,7 @@
             "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
             "maxMintPerTx": 5,
             "totalSupply": 1520,
-            "cost": "350",
+            "cost": "295",
             "memberCost": "295",
             "erc20Cost": "43800000",
             "erc20MemberCost": "37000000",
