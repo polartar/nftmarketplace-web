@@ -1394,7 +1394,7 @@
         {
             "name" : "Marie's Cyborgs",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x84Ad0Da2C88dB7A8dfcEf9Cc2436c9e4446b56F3",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1859,9 +1859,9 @@
             "imgNft": "/img/drops/anuah/drop.gif",
             "imgPreview": "/img/drops/anuah/drop.gif",
             "imgAvatar" : "/img/collections/anuah/avatar.png",
-            "imgBanner" : "/img/drops/anuah/banner2.jpg",
+            "imgBanner" : "/img/collections/anuah/banner.png",
             "title": "Aunah",
-            "subtitle": "",
+            "subtitle": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
             "address": "",
@@ -1882,7 +1882,8 @@
             "is1155": false,
             "published": true,
             "featured": false,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
             "id": 15,
@@ -1938,7 +1939,7 @@
             "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
             "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
             "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/"},
-            "address": "",
+            "address": "0x84Ad0Da2C88dB7A8dfcEf9Cc2436c9e4446b56F3",
             "maxMintPerTx": 25,
             "maxMintPerAddress": 50,
             "totalSupply": 2500,
@@ -1947,7 +1948,7 @@
             "whitelistCost": "300",
             "foundersOnly": false,
             "abi": "marie.json",
-            "start": 1643580000000,
+            "start": 1643576400000,
             "end": null,
             "referral": false,
             "is1155": false,
