@@ -352,8 +352,8 @@
             "address": "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
             "maxMintPerTx": 5,
             "totalSupply": 5555,
-            "cost": "15",
-            "memberCost": "10",
+            "cost": "429",
+            "memberCost": "379",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _amount) public payable",
