@@ -14,7 +14,7 @@ import config from '../../Assets/networks/rpc_config.json'
 import Market from '../../Contracts/Marketplace.json'
 import Blockies from 'react-blockies';
 import {toast} from "react-toastify";
-import {caseInsensitiveCompare, siPrefixedNumber} from "../../utils";
+import {caseInsensitiveCompare, isFounderCollection, siPrefixedNumber} from "../../utils";
 import CollectionListingsGroup from "../components/CollectionListingsGroup";
 import CollectionFilterBar from "../components/CollectionFilterBar";
 import TraitsFilter from "../Collection/TraitsFilter";
@@ -58,7 +58,12 @@ const Collection = ({cacheName = 'collection'}) => {
     });
 
     const collectionName = () => {
-        const contract = knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase());
+        let contract;
+        if (isFounderCollection(address)) {
+            contract = knownContracts.find(c => c.metadata?.slug === 'ebisu-vip');
+        } else {
+            contract = knownContracts.find(c => c.address.toLowerCase() === address.toLowerCase());
+        }
 
         return contract ? contract.name : 'Collection';
     }
@@ -102,7 +107,13 @@ const Collection = ({cacheName = 'collection'}) => {
     }, [dispatch, address]);
 
     useEffect(() => {
-        let extraData = knownContracts.find(c => c.address.toUpperCase() === address.toUpperCase());
+        let extraData;
+        if (isFounderCollection(address)) {
+            extraData = knownContracts.find(c => c.metadata?.slug === 'ebisu-vip');
+        } else {
+            extraData = knownContracts.find(c => caseInsensitiveCompare(c.address, address));
+        }
+
         if (extraData) {
             setMetadata(extraData.metadata);
         }

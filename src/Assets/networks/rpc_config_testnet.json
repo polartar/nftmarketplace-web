@@ -497,7 +497,7 @@
             "imgNft": "/img/drops/anuah/drop.gif",
             "imgPreview": "/img/drops/anuah/drop.gif",
             "imgAvatar" : "/img/collections/anuah/avatar.png",
-            "imgBanner" : "/img/drops/anuah/banner2.jpg",
+            "imgBanner" : "/img/collections/anuah/banner.png",
             "title": "Aunah",
             "subtitle": "SUBTITLE NEEDED",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
@@ -519,7 +519,8 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
             "id": 15,
