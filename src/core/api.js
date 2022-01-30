@@ -260,7 +260,15 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         contract.connect(signer);
                         const count = await contract.balanceOf(walletAddress);
                         for(let i = 0; i < count; i++){
-                            const id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
+                            let id;
+                            try {
+                                id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
+                            } catch (error) {
+
+                                // @todo refactor this out as it returns an array
+                                id = await readContract.walletOfOwner(walletAddress);
+                                console.log('ok', c.address.toString(), id);
+                            }
                             const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
                             let uri;
                             if (c.name === 'Ant Mint Pass') {

@@ -9,7 +9,8 @@ export const ERC721 =[
     "function isApprovedForAll(address account, address operator) public view returns (bool)",
     "function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256)",
     "function totalSupply() public view returns (uint256)",
-    "function tokenByIndex(uint256 index) public view returns (uint256)"
+    "function tokenByIndex(uint256 index) public view returns (uint256)",
+    "function walletOfOwner(address owner) public view returns (uint256[] memory)"
 ]
 
 export const ERC1155 = [
