@@ -1394,7 +1394,7 @@
         {
             "name" : "Trooprz",
             "multiToken" : false,
-            "address" : "0x929b5f15b94F218Ca4eCEa3700f0C681f0389Bb4",
+            "address" : "0x8a58fd155D4eF175297180C0E466c0e1c6D3c308",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1405,6 +1405,26 @@
                 "website": "https://trooprz.army",
                 "twitter": "https://twitter.com/trooprzarmy",
                 "discord": "https://discord.gg/trooprz"
+            }
+        },
+        {
+            "name" : "DogeApeSociety",
+            "multiToken" : false,
+            "address" : "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "dogeapesociety",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/dogeapesociety/avatar.png",
+                "card": "/img/collections/dogeapesociety/card.png",
+                "banner": "/img/collections/dogeapesociety/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.dogeapesociety.com/",
+                "twitter": "https://twitter.com/DogeApeSociety",
+                "discord": "https://discord.gg/TDFcF8TUAs",
+                "telegram": "https://t.me/dogeapesociety"
             }
         }
     ],
