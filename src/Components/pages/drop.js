@@ -233,7 +233,7 @@ const Drop = () => {
     const calculateCost = async (user, isErc20) => {
         if (isOnNewContract(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
-            if (abi.join().includes("cost")) {
+            if (abi.find(m => m.name === 'cost')) {
                 return await readContract.cost(user.address);
             }
             return await readContract.mintCost(user.address);
@@ -495,7 +495,7 @@ const Drop = () => {
                                         <h6 className="mb-1">Mint Price</h6>
                                         <h5>{regularCost} CRO</h5>
                                         {
-                                            dropObject?.erc20Cost && dropObject?.erc20Unit && 
+                                            dropObject?.erc20Cost && dropObject?.erc20Unit &&
                                                 <h5>{`${dropObject?.erc20Cost} ${dropObject?.erc20Unit}`}</h5>
                                         }
                                     </div>
@@ -504,7 +504,7 @@ const Drop = () => {
                                             <div className="me-4">
                                                 <h6 className="mb-1">Founding Member Price</h6>
                                                 {
-                                                    (dropObject?.cost !== dropObject?.memberCost) && 
+                                                    (dropObject?.cost !== dropObject?.memberCost) &&
                                                         <h5>{dropObject?.memberCost} CRO</h5>
                                                 }
                                                 {
@@ -513,17 +513,17 @@ const Drop = () => {
                                                 }
                                             </div>
                                     }
-                                    {(whitelistCost) &&
-                                    <div className="me-4">
-                                        <h6 className="mb-1">Whitelist Price</h6>
-                                        <h5>{whitelistCost} CRO</h5>
-                                    </div>
+                                    {whitelistCost > 0 &&
+                                        <div className="me-4">
+                                            <h6 className="mb-1">Whitelist Price</h6>
+                                            <h5>{whitelistCost} CRO</h5>
+                                        </div>
                                     }
-                                    {(specialWhitelistCost) &&
-                                    <div className="me-4">
-                                        <h6 className="mb-1">Special Whitelist</h6>
-                                        <h5>{specialWhitelistCost} CRO</h5>
-                                    </div>
+                                    {specialWhitelistCost > 0 &&
+                                        <div className="me-4">
+                                            <h6 className="mb-1">Special Whitelist</h6>
+                                            <h5>{specialWhitelistCost} CRO</h5>
+                                        </div>
                                     }
                                 </div>
 
