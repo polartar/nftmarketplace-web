@@ -356,10 +356,9 @@
             "memberCost": "10",
             "foundersOnly": false,
             "abi": [
-                "function mint(uint256 _amount) external payable",
+                "function mint(uint256 _amount) public payable",
                 "function totalSupply() public view returns (uint256)",
-                "function mintCost(address _minter) external view returns (uint256)",
-                "function setCost(uint, bool) external"
+                "function mintCost(address _minter) external view returns (uint256)"
             ],
             "start": 1639591200000,
             "end": null,
