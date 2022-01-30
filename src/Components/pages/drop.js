@@ -17,7 +17,7 @@ import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
     isCroniesDrop,
-    isFounderDrop,
+    isFounderDrop, isMagBrewVikingsDrop,
     newlineText
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
@@ -170,6 +170,14 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 setDropInfo(currentDrop, offsetSupply.toString());
+            }
+            else if (isMagBrewVikingsDrop(currentDrop.address)) {
+                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                const supply = await readContract.totalSupply();
+                setDropInfo(currentDrop, supply.toString());
+                const canMint = user.address ? await readContract.canMint(user.address) : 0;
+                console.log('canmint', canMint.toString());
+                setCanMintQuantity(canMint);
             }
             else {
                 if (isOnNewContract(currentDrop.abi) && currentDrop.address) {
