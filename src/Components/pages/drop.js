@@ -176,7 +176,6 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 setDropInfo(currentDrop, supply.toString());
                 const canMint = user.address ? await readContract.canMint(user.address) : 0;
-                console.log('canmint', canMint.toString());
                 setCanMintQuantity(canMint);
             }
             else {
@@ -240,7 +239,10 @@ const Drop = () => {
     const calculateCost = async (user, isErc20) => {
         if (isOnNewContract(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
-            return await readContract.cost(user.address);
+            if (abi.join().includes("cost")) {
+                return await readContract.cost(user.address);
+            }
+            return await readContract.mintCost(user.address);
         }
 
         const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
