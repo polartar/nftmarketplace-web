@@ -1102,7 +1102,7 @@
                 "avatar": "/img/collections/cronosdogs/avatar.png",
                 "card": "/img/collections/cronosdogs/card.jpg",
                 "banner": "/img/collections/cronosdogs/banner.png",
-                "maxSupply": 700,
+                "maxSupply": 715,
                 "website": "https://cronosdogs.com/",
                 "twitter": "https://twitter.com/cronosdogs",
                 "discord": "https://discord.gg/ay8BqHp4Cz"
@@ -1348,7 +1348,8 @@
                 "verified": true,
                 "avatar": "/img/collections/anuah/avatar.png",
                 "card": "/img/collections/anuah/card.png",
-                "banner": "/img/collections/anuah/banner.png"
+                "banner": "/img/collections/anuah/banner.png",
+                "website": "https://www.instagram.com/chance.watt/"
             }
         },
         {
@@ -1393,7 +1394,7 @@
         {
             "name" : "Trooprz",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x929b5f15b94F218Ca4eCEa3700f0C681f0389Bb4",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1401,7 +1402,9 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/trooprz/avatar.gif",
-                "website": "https://trooprz.army"
+                "website": "https://trooprz.army",
+                "twitter": "https://twitter.com/trooprzarmy",
+                "discord": "https://discord.gg/trooprz"
             }
         }
     ],
