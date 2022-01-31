@@ -199,6 +199,25 @@
             }
         },
         {
+            "name" : "Crosmobabies",
+            "multiToken" : false,
+            "address" : "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crosmobabies",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crosmonauts/avatar.png",
+                "banner": "/img/collections/crosmonauts/banner.png",
+                "card": "/img/collections/crosmonauts/card.png",
+                "maxSupply": 1000,
+                "website": "https://www.crosmonauts.club/",
+                "twitter": "https://twitter.com/crosmonaut",
+                "discord": "https://discord.gg/mC7x6tKsSe"
+            }
+        },
+        {
             "name" : "CronosChimp",
             "multiToken": false,
             "address" : "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
