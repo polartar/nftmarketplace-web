@@ -262,13 +262,13 @@ export function newlineText(text) {
 }
 
 export const isCroniesDrop = (address) => {
-  const croniesDrop = drops.find(d => d.slug === 'cronies');
-  return croniesDrop?.address === address;
+  const drop = drops.find(d => d.slug === 'cronies');
+  return drop?.address === address;
 }
 
 export const isFounderDrop = (address) => {
-  const croniesDrop = drops.find(d => d.slug === 'founding-member');
-  return croniesDrop?.address === address;
+  const drop = drops.find(d => d.slug === 'founding-member');
+  return drop?.address === address;
 }
 
 export const isFounderCollection = (address) => {
@@ -277,6 +277,11 @@ export const isFounderCollection = (address) => {
 }
 
 export const isCrognomesDrop = (address) => {
-  const croniesDrop = drops.find(d => d.slug === 'crognomes');
-  return croniesDrop?.address === address;
+  const drop = drops.find(d => d.slug === 'crognomes');
+  return drop?.address === address;
+}
+
+export const isMagBrewVikingsDrop = (address) => {
+  const drop = drops.find(d => d.slug === 'mag-brew-vikings');
+  return drop?.address === address;
 }

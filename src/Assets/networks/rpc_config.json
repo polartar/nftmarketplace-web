@@ -1354,7 +1354,7 @@
         {
             "name" : "Marie's Cyborgs",
             "multiToken" : false,
-            "address" : "0x84Ad0Da2C88dB7A8dfcEf9Cc2436c9e4446b56F3",
+            "address" : "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1402,6 +1402,26 @@
                 "website": "https://www.crosmonauts.club/",
                 "twitter": "https://twitter.com/crosmonaut",
                 "discord": "https://discord.gg/mC7x6tKsSe"
+            }
+        },
+        {
+            "name" : "MAG Brew Vikings",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "mag-brew-vikings",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/magbrew/avatar.jpg",
+                "card": "/img/collections/magbrew/card.jpg",
+                "banner": "/img/collections/magbrew/banner.jpg",
+                "website": "https://www.magbrewvikings.com/",
+                "twitter": "https://twitter.com/MAGBrewVikings",
+                "discord": "https://discord.gg/xPN84dsmuC",
+                "instagram": "https://instagram.com/magbrewvikings/",
+                "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
             }
         }
     ],
@@ -1870,8 +1890,8 @@
             "imgAvatar" : "/img/collections/cronogods/avatar.gif",
             "imgBanner" : "/img/collections/cronogods/banner.png",
             "title": "CronoGods",
-            "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.",
-            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
+            "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.",
+            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
             "author": { "name": "CronoGods", "link": "https://www.cronogods.com/"},
             "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
             "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
@@ -1916,7 +1936,7 @@
             "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
             "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
             "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/"},
-            "address": "0x84Ad0Da2C88dB7A8dfcEf9Cc2436c9e4446b56F3",
+            "address": "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
             "maxMintPerTx": 25,
             "maxMintPerAddress": 50,
             "totalSupply": 2500,
@@ -1933,6 +1953,34 @@
             "complete": false,
             "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
             "mediaPosition": "left"
+        },
+        {
+            "id": 17,
+            "slug": "mag-brew-vikings",
+            "imgNft": "/img/drops/magbrew/drop.jpg",
+            "imgPreview": "/img/drops/magbrew/drop.jpg",
+            "imgAvatar" : "/img/collections/magbrew/avatar.jpg",
+            "imgBanner" : "/img/collections/magbrew/banner.jpg",
+            "title": "MAG Brew Vikings",
+            "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
+            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
+            "address": "",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 8000,
+            "cost": "300",
+            "memberCost": "250",
+            "whitelistCost": "250",
+            "specialWhitelistCost": "200",
+            "foundersOnly": false,
+            "abi": "mag-brew-vikings.json",
+            "start": 1643666400000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
         }
     ],
     "auctions": [
