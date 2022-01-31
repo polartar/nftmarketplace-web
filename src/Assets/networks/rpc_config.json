@@ -159,26 +159,6 @@
             }
         },
         {
-            "name" : "DogeApeSociety",
-            "multiToken" : false,
-            "address" : "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "dogeapesociety",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/dogeapesociety/avatar.png",
-                "card": "/img/collections/dogeapesociety/card.png",
-                "banner": "/img/collections/dogeapesociety/banner.png",
-                "maxSupply": 2500,
-                "website": "https://www.dogeapesociety.com/",
-                "twitter": "https://twitter.com/DogeApeSociety",
-                "discord": "https://discord.gg/TDFcF8TUAs",
-                "telegram": "https://t.me/dogeapesociety"
-            }
-        },
-        {
             "name" : "Cronos Slothty",
             "multiToken" : false,
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
@@ -216,27 +196,6 @@
                 "twitter": "https://twitter.com/crosmonaut",
                 "discord": "https://discord.gg/mC7x6tKsSe",
                 "medium": "https://medium.com/@crosmonaut"
-            }
-        },
-        {
-            "name" : "Chronoswap Founding Member",
-            "multiToken" : false,
-            "address" : "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
-            "onChain" : false,
-            "listable" : false,
-            "metadata": {
-                "slug": "chronoswap-founding-member",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/chronoswapfoundingmember/avatar.png",
-                "banner": "/img/collections/chronoswapfoundingmember/banner.png",
-                "card": "/img/collections/chronoswapfoundingmember/card.png",
-                "maxSupply": 387,
-                "website": "https://chronoswap.org/",
-                "twitter": "https://twitter.com/Chrono_swap",
-                "discord": "https://discord.gg/JytqG6e8",
-                "medium": "https://chronoswap.medium.com/",
-                "telegram": "https://t.me/+IQJY2ugWLaVmODVk"
             }
         },
         {
@@ -1451,6 +1410,47 @@
             }
         },
         {
+            "name" : "DogeApeSociety",
+            "multiToken" : false,
+            "address" : "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "dogeapesociety",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/dogeapesociety/avatar.png",
+                "card": "/img/collections/dogeapesociety/card.png",
+                "banner": "/img/collections/dogeapesociety/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.dogeapesociety.com/",
+                "twitter": "https://twitter.com/DogeApeSociety",
+                "discord": "https://discord.gg/TDFcF8TUAs",
+                "telegram": "https://t.me/dogeapesociety"
+            }
+        },
+        {
+            "name" : "Chronoswap Founding Member",
+            "multiToken" : false,
+            "address" : "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "chronoswap-founding-member",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/chronoswapfoundingmember/avatar.png",
+                "banner": "/img/collections/chronoswapfoundingmember/banner.png",
+                "card": "/img/collections/chronoswapfoundingmember/card.png",
+                "maxSupply": 387,
+                "website": "https://chronoswap.org/",
+                "twitter": "https://twitter.com/Chrono_swap",
+                "discord": "https://discord.gg/JytqG6e8",
+                "medium": "https://chronoswap.medium.com/",
+                "telegram": "https://t.me/+IQJY2ugWLaVmODVk"
+            }
+        },
+        {
             "name" : "Crosmobabies",
             "multiToken" : false,
             "address" : "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
@@ -1468,25 +1468,6 @@
                 "twitter": "https://twitter.com/crosmonaut",
                 "discord": "https://discord.gg/G876eZzjpg",
                 "medium": "https://medium.com/@crosmonaut"
-            }
-        },
-        {
-            "name" : "Crosmobabies",
-            "multiToken" : false,
-            "address" : "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "crosmobabies",
-                "description": "",
-                "verified": true,
-                "avatar": "/img/collections/crosmonauts/avatar.png",
-                "banner": "/img/collections/crosmonauts/banner.png",
-                "card": "/img/collections/crosmonauts/card.png",
-                "maxSupply": 1000,
-                "website": "https://www.crosmonauts.club/",
-                "twitter": "https://twitter.com/crosmonaut",
-                "discord": "https://discord.gg/mC7x6tKsSe"
             }
         },
         {
