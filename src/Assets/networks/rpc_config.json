@@ -1388,7 +1388,7 @@
         {
             "name" : "MAG Brew Vikings",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1946,7 +1946,7 @@
             "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
             "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
             "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
-            "address": "",
+            "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
             "maxMintPerTx": 10,
             "maxMintPerAddress": 50,
             "totalSupply": 8000,
