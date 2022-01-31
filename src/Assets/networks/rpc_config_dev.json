@@ -1396,7 +1396,7 @@
         {
             "name" : "Trooprz",
             "multiToken" : false,
-            "address" : "0x8a58fd155D4eF175297180C0E466c0e1c6D3c308",
+            "address" : "",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1404,6 +1404,8 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/trooprz/avatar.gif",
+                "card": "/img/collections/trooprz/card.jpeg",
+                "banner": "/img/collections/trooprz/banner.jpeg",
                 "website": "https://trooprz.army",
                 "twitter": "https://twitter.com/trooprzarmy",
                 "discord": "https://discord.gg/trooprz"
