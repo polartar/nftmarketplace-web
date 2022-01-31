@@ -243,6 +243,26 @@
                 "discord": "https://discord.gg/mariescyborgs",
                 "telegram": "https://t.me/mariescyborgs"
             }
+        },
+        {
+            "name" : "MAG Brew Vikings",
+            "multiToken" : false,
+            "address" : "0x3620FC8174199A2666cca88A18Fcf6e9c4B166eB",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "mag-brew-vikings",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/magbrew/avatar.jpg",
+                "card": "/img/collections/magbrew/card.jpg",
+                "banner": "/img/collections/magbrew/banner.jpg",
+                "website": "https://www.magbrewvikings.com/",
+                "twitter": "https://twitter.com/MAGBrewVikings",
+                "discord": "https://discord.gg/xPN84dsmuC",
+                "instagram": "https://instagram.com/magbrewvikings/",
+                "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
+            }
         }
     ],
     "drops": [
@@ -577,6 +597,34 @@
             "complete": false,
             "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
             "mediaPosition": "left"
+        },
+        {
+            "id": 17,
+            "slug": "mag-brew-vikings",
+            "imgNft": "/img/drops/magbrew/drop.jpg",
+            "imgPreview": "/img/drops/magbrew/drop.jpg",
+            "imgAvatar" : "/img/collections/magbrew/avatar.jpg",
+            "imgBanner" : "/img/collections/magbrew/banner.jpg",
+            "title": "MAG Brew Vikings",
+            "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
+            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
+            "address": "0x3620FC8174199A2666cca88A18Fcf6e9c4B166eB",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 99,
+            "cost": "300",
+            "memberCost": "250",
+            "whitelistCost": "250",
+            "specialWhitelistCost": "200",
+            "foundersOnly": false,
+            "abi": "mag-brew-vikings.json",
+            "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
         }
     ],
     "auctions": [

@@ -254,6 +254,9 @@ export default class Responsive extends Component {
                                               {drop.whitelistCost &&
                                                 <h5>Whitelist: {humanize(drop.whitelistCost)} CRO</h5>
                                               }
+                                              {drop.specialWhitelistCost &&
+                                                <h5>Special Whitelist: {humanize(drop.specialWhitelistCost)} CRO</h5>
+                                              }
                                           </div>
                                           <div className="line"></div>
                                           <div className='col'>
