@@ -197,7 +197,7 @@
                 "discord": "https://discord.gg/mC7x6tKsSe",
                 "medium": "https://medium.com/@crosmonaut"
             }
-        }
+        },
         {
             "name" : "CronosChimp",
             "multiToken": false,
@@ -702,6 +702,18 @@
             }
         },
         {
+            "name" : "Afro Cronos Dogs",
+            "multiToken": false,
+            "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "afro-cronos-dogs",
+                "description": "",
+                "verified": true
+            }
+        },
+        {
             "name": "SantaCro",
             "multiToken": false,
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
@@ -1059,18 +1071,6 @@
             }
         },
         {
-            "name" : "Afro Cronos Dogs",
-            "multiToken": false,
-            "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
-            "onChain" : false,
-            "listable" : false,
-            "metadata": {
-                "slug": "afro-cronos-dogs",
-                "description": "",
-                "verified": true
-            }
-        },
-        {
             "name" : "Crxillion",
             "multiToken" : false,
             "address" : "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
@@ -1350,6 +1350,7 @@
                 "avatar": "/img/collections/anuah/avatar.png",
                 "card": "/img/collections/anuah/card.png",
                 "banner": "/img/collections/anuah/banner.png",
+                "maxSupply": 81,
                 "website": "https://www.instagram.com/chance.watt/"
             }
         },
@@ -1666,7 +1667,7 @@
         },
         {
             "id": 6,
-            "slug": "lazyhorse",
+            "slug": "lazy-horse",
             "imgNft": "/img/drops/lazyhorse/drop.png",
             "imgPreview": "/img/drops/lazyhorse/drop.png",
             "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
@@ -1727,7 +1728,7 @@
             "complete": true
         },
         {
-            "id": 9,
+            "id": 8,
             "slug": "cronos-fox-fraternity",
             "imgNft": "/img/drops/foxfraternity/drop.gif",
             "imgPreview": "/img/drops/foxfraternity/drop.gif",
@@ -1966,7 +1967,7 @@
             "memberCost": "295",
             "erc20Cost": "43800000",
             "erc20MemberCost": "37000000",
-            "erc20Unit": "LOOT",
+            "erc20Unit": "Loot",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
