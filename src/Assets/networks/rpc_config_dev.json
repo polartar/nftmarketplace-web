@@ -1382,6 +1382,8 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/trooprz/avatar.gif",
+                "card": "/img/collections/trooprz/card.jpeg",
+                "banner": "/img/collections/trooprz/banner.jpeg",
                 "website": "https://trooprz.army"
             }
         },

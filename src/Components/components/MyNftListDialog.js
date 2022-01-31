@@ -207,18 +207,16 @@ const MyNftListDialog = (
                                                                    variant="outlined"
                                                                    onChange={onListingDialogPriceValueChange}/>
                                                         <Typography>
-                                                            Buyer pays: <span className='bold'>
-                                                        { (salePrice) ? ethers.utils.commify(salePrice) : 0 }</span> CRO
+                                                            <strong> Buyer pays: {(salePrice) ? ethers.utils.commify(salePrice) : 0} CRO </strong>
                                                         </Typography>
                                                         <Typography>
-                                                            Service Fee: <span className='bold'>{fee}</span>%
+                                                            Service Fee: {fee} %
                                                         </Typography>
                                                         <Typography>
-                                                            Royalty Fee: <span className='bold'>{royalty}</span>%
+                                                            Royalty Fee: {royalty} %
                                                         </Typography>
-
                                                         <Typography>
-                                                            You receive: <span className='bold'>{getYouReceiveViewValue()}</span> CRO
+                                                            <strong> You receive: {getYouReceiveViewValue()} CRO </strong>
                                                         </Typography>
                                                     </Stack>
                                                     : null
