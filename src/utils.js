@@ -285,3 +285,8 @@ export const isMagBrewVikingsDrop = (address) => {
   const drop = drops.find(d => d.slug === 'mag-brew-vikings');
   return drop?.address === address;
 }
+
+export const isDrop = (address, slug) => {
+  const drop = drops.find(d => d.slug === slug);
+  return drop?.address === address;
+}

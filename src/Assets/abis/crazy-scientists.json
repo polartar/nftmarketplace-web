@@ -259,6 +259,56 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "getInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "regularCost",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "memberCost",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "whitelistCost",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxSupply",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalSupply",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxMintPerAddress",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxMintPerTx",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Info",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",

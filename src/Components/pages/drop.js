@@ -16,7 +16,7 @@ import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
-    isCroniesDrop,
+    isCroniesDrop, isDrop,
     isFounderDrop, isMagBrewVikingsDrop,
     newlineText
 } from "../../utils";
@@ -24,6 +24,7 @@ import MintButton from "../Drop/MintButton";
 import {dropState as statuses} from "../../core/api/enums";
 import ReactPlayer from 'react-player'
 import nft from "./nft";
+import {EbisuDropAbi} from "../../Contracts/Abis";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -127,9 +128,11 @@ const Drop = () => {
 
         // Use the new contract format if applicable
         let abi = currentDrop.abi;
-        if (isOnNewContract(abi)) {
+        if (isUsingAbiFile(abi)) {
             const abiJson = require(`../../Assets/abis/${currentDrop.abi}`);
             abi = abiJson.abi;
+        } else if (isUsingDefaultDropAbi(abi)) {
+            abi = EbisuDropAbi;
         }
         setAbi(abi);
 
@@ -171,10 +174,23 @@ const Drop = () => {
                 const canMint = user.address ? await readContract.canMint(user.address) : 0;
                 setCanMintQuantity(canMint);
             }
+            else if (isDrop(currentDrop.address, 'maries-cyborgs')) {
+                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                const infos = await readContract.getInfos();
+                const canMint = user.address ? await readContract.canMint(user.address) : 0;
+                setMaxMintPerAddress(infos.maxMintPerAddress);
+                setMaxMintPerTx(infos.maxMintPerTx);
+                setMaxSupply(infos.maxSupply);
+                setMemberCost(ethers.utils.formatEther(infos.memberCost));
+                setRegularCost(ethers.utils.formatEther(infos.regularCost));
+                setTotalSupply(infos.totalSupply);
+                setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
+                setCanMintQuantity(canMint);
+            }
             else {
-                if (isOnNewContract(currentDrop.abi) && currentDrop.address) {
+                if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi)  || isUsingAbiFile(currentDrop.abi))) {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
-                    const infos = await readContract.getInfos();
+                    const infos = await readContract.getInfo();
                     const canMint = user.address ? await readContract.canMint(user.address) : 0;
                     setMaxMintPerAddress(infos.maxMintPerAddress);
                     setMaxMintPerTx(infos.maxMintPerTx);
@@ -231,7 +247,7 @@ const Drop = () => {
     }
 
     const calculateCost = async (user, isErc20) => {
-        if (isOnNewContract(dropObject.abi)) {
+        if (isUsingAbiFile(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
             if (abi.find(m => m.name === 'cost')) {
                 return await readContract.cost(user.address);
@@ -254,8 +270,12 @@ const Drop = () => {
         return cost;
     }
 
-    const isOnNewContract = (dropAbi) => {
+    const isUsingAbiFile = (dropAbi) => {
         return typeof dropAbi === 'string';
+    }
+
+    const isUsingDefaultDropAbi = (dropAbi) => {
+        return typeof dropAbi === "undefined";
     }
 
     const mintNow = async(isErc20 = false) => {
@@ -294,7 +314,7 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                 } else {
-                    if (isOnNewContract(dropObject.abi)) {
+                    if (isUsingAbiFile(dropObject.abi)) {
                         response = await contract.mint(numToMint, extra);
                     } else {
                         let method;
