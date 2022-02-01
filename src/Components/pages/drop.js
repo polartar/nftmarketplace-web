@@ -247,7 +247,7 @@ const Drop = () => {
     }
 
     const calculateCost = async (user, isErc20) => {
-        if (isUsingAbiFile(dropObject.abi)) {
+        if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
             if (abi.find(m => m.name === 'cost')) {
                 return await readContract.cost(user.address);
@@ -314,7 +314,7 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                 } else {
-                    if (isUsingAbiFile(dropObject.abi)) {
+                    if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
                         response = await contract.mint(numToMint, extra);
                     } else {
                         let method;
