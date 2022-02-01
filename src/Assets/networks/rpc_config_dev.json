@@ -1342,7 +1342,7 @@
             "multiToken" : false,
             "address" : "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "aunah",
                 "description": "",
