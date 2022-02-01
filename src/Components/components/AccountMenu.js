@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBolt,
+    faEnvelopeOpenText,
     faImage,
     faShoppingBasket,
     faSignOutAlt
@@ -313,6 +314,12 @@ const AccountMenu = function() {
                                 <span onClick={() => navigateTo(`/nfts`)}>
                                     <span> <FontAwesomeIcon icon={faImage}/> </span>
                                     <span>My NFTs</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span onClick={() => navigateTo(`/wallet/listings`)}>
+                                    <span> <FontAwesomeIcon icon={faEnvelopeOpenText}/> </span>
+                                    <span>My Listings</span>
                                 </span>
                             </li>
                             <li>

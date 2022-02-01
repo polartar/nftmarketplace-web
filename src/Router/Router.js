@@ -13,6 +13,7 @@ import MyNfts from '../Components/pages/myNfts';
 import Header from "../Components/menu/header";
 import Drops from "../Components/pages/drops";
 import Drop from "../Components/pages/drop";
+import MyListings from "../Components/pages/myListings";
 import MySales from "../Components/pages/mySales";
 import Collections from "../Components/pages/collections";
 import ManageAuctions from "../Components/pages/manageAuctions";
@@ -56,8 +57,10 @@ export const AppRouter = () => {
                     )}/>
                     <SentryEnhancedRoute exact path="/marketplace" component={Marketplace} />
                     {/*<Route exact path="/roadmap" component={Roadmap} />*/}
-                    <PrivateRoute  exact path="/nfts" component={MyNfts} />
-                    <PrivateRoute  exact path="/sales" component={MySales} />
+                    <PrivateRoute exact path="/nfts" component={MyNfts} />
+                    <PrivateRoute exact path="/sales" component={MySales} />
+                    <PrivateRoute exact path="/wallet/listings" component={MyListings} />
+
                     <SentryEnhancedRoute exact path="/drops" component={Drops} />
                     <SentryEnhancedRoute exact path="/drops/:slug" component={Drop} />
                     <SentryEnhancedRoute exact path="/listing/:id" component={Listing}/>

@@ -21,7 +21,8 @@ const api = {
     collections: '/collections',
     marketData: '/marketdata',
     nft: '/nft',
-    auctions: '/auctions'
+    auctions: '/auctions',
+    unfilteredListings: '/unfilteredlistings'
 }
 
 export default api;
@@ -398,6 +399,48 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
         return response;
     }
 
+}
+
+export async function getUnfilteredListingsForAddress(walletAddress) {
+    try {
+        const uri = `${ api.baseUrl }${ api.unfilteredListings }?seller=${ walletAddress }&state=0`;
+        console.log('wokring...', uri)
+        const response = await fetch(uri);
+        const json = await response.json();
+console.log(json);
+        const listings = json.listings || [];
+
+        const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
+
+        const filteredListings = sortedListings.map(item => {
+
+            const { saleTime, listingId, price, nft, purchaser } = item;
+
+            const { name, image } = nft || {};
+
+            return {
+                name,
+                image,
+                saleTime: moment(new Date(saleTime * 1000)).format("DD/MM/YYYY, HH:mm"),
+                listingId,
+                price,
+                purchaser,
+            }
+        });
+
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('listings:              ', listings)
+            console.log('filteredListings:      ', filteredListings)
+        }
+
+        return filteredListings;
+
+    } catch (error) {
+        console.log('error fetching sales for: ' + walletAddress);
+        console.log(error);
+
+        return [];
+    }
 }
 
 export async function getNftSalesForAddress(walletAddress) {

@@ -11,7 +11,7 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import { DeFiWeb3Connector } from 'deficonnect'
 import  WalletConnectProvider from '@deficonnect/web3-provider'
 import cdcLogo from '../Assets/cdc_logo.svg'
-import { getNftSalesForAddress, getNftsForAddress } from "../core/api";
+import {getNftSalesForAddress, getNftsForAddress, getUnfilteredListingsForAddress} from "../core/api";
 import { toast } from "react-toastify";
 import { createSuccessfulTransactionToastContent } from "../utils";
 import { FilterOption } from "../Components/Models/filter-option.model";
@@ -56,6 +56,10 @@ const userSlice = createSlice({
         myNftPageCancelDialog: null,
         myNftPageListedOnly: false,
         myNftPageActiveFilterOption: FilterOption.default(),
+
+        // My Listings
+        myUnfilteredListingsFetching: false,
+        myUnfilteredListings: [],
 
         // My Sales
         mySoldNftsFetching: false,
@@ -145,6 +149,14 @@ const userSlice = createSlice({
         mySalesOnNftsAdded(state, action){
             state.mySoldNfts.push(...action.payload);
         },
+        myUnfilteredListingsFetching(state, action){
+            state.myUnfilteredListingsFetching = true;
+            state.myUnfilteredListings = []
+        },
+        myUnfilteredListingsFetched(state, action){
+            state.myUnfilteredListingsFetching = false;
+            state.myUnfilteredListings = action.payload;
+        },
         listingUpdate(state, action){
             state.nfts.forEach((nft, index) => {
                 const shouldUpdate = (nft.contract.address.toLowerCase() === action.payload.contract.toLowerCase() && nft.id === action.payload.id);
@@ -216,6 +228,8 @@ const userSlice = createSlice({
             state.nfts = [];
             state.mySoldNftsFetching = false;
             state.mySoldNfts = [];
+            state.myUnfilteredListingsFetching = false;
+            state.myUnfilteredListings = [];
         },
         onThemeChanged(state, action) {
             console.log('onThemeChanged', action.payload);
@@ -234,6 +248,8 @@ export const {
     onNftsReplace,
     nftsFetched,
     onNftLoaded,
+    myUnfilteredListingsFetching,
+    myUnfilteredListingsFetched,
     mySoldNftsFetching,
     mySalesFetched,
     mySalesOnNftsAdded,
@@ -587,6 +603,14 @@ export const fetchSales = (walletAddress) => async (dispatch) => {
     dispatch(mySalesOnNftsAdded(listings))
 
     dispatch(mySalesFetched());
+};
+
+export const fetchUnfilteredListings = (walletAddress) => async (dispatch) => {
+    dispatch(myUnfilteredListingsFetching());
+
+    const listings = await getUnfilteredListingsForAddress(walletAddress);
+console.log(listings);
+    dispatch(myUnfilteredListingsFetched(listings));
 };
 
 export const setTheme = (theme) => async(dispatch) =>{
