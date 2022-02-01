@@ -1436,7 +1436,7 @@
             "multiToken" : false,
             "address" : "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "chronoswap-founding-member",
                 "description": "",
