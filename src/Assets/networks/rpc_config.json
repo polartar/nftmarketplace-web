@@ -1378,7 +1378,7 @@
             "multiToken" : false,
             "address" : "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "maries-cyborgs",
                 "description": "",
@@ -2019,7 +2019,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
             "mediaPosition": "left"
         },
