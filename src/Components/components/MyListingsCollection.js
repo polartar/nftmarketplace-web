@@ -13,7 +13,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     const dispatch = useDispatch();
     const [width, setWidth] = useState(0);
     const isLoading = useSelector((state) => state.user.myUnfilteredListingsFetching);
-    const mySoldNfts = useSelector((state) => state.user.myUnfilteredListings);
+    const myListings = useSelector((state) => state.user.myUnfilteredListings);
 
     const onImgLoad = ({target:img}) => {
         let currentWidth = width;
@@ -44,7 +44,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                     Ensure that you cancel before unstaking or update the price as soon as possible once back in your wallet to prevent this.</strong></p>
             <div className='row'>
                 
-                {mySoldNfts && mySoldNfts.map( (nft, index) => (
+                {myListings && myListings.map( (nft, index) => (
                     <MyListingCard
                         nft={nft}
                         key={index}
@@ -52,7 +52,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                         width={width}
                         canCancel={ nft.state == 0 }
                         canUpdate={ nft.state == 0 }
-                        onUpdateButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageListDialog(nft)) }
+                        onUpdateButtonPressed={ () => MyNftPageActions.showMyNftPageListDialog(nft) }
                         onCancelButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageCancelDialog(nft)) }
                         newTab={ true }
                     />
@@ -68,7 +68,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                 </div>
             }
 
-            {!isLoading && mySoldNfts.length === 0 &&
+            {!isLoading && myListings.length === 0 &&
                 <div className='row mt-4'>
                     <div className='col-lg-12 text-center'>
                         <span>Nothing to see here...</span>

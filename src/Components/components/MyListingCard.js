@@ -53,77 +53,73 @@ const MyListingCard = ({
 
     return (
         <>
-        { (!nft.valid)?
-        <Card style={{backgroundColor: "#ffadad"}}>
-            <div className="row g-0">
-                <div className="col-md-4">
-                    <img src={nft.image} className="img-fluid rounded-start" alt="" />
-                </div>
-                <Card.Body className="col-md-8">
-                    <h5 className="card-title">{nft.name}</h5>
-                    <p className="card-text">
-                        Listing ID: {nft.listingId}<br></br>
-                        Price: {nft.listingId} CRO<br></br>
-                        {nft.rank &&
-                            <>
-                            Rank: {nft.rank} <br></br>
-                            </>
-                        }
-                        Listing Time: {nft.listingTime}<br></br>
-                        Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br></br>
-                    </p>
-                </Card.Body>
-                <Card.Footer>
-                <div className="justify-content-between" style={{color: "black"}}>
-                {canUpdate &&
-                    <Button className="mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</Button>
-                    }
-                    {canCancel &&
-                    <Button className="mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</Button>
-                    }
-                    <Button className="mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
-                        <FontAwesomeIcon icon={faLink}/>
-                    </Button>
+            { (!nft.valid)?
+            <Card style={{backgroundColor: "#ffadad"}} className="col-md-6">
+                <div className="row">
+                    <div className="col-md-4">
+                        <img src={nft.image} className="img-fluid rounded-start" style={{height: '200px'}} />
                     </div>
-            </Card.Footer>
-            </div>
-        </Card>
-        :
-        <Card>
-            <div className="row g-0">
-                <div className="col-md-4">
-                    <img src={nft.image} className="img-fluid rounded-start" alt="" />
-                </div>
-                <Card.Body className="col-md-8">
-                    <h5 className="card-title">{nft.name}</h5>
-                    <p className="card-text">
-                        Listing ID: {nft.listingId}<br></br>
-                        Price: {nft.listingId} CRO<br></br>
-                        {nft.rank &&
-                            <>
-                            Rank: {nft.rank} <br></br>
-                            </>
+                    <Card.Body className="col-md-8">
+                        <h5 className="card-title">{nft.name}</h5>
+                        <p className="card-text">
+                            Listing ID: {nft.listingId}<br></br>
+                            Price: {nft.listingId} CRO<br></br>
+                            {nft.rank &&
+                                <>
+                                Rank: {nft.rank} <br></br>
+                                </>
+                            }
+                            Listing Time: {nft.listingTime}<br></br>
+                            Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br></br>
+                        </p>
+                    </Card.Body>
+                    <Card.Footer className="d-flex justify-content-end">
+                        {canUpdate &&
+                        <button className="btn-main mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</button>
                         }
-                        Listing Time: {nft.listingTime}<br></br>
-                        Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br></br>
-                    </p>
-                </Card.Body>
-                <Card.Footer>
-                <div className="justify-content-between" style={{color: "black"}}>
-                {canUpdate &&
-                    <Button className="mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</Button>
-                    }
-                    {canCancel &&
-                    <Button className="mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</Button>
-                    }
-                    <Button className="mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
-                        <FontAwesomeIcon icon={faLink}/>
-                    </Button>
+                        {canCancel &&
+                        <button className="btn-main mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</button>
+                        }
+                        <button className="btn-main mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
+                            <FontAwesomeIcon icon={faLink}/>
+                        </button>
+                    </Card.Footer>
+                </div>
+            </Card>
+            :
+            <Card className="col-md-6">
+                <div className="row">
+                    <div className="col-md-4">
+                        <img src={nft.image} className="img-fluid rounded-start" alt="" style={{height: '200px'}}/>
                     </div>
-            </Card.Footer>
-            </div>
-        </Card>
-        }
+                    <Card.Body className="col-md-8">
+                        <h5 className="card-title">{nft.name}</h5>
+                        <p className="card-text">
+                            Listing ID: {nft.listingId}<br></br>
+                            Price: {nft.listingId} CRO<br></br>
+                            {nft.rank &&
+                                <>
+                                Rank: {nft.rank} <br></br>
+                                </>
+                            }
+                            Listing Time: {nft.listingTime}<br></br>
+                            Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br></br>
+                        </p>
+                    </Card.Body>
+                    <Card.Footer className="d-flex justify-content-end">
+                        {canUpdate &&
+                            <button className="btn-main mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</button>
+                        }
+                        {canCancel &&
+                            <button className="btn-main mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</button>
+                        }
+                        <button className="btn-main mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
+                            <FontAwesomeIcon icon={faLink}/>
+                        </button>
+                    </Card.Footer>
+                </div>
+            </Card>
+            }
         </>
     );
 };
