@@ -71,7 +71,7 @@ const Jumbotron = {
     Host: styled.div.attrs(({theme}) => ({
         className: ''
     }))`
-      background-image: url('./img/background/Ebisus-bg-1_L.jpg');
+      background-image: url('/img/background/Ebisus-bg-1_L.jpg');
       background-size: cover;
       height: max(100vh, 800px);
       display: flex;
