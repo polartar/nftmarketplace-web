@@ -407,24 +407,27 @@ export async function getUnfilteredListingsForAddress(walletAddress) {
         console.log('wokring...', uri)
         const response = await fetch(uri);
         const json = await response.json();
-console.log(json);
+        console.log(json);
         const listings = json.listings || [];
 
         const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
 
         const filteredListings = sortedListings.map(item => {
 
-            const { saleTime, listingId, price, nft, purchaser } = item;
+            const { listingTime, listingId, price, nft, purchaser, valid, state } = item;
 
-            const { name, image } = nft || {};
-
+            const { name, image, rank } = nft || {};
+            
             return {
                 name,
                 image,
-                saleTime: moment(new Date(saleTime * 1000)).format("DD/MM/YYYY, HH:mm"),
+                state,
+                listingTime: moment(new Date(listingTime * 1000)).format("DD/MM/YYYY, HH:mm"),
                 listingId,
                 price,
                 purchaser,
+                rank,
+                valid
             }
         });
 

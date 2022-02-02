@@ -5,6 +5,8 @@ import {Spinner} from "react-bootstrap";
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import SoldNftCard from "./SoldNftCard";
 import MyListingCard from "./MyListingCard";
+import { MyNftPageActions } from "../../GlobalState/User";
+
 
 const MyListingsCollection = ({ walletAddress = null}) => {
 
@@ -33,12 +35,18 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     return (
         <>
             <div className='row'>
+                
                 {mySoldNfts && mySoldNfts.map( (nft, index) => (
                     <MyListingCard
                         nft={nft}
                         key={index}
                         onImgLoad={onImgLoad}
                         width={width}
+                        canCancel={ nft.state == 0 }
+                        canUpdate={ nft.state == 0 }
+                        onUpdateButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageListDialog(nft)) }
+                        onCancelButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageCancelDialog(nft)) }
+                        newTab={ true }
                     />
                 ))}
             </div>
