@@ -437,7 +437,7 @@ const Drop = () => {
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                    <p className="lead col-white">{drop.subtitle}</p>
+                                    <p className="lead col-white">{newlineText(drop.subtitle)}</p>
                                 </Reveal>
                                 {drop.foundersOnly &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
