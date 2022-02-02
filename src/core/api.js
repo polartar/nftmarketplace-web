@@ -269,7 +269,6 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         }
 
                     } else if (knownContract.address) {
-                        walletAddress = '0x308e7296b98150b2f23f588e145b06b893af68a9';
                         var nfts = [];
 
                         const contract = (() => {
@@ -305,8 +304,6 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             }
                             return [];
                         })();
-
-                        console.log(`${ knownContract.name } ids:  ${ ids } count: ${count}`);
 
                         for(let i = 0; i < count; i++) {
                             const id = await (async () => {
