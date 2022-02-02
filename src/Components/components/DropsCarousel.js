@@ -112,7 +112,7 @@ export default class Responsive extends Component {
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
     const liveDrops = drops
         .filter(d => !d.complete && d.published && d.start < Date.now())
-        .sort((a, b) => (a.id < b.id) ? 1 : -1);
+        .sort((a, b) => (a.start < b.start) ? 1 : -1);
     this.featuredDrops = [...upcomingDrops, ...liveDrops];
   }
 
