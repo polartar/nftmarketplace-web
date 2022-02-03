@@ -273,7 +273,7 @@ export const isFounderDrop = (address) => {
 
 export const isFounderCollection = (address) => {
   const collection = collections.find(c => caseInsensitiveCompare(c.address, address));
-  return collection && ['ebisu-vip', 'ebisu-founder'].includes(collection.metadata?.slug);
+  return collection && ['ebisu-vip', 'founding-member'].includes(collection.metadata?.slug);
 }
 
 export const isCrognomesDrop = (address) => {
