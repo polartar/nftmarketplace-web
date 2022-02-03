@@ -687,32 +687,6 @@ export class MyNftPageActions {
         }
     }
 
-    static cancelListing = (selectedNft, marketContract) => async(dispatch) => {
-        try{
-            let tx = await marketContract.cancelListing(selectedNft.listingId);
-
-            const receipt = await tx.wait();
-
-            dispatch(MyNftPageActions.hideNftPageCancelDialog());
-
-            dispatch(updateListed(selectedNft.contract.address, selectedNft.id, false));
-
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-
-        }catch(error){
-            dispatch(MyNftPageActions.hideNftPageCancelDialog());
-
-            if(error.data){
-                toast.error(error.data.message);
-            } else if(error.message){
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        }
-    }
-
     static listingDialogConfirm = ({ contractAddress, nftId, salePrice, marketContract }) => async (dispatch) => {
         try{
             const price = ethers.utils.parseEther(salePrice);
@@ -756,4 +730,37 @@ export class MyListingsCollectionPageActions {
     static hideMyNftPageListDialog = () => async(dispatch) => {
         dispatch(userSlice.actions.setMyNftPageListDialog(null));
     }
+}
+
+export class MyNftCancelDialogActions {
+
+    static cancelListing = ({ listingId, address, id }) => async(dispatch, getState) => {
+        const state = getState();
+        const marketContract = state.user.marketContract;
+        try{
+
+            let tx = await marketContract.cancelListing(listingId);
+
+            const receipt = await tx.wait();
+
+            dispatch(MyNftPageActions.hideNftPageCancelDialog());
+
+            dispatch(updateListed(address, id, false));
+
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
+
+        }catch(error){
+            dispatch(MyNftPageActions.hideNftPageCancelDialog());
+
+            if(error.data){
+                toast.error(error.data.message);
+            } else if(error.message){
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        }
+    }
+
 }

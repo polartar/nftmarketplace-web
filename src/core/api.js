@@ -436,6 +436,7 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 name,
                 state,
                 listingTime: moment(new Date(listingTime * 1000)).format("DD/MM/YYYY, HH:mm"),
+                listed: true,
                 listingId,
                 price,
                 purchaser,

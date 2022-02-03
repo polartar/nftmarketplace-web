@@ -44,7 +44,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                     Ensure that you cancel before unstaking or update the price as soon as possible once back in your wallet to prevent this.</strong></p>
             <div className='row'>
                 
-                {myListings && myListings.map( (nft, index) => (
+                {myListings && myListings.filter(x => x.listed).map( (nft, index) => (
                     <MyListingCard
                         nft={nft}
                         key={index}
