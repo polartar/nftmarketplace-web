@@ -659,9 +659,9 @@
             "maxMintPerTx": 5,
             "maxMintPerAddress": 50,
             "totalSupply": 10000,
-            "cost": 250,
-            "memberCost": 200,
-            "whitelistCost": 225,
+            "cost": "250",
+            "memberCost": "200",
+            "whitelistCost": "225",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
@@ -674,7 +674,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         }
     ],
