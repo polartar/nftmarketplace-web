@@ -15,6 +15,7 @@ import * as serviceWorker from './serviceWorker';
 import store from './Store/store';
 import { SentryLoggingService } from "./services/sentry-logging.service";
 import { Site24x7LoggingService } from "./services/site24x7-logging.service";
+import "babel-polyfill";
 
 SentryLoggingService.init();
 Site24x7LoggingService.init();

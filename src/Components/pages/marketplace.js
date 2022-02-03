@@ -11,12 +11,9 @@ import { sortOptions } from "../components/constants/sort-options";
 import { SortOption } from '../Models/sort-option.model';
 import { marketPlaceCollectionFilterOptions } from "../components/constants/filter-options";
 import { FilterOption } from "../Models/filter-option.model";
-import AuctionCollection from "../components/AuctionCollection";
 
 const GlobalStyles = createGlobalStyle`
 `;
-
-
 
 const Marketplace = () => {
     const cacheName = 'marketplace';

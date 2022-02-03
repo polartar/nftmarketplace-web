@@ -6,7 +6,11 @@ import {getAllCollections} from "../../GlobalState/collectionsSlice";
 import {Link} from "react-router-dom";
 import {ethers} from "ethers";
 import Blockies from "react-blockies";
-import {Spinner} from "react-bootstrap";
+import {Form, Spinner} from "react-bootstrap";
+import Select from "react-select";
+import {SortOption} from "../Models/sort-option.model";
+import {searchListings} from "../../GlobalState/collectionSlice";
+import {debounce} from "../../utils";
 
 const GlobalStyles = createGlobalStyle`
   .mobile-view-list-item {
@@ -20,12 +24,39 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+const customStyles = {
+    option: (base, state) => ({
+        ...base,
+        background: "#fff",
+        color: "#333",
+        borderRadius: state.isFocused ? "0" : 0,
+        "&:hover": {
+            background: "#eee",
+        }
+    }),
+    menu: base => ({
+        ...base,
+        borderRadius: 0,
+        marginTop: 0
+    }),
+    menuList: base => ({
+        ...base,
+        padding: 0
+    }),
+    control: (base, state) => ({
+        ...base,
+        padding: 2
+    })
+};
+
 const Collections = () => {
     const mobileListBreakpoint = 1000;
 
     const dispatch = useDispatch();
 
     const [tableMobileView, setTableMobileView] = useState(window.innerWidth > mobileListBreakpoint);
+    const [searchTerms, setSearchTerms] = useState(null);
+    const [filteredCollections, setFilteredCollections] = useState([]);
 
     const isLoading = useSelector((state) => state.collections.loading)
     const collections = useSelector((state) => {
@@ -40,14 +71,16 @@ const Collections = () => {
     }, []);
 
     useEffect(() => {
-        const onResize = ({ currentTarget }) => {
-            const { innerWidth } = currentTarget;
-            setTableMobileView(innerWidth > mobileListBreakpoint);
-        };
+        if (searchTerms) {
+            setFilteredCollections(collections.filter(c => c.name.toLowerCase().includes(searchTerms.toLowerCase())))
+        } else {
+            setFilteredCollections(collections)
+        }
 
-        window.addEventListener('resize', onResize);
+    }, [collections]);
 
-        return () => window.removeEventListener('resize', onResize);
+    useEffect(async () => {
+        dispatch(getAllCollections());
     }, []);
 
     const sortCollections = (key) => () => {
@@ -57,6 +90,16 @@ const Collections = () => {
         }
         dispatch(getAllCollections(key, direction));
     };
+
+    const handleSearch = debounce((event) => {
+        const { value } = event.target;
+        console.log('value', value);
+        setFilteredCollections(collections.filter(c => {
+            console.log(c.name, value, c.name.toLowerCase().includes(value.toLowerCase()));
+            return c.name.toLowerCase().includes(value.toLowerCase())
+        }))
+        setSearchTerms(value);
+    }, 300);
 
     //  collection helper pipes
     const collectionTotalVolumeValue = ({ totalVolume }) => `${ ethers.utils.commify(Math.round(totalVolume)) } CRO`;
@@ -82,6 +125,11 @@ const Collections = () => {
             </section>
 
             <section className='container no-top'>
+                <div className="row mt-4">
+                    <div className='col-lg-4 col-md-6'>
+                        <Form.Control type="text" placeholder="Search for Collection" onChange={handleSearch}/>
+                    </div>
+                </div>
                 {isLoading &&
                     <div className='row mt-4'>
                         <div className='col-lg-12 text-center'>
@@ -108,7 +156,7 @@ const Collections = () => {
                                 <tr/>
                             </thead>
                             <tbody>
-                            {collections && collections.map( (collection, index) => {
+                            {filteredCollections && filteredCollections.map( (collection, index) => {
                                 return (
                                 <tr key={index}>
                                     <th scope="row" className='row gap-4 border-bottom-0'>
