@@ -674,7 +674,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": true,
+            "complete": false,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         }
     ],
