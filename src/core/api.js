@@ -546,7 +546,7 @@ export async function getNftFromFile(collectionId, nftId) {
             } else {
                 image = json.image;
             }
-            const properties = (json.properties) ? json.properties : json.attributes;
+            const properties = (json.properties && Array.isArray(json.properties)) ? json.properties : json.attributes;
             nft = {
                 'name' : json.name,
                 'image' : image,
