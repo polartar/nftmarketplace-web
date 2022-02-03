@@ -49,7 +49,7 @@
             "id" : 1,
             "listable" : false,
             "metadata": {
-                "slug": "ebisu-founder",
+                "slug": "founding-member",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/avatar.jpg",
@@ -1578,7 +1578,7 @@
         },
         {
             "id": 1,
-            "slug": "ebisu-founder",
+            "slug": "founding-member",
             "imgNft": "/img/drops/founding_member/founding_member.webp",
             "imgPreview": "/img/drops/founding_member/founding_member.webp",
             "imgAvatar": "/img/avatar.jpg",
