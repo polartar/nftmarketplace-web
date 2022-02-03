@@ -263,6 +263,24 @@
                 "instagram": "https://instagram.com/magbrewvikings/",
                 "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
             }
+        },
+        {
+            "name" : "CroBots",
+            "multiToken" : false,
+            "address" : "0x175a1Bf5C22837D5392F62792c7DF40dca8fed04",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "crobots",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crobots/avatar.gif",
+                "card": "/img/collections/crobots/card.jpg",
+                "banner": "/img/collections/crobots/banner.jpg",
+                "website": "https://TheCrobots.com",
+                "twitter": "https://twitter.com/thecrobots",
+                "discord": "https://discord.gg/crobots"
+            }
         }
     ],
     "drops": [
@@ -625,6 +643,39 @@
             "is1155": false,
             "published": true,
             "complete": false
+        },
+        {
+            "id": 18,
+            "slug": "crobots",
+            "imgNft": "/img/drops/crobots/drop.gif",
+            "imgPreview": "/img/drops/crobots/drop.gif",
+            "imgAvatar" : "/img/collections/crobots/avatar.gif",
+            "imgBanner" : "/img/collections/crobots/banner.jpg",
+            "title": "CroBots",
+            "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the ten thousand Crobots explore, create and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
+            "description": "\"The Crobots is a generative project, created by a team of five creative individuals with a background in the Entertainment and Tech Industries looking to bring interactive multimedia projects to the Cronos Blockchain. Each trait within The Crobots collection was designed with passion and very close attention to detail by the project’s artist, Pyrilis. \n\nHolders of a Crobots NFT will be granted access to all multimedia projects under The Crobots umbrella, beginning with The Crobots comic book. Development begins at the end of February 2022! \n\nHolder’s of a Crobots NFT will also receive the full commercial rights to their character, and have the ability to “cast” their character in the various multimedia projects to come from The Crobots team.\n\nPost mint, The Crobots, along with our partners EbisusBay will be auctioning off special 1 of 1 Crobots NFTs for different charities, in which holders of The Crobots NFT will have voting rights in deciding which charities The Crobots will be donating the proceeds of said auctions to.\n\nRoadmap 1.5 & 2.0 will further explore the world of The Crobots and bring additional utility to holders of The Crobots NFT.\"",
+            "author": { "name": "CroBots", "link": "https://TheCrobots.com"},
+            "address": "0x175a1Bf5C22837D5392F62792c7DF40dca8fed04",
+            "maxMintPerTx": 5,
+            "maxMintPerAddress": 50,
+            "totalSupply": 10000,
+            "cost": 250,
+            "memberCost": 200,
+            "whitelistCost": 225,
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _mintAmount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function cost() view returns (uint256)",
+                "function setCost(uint, bool) public"
+            ],
+            "start": 1644364800000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         }
     ],
     "auctions": [
