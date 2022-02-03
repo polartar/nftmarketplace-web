@@ -125,9 +125,8 @@ const Collections = () => {
             </section>
 
             <section className='container no-top'>
-
                 <div className="row mt-4">
-                    <div className='col-4'>
+                    <div className='col-lg-4 col-md-6'>
                         <Form.Control type="text" placeholder="Search for Collection" onChange={handleSearch}/>
                     </div>
                 </div>
