@@ -409,34 +409,36 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
 
         const response = await fetch(uri);
         const json = await response.json();
-        console.log(json);
         const listings = json.listings || [];
 
-        const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
+        const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime)
 
-        const filteredListings = sortedListings.map(item => {
-            const { listingTime, listingId, price, nft, purchaser, valid, state, is1155, nftAddress, nftId } = item;
+        const filteredListings = sortedListings.map((item) => {
+            const { listingId, price, nft, purchaser, valid, state, is1155 } = item;
+            const { name, image, rank } = nft || {};
+            const listingTime = moment(new Date(item.listingTime * 1000)).format("DD/MM/YYYY, HH:mm");
+            const id = item.nftId;
+            const address = item.nftAddress;
+            const listed = true;
 
             const contract = (() => {
                 if (is1155) {
-                    return new Contract(nftAddress, ERC1155, signer);
+                    return new Contract(address, ERC1155, signer);
                 }
-                return new Contract(nftAddress, ERC721, signer);
+                return new Contract(address, ERC721, signer);
             })();
 
             contract.connect(signer);
 
-            const { name, image, rank } = nft || {};
-            
             return {
                 contract,
-                address: nftAddress,
-                id: nftId,
+                address,
+                id,
                 image,
                 name,
                 state,
-                listingTime: moment(new Date(listingTime * 1000)).format("DD/MM/YYYY, HH:mm"),
-                listed: true,
+                listingTime,
+                listed,
                 listingId,
                 price,
                 purchaser,
@@ -444,8 +446,8 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 valid
             }
         });
-        return filteredListings;
 
+        return filteredListings.sort(x => x.valid ? 1 : -1);
     } catch (error) {
         console.log('error fetching sales for: ' + walletAddress);
         console.log(error);
