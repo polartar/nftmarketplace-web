@@ -661,6 +661,7 @@
             "maxMintPerTx": 1,
             "maxMintPerAddress": 5,
             "totalSupply": 31,
+            "cost": "10",
             "regularCost": "10",
             "memberCost": "5",
             "foundersOnly": false,
