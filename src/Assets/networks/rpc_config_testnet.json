@@ -508,9 +508,9 @@
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
             "address": "0xFdc26dde39BE26e01f25e26999AF26C672541174",
             "maxMintPerTx": 1,
-            "totalSupply": 50,
-            "cost": "60",
-            "memberCost": "50",
+            "totalSupply": 81,
+            "cost": "600",
+            "memberCost": "500",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
