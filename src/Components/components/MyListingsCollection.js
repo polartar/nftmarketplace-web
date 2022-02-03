@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchSales, fetchUnfilteredListings} from '../../GlobalState/User';
+import { fetchUnfilteredListings, MyListingsCollectionPageActions } from '../../GlobalState/User';
 import {Spinner} from "react-bootstrap";
 import { getAnalytics, logEvent } from '@firebase/analytics'
-import SoldNftCard from "./SoldNftCard";
 import MyListingCard from "./MyListingCard";
-import { MyNftPageActions } from "../../GlobalState/User";
+import MyNftListDialog from "./MyNftListDialog";
+import MyNftCancelDialog from "./MyNftCancelDialog";
 
 
 const MyListingsCollection = ({ walletAddress = null}) => {
@@ -50,10 +50,10 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                         key={index}
                         onImgLoad={onImgLoad}
                         width={width}
-                        canCancel={ nft.state == 0 }
-                        canUpdate={ nft.state == 0 }
-                        onUpdateButtonPressed={ () => MyNftPageActions.showMyNftPageListDialog(nft) }
-                        onCancelButtonPressed={ () => dispatch(MyNftPageActions.showMyNftPageCancelDialog(nft)) }
+                        canCancel={ nft.state === 0 }
+                        canUpdate={ nft.state === 0 }
+                        onUpdateButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageListDialog(nft)) }
+                        onCancelButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageCancelDialog(nft)) }
                         newTab={ true }
                     />
                 ))}
@@ -75,6 +75,9 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                     </div>
                 </div>
             }
+
+            <MyNftListDialog/>
+            <MyNftCancelDialog/>
         </>
     );
 };

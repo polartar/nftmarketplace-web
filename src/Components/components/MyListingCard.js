@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 import styled from "styled-components";
 import { useHistory  } from "react-router-dom";
-import { ethers } from "ethers";
-import {Button, Card} from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
@@ -63,7 +62,7 @@ const MyListingCard = ({
                         <h5 className="card-title">{nft.name}</h5>
                         <p className="card-text">
                             Listing ID: {nft.listingId}<br></br>
-                            Price: {nft.listingId} CRO<br></br>
+                            Price: {nft.price} CRO<br></br>
                             {nft.rank &&
                                 <>
                                 Rank: {nft.rank} <br></br>
@@ -96,7 +95,7 @@ const MyListingCard = ({
                         <h5 className="card-title">{nft.name}</h5>
                         <p className="card-text">
                             Listing ID: {nft.listingId}<br></br>
-                            Price: {nft.listingId} CRO<br></br>
+                            Price: {nft.price} CRO<br></br>
                             {nft.rank &&
                                 <>
                                 Rank: {nft.rank} <br></br>

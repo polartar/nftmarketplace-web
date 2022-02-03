@@ -401,10 +401,12 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
 
 }
 
-export async function getUnfilteredListingsForAddress(walletAddress) {
+export async function getUnfilteredListingsForAddress(walletAddress, walletProvider) {
     try {
+        const signer = walletProvider.getSigner();
+
         const uri = `${ api.baseUrl }${ api.unfilteredListings }?seller=${ walletAddress }&state=0`;
-        console.log('wokring...', uri)
+
         const response = await fetch(uri);
         const json = await response.json();
         console.log(json);
@@ -413,14 +415,25 @@ export async function getUnfilteredListingsForAddress(walletAddress) {
         const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
 
         const filteredListings = sortedListings.map(item => {
+            const { listingTime, listingId, price, nft, purchaser, valid, state, is1155, nftAddress, nftId } = item;
 
-            const { listingTime, listingId, price, nft, purchaser, valid, state } = item;
+            const contract = (() => {
+                if (is1155) {
+                    return new Contract(nftAddress, ERC1155, signer);
+                }
+                return new Contract(nftAddress, ERC721, signer);
+            })();
+
+            contract.connect(signer);
 
             const { name, image, rank } = nft || {};
             
             return {
-                name,
+                contract,
+                address: nftAddress,
+                id: nftId,
                 image,
+                name,
                 state,
                 listingTime: moment(new Date(listingTime * 1000)).format("DD/MM/YYYY, HH:mm"),
                 listingId,
@@ -430,12 +443,6 @@ export async function getUnfilteredListingsForAddress(walletAddress) {
                 valid
             }
         });
-
-        if (process.env.NODE_ENV !== 'production') {
-            console.log('listings:              ', listings)
-            console.log('filteredListings:      ', filteredListings)
-        }
-
         return filteredListings;
 
     } catch (error) {
@@ -470,11 +477,6 @@ export async function getNftSalesForAddress(walletAddress) {
                 purchaser,
             }
         });
-
-        if (process.env.NODE_ENV !== 'production') {
-            console.log('listings:              ', listings)
-            console.log('filteredListings:      ', filteredListings)
-        }
 
         return filteredListings;
 
