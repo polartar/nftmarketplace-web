@@ -132,7 +132,8 @@
                 "avatar": "/img/collections/fractals/avatar.png",
                 "card": "/img/collections/fractals/card.png",
                 "banner": "/img/collections/fractals/banner.png",
-                "maxSupply": 50
+                "maxSupply": 50,
+                "website": "https://www.instagram.com/maxx9498/"
             }
         },
         {
@@ -216,7 +217,51 @@
                 "verified": true,
                 "avatar": "/img/collections/cronogods/avatar.gif",
                 "card": "/img/collections/cronogods/card.png",
-                "banner": "/img/collections/cronogods/banner.png"
+                "banner": "/img/collections/cronogods/banner.png",
+                "maxSupply": 1500,
+                "website": "https://www.cronogods.com/",
+                "twitter": "https://twitter.com/CronoGods",
+                "discord": "https://discord.gg/nQVhNmkY8g"
+            }
+        },
+        {
+            "name" : "Marie's Cyborgs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "maries-cyborgs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/mariecyborg/avatar.png",
+                "card": "/img/collections/mariecyborg/card.png",
+                "banner": "/img/collections/mariecyborg/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.mariescyborgs.io/",
+                "twitter": "https://twitter.com/mariescyborgs",
+                "discord": "https://discord.gg/mariescyborgs",
+                "telegram": "https://t.me/mariescyborgs"
+            }
+        },
+        {
+            "name" : "MAG Brew Vikings",
+            "multiToken" : false,
+            "address" : "0x3620FC8174199A2666cca88A18Fcf6e9c4B166eB",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "mag-brew-vikings",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/magbrew/avatar.jpg",
+                "card": "/img/collections/magbrew/card.jpg",
+                "banner": "/img/collections/magbrew/banner.jpg",
+                "website": "https://www.magbrewvikings.com/",
+                "twitter": "https://twitter.com/MAGBrewVikings",
+                "discord": "https://discord.gg/xPN84dsmuC",
+                "instagram": "https://instagram.com/magbrewvikings/",
+                "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
             }
         }
     ],
@@ -361,7 +406,8 @@
             "start": 1642536000000,
             "end": null,
             "referral": false,
-            "is1155": false
+            "is1155": false,
+            "complete": true
         },
         {
             "id": 11,
@@ -447,7 +493,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 14,
@@ -455,7 +501,7 @@
             "imgNft": "/img/drops/anuah/drop.gif",
             "imgPreview": "/img/drops/anuah/drop.gif",
             "imgAvatar" : "/img/collections/anuah/avatar.png",
-            "imgBanner" : "/img/drops/anuah/banner2.jpg",
+            "imgBanner" : "/img/collections/anuah/banner.png",
             "title": "Aunah",
             "subtitle": "SUBTITLE NEEDED",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
@@ -477,7 +523,8 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
             "id": 15,
@@ -520,6 +567,63 @@
             "is1155": false,
             "published": true,
             "featured": true,
+            "complete": false
+        },
+        {
+            "id": 16,
+            "slug": "maries-cyborgs",
+            "imgNft": "/img/drops/mariecyborg/drop.gif",
+            "imgPreview": "/img/drops/mariecyborg/drop.gif",
+            "imgAvatar" : "/img/collections/mariecyborg/avatar.png",
+            "imgBanner" : "/img/collections/mariecyborg/banner.png",
+            "title": "Marie's Cyborgs",
+            "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
+            "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
+            "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/"},
+            "address": "0xb454d48F7898E1A6C38601FF0750D8B982BFA497",
+            "maxMintPerTx": 25,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2500,
+            "cost": "400",
+            "memberCost": "350",
+            "whitelistCost": "300",
+            "foundersOnly": false,
+            "abi": "marie.json",
+            "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
+            "mediaPosition": "left"
+        },
+        {
+            "id": 17,
+            "slug": "mag-brew-vikings",
+            "imgNft": "/img/drops/magbrew/drop.jpg",
+            "imgPreview": "/img/drops/magbrew/drop.jpg",
+            "imgAvatar" : "/img/collections/magbrew/avatar.jpg",
+            "imgBanner" : "/img/collections/magbrew/banner.jpg",
+            "title": "MAG Brew Vikings",
+            "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
+            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
+            "address": "0x3620FC8174199A2666cca88A18Fcf6e9c4B166eB",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 99,
+            "cost": "300",
+            "memberCost": "250",
+            "whitelistCost": "250",
+            "specialWhitelistCost": "200",
+            "foundersOnly": false,
+            "abi": "mag-brew-vikings.json",
+            "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
             "complete": false
         }
     ],

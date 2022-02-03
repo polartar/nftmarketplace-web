@@ -1,5 +1,7 @@
 import moment from "moment";
-import {drops} from "./Components/pages/drop";
+import config from './Assets/networks/rpc_config.json'
+export const drops = config.drops;
+export const collections = config.known_contracts;
 
 export function debounce(func, wait, immediate) {
   var timeout;
@@ -260,16 +262,26 @@ export function newlineText(text) {
 }
 
 export const isCroniesDrop = (address) => {
-  const croniesDrop = drops.find(d => d.slug === 'cronies');
-  return croniesDrop?.address === address;
+  const drop = drops.find(d => d.slug === 'cronies');
+  return drop?.address === address;
 }
 
 export const isFounderDrop = (address) => {
-  const croniesDrop = drops.find(d => d.slug === 'founding-member');
-  return croniesDrop?.address === address;
+  const drop = drops.find(d => d.slug === 'founding-member');
+  return drop?.address === address;
+}
+
+export const isFounderCollection = (address) => {
+  const collection = collections.find(c => caseInsensitiveCompare(c.address, address));
+  return collection && ['ebisu-vip', 'ebisu-founder'].includes(collection.metadata?.slug);
 }
 
 export const isCrognomesDrop = (address) => {
-  const croniesDrop = drops.find(d => d.slug === 'crognomes');
-  return croniesDrop?.address === address;
+  const drop = drops.find(d => d.slug === 'crognomes');
+  return drop?.address === address;
+}
+
+export const isMagBrewVikingsDrop = (address) => {
+  const drop = drops.find(d => d.slug === 'mag-brew-vikings');
+  return drop?.address === address;
 }

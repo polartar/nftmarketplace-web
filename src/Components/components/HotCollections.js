@@ -18,11 +18,12 @@ const HotCollections = () => {
 
   function arrangeCollections() {
       const shortList = [
+          'mad-meerkat',
           'croskull',
           'lazy-horse',
           'cronos-monkey-business',
-          'cronos-chimp-club',
-          'mad-meerkats',
+          'weird-apes-club',
+          'cronos-nanas'
       ];
 
       const featuredCollections = [];
@@ -35,8 +36,8 @@ const HotCollections = () => {
           .filter(c => c.metadata?.banner && !shortList.includes(c.metadata.slug))
           .sort((a, b) => (a.name > b.name) ? 1 : -1);
 
-      const listableCollectios = [...featuredCollections, ...otherCollections].filter(c => c.listable);
-      setHotCollections(listableCollectios);
+      const listableCollections = [...featuredCollections, ...otherCollections].filter(c => c.listable);
+      setHotCollections(listableCollections);
   }
 
   useEffect(() => {

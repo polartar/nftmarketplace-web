@@ -1,26 +1,14 @@
 import React, { memo } from 'react';
-import styled from "styled-components";
-import {Link, useHistory} from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { ethers } from "ethers";
-import {toast} from "react-toastify";
-import { faCheck, faCircle, faExternalLinkAlt, faLink } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
-import api from "../../core/api";
-import LayeredIcon from "./LayeredIcon";
 import {croSkullRedPotionImageHack} from "../../hacks";
 
-const Outer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 8px;
-`;
 
-//react functional component
-const NftCard = ({
+const MyNftCard = ({
     nft,
     canTransfer = false,
     canSell = false,
@@ -44,10 +32,6 @@ const NftCard = ({
     }
 
     const nftUrl = () => {
-        // if (nft.listed) {
-        //     return `/listing/${nft.listingId}`;
-        // }
-
         return `/collection/${nft.address}/${nft.id}`;
     }
 
@@ -107,4 +91,4 @@ const NftCard = ({
     );
 };
 
-export default memo(NftCard);
+export default memo(MyNftCard);

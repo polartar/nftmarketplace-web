@@ -140,6 +140,25 @@
             }
         },
         {
+            "name" : "CroMonkeys Land",
+            "multiToken" : false,
+            "address" : "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "cromonkeys-land",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromonkeysland/avatar.gif",
+                "card": "/img/collections/cromonkeys/card.png",
+                "banner": "/img/collections/cromonkeys/banner.png",
+                "maxSupply": 2000,
+                "website": "https://cromonkeys.com/",
+                "twitter": "https://twitter.com/CROMonkeysNFT",
+                "discord": "https://discord.com/invite/84s8UgD7vC"
+            }
+        },
+        {
             "name" : "Cronos Slothty",
             "multiToken" : false,
             "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
@@ -175,7 +194,8 @@
                 "maxSupply": 1000,
                 "website": "https://www.crosmonauts.club/",
                 "twitter": "https://twitter.com/crosmonaut",
-                "discord": "https://discord.gg/mC7x6tKsSe"
+                "discord": "https://discord.gg/mC7x6tKsSe",
+                "medium": "https://medium.com/@crosmonaut"
             }
         },
         {
@@ -284,7 +304,7 @@
             "metadata": {
                 "slug": "cronos-punk",
                 "description": "",
-                "verified": true,
+                "verified": false,
                 "maxSupply": 2720,
                 "website": "https://www.cronospunk.net/",
                 "twitter": "https://twitter.com/PunkCronos",
@@ -682,6 +702,18 @@
             }
         },
         {
+            "name" : "Afro Cronos Dogs",
+            "multiToken": false,
+            "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "afro-cronos-dogs",
+                "description": "",
+                "verified": true
+            }
+        },
+        {
             "name": "SantaCro",
             "multiToken": false,
             "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
@@ -978,7 +1010,7 @@
             "multiToken" : false,
             "address" : "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "fractals",
                 "description": "",
@@ -986,7 +1018,8 @@
                 "avatar": "/img/collections/fractals/avatar.png",
                 "card": "/img/collections/fractals/card.png",
                 "banner": "/img/collections/fractals/banner.png",
-                "maxSupply": 50
+                "maxSupply": 50,
+                "website": "https://www.instagram.com/maxx9498/"
             }
         },
         {
@@ -1070,7 +1103,7 @@
                 "avatar": "/img/collections/cronosdogs/avatar.png",
                 "card": "/img/collections/cronosdogs/card.jpg",
                 "banner": "/img/collections/cronosdogs/banner.png",
-                "maxSupply": 700,
+                "maxSupply": 715,
                 "website": "https://cronosdogs.com/",
                 "twitter": "https://twitter.com/cronosdogs",
                 "discord": "https://discord.gg/ay8BqHp4Cz"
@@ -1307,22 +1340,24 @@
         {
             "name" : "Aunah",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "aunah",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/anuah/avatar.png",
                 "card": "/img/collections/anuah/card.png",
-                "banner": "/img/collections/anuah/banner.png"
+                "banner": "/img/collections/anuah/banner.png",
+                "maxSupply": 81,
+                "website": "https://www.instagram.com/chance.watt/"
             }
         },
         {
             "name" : "CronoGods",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1331,7 +1366,130 @@
                 "verified": true,
                 "avatar": "/img/collections/cronogods/avatar.gif",
                 "card": "/img/collections/cronogods/card.png",
-                "banner": "/img/collections/cronogods/banner.png"
+                "banner": "/img/collections/cronogods/banner.png",
+                "maxSupply": 1500,
+                "website": "https://www.cronogods.com/",
+                "twitter": "https://twitter.com/CronoGods",
+                "discord": "https://discord.gg/nQVhNmkY8g"
+            }
+        },
+        {
+            "name" : "Marie's Cyborgs",
+            "multiToken" : false,
+            "address" : "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "maries-cyborgs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/mariecyborg/avatar.png",
+                "card": "/img/collections/mariecyborg/card.png",
+                "banner": "/img/collections/mariecyborg/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.mariescyborgs.io/",
+                "twitter": "https://twitter.com/mariescyborgs",
+                "discord": "https://discord.gg/mariescyborgs",
+                "telegram": "https://t.me/mariescyborgs"
+            }
+        },
+        {
+            "name" : "Trooprz",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "trooprz",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/trooprz/avatar.gif",
+                "card": "/img/collections/trooprz/card.jpeg",
+                "banner": "/img/collections/trooprz/banner.jpeg",
+                "website": "https://trooprz.army",
+                "twitter": "https://twitter.com/trooprzarmy",
+                "discord": "https://discord.gg/trooprz"
+            }
+        },
+        {
+            "name" : "DogeApeSociety",
+            "multiToken" : false,
+            "address" : "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "dogeapesociety",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/dogeapesociety/avatar.png",
+                "card": "/img/collections/dogeapesociety/card.png",
+                "banner": "/img/collections/dogeapesociety/banner.png",
+                "maxSupply": 2500,
+                "website": "https://www.dogeapesociety.com/",
+                "twitter": "https://twitter.com/DogeApeSociety",
+                "discord": "https://discord.gg/TDFcF8TUAs",
+                "telegram": "https://t.me/dogeapesociety"
+            }
+        },
+        {
+            "name" : "Chronoswap Founding Member",
+            "multiToken" : false,
+            "address" : "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "chronoswap-founding-member",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/chronoswapfoundingmember/avatar.png",
+                "banner": "/img/collections/chronoswapfoundingmember/banner.png",
+                "card": "/img/collections/chronoswapfoundingmember/card.png",
+                "maxSupply": 387,
+                "website": "https://chronoswap.org/",
+                "twitter": "https://twitter.com/Chrono_swap",
+                "discord": "https://discord.gg/JytqG6e8",
+                "medium": "https://chronoswap.medium.com/",
+                "telegram": "https://t.me/+IQJY2ugWLaVmODVk"
+            }
+        },
+        {
+            "name" : "Crosmobabies",
+            "multiToken" : false,
+            "address" : "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crosmobabies",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crosmobabies/avatar.png",
+                "banner": "/img/collections/crosmobabies/banner.png",
+                "card": "/img/collections/crosmobabies/card.png",
+                "maxSupply": 1000,
+                "website": "https://www.crosmonauts.club/",
+                "twitter": "https://twitter.com/crosmonaut",
+                "discord": "https://discord.gg/G876eZzjpg",
+                "medium": "https://medium.com/@crosmonaut"
+            }
+        },
+        {
+            "name" : "MAG Brew Vikings",
+            "multiToken" : false,
+            "address" : "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "mag-brew-vikings",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/magbrew/avatar.jpg",
+                "card": "/img/collections/magbrew/card.jpg",
+                "banner": "/img/collections/magbrew/banner.jpg",
+                "website": "https://www.magbrewvikings.com/",
+                "twitter": "https://twitter.com/MAGBrewVikings",
+                "discord": "https://discord.gg/xPN84dsmuC",
+                "instagram": "https://instagram.com/magbrewvikings/",
+                "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
             }
         }
     ],
@@ -1511,7 +1669,7 @@
         },
         {
             "id": 6,
-            "slug": "lazyhorse",
+            "slug": "lazy-horse",
             "imgNft": "/img/drops/lazyhorse/drop.png",
             "imgPreview": "/img/drops/lazyhorse/drop.png",
             "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
@@ -1572,7 +1730,7 @@
             "complete": true
         },
         {
-            "id": 9,
+            "id": 8,
             "slug": "cronos-fox-fraternity",
             "imgNft": "/img/drops/foxfraternity/drop.gif",
             "imgPreview": "/img/drops/foxfraternity/drop.gif",
@@ -1665,7 +1823,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 11,
@@ -1758,7 +1916,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 14,
@@ -1766,14 +1924,14 @@
             "imgNft": "/img/drops/anuah/drop.gif",
             "imgPreview": "/img/drops/anuah/drop.gif",
             "imgAvatar" : "/img/collections/anuah/avatar.png",
-            "imgBanner" : "/img/drops/anuah/banner2.jpg",
+            "imgBanner" : "/img/collections/anuah/banner.png",
             "title": "Aunah",
-            "subtitle": "",
+            "subtitle": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.",
             "description": "There’s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
             "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
-            "address": "",
+            "address": "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
             "maxMintPerTx": 1,
-            "totalSupply": 50,
+            "totalSupply": 81,
             "cost": "600",
             "memberCost": "500",
             "foundersOnly": false,
@@ -1789,7 +1947,8 @@
             "is1155": false,
             "published": true,
             "featured": false,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
             "id": 15,
@@ -1799,18 +1958,18 @@
             "imgAvatar" : "/img/collections/cronogods/avatar.gif",
             "imgBanner" : "/img/collections/cronogods/banner.png",
             "title": "CronoGods",
-            "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.",
-            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
+            "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.",
+            "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
             "author": { "name": "CronoGods", "link": "https://www.cronogods.com/"},
-            "address": "",
+            "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
             "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
             "maxMintPerTx": 5,
             "totalSupply": 1520,
-            "cost": "350",
+            "cost": "295",
             "memberCost": "295",
             "erc20Cost": "43800000",
             "erc20MemberCost": "37000000",
-            "erc20Unit": "LOOT",
+            "erc20Unit": "Loot",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _mintAmount) public payable",
@@ -1832,6 +1991,63 @@
             "is1155": false,
             "published": true,
             "featured": true,
+            "complete": false
+        },
+        {
+            "id": 16,
+            "slug": "maries-cyborgs",
+            "imgNft": "/img/drops/mariecyborg/drop.gif",
+            "imgPreview": "/img/drops/mariecyborg/drop.gif",
+            "imgAvatar" : "/img/collections/mariecyborg/avatar.png",
+            "imgBanner" : "/img/collections/mariecyborg/banner.png",
+            "title": "Marie's Cyborgs",
+            "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
+            "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
+            "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/"},
+            "address": "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
+            "maxMintPerTx": 25,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2500,
+            "cost": "400",
+            "memberCost": "350",
+            "whitelistCost": "300",
+            "foundersOnly": false,
+            "abi": "marie.json",
+            "start": 1643576400000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": true,
+            "video": "https://app.ebisusbay.com/files/marie/tailer.mp4",
+            "mediaPosition": "left"
+        },
+        {
+            "id": 17,
+            "slug": "mag-brew-vikings",
+            "imgNft": "/img/drops/magbrew/drop.jpg",
+            "imgPreview": "/img/drops/magbrew/drop.jpg",
+            "imgAvatar" : "/img/collections/magbrew/avatar.jpg",
+            "imgBanner" : "/img/collections/magbrew/banner.jpg",
+            "title": "MAG Brew Vikings",
+            "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
+            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
+            "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 8000,
+            "cost": "300",
+            "memberCost": "250",
+            "whitelistCost": "250",
+            "specialWhitelistCost": "200",
+            "foundersOnly": false,
+            "abi": "mag-brew-vikings.json",
+            "start": 1643666400000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
             "complete": false
         }
     ],

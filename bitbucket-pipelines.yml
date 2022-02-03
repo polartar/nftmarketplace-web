@@ -3,6 +3,9 @@ definitions:
     apt-get update
   printVersion: &version
     node --version && npm --version
+  build: &build
+    CI=false REACT_APP_DEVTOOLS=$REACT_APP_DEVTOOLS REACT_APP_SITE24X7_KEY=$REACT_APP_SITE24X7_KEY REACT_APP_SENTRY_DSN=$REACT_APP_SENTRY_DSN npm run build
+
   steps:
     - step: &test
         name: Test
@@ -59,6 +62,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
+          deployment: SandboxBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
@@ -67,12 +71,10 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=true
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - *build
           artifacts:
             - build/**
       - step:
@@ -83,6 +85,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
+          deployment: TestnetBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
@@ -91,12 +94,10 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=true
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_testnet.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - *build
           artifacts:
             - build/**
       - step:
@@ -116,12 +117,10 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=true
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_testnet.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - *build
           artifacts:
             - build/**
       - step:
@@ -132,6 +131,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
+          deployment: DevelopmentBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
@@ -140,12 +140,10 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=true
             # RPC config
             - cp -p ./src/Assets/networks/rpc_config_dev.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - *build
           artifacts:
             - build/**
       - step:
@@ -156,6 +154,7 @@ pipelines:
       - step:
           name: Build
           image: node:16
+          deployment: ProductionBuildStep
           runs-on:
             - 'self.hosted'
             - 'linux'
@@ -164,12 +163,10 @@ pipelines:
           script:
             - *update
             - *version
-            # Set environment variables
-            - REACT_APP_DEVTOOLS=false
             # RPC config
             #- cp -p ./src/Assets/networks/rpc_config.json ./src/Assets/networks/rpc_config.json
             # Build frontend
-            - CI=false npm run build
+            - *build
           artifacts:
             - build/**
       - step:

@@ -17,11 +17,13 @@ import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
     isCroniesDrop,
-    isFounderDrop,
+    isFounderDrop, isMagBrewVikingsDrop,
     newlineText
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
 import {dropState as statuses} from "../../core/api/enums";
+import ReactPlayer from 'react-player'
+import nft from "./nft";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -69,6 +71,17 @@ const Drop = () => {
     const [status, setStatus] = useState(statuses.UNSET);
     const [numToMint, setNumToMint] = useState(1);
 
+    const [abi, setAbi] = useState(null);
+    const [maxMintPerAddress, setMaxMintPerAddress] = useState(0);
+    const [maxMintPerTx, setMaxMintPerTx] = useState(0);
+    const [maxSupply, setMaxSupply] = useState(0);
+    const [memberCost, setMemberCost] = useState(0);
+    const [regularCost, setRegularCost] = useState(0);
+    const [whitelistCost, setWhitelistCost] = useState(0);
+    const [specialWhitelistCost, setSpecialWhitelistCost] = useState(0);
+    const [totalSupply, setTotalSupply] = useState(0);
+    const [canMintQuantity, setCanMintQuantity] = useState(0);
+
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'drop',
@@ -97,61 +110,105 @@ const Drop = () => {
         return state.cronies;
     });
 
-    useEffect(() => {
-        const init = async () => {
-            setDropObject(drop);
-            calculateStatus(drop);
-            let currentDrop = drop;
-            if (!drop.address) {
-                currentDrop = Object.assign({currentSupply: 0}, currentDrop);
-                setDropObject(currentDrop);
-                return;
-            }
+    useEffect(async() => {
+        await retrieveDropInfo();
+    }, [user, membership, cronies]);
 
-            if (user.provider) {
-                try {
-                    let writeContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, user.provider.getSigner());
-                    currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
-                    
-                    if (currentDrop.erc20Address) {
-                        const erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
-                        const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, readProvider);
-                        currentDrop = {
-                            ...currentDrop,
-                            erc20Contract,
-                            erc20ReadContract
-                        }
-                    }
-                } catch(error) {
-                    console.log(error);
-                }
-            }
+    const retrieveDropInfo = async () => {
+        setDropObject(drop);
+        calculateStatus(drop);
+        let currentDrop = drop;
+
+        // Don't do any contract stuff if the drop does not have an address
+        if (!drop.address) {
+            setDropInfo(currentDrop, 0);
+            return;
+        }
+
+        // Use the new contract format if applicable
+        let abi = currentDrop.abi;
+        if (isOnNewContract(abi)) {
+            const abiJson = require(`../../Assets/abis/${currentDrop.abi}`);
+            abi = abiJson.abi;
+        }
+        setAbi(abi);
+
+        if (user.provider) {
             try {
-                if (isFounderDrop(currentDrop.address)) {
-                    currentDrop = Object.assign({currentSupply: membership.founders.count}, currentDrop);
-                }
-                else if (isCroniesDrop(currentDrop.address)) {
-                    currentDrop = Object.assign({currentSupply: cronies.count}, currentDrop);
-                }
-                else if (isCrognomesDrop(currentDrop.address)) {
-                    let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
-                    const supply = await readContract.totalSupply();
-                    const offsetSupply = supply.add(901);
-                    currentDrop = Object.assign({currentSupply: offsetSupply.toString()}, currentDrop);
-                }
-                else {
-                    let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
-                    currentDrop = Object.assign({currentSupply: (await readContract.totalSupply()).toString()}, currentDrop);
+                let writeContract = await new ethers.Contract(currentDrop.address, abi, user.provider.getSigner());
+                currentDrop = Object.assign({writeContract: writeContract}, currentDrop);
+
+                if (currentDrop.erc20Address) {
+                    const erc20Contract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, user.provider.getSigner());
+                    const erc20ReadContract = await new ethers.Contract(dropObject.erc20Address, dropObject.erc20Abi, readProvider);
+                    currentDrop = {
+                        ...currentDrop,
+                        erc20Contract,
+                        erc20ReadContract
+                    }
                 }
             } catch(error) {
                 console.log(error);
             }
-            setLoading(false);
-            setDropObject(currentDrop);
         }
-        init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user, membership, cronies]);
+        try {
+            if (isFounderDrop(currentDrop.address)) {
+                setDropInfo(currentDrop, membership.founders.count);
+            }
+            else if (isCroniesDrop(currentDrop.address)) {
+                setDropInfo(currentDrop, cronies.count);
+            }
+            else if (isCrognomesDrop(currentDrop.address)) {
+                let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
+                const supply = await readContract.totalSupply();
+                const offsetSupply = supply.add(901);
+                setDropInfo(currentDrop, offsetSupply.toString());
+            }
+            else if (isMagBrewVikingsDrop(currentDrop.address)) {
+                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                const supply = await readContract.totalSupply();
+                setDropInfo(currentDrop, supply.toString());
+                const canMint = user.address ? await readContract.canMint(user.address) : 0;
+                setCanMintQuantity(canMint);
+            }
+            else {
+                if (isOnNewContract(currentDrop.abi) && currentDrop.address) {
+                    let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                    const infos = await readContract.getInfos();
+                    const canMint = user.address ? await readContract.canMint(user.address) : 0;
+                    setMaxMintPerAddress(infos.maxMintPerAddress);
+                    setMaxMintPerTx(infos.maxMintPerTx);
+                    setMaxSupply(infos.maxSupply);
+                    setMemberCost(ethers.utils.formatEther(infos.memberCost));
+                    setRegularCost(ethers.utils.formatEther(infos.regularCost));
+                    setTotalSupply(infos.totalSupply);
+                    setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
+                    setCanMintQuantity(canMint);
+                } else {
+                    let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                    const currentSupply = await readContract.totalSupply();
+                    setDropInfo(currentDrop, currentSupply);
+                }
+            }
+        } catch(error) {
+            console.log(error);
+        }
+        setLoading(false);
+        calculateStatus(currentDrop);
+        setDropObject(currentDrop);
+    }
+
+    const setDropInfo = (drop, supply) => {
+        setMaxMintPerAddress(drop.maxMintPerAddress ?? 100);
+        setMaxMintPerTx(drop.maxMintPerTx);
+        setMaxSupply(drop.totalSupply);
+        setMemberCost(drop.memberCost);
+        setRegularCost(drop.cost);
+        setTotalSupply(supply);
+        setWhitelistCost(drop.whitelistCost);
+        setSpecialWhitelistCost(drop.specialWhitelistCost);
+        setCanMintQuantity(drop.maxMintPerTx);
+    }
 
     const calculateStatus = (drop) => {
         const sTime = new Date(drop.start);
@@ -173,8 +230,32 @@ const Drop = () => {
         setReferral(value);
     }
 
-    const isEligibleForMemberPrice = async (user) => {
-        return user.isMember;
+    const calculateCost = async (user, isErc20) => {
+        if (isOnNewContract(dropObject.abi)) {
+            let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
+            if (abi.find(m => m.name === 'cost')) {
+                return await readContract.cost(user.address);
+            }
+            return await readContract.mintCost(user.address);
+        }
+
+        const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
+        const regCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20Cost : dropObject.cost);
+        let cost;
+        if (dropObject.abi.join().includes("isReducedTime()")) {
+            const readContract = await new ethers.Contract(dropObject.address, dropObject.abi, readProvider);
+            const isReduced = await readContract.isReducedTime();
+            cost = isReduced ? memberCost : regCost;
+        } else if(user.isMember){
+            cost = memberCost;
+        } else {
+            cost = regCost;
+        }
+        return cost;
+    }
+
+    const isOnNewContract = (dropAbi) => {
+        return typeof dropAbi === 'string';
     }
 
     const mintNow = async(isErc20 = false) => {
@@ -189,24 +270,14 @@ const Drop = () => {
             }
             const contract = dropObject.writeContract;
             try{
-                const memberCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20MemberCost : dropObject.memberCost);
-                const regCost = ethers.utils.parseEther(isErc20 === true ? dropObject.erc20Cost : dropObject.cost);
-                let cost;
-                if (dropObject.abi.join().includes("isReducedTime()")) {
-                    const readContract = await new ethers.Contract(dropObject.address, dropObject.abi, readProvider);
-                    const isReduced = await readContract.isReducedTime();
-                    cost = isReduced ? memberCost : regCost;
-                } else if(await isEligibleForMemberPrice(user)){
-                    cost = memberCost;
-                } else {
-                    cost = regCost;
-                }
+                const cost = await calculateCost(user, isErc20);
                 let finalCost = cost.mul(numToMint);
                 let extra = {
                     'value' : finalCost
                 };
+
+                var response;
                 if (dropObject.is1155) {
-                    var response;
 
                     if (dropObject.title === "Founding Member") {
                         if(referral){
@@ -223,30 +294,44 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                 } else {
-                    let method;
-                    for (const abiMethod of dropObject.abi) {
-                        if (abiMethod.includes("mint") && !abiMethod.includes("view")) method = abiMethod;
-                    }
-
-                    if(isErc20 === true) {
-                        const allowance = await dropObject.erc20ReadContract.allowance(user.address, dropObject.address);
-                        if (allowance.sub(finalCost) < 0) {
-                            await dropObject.erc20Contract.approve(dropObject.address, constants.MaxUint256);
-                        }                        
-                    }                    
-                    if (method.includes("address") && method.includes("uint256")) {
-                        if (isErc20 === true) {
-                            response = await contract.mintWithLoot(user.address, numToMint);
-                        } else {
-                            response = await contract.mint(user.address, numToMint, extra);
-                        }                        
+                    if (isOnNewContract(dropObject.abi)) {
+                        response = await contract.mint(numToMint, extra);
                     } else {
-                        console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
-                        if (isErc20 === true) {
-                            response = await contract.mintWithLoot(numToMint);
+                        let method;
+                        for (const abiMethod of dropObject.abi) {
+                            if (abiMethod.includes("mint") && !abiMethod.includes("view")) method = abiMethod;
+                        }
+
+                        if(isErc20 === true) {
+                            const allowance = await dropObject.erc20ReadContract.allowance(user.address, dropObject.address);
+                            if (allowance.sub(finalCost) < 0) {
+                                await dropObject.erc20Contract.approve(dropObject.address, constants.MaxUint256);
+                            }
+                        }
+                        if (method.includes("address") && method.includes("uint256")) {
+                            if (isErc20 === true) {
+                                response = await contract.mintWithLoot(user.address, numToMint);
+                            } else {
+                                
+                                extra = {
+                                    ...extra,
+                                    'gasPrice' : ethers.utils.parseUnits('5000', 'gwei')
+                                };
+                                response = await contract.mint(user.address, numToMint, extra);
+                            }
                         } else {
-                            response = await contract.mint(numToMint, extra);
-                        }                        
+                            console.log(`contract ${contract}  num: ${numToMint}   extra ${extra}`)
+                            if (isErc20 === true) {
+                                response = await contract.mintWithLoot(numToMint);
+                            } else {
+                                
+                                extra = {
+                                    ...extra,
+                                    'gasPrice' : ethers.utils.parseUnits('5000', 'gwei')
+                                };
+                                response = await contract.mint(numToMint, extra);
+                            }
+                        }
                     }
                     const receipt = await response.wait();
                     toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
@@ -276,6 +361,8 @@ const Drop = () => {
 
                         logEvent(getAnalytics(), 'purchase', purchaseAnalyticParams);
                     }
+
+                    await retrieveDropInfo();
                 }
             }catch(error){
                 if(error.data){
@@ -307,7 +394,10 @@ const Drop = () => {
         let dateString = `${fullDateString.split(", ")[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`
         return dateString
     }
-
+    const vidRef = useRef(null);
+    const handlePlayVideo = () => {
+        vidRef.current.play();
+    }
     return (
         <div>
             <GlobalStyles/>
@@ -315,7 +405,17 @@ const Drop = () => {
                 <section className={`jumbotron breadcumb h-vh tint`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.jpg'})`}}>
                     <div className="container">
                         <div className="row align-items-center">
-                            <div className="col-md-6">
+                            <div className={`col-lg-6 ${drop.mediaPosition === 'left' ? 'order-1' : 'order-2'}`}>
+                                <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+                                    <ReactPlayer
+                                        url={drop.video}
+                                        controls={true}
+                                        width='100%'
+                                        height='100%'
+                                    />
+                                </Reveal>
+                            </div>
+                            <div className={`col-lg-6 ${drop.mediaPosition === 'left' ? 'order-2' : 'order-1'}`}>
                                 <div className="spacer-single"></div>
                                 <div className="spacer-double"></div>
 
@@ -337,7 +437,7 @@ const Drop = () => {
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                    <p className="lead col-white">{drop.subtitle}</p>
+                                    <p className="lead col-white">{newlineText(drop.subtitle)}</p>
                                 </Reveal>
                                 {drop.foundersOnly &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
@@ -391,7 +491,7 @@ const Drop = () => {
                                 <h2>{drop.title}</h2>
                                 <div className="item_info_counts">
                                     <div
-                                        className="item_info_type">{dropObject?.currentSupply}/{dropObject?.totalSupply} minted
+                                        className="item_info_type">{totalSupply.toString()}/{maxSupply.toString()} minted
                                     </div>
                                 </div>
                                 <div>{newlineText(drop.description)}</div>
@@ -403,18 +503,18 @@ const Drop = () => {
                                 <div className="d-flex flex-row">
                                     <div className="me-4">
                                         <h6 className="mb-1">Mint Price</h6>
-                                        <h5>{dropObject?.cost} CRO</h5>
+                                        <h5>{regularCost} CRO</h5>
                                         {
-                                            dropObject?.erc20Cost && dropObject?.erc20Unit && 
+                                            dropObject?.erc20Cost && dropObject?.erc20Unit &&
                                                 <h5>{`${dropObject?.erc20Cost} ${dropObject?.erc20Unit}`}</h5>
                                         }
                                     </div>
                                     {
-                                        ((dropObject?.cost !== dropObject?.memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
-                                            <div>
+                                        ((memberCost && regularCost !== memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
+                                            <div className="me-4">
                                                 <h6 className="mb-1">Founding Member Price</h6>
                                                 {
-                                                    (dropObject?.cost !== dropObject?.memberCost) && 
+                                                    (dropObject?.cost !== dropObject?.memberCost) &&
                                                         <h5>{dropObject?.memberCost} CRO</h5>
                                                 }
                                                 {
@@ -422,6 +522,18 @@ const Drop = () => {
                                                         <h5>{`${dropObject?.erc20MemberCost} ${dropObject?.erc20Unit}`}</h5>
                                                 }
                                             </div>
+                                    }
+                                    {whitelistCost > 0 &&
+                                        <div className="me-4">
+                                            <h6 className="mb-1">Whitelist Price</h6>
+                                            <h5>{whitelistCost} CRO</h5>
+                                        </div>
+                                    }
+                                    {specialWhitelistCost > 0 &&
+                                        <div className="me-4">
+                                            <h6 className="mb-1">Special Whitelist</h6>
+                                            <h5>{specialWhitelistCost} CRO</h5>
+                                        </div>
                                     }
                                 </div>
 
@@ -446,10 +558,10 @@ const Drop = () => {
                                 }
                                 {status === statuses.LIVE && !drop.complete &&
                                     <>
-                                        {drop.maxMintPerTx > 1 &&
+                                        {canMintQuantity > 1 &&
                                             <div>
                                                 <Form.Label>Quantity</Form.Label>
-                                                <Form.Range value={numToMint} min="1" max={drop.maxMintPerTx}
+                                                <Form.Range value={numToMint} min="1" max={canMintQuantity}
                                                             onChange={e => setNumToMint(e.target.value)}/>
                                             </div>
                                         }
@@ -461,6 +573,8 @@ const Drop = () => {
                                                 <Form.Text className="text-muted"/>
                                             </Form.Group>
                                         }
+
+                                        {canMintQuantity > 0 &&
                                         <div className="d-flex flex-row mt-5">
                                             <button className='btn-main lead mb-5 mr15' onClick={mintNow} disabled={minting}>
                                                 {minting ?
@@ -503,6 +617,7 @@ const Drop = () => {
                                                     </button>
                                             }
                                         </div>
+                                        }
                                     </>
                                 }
                                 {status === statuses.SOLD_OUT &&

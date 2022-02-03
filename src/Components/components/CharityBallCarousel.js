@@ -89,18 +89,19 @@ export default class Responsive extends Component {
   }
 
   calculateStatus(drop) {
-    const sTime = new Date(drop.start);
-    const eTime = new Date(drop.end);
-    const now = new Date();
-
-    if (sTime > now) return statuses.NOT_STARTED;
-    else if (drop.currentSupply >= drop.totalSupply &&
-        drop.slug !== 'founding-member' &&
-        drop.slug !== 'cronies'
-    ) return statuses.SOLD_OUT;
-    else if (!drop.end || eTime > now) return statuses.LIVE;
-    else if (drop.end && eTime < now) return statuses.EXPIRED;
-    else return statuses.NOT_STARTED;
+      return statuses.EXPIRED;
+    // const sTime = new Date(drop.start);
+    // const eTime = new Date(drop.end);
+    // const now = new Date();
+    //
+    // if (sTime > now) return statuses.NOT_STARTED;
+    // else if (drop.currentSupply >= drop.totalSupply &&
+    //     drop.slug !== 'founding-member' &&
+    //     drop.slug !== 'cronies'
+    // ) return statuses.SOLD_OUT;
+    // else if (!drop.end || eTime > now) return statuses.LIVE;
+    // else if (drop.end && eTime < now) return statuses.EXPIRED;
+    // else return statuses.NOT_STARTED;
   }
 
 
