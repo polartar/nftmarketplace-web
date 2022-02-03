@@ -263,6 +263,26 @@
                 "instagram": "https://instagram.com/magbrewvikings/",
                 "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
             }
+        },
+        {
+            "name" : "LuckLess",
+            "multiToken" : false,
+            "address" : "0x9f831AC3533cf4918da76B17d16c28b667F9877C",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "luck-less",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/luckless/avatar.jpg",
+                "card": "/img/collections/luckless/card.jpg",
+                "banner": "/img/collections/luckless/banner.jpg",
+                "website": "https://www.lucklessvikings.com/",
+                "twitter": "https://twitter.com/lucklessVikings",
+                "discord": "https://discord.gg/xPN84dsmuC",
+                "instagram": "https://instagram.com/lucklessvikings/",
+                "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
+            }
         }
     ],
     "drops": [
@@ -619,6 +639,32 @@
             "specialWhitelistCost": "200",
             "foundersOnly": false,
             "abi": "mag-brew-vikings.json",
+            "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 18,
+            "slug": "luck-less",
+            "imgNft": "/img/drops/luckless/drop.jpg",
+            "imgPreview": "/img/drops/luckless/drop.jpg",
+            "imgAvatar" : "/img/collections/luckless/avatar.jpg",
+            "imgBanner" : "/img/collections/luckless/banner.jpg",
+            "title": "LuckLess",
+            "subtitle": "LuckLess is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
+            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our LuckLess writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "author": { "name": "MAG Brew", "link": "https://www.lucklessvikings.com/"},
+            "address": "0x9f831AC3533cf4918da76B17d16c28b667F9877C",
+            "maxMintPerTx": 1,
+            "maxMintPerAddress": 5,
+            "totalSupply": 31,
+            "regularCost": "10",
+            "memberCost": "5",
+            "foundersOnly": false,
+            "abi": "luck-less.json",
             "start": 1642809600000,
             "end": null,
             "referral": false,
