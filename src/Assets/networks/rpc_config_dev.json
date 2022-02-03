@@ -1396,7 +1396,7 @@
         {
             "name" : "Trooprz",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
             "onChain" : false,
             "listable" : false,
             "metadata": {
