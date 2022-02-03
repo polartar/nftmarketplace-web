@@ -10,6 +10,7 @@ import {siPrefixedNumber} from "../../utils";
 import {getMarketData} from "../../GlobalState/marketplaceSlice";
 import Reveal from "react-awesome-reveal";
 import { theme } from "../../Theme/theme";
+import CurrentDrops from "../components/CurrentDrops";
 
 const fadeInUp = keyframes`
   0% {
@@ -71,7 +72,7 @@ const Jumbotron = {
     Host: styled.div.attrs(({theme}) => ({
         className: ''
     }))`
-      background-image: url('./img/background/Ebisus-bg-1_L.jpg');
+      background-image: url('/img/background/Ebisus-bg-1_L.jpg');
       background-size: cover;
       height: max(100vh, 800px);
       display: flex;
@@ -205,22 +206,16 @@ const Home = () => {
             </Jumbotron.Host>
             { mobile && JumbotronData()}
 
-
             <section className='container no-bottom'>
                 <div className='row'>
-                    <div className="col-12">
-                        <div className="feature-box style-4 text-center">
-                            <div className="text">
-                                <h2>Ebisu's Bay Annual Charity Ball</h2>
-                                <div className="small-border"></div>
-                                <p>There is no better feeling than the wholesomeness of giving to those less fortunate. Ebisu’s Bay has received fantastic support from our community in helping us create something that is a pillar within the Cronos community. This is why we are excited to host the first of many, our <span className="fw-bold">Ebisu’s Bay Annual Charity Ball</span>!</p>
-                                <p>Ebisu’s Bay is hosting a charity auction January 21 2022; various projects have chosen charities and donated beautiful one-of-a-kind art where the community can bid for these limited-edition pieces. All proceeds will be going to the chosen charities.</p>
-                                <div className="d-flex flex-row justify-content-evenly">
-                                    <a href="https://blog.ebisusbay.com/ebisus-bay-charity-ball-2fe3efb601be" className="btn-main m-auto">More Information</a>
-                                    <Link to="/charity-ball" className="btn-main m-auto">View Auctions</Link>
-                                </div>
-                            </div>
+                    <div className='col-lg-12'>
+                        <div className='text-center'>
+                            <h2>Current Drops</h2>
+                            <div className="small-border"></div>
                         </div>
+                    </div>
+                    <div className='col-lg-12'>
+                        <CurrentDrops />
                     </div>
                 </div>
             </section>

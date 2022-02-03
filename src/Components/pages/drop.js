@@ -312,6 +312,11 @@ const Drop = () => {
                             if (isErc20 === true) {
                                 response = await contract.mintWithLoot(user.address, numToMint);
                             } else {
+                                
+                                extra = {
+                                    ...extra,
+                                    'gasPrice' : ethers.utils.parseUnits('5000', 'gwei')
+                                };
                                 response = await contract.mint(user.address, numToMint, extra);
                             }
                         } else {
@@ -319,6 +324,11 @@ const Drop = () => {
                             if (isErc20 === true) {
                                 response = await contract.mintWithLoot(numToMint);
                             } else {
+                                
+                                extra = {
+                                    ...extra,
+                                    'gasPrice' : ethers.utils.parseUnits('5000', 'gwei')
+                                };
                                 response = await contract.mint(numToMint, extra);
                             }
                         }
@@ -427,7 +437,7 @@ const Drop = () => {
                                     <h1 className="col-white">{drop.title}</h1>
                                 </Reveal>
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                                    <p className="lead col-white">{drop.subtitle}</p>
+                                    <p className="lead col-white">{newlineText(drop.subtitle)}</p>
                                 </Reveal>
                                 {drop.foundersOnly &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
@@ -500,20 +510,17 @@ const Drop = () => {
                                         }
                                     </div>
                                     {
-                                        ((memberCost && regularCost !== memberCost) || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
+                                        (memberCost || (dropObject?.erc20Cost !== dropObject?.erc20MemberCost)) &&
                                             <div className="me-4">
                                                 <h6 className="mb-1">Founding Member Price</h6>
-                                                {
-                                                    (dropObject?.cost !== dropObject?.memberCost) &&
-                                                        <h5>{dropObject?.memberCost} CRO</h5>
-                                                }
+                                                <h5>{memberCost} CRO</h5>
                                                 {
                                                     (dropObject?.erc20Cost !== dropObject?.erc20MemberCost) &&
                                                         <h5>{`${dropObject?.erc20MemberCost} ${dropObject?.erc20Unit}`}</h5>
                                                 }
                                             </div>
                                     }
-                                    {whitelistCost > 0 &&
+                                    {whitelistCost &&
                                         <div className="me-4">
                                             <h6 className="mb-1">Whitelist Price</h6>
                                             <h5>{whitelistCost} CRO</h5>
