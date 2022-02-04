@@ -265,18 +265,22 @@
             }
         },
         {
-            "name" : "Crazy Scientists",
+            "name" : "The LAB: Crazy Scientists",
             "multiToken" : false,
             "address" : "0x6F25b5cCf0Ab49A1906E36C9572CF202e62aE066",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "crazy-scientists",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/crazyscientists/avatar.gif",
                 "card": "/img/collections/crazyscientists/card.png",
-                "banner": "/img/collections/crazyscientists/banner.png"
+                "banner": "/img/collections/crazyscientists/banner.png",
+                "website": "https://www.thelaboratory.io/",
+                "twitter": "https://twitter.com/thelaboratoryio",
+                "discord": "https://discord.gg/thelaboratory",
+                "medium": "https://medium.com/@TheLaboratoryIO"
             }
         }
     ],
@@ -642,22 +646,23 @@
             "complete": false
         },
         {
-            "id": 18,
+            "id": 19,
             "slug": "crazy-scientists",
             "imgNft": "/img/drops/crazyscientists/drop.png",
             "imgPreview": "/img/drops/crazyscientists/drop.png",
             "imgAvatar" : "/img/collections/crazyscientists/avatar.gif",
             "imgBanner" : "/img/collections/crazyscientists/banner.png",
-            "title": "Crazy Scientists",
+            "title": "The LAB: Crazy Scientists",
             "subtitle": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
-            "description":  "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
-            "author": { "name": "The Lab", "link": "https://www.crazyscientists.com/"},
+            "description": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+            "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
             "address": "0x6F25b5cCf0Ab49A1906E36C9572CF202e62aE066",
             "maxMintPerTx": 5,
+            "maxMintPerAddress": 50,
             "totalSupply": 5555,
-            "cost": "429",
-            "memberCost": "399",
-            "whitelistCost": "379",
+            "cost": "379",
+            "memberCost": "329",
+            "whitelistCost": "329",
             "foundersOnly": false,
             "start": 1639591200000,
             "end": null,

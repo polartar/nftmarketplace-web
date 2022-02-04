@@ -117,7 +117,6 @@ const Drop = () => {
 
     const retrieveDropInfo = async () => {
         setDropObject(drop);
-        calculateStatus(drop);
         let currentDrop = drop;
 
         // Don't do any contract stuff if the drop does not have an address
@@ -157,6 +156,7 @@ const Drop = () => {
         try {
             if (isFounderDrop(currentDrop.address)) {
                 setDropInfo(currentDrop, membership.founders.count);
+                calculateStatus(currentDrop, membership.founders.count, currentDrop.totalSupply);
             }
             else if (isCroniesDrop(currentDrop.address)) {
                 setDropInfo(currentDrop, cronies.count);
@@ -166,6 +166,7 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 setDropInfo(currentDrop, offsetSupply.toString());
+                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
             }
             else if (isMagBrewVikingsDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -173,6 +174,7 @@ const Drop = () => {
                 setDropInfo(currentDrop, supply.toString());
                 const canMint = user.address ? await readContract.canMint(user.address) : 0;
                 setCanMintQuantity(canMint);
+                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
             }
             else if (isDrop(currentDrop.address, 'maries-cyborgs')) {
                 let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -186,6 +188,7 @@ const Drop = () => {
                 setTotalSupply(infos.totalSupply);
                 setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
                 setCanMintQuantity(canMint);
+                calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
             }
             else {
                 if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi)  || isUsingAbiFile(currentDrop.abi))) {
@@ -200,17 +203,18 @@ const Drop = () => {
                     setTotalSupply(infos.totalSupply);
                     setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
                     setCanMintQuantity(canMint);
+                    calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
                 } else {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                     const currentSupply = await readContract.totalSupply();
                     setDropInfo(currentDrop, currentSupply);
+                    calculateStatus(currentDrop, currentSupply, currentDrop.totalSupply);
                 }
             }
         } catch(error) {
             console.log(error);
         }
         setLoading(false);
-        calculateStatus(currentDrop);
         setDropObject(currentDrop);
     }
 
@@ -226,13 +230,13 @@ const Drop = () => {
         setCanMintQuantity(drop.maxMintPerTx);
     }
 
-    const calculateStatus = (drop) => {
+    const calculateStatus = (drop, totalSupply, maxSupply) => {
         const sTime = new Date(drop.start);
         const eTime = new Date(drop.end);
         const now = new Date();
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
-        else if (drop.currentSupply >= drop.totalSupply &&
+        else if (totalSupply >= maxSupply &&
             !isCroniesDrop(drop.address) &&
             !isFounderDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
