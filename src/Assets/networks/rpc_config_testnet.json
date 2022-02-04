@@ -263,6 +263,21 @@
                 "instagram": "https://instagram.com/magbrewvikings/",
                 "tiktok": "https://vm.tiktok.com/ZM87xo3ok/"
             }
+        },
+        {
+            "name" : "Crazy Scientists",
+            "multiToken" : false,
+            "address" : "0x6F25b5cCf0Ab49A1906E36C9572CF202e62aE066",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "crazy-scientists",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crazyscientists/avatar.gif",
+                "card": "/img/collections/crazyscientists/card.png",
+                "banner": "/img/collections/crazyscientists/banner.png"
+            }
         }
     ],
     "drops": [
@@ -620,6 +635,31 @@
             "foundersOnly": false,
             "abi": "mag-brew-vikings.json",
             "start": 1642809600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 18,
+            "slug": "crazy-scientists",
+            "imgNft": "/img/drops/crazyscientists/drop.png",
+            "imgPreview": "/img/drops/crazyscientists/drop.png",
+            "imgAvatar" : "/img/collections/crazyscientists/avatar.gif",
+            "imgBanner" : "/img/collections/crazyscientists/banner.png",
+            "title": "Crazy Scientists",
+            "subtitle": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+            "description":  "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+            "author": { "name": "The Lab", "link": "https://www.crazyscientists.com/"},
+            "address": "0x6F25b5cCf0Ab49A1906E36C9572CF202e62aE066",
+            "maxMintPerTx": 5,
+            "totalSupply": 5555,
+            "cost": "429",
+            "memberCost": "399",
+            "whitelistCost": "379",
+            "foundersOnly": false,
+            "start": 1639591200000,
             "end": null,
             "referral": false,
             "is1155": false,
