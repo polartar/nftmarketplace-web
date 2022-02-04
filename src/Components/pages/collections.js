@@ -93,9 +93,7 @@ const Collections = () => {
 
     const handleSearch = debounce((event) => {
         const { value } = event.target;
-        console.log('value', value);
         setFilteredCollections(collections.filter(c => {
-            console.log(c.name, value, c.name.toLowerCase().includes(value.toLowerCase()));
             return c.name.toLowerCase().includes(value.toLowerCase())
         }))
         setSearchTerms(value);
