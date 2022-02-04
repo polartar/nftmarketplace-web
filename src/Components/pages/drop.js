@@ -25,6 +25,7 @@ import {dropState as statuses} from "../../core/api/enums";
 import ReactPlayer from 'react-player'
 import nft from "./nft";
 import {EbisuDropAbi} from "../../Contracts/Abis";
+import * as Sentry from "@sentry/react";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -151,6 +152,7 @@ const Drop = () => {
                 }
             } catch(error) {
                 console.log(error);
+                Sentry.captureException(error);
             }
         }
         try {
@@ -213,6 +215,7 @@ const Drop = () => {
             }
         } catch(error) {
             console.log(error);
+            Sentry.captureException(error);
         }
         setLoading(false);
         setDropObject(currentDrop);
@@ -389,6 +392,7 @@ const Drop = () => {
                     await retrieveDropInfo();
                 }
             }catch(error){
+                Sentry.captureException(error);
                 if(error.data){
                     console.log(error);
                     toast.error(error.data.message);
