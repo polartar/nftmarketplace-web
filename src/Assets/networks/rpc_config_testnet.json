@@ -286,7 +286,7 @@
         {
             "name": "MetaPixels",
             "onChain" : false,
-            "address": "0x9748B3dE1d0d53842C324cf9BC778181e2C769e3",
+            "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
             "multiToken" : false,
             "listable" : true,
             "metadata": {}
