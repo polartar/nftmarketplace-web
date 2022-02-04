@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useLocation } from "react-router-dom";
 import nebkas from "../../Assets/nebkas-logo.png"
 import weAreFi from "../../Assets/wearefi-logo.png"
-import { faDiscord, faTwitter, faMedium } from '@fortawesome/free-brands-svg-icons'
+import {faDiscord, faTwitter, faMedium, faInstagram} from '@fortawesome/free-brands-svg-icons'
 import { faSquare, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import LayeredIcon from "./LayeredIcon";
 
@@ -48,6 +48,13 @@ const Footer = () => {
                             <a href="https://twitter.com/EbisusBay" target="_blank">
                                 <LayeredIcon
                                     icon={faTwitter}
+                                    bgIcon={faSquare}
+                                    shrink={7}
+                                />
+                            </a>
+                            <a href="https://www.instagram.com/ebisusbayofficial" target="_blank">
+                                <LayeredIcon
+                                    icon={faInstagram}
                                     bgIcon={faSquare}
                                     shrink={7}
                                 />

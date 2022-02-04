@@ -8,6 +8,7 @@ import moment from "moment";
 import { SortOption } from '../Components/Models/sort-option.model';
 
 import { FilterOption } from "../Components/Models/filter-option.model";
+import * as Sentry from "@sentry/react";
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = "https://mygateway.mypinata.cloud";
@@ -124,6 +125,7 @@ export async function getListing(listingId) {
 
     }catch(error){
         console.log(error)
+        Sentry.captureException(error);
     }
 }
 
@@ -161,6 +163,7 @@ export async function getCollectionTraits(contractAddress) {
         return await (await fetch(internalUri)).json();
     } catch (error) {
         console.log(error);
+        Sentry.captureException(error);
     }
 
     return null;
@@ -173,6 +176,7 @@ export async function getCollectionPowertraits(contractAddress) {
         return await (await fetch(internalUri)).json();
     } catch (error) {
         console.log(error);
+        Sentry.captureException(error);
     }
 
     return null;
@@ -478,6 +482,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                 }catch(error){
                     console.log('error fetching ' + knownContract.name);
                     console.log(error);
+                    Sentry.captureException(error);
                 }
 
             })
@@ -523,6 +528,7 @@ export async function getNftSalesForAddress(walletAddress) {
     } catch (error) {
         console.log('error fetching sales for: ' + walletAddress);
         console.log(error);
+        Sentry.captureException(error);
 
         return [];
     }
@@ -542,7 +548,8 @@ export async function getNftSalesHistory(collectionId, nftId) {
 
         return result.listings ?? [];
     }catch(error){
-        console.log(error)
+        console.log(error);
+        Sentry.captureException(error);
         return [];
     }
 }
@@ -566,6 +573,7 @@ export async function getNft(collectionId, nftId, useFallback = true) {
         return result;
     }catch(error){
         console.log(error)
+        Sentry.captureException(error);
         return await getNftFromFile(collectionId, nftId);
     }
 }
@@ -579,6 +587,7 @@ export async function getNftFromFile(collectionId, nftId) {
             return await (await fetch(internalUri)).json();
         }catch(error){
             console.log(error);
+            Sentry.captureException(error);
         }
 
         if (collectionId === config.cronie_contract) {
@@ -634,7 +643,7 @@ export async function getNftFromFile(collectionId, nftId) {
             } else {
                 image = json.image;
             }
-            const properties = (json.properties) ? json.properties : json.attributes;
+            const properties = (json.properties && Array.isArray(json.properties)) ? json.properties : json.attributes;
             nft = {
                 'name' : json.name,
                 'image' : image,
@@ -646,6 +655,7 @@ export async function getNftFromFile(collectionId, nftId) {
         return nft;
     } catch (error) {
         console.log(error);
+        Sentry.captureException(error);
     }
 }
 
@@ -662,6 +672,7 @@ export async function getAuction(auctionId) {
 
         return rawListing['auctions'][0];
     }catch(error){
-        console.log(error)
+        console.log(error);
+        Sentry.captureException(error);
     }
 }

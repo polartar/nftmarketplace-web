@@ -21,6 +21,7 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfilePreview from "../components/ProfilePreview";
 import {croSkullRedPotionImageHack} from "../../hacks";
+import * as Sentry from "@sentry/react";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -97,6 +98,7 @@ const Listing = () => {
                 }));
                 toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             }catch(error){
+                Sentry.captureException(error);
                 if(error.data){
                     toast.error(error.data.message);
                 } else if(error.message){
