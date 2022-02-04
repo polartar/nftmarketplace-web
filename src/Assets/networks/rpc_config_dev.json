@@ -1029,7 +1029,7 @@
             "multiToken" : false,
             "address" : "0x75233B3C8b60b7191704C0f6100850dc769bb857",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-fox-fraternity",
                 "description": "",
