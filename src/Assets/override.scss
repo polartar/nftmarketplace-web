@@ -479,3 +479,36 @@ canvas {
         margin-right: 5px;
     }
 }
+
+.mainside-warning{
+    width: max-content;
+    padding-left: 0;
+    padding-right: 0;
+    .de-menu-profile {
+        position: relative;
+        cursor: pointer;
+    }
+}
+
+.navbar {
+    @media only screen and (max-width: 1199px) {
+        &.navbar {
+            position: relative;
+            .mainside-warning{
+                position: absolute;
+                right: 90px;
+                top: 12px;
+            }
+        }
+    }
+    @media only screen and (max-width: 641px) {
+        &.navbar{
+            .mainside-warning {
+                a{
+                    font-size: 13px;
+                    padding: 4px 10px;
+                }
+            }
+        }
+    }
+}

@@ -52,7 +52,7 @@ const MyListingCard = ({
 
     return (
         <>
-            <Card style={nft.valid ? {} : {backgroundColor: "#ffadad"}} className="col-md-6">
+            <Card style={nft.valid ? {} : {backgroundColor: "#ffadad"}} className="col-sm-11 col-lg-5 col-6">
                 <div className="row">
                     <div className="col-md-4">
                         <img src={nft.image} className="img-fluid rounded-start" alt="" style={{height: '200px'}}/>

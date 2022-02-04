@@ -63,7 +63,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                     </div>
                 </div>
             </div>
-            <div className='row'>
+            <div className='row gap-3'>
 
                 { myListings && myListings.filter(x => x.listed).filter(x => myUnfilteredListingsInvalidOnly ? !x.valid : true).map((nft, index) => (
                     <MyListingCard

@@ -20,7 +20,7 @@ const InvalidListingWarning = function() {
     });
 
     return (
-        <div className='mainside'>
+        <div className='mainside-warning'>
             {walletAddress && correctChain && myUnfilteredListings.some(x => !x.valid && x.listed) && (
                 <div className="de-menu-profile p-3">
                     <span onClick={()=> history.push('/wallet/listings')}>
