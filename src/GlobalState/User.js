@@ -387,6 +387,8 @@ export const connectAccount = (firstRun=false) => async(dispatch) => {
             correctChain: correctChain
         }));
 
+        dispatch(fetchUnfilteredListings(address));
+
 
         web3provider.on('DeFiConnectorDeactivate', (error) => {
             dispatch(onLogout());
