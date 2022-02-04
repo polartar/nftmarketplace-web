@@ -38,7 +38,8 @@
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
                 "discord": "https://discord.gg/ynrBrSkAFG",
-                "medium": "https://blog.ebisusbay.com/"
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
             }
         },
         {
@@ -58,7 +59,8 @@
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
                 "discord": "https://discord.gg/ynrBrSkAFG",
-                "medium": "https://blog.ebisusbay.com/"
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
             }
         },
         {
@@ -1396,7 +1398,7 @@
         {
             "name" : "Trooprz",
             "multiToken" : false,
-            "address" : "0x8a58fd155D4eF175297180C0E466c0e1c6D3c308",
+            "address" : "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1493,13 +1495,13 @@
             }
         },
         {
-            "name" : "Project: Emergence",
+            "name" : "0xLuckless",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
             "listable" : true,
             "metadata": {
-                "slug": "em3rg3nce",
+                "slug": "0xluckless",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/emergence/avatar.png",
@@ -1812,7 +1814,7 @@
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
             "published": true,
             "featured": false,
-            "complete": false
+            "complete": true
         },
         {
             "id": 10,
@@ -2001,7 +2003,7 @@
             "is1155": false,
             "published": true,
             "featured": false,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
@@ -2106,15 +2108,15 @@
         },
         {
             "id": 18,
-            "slug": "em3rg3nce",
+            "slug": "0xluckless",
             "imgNft": "/img/drops/emergence/drop.png",
             "imgPreview": "/img/drops/emergence/drop.png",
             "imgAvatar" : "/img/collections/emergence/avatar.png",
             "imgBanner" : "/img/collections/emergence/banner.png",
-            "title": "Project: Emergence",
+            "title": "0xLuckless",
             "subtitle": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment.",
             "description": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment. This is the genesis project for 0xLuckless, a veteran artist who is somewhat new to the NFT space. Join us on this journey into the mind of man and machine artistry that seeks to breach the bounds of human comprehension and accelerate the evolution of generative art and artistic vision.",
-            "author": { "name": "Luckless", "link": ""},
+            "author": { "name": "0xLuckless", "link": "https://0xluckless.com"},
             "address": "",
             "maxMintPerTx": 1,
             "maxMintPerAddress": 50,
@@ -2149,7 +2151,6 @@
             "memberCost": "329",
             "whitelistCost": "329",
             "foundersOnly": false,
-            "abi": "",
             "start": 1644040800000,
             "end": null,
             "referral": false,

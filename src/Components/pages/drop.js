@@ -16,7 +16,7 @@ import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
-    isCroniesDrop,
+    isCroniesDrop, isDrop,
     isFounderDrop, isMagBrewVikingsDrop,
     newlineText
 } from "../../utils";
@@ -24,6 +24,8 @@ import MintButton from "../Drop/MintButton";
 import {dropState as statuses} from "../../core/api/enums";
 import ReactPlayer from 'react-player'
 import nft from "./nft";
+import {EbisuDropAbi} from "../../Contracts/Abis";
+import * as Sentry from "@sentry/react";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -116,7 +118,6 @@ const Drop = () => {
 
     const retrieveDropInfo = async () => {
         setDropObject(drop);
-        calculateStatus(drop);
         let currentDrop = drop;
 
         // Don't do any contract stuff if the drop does not have an address
@@ -127,9 +128,11 @@ const Drop = () => {
 
         // Use the new contract format if applicable
         let abi = currentDrop.abi;
-        if (isOnNewContract(abi)) {
+        if (isUsingAbiFile(abi)) {
             const abiJson = require(`../../Assets/abis/${currentDrop.abi}`);
             abi = abiJson.abi;
+        } else if (isUsingDefaultDropAbi(abi)) {
+            abi = EbisuDropAbi;
         }
         setAbi(abi);
 
@@ -149,11 +152,13 @@ const Drop = () => {
                 }
             } catch(error) {
                 console.log(error);
+                Sentry.captureException(error);
             }
         }
         try {
             if (isFounderDrop(currentDrop.address)) {
                 setDropInfo(currentDrop, membership.founders.count);
+                calculateStatus(currentDrop, membership.founders.count, currentDrop.totalSupply);
             }
             else if (isCroniesDrop(currentDrop.address)) {
                 setDropInfo(currentDrop, cronies.count);
@@ -163,6 +168,7 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 setDropInfo(currentDrop, offsetSupply.toString());
+                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
             }
             else if (isMagBrewVikingsDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -170,11 +176,26 @@ const Drop = () => {
                 setDropInfo(currentDrop, supply.toString());
                 const canMint = user.address ? await readContract.canMint(user.address) : 0;
                 setCanMintQuantity(canMint);
+                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
+            }
+            else if (isDrop(currentDrop.address, 'maries-cyborgs')) {
+                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+                const infos = await readContract.getInfos();
+                const canMint = user.address ? await readContract.canMint(user.address) : 0;
+                setMaxMintPerAddress(infos.maxMintPerAddress);
+                setMaxMintPerTx(infos.maxMintPerTx);
+                setMaxSupply(infos.maxSupply);
+                setMemberCost(ethers.utils.formatEther(infos.memberCost));
+                setRegularCost(ethers.utils.formatEther(infos.regularCost));
+                setTotalSupply(infos.totalSupply);
+                setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
+                setCanMintQuantity(canMint);
+                calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
             }
             else {
-                if (isOnNewContract(currentDrop.abi) && currentDrop.address) {
+                if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi)  || isUsingAbiFile(currentDrop.abi))) {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
-                    const infos = await readContract.getInfos();
+                    const infos = await readContract.getInfo();
                     const canMint = user.address ? await readContract.canMint(user.address) : 0;
                     setMaxMintPerAddress(infos.maxMintPerAddress);
                     setMaxMintPerTx(infos.maxMintPerTx);
@@ -184,17 +205,19 @@ const Drop = () => {
                     setTotalSupply(infos.totalSupply);
                     setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
                     setCanMintQuantity(canMint);
+                    calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
                 } else {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
                     const currentSupply = await readContract.totalSupply();
                     setDropInfo(currentDrop, currentSupply);
+                    calculateStatus(currentDrop, currentSupply, currentDrop.totalSupply);
                 }
             }
         } catch(error) {
             console.log(error);
+            Sentry.captureException(error);
         }
         setLoading(false);
-        calculateStatus(currentDrop);
         setDropObject(currentDrop);
     }
 
@@ -210,13 +233,13 @@ const Drop = () => {
         setCanMintQuantity(drop.maxMintPerTx);
     }
 
-    const calculateStatus = (drop) => {
+    const calculateStatus = (drop, totalSupply, maxSupply) => {
         const sTime = new Date(drop.start);
         const eTime = new Date(drop.end);
         const now = new Date();
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
-        else if (drop.currentSupply >= drop.totalSupply &&
+        else if (totalSupply >= maxSupply &&
             !isCroniesDrop(drop.address) &&
             !isFounderDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
@@ -231,7 +254,7 @@ const Drop = () => {
     }
 
     const calculateCost = async (user, isErc20) => {
-        if (isOnNewContract(dropObject.abi)) {
+        if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
             let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
             if (abi.find(m => m.name === 'cost')) {
                 return await readContract.cost(user.address);
@@ -254,8 +277,12 @@ const Drop = () => {
         return cost;
     }
 
-    const isOnNewContract = (dropAbi) => {
+    const isUsingAbiFile = (dropAbi) => {
         return typeof dropAbi === 'string';
+    }
+
+    const isUsingDefaultDropAbi = (dropAbi) => {
+        return typeof dropAbi === "undefined";
     }
 
     const mintNow = async(isErc20 = false) => {
@@ -294,7 +321,7 @@ const Drop = () => {
                         response = await contract.mint(numToMint, extra);
                     }
                 } else {
-                    if (isOnNewContract(dropObject.abi)) {
+                    if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
                         response = await contract.mint(numToMint, extra);
                     } else {
                         let method;
@@ -365,6 +392,7 @@ const Drop = () => {
                     await retrieveDropInfo();
                 }
             }catch(error){
+                Sentry.captureException(error);
                 if(error.data){
                     console.log(error);
                     toast.error(error.data.message);
