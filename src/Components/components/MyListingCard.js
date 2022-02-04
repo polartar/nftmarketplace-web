@@ -6,6 +6,7 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
 import { toast } from "react-toastify";
+import {ethers} from "ethers";
 
 
 const Outer = styled.div`
@@ -52,37 +53,39 @@ const MyListingCard = ({
 
     return (
         <>
-            <Card style={nft.valid ? {} : {backgroundColor: "#ffadad"}} className="col-sm-11 col-lg-5 col-6">
-                <div className="row">
-                    <div className="col-md-4">
-                        <img src={nft.image} className="img-fluid rounded-start" alt="" style={{height: '200px'}}/>
-                    </div>
-                    <Card.Body className="col-md-8">
-                        <h5 className="card-title">{nft.name}</h5>
-                        <p className="card-text">
-                            Listing ID: {nft.listingId}<br/>
-                            Price: {nft.price} CRO<br/>
-                            {nft.rank &&
+            <Card style={nft.valid ? {} : {backgroundColor: "#ffadad"}} className="h-100">
+                <Card.Body className="d-flex flex-column">
+                    <div className="row">
+                        <div className="col-md-4 my-auto text-center">
+                            <img src={nft.image} className="img-fluid rounded-start" alt="" />
+                        </div>
+                        <div className="col-md-8">
+                            <h5 className="card-title">{nft.name}</h5>
+                            <p className="card-text">
+                                Listing ID: {nft.listingId}<br/>
+                                Price: {ethers.utils.commify(nft.price)} CRO<br/>
+                                {nft.rank &&
                                 <>
                                     Rank: {nft.rank} <br/>
                                 </>
-                            }
-                            Listing Time: {nft.listingTime}<br/>
-                            Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br/>
-                        </p>
-                    </Card.Body>
-                    <Card.Footer className="d-flex justify-content-end">
-                        {canUpdate &&
-                            <button className="btn-main mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</button>
-                        }
-                        {canCancel &&
-                            <button className="btn-main mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</button>
-                        }
-                        <button className="btn-main mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
-                            <FontAwesomeIcon icon={faLink}/>
-                        </button>
-                    </Card.Footer>
-                </div>
+                                }
+                                Listing Time: {nft.listingTime}<br/>
+                                Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br/>
+                            </p>
+                        </div>
+                    </div>
+                </Card.Body>
+                <Card.Footer className="d-flex justify-content-end">
+                    {canUpdate &&
+                        <button className="btn-main mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</button>
+                    }
+                    {canCancel &&
+                        <button className="btn-main mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</button>
+                    }
+                    <button className="btn-main mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
+                        <FontAwesomeIcon icon={faLink}/>
+                    </button>
+                </Card.Footer>
             </Card>
         </>
     );

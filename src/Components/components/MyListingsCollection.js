@@ -64,20 +64,24 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                 </div>
             </div>
             <div className='row gap-3'>
+                <div className='card-group'>
 
                 { myListings && myListings.filter(x => x.listed).filter(x => myUnfilteredListingsInvalidOnly ? !x.valid : true).map((nft, index) => (
-                    <MyListingCard
-                        nft={ nft }
-                        key={ index }
-                        onImgLoad={ onImgLoad }
-                        width={ width }
-                        canCancel={ nft.state === 0 }
-                        canUpdate={ nft.state === 0 && nft.isInWallet }
-                        onUpdateButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageListDialog(nft)) }
-                        onCancelButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageCancelDialog(nft)) }
-                        newTab={ true }
-                    />
+                    <div key={index} className="d-item col-lg-6 col-md-12 mb-4 px-2">
+                        <MyListingCard
+                            nft={ nft }
+                            key={ index }
+                            onImgLoad={ onImgLoad }
+                            width={ width }
+                            canCancel={ nft.state === 0 }
+                            canUpdate={ nft.state === 0 && nft.isInWallet }
+                            onUpdateButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageListDialog(nft)) }
+                            onCancelButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageCancelDialog(nft)) }
+                            newTab={ true }
+                        />
+                    </div>
                 )) }
+                </div>
             </div>
             { isLoading &&
                 <div className='row mt-4'>
