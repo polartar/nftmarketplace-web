@@ -2185,6 +2185,33 @@
             "published": true,
             "complete": false,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
+        },
+        {
+            "id": 21,
+            "slug": "trooprz",
+            "imgNft": "/img/drops/trooprz/drop.gif",
+            "imgPreview": "/img/drops/trooprz/drop.gif",
+            "imgAvatar" : "/img/collections/trooprz/avatar.gif",
+            "title": "Trooprz",
+            "subtitle": "",
+            "description": "",
+            "author": { "name": "Trooprz", "link": "https://trooprz.army/"},
+            "address": "",
+            "maxMintPerTx": 0,
+            "maxMintPerAddress": 0,
+            "totalSupply": 0,
+            "cost": "450",
+            "memberCost": "450",
+            "whitelistCost": "400",
+            "foundersOnly": false,
+            "start": 1644015600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false,
+            "featured": true,
+            "redirect": "https://trooprz.army/"
         }
     ],
     "auctions": [
