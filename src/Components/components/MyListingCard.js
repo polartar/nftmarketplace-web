@@ -60,15 +60,15 @@ const MyListingCard = ({
                     <Card.Body className="col-md-8">
                         <h5 className="card-title">{nft.name}</h5>
                         <p className="card-text">
-                            Listing ID: {nft.listingId}<br></br>
-                            Price: {nft.price} CRO<br></br>
+                            Listing ID: {nft.listingId}<br/>
+                            Price: {nft.price} CRO<br/>
                             {nft.rank &&
                                 <>
-                                    Rank: {nft.rank} <br></br>
+                                    Rank: {nft.rank} <br/>
                                 </>
                             }
-                            Listing Time: {nft.listingTime}<br></br>
-                            Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br></br>
+                            Listing Time: {nft.listingTime}<br/>
+                            Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br/>
                         </p>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-end">

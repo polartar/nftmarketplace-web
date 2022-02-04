@@ -60,6 +60,7 @@ const userSlice = createSlice({
         // My Listings
         myUnfilteredListingsFetching: false,
         myUnfilteredListings: [],
+        myUnfilteredListingsInvalidOnly: false,
 
         // My Sales
         mySoldNftsFetching: false,
@@ -156,6 +157,9 @@ const userSlice = createSlice({
         myUnfilteredListingsFetched(state, action){
             state.myUnfilteredListingsFetching = false;
             state.myUnfilteredListings = action.payload;
+        },
+        myUnfilteredListingsInvalidOnly(state, action){
+            state.myUnfilteredListingsInvalidOnly = action.payload;
         },
         listingUpdate(state, action){
             const nftUpdate = (nft, index, key) => {
@@ -719,17 +723,13 @@ export class MyListingsCollectionPageActions {
         dispatch(userSlice.actions.setMyNftPageCancelDialog(nft));
     }
 
-    static hideNftPageCancelDialog = () => async(dispatch) => {
-        dispatch(userSlice.actions.setMyNftPageCancelDialog(null));
-    }
-
     static showMyNftPageListDialog = ({ contract, id, image, name, address }) => async (dispatch) => {
         dispatch(userSlice.actions.setMyNftPageListDialog({ contract, id, image, name, address }));
     };
 
-    static hideMyNftPageListDialog = () => async(dispatch) => {
-        dispatch(userSlice.actions.setMyNftPageListDialog(null));
-    }
+    static setInvalidOnly = (status = false) => async (dispatch) => {
+        dispatch(userSlice.actions.myUnfilteredListingsInvalidOnly(status));
+    };
 }
 
 export class MyNftCancelDialogActions {

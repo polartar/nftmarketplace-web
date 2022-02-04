@@ -1,12 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUnfilteredListings, MyListingsCollectionPageActions } from '../../GlobalState/User';
-import {Spinner} from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import MyListingCard from "./MyListingCard";
 import MyNftListDialog from "./MyNftListDialog";
 import MyNftCancelDialog from "./MyNftCancelDialog";
-
 
 const MyListingsCollection = ({ walletAddress = null}) => {
 
@@ -14,6 +13,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     const [width, setWidth] = useState(0);
     const isLoading = useSelector((state) => state.user.myUnfilteredListingsFetching);
     const myListings = useSelector((state) => state.user.myUnfilteredListings);
+    const myUnfilteredListingsInvalidOnly = useSelector((state) => state.user.myUnfilteredListingsInvalidOnly);
 
     const onImgLoad = ({target:img}) => {
         let currentWidth = width;
@@ -51,9 +51,21 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                 )
             }
 
+            <div className='row pt-3'>
+                <div className='col-12 col-sm-6 col-md-4 m-0 text-nowrap d-flex align-items-center'>
+                    <div className="items_filter">
+                        <Form.Switch
+                            className=""
+                            label={ 'Only invalid' }
+                            checked={ myUnfilteredListingsInvalidOnly }
+                            onChange={ () => dispatch(MyListingsCollectionPageActions.setInvalidOnly(!myUnfilteredListingsInvalidOnly)) }
+                        />
+                    </div>
+                </div>
+            </div>
             <div className='row'>
 
-                { myListings && myListings.filter(x => x.listed).map((nft, index) => (
+                { myListings && myListings.filter(x => x.listed).filter(x => myUnfilteredListingsInvalidOnly ? !x.valid : true).map((nft, index) => (
                     <MyListingCard
                         nft={ nft }
                         key={ index }

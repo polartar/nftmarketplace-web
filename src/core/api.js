@@ -416,6 +416,7 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
         const filteredListings = sortedListings.map((item) => {
             const { listingId, price, nft, purchaser, valid, state, is1155 } = item;
             const { name, image, rank } = nft || {};
+
             const listingTime = moment(new Date(item.listingTime * 1000)).format("DD/MM/YYYY, HH:mm");
             const id = item.nftId;
             const address = item.nftAddress;
