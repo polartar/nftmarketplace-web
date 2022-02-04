@@ -1814,7 +1814,7 @@
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
             "published": true,
             "featured": false,
-            "complete": false
+            "complete": true
         },
         {
             "id": 10,
@@ -2003,7 +2003,7 @@
             "is1155": false,
             "published": true,
             "featured": false,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
