@@ -123,6 +123,7 @@ const Drop = () => {
         // Don't do any contract stuff if the drop does not have an address
         if (!drop.address) {
             setDropInfo(currentDrop, 0);
+            calculateStatus(currentDrop, 0, currentDrop.totalSupply);
             return;
         }
 
