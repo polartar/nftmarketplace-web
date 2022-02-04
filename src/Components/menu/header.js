@@ -4,6 +4,7 @@ import { header } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import AccountMenu from "../components/AccountMenu";
 import {createGlobalStyle} from "styled-components";
+import InvalidListingWarning from "../components/InvalidListingWarning";
 
 setDefaultBreakpoints([
     { xs: 0 },
@@ -150,6 +151,7 @@ const Header = function() {
                     </BreakpointProvider>
 
                     <AccountMenu/>
+                    <InvalidListingWarning/>
                 </div>
 
                 <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>
