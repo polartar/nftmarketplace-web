@@ -38,7 +38,8 @@
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
                 "discord": "https://discord.gg/ynrBrSkAFG",
-                "medium": "https://blog.ebisusbay.com/"
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
             }
         },
         {
@@ -58,7 +59,8 @@
                 "website": "https://app.ebisusbay.com/",
                 "twitter": "https://twitter.com/EbisusBay",
                 "discord": "https://discord.gg/ynrBrSkAFG",
-                "medium": "https://blog.ebisusbay.com/"
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
             }
         },
         {
@@ -1396,7 +1398,7 @@
         {
             "name" : "Trooprz",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1493,13 +1495,13 @@
             }
         },
         {
-            "name" : "Project: Emergence",
+            "name" : "0xLuckless",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
             "listable" : true,
             "metadata": {
-                "slug": "em3rg3nce",
+                "slug": "0xluckless",
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/emergence/avatar.png",
@@ -1812,7 +1814,7 @@
             "disclaimer": "Smart contract for this project was developed by the Cronos Fox Fraternity team",
             "published": true,
             "featured": false,
-            "complete": false
+            "complete": true
         },
         {
             "id": 10,
@@ -1918,7 +1920,7 @@
             "imgBanner" : "/img/collections/crognomes/banner.png",
             "title": "Crognomes",
             "subtitle": "2000 secretive hard working Crognomes living on the cronos blockchain who might share the location of the secret mines if taken care of well enough.",
-            "description": "\"Have you ever wondered where all those shiny crypto cards actually come from?\n\nThose glistening ruby, shiny indigo & luminescent jade crystals that are needed for those ooooh so sweet cashbacks are harvested deep inside the hidden cryptomines. The location of these mines are a well-kept secret by the Crognomes... \n\nWhile they’re no tattletales, the Crognomes might share the secret location of these Cryptomines with you, if you provide them safe refuge in your cryptowallet. \n\nCrognomes have been known to sneak in their wives, the Crognomides, when they’re feeling lonely. So you can expect these Crognomides to show up in your wallet as well!* If you leave them alone for a long enough time, you will find your family of 2 has grown ever larger. \n\nStart your own Crognome-family and adopt your Crognome today!\n\n*In order to make sure that the Crognomides find their husband in your cryptowallet in time, you will need to have minted your Crognomes NFTs BEFORE 9PM UTC on the 26th of January! All Crognome NFTs minted after that will have the option to safely usher their Crognomides into their cryptowallet by minting a safe route. \nThis route can be minted for 50 CRO\"",
+            "description": "Have you ever wondered where all those shiny crypto cards actually come from?\n\nThose glistening ruby, shiny indigo & luminescent jade crystals that are needed for those ooooh so sweet cashbacks are harvested deep inside the hidden cryptomines. The location of these mines are a well-kept secret by the Crognomes...\n\nWhile they’re no tattletales, the Crognomes might share the secret location of these Cryptomines with you, if you provide them safe refuge in your cryptowallet.\n\nCrognomes have been known to sneak in their wives, the Crognomides, when they’re feeling lonely. If you mint a route to your wallet after the minting fase of the Crognomes, you can expect these Crognomides to show up in your wallet as well! When you leave them alone for a long enough time, you will find your family of 2 has grown ever larger.\n\nStart your own Crognome-family and adopt your Crognome today!",
             "author": { "name": "Crognomes", "link": "https://www.crognomes.com/"},
             "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
             "maxMintPerTx": 10,
@@ -1938,7 +1940,8 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/crognomes/trailer.m4v"
         },
         {
             "id": 13,
@@ -2000,7 +2003,7 @@
             "is1155": false,
             "published": true,
             "featured": false,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/aunah/trailer.mp4"
         },
         {
@@ -2105,15 +2108,15 @@
         },
         {
             "id": 18,
-            "slug": "em3rg3nce",
+            "slug": "0xluckless",
             "imgNft": "/img/drops/emergence/drop.png",
             "imgPreview": "/img/drops/emergence/drop.png",
             "imgAvatar" : "/img/collections/emergence/avatar.png",
             "imgBanner" : "/img/collections/emergence/banner.png",
-            "title": "Project: Emergence",
+            "title": "0xLuckless",
             "subtitle": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment.",
             "description": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment. This is the genesis project for 0xLuckless, a veteran artist who is somewhat new to the NFT space. Join us on this journey into the mind of man and machine artistry that seeks to breach the bounds of human comprehension and accelerate the evolution of generative art and artistic vision.",
-            "author": { "name": "Luckless", "link": ""},
+            "author": { "name": "0xLuckless", "link": "https://0xluckless.com"},
             "address": "",
             "maxMintPerTx": 1,
             "maxMintPerAddress": 50,
@@ -2148,7 +2151,6 @@
             "memberCost": "329",
             "whitelistCost": "329",
             "foundersOnly": false,
-            "abi": "",
             "start": 1644040800000,
             "end": null,
             "referral": false,
