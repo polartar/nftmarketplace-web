@@ -72,7 +72,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                         onImgLoad={ onImgLoad }
                         width={ width }
                         canCancel={ nft.state === 0 }
-                        canUpdate={ nft.state === 0 }
+                        canUpdate={ nft.state === 0 && nft.isInWallet }
                         onUpdateButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageListDialog(nft)) }
                         onCancelButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageCancelDialog(nft)) }
                         newTab={ true }

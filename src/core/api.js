@@ -404,12 +404,86 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
 export async function getUnfilteredListingsForAddress(walletAddress, walletProvider) {
     try {
         const signer = walletProvider.getSigner();
-
         const uri = `${ api.baseUrl }${ api.unfilteredListings }?seller=${ walletAddress }&state=0`;
 
         const response = await fetch(uri);
         const json = await response.json();
         const listings = json.listings || [];
+
+        // to get id and address of nft to check if it's inside user's wallet.
+        const walletNftsNotFlattened = await Promise.all(knownContracts.filter(x => !!x.address).map(async (knownContract) => {
+            try {
+                const contract = (() => {
+                    if (knownContract.multiToken) {
+                        return new Contract(knownContract.address, ERC1155, signer);
+                    }
+                    return new Contract(knownContract.address, ERC721, signer);
+                })();
+
+                const count = await (async () => {
+                    const bigNumber = knownContract.multiToken
+                        ? await contract.balanceOf(walletAddress, knownContract.id)
+                        : await contract.balanceOf(walletAddress);
+                    return bigNumber.toNumber();
+                })();
+
+                if (knownContract.multiToken && count !== 0) {
+                    return [ {
+                        id: knownContract.id,
+                        address: knownContract.address.toLowerCase()
+                    } ]
+                }
+
+                const readContract = (() => {
+                    return new Contract(knownContract.address, ERC721, readProvider);
+                })();
+
+                const ids = await (async () => {
+                    if (count > 0) {
+                        try {
+                            await readContract.tokenOfOwnerByIndex(walletAddress, 0);
+                        } catch (error) {
+                            return await readContract.walletOfOwner(walletAddress);
+                        }
+                    }
+                    return [];
+                })();
+
+                const nfts = [];
+
+                for (let i = 0; i < count; i++) {
+                    const id = await (async () => {
+                        if (ids.length === 0) {
+                            try {
+                                return await readContract.tokenOfOwnerByIndex(walletAddress, i);
+                            } catch (error) {
+                                return null;
+                            }
+                        } else {
+                            return ids[i];
+                        }
+                    })();
+
+                    if (id === null) {
+                        continue;
+                    }
+
+                    nfts.push({
+                        id: id.toNumber(),
+                        address: knownContract.address.toLowerCase()
+                    });
+                }
+
+                return nfts;
+            } catch (e) {
+                console.log('Failed to check user nfts for : ' + knownContract.address);
+                console.log(e);
+                return [];
+            }
+        }));
+        //  array of {id, address} wallet nfts
+        const walletNfts = walletNftsNotFlattened.flat();
+
 
         const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime)
 
@@ -419,7 +493,8 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
 
             const listingTime = moment(new Date(item.listingTime * 1000)).format("DD/MM/YYYY, HH:mm");
             const id = item.nftId;
-            const address = item.nftAddress;
+            const address = item.nftAddress.toLowerCase();
+            const isInWallet = !!walletNfts.find(walletNft => walletNft.address === address && walletNft.id === id );
             const listed = true;
 
             const contract = (() => {
@@ -440,6 +515,7 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 state,
                 listingTime,
                 listed,
+                isInWallet,
                 listingId,
                 price,
                 purchaser,
