@@ -157,7 +157,7 @@
         {
             "name" : "Crazy scientists",
             "multiToken" : false,
-            "address" : "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
+            "address" : "0x6F25b5cCf0Ab49A1906E36C9572CF202e62aE066",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -349,11 +349,11 @@
             "subtitle": "",
             "description":  "",
             "author": { "name": "Crazy scientists", "link": "https://www.crazyscientists.com/"},
-            "address": "0x459dC214f0D547B398f8a867599d77d2b8C6c64b",
+            "address": "0x6F25b5cCf0Ab49A1906E36C9572CF202e62aE066",
             "maxMintPerTx": 5,
             "totalSupply": 5555,
-            "cost": "429",
-            "memberCost": "379",
+            "cost": "10",
+            "memberCost": "5",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _amount) public payable",
