@@ -16,7 +16,6 @@ import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrazyScientistsDrop, isCrognomesDrop,
-    isCroniesDrop, isDrop,
     isFounderDrop, isMagBrewVikingsDrop,
     newlineText
 } from "../../utils";
@@ -161,9 +160,6 @@ const Drop = () => {
                 setDropInfo(currentDrop, membership.founders.count);
                 calculateStatus(currentDrop, membership.founders.count, currentDrop.totalSupply);
             }
-            else if (isCroniesDrop(currentDrop.address)) {
-                setDropInfo(currentDrop, cronies.count);
-            }
             else if (isCrognomesDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 const supply = await readContract.totalSupply();
@@ -178,20 +174,6 @@ const Drop = () => {
                 const canMint = user.address ? await readContract.canMint(user.address) : 0;
                 setCanMintQuantity(canMint);
                 calculateStatus(currentDrop, supply, currentDrop.totalSupply);
-            }
-            else if (isDrop(currentDrop.address, 'maries-cyborgs')) {
-                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
-                const infos = await readContract.getInfos();
-                const canMint = user.address ? await readContract.canMint(user.address) : 0;
-                setMaxMintPerAddress(infos.maxMintPerAddress);
-                setMaxMintPerTx(infos.maxMintPerTx);
-                setMaxSupply(infos.maxSupply);
-                setMemberCost(ethers.utils.formatEther(infos.memberCost));
-                setRegularCost(ethers.utils.formatEther(infos.regularCost));
-                setTotalSupply(infos.totalSupply);
-                setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
-                setCanMintQuantity(canMint);
-                calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
             }
             else {
                 if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi)  || isUsingAbiFile(currentDrop.abi))) {
@@ -241,7 +223,6 @@ const Drop = () => {
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
         else if (parseInt(totalSupply.toString()) >= parseInt(maxSupply.toString()) &&
-            !isCroniesDrop(drop.address) &&
             !isFounderDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
         else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
