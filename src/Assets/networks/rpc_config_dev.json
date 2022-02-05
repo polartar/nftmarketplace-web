@@ -1546,6 +1546,22 @@
                 "twitter": "https://twitter.com/thecrobots",
                 "discord": "https://discord.gg/crobots"
             }
+        },
+        {
+            "name" : "Special CMB",
+            "multiToken" : false,
+            "address" : "0x241a175BDE39D6a2C6fA7ba9ed8F9Ac2C7F2741D",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cmb-special",
+                "description": "",
+                "verified": true,
+                "maxSupply": 75,
+                "website": "https://cronosmb.com",
+                "twitter": "https://twitter.com/MonkeyCronos",
+                "discord": "https://discord.gg/qXxkanCKBB"
+            }
         }
     ],
     "drops": [
