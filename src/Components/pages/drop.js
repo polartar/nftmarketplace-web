@@ -121,7 +121,7 @@ const Drop = () => {
         let currentDrop = drop;
 
         // Don't do any contract stuff if the drop does not have an address
-        if (!drop.address) {
+        if (!drop.address || drop.complete) {
             setDropInfo(currentDrop, 0);
             calculateStatus(currentDrop, 0, currentDrop.totalSupply);
             return;
