@@ -9,7 +9,7 @@ import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
 import {useParams} from "react-router-dom";
-import {Form, Spinner} from "react-bootstrap";
+import {Form, ProgressBar, Spinner} from "react-bootstrap";
 import config from '../../Assets/networks/rpc_config.json'
 import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
@@ -17,7 +17,7 @@ import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrazyScientistsDrop, isCrognomesDrop,
     isFounderDrop, isMagBrewVikingsDrop,
-    newlineText
+    newlineText, percentage
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
 import {dropState as statuses} from "../../core/api/enums";
@@ -499,12 +499,18 @@ const Drop = () => {
                         <div className="col-md-6">
                             <div className="item_info">
                                 <h2>{drop.title}</h2>
-                                <div className="item_info_counts">
-                                    <div
-                                        className="item_info_type">{totalSupply.toString()}/{maxSupply.toString()} minted
+
+                                <div>
+                                    <div className="fs-6 fw-bold mb-1 text-end">
+                                        {percentage(totalSupply.toString(), maxSupply.toString())}% of {maxSupply.toString()} minted
                                     </div>
+                                    <ProgressBar
+                                        now={percentage(totalSupply.toString(), maxSupply.toString())}
+                                        style={{height: '4px'}}
+                                    />
                                 </div>
-                                <div>{newlineText(drop.description)}</div>
+
+                                <div className="mt-3">{newlineText(drop.description)}</div>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
@@ -546,21 +552,27 @@ const Drop = () => {
 
                                 <div className="spacer-40"></div>
 
-                                {drop.end &&
-                                <div className="me-4">
-                                    <h6 className="mb-1">
-                                        {status === statuses.EXPIRED ?
-                                            <>
-                                                Minting Ended
-                                            </>
-                                            :
-                                            <>
-                                                Minting Ends
-                                            </>
-                                        }
+                                {status === statuses.LIVE && drop.end &&
+                                    <div className="me-4">
+                                        <h6 className="mb-1">
+                                            {status === statuses.EXPIRED ?
+                                                <>
+                                                    Minting Ended
+                                                </>
+                                                :
+                                                <>
+                                                    Minting Ends
+                                                </>
+                                            }
 
-                                    </h6>
-                                    <h3>{convertTime(drop.end)}</h3>
+                                        </h6>
+                                        <h3>{convertTime(drop.end)}</h3>
+                                    </div>
+                                }
+                                {status === statuses.NOT_STARTED && drop.start &&
+                                <div className="me-4">
+                                    <h6 className="mb-1">Minting Starts</h6>
+                                    <h3>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h3>
                                 </div>
                                 }
                                 {status === statuses.LIVE && !drop.complete &&
