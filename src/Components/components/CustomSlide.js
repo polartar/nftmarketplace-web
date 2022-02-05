@@ -16,11 +16,11 @@ const VerifiedIcon = styled.span`
   right: 2px;
 `;
 
-const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url, verified }) => {
+const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url, verified, externalPage = false }) => {
 
     const navigateTo = (url) => {
         if (url) {
-            window.open(url, "_self")
+            window.open(url, externalPage ? "_blank" : "_self")
         }
     }
 

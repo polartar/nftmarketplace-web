@@ -2195,7 +2195,7 @@
             "title": "Trooprz",
             "subtitle": "",
             "description": "",
-            "author": { "name": "Trooprz", "link": "https://trooprz.army/"},
+            "author": { "name": "Trooprz", "link": "https://trooprz.army/mint"},
             "address": "",
             "maxMintPerTx": 0,
             "maxMintPerAddress": 0,
@@ -2211,7 +2211,7 @@
             "published": true,
             "complete": false,
             "featured": true,
-            "redirect": "https://trooprz.army/"
+            "redirect": "https://trooprz.army/mint"
         }
     ],
     "auctions": [
