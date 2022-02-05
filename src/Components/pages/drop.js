@@ -15,7 +15,7 @@ import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
-    createSuccessfulTransactionToastContent, isCrognomesDrop,
+    createSuccessfulTransactionToastContent, isCrazyScientistsDrop, isCrognomesDrop,
     isCroniesDrop, isDrop,
     isFounderDrop, isMagBrewVikingsDrop,
     newlineText
@@ -205,7 +205,7 @@ const Drop = () => {
                     setRegularCost(ethers.utils.formatEther(infos.regularCost));
                     setTotalSupply(infos.totalSupply);
                     setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
-                    setCanMintQuantity(canMint);
+                    setCanMintQuantity(isCrazyScientistsDrop(currentDrop.address) ? 5 : canMint);
                     calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
                 } else {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -239,10 +239,16 @@ const Drop = () => {
         const eTime = new Date(drop.end);
         const now = new Date();
 
+        if (isCrazyScientistsDrop(drop.address)) {
+            setStatus(statuses.LIVE);
+            return;
+        }
+
         if (sTime > now) setStatus(statuses.NOT_STARTED);
         else if (totalSupply >= maxSupply &&
             !isCroniesDrop(drop.address) &&
-            !isFounderDrop(drop.address)
+            !isFounderDrop(drop.address) &&
+            !isCrazyScientistsDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
         else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
         else if (drop.end && eTime < now) setStatus(statuses.EXPIRED);
