@@ -78,7 +78,8 @@ const CurrentDrops = () => {
                   title={item.drop.title}
                   subtitle={item.drop.author.name}
                   collectionId={item.drop.slug}
-                  url={`/drops/${item.drop.slug}`}
+                  url={item.drop.redirect ?? `/drops/${item.drop.slug}`}
+                  externalPage={!!item.drop.redirect}
                   verified={true}
               />
           ))}
