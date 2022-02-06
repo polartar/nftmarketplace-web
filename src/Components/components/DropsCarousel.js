@@ -10,6 +10,7 @@ import Blockies from "react-blockies";
 import LayeredIcon from "./LayeredIcon";
 import { faCheck, faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {ethers} from "ethers";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -241,25 +242,25 @@ export default class Responsive extends Component {
                                       <div className="d-attr">
                                           <div className='col'>
                                               <span className="d-title">Mint Price</span>
-                                              <h3>{humanize(drop.cost)} CRO</h3>
+                                              <h3>{ethers.utils.commify(drop.cost)} CRO</h3>
                                               {
                                                 drop.erc20Cost && drop.erc20Unit && 
-                                                  <h3>{humanize(drop.erc20Cost)} {drop.erc20Unit}</h3>
+                                                  <h3>{ethers.utils.commify(drop.erc20Cost)} {drop.erc20Unit}</h3>
                                               }
-                                              <h5>Members: {humanize(drop.memberCost)} CRO</h5>
+                                              <h5>Members: {ethers.utils.commify(drop.memberCost)} CRO</h5>
                                               {
                                                 drop.erc20MemberCost && drop.erc20Unit && 
-                                                  <h5>Members: {humanize(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
+                                                  <h5>Members: {ethers.utils.commify(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
                                               }
                                               {drop.whitelistCost &&
-                                                <h5>Whitelist: {humanize(drop.whitelistCost)} CRO</h5>
+                                                <h5>Whitelist: {ethers.utils.commify(drop.whitelistCost)} CRO</h5>
                                               }
                                               {drop.specialWhitelistCost &&
-                                                <h5>Special Whitelist: {humanize(drop.specialWhitelistCost)} CRO</h5>
+                                                <h5>Special Whitelist: {ethers.utils.commify(drop.specialWhitelistCost)} CRO</h5>
                                               }
                                           </div>
-                                          <div className="line"></div>
-                                          <div className='col'>
+                                          <div className="line my-auto"></div>
+                                          <div className="col my-auto">
                                             {this.calculateStatus(drop) === statuses.NOT_STARTED &&
                                               <>
                                                 <span className="d-title">Drop starts in</span>

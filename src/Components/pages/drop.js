@@ -502,7 +502,7 @@ const Drop = () => {
 
                                 <div>
                                     <div className="fs-6 fw-bold mb-1 text-end">
-                                        {percentage(totalSupply.toString(), maxSupply.toString())}% of {maxSupply.toString()} minted
+                                        {percentage(totalSupply.toString(), maxSupply.toString())}% of {ethers.utils.commify(maxSupply.toString())} minted
                                     </div>
                                     <ProgressBar
                                         now={percentage(totalSupply.toString(), maxSupply.toString())}
