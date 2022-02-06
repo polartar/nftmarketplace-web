@@ -418,10 +418,19 @@ const Drop = () => {
                             <div className={`col-lg-6 ${drop.mediaPosition === 'left' ? 'order-1' : 'order-2'}`}>
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <ReactPlayer
+                                        controls
                                         url={drop.video}
-                                        controls={true}
-                                        width='100%'
-                                        height='100%'
+                                            config={{ file: {
+                                                attributes:{
+                                                    onContextMenu: e => e.preventDefault(),
+                                                    controlsList: 'nodownload',
+                                                }
+                                            }}}
+                                        muted = {true}
+                                        playing = {true}
+                                        loop = {true}
+                                        width = '75%'
+                                        height = '75%'
                                     />
                                 </Reveal>
                             </div>
