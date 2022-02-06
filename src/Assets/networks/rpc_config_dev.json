@@ -1497,7 +1497,7 @@
         {
             "name" : "0xLuckless",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -2136,7 +2136,7 @@
             "subtitle": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment.",
             "description": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment. This is the genesis project for 0xLuckless, a veteran artist who is somewhat new to the NFT space. Join us on this journey into the mind of man and machine artistry that seeks to breach the bounds of human comprehension and accelerate the evolution of generative art and artistic vision.",
             "author": { "name": "0xLuckless", "link": "https://0xluckless.com"},
-            "address": "",
+            "address": "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
             "maxMintPerTx": 1,
             "maxMintPerAddress": 50,
             "totalSupply": 31,

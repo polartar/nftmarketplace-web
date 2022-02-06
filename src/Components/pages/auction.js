@@ -100,7 +100,7 @@ const Auction = () => {
                                 <div className="col-md-6 text-center">
                                     {listing &&
                                     <>
-                                        <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                                        <img src={listing.nft.image} className="img-fluid img-rounded mb-sm-30" alt={listing.nft.name} />
                                         {listing.nft.original_image &&
                                         <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
                                             <span onClick={() => window.open(fullImage(), "_blank")}>

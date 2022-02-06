@@ -90,7 +90,7 @@ const ManageAuctionList = () => {
                 {auctions && auctions.map( (auction, index) => (
                     <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
                         <div className="card eb-nft__card h-100 shadow">
-                            <img src={auction.nft.image} className={`card-img-top marketplace`} />
+                            <img src={auction.nft.image} className={`card-img-top marketplace`} alt={auction.nft.name} />
                             <div className="eb-de_countdown text-center">
                                 Ends In:
                                 {auction.state !== auctionState.NOT_STARTED ?
