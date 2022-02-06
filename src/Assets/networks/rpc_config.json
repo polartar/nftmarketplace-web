@@ -1565,6 +1565,27 @@
                 "twitter": "https://twitter.com/MonkeyCronos",
                 "discord": "https://discord.gg/qXxkanCKBB"
             }
+        },
+        {
+            "name" : "Moon Landing",
+            "multiToken" : false,
+            "address" : "0xc09a4eECA57C122BCdFab3A4DBF5C59B43E3f44e",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cro-moon-landing",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/moonlanding/avatar.png",
+                "card": "/img/collections/moonlanding/card.png",
+                "banner": "/img/collections/moonlanding/banner.png",
+                "maxSupply": 3000,
+                "website": "https://cromoon.net",
+                "twitter": "https://twitter.com/CroMoonOfficial",
+                "discord": "https://discord.gg/KqtDGjwWh3",
+                "medium" : "https://medium.com/@cromoon",
+                "telegram" : "https://t.me/OfficialCroMoon"
+            }
         }
     ],
     "drops": [
