@@ -266,11 +266,6 @@ export const isCroniesDrop = (address) => {
   return drop?.address === address;
 }
 
-export const isCrazyScientistsDrop = (address) => {
-  const drop = drops.find(d => d.slug === 'crazy-scientists');
-  return drop?.address.toLowerCase() === address.toLowerCase();
-}
-
 export const isFounderDrop = (address) => {
   const drop = drops.find(d => d.slug === 'founding-member');
   return drop?.address === address;

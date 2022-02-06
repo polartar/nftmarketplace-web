@@ -15,7 +15,7 @@ import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
-    createSuccessfulTransactionToastContent, isCrazyScientistsDrop, isCrognomesDrop,
+    createSuccessfulTransactionToastContent, isCrognomesDrop,
     isFounderDrop, isMagBrewVikingsDrop,
     newlineText, percentage
 } from "../../utils";
@@ -187,7 +187,7 @@ const Drop = () => {
                     setRegularCost(ethers.utils.formatEther(infos.regularCost));
                     setTotalSupply(infos.totalSupply);
                     setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
-                    setCanMintQuantity(isCrazyScientistsDrop(currentDrop.address) ? currentDrop.maxMintPerTx : canMint);
+                    setCanMintQuantity(canMint);
                     calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
                 } else {
                     let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -636,6 +636,9 @@ const Drop = () => {
                                                     </button>
                                             }
                                         </div>
+                                        }
+                                        {canMintQuantity === 0 && !user.address && !drop.complete &&
+                                            <p className="mt-5">CONNECT WALLET TO MINT</p>
                                         }
                                     </>
                                 }
