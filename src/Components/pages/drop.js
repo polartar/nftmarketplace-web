@@ -260,11 +260,11 @@ const Drop = () => {
     }
 
     const isUsingAbiFile = (dropAbi) => {
-        return typeof dropAbi === 'string';
+        return typeof dropAbi === 'string' && dropAbi.length > 0;
     }
 
     const isUsingDefaultDropAbi = (dropAbi) => {
-        return typeof dropAbi === "undefined";
+        return typeof dropAbi === "undefined" || dropAbi.length === 0;
     }
 
     const mintNow = async(isErc20 = false) => {
@@ -536,7 +536,7 @@ const Drop = () => {
                                                 }
                                             </div>
                                     }
-                                    {whitelistCost &&
+                                    {whitelistCost > 0 &&
                                         <div className="me-4">
                                             <h6 className="mb-1">Whitelist Price</h6>
                                             <h5>{whitelistCost} CRO</h5>
