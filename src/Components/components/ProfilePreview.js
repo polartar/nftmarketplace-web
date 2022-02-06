@@ -45,7 +45,7 @@ const ProfilePreview = (
                         <span>
                             {
                                 (avatar !== '')
-                                    ? <img className="lazy" src={ avatar } alt=""/>
+                                    ? <img className="lazy" src={ avatar } alt={title}/>
                                     : (address !== '')
                                         ?  <Blockies seed={ address.toLowerCase() } size={ 10 } scale={ 5 }/>
                                         : (<></>)

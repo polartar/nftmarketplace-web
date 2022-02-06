@@ -162,7 +162,7 @@ const Collections = () => {
                                             <div className="coll_list_pp" style={{cursor: 'pointer'}}>
                                                 <Link to={`/collection/${collection.collection}`}>
                                                     {collection.metadata?.avatar ?
-                                                        <img className="lazy" src={collection.metadata.avatar} alt="" />
+                                                        <img className="lazy" src={collection.metadata.avatar} alt={collection?.name} />
                                                         :
                                                         <Blockies seed={collection.collection.toLowerCase()} size={10} scale={5} />
                                                     }

@@ -471,7 +471,7 @@ const Drop = () => {
                                 <div className="de-flex-col">
                                     <div className="profile_avatar">
                                         {drop.imgAvatar &&
-                                            <img src={drop.imgAvatar} alt=""/>
+                                            <img src={drop.imgAvatar} alt={drop.author.name} />
                                         }
                                         <div className="profile_name">
                                             <h4>
@@ -494,7 +494,7 @@ const Drop = () => {
                 <section className='container no-top'>
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
-                            <img src={drop.imgNft} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            <img src={drop.imgNft} className="img-fluid img-rounded mb-sm-30" alt={drop.title} />
                         </div>
                         <div className="col-md-6">
                             <div className="item_info">
