@@ -6,6 +6,8 @@ import DropsCarousel from '../components/DropsCarousel';
 import HotCollections from "../components/HotCollections";
 import UpcomingDrops from "../Drops/UpcomingDrops";
 import PastDrops from "../Drops/PastDrops";
+import foundingMember  from "../../Assets/founding_member.png";
+import {Link} from "react-router-dom";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -13,15 +15,25 @@ const GlobalStyles = createGlobalStyle`
 const Drops = () => (
     <div>
         <GlobalStyles/>
-        <section className="jumbotron breadcumb no-bg h-vh h-min-100-vh" style={{backgroundImage: `url(${'./img/background/12.jpg'})`}}>
-            <div className='container pt0 pt-3'>
-                <div className='row'>
+        <section style={{paddingTop:'90px', paddingBottom:'8px', background:'transparent'}}>
+            <div className="d-flex justify-content-center px-5">
+                <p className="my-auto me-5">
+                    Enjoy amazing discounts on drops and 50% off service fees while holding an Ebisu's Bay Founding Member NFT. <span className="fw-bold"><Link to="/drops/founding-member">Learn More ></Link></span>
+                </p>
+                <div style={{width: '70px'}} className="my-auto">
+                    <img src={foundingMember} className="img-responsive" alt="Founding Member Membership"/>
+                </div>
+            </div>
+        </section>
+        <section className="jumbotron breadcumb no-bg h-vh" style={{backgroundImage: `url(${'./img/background/12.jpg'})`}}>
+            <div className='container'>
+                <div className='row py-4'>
                     <DropsCarousel/>
                 </div>
             </div>
         </section>
 
-        <section className='container no-top'>
+        <section className='container'>
             <div className='row'>
                 <div className='col-lg-12'>
                     <div className='text-center'>
