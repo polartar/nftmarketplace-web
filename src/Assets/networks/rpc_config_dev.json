@@ -298,13 +298,13 @@
             }
         },
         {
-            "name" : "Cronos Punk",
+            "name" : "Wrapped Cronos Punk",
             "multiToken": false,
-            "address" : "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
+            "address" : "0x13d13e2410A34Bfe5502D50ea4FCFBd591D7589E",
             "onChain" : false,
             "listable" : true,
             "metadata": {
-                "slug": "cronos-punk",
+                "slug": "wrapped-cronos-punk",
                 "description": "",
                 "verified": false,
                 "maxSupply": 2720,
@@ -466,23 +466,6 @@
                 "website": "https://cronostars.art/",
                 "twitter": "https://twitter.com/CronoStars",
                 "telegram": "https://t.me/cronostars"
-            }
-        },
-        {
-            "name" : "CROPhones",
-            "multiToken" : false,
-            "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "cro-phones",
-                "description": "",
-                "verified": true,
-                "maxSupply": 1000,
-                "website": "https://www.crophones.com/",
-                "twitter": "https://twitter.com/CROPhonesNFT",
-                "discord": "https://discord.gg/3D4ESVqXWM",
-                "telegram": "https://t.me/crophonesnft"
             }
         },
         {
@@ -1507,7 +1490,7 @@
                 "avatar": "/img/collections/emergence/avatar.png",
                 "card": "/img/collections/emergence/card.png",
                 "banner": "/img/collections/emergence/banner.png",
-                "website": ""
+                "website": "https://0xluckless.com"
             }
         },
         {
@@ -2106,7 +2089,7 @@
             "imgBanner" : "/img/collections/magbrew/banner.jpg",
             "title": "MAG Brew Vikings",
             "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
-            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "description": "Each of the 8000 unique MAG Brew Vikings NFTs is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator.\nAmong the collection, you could find the six Magverse gods, legendary characters with custom features related to the lore conceived by our MAG writers. \n\nThe team strongly believes in the unique chance to reduce inequalities and empower people through NFT. \n\nCharity\nWe detected a list of charity associations that provides work to the homeless and immigrants. \nAfter a survey between our community, MAG Brew Vikings will donate 50.000 $ to a chosen no-profit brewery organization. \n\nAirdrops\nHolding NFTs with certain features (i.e., same mirrored backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces. After the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever in the Cronos blockchain! \n\nAn NFT-funding brewery\nThe completion of our roadmap won't represent a final step but the beginning of a never-seen entity: the first beer firm born and raised from an NFT collection and based on a beer eCommerce that also accepts crypto payments.\nNFT holders will have exclusive benefits and economic advantages: profit-sharing (through a staking mechanism), discounts, beer giveaways are only some of the suggestions for attaching a digital asset to real and shared happiness.\n",
             "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
             "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
             "maxMintPerTx": 10,
@@ -2123,7 +2106,9 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/magbrewvikings/trailer.mp4",
+            "mediaPosition": "left"
         },
         {
             "id": 18,
@@ -2149,7 +2134,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 19,
