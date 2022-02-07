@@ -4,6 +4,7 @@ import { fetchSales } from '../../GlobalState/User';
 import {Spinner} from "react-bootstrap";
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import SoldNftCard from "./SoldNftCard";
+import InvalidListingsPopup from './InvalidListingsPopup';
 
 const MySoldNftCollection = ({ walletAddress = null}) => {
 
@@ -31,6 +32,7 @@ const MySoldNftCollection = ({ walletAddress = null}) => {
 
     return (
         <>
+            <InvalidListingsPopup navigateTo={true}/>
             <div className='row'>
                 {mySoldNfts && mySoldNfts.map( (nft, index) => (
                     <SoldNftCard

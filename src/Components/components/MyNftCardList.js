@@ -6,6 +6,7 @@ import { FilterOption } from "../Models/filter-option.model";
 import { Form, Spinner } from "react-bootstrap";
 import { collectionFilterOptions } from "./constants/filter-options";
 import { MyNftPageActions } from "../../GlobalState/User";
+import InvalidListingsPopup from "./InvalidListingsPopup";
 
 const mapStateToProps = (state) => ({
     nfts: state.user.nfts,
@@ -23,7 +24,7 @@ const MyNftCardList = ({ nfts = [], isLoading, listedOnly, activeFilterOption })
     }, [ dispatch ]);
 
     const possibleCollections = collectionFilterOptions
-        .filter(collection => !!nfts.find(x => x.address === collection.address));
+        .filter(collection => isLoading ? true : !!nfts.find(x => x.address === collection.address));
 
 
     const filteredNFTs = nfts
@@ -52,6 +53,7 @@ const MyNftCardList = ({ nfts = [], isLoading, listedOnly, activeFilterOption })
 
     return (
         <>
+            <InvalidListingsPopup navigateTo={true}/>
             <div className='row'>
                 <div className='col-12 col-sm-6 col-lg-3'>
                     <TopFilterBar className='col-6'

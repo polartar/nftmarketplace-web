@@ -1,17 +1,15 @@
 import React, { memo, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { MyNftPageActions } from '../../GlobalState/User';
+import { MyNftCancelDialogActions } from '../../GlobalState/User';
 
 const mapStateToProps = (state) => ({
     walletAddress: state.user.address,
-    marketContract: state.user.marketContract,
     myNftPageListDialog: state.user.myNftPageListDialog,
     myNftPageCancelDialog: state.user.myNftPageCancelDialog,
 });
 
 const MyNftCancelDialog = (
     {
-        marketContract,
         myNftPageCancelDialog,
     }) => {
 
@@ -19,7 +17,13 @@ const MyNftCancelDialog = (
 
     useEffect(async () => {
         if (myNftPageCancelDialog) {
-            dispatch(MyNftPageActions.cancelListing(myNftPageCancelDialog, marketContract));
+            const {} = myNftPageCancelDialog;
+            dispatch(MyNftCancelDialogActions.cancelListing(
+                {
+                    address: myNftPageCancelDialog.contract.address,
+                    id: myNftPageCancelDialog.id,
+                    listingId: myNftPageCancelDialog.listingId
+                }));
         }
     }, [ myNftPageCancelDialog ]);
 
