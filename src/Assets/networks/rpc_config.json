@@ -298,6 +298,23 @@
             }
         },
         {
+            "name" : "Wrapped Cronos Punk",
+            "multiToken": false,
+            "address" : "0x13d13e2410A34Bfe5502D50ea4FCFBd591D7589E",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "wrapped-cronos-punk",
+                "description": "",
+                "verified": false,
+                "maxSupply": 2720,
+                "website": "https://www.cronospunk.net/",
+                "twitter": "https://twitter.com/PunkCronos",
+                "discord": "https://discord.gg/DGZBBkqdms",
+                "telegram": "https://t.me/cronospunk"
+            }
+        },
+        {
             "name" : "Cronos Punk",
             "multiToken": false,
             "address" : "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
@@ -469,23 +486,6 @@
             }
         },
         {
-            "name" : "CROPhones",
-            "multiToken" : false,
-            "address" : "0x8D075e99EAE789B41b6ac8003c9bfacFb42dFf72",
-            "onChain" : false,
-            "listable" : true,
-            "metadata": {
-                "slug": "cro-phones",
-                "description": "",
-                "verified": true,
-                "maxSupply": 1000,
-                "website": "https://www.crophones.com/",
-                "twitter": "https://twitter.com/CROPhonesNFT",
-                "discord": "https://discord.gg/3D4ESVqXWM",
-                "telegram": "https://t.me/crophonesnft"
-            }
-        },
-        {
             "name" : "CronosEyezNFT",
             "multiToken" : false,
             "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
@@ -568,6 +568,24 @@
                 "avatar": "/img/collections/barbara/elon/avatar.jpg",
                 "banner": "/img/collections/barbara/elon/banner.jpg",
                 "card": "/img/collections/barbara/elon/card.jpg",
+                "maxSupply": 20,
+                "website": "https://crypto.com/nft/profile/vredekop?tab=created",
+                "twitter": "https://twitter.com/BarbaraRedekop"
+            }
+        },
+        {
+            "name" : "Dodger Dogs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "dodger-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
+                "banner": "/img/collections/barbara/dodgerdogs/banner.png",
+                "card": "/img/collections/barbara/dodgerdogs/card.png",
                 "maxSupply": 20,
                 "website": "https://crypto.com/nft/profile/vredekop?tab=created",
                 "twitter": "https://twitter.com/BarbaraRedekop"
@@ -1029,7 +1047,7 @@
             "multiToken" : false,
             "address" : "0x75233B3C8b60b7191704C0f6100850dc769bb857",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-fox-fraternity",
                 "description": "",
@@ -1497,7 +1515,7 @@
         {
             "name" : "0xLuckless",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -1507,13 +1525,13 @@
                 "avatar": "/img/collections/emergence/avatar.png",
                 "card": "/img/collections/emergence/card.png",
                 "banner": "/img/collections/emergence/banner.png",
-                "website": ""
+                "website": "https://0xluckless.com"
             }
         },
         {
             "name" : "The LAB: Crazy Scientists",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
             "onChain" : false,
             "listable" : false,
             "metadata": {
@@ -1530,11 +1548,11 @@
             }
         },
         {
-            "name" : "CroBots",
+            "name" : "Crobots",
             "multiToken" : false,
             "address" : "",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "crobots",
                 "description": "",
@@ -1545,6 +1563,46 @@
                 "website": "https://TheCrobots.com",
                 "twitter": "https://twitter.com/thecrobots",
                 "discord": "https://discord.gg/crobots"
+            }
+        },
+        {
+            "name" : "Special CMB",
+            "multiToken" : false,
+            "address" : "0x241a175BDE39D6a2C6fA7ba9ed8F9Ac2C7F2741D",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cmb-special",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronosmb/special/avatar.png",
+                "card": "/img/collections/cronosmb/special/card.png",
+                "banner": "/img/collections/cronosmb/banner.png",
+                "maxSupply": 75,
+                "website": "https://cronosmb.com",
+                "twitter": "https://twitter.com/MonkeyCronos",
+                "discord": "https://discord.gg/qXxkanCKBB"
+            }
+        },
+        {
+            "name" : "Moon Landing",
+            "multiToken" : false,
+            "address" : "0xc09a4eECA57C122BCdFab3A4DBF5C59B43E3f44e",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cro-moon-landing",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/moonlanding/avatar.png",
+                "card": "/img/collections/moonlanding/card.png",
+                "banner": "/img/collections/moonlanding/banner.png",
+                "maxSupply": 3000,
+                "website": "https://cromoon.net",
+                "twitter": "https://twitter.com/CroMoonOfficial",
+                "discord": "https://discord.gg/KqtDGjwWh3",
+                "medium" : "https://medium.com/@cromoon",
+                "telegram" : "https://t.me/OfficialCroMoon"
             }
         },
         {
@@ -2095,7 +2153,7 @@
             "imgBanner" : "/img/collections/magbrew/banner.jpg",
             "title": "MAG Brew Vikings",
             "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
-            "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
+            "description": "Each of the 8000 unique MAG Brew Vikings NFTs is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator.\nAmong the collection, you could find the six Magverse gods, legendary characters with custom features related to the lore conceived by our MAG writers. \n\nThe team strongly believes in the unique chance to reduce inequalities and empower people through NFT. \n\nCharity\nWe detected a list of charity associations that provides work to the homeless and immigrants. \nAfter a survey between our community, MAG Brew Vikings will donate 50.000 $ to a chosen no-profit brewery organization. \n\nAirdrops\nHolding NFTs with certain features (i.e., same mirrored backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces. After the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever in the Cronos blockchain! \n\nAn NFT-funding brewery\nThe completion of our roadmap won't represent a final step but the beginning of a never-seen entity: the first beer firm born and raised from an NFT collection and based on a beer eCommerce that also accepts crypto payments.\nNFT holders will have exclusive benefits and economic advantages: profit-sharing (through a staking mechanism), discounts, beer giveaways are only some of the suggestions for attaching a digital asset to real and shared happiness.\n",
             "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
             "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
             "maxMintPerTx": 10,
@@ -2112,7 +2170,9 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": false,
+            "video": "https://app.ebisusbay.com/files/magbrewvikings/trailer.mp4",
+            "mediaPosition": "left"
         },
         {
             "id": 18,
@@ -2125,7 +2185,7 @@
             "subtitle": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment.",
             "description": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment. This is the genesis project for 0xLuckless, a veteran artist who is somewhat new to the NFT space. Join us on this journey into the mind of man and machine artistry that seeks to breach the bounds of human comprehension and accelerate the evolution of generative art and artistic vision.",
             "author": { "name": "0xLuckless", "link": "https://0xluckless.com"},
-            "address": "",
+            "address": "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
             "maxMintPerTx": 1,
             "maxMintPerAddress": 50,
             "totalSupply": 31,
@@ -2138,7 +2198,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false
+            "complete": true
         },
         {
             "id": 19,
@@ -2151,7 +2211,7 @@
             "subtitle": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
             "description": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
             "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
-            "address": "",
+            "address": "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
             "maxMintPerTx": 5,
             "maxMintPerAddress": 50,
             "totalSupply": 5555,
@@ -2173,26 +2233,78 @@
             "imgPreview": "/img/drops/crobots/drop.gif",
             "imgAvatar" : "/img/collections/crobots/avatar.gif",
             "imgBanner" : "/img/collections/crobots/banner.jpg",
-            "title": "CroBots",
-            "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the ten thousand Crobots explore, create and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
-            "description": "\"The Crobots is a generative project, created by a team of five creative individuals with a background in the Entertainment and Tech Industries looking to bring interactive multimedia projects to the Cronos Blockchain. Each trait within The Crobots collection was designed with passion and very close attention to detail by the project’s artist, Pyrilis. \n\nHolders of a Crobots NFT will be granted access to all multimedia projects under The Crobots umbrella, beginning with The Crobots comic book. Development begins at the end of February 2022! \n\nHolder’s of a Crobots NFT will also receive the full commercial rights to their character, and have the ability to “cast” their character in the various multimedia projects to come from The Crobots team.\n\nPost mint, The Crobots, along with our partners EbisusBay will be auctioning off special 1 of 1 Crobots NFTs for different charities, in which holders of The Crobots NFT will have voting rights in deciding which charities The Crobots will be donating the proceeds of said auctions to.\n\nRoadmap 1.5 & 2.0 will further explore the world of The Crobots and bring additional utility to holders of The Crobots NFT.\"",
-            "author": { "name": "CroBots", "link": "https://TheCrobots.com"},
+            "title": "Crobots",
+            "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the Crobots explore, create, and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
+            "description": "Meet the Crobots! – A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will we be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
+            "author": { "name": "Crobots", "link": "https://TheCrobots.com"},
             "address": "",
-            "maxMintPerTx": 5,
-            "maxMintPerAddress": 50,
-            "totalSupply": "010101000100001001000100",
-            "cost": "-",
-            "memberCost": "-",
-            "whitelistCost": "-",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 2500,
+            "totalSupply": 2500,
+            "cost": "250",
+            "memberCost": "200",
+            "whitelistCost": "225",
             "foundersOnly": false,
             "abi": "",
-            "start": 1644364800000,
+            "start": 1644451200000,
             "end": null,
             "referral": false,
             "is1155": false,
             "published": true,
             "complete": false,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
+        },
+        {
+            "id": 21,
+            "slug": "trooprz",
+            "imgNft": "/img/drops/trooprz/drop.gif",
+            "imgPreview": "/img/drops/trooprz/drop.gif",
+            "imgAvatar" : "/img/collections/trooprz/avatar.gif",
+            "title": "Trooprz",
+            "subtitle": "",
+            "description": "",
+            "author": { "name": "Trooprz", "link": "https://trooprz.army/mint"},
+            "address": "",
+            "maxMintPerTx": 0,
+            "maxMintPerAddress": 0,
+            "totalSupply": 0,
+            "cost": "450",
+            "memberCost": "450",
+            "whitelistCost": "400",
+            "foundersOnly": false,
+            "start": 1644015600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false,
+            "featured": true,
+            "redirect": "https://trooprz.army/mint"
+        },
+        {
+            "id": 21,
+            "slug": "dodger-dogs",
+            "imgNft": "/img/drops/barbara/dodgerdogs/drop.gif",
+            "imgPreview": "/img/drops/barbara/dodgerdogs/drop.gif",
+            "imgAvatar" : "/img/collections/barbara/dodgerdogs/avatar.gif",
+            "imgBanner": "/img/collections/barbara/dodgerdogs/banner.png",
+            "title": "Dodger Dogs",
+            "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
+            "description" : "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
+            "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/"},
+            "address": "",
+            "maxMintPerTx": 5,
+            "maxMintPerAddress": 200,
+            "totalSupply": 1111,
+            "cost": "300",
+            "memberCost": "200",
+            "foundersOnly": false,
+            "start": 1644606000000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
         }
     ],
     "auctions": [

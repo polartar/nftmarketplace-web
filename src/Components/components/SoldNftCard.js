@@ -37,7 +37,7 @@ const SoldNftCard = ({
                         <Outer>
                             <img onLoad={ onImgLoad }
                                  className="h-100"
-                                 src={ nft.image } alt=""/>
+                                 src={ nft.image } alt={nft.name} />
                         </Outer>
                     </div>
                 </div>

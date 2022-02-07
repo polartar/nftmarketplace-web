@@ -9,16 +9,15 @@ import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
 import {useParams} from "react-router-dom";
-import {Form, Spinner} from "react-bootstrap";
+import {Form, ProgressBar, Spinner} from "react-bootstrap";
 import config from '../../Assets/networks/rpc_config.json'
 import { connectAccount } from '../../GlobalState/User'
 import { fetchMemberInfo } from '../../GlobalState/Memberships'
 import { fetchCronieInfo } from '../../GlobalState/Cronies'
 import {
     createSuccessfulTransactionToastContent, isCrognomesDrop,
-    isCroniesDrop, isDrop,
     isFounderDrop, isMagBrewVikingsDrop,
-    newlineText
+    newlineText, percentage
 } from "../../utils";
 import MintButton from "../Drop/MintButton";
 import {dropState as statuses} from "../../core/api/enums";
@@ -121,8 +120,9 @@ const Drop = () => {
         let currentDrop = drop;
 
         // Don't do any contract stuff if the drop does not have an address
-        if (!drop.address) {
+        if (!drop.address || drop.complete) {
             setDropInfo(currentDrop, 0);
+            calculateStatus(currentDrop, 0, currentDrop.totalSupply);
             return;
         }
 
@@ -160,9 +160,6 @@ const Drop = () => {
                 setDropInfo(currentDrop, membership.founders.count);
                 calculateStatus(currentDrop, membership.founders.count, currentDrop.totalSupply);
             }
-            else if (isCroniesDrop(currentDrop.address)) {
-                setDropInfo(currentDrop, cronies.count);
-            }
             else if (isCrognomesDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
                 const supply = await readContract.totalSupply();
@@ -177,20 +174,6 @@ const Drop = () => {
                 const canMint = user.address ? await readContract.canMint(user.address) : 0;
                 setCanMintQuantity(canMint);
                 calculateStatus(currentDrop, supply, currentDrop.totalSupply);
-            }
-            else if (isDrop(currentDrop.address, 'maries-cyborgs')) {
-                let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
-                const infos = await readContract.getInfos();
-                const canMint = user.address ? await readContract.canMint(user.address) : 0;
-                setMaxMintPerAddress(infos.maxMintPerAddress);
-                setMaxMintPerTx(infos.maxMintPerTx);
-                setMaxSupply(infos.maxSupply);
-                setMemberCost(ethers.utils.formatEther(infos.memberCost));
-                setRegularCost(ethers.utils.formatEther(infos.regularCost));
-                setTotalSupply(infos.totalSupply);
-                setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
-                setCanMintQuantity(canMint);
-                calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
             }
             else {
                 if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi)  || isUsingAbiFile(currentDrop.abi))) {
@@ -239,8 +222,7 @@ const Drop = () => {
         const now = new Date();
 
         if (sTime > now) setStatus(statuses.NOT_STARTED);
-        else if (totalSupply >= maxSupply &&
-            !isCroniesDrop(drop.address) &&
+        else if (parseInt(totalSupply.toString()) >= parseInt(maxSupply.toString()) &&
             !isFounderDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
         else if (!drop.end || eTime > now) setStatus(statuses.LIVE)
@@ -278,11 +260,11 @@ const Drop = () => {
     }
 
     const isUsingAbiFile = (dropAbi) => {
-        return typeof dropAbi === 'string';
+        return typeof dropAbi === 'string' && dropAbi.length > 0;
     }
 
     const isUsingDefaultDropAbi = (dropAbi) => {
-        return typeof dropAbi === "undefined";
+        return typeof dropAbi === "undefined" || dropAbi.length === 0;
     }
 
     const mintNow = async(isErc20 = false) => {
@@ -436,10 +418,19 @@ const Drop = () => {
                             <div className={`col-lg-6 ${drop.mediaPosition === 'left' ? 'order-1' : 'order-2'}`}>
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <ReactPlayer
+                                        controls
                                         url={drop.video}
-                                        controls={true}
-                                        width='100%'
-                                        height='100%'
+                                            config={{ file: {
+                                                attributes:{
+                                                    onContextMenu: e => e.preventDefault(),
+                                                    controlsList: 'nodownload',
+                                                }
+                                            }}}
+                                        muted = {true}
+                                        playing = {true}
+                                        loop = {true}
+                                        width = '75%'
+                                        height = '75%'
                                     />
                                 </Reveal>
                             </div>
@@ -489,7 +480,7 @@ const Drop = () => {
                                 <div className="de-flex-col">
                                     <div className="profile_avatar">
                                         {drop.imgAvatar &&
-                                            <img src={drop.imgAvatar} alt=""/>
+                                            <img src={drop.imgAvatar} alt={drop.author.name} />
                                         }
                                         <div className="profile_name">
                                             <h4>
@@ -512,17 +503,26 @@ const Drop = () => {
                 <section className='container no-top'>
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
-                            <img src={drop.imgNft} className="img-fluid img-rounded mb-sm-30" alt=""/>
+                            <img src={drop.imgNft} className="img-fluid img-rounded mb-sm-30" alt={drop.title} />
                         </div>
                         <div className="col-md-6">
                             <div className="item_info">
                                 <h2>{drop.title}</h2>
-                                <div className="item_info_counts">
-                                    <div
-                                        className="item_info_type">{totalSupply.toString()}/{maxSupply.toString()} minted
+
+                                <div>
+                                    <div className="fs-6 fw-bold mb-1 text-end">
+                                        {   typeof totalSupply === 'string'
+                                                ? totalSupply.toString()
+                                                : `${percentage(totalSupply.toString(), maxSupply.toString())}% minted (${ethers.utils.commify(totalSupply.toString())} / ${ethers.utils.commify(maxSupply.toString())})`
+                                        }
                                     </div>
+                                    <ProgressBar
+                                        now={percentage(totalSupply.toString(), maxSupply.toString())}
+                                        style={{height: '4px'}}
+                                    />
                                 </div>
-                                <div>{newlineText(drop.description)}</div>
+
+                                <div className="mt-3">{newlineText(drop.description)}</div>
 
                                 {drop.disclaimer &&
                                     <p className="fw-bold text-center my-4" style={{color:'black'}}>{drop.disclaimer}</p>
@@ -548,7 +548,7 @@ const Drop = () => {
                                                 }
                                             </div>
                                     }
-                                    {whitelistCost &&
+                                    {whitelistCost > 0 &&
                                         <div className="me-4">
                                             <h6 className="mb-1">Whitelist Price</h6>
                                             <h5>{whitelistCost} CRO</h5>
@@ -564,21 +564,27 @@ const Drop = () => {
 
                                 <div className="spacer-40"></div>
 
-                                {drop.end &&
-                                <div className="me-4">
-                                    <h6 className="mb-1">
-                                        {status === statuses.EXPIRED ?
-                                            <>
-                                                Minting Ended
-                                            </>
-                                            :
-                                            <>
-                                                Minting Ends
-                                            </>
-                                        }
+                                {status === statuses.LIVE && drop.end &&
+                                    <div className="me-4">
+                                        <h6 className="mb-1">
+                                            {status === statuses.EXPIRED ?
+                                                <>
+                                                    Minting Ended
+                                                </>
+                                                :
+                                                <>
+                                                    Minting Ends
+                                                </>
+                                            }
 
-                                    </h6>
-                                    <h3>{convertTime(drop.end)}</h3>
+                                        </h6>
+                                        <h3>{convertTime(drop.end)}</h3>
+                                    </div>
+                                }
+                                {status === statuses.NOT_STARTED && drop.start &&
+                                <div className="me-4">
+                                    <h6 className="mb-1">Minting Starts</h6>
+                                    <h3>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h3>
                                 </div>
                                 }
                                 {status === statuses.LIVE && !drop.complete &&
@@ -642,6 +648,9 @@ const Drop = () => {
                                                     </button>
                                             }
                                         </div>
+                                        }
+                                        {canMintQuantity === 0 && !user.address && !drop.complete &&
+                                            <p className="mt-5">CONNECT WALLET TO MINT</p>
                                         }
                                     </>
                                 }

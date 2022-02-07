@@ -16,11 +16,11 @@ const VerifiedIcon = styled.span`
   right: 2px;
 `;
 
-const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url, verified }) => {
+const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url, verified, externalPage = false }) => {
 
     const navigateTo = (url) => {
         if (url) {
-            window.open(url, "_self")
+            window.open(url, externalPage ? "_blank" : "_self")
         }
     }
 
@@ -28,12 +28,12 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
     <div className='itm' index={index}>
       <div className="nft_coll">
           <div className="nft_wrap">
-              <span><img src={banner} className="lazy img-fluid" alt=""/></span>
+              <span><img src={banner} className="lazy img-fluid" alt={title}/></span>
           </div>
           <div className="nft_coll_pp">
               <span onClick={()=> navigateTo(url)}>
                   {avatar ?
-                      <img className="lazy" src={avatar} alt=""/>
+                      <img className="lazy" src={avatar} alt={title}/>
                       :
                       <Blockies seed={collectionId} size={10} scale={6}/>
                   }
