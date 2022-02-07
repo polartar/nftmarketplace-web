@@ -22,6 +22,10 @@ const MyNftCardList = ({ nfts = [], isLoading, listedOnly, activeFilterOption })
         dispatch(MyNftPageActions.setMyNftPageActiveFilterOption(filterOption));
     }, [ dispatch ]);
 
+    const possibleCollections = collectionFilterOptions
+        .filter(collection => isLoading ? true : !!nfts.find(x => x.address === collection.address));
+
+
     const filteredNFTs = nfts
         .filter(nft => listedOnly ? nft.listed : true)
         .filter(nft => {
@@ -53,7 +57,7 @@ const MyNftCardList = ({ nfts = [], isLoading, listedOnly, activeFilterOption })
                     <TopFilterBar className='col-6'
                                   showFilter={ true }
                                   showSort={ false }
-                                  filterOptions={ [ FilterOption.default(), ...collectionFilterOptions ] }
+                                  filterOptions={ [ FilterOption.default(), ...possibleCollections ] }
                                   defaultFilterValue={ activeFilterOption }
                                   filterPlaceHolder='Filter Collection...'
                                   onFilterChange={ onFilterChange }
