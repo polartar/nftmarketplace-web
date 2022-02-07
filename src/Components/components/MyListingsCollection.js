@@ -6,6 +6,9 @@ import { getAnalytics, logEvent } from '@firebase/analytics'
 import MyListingCard from "./MyListingCard";
 import MyNftListDialog from "./MyNftListDialog";
 import MyNftCancelDialog from "./MyNftCancelDialog";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 
 const MyListingsCollection = ({ walletAddress = null}) => {
 
@@ -37,17 +40,20 @@ const MyListingsCollection = ({ walletAddress = null}) => {
             {
                 myListings.some((value => !value.valid)) &&
                 (
-                    <p>You can use this page to manage your listings.
-                        If a listing is invalid, make sure to cancel <strong>before</strong> you unstake the NFT or it
-                        may reactivate at the old price. If you decide to take the risk, you can update the price once
-                        it's back in your wallet which will make it appear on the marketplace again. <br/>
-                        <strong>
-                            If a listing is invalid and it is now back in your wallet, it won't show on the marketplace
-                            but anyone interacting with the contract directly will still be able to buy your NFT.
-                            Ensure that you cancel before unstaking or update the price as soon as possible once back in your
-                            wallet to prevent this.
-                        </strong>
-                    </p>
+                    <>
+                        <span> <FontAwesomeIcon color='var(--bs-danger)' icon={faExclamationCircle} size={"2x"}/> </span>
+                        <p>
+                            <strong>You have some invalid listings which must be addressed.</strong> This can happen when an NFT is staked or transferred without being delisted first or approval is revoked.
+                            To rectify this, you must either:
+                        </p>
+                        <ol>
+                            <li><strong>Cancel your listing here before it's returned to your wallet or approval granted (recommended).</strong></li>
+                            <li>(<strong>Not Recommended - DO AT YOUR OWN RISK</strong>) Cancel or update the price of the item as soon as possible when it's back in your wallet. This is risky as although it may not be able 
+                                to be seen on the marketplace, it will be valid on the smart contract the second it's returned to your wallet. If anyone was interacting with it directly they
+                                would be able to purchase your item for the price of your old listing if you are not quick enough.</li>
+                        </ol>
+                    </>
+                    
                 )
             }
 

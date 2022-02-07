@@ -139,7 +139,7 @@ const Header = function() {
                     </BreakpointProvider>
 
                     <AccountMenu/>
-                    <InvalidListingWarning/>
+                    <InvalidListingWarning size={"2x"}/>
                 </div>
 
                 <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>

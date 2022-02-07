@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from '../../Assets/networks/rpc_config.json';
 import { toast } from "react-toastify";
 import {ethers} from "ethers";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 
 const Outer = styled.div`
@@ -60,7 +61,7 @@ const MyListingCard = ({
                             <img src={nft.image} className="img-fluid rounded-start" alt="" />
                         </div>
                         <div className="col-md-8">
-                            <h5 className="card-title">{nft.name}</h5>
+                            <h5 className="card-title mx-auto">{nft.name}</h5>
                             <p className="card-text">
                                 Listing ID: {nft.listingId}<br/>
                                 Price: {ethers.utils.commify(nft.price)} CRO<br/>
@@ -69,8 +70,19 @@ const MyListingCard = ({
                                     Rank: {nft.rank} <br/>
                                 </>
                                 }
-                                Listing Time: {nft.listingTime}<br/>
-                                Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br/>
+                                Listing Time: {nft.listingTime} UTC<br/>
+                                {!nft.valid ?
+                                    <>
+                                    Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}
+                                    <span> <FontAwesomeIcon color='var(--bs-danger)' icon={faExclamationCircle} size={"1x"}/> </span>
+                                    <br/>
+                                    </>
+                                :   
+                                    <>
+                                    Valid: {nft.valid.toString().charAt(0).toUpperCase() + nft.valid.toString().slice(1)}<br/>
+                                    </>
+
+                                }
                             </p>
                         </div>
                     </div>

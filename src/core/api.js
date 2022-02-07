@@ -540,7 +540,7 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
 
 export async function getNftSalesForAddress(walletAddress) {
     try {
-        const response = await fetch(`${ api.baseUrl }${ api.listings }?seller=${ walletAddress }&state=1`);
+        const response = await fetch(`${ api.baseUrl }${ api.unfilteredListings }?seller=${ walletAddress }&state=1`);
         const json = await response.json();
 
         const listings = json.listings || [];

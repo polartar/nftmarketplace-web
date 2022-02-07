@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
-const InvalidListingWarning = function() {
+const InvalidListingWarning = function(props) {
     const history = useHistory();
 
     const walletAddress = useSelector((state) => {
@@ -24,7 +24,7 @@ const InvalidListingWarning = function() {
             {walletAddress && correctChain && myUnfilteredListings.some(x => !x.valid && x.listed) && (
                 <div className="de-menu-profile p-3">
                     <span onClick={()=> history.push('/wallet/listings')}>
-                        <FontAwesomeIcon color='var(--bs-warning)' size={"2x"} icon={faExclamationCircle}/>
+                        <FontAwesomeIcon color='var(--bs-danger)' size={props.size} icon={faExclamationCircle}/>
                     </span>
                 </div>
             )}
