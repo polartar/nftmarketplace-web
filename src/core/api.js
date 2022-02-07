@@ -361,7 +361,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             const properties = {};
                             nfts.push({
                                 useIframe: true,
-                                iframeSource: `https://www.metaversepixels.app/grid?id=${123}&zoom=8`,
+                                iframeSource: `https://www.metaversepixels.app/grid?id=${numberId}&zoom=3`,
                                 id: numberId,
                                 name,
                                 image,
@@ -612,6 +612,24 @@ export async function getNftFromFile(collectionId, nftId) {
                 'image': URL.createObjectURL(image),
                 'description': desc,
                 'properties': properties,
+            }
+
+        } else if (collectionId === config.known_contracts.find(knownContract => knownContract.name === 'MetaPixels')?.address) {
+            const contract = new Contract(collectionId, MetaPixelsAbi, readProvider);
+            const uri = await contract.lands(nftId);
+
+            const numberId = nftId instanceof BigNumber ? nftId.toNumber() : nftId;
+            const image = `${ uri.image }`.startsWith('https://') ? uri.image : `https://ipfs.metaversepixels.app/ipfs/${ uri.image }`;
+            const description = uri.detail;
+            const name = `MetaPixels ${ numberId }`;
+            const properties = {};
+            nft = {
+                name,
+                image,
+                description,
+                properties,
+                useIframe: true,
+                iframeSource: `https://www.metaversepixels.app/grid?id=${numberId}&zoom=3`
             }
         } else {
             const isMultiToken = knownContracts.findIndex(x => x.address === collectionId && x.multiToken) > -1;
