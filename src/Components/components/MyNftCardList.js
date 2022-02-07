@@ -23,7 +23,7 @@ const MyNftCardList = ({ nfts = [], isLoading, listedOnly, activeFilterOption })
     }, [ dispatch ]);
 
     const possibleCollections = collectionFilterOptions
-        .filter(collection => !!nfts.find(x => x.address === collection.address));
+        .filter(collection => isLoading ? true : !!nfts.find(x => x.address === collection.address));
 
 
     const filteredNFTs = nfts
