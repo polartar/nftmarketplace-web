@@ -1,4 +1,4 @@
-import { Contract, ethers } from "ethers";
+import { BigNumber, Contract, ethers } from "ethers";
 import config from "../Assets/networks/rpc_config.json";
 import Market from "../Contracts/Marketplace.json";
 import { ERC1155, ERC721, MetaPixelsAbi } from '../Contracts/Abis'
@@ -247,6 +247,10 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
 
                     //   ERC1155 specific
                     if (knownContract.multiToken) {
+                        if(knownContract.address === config.membership_contract && count > 0) {
+                            response.isMember = true;
+                        }
+
                         if (count !== 0) {
                             let uri = await contract.uri(knownContract.id);
 
@@ -283,7 +287,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             };
                             onNftLoaded([nft]);
                         }
-                        return;
+                        return response;
                     }
 
                     //   rest of the code is ERC721 specific
@@ -348,12 +352,17 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         })();
 
                         if (knownContract.name === 'MetaPixels') {
+                            const numberId = id instanceof BigNumber ? id.toNumber() : id;
+                            console.log({id})
+                            console.log({uri})
                             const image = `${ uri.image }`.startsWith('https://') ? uri.image : `https://ipfs.metaversepixels.app/ipfs/${ uri.image }`;
                             const description = uri.detail;
                             const name = `${ knownContract.name } ${ id }`;
                             const properties = {};
                             nfts.push({
-                                id,
+                                useIframe: true,
+                                iframeSource: `https://www.metaversepixels.app/grid?id=${123}&zoom=8`,
+                                id: numberId,
                                 name,
                                 image,
                                 description,
