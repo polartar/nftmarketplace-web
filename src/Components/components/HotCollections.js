@@ -28,12 +28,12 @@ const HotCollections = () => {
 
       const featuredCollections = [];
       shortList.forEach(function(val,index) {
-          const collection = collections.find(c => c.metadata?.banner && c.metadata.slug === val);
+          const collection = collections.find(c => c.metadata?.card && c.metadata.slug === val);
           if (collection) featuredCollections.push(collection);
       });
 
       const otherCollections = collections
-          .filter(c => c.metadata?.banner && !shortList.includes(c.metadata.slug))
+          .filter(c => c.metadata?.card && !shortList.includes(c.metadata.slug))
           .sort((a, b) => (a.name > b.name) ? 1 : -1);
 
       const listableCollections = [...featuredCollections, ...otherCollections].filter(c => c.listable);

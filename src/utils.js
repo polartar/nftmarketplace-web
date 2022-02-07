@@ -290,3 +290,8 @@ export const isDrop = (address, slug) => {
   const drop = drops.find(d => d.slug === slug);
   return drop?.address === address;
 }
+
+export const percentage = (partialValue, totalValue) => {
+  if (!totalValue || totalValue == 0) return 0;
+  return Math.round((100 * partialValue) / totalValue);
+}

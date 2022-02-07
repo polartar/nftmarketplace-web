@@ -61,7 +61,7 @@ export const AppRouter = () => {
                     <SentryEnhancedRoute exact path="/drops" component={Drops} />
                     <SentryEnhancedRoute exact path="/drops/:slug" component={Drop} />
                     <SentryEnhancedRoute exact path="/listing/:id" component={Listing}/>
-                    <SentryEnhancedRoute exact path="/manage/auctions" component={ManageAuctions}/>
+                    {/*<SentryEnhancedRoute exact path="/manage/auctions" component={ManageAuctions}/>*/}
                     <SentryEnhancedRoute exact path="/auctions/:id" component={Auction}/>
                     <SentryEnhancedRoute exact path="/collections" component={Collections}/>
                     <SentryEnhancedRoute exact path="/collection/:address" component={Collection} />

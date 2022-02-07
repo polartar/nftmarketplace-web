@@ -146,7 +146,7 @@ const Collection = ({cacheName = 'collection'}) => {
                             <div className="profile_avatar">
                                 <div className="d_profile_img">
                                     {metadata?.avatar ?
-                                        <img src={metadata.avatar} alt=""/>
+                                        <img src={metadata.avatar} alt={collectionName()} />
                                         :
                                         <Blockies seed={address.toLowerCase()} size={15} scale={10}/>
                                     }

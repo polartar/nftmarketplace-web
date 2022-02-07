@@ -187,7 +187,7 @@ export default class Responsive extends Component {
                       <div className="nft__item_lg">
                           <div className="row align-items-center">
                               <div className="col-lg-6">
-                                  <img src={drop.imgPreview} className="img-fluid mx-auto" alt=""/>
+                                  <img src={drop.imgPreview} className="img-fluid mx-auto" alt={drop.title} />
                               </div>
                               <div className="col-lg-6">
                                   <div className="d-desc">
@@ -195,7 +195,7 @@ export default class Responsive extends Component {
                                       <div className="d-author">
                                           <div className="author_list_pp">
                                               {drop.imgAvatar ?
-                                                  <img className="lazy" src={drop.imgAvatar} alt=""/>
+                                                  <img className="lazy" src={drop.imgAvatar} alt={drop.author.name}/>
                                                   :
                                                   <Blockies seed={drop.slug} size={10} scale={5}/>
                                               }
