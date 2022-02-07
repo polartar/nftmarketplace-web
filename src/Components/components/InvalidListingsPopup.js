@@ -35,7 +35,6 @@ return (
     { openInvalidListingsAlertDialog &&
         <div className='checkout'>
             <div className='maincheckout' style={{maxWidth: '650px'}}>
-                <button className='btn-close' onClick={() => setOpenInvalidListingsAlertDialog(false)}>x</button>
                 <div className='heading'>
                     <h3>Warning! Invalid Listings Detected</h3>
                 </div>
