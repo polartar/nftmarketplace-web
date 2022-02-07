@@ -62,13 +62,13 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                         </p>
                         <h5>Option 1 (Recommended):</h5>
                         <p className="mb-4">
-                            Cancel your listings below before those NFTs are returned to your wallet or approval granted.
+                            Cancel your listings below <strong>before</strong> those NFTs are returned to your wallet or approval granted.
                         </p>
                         <h5>Option 2 (AT YOUR OWN RISK, lower gas fees):</h5>
                         <p>
                             Either cancel or update the price of the NFT as soon as it is in your wallet. This is cheaper but must be done as soon as possible to avoid users from buying your listing before it can be cancelled or updated.
                         </p>
-                        <p><strong>Please note: No refunds will be given for sales at older prices. It is your own responsibility to make sure you do not have any invalid listings at any given time!</strong></p>
+                        <p><strong>Please note: No refunds will be given for sales at older prices. It is your own responsibility to cancel listings for NFTs that you stake, transfer or revoke approval.</strong></p>
                     </div>
                 )
             }

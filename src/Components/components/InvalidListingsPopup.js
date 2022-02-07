@@ -43,14 +43,14 @@ return (
                 </p>
                 <h4>Option 1 (Recommended):</h4>
                 <p className="mb-4">
-                    Click <strong>Show Invalid Listings</strong> below and cancel any invalid listings before those NFTs return to your wallet or approval has been granted.
+                    Click <strong>Show Invalid Listings</strong> below and cancel any invalid listings <strong>before</strong> those NFTs return to your wallet or approval has been granted.
                 </p>
                 <h4>Option 2 (AT YOUR OWN RISK, lower gas fees):</h4>
                 <p>
                     Either cancel or update the price of the NFT as soon as it is in your wallet. This is cheaper but must be done as soon as possible to avoid users from buying your listing before it can be cancelled or updated.
                 </p>
 
-                <div className="alert alert-warning text-center" role="alert"><strong>Please note: No refunds will be given for sales at older prices. It is your own responsibility to make sure you do not have any invalid listings at any given time!</strong></div>
+                <div className="alert alert-warning text-center" role="alert"><strong>Please note: No refunds will be given for sales at older prices. It is your own responsibility to cancel listings for NFTs that you stake, transfer or revoke approval.</strong></div>
 
                 <div className="text-center mb-2">
                     <button className='btn-main inline white me-2' style={{width:'auto'}} onClick={() => invalidListingsWarningAcknowledged()}>
