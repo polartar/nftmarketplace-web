@@ -511,7 +511,10 @@ const Drop = () => {
 
                                 <div>
                                     <div className="fs-6 fw-bold mb-1 text-end">
-                                        {percentage(totalSupply.toString(), maxSupply.toString())}% minted ({ethers.utils.commify(totalSupply.toString())} / {ethers.utils.commify(maxSupply.toString())})
+                                        {   typeof totalSupply === 'string'
+                                                ? totalSupply.toString()
+                                                : `${percentage(totalSupply.toString(), maxSupply.toString())}% minted (${ethers.utils.commify(totalSupply.toString())} / ${ethers.utils.commify(maxSupply.toString())})`
+                                        }
                                     </div>
                                     <ProgressBar
                                         now={percentage(totalSupply.toString(), maxSupply.toString())}
