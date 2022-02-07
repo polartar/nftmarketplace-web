@@ -511,10 +511,7 @@ const Drop = () => {
 
                                 <div>
                                     <div className="fs-6 fw-bold mb-1 text-end">
-                                        {   isCrognomesDrop(dropObject?.address)
-                                            ? `${totalSupply.toString()} of ${ethers.utils.commify(maxSupply.toString())} minted`
-                                            : `${percentage(totalSupply.toString(), maxSupply.toString())}% of ${ethers.utils.commify(maxSupply.toString())} minted`
-                                        }
+                                        {percentage(totalSupply.toString(), maxSupply.toString())}% minted ({ethers.utils.commify(totalSupply.toString())} / {ethers.utils.commify(maxSupply.toString())})
                                     </div>
                                     <ProgressBar
                                         now={percentage(totalSupply.toString(), maxSupply.toString())}
