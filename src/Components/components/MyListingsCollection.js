@@ -58,16 +58,17 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                     <div className="alert alert-danger" role="alert">
                         <span> <FontAwesomeIcon color='var(--bs-danger)' icon={faExclamationCircle} size={"2x"}/> </span>
                         <p>
-                            <strong>You have some invalid listings which must be addressed.</strong> This can happen when an NFT is staked or transferred without being delisted first or approval is revoked.
-                            To rectify this, you must either:
+                            <strong>Some of your current listings are invalid.</strong> This can happen when a listed NFT was not delisted from the marketplace before being staked, transferred, or approval being revoked. This can cause NFTs to be sold significantly under floor price once the NFT returns to your wallet.
                         </p>
-                        <ol>
-                            <li><strong>Cancel your listing here before it's returned to your wallet or approval granted (recommended).</strong></li>
-                            <li>(<strong>Not Recommended - DO AT YOUR OWN RISK</strong>) Cancel or update the price of the item as soon as possible when it's back in your wallet. This is risky as although it may not be able
-                                to be seen on the marketplace, it will be valid on the smart contract the second it's returned to your wallet. If anyone was interacting with it directly they
-                                would be able to purchase your item for the price of your old listing if you are not quick enough.</li>
-                        </ol>
-                        <p><strong>Please note we are unable to provide refunds if a sale for an old price occurrs due to the seller not following the instructions laid out in point #1.</strong></p>
+                        <h5>Option 1 (Recommended):</h5>
+                        <p className="mb-4">
+                            Cancel your listings below before those NFTs are returned to your wallet or approval granted.
+                        </p>
+                        <h5>Option 2 (AT YOUR OWN RISK, lower gas fees):</h5>
+                        <p>
+                            Either cancel or update the price of the NFT as soon as it is in your wallet. This is cheaper but must be done as soon as possible to avoid users from buying your listing before it can be cancelled or updated.
+                        </p>
+                        <p><strong>Please note: No refunds will be given for sales at older prices. It is your own responsibility to make sure you do not have any invalid listings at any given time!</strong></p>
                     </div>
                 )
             }
