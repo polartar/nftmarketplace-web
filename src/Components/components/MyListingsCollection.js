@@ -17,6 +17,8 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     const isLoading = useSelector((state) => state.user.myUnfilteredListingsFetching);
     const myListings = useSelector((state) => state.user.myUnfilteredListings);
     const myUnfilteredListingsInvalidOnly = useSelector((state) => state.user.myUnfilteredListingsInvalidOnly);
+    const [openInvalidListingsAlertDialog, setOpenInvalidListingsAlertDialog] = useState(false);
+    const [userAcknowledgedWarning, setUserAcknowledgedWarning] = useState(false);
 
     const onImgLoad = ({target:img}) => {
         let currentWidth = width;
@@ -29,18 +31,29 @@ const MyListingsCollection = ({ walletAddress = null}) => {
         dispatch(fetchUnfilteredListings(walletAddress));
     }, [walletAddress]);
 
+    useEffect(async() => {
+        if (!userAcknowledgedWarning) {
+            setOpenInvalidListingsAlertDialog(myListings.some((value => !value.valid)));
+        }
+    }, [myListings]);
+
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'my_sales'
         })
     }, []);
 
+    const invalidListingsWarningAcknowledged = () => {
+        setUserAcknowledgedWarning(true);
+        setOpenInvalidListingsAlertDialog(false)
+    };
+
     return (
         <>
             {
-                myListings.some((value => !value.valid)) &&
+                myListings.some((value => true)) &&
                 (
-                    <>
+                    <div className="alert alert-danger" role="alert">
                         <span> <FontAwesomeIcon color='var(--bs-danger)' icon={faExclamationCircle} size={"2x"}/> </span>
                         <p>
                             <strong>You have some invalid listings which must be addressed.</strong> This can happen when an NFT is staked or transferred without being delisted first or approval is revoked.
@@ -48,12 +61,11 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                         </p>
                         <ol>
                             <li><strong>Cancel your listing here before it's returned to your wallet or approval granted (recommended).</strong></li>
-                            <li>(<strong>Not Recommended - DO AT YOUR OWN RISK</strong>) Cancel or update the price of the item as soon as possible when it's back in your wallet. This is risky as although it may not be able 
+                            <li>(<strong>Not Recommended - DO AT YOUR OWN RISK</strong>) Cancel or update the price of the item as soon as possible when it's back in your wallet. This is risky as although it may not be able
                                 to be seen on the marketplace, it will be valid on the smart contract the second it's returned to your wallet. If anyone was interacting with it directly they
                                 would be able to purchase your item for the price of your old listing if you are not quick enough.</li>
                         </ol>
-                    </>
-                    
+                    </div>
                 )
             }
 
@@ -109,6 +121,38 @@ const MyListingsCollection = ({ walletAddress = null}) => {
 
             <MyNftListDialog/>
             <MyNftCancelDialog/>
+            { openInvalidListingsAlertDialog &&
+                <div className='checkout'>
+                    <div className='maincheckout' style={{maxWidth: '650px'}}>
+                        <button className='btn-close' onClick={() => setOpenInvalidListingsAlertDialog(false)}>x</button>
+                        <div className='heading'>
+                            <h3>Warning!</h3>
+                        </div>
+                        <p>
+                            <strong>You have some invalid listings which must be addressed.</strong> This can happen when an NFT is staked or transferred without being delisted first or approval is revoked.
+                            To rectify this, you must either:
+                        </p>
+                        <ol>
+                            <li><strong>Cancel your listing here before it's returned to your wallet or approval granted (recommended).</strong></li>
+                            <li>(<strong>Not Recommended - DO AT YOUR OWN RISK</strong>) Cancel or update the price of the item as soon as possible when it's back in your wallet. This is risky as although it may not be able
+                                to be seen on the marketplace, it will be valid on the smart contract the second it's returned to your wallet. If anyone was interacting with it directly they
+                                would be able to purchase your item for the price of your old listing if you are not quick enough.</li>
+                        </ol>
+
+                        <div className="text-center mb-2">
+                            <button className='btn-main inline white me-2' style={{width:'auto'}} onClick={() => invalidListingsWarningAcknowledged()}>
+                                I Understand
+                            </button>
+                            <button className='btn-main inline' style={{width:'auto'}} onClick={() => {
+                                invalidListingsWarningAcknowledged();
+                                dispatch(MyListingsCollectionPageActions.setInvalidOnly(true));
+                            }}>
+                                Show Invalid Listings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
         </>
     );
 };
