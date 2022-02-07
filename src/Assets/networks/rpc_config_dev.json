@@ -315,6 +315,23 @@
             }
         },
         {
+            "name" : "Cronos Punk",
+            "multiToken": false,
+            "address" : "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronos-punk",
+                "description": "",
+                "verified": false,
+                "maxSupply": 2720,
+                "website": "https://www.cronospunk.net/",
+                "twitter": "https://twitter.com/PunkCronos",
+                "discord": "https://discord.gg/DGZBBkqdms",
+                "telegram": "https://t.me/cronospunk"
+            }
+        },
+        {
             "name" : "CROCOSNFT",
             "multiToken": false,
             "address" : "0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7",
