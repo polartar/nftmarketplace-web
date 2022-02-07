@@ -202,7 +202,7 @@ const Listing = () => {
                                                     <>
                                                         <div className="d-block mb-3">
                                                             <div className="row mt-5 gx-3 gy-2">
-                                                                {listing.nft.attributes.map((data, i) => {
+                                                                {listing.nft.attributes.filter(data => data.value !== "None").map((data, i) => {
                                                                     return (
                                                                         <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                                             <div className="nft_attr">
