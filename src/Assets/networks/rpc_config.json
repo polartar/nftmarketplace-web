@@ -574,6 +574,24 @@
             }
         },
         {
+            "name" : "Dodger Dogs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "dodger-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
+                "banner": "/img/collections/barbara/dodgerdogs/banner.png",
+                "card": "/img/collections/barbara/dodgerdogs/card.png",
+                "maxSupply": 20,
+                "website": "https://crypto.com/nft/profile/vredekop?tab=created",
+                "twitter": "https://twitter.com/BarbaraRedekop"
+            }
+        },
+        {
             "name" : "Game Art NFT",
             "multiToken" : false,
             "address" : "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
@@ -2254,6 +2272,31 @@
             "complete": false,
             "featured": true,
             "redirect": "https://trooprz.army/mint"
+        },
+        {
+            "id": 21,
+            "slug": "dodger-dogs",
+            "imgNft": "/img/drops/barbara/dodgerdogs/drop.gif",
+            "imgPreview": "/img/drops/barbara/dodgerdogs/drop.gif",
+            "imgAvatar" : "/img/collections/barbara/dodgerdogs/avatar.gif",
+            "imgBanner": "/img/collections/barbara/dodgerdogs/banner.png",
+            "title": "Dodger Dogs",
+            "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
+            "description" : "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-3 surprise airdrops guaranteed for all DodgerDog owners, 1 per 2 months. \n-6 custom NFTs will be made for random DodgerDog owners, 1 per month. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
+            "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/"},
+            "address": "",
+            "maxMintPerTx": 5,
+            "maxMintPerAddress": 200,
+            "totalSupply": 1111,
+            "cost": "300",
+            "memberCost": "200",
+            "foundersOnly": false,
+            "start": 1644606000000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
         }
     ],
     "auctions": [
