@@ -35,6 +35,8 @@ export default api;
 //     })
 // });
 
+let sortAndFetchListingsInProgress = false;
+
 export async function sortAndFetchListings(page, sort, filter, traits, powertraits, search) {
     let pagesize = 12;
 
@@ -96,7 +98,26 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
 
     const url = new URL(api.listings, `${api.baseUrl}`);
     const uri = `${url}?${queryString}`;
-    return await (await fetch(uri)).json();
+
+    try {
+        const controller = new AbortController();
+        const { signal } = controller;
+
+        if (sortAndFetchListingsInProgress) {
+            console.log('Canceling previous call.');
+            controller.abort();
+        }
+
+        sortAndFetchListingsInProgress = true;
+
+        const response = await fetch(uri, { signal });
+
+        sortAndFetchListingsInProgress = false;
+
+        return { success: true, response: await response.json() }
+    }catch (e) {
+        return { success: false, response: [] }
+    }
 }
 
 export async function getListing(listingId) {
