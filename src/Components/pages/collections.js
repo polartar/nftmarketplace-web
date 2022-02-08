@@ -144,6 +144,7 @@ const Collections = () => {
                         >
                             <thead>
                                 <tr>
+                                    { tableMobileView && <th scope="col">#</th> }
                                     <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('name')}>Collection</th>
                                     { tableMobileView && <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('totalVolume')}>Volume</th>}
                                     { tableMobileView && <th scope="col" style={{cursor: 'pointer'}} onClick={sortCollections('numberOfSales')}>Sales</th>}
@@ -157,6 +158,7 @@ const Collections = () => {
                             {filteredCollections && filteredCollections.map( (collection, index) => {
                                 return (
                                 <tr key={index}>
+                                    {tableMobileView && <td>{index + 1}</td>}
                                     <th scope="row" className='row gap-4 border-bottom-0'>
                                         <div className="col-12">
                                             <div className="coll_list_pp" style={{cursor: 'pointer'}}>
@@ -177,6 +179,10 @@ const Collections = () => {
 
                                         {!tableMobileView &&
                                             <div className="col-12 row gap-1">
+                                                <div className='col-12 mobile-view-list-item'>
+                                                    <span>#</span>
+                                                    <span>{index + 1}</span>
+                                                </div>
                                                 <div className='col-12 mobile-view-list-item' onClick={sortCollections('totalVolume')}>
                                                     <span>Volume</span>
                                                     <span>{collectionTotalVolumeValue(collection)}</span>

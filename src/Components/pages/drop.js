@@ -509,18 +509,24 @@ const Drop = () => {
                             <div className="item_info">
                                 <h2>{drop.title}</h2>
 
-                                <div>
-                                    <div className="fs-6 fw-bold mb-1 text-end">
-                                        {   typeof totalSupply === 'string'
-                                                ? totalSupply.toString()
-                                                : `${percentage(totalSupply.toString(), maxSupply.toString())}% minted (${ethers.utils.commify(totalSupply.toString())} / ${ethers.utils.commify(maxSupply.toString())})`
-                                        }
+                                {status === statuses.NOT_STARTED
+                                ?
+                                    <div>
+                                        <div className="fs-6 fw-bold mb-1 text-end">
+                                            Supply: {maxSupply.toString()}
+                                        </div>
                                     </div>
-                                    <ProgressBar
-                                        now={percentage(totalSupply.toString(), maxSupply.toString())}
-                                        style={{height: '4px'}}
-                                    />
-                                </div>
+                                :
+                                    <div>
+                                        <div className="fs-6 fw-bold mb-1 text-end">
+                                            {percentage(totalSupply.toString(), maxSupply.toString())}% minted ({ethers.utils.commify(totalSupply.toString())} / {ethers.utils.commify(maxSupply.toString())})
+                                        </div>
+                                        <ProgressBar
+                                            now={percentage(totalSupply.toString(), maxSupply.toString())}
+                                            style={{height: '4px'}}
+                                        />
+                                    </div>
+                                }
 
                                 <div className="mt-3">{newlineText(drop.description)}</div>
 

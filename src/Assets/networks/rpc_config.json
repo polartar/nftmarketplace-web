@@ -1883,7 +1883,7 @@
             "complete": true
         },
         {
-            "id": 10,
+            "id": 9,
             "slug": "cronos-goats",
             "imgNft": "/img/drops/cronosgoats/drop.png",
             "imgPreview": "/img/drops/cronosgoats/drop.png",
@@ -2235,7 +2235,7 @@
             "imgBanner" : "/img/collections/crobots/banner.jpg",
             "title": "Crobots",
             "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the Crobots explore, create, and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
-            "description": "Meet the Crobots! – A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will we be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
+            "description": "Meet the Crobots! – A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
             "author": { "name": "Crobots", "link": "https://TheCrobots.com"},
             "address": "",
             "maxMintPerTx": 10,
@@ -2282,7 +2282,7 @@
             "redirect": "https://trooprz.army/mint"
         },
         {
-            "id": 21,
+            "id": 22,
             "slug": "dodger-dogs",
             "imgNft": "/img/drops/barbara/dodgerdogs/drop.gif",
             "imgPreview": "/img/drops/barbara/dodgerdogs/drop.gif",
