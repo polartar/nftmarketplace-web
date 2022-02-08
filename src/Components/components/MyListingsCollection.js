@@ -53,7 +53,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     return (
         <>
             {
-                myListings.some((value => true)) &&
+                myListings.some((value => !value.valid)) &&
                 (
                     <div className="alert alert-danger" role="alert">
                         <span> <FontAwesomeIcon color='var(--bs-danger)' icon={faExclamationCircle} size={"2x"}/> </span>
