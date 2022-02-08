@@ -168,6 +168,21 @@
                 "card": "/img/collections/crazyscientists/banner.png",
                 "banner": "/img/collections/crazyscientists/banner.png"
             }
+        },
+        {
+            "name" : "Crobots",
+            "multiToken" : false,
+            "address" : "0xbad1Af829AD28a9f3B7d48A2D86b17121F486bd5",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "Crobots",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/crobots/avatar.gif",
+                "card": "/img/collections/crobots/banner.png",
+                "banner": "/img/collections/crobots/banner.png"
+            }
         }
     ],
     "drops": [
@@ -354,6 +369,34 @@
             "totalSupply": 5555,
             "cost": "10",
             "memberCost": "5",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _amount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function mintCost(address _minter) external view returns (uint256)"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "Crobots",
+            "imgNft": "/img/drops/crobots/NewPreviewBanner.png",
+            "imgPreview": "/img/drops/crobots/NewPreviewBanner.png",
+            "imgAvatar" : "/img/collections/crobots/avatar.gif",
+            "imgBanner" : "/img/collections/crobots/banner.png",
+            "title": "Crobots",
+            "subtitle": "",
+            "description":  "",
+            "author": { "name": "Crobots", "link": "https://www.crobots.com/"},
+            "address": "0xbad1Af829AD28a9f3B7d48A2D86b17121F486bd5",
+            "maxMintPerTx": 5,
+            "totalSupply": 5555,
+            "cost": "10",
+            "memberCost": "5",
+            "whitelistCost": "7",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _amount) public payable",
