@@ -101,8 +101,10 @@ const Nft = () => {
 
                                 {(typeof nft.rank !== 'undefined' && nft.rank !== null) &&
                                     <ProfilePreview
-                                        type={collectionMetadata?.rarity ? `${humanize(collectionMetadata.rarity)} Rank` : 'Rarity Rank'}
+                                        type='Rarity Rank'
                                         title={nft.rank}
+                                        avatar={collectionMetadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
+                                        hover={collectionMetadata.rarity === 'rarity_sniper' ? `Ranking provided by ${humanize(collectionMetadata.rarity)}` : null}
                                     />
                                 }
                             </div>
