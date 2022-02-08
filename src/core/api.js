@@ -517,6 +517,9 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                     if (knownContract.multiToken) {
                         return new Contract(knownContract.address, ERC1155, signer);
                     }
+                    if (knownContract.name === 'MetaPixels') {
+                        return new Contract(knownContract.address, MetaPixelsAbi, signer);
+                    }
                     return new Contract(knownContract.address, ERC721, signer);
                 })();
 
@@ -535,6 +538,9 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 }
 
                 const readContract = (() => {
+                    if (knownContract.name === 'MetaPixels') {
+                        return new Contract(knownContract.address, MetaPixelsAbi, readProvider);
+                    }
                     return new Contract(knownContract.address, ERC721, readProvider);
                 })();
 
@@ -568,6 +574,15 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                         continue;
                     }
 
+                    if (knownContract.name === 'MetaPixels') {
+                        const numberId = id instanceof BigNumber ? id.toNumber() : id;
+                        nfts.push({
+                            id: numberId,
+                            address: knownContract.address.toLowerCase()
+                        });
+                        continue;
+                    }
+
                     nfts.push({
                         id: id.toNumber(),
                         address: knownContract.address.toLowerCase()
@@ -594,12 +609,15 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
             const listingTime = moment(new Date(item.listingTime * 1000)).format("DD/MM/YYYY, HH:mm");
             const id = item.nftId;
             const address = item.nftAddress.toLowerCase();
-            const isInWallet = !!walletNfts.find(walletNft => walletNft.address === address && walletNft.id === id );
+            const isInWallet = walletNfts.find(walletNft => walletNft.address === address && walletNft.id === id );
             const listed = true;
 
             const contract = (() => {
                 if (is1155) {
                     return new Contract(address, ERC1155, signer);
+                }
+                if (knownContracts.find(x => x.address.toLowerCase() === address)) {
+                    return new Contract(address, MetaPixelsAbi, signer);
                 }
                 return new Contract(address, ERC721, signer);
             })();
@@ -615,12 +633,14 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 state,
                 listingTime,
                 listed,
-                isInWallet,
+                isInWallet: !!isInWallet,
                 listingId,
                 price,
                 purchaser,
                 rank,
-                valid
+                valid,
+                useIframe: contract.name === 'MetaPixels',
+                iframeSource: contract.name === 'MetaPixels' ? `https://www.metaversepixels.app/grid?id=${id}&zoom=3` : null
             }
         });
 
