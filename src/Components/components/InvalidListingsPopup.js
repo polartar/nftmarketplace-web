@@ -17,7 +17,7 @@ const history = useHistory();
 
  useEffect(async() => {
     if (!userAcknowledgedWarning) {
-        setOpenInvalidListingsAlertDialog(myListings.some((value => true)));
+        setOpenInvalidListingsAlertDialog(myListings.some((value => !value.valid)));
     }
 }, [myListings]);
 
