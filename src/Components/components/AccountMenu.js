@@ -162,7 +162,12 @@ const AccountMenu = function() {
     useEffect(() => {
         let defiLink = localStorage.getItem("DeFiLink_session_storage_extension")
         if (defiLink) {
-            if (!defiLink.connected) {
+            try {
+                const json = JSON.parse(defiLink);
+                if (!json.connected) {
+                    dispatch(onLogout());
+                }
+            } catch (error) {
                 dispatch(onLogout());
             }
         }
