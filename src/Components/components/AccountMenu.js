@@ -160,7 +160,7 @@ const AccountMenu = function() {
     }
 
     useEffect(() => {
-        if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") || window.ethereum)
+        if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") || window.ethereum || localStorage.getItem("DeFiLink_session_storage_extension"))
         dispatch(connectAccount());
     }, []);
 
