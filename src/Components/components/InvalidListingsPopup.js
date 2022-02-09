@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUnfilteredListings, MyListingsCollectionPageActions } from '../../GlobalState/User';
 import {useHistory} from "react-router-dom";
+import {Button, Modal} from "react-bootstrap";
 
 
 const InvalidListingsPopup = (props) => {
@@ -32,12 +33,11 @@ const navigateTo = (link) => {
 
 return (
     <>
-    { openInvalidListingsAlertDialog &&
-        <div className='checkout'>
-            <div className='maincheckout' style={{maxWidth: '650px'}}>
-                <div className='heading'>
-                    <h3>Warning! Invalid Listings Detected</h3>
-                </div>
+        <Modal show={openInvalidListingsAlertDialog} size="lg" onHide={() => invalidListingsWarningAcknowledged()}>
+            <Modal.Header>
+                <Modal.Title>Warning! Invalid Listings Detected</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
                 <p>
                     <strong>Some of your current listings are invalid.</strong> This can happen when a listed NFT was not delisted from the marketplace before being staked, transferred, or approval being revoked. This can cause NFTs to be sold significantly under floor price once the NFT returns to your wallet.
                 </p>
@@ -51,9 +51,10 @@ return (
                 </p>
 
                 <div className="alert alert-warning text-center" role="alert"><strong>Please note: No refunds will be given for sales at older prices. It is your own responsibility to cancel listings for NFTs that you stake, transfer or revoke approval.</strong></div>
-
-                <div className="text-center mb-2">
-                    <button className='btn-main inline white me-2' style={{width:'auto'}} onClick={() => invalidListingsWarningAcknowledged()}>
+            </Modal.Body>
+            <Modal.Footer>
+                <div className="row justify-content-center">
+                    <button className='btn-main inline white mb-2 mb-sm-0' style={{width:'auto'}} onClick={() => invalidListingsWarningAcknowledged()}>
                         I Understand
                     </button>
                     <button className='btn-main inline' style={{width:'auto'}} onClick={() => {
@@ -67,9 +68,8 @@ return (
                         Show Invalid Listings
                     </button>
                 </div>
-            </div>
-        </div>
-    }
+            </Modal.Footer>
+        </Modal>
     </>
 )}
 

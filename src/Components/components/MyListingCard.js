@@ -91,14 +91,14 @@ const MyListingCard = ({
                         </div>
                     </div>
                 </Card.Body>
-                <Card.Footer className="d-flex justify-content-end">
+                <Card.Footer className="d-flex flex-wrap justify-content-center justify-content-md-end">
                     {canUpdate &&
-                        <button className="btn-main mx-1" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</button>
+                        <button className="btn-main mx-1 mt-2" onClick={onUpdateButtonPressed} style={{cursor:'pointer', color: "black"}}>Update</button>
                     }
                     {canCancel &&
-                        <button className="btn-main mx-1" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</button>
+                        <button className="btn-main mx-1 mt-2" onClick={onCancelButtonPressed} style={{cursor:'pointer', color: "black"}}>Cancel</button>
                     }
-                    <button className="btn-main mx-1" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
+                    <button className="btn-main mx-1 mt-2" onClick={onCopyLinkButtonPressed(new URL(nftUrl(), config.app_base))} style={{cursor:'pointer', color: "black"}}>
                         <FontAwesomeIcon icon={faLink}/>
                     </button>
                 </Card.Footer>

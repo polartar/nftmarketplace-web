@@ -21,7 +21,9 @@ const Drops = () => (
                     Enjoy amazing discounts on drops and 50% off service fees while holding an Ebisu's Bay Founding Member NFT. <span className="fw-bold"><Link to="/drops/founding-member">Learn More ></Link></span>
                 </p>
                 <div style={{width: '70px'}} className="my-auto">
-                    <img src={foundingMember} className="img-responsive" alt="Founding Member Membership"/>
+                    <Link to="/drops/founding-member">
+                        <img src={foundingMember} className="img-responsive" alt="Founding Member Membership"/>
+                    </Link>
                 </div>
             </div>
         </section>
