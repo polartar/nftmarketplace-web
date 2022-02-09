@@ -1552,7 +1552,7 @@
             "multiToken" : false,
             "address" : "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "crobots",
                 "description": "",
