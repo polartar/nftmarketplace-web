@@ -160,6 +160,7 @@ const AccountMenu = function() {
     }
 
     useEffect(() => {
+        if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER"))
         dispatch(connectAccount());
     }, []);
 
