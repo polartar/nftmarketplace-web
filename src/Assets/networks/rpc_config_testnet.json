@@ -170,18 +170,18 @@
             }
         },
         {
-            "name" : "Crobots",
+            "name" : "DodgerDogs",
             "multiToken" : false,
-            "address" : "0xbad1Af829AD28a9f3B7d48A2D86b17121F486bd5",
+            "address" : "0xe946F079250F7aCdDB49016A87e508BD2586C76B",
             "onChain" : false,
             "listable" : true,
             "metadata": {
-                "slug": "Crobots",
+                "slug": "DodgerDogs",
                 "description": "",
                 "verified": true,
-                "avatar": "/img/collections/crobots/avatar.gif",
-                "card": "/img/collections/crobots/banner.png",
-                "banner": "/img/collections/crobots/banner.png"
+                "avatar": "/img/collections/dodgerdogs/avatar.gif",
+                "card": "/img/collections/dodgerdogs/banner.png",
+                "banner": "/img/collections/dodgerdogs/banner.png"
             }
         }
     ],
@@ -397,6 +397,33 @@
             "cost": "10",
             "memberCost": "5",
             "whitelistCost": "7",
+            "foundersOnly": false,
+            "abi": [
+                "function mint(uint256 _amount) public payable",
+                "function totalSupply() public view returns (uint256)",
+                "function mintCost(address _minter) external view returns (uint256)"
+            ],
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false
+        },
+        {
+            "id": 11,
+            "slug": "DodgerDogs",
+            "imgNft": "/img/drops/dodgerdogs/NewPreviewBanner.png",
+            "imgPreview": "/img/drops/dodgerdogs/NewPreviewBanner.png",
+            "imgAvatar" : "/img/collections/dodgerdogs/avatar.gif",
+            "imgBanner" : "/img/collections/dodgerdogs/banner.png",
+            "title": "DodgerDogs",
+            "subtitle": "",
+            "description":  "",
+            "author": { "name": "DodgerDogs", "link": "https://www.dodgerdogs.com/"},
+            "address": "0xe946F079250F7aCdDB49016A87e508BD2586C76B",
+            "maxMintPerTx": 5,
+            "totalSupply": 1111,
+            "cost": "10",
+            "memberCost": "5",
             "foundersOnly": false,
             "abi": [
                 "function mint(uint256 _amount) public payable",
