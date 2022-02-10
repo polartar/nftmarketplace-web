@@ -164,7 +164,6 @@ export async function getCollectionTraits(contractAddress) {
         return await (await fetch(internalUri)).json();
     } catch (error) {
         console.log(error);
-        Sentry.captureException(error);
     }
 
     return null;
@@ -177,7 +176,6 @@ export async function getCollectionPowertraits(contractAddress) {
         return await (await fetch(internalUri)).json();
     } catch (error) {
         console.log(error);
-        Sentry.captureException(error);
     }
 
     return null;

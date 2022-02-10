@@ -2,7 +2,7 @@ import React, { memo, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
-import {humanize, shortAddress, timeSince} from "../../utils";
+import {humanize, relativePrecision, shortAddress, timeSince} from "../../utils";
 import {useParams, useHistory, Link} from "react-router-dom";
 import {getNftDetails} from "../../GlobalState/nftSlice";
 import Blockies from "react-blockies";
@@ -136,7 +136,9 @@ const Nft = () => {
                                                                         <h5>{humanize(data.trait_type)}</h5>
                                                                         <h4>{humanize(data.value)}</h4>
                                                                         {data.occurrence ? (
-                                                                                <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                                <span>
+                                                                                    {relativePrecision(data.occurrence)}% have this trait
+                                                                                </span>
                                                                             )
                                                                             :
                                                                             data.percent && (

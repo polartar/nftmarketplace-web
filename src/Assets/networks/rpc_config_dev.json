@@ -2243,7 +2243,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         },
         {

@@ -295,3 +295,12 @@ export const percentage = (partialValue, totalValue) => {
   if (!totalValue || totalValue == 0) return 0;
   return Math.round((100 * partialValue) / totalValue);
 }
+
+export const relativePrecision = (num) => {
+  if (num < 0.001) {
+    return Math.round(num * 10000) / 100;
+  } else if (num < 0.01) {
+    return Math.round(num * 1000) / 10;
+  }
+  return Math.round(num * 100);
+}
