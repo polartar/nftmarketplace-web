@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
 import {
     createSuccessfulTransactionToastContent,
-    humanize,
+    humanize, relativePrecision,
     shortAddress,
     timeSince
 } from "../../utils";
@@ -73,7 +73,6 @@ const Listing = () => {
         element.target.parentElement.classList.add("active");
 
         setOpenMenu(index);
-        console.log(openMenu, index);
     };
 
     const showBuy = () => async () => {
@@ -211,7 +210,9 @@ const Listing = () => {
                                                                                 <h5>{humanize(data.trait_type)}</h5>
                                                                                 <h4>{humanize(data.value)}</h4>
                                                                                 {data.occurrence ? (
-                                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                                        <span>
+                                                                                            {relativePrecision(data.occurrence)}% have this trait
+                                                                                        </span>
                                                                                     )
                                                                                     :
                                                                                     data.percent && (

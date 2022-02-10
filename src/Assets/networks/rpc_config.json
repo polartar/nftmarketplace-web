@@ -2243,7 +2243,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         },
         {
@@ -2260,9 +2260,7 @@
             "maxMintPerTx": 0,
             "maxMintPerAddress": 0,
             "totalSupply": 0,
-            "cost": "450",
-            "memberCost": "450",
-            "whitelistCost": "400",
+            "cost": "250",
             "foundersOnly": false,
             "start": 1644015600000,
             "end": null,

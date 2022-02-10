@@ -243,14 +243,14 @@ export default class Responsive extends Component {
                                           <div className='col'>
                                               <span className="d-title">Mint Price</span>
                                               <h3>{ethers.utils.commify(drop.cost)} CRO</h3>
-                                              {
-                                                drop.erc20Cost && drop.erc20Unit && 
-                                                  <h3>{ethers.utils.commify(drop.erc20Cost)} {drop.erc20Unit}</h3>
+                                              {drop.erc20Cost && drop.erc20Unit &&
+                                                <h3>{ethers.utils.commify(drop.erc20Cost)} {drop.erc20Unit}</h3>
                                               }
-                                              <h5>Members: {ethers.utils.commify(drop.memberCost)} CRO</h5>
-                                              {
-                                                drop.erc20MemberCost && drop.erc20Unit && 
-                                                  <h5>Members: {ethers.utils.commify(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
+                                              {drop.memberCost &&
+                                                <h5>Members: {ethers.utils.commify(drop.memberCost)} CRO</h5>
+                                              }
+                                              {drop.erc20MemberCost && drop.erc20Unit &&
+                                                <h5>Members: {ethers.utils.commify(drop.erc20MemberCost)} {drop.erc20Unit}</h5>
                                               }
                                               {drop.whitelistCost &&
                                                 <h5>Whitelist: {ethers.utils.commify(drop.whitelistCost)} CRO</h5>
