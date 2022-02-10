@@ -317,7 +317,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                     'listingId' : (listing) ? listing['listingId'] : null,
                                     'price' : (listing) ? listing.price : null
                                 }
-                                nfts.push(nft);
+                                onNftLoaded([nft]);
                             } else {
                                 if(gatewayTools.containsCID(uri) && !uri.startsWith('ar')){
                                     try{
@@ -384,12 +384,8 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                     'listingId' : (listing) ? listing['listingId'] : null,
                                     'price' : (listing) ? listing.price : null
                                 }
-                                nfts.push(nft);
+                                onNftLoaded([nft]);
                             }
-                        }
-
-                        if (nfts.length > 0) {
-                            onNftLoaded(nfts);
                         }
                     }
                 }catch(error){
