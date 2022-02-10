@@ -282,6 +282,25 @@
                 "discord": "https://discord.gg/thelaboratory",
                 "medium": "https://medium.com/@TheLaboratoryIO"
             }
+        },
+        {
+            "name" : "The HD: Hyped Dogs",
+            "multiToken" : false,
+            "address" : "0x1D3587f44944a665F28bE1d9D9E322d43318DbB8",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "hyped-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/hypeddogs/avatar.gif",
+                "card": "/img/collections/hypeddogs/card.png",
+                "banner": "/img/collections/hypeddogs/banner.png",
+                "website": "https://www.thelaboratory.io/",
+                "twitter": "https://twitter.com/thelaboratoryio",
+                "discord": "https://discord.gg/thelaboratory",
+                "medium": "https://medium.com/@TheLaboratoryIO"
+            }
         }
     ],
     "drops": [
@@ -663,6 +682,32 @@
             "cost": "379",
             "memberCost": "329",
             "whitelistCost": "329",
+            "foundersOnly": false,
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 20,
+            "slug": "hyped-dogs",
+            "imgNft": "/img/drops/hypeddogs/drop.png",
+            "imgPreview": "/img/drops/hypeddogs/drop.png",
+            "imgAvatar" : "/img/collections/hypeddogs/avatar.gif",
+            "imgBanner" : "/img/collections/hypeddogs/banner.png",
+            "title": "The HD: Hyped Dogs",
+            "subtitle": "3000 Hyped Dogs has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nHyped Dogs is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+            "description": "3000 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory’s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+            "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
+            "address": "0x1D3587f44944a665F28bE1d9D9E322d43318DbB8",
+            "maxMintPerTx": 7,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3000,
+            "cost": "5",
+            "memberCost": "10",
+            "whitelistCost": "5",
             "foundersOnly": false,
             "start": 1639591200000,
             "end": null,
