@@ -17,6 +17,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     const canLoadMore = useSelector((state) => {
         return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
     });
+    const isFetching = useSelector((state) => state.marketplace.loading);
 
     const marketplace = useSelector((state) => {
         return state.marketplace;
@@ -64,7 +65,9 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null , sellerId
     }, [dispatch]);
 
     const loadMore = () => {
-        dispatch(fetchListings());
+        if (!isFetching) {
+            dispatch(fetchListings());
+        }
     }
 
     if (showLoadMore) {
