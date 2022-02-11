@@ -154,11 +154,11 @@ export function classList(classes) {
  * @returns {string}
  */
 export function humanize(str) {
-  var i, frags = str.split('_');
+  let i, frags = str.split(/(?=[A-Z])/).join(' ').split('_');
   for (i=0; i<frags.length; i++) {
     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
   }
-  return frags.join(' ').split(/(?=[A-Z])/).join(' ');
+  return frags.join(' ');
 }
 
 /**
@@ -294,4 +294,13 @@ export const isDrop = (address, slug) => {
 export const percentage = (partialValue, totalValue) => {
   if (!totalValue || totalValue == 0) return 0;
   return Math.round((100 * partialValue) / totalValue);
+}
+
+export const relativePrecision = (num) => {
+  if (num < 0.001) {
+    return Math.round(num * 10000) / 100;
+  } else if (num < 0.01) {
+    return Math.round(num * 1000) / 10;
+  }
+  return Math.round(num * 100);
 }

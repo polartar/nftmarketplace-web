@@ -576,7 +576,7 @@
         {
             "name" : "Dodger Dogs",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -2237,7 +2237,7 @@
             "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the Crobots explore, create, and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
             "description": "Meet the Crobots! – A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
             "author": { "name": "Crobots", "link": "https://TheCrobots.com"},
-            "address": "",
+            "address": "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
             "maxMintPerTx": 10,
             "maxMintPerAddress": 2500,
             "totalSupply": 2500,
@@ -2251,7 +2251,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         },
         {
@@ -2268,9 +2268,7 @@
             "maxMintPerTx": 0,
             "maxMintPerAddress": 0,
             "totalSupply": 0,
-            "cost": "450",
-            "memberCost": "450",
-            "whitelistCost": "400",
+            "cost": "250",
             "foundersOnly": false,
             "start": 1644015600000,
             "end": null,
@@ -2292,7 +2290,7 @@
             "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
             "description" : "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
             "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/"},
-            "address": "",
+            "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "maxMintPerTx": 5,
             "maxMintPerAddress": 200,
             "totalSupply": 1111,
