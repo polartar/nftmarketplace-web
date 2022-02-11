@@ -1605,6 +1605,18 @@
                 "medium" : "https://medium.com/@cromoon",
                 "telegram" : "https://t.me/OfficialCroMoon"
             }
+        },
+        {
+            "name": "MetaPixels",
+            "onChain" : false,
+            "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
+            "multiToken" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "metapixels",
+                "description": "",
+                "verified": true
+            }
         }
     ],
     "drops": [

@@ -1,7 +1,7 @@
-import { Contract, ethers } from "ethers";
+import { BigNumber, Contract, ethers } from "ethers";
 import config from "../Assets/networks/rpc_config.json";
 import Market from "../Contracts/Marketplace.json";
-import { ERC1155, ERC721 } from '../Contracts/Abis'
+import { ERC1155, ERC721, MetaPixelsAbi } from '../Contracts/Abis'
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { dataURItoBlob } from "../Store/utils";
 import moment from "moment";
@@ -188,25 +188,71 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
         const listingsReponse = await (await fetch(`${api.baseUrl}${api.listings}?seller=${walletAddress}&state=0`)).json()
         const listings = listingsReponse.listings;
 
+        //  Helper function
+        const isListed = (address, id) => {
+            return !!listings.find(listing => {
+                const sameId = ethers.BigNumber.from(listing['nftId']).eq(id);
+                const sameAddress = listing['nftAddress'].toLowerCase() === address.toLowerCase();
+                return sameId && sameAddress;
+            });
+        };
+
+        //  Helper function
+        const getListingId = (address, id) => {
+            return listings.find(listing => {
+                const sameId = ethers.BigNumber.from(listing['nftId']).eq(id);
+                const sameAddress = listing['nftAddress'].toLowerCase() === address.toLowerCase();
+                return sameId && sameAddress;
+            }).listingId;
+        };
+
+        //  Helper function
+        const getListingPrice = (address, id) => {
+            return listings.find(listing => {
+                const sameId = ethers.BigNumber.from(listing['nftId']).eq(id);
+                const sameAddress = listing['nftAddress'].toLowerCase() === address.toLowerCase();
+                return sameId && sameAddress;
+            }).price;
+        };
+
         let response = {
             nfts: [],
             isMember: false
         };
 
         await Promise.all(
-            knownContracts.map(async (c, i) => {
+            knownContracts.filter(x => !!x.address).map(async (knownContract) => {
                 try{
-                    if(c.multiToken){
-                        const contract = new Contract(c.address, ERC1155, signer);
-                        contract.connect(signer);
-                        let count = await contract.balanceOf(walletAddress, c.id);
-                        count = count.toNumber();
-                        if(c.address === config.membership_contract && count > 0) {
+                    //   shared code for ERC1155 and ERC721
+                    const contract = (() => {
+                        if (knownContract.multiToken) {
+                            return new Contract(knownContract.address, ERC1155, signer);
+                        }
+                        if (knownContract.name === 'MetaPixels') {
+                            return new Contract(knownContract.address, MetaPixelsAbi, signer);
+                        }
+                        return new Contract(knownContract.address, ERC721, signer);
+                    })();
+                    contract.connect(signer);
+
+                    //   shared code for ERC1155 and ERC721
+                    const count = await (async () => {
+                        const bigNumber = knownContract.multiToken
+                            ? await contract.balanceOf(walletAddress, knownContract.id)
+                            : await contract.balanceOf(walletAddress);
+                        return bigNumber.toNumber();
+                    })();
+
+
+                    //   ERC1155 specific
+                    if (knownContract.multiToken) {
+                        if(knownContract.address === config.membership_contract && count > 0) {
                             response.isMember = true;
                         }
-                        if(count !== 0){
-                            let uri = await contract.uri(c.id);
-                            const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(c.id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
+
+                        if (count !== 0) {
+                            let uri = await contract.uri(knownContract.id);
+
                             if(gatewayTools.containsCID(uri)){
                                 try{
                                     uri = gatewayTools.convertToDesiredGateway(uri, gateway);
@@ -215,183 +261,232 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 }
                             }
                             const json = await (await fetch(uri)).json();
-                            // const a = Array.from({length : count}, (_, i) => {
-                            //     const name = json.name;
-                            //     const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
-                            //     const description = json.description;
-                            //     const properties = json.properties;
-                            //     return {
-                            //         'name': name,
-                            //         'id' : c.id,
-                            //         'image' : image,
-                            //         'description' : description,
-                            //         'properties' : properties,
-                            //         'contract' : contract,
-                            //         'address' : c.address,
-                            //         'multiToken' : true,
-                            //         'listable' : c.listable,
-                            //         'listed' : false
-                            //     }
-                            // })
+
                             const name = json.name;
                             const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
                             const description = json.description;
                             const properties = json.properties;
+                            const listed = isListed(knownContract.address, knownContract.id);
+                            const listingId = listed ? getListingId(knownContract.address, knownContract.id) : null;
+                            const price = listed ? getListingPrice(knownContract.address, knownContract.id) : null;
                             const nft = {
                                 'name': name,
-                                'id' : c.id,
+                                'id' : knownContract.id,
                                 'image' : image,
                                 'count' : count,
                                 'description' : description,
                                 'properties' : properties,
                                 'contract' : contract,
-                                'address' : c.address,
+                                'address' : knownContract.address,
                                 'multiToken' : true,
-                                'listable' : c.listable,
-                                'listed' : listing != null,
-                                'listingId' : (listing) ? listing['listingId'] : null,
-                                'price' : (listing) ? listing.price : null
-                            }
-
+                                'listable' : knownContract.listable,
+                                listed,
+                                listingId,
+                                price
+                            };
                             onNftLoaded([nft]);
                         }
+                        return response;
+                    }
 
-                    } else if (c.address) {
-                        var nfts = [];
-                        const contract = new Contract(c.address, ERC721, signer);
-                        const readContract = new Contract(c.address, ERC721, readProvider);
-                        contract.connect(signer);
-                        const count = await contract.balanceOf(walletAddress);
-                        let ids = [];
+                    //   rest of the code is ERC721 specific
+
+                    const readContract = (() => {
+                        if (knownContract.name === 'MetaPixels') {
+                            return new Contract(knownContract.address, MetaPixelsAbi, readProvider);
+                        }
+                        return new Contract(knownContract.address, ERC721, readProvider);
+                    })();
+
+                    const ids = await (async () => {
                         if (count > 0) {
                             try {
                                 await readContract.tokenOfOwnerByIndex(walletAddress, 0);
                             } catch (error) {
-                                ids = await readContract.walletOfOwner(walletAddress);
+                                return await readContract.walletOfOwner(walletAddress);
                             }
                         }
-                        for(let i = 0; i < count; i++){
-                            let id;
-                            if (ids.length == 0) {
+                        return [];
+                    })();
+
+                    const nfts = [];
+
+                    for(let i = 0; i < count; i++) {
+                        const id = await (async () => {
+                            if (ids.length === 0) {
                                 try {
-                                    id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
+                                    return await readContract.tokenOfOwnerByIndex(walletAddress, i);
                                 } catch (error) {
-                                    continue;
+                                    return null;
                                 }
                             } else {
-                                id = ids[i];
+                                return ids[i];
                             }
-                            const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
-                            let uri;
-                            if (c.name === 'Ant Mint Pass') {
+                        })();
+
+                        if (id === null) {
+                            continue;
+                        }
+                        const listed = isListed(knownContract.address, id);
+                        const listingId = listed ? getListingId(knownContract.address, id) : null;
+                        const price = listed ? getListingPrice(knownContract.address, id) : null;
+
+                        const uri = await (async () => {
+                            if (knownContract.name === 'Ant Mint Pass') {
                                 //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
                                 //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
-                                uri = 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
-                            } else if (c.name == "Red Skull Potions") {
+                                return 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
+                            }
+
+                            if (knownContract.name === 'Red Skull Potions') {
                                 // fix for CroSkull's Red Skull Potions
-                                uri = `https://gateway.pinata.cloud/ipfs/QmQd9sFZv9aTenGD4q4LWDQWnkM4CwBtJSL82KLveJUNTT/${id}`;
-                            } else {
-                                uri = await readContract.tokenURI(id);
+                                return `https://gateway.pinata.cloud/ipfs/QmQd9sFZv9aTenGD4q4LWDQWnkM4CwBtJSL82KLveJUNTT/${ id }`;
                             }
 
-                            if(c.onChain){
-                                const json = Buffer.from(uri.split(',')[1], 'base64');
-                                const parsed = JSON.parse(json);
-                                const name = parsed.name;
-                                const image = dataURItoBlob(parsed.image, 'image/svg+xml');
-                                const desc = parsed.description;
-                                const properties = (parsed.properties) ? parsed.properties : parsed.attributes;
-                                const nft = {
-                                    'id' : id,
-                                    'name' : name,
-                                    'image' : URL.createObjectURL(image),
-                                    'description' : desc,
-                                    'properties' : properties,
-                                    'contract' : contract,
-                                    'address' : c.address,
-                                    'multiToken' : false,
-                                    'listable' : c.listable,
-                                    'listed' : listing != null,
-                                    'listingId' : (listing) ? listing['listingId'] : null,
-                                    'price' : (listing) ? listing.price : null
-                                }
-                                nfts.push(nft);
-                            } else {
-                                if(gatewayTools.containsCID(uri) && !uri.startsWith('ar')){
-                                    try{
-                                        uri = gatewayTools.convertToDesiredGateway(uri, gateway);
-                                    }catch(error){
-                                        // console.log(error);
-                                    }
-                                } else if(uri.startsWith('ar')){
-                                    uri = `https://arweave.net/${uri.substring(5)}`;
-                                } else {
-                                    console.log(uri);
-                                }
-                                let json
-                                if(uri.includes('unrevealed')){
-                                    json = {
-                                        'id' : id,
-                                        'name' : c.name + ' ' + id,
-                                        'description' : 'Unrevealed!',
-                                        'image' : "",
-                                        'contract' : contract,
-                                        'address' : c.address,
-                                        'multiToken' : false,
-                                        'properties' : [],
-                                        'listable' : c.listable,
-                                        'listed' : listing != null,
-                                        'listingId' : (listing) ? listing['listingId'] : null,
-                                        'price' : (listing) ? listing.price : null
-                                    }
-                                } else{
-                                    json = await (await fetch(uri)).json();
-                                }
-                                let image
-                                if(json.image.startsWith('ipfs')){
-                                    image = `${gateway}/ipfs/${json.image.substring(7)}`;
-                                } else if(gatewayTools.containsCID(json.image) && !json.image.startsWith('ar')){
-                                    try {
-                                        image = gatewayTools.convertToDesiredGateway(json.image, gateway);
+                            if (knownContract.name === 'MetaPixels') {
+                                return await readContract.lands(id);
+                            }
 
-                                    }catch(error){
-                                        image = json.image;
-                                    }
-                                } else if(json.image.startsWith('ar')){
-                                    if(typeof json.tooltip !== 'undefined'){
-                                        image = `https://arweave.net/${json.tooltip.substring(5)}`;
+                            return await readContract.tokenURI(id);
+                        })();
+
+                        if (knownContract.name === 'MetaPixels') {
+                            const numberId = id instanceof BigNumber ? id.toNumber() : id;
+                            console.log({id})
+                            console.log({uri})
+                            const image = `${ uri.image }`.startsWith('https://') ? uri.image : `https://ipfs.metaversepixels.app/ipfs/${ uri.image }`;
+                            const description = uri.detail;
+                            const name = `${ knownContract.name } ${ id }`;
+                            const properties = {};
+                            nfts.push({
+                                useIframe: true,
+                                iframeSource: `https://www.metaversepixels.app/grid?id=${numberId}&zoom=3`,
+                                id: numberId,
+                                name,
+                                image,
+                                description,
+                                properties,
+                                contract,
+                                address: knownContract.address,
+                                multiToken: false,
+                                listable: false,
+                                transferable: false,
+                                listed,
+                                listingId,
+                                price
+                            });
+                            continue;
+                        }
+
+                        if (knownContract.onChain) {
+                            const json = Buffer.from(uri.split(',')[1], 'base64');
+                            const parsed = JSON.parse(json);
+                            const name = parsed.name;
+                            const image = dataURItoBlob(parsed.image, 'image/svg+xml');
+                            const desc = parsed.description;
+                            const properties = (parsed.properties) ? parsed.properties : parsed.attributes;
+                            const nft = {
+                                id,
+                                'name': name,
+                                'image': URL.createObjectURL(image),
+                                'description': desc,
+                                'properties': properties,
+                                'contract': contract,
+                                'address': knownContract.address,
+                                'multiToken': false,
+                                'listable': knownContract.listable,
+                                listed,
+                                listingId,
+                                price
+                            };
+                            nfts.push(nft);
+                            continue;
+                        }
+
+                        const checkedUri = (() => {
+                            try {
+                                if (gatewayTools.containsCID(uri) && !uri.startsWith('ar')) {
+                                    return gatewayTools.convertToDesiredGateway(uri, gateway);
+                                }
+
+                                if (uri.startsWith('ar')) {
+                                    return `https://arweave.net/${ uri.substring(5) }`;
+                                }
+
+                                return uri;
+                            } catch (e) {
+                                return uri;
+                            }
+                        })();
+
+                        const json = await (async () => {
+                            if (checkedUri.includes('unrevealed')) {
+                                return {
+                                    id,
+                                    'name': knownContract.name + ' ' + id,
+                                    'description': 'Unrevealed!',
+                                    'image': "",
+                                    'contract': contract,
+                                    'address': knownContract.address,
+                                    'multiToken': false,
+                                    'properties': [],
+                                    'listable': knownContract.listable,
+                                    listed,
+                                    listingId,
+                                    price
+                                }
+                            } else {
+                                return await (await fetch(uri)).json();
+                            }
+                        })();
+
+                        const image = (() => {
+                            try {
+                                if (json.image.startsWith('ipfs')) {
+                                    return `${ gateway }/ipfs/${ json.image.substring(7) }`;
+                                }
+
+                                if (gatewayTools.containsCID(json.image) && !json.image.startsWith('ar')) {
+                                    return gatewayTools.convertToDesiredGateway(json.image, gateway);
+                                }
+
+                                if (json.image.startsWith('ar')) {
+                                    if (typeof json.tooltip !== 'undefined') {
+                                        return `https://arweave.net/${ json.tooltip.substring(5) }`;
                                     } else {
-                                        image = `https://arweave.net/${json.image.substring(5)}`;
+                                        return `https://arweave.net/${ json.image.substring(5) }`;
                                     }
-
-                                }else {
-                                    image = json.image;
                                 }
 
-                                const nft = {
-                                    'id' : id,
-                                    'name' : json.name,
-                                    'image' : image,
-                                    'description' : json.description,
-                                    'properties' : (json.properties) ? json.properties : json.attributes,
-                                    'contract' : contract,
-                                    'address' : c.address,
-                                    'multiToken' : false,
-                                    'listable' : c.listable,
-                                    'listed' : listing != null,
-                                    'listingId' : (listing) ? listing['listingId'] : null,
-                                    'price' : (listing) ? listing.price : null
-                                }
-                                nfts.push(nft);
+                                return json.image;
+
+                            } catch (e) {
+                                return json.image;
                             }
-                        }
+                        })();
 
-                        if (nfts.length > 0) {
-                            onNftLoaded(nfts);
+                        const nft = {
+                            id,
+                            'name': json.name,
+                            'image': image,
+                            'description': json.description,
+                            'properties': (json.properties) ? json.properties : json.attributes,
+                            'contract': contract,
+                            'address': knownContract.address,
+                            'multiToken': false,
+                            'listable': knownContract.listable,
+                            listed,
+                            listingId,
+                            price
                         }
+                        nfts.push(nft);
+                    }
+
+                    if (nfts.length > 0) {
+                        onNftLoaded(nfts);
                     }
                 }catch(error){
-                    console.log('error fetching ' + knownContracts[i].name);
+                    console.log('error fetching ' + knownContract.name);
                     console.log(error);
                     Sentry.captureException(error);
                 }
@@ -420,6 +515,9 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                     if (knownContract.multiToken) {
                         return new Contract(knownContract.address, ERC1155, signer);
                     }
+                    if (knownContract.name === 'MetaPixels') {
+                        return new Contract(knownContract.address, MetaPixelsAbi, signer);
+                    }
                     return new Contract(knownContract.address, ERC721, signer);
                 })();
 
@@ -438,6 +536,9 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 }
 
                 const readContract = (() => {
+                    if (knownContract.name === 'MetaPixels') {
+                        return new Contract(knownContract.address, MetaPixelsAbi, readProvider);
+                    }
                     return new Contract(knownContract.address, ERC721, readProvider);
                 })();
 
@@ -471,6 +572,15 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                         continue;
                     }
 
+                    if (knownContract.name === 'MetaPixels') {
+                        const numberId = id instanceof BigNumber ? id.toNumber() : id;
+                        nfts.push({
+                            id: numberId,
+                            address: knownContract.address.toLowerCase()
+                        });
+                        continue;
+                    }
+
                     nfts.push({
                         id: id.toNumber(),
                         address: knownContract.address.toLowerCase()
@@ -497,12 +607,15 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
             const listingTime = moment(new Date(item.listingTime * 1000)).format("DD/MM/YYYY, HH:mm");
             const id = item.nftId;
             const address = item.nftAddress.toLowerCase();
-            const isInWallet = !!walletNfts.find(walletNft => walletNft.address === address && walletNft.id === id );
+            const isInWallet = walletNfts.find(walletNft => walletNft.address === address && walletNft.id === id );
             const listed = true;
 
             const contract = (() => {
                 if (is1155) {
                     return new Contract(address, ERC1155, signer);
+                }
+                if (knownContracts.find(x => x.address.toLowerCase() === address)) {
+                    return new Contract(address, MetaPixelsAbi, signer);
                 }
                 return new Contract(address, ERC721, signer);
             })();
@@ -518,12 +631,14 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 state,
                 listingTime,
                 listed,
-                isInWallet,
+                isInWallet: !!isInWallet,
                 listingId,
                 price,
                 purchaser,
                 rank,
-                valid
+                valid,
+                useIframe: contract.name === 'MetaPixels',
+                iframeSource: contract.name === 'MetaPixels' ? `https://www.metaversepixels.app/grid?id=${id}&zoom=3` : null
             }
         });
 
@@ -643,6 +758,24 @@ export async function getNftFromFile(collectionId, nftId) {
                 'image': URL.createObjectURL(image),
                 'description': desc,
                 'properties': properties,
+            }
+
+        } else if (collectionId === config.known_contracts.find(knownContract => knownContract.name === 'MetaPixels')?.address) {
+            const contract = new Contract(collectionId, MetaPixelsAbi, readProvider);
+            const uri = await contract.lands(nftId);
+
+            const numberId = nftId instanceof BigNumber ? nftId.toNumber() : nftId;
+            const image = `${ uri.image }`.startsWith('https://') ? uri.image : `https://ipfs.metaversepixels.app/ipfs/${ uri.image }`;
+            const description = uri.detail;
+            const name = `MetaPixels ${ numberId }`;
+            const properties = {};
+            nft = {
+                name,
+                image,
+                description,
+                properties,
+                useIframe: true,
+                iframeSource: `https://www.metaversepixels.app/grid?id=${numberId}&zoom=3`
             }
         } else {
             const isMultiToken = knownContracts.findIndex(x => x.address === collectionId && x.multiToken) > -1;
