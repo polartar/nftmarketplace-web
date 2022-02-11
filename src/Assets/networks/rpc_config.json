@@ -1611,7 +1611,11 @@
             "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
             "multiToken" : false,
             "listable" : true,
-            "metadata": {}
+            "metadata": {
+                "slug": "metapixels",
+                "description": "",
+                "verified": true
+            }
         }
     ],
     "drops": [
