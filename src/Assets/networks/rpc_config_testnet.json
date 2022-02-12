@@ -700,7 +700,7 @@
             "title": "BobaNFTea",
             "subtitle": "A collection of 3300 NFTeas hand-drawn and deployed on the Cronos chain!",
             "description": "The Boba NFTea collection is a community driven project being deployed on the Cronos chain. Holders of the NFTs will gain access to exclusive utilities such as governance and the ability to earn $BOBA tokens, that offers benefits like staking.",
-            "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
+            "author": { "name": "Boba NFTea", "link": "https://twitter.com/Boba_NFTea"},
             "address": "0xde0d3CCA05A9870D82180e771Eb2efc1de039cB9",
             "maxMintPerTx": 20,
             "maxMintPerAddress": 50,
