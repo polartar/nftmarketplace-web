@@ -265,7 +265,7 @@
             "onChain" : false,
             "listable" : true,
             "metadata" : {
-                "slug" : "crocrow",
+                "slug" : "cro-crow",
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
@@ -1525,7 +1525,8 @@
                 "avatar": "/img/collections/emergence/avatar.png",
                 "card": "/img/collections/emergence/card.png",
                 "banner": "/img/collections/emergence/banner.png",
-                "website": "https://0xluckless.com"
+                "website": "https://0xluckless.com",
+                "discord": "https://discord.gg/BpAVk2Za2c"
             }
         },
         {
