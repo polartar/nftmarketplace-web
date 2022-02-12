@@ -282,6 +282,25 @@
                 "discord": "https://discord.gg/thelaboratory",
                 "medium": "https://medium.com/@TheLaboratoryIO"
             }
+        },
+         {
+            "name" : "BobaNFTea",
+            "multiToken" : false,
+            "address" : "0xde0d3CCA05A9870D82180e771Eb2efc1de039cB9",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "boba-nftea",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/bobanftea/avatar.png",
+                "card": "/img/collections/bobanftea/card.png",
+                "banner": "/img/collections/bobanftea/banner.png",
+                "website": "https://www.thelaboratory.io/",
+                "twitter": "https://twitter.com/thelaboratoryio",
+                "discord": "https://discord.gg/thelaboratory",
+                "medium": "https://medium.com/@TheLaboratoryIO"
+            }
         }
     ],
     "drops": [
@@ -663,6 +682,32 @@
             "cost": "379",
             "memberCost": "329",
             "whitelistCost": "329",
+            "foundersOnly": false,
+            "start": 1639591200000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 20,
+            "slug": "boba-nftea",
+            "imgNft": "/img/drops/bobannftea/drop.gif",
+            "imgPreview": "/img/drops/bobannftea/drop.gif",
+            "imgAvatar" : "/img/collections/bobannftea/avatar.png",
+            "imgBanner" : "/img/drops/bobannftea/banner.png",
+            "title": "BobaNFTea",
+            "subtitle": "A collection of 3300 NFTeas hand-drawn and deployed on the Cronos chain!",
+            "description": "The Boba NFTea collection is a community driven project being deployed on the Cronos chain. Holders of the NFTs will gain access to exclusive utilities such as governance and the ability to earn $BOBA tokens, that offers benefits like staking.",
+            "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
+            "address": "0xde0d3CCA05A9870D82180e771Eb2efc1de039cB9",
+            "maxMintPerTx": 20,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3300,
+            "cost": "10",
+            "memberCost": "5",
+            "whitelistCost": "5",
             "foundersOnly": false,
             "start": 1639591200000,
             "end": null,
