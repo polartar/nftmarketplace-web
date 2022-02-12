@@ -282,14 +282,6 @@
                 "discord": "https://discord.gg/thelaboratory",
                 "medium": "https://medium.com/@TheLaboratoryIO"
             }
-        },
-        {
-            "name": "MetaPixels",
-            "onChain" : false,
-            "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
-            "multiToken" : false,
-            "listable" : true,
-            "metadata": {}
         }
     ],
     "drops": [
