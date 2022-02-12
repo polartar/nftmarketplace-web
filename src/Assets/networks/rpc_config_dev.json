@@ -265,7 +265,7 @@
             "onChain" : false,
             "listable" : true,
             "metadata" : {
-                "slug" : "crocrow",
+                "slug" : "cro-crow",
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
@@ -1604,6 +1604,18 @@
                 "discord": "https://discord.gg/KqtDGjwWh3",
                 "medium" : "https://medium.com/@cromoon",
                 "telegram" : "https://t.me/OfficialCroMoon"
+            }
+        },
+        {
+            "name": "MetaPixels",
+            "onChain" : false,
+            "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
+            "multiToken" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "metapixels",
+                "description": "",
+                "verified": true
             }
         }
     ],

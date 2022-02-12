@@ -291,6 +291,15 @@ export const isDrop = (address, slug) => {
   return drop?.address === address;
 }
 
+export const isCollection = (address, slug) => {
+  const collection = collections.find(c => c.metadata.slug === slug);
+  return collection && caseInsensitiveCompare(collection.address, address);
+}
+
+export const isCroCrowCollection = (address) => {
+  return isCollection(address, 'cro-crow');
+}
+
 export const percentage = (partialValue, totalValue) => {
   if (!totalValue || totalValue == 0) return 0;
   return Math.round((100 * partialValue) / totalValue);
