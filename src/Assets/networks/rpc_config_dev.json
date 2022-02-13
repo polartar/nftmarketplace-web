@@ -949,7 +949,7 @@
             }
         },
         {
-            "name" : "Cronos Monkey Business",
+            "name" : "Cronos Primate Business",
             "multiToken" : false,
             "address" : "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
             "onChain" : false,
@@ -1115,7 +1115,7 @@
             "multiToken" : false,
             "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-dogs",
                 "description": "",
