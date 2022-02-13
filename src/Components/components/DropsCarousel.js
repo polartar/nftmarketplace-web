@@ -108,12 +108,28 @@ export default class Responsive extends Component {
 
   arrangeCollections() {
     const twelveHours = 3600000 * 12;
+    const twoDays = 3600000 * 24 * 2;
+
     const upcomingDrops = drops
         .filter(d => !d.complete && d.published && (d.start > Date.now() && d.start - Date.now() < twelveHours))
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
-    const liveDrops = drops
+    let liveDrops = drops
         .filter(d => !d.complete && d.published && d.start < Date.now())
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
+
+    if (liveDrops.length > 3) {
+      let c = 0;
+      liveDrops = liveDrops.reverse().filter((d) => {
+        if (liveDrops.length - c <= 3) return true;
+
+        if (Date.now() - d.start < twoDays || this.isFounderDrop(d)) {
+          return true;
+        }
+
+        c++;
+        return false;
+      }).reverse();
+    }
     this.featuredDrops = [...upcomingDrops, ...liveDrops];
   }
 
