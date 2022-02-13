@@ -512,7 +512,7 @@ const Drop = () => {
                                 {status === statuses.NOT_STARTED
                                 ?
                                     <div>
-                                        <div className="fs-6 fw-bold mb-1 text-end">
+                                        <div className="fs-6 fw-bold mb-1">
                                             Supply: {maxSupply.toString()}
                                         </div>
                                     </div>
