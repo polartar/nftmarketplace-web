@@ -568,6 +568,10 @@ const Drop = () => {
                                     }
                                 </div>
 
+                                {drop.priceDescription &&
+                                    <p className="my-2" style={{color:'black'}}>*{drop.priceDescription}</p>
+                                }
+
                                 <div className="spacer-40"></div>
 
                                 {status === statuses.LIVE && drop.end &&

@@ -2329,14 +2329,15 @@
             "maxMintPerTx": 20,
             "maxMintPerAddress": 50,
             "totalSupply": 3300,
-            "cost": "10",
-            "memberCost": "5",
-            "whitelistCost": "5",
+            "cost": "180",
+            "memberCost": "150",
+            "whitelistCost": "150",
             "foundersOnly": false,
             "start": 1644784200000,
             "end": null,
             "referral": false,
             "is1155": false,
+            "priceDescription": "1M LOOT required to be eligible for the Whitelist Price",
             "published": true,
             "complete": false
         }
