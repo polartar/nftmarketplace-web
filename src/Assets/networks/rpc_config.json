@@ -1605,6 +1605,23 @@
                 "medium" : "https://medium.com/@cromoon",
                 "telegram" : "https://t.me/OfficialCroMoon"
             }
+        },
+        {
+            "name" : "BobaNFTea",
+            "multiToken" : false,
+            "address" : "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "boba-nftea",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/bobanftea/avatar.png",
+                "card": "/img/collections/bobanftea/card.png",
+                "banner": "/img/collections/bobanftea/banner.png",
+                "twitter": "https://twitter.com/Boba_NFTea",
+                "discord": "http://discord.gg/bobanftea"
+            }
         }
     ],
     "drops": [
@@ -2291,6 +2308,32 @@
             "memberCost": "200",
             "foundersOnly": false,
             "start": 1644606000000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 23,
+            "slug": "boba-nftea",
+            "imgNft": "/img/drops/bobanftea/drop.gif",
+            "imgPreview": "/img/drops/bobanftea/drop.gif",
+            "imgAvatar" : "/img/collections/bobanftea/avatar.png",
+            "imgBanner" : "/img/collections/bobanftea/banner.png",
+            "title": "BobaNFTea",
+            "subtitle": "A collection of 3300 NFTeas hand-drawn and deployed on the Cronos chain!",
+            "description": "The Boba NFTea collection is a community driven project being deployed on the Cronos chain. Holders of the NFTs will gain access to exclusive utilities such as governance and the ability to earn $BOBA tokens, that offers benefits like staking.",
+            "author": { "name": "Boba NFTea", "link": "https://twitter.com/Boba_NFTea"},
+            "address": "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+            "maxMintPerTx": 20,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3300,
+            "cost": "10",
+            "memberCost": "5",
+            "whitelistCost": "5",
+            "foundersOnly": false,
+            "start": 1644784200000,
             "end": null,
             "referral": false,
             "is1155": false,
