@@ -512,7 +512,7 @@ const Drop = () => {
                                 {status === statuses.NOT_STARTED
                                 ?
                                     <div>
-                                        <div className="fs-6 fw-bold mb-1 text-end">
+                                        <div className="fs-6 fw-bold mb-1">
                                             Supply: {maxSupply.toString()}
                                         </div>
                                     </div>
@@ -567,6 +567,10 @@ const Drop = () => {
                                         </div>
                                     }
                                 </div>
+
+                                {drop.priceDescription &&
+                                    <p className="my-2" style={{color:'black'}}>*{drop.priceDescription}</p>
+                                }
 
                                 <div className="spacer-40"></div>
 

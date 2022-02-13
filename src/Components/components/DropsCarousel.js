@@ -11,6 +11,7 @@ import LayeredIcon from "./LayeredIcon";
 import { faCheck, faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {ethers} from "ethers";
+import {dropState} from "../../core/api/enums";
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`
@@ -65,14 +66,6 @@ class CustomSlide extends Component {
   }
 }
 
-const statuses = {
-  UNSET: -1,
-  NOT_STARTED: 0,
-  LIVE: 1,
-  EXPIRED: 2,
-  SOLD_OUT: 3
-}
-
 export default class Responsive extends Component {
 
   constructor(props) {
@@ -96,24 +89,40 @@ export default class Responsive extends Component {
     const eTime = new Date(drop.end);
     const now = new Date();
 
-    if (sTime > now) return statuses.NOT_STARTED;
+    if (sTime > now) return dropState.NOT_STARTED;
     else if (drop.currentSupply >= drop.totalSupply &&
         drop.slug !== 'founding-member' &&
         drop.slug !== 'cronies'
-    ) return statuses.SOLD_OUT;
-    else if (!drop.end || eTime > now) return statuses.LIVE;
-    else if (drop.end && eTime < now) return statuses.EXPIRED;
-    else return statuses.NOT_STARTED;
+    ) return dropState.SOLD_OUT;
+    else if (!drop.end || eTime > now) return dropState.LIVE;
+    else if (drop.end && eTime < now) return dropState.EXPIRED;
+    else return dropState.NOT_STARTED;
   }
 
   arrangeCollections() {
     const twelveHours = 3600000 * 12;
+    const twoDays = 3600000 * 24 * 2;
+
     const upcomingDrops = drops
         .filter(d => !d.complete && d.published && (d.start > Date.now() && d.start - Date.now() < twelveHours))
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
-    const liveDrops = drops
+    let liveDrops = drops
         .filter(d => !d.complete && d.published && d.start < Date.now())
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
+
+    if (liveDrops.length > 3) {
+      let c = 0;
+      liveDrops = liveDrops.reverse().filter((d) => {
+        if (liveDrops.length - c <= 3) return true;
+
+        if (Date.now() - d.start < twoDays || this.isFounderDrop(d)) {
+          return true;
+        }
+
+        c++;
+        return false;
+      }).reverse();
+    }
     this.featuredDrops = [...upcomingDrops, ...liveDrops];
   }
 
@@ -261,7 +270,7 @@ export default class Responsive extends Component {
                                           </div>
                                           <div className="line my-auto"></div>
                                           <div className="col my-auto">
-                                            {this.calculateStatus(drop) === statuses.NOT_STARTED &&
+                                            {this.calculateStatus(drop) === dropState.NOT_STARTED &&
                                               <>
                                                 <span className="d-title">Drop starts in</span>
                                                 <div className="de_countdown">
@@ -270,13 +279,13 @@ export default class Responsive extends Component {
                                                 <h5>{new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}</h5>
                                               </>
                                             }
-                                            {this.calculateStatus(drop) === statuses.LIVE &&
+                                            {this.calculateStatus(drop) === dropState.LIVE &&
                                               <h3>Drop is Live!</h3>
                                             }
-                                            {this.calculateStatus(drop) === statuses.EXPIRED &&
+                                            {this.calculateStatus(drop) === dropState.EXPIRED &&
                                               <h3>Drop Ended</h3>
                                             }
-                                            {this.calculateStatus(drop) === statuses.SOLD_OUT &&
+                                            {this.calculateStatus(drop) === dropState.SOLD_OUT &&
                                               <h3>Sold Out</h3>
                                             }
                                           </div>
