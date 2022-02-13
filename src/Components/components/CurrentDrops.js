@@ -12,9 +12,7 @@ export const drops = config.drops;
 export const collections = config.known_contracts;
 
 const carouselSetings = {
-    ...settings,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    ...settings
 }
 
 const CurrentDrops = () => {
