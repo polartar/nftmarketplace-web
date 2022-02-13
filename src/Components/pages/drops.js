@@ -45,7 +45,7 @@ const Drops = () => (
                     </div>
                 </div>
                 <div className='col-lg-12'>
-                    <CurrentDrops />
+                    <CurrentDrops showAll={true}/>
                 </div>
             </div>
         </section>
