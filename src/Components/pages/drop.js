@@ -509,7 +509,7 @@ const Drop = () => {
                             <div className="item_info">
                                 <h2>{drop.title}</h2>
 
-                                {status === statuses.NOT_STARTED
+                                {status === statuses.NOT_STARTED || drop.complete
                                 ?
                                     <div>
                                         <div className="fs-6 fw-bold mb-1">
