@@ -165,7 +165,7 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 setDropInfo(currentDrop, offsetSupply.toString());
-                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
+                calculateStatus(currentDrop, offsetSupply, currentDrop.totalSupply);
             }
             else if (isMagBrewVikingsDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
