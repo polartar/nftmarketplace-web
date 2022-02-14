@@ -15,6 +15,7 @@ import {getNftSalesForAddress, getNftsForAddress, getUnfilteredListingsForAddres
 import { toast } from "react-toastify";
 import { createSuccessfulTransactionToastContent } from "../utils";
 import { FilterOption } from "../Components/Models/filter-option.model";
+import { nanoid } from "nanoid";
 
 const userSlice = createSlice({
     name : 'user',
@@ -239,6 +240,9 @@ const userSlice = createSlice({
         onThemeChanged(state, action) {
             console.log('onThemeChanged', action.payload);
             state.theme = action.payload;
+        },
+        balanceUpdated(state, action) {
+            state.balance = action.payload;
         }
     }
 });
@@ -277,7 +281,6 @@ export const user = userSlice.reducer;
 export const updateListed = (contract, id, listed, newPrice = null) => async(dispatch) => {
     dispatch(listingUpdate({ contract, id, listed, newPrice }));
 }
-
 
 export const connectAccount = (firstRun=false) => async(dispatch) => {
 
@@ -623,6 +626,77 @@ export const fetchUnfilteredListings = (walletAddress) => async (dispatch, getSt
 export const setTheme = (theme) => async(dispatch) =>{
     console.log('setting theme.....', theme)
     dispatch(onThemeChanged(theme));
+}
+
+export const updateBalance = () => async (dispatch, getState) => {
+    const { user } = getState();
+    const { address, provider } = user;
+    const balance = ethers.utils.formatEther(await provider.getBalance(address));
+    dispatch(userSlice.actions.balanceUpdated(balance));
+};
+
+export class AccountMenuActions {
+    static withdrawRewards = () => async (dispatch, getState) => {
+        const { user } = getState();
+        try {
+            const tx = await user.membershipContract.withdrawPayments(user.address);
+            const receipt = await tx.wait();
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
+            dispatch(withdrewRewards());
+        } catch (error) {
+            if (error.data) {
+                toast.error(error.data.message);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        }
+    }
+
+    static withdrawBalance = () => async (dispatch, getState) => {
+        const { user } = getState();
+        try {
+            const tx = await user.marketContract.withdrawPayments(user.address);
+            const receipt = await tx.wait();
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
+            dispatch(withdrewPayments());
+            dispatch(updateBalance());
+        } catch (error) {
+            if (error.data) {
+                toast.error(error.data.message);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        }
+    }
+
+    static registerCode = () => async (dispatch, getState) => {
+        const { user } = getState();
+        try {
+            const id = nanoid(10);
+            const encoded = ethers.utils.formatBytes32String(id)
+            const tx = await user.membershipContract.register(encoded);
+            const receipt = await tx.wait();
+            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
+            dispatch(registeredCode(id));
+            dispatch(updateBalance());
+        } catch (error) {
+            if (error.data) {
+                toast.error(error.data.message);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else {
+                console.log(error);
+                toast.error("Unknown Error");
+            }
+        }
+    }
+
 }
 
 /**
