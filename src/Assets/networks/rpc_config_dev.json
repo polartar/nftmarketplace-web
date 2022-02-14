@@ -578,7 +578,7 @@
             "multiToken" : false,
             "address" : "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "dodger-dogs",
                 "description": "",
@@ -2016,7 +2016,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crognomes/trailer.m4v"
         },
         {
