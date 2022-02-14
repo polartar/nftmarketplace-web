@@ -5,23 +5,24 @@ import { createGlobalStyle } from 'styled-components';
 import {getListingDetails, listingUpdated} from "../../GlobalState/listingSlice";
 import {
     createSuccessfulTransactionToastContent,
-    humanize,
+    humanize, isCroCrowCollection, relativePrecision,
     shortAddress,
     timeSince
 } from "../../utils";
 import {useParams, Link} from "react-router-dom";
-import {ethers} from "ethers";
+import {Contract, ethers} from "ethers";
 import MetaMaskOnboarding from '@metamask/onboarding';
 import { connectAccount, chainConnect } from '../../GlobalState/User'
 import {Spinner} from "react-bootstrap"
 import { toast } from 'react-toastify';
 import Blockies from "react-blockies";
 import config from "../../Assets/networks/rpc_config.json";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import {faCrow, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfilePreview from "../components/ProfilePreview";
 import {croSkullRedPotionImageHack} from "../../hacks";
 import * as Sentry from "@sentry/react";
+import LayeredIcon from "../components/LayeredIcon";
 const knownContracts = config.known_contracts;
 
 const GlobalStyles = createGlobalStyle`
@@ -50,10 +51,40 @@ const Listing = () => {
 
     const [openCheckout, setOpenCheckout] = React.useState(false);
     const [buying, setBuying] = useState(false);
+    const [croCrowBreed, setCroCrowBreed] = useState(null);
 
     useEffect(() => {
         dispatch(getListingDetails(id));
     }, [dispatch, id]);
+
+    useEffect(async () => {
+        if (listing && isCroCrowCollection(listing.nftAddress) && croCrowBreed === null) {
+            const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
+            const contract = new Contract("0x0f1439a290e86a38157831fe27a3dcd302904055",
+                [
+                    'function availableCrows(address _owner) public view returns (uint256[] memory, bool[] memory)',
+                    'function isCrowUsed(uint256 tokenId) public view returns (bool)'
+                ],
+                readProvider
+            );
+            try {
+                if (listing.nftId < 3500) {
+                    const used = await contract.isCrowUsed(listing.nftId);
+                    setCroCrowBreed(used);
+                } else {
+                    const crows = await contract.availableCrows(listing.seller);
+                    for (const [i, o] of crows[0].entries()) {
+                        if (o.toNumber() === listing.nftId) {
+                            setCroCrowBreed(crows[1][i]);
+                            return;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }, [listing]);
 
     const fullImage = () => {
         if (listing.nft.original_image.startsWith('ipfs://')) {
@@ -73,7 +104,6 @@ const Listing = () => {
         element.target.parentElement.classList.add("active");
 
         setOpenMenu(index);
-        console.log(openMenu, index);
     };
 
     const showBuy = () => async () => {
@@ -158,6 +188,18 @@ const Listing = () => {
                                 <h2>{listing.nft.name}</h2>
                                 <h3>{ethers.utils.commify(listing.price)} CRO</h3>
                                 <p>{listing.nft.description}</p>
+                                {isCroCrowCollection(listing.nftAddress) && croCrowBreed &&
+                                <div className="d-flex flex-row align-items-center mb-4">
+                                    <LayeredIcon
+                                        icon={faCrow}
+                                        bgColor={'#ed7a11'}
+                                        color={'#000'}
+                                        inverse={false}
+                                        title="This crow has been bred to create a CrowPunk!"
+                                    />
+                                    <span className="fw-bold">This CRO Crow has been bred for a CrowPunk</span>
+                                </div>
+                                }
                                 <div className="row" style={{gap: '2rem 0'}}>
                                     <ProfilePreview
                                         type='Seller'
@@ -174,8 +216,10 @@ const Listing = () => {
                                     />
                                     {(typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null) &&
                                         <ProfilePreview
-                                            type={collectionMetadata?.rarity ? `${humanize(collectionMetadata.rarity)} Rank` : 'Rarity Rank'}
+                                            type='Rarity Rank'
                                             title={listing.nft.rank}
+                                            avatar={collectionMetadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
+                                            hover={collectionMetadata.rarity === 'rarity_sniper' ? `Ranking provided by ${humanize(collectionMetadata.rarity)}` : null}
                                         />
                                     }
                                 </div>
@@ -202,14 +246,16 @@ const Listing = () => {
                                                     <>
                                                         <div className="d-block mb-3">
                                                             <div className="row mt-5 gx-3 gy-2">
-                                                                {listing.nft.attributes.map((data, i) => {
+                                                                {listing.nft.attributes.filter(data => data.value !== "None").map((data, i) => {
                                                                     return (
                                                                         <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                                             <div className="nft_attr">
                                                                                 <h5>{humanize(data.trait_type)}</h5>
                                                                                 <h4>{humanize(data.value)}</h4>
                                                                                 {data.occurrence ? (
-                                                                                        <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                                        <span>
+                                                                                            {relativePrecision(data.occurrence)}% have this trait
+                                                                                        </span>
                                                                                     )
                                                                                     :
                                                                                     data.percent && (

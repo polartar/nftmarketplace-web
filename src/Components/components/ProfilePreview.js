@@ -32,8 +32,8 @@ const ProfilePreview = (
         to = '',
         address = '',
         avatar = '',
-        verified = false
-
+        verified = false,
+        hover = ''
     }) => {
 
     const AvatarElement = (
@@ -45,7 +45,7 @@ const ProfilePreview = (
                         <span>
                             {
                                 (avatar !== '')
-                                    ? <img className="lazy" src={ avatar } alt={title}/>
+                                    ? <img className="lazy" src={ avatar } alt={title} title={hover}/>
                                     : (address !== '')
                                         ?  <Blockies seed={ address.toLowerCase() } size={ 10 } scale={ 5 }/>
                                         : (<></>)

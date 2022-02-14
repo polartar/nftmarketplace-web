@@ -165,7 +165,7 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 setDropInfo(currentDrop, offsetSupply.toString());
-                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
+                calculateStatus(currentDrop, offsetSupply, currentDrop.totalSupply);
             }
             else if (isMagBrewVikingsDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -509,18 +509,24 @@ const Drop = () => {
                             <div className="item_info">
                                 <h2>{drop.title}</h2>
 
-                                <div>
-                                    <div className="fs-6 fw-bold mb-1 text-end">
-                                        {   typeof totalSupply === 'string'
-                                                ? totalSupply.toString()
-                                                : `${percentage(totalSupply.toString(), maxSupply.toString())}% minted (${ethers.utils.commify(totalSupply.toString())} / ${ethers.utils.commify(maxSupply.toString())})`
-                                        }
+                                {status === statuses.NOT_STARTED || drop.complete
+                                ?
+                                    <div>
+                                        <div className="fs-6 fw-bold mb-1">
+                                            Supply: {maxSupply.toString()}
+                                        </div>
                                     </div>
-                                    <ProgressBar
-                                        now={percentage(totalSupply.toString(), maxSupply.toString())}
-                                        style={{height: '4px'}}
-                                    />
-                                </div>
+                                :
+                                    <div>
+                                        <div className="fs-6 fw-bold mb-1 text-end">
+                                            {percentage(totalSupply.toString(), maxSupply.toString())}% minted ({ethers.utils.commify(totalSupply.toString())} / {ethers.utils.commify(maxSupply.toString())})
+                                        </div>
+                                        <ProgressBar
+                                            now={percentage(totalSupply.toString(), maxSupply.toString())}
+                                            style={{height: '4px'}}
+                                        />
+                                    </div>
+                                }
 
                                 <div className="mt-3">{newlineText(drop.description)}</div>
 
@@ -561,6 +567,10 @@ const Drop = () => {
                                         </div>
                                     }
                                 </div>
+
+                                {drop.priceDescription &&
+                                    <p className="my-2" style={{color:'black'}}>*{drop.priceDescription}</p>
+                                }
 
                                 <div className="spacer-40"></div>
 

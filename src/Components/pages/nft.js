@@ -2,7 +2,7 @@ import React, { memo, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
-import {humanize, shortAddress, timeSince} from "../../utils";
+import {humanize, relativePrecision, shortAddress, timeSince} from "../../utils";
 import {useParams, useHistory, Link} from "react-router-dom";
 import {getNftDetails} from "../../GlobalState/nftSlice";
 import Blockies from "react-blockies";
@@ -101,8 +101,10 @@ const Nft = () => {
 
                                 {(typeof nft.rank !== 'undefined' && nft.rank !== null) &&
                                     <ProfilePreview
-                                        type={collectionMetadata?.rarity ? `${humanize(collectionMetadata.rarity)} Rank` : 'Rarity Rank'}
+                                        type='Rarity Rank'
                                         title={nft.rank}
+                                        avatar={collectionMetadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
+                                        hover={collectionMetadata.rarity === 'rarity_sniper' ? `Ranking provided by ${humanize(collectionMetadata.rarity)}` : null}
                                     />
                                 }
                             </div>
@@ -127,14 +129,16 @@ const Nft = () => {
                                             {(nft.attributes && nft.attributes.length > 0) ||  (nft.properties && nft.properties.length > 0) ?
                                                 <div className="d-block mb-3">
                                                     <div className="row mt-5 gx-3 gy-2">
-                                                        {nft.attributes && nft.attributes.map((data, i) => {
+                                                        {nft.attributes && nft.attributes.filter(a => a.value !== 'None').map((data, i) => {
                                                             return (
                                                                 <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                                     <a className="nft_attr">
                                                                         <h5>{humanize(data.trait_type)}</h5>
                                                                         <h4>{humanize(data.value)}</h4>
                                                                         {data.occurrence ? (
-                                                                                <span>{Math.round(data.occurrence * 100)}% have this trait</span>
+                                                                                <span>
+                                                                                    {relativePrecision(data.occurrence)}% have this trait
+                                                                                </span>
                                                                             )
                                                                             :
                                                                             data.percent && (

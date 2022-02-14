@@ -35,12 +35,11 @@ const MyNftListDialog = (
         marketContract,
         myNftPageListDialog
     }) => {
-
     const dispatch = useDispatch();
 
     useEffect(async () => {
         if (myNftPageListDialog) {
-            await showListDialog(myNftPageListDialog);
+            await showListDialog();
         } else {
             setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
         }
@@ -83,17 +82,22 @@ const MyNftListDialog = (
         }
     }, [salePrice])
 
-    const showListDialog = async (nft) => {
-        try{
+    const showListDialog = async () => {
+        try {
+            console.log(myNftPageListDialog)
+            const marketContractAddress = marketContract.address;
+
+            const { contract, id, image, name, address } = myNftPageListDialog;
+
             const fees = await marketContract.fee(walletAddress);
-            const royalties = await marketContract.royalties(nft.address)
+            const royalties = await marketContract.royalties(address)
 
             setFee((fees / 10000) * 100);
             setRoyalty((royalties[1] / 10000) * 100);
 
-            const transferEnabled = await nft.contract.isApprovedForAll(walletAddress, marketContract.address);
+            const transferEnabled = await contract.isApprovedForAll(walletAddress, marketContractAddress);
 
-            if(transferEnabled){
+            if (transferEnabled) {
                 setListDialogActiveStep(ListDialogStepEnum.EnteringPrice);
             } else {
                 setNextEnabled(true);
@@ -114,9 +118,10 @@ const MyNftListDialog = (
 
     const listDialogSetApprovalForAllStep = async () => {
         try{
-            const selectedNft = myNftPageListDialog;
+            const marketContractAddress = marketContract.address;
+            const { contract, id, image, name, address } = myNftPageListDialog;
 
-            const tx = await selectedNft.contract.setApprovalForAll(marketContract.address, true);
+            const tx = await contract.setApprovalForAll(marketContractAddress, true);
             await tx.wait();
 
             setNextEnabled(false);
@@ -136,18 +141,22 @@ const MyNftListDialog = (
     }
 
     const listDialogConfirmListingStep = async () => {
-        const selectedNft = myNftPageListDialog;
+        const { contract, id, image, name, address } = myNftPageListDialog;
+
+        const nftId = myNftPageListDialog.id;
 
         setNextEnabled(false);
 
         dispatch(MyNftPageActions.listingDialogConfirm({
-            selectedNft,
+            contractAddress: contract.address,
+            nftId,
             salePrice,
             marketContract
         }));
     }
 
     const cancelList = () =>{
+        //  TODO: Dialog should more generic
         dispatch(MyNftPageActions.hideMyNftPageListDialog());
         setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
         setNextEnabled(false);

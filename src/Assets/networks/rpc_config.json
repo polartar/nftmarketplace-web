@@ -43,6 +43,27 @@
             }
         },
         {
+            "name": "Ebisu's Valentine",
+            "onChain" : false,
+            "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+            "multiToken" : true,
+            "id" : 1,
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-valentine",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/avatar.jpg",
+                "card": "",
+                "maxSupply": 1000,
+                "website": "https://app.ebisusbay.com/",
+                "twitter": "https://twitter.com/EbisusBay",
+                "discord": "https://discord.gg/ynrBrSkAFG",
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
+            }
+        },
+        {
             "name": "Ebisu's Bay Founder",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
@@ -265,7 +286,7 @@
             "onChain" : false,
             "listable" : true,
             "metadata" : {
-                "slug" : "crocrow",
+                "slug" : "cro-crow",
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
@@ -576,9 +597,9 @@
         {
             "name" : "Dodger Dogs",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "dodger-dogs",
                 "description": "",
@@ -949,7 +970,7 @@
             }
         },
         {
-            "name" : "Cronos Monkey Business",
+            "name" : "Cronos Primate Business",
             "multiToken" : false,
             "address" : "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
             "onChain" : false,
@@ -1115,7 +1136,7 @@
             "multiToken" : false,
             "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-dogs",
                 "description": "",
@@ -1525,7 +1546,8 @@
                 "avatar": "/img/collections/emergence/avatar.png",
                 "card": "/img/collections/emergence/card.png",
                 "banner": "/img/collections/emergence/banner.png",
-                "website": "https://0xluckless.com"
+                "website": "https://0xluckless.com",
+                "discord": "https://discord.gg/BpAVk2Za2c"
             }
         },
         {
@@ -1550,7 +1572,7 @@
         {
             "name" : "Crobots",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
             "onChain" : false,
             "listable" : true,
             "metadata": {
@@ -1603,6 +1625,23 @@
                 "discord": "https://discord.gg/KqtDGjwWh3",
                 "medium" : "https://medium.com/@cromoon",
                 "telegram" : "https://t.me/OfficialCroMoon"
+            }
+        },
+        {
+            "name" : "BobaNFTea",
+            "multiToken" : false,
+            "address" : "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "boba-nftea",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/bobanftea/avatar.png",
+                "card": "/img/collections/bobanftea/card.png",
+                "banner": "/img/collections/bobanftea/banner.png",
+                "twitter": "https://twitter.com/Boba_NFTea",
+                "discord": "http://discord.gg/bobanftea"
             }
         }
     ],
@@ -1875,7 +1914,7 @@
             "complete": true
         },
         {
-            "id": 10,
+            "id": 9,
             "slug": "cronos-goats",
             "imgNft": "/img/drops/cronosgoats/drop.png",
             "imgPreview": "/img/drops/cronosgoats/drop.png",
@@ -1998,7 +2037,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crognomes/trailer.m4v"
         },
         {
@@ -2227,9 +2266,9 @@
             "imgBanner" : "/img/collections/crobots/banner.jpg",
             "title": "Crobots",
             "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the Crobots explore, create, and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
-            "description": "Meet the Crobots! – A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will we be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
+            "description": "Meet the Crobots! – A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
             "author": { "name": "Crobots", "link": "https://TheCrobots.com"},
-            "address": "",
+            "address": "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
             "maxMintPerTx": 10,
             "maxMintPerAddress": 2500,
             "totalSupply": 2500,
@@ -2243,7 +2282,7 @@
             "referral": false,
             "is1155": false,
             "published": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
         },
         {
@@ -2260,9 +2299,7 @@
             "maxMintPerTx": 0,
             "maxMintPerAddress": 0,
             "totalSupply": 0,
-            "cost": "450",
-            "memberCost": "450",
-            "whitelistCost": "400",
+            "cost": "250",
             "foundersOnly": false,
             "start": 1644015600000,
             "end": null,
@@ -2274,7 +2311,7 @@
             "redirect": "https://trooprz.army/mint"
         },
         {
-            "id": 21,
+            "id": 22,
             "slug": "dodger-dogs",
             "imgNft": "/img/drops/barbara/dodgerdogs/drop.gif",
             "imgPreview": "/img/drops/barbara/dodgerdogs/drop.gif",
@@ -2284,7 +2321,7 @@
             "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
             "description" : "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
             "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/"},
-            "address": "",
+            "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "maxMintPerTx": 5,
             "maxMintPerAddress": 200,
             "totalSupply": 1111,
@@ -2295,6 +2332,33 @@
             "end": null,
             "referral": false,
             "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 23,
+            "slug": "boba-nftea",
+            "imgNft": "/img/drops/bobanftea/drop.gif",
+            "imgPreview": "/img/drops/bobanftea/drop.gif",
+            "imgAvatar" : "/img/collections/bobanftea/avatar.png",
+            "imgBanner" : "/img/collections/bobanftea/banner.png",
+            "title": "BobaNFTea",
+            "subtitle": "A collection of 3300 NFTeas hand-drawn and deployed on the Cronos chain!",
+            "description": "The Boba NFTea collection is a community driven project being deployed on the Cronos chain. Holders of the NFTs will gain access to exclusive utilities such as governance and the ability to earn $BOBA tokens, that offers benefits like staking.",
+            "author": { "name": "Boba NFTea", "link": "https://twitter.com/Boba_NFTea"},
+            "address": "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+            "maxMintPerTx": 20,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3300,
+            "cost": "180",
+            "memberCost": "150",
+            "whitelistCost": "150",
+            "foundersOnly": false,
+            "start": 1644784200000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "priceDescription": "1M LOOT required to be eligible for the Whitelist Price",
             "published": true,
             "complete": false
         }

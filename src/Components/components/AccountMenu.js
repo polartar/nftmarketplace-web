@@ -6,9 +6,11 @@ import {useHistory} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBolt,
+    faEnvelopeOpenText,
     faImage,
     faShoppingBasket,
-    faSignOutAlt
+    faSignOutAlt,
+    faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {toast} from "react-toastify";
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -28,6 +30,7 @@ import {
 import rpcConfig from '../../Assets/networks/rpc_config.json'
 
 import { createSuccessfulTransactionToastContent } from "../../utils";
+import InvalidListingWarning from './InvalidListingWarning';
 
 const AccountMenu = function() {
     const dispatch = useDispatch();
@@ -157,7 +160,22 @@ const AccountMenu = function() {
     }
 
     useEffect(() => {
-        dispatch(connectAccount());
+        let defiLink = localStorage.getItem("DeFiLink_session_storage_extension")
+        if (defiLink) {
+            try {
+                const json = JSON.parse(defiLink);
+                if (!json.connected) {
+                    dispatch(onLogout());
+                }
+            } catch (error) {
+                dispatch(onLogout());
+            }
+        }
+
+        if (localStorage.getItem("WEB3_CONNECT_CACHED_PROVIDER") || window.ethereum || localStorage.getItem("DeFiLink_session_storage_extension")) { 
+            if (!user.provider)
+                dispatch(connectAccount());
+        }
     }, []);
 
     const onWrongChainModalClose = () => {
@@ -168,6 +186,10 @@ const AccountMenu = function() {
         dispatch(setShowWrongChainModal(false));
         dispatch(chainConnect());
     }
+
+    const myUnfilteredListings = useSelector((state) => {
+        return state.user.myUnfilteredListings;
+    });
 
     return (
         <div className='mainside'>
@@ -316,7 +338,18 @@ const AccountMenu = function() {
                                 </span>
                             </li>
                             <li>
+                                <span onClick={() => navigateTo(`/wallet/listings`)}>
+                                    {walletAddress && correctChain && myUnfilteredListings.some(x => !x.valid && x.listed) ?
+                                        <span> <FontAwesomeIcon color='var(--bs-danger)' icon={faExclamationCircle} size={"2x"}/> </span>
+                                    :
+                                        <span> <FontAwesomeIcon icon={faEnvelopeOpenText}/> </span>
+                                    }
+                                    <span>My Listings </span>
+                                </span>
+                            </li>
+                            <li>
                                 <span onClick={() => navigateTo(`/sales`)}>
+                                    
                                     <span> <FontAwesomeIcon icon={faShoppingBasket}/> </span>
                                     <span>My Sales</span>
                                 </span>
