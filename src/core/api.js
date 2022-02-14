@@ -257,10 +257,10 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         }
 
                     } else if (c.address) {
-                        var nfts = [];
                         const contract = new Contract(c.address, ERC721, signer);
                         const readContract = new Contract(c.address, ERC721, readProvider);
                         contract.connect(signer);
+
                         const count = await contract.balanceOf(walletAddress);
                         let ids = [];
                         if (count > 0) {
