@@ -43,6 +43,27 @@
             }
         },
         {
+            "name": "Ebisu's Valentine",
+            "onChain" : false,
+            "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+            "multiToken" : true,
+            "id" : 1,
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-valentine",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/avatar.jpg",
+                "card": "",
+                "maxSupply": 1000,
+                "website": "https://app.ebisusbay.com/",
+                "twitter": "https://twitter.com/EbisusBay",
+                "discord": "https://discord.gg/ynrBrSkAFG",
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
+            }
+        },
+        {
             "name": "Ebisu's Bay Founder",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
