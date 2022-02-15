@@ -1652,7 +1652,7 @@
             "multiToken" : false,
             "address" : "0xFA64F85cC39Ddb11741Db733eaB919DEaD7278A6",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "cronodes-nft",
                 "description": "",
