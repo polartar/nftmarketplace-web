@@ -195,8 +195,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
         isMember: false
     };
 
-    await Promise.all(
-        knownContracts.map(async (c, i) => {
+    await Promise.all(knownContracts.filter(c => !!c.address).map(async (c, i) => {
             try{
                 if(c.multiToken){
                     const contract = new Contract(c.address, ERC1155, signer);
@@ -217,24 +216,6 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             }
                         }
                         const json = await (await fetch(uri)).json();
-                        // const a = Array.from({length : count}, (_, i) => {
-                        //     const name = json.name;
-                        //     const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
-                        //     const description = json.description;
-                        //     const properties = json.properties;
-                        //     return {
-                        //         'name': name,
-                        //         'id' : c.id,
-                        //         'image' : image,
-                        //         'description' : description,
-                        //         'properties' : properties,
-                        //         'contract' : contract,
-                        //         'address' : c.address,
-                        //         'multiToken' : true,
-                        //         'listable' : c.listable,
-                        //         'listed' : false
-                        //     }
-                        // })
                         const name = json.name;
                         const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
                         const description = json.description;
@@ -258,7 +239,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         onNftLoaded([nft]);
                     }
 
-                } else if (c.address) {
+                } else {
                     const contract = new Contract(c.address, ERC721, signer);
                     const readContract = new Contract(c.address, ERC721, readProvider);
                     contract.connect(signer);
