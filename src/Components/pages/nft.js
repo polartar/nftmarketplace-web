@@ -126,10 +126,11 @@ const Nft = () => {
                                 <div className="de_tab_content">
                                     {openMenu === 0 &&
                                         <div className="tab-1 onStep fadeIn">
-                                            {(nft.attributes && nft.attributes.length > 0) ||  (nft.properties && nft.properties.length > 0) ?
+                                            {(nft.attributes && Array.isArray(nft.attributes) && nft.attributes.length > 0) ||
+                                            (nft.properties && Array.isArray(nft.properties) && nft.properties.length > 0) ?
                                                 <div className="d-block mb-3">
                                                     <div className="row mt-5 gx-3 gy-2">
-                                                        {nft.attributes && nft.attributes.filter(a => a.value !== 'None').map((data, i) => {
+                                                        {nft.attributes && Array.isArray(nft.attributes) && nft.attributes.filter(a => a.value !== 'None').map((data, i) => {
                                                             return (
                                                                 <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                                     <a className="nft_attr">
@@ -149,7 +150,7 @@ const Nft = () => {
                                                                 </div>
                                                             );
                                                         })}
-                                                        {nft.properties && nft.properties.map((data, i) => {
+                                                        {nft.properties && Array.isArray(nft.properties) && nft.properties.map((data, i) => {
                                                             return (
                                                                 <div key={i} className="col-lg-4 col-md-6 col-sm-6">
                                                                     <div className="nft_attr">
