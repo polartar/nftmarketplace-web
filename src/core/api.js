@@ -206,11 +206,14 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
 
     await Promise.all(knownContracts.filter(c => !!c.address).map(async (knownContract) => {
             try{
-                const listed = !!getListing(knownContract.address, knownContract.id);
-                const listingId = listed ? getListing(knownContract.address, knownContract.id).listingId : null;
-                const price = listed ? getListing(knownContract.address, knownContract.id).price : null;
+                const address = knownContract.address;
+                const listable = knownContract.listable;
 
                 if(knownContract.multiToken){
+                    const listed = !!getListing(address, knownContract.id);
+                    const listingId = listed ? getListing(address, knownContract.id).listingId : null;
+                    const price = listed ? getListing(address, knownContract.id).price : null;
+
                     const contract = new Contract(knownContract.address, ERC1155, signer);
                     contract.connect(signer);
                     let count = await contract.balanceOf(walletAddress, knownContract.id);
@@ -218,43 +221,45 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                     if(knownContract.address === config.membership_contract && count > 0) {
                         response.isMember = true;
                     }
-                    if(count !== 0){
-                        let uri = await contract.uri(knownContract.id);
-
-                        if(gatewayTools.containsCID(uri)){
-                            try{
-                                uri = gatewayTools.convertToDesiredGateway(uri, gateway);
-                            }catch(error){
-                                //console.log(error);
-                            }
-                        }
-                        const json = await (await fetch(uri)).json();
-                        const name = json.name;
-                        const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
-                        const description = json.description;
-                        const properties = json.properties;
-                        const nft = {
-                            'name': name,
-                            'id' : knownContract.id,
-                            'image' : image,
-                            'count' : count,
-                            'description' : description,
-                            'properties' : properties,
-                            'contract' : contract,
-                            'address' : knownContract.address,
-                            'multiToken' : true,
-                            'listable' : knownContract.listable,
-                            listed,
-                            listingId,
-                            price
-                        }
-
-                        onNftLoaded([nft]);
+                    if (count === 0) {
+                        return;
                     }
 
+                    let uri = await contract.uri(knownContract.id);
+
+                    if(gatewayTools.containsCID(uri)){
+                        try{
+                            uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                        }catch(error){
+                            //console.log(error);
+                        }
+                    }
+                    const json = await (await fetch(uri)).json();
+                    const name = json.name;
+                    const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
+                    const description = json.description;
+                    const properties = json.properties;
+                    const nft = {
+                        'name': name,
+                        'id' : knownContract.id,
+                        'image' : image,
+                        'count' : count,
+                        'description' : description,
+                        'properties' : properties,
+                        'contract' : contract,
+                        'address' : knownContract.address,
+                        'multiToken' : true,
+                        listable,
+                        listed,
+                        listingId,
+                        price
+                    };
+
+                    onNftLoaded([nft]);
+
                 } else {
-                    const contract = new Contract(knownContract.address, ERC721, signer);
-                    const readContract = new Contract(knownContract.address, ERC721, readProvider);
+                    const contract = new Contract(address, ERC721, signer);
+                    const readContract = new Contract(address, ERC721, readProvider);
                     contract.connect(signer);
 
                     const count = await contract.balanceOf(walletAddress);
@@ -277,6 +282,11 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         } else {
                             id = ids[i];
                         }
+
+                        const listed = !!getListing(address, id);
+                        const listingId = listed ? getListing(address, id).listingId : null;
+                        const price = listed ? getListing(address, id).price : null;
+
                         let uri;
                         if (knownContract.name === 'Ant Mint Pass') {
                             //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
@@ -305,7 +315,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 'contract' : contract,
                                 'address' : knownContract.address,
                                 'multiToken' : false,
-                                'listable' : knownContract.listable,
+                                listable,
                                 listed,
                                 listingId,
                                 price
@@ -334,7 +344,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                     'address' : knownContract.address,
                                     'multiToken' : false,
                                     'properties' : [],
-                                    'listable' : knownContract.listable,
+                                    listable,
                                     listed,
                                     listingId,
                                     price
@@ -372,7 +382,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 'contract' : contract,
                                 'address' : knownContract.address,
                                 'multiToken' : false,
-                                'listable' : knownContract.listable,
+                                listable,
                                 listed,
                                 listingId,
                                 price
