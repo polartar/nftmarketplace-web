@@ -19,7 +19,7 @@ const Drops = () => (
         <section style={{paddingTop:'90px', paddingBottom:'8px', background:'transparent'}}>
             <div className="d-flex justify-content-center px-5">
                 <p className="my-auto me-5">
-                    Enjoy amazing discounts on drops and 50% off service fees while holding an Ebisu's Bay Founding Member NFT. <span className="fw-bold"><Link to="/drops/founding-member">Learn More ></Link></span>
+                    Enjoy amazing discounts on drops and 50% off service fees while holding an Ebisu's Bay Founding Member NFT. <span className="fw-bold d-block d-md-inline-block text-end"><Link to="/drops/founding-member">Learn More ></Link></span>
                 </p>
                 <div style={{width: '70px'}} className="my-auto">
                     <Link to="/drops/founding-member">

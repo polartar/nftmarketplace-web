@@ -18,13 +18,13 @@ const sort = [
     },
     {
         key: 'rank',
-        direction: 'desc',
-        label: 'Rarity (Most)'
+        direction: 'asc',
+        label: 'Rank (Highest)'
     },
     {
         key: 'rank',
-        direction: 'asc',
-        label: 'Rarity (Least)'
+        direction: 'desc',
+        label: 'Rank (Lowest)'
     },
 ];
 
