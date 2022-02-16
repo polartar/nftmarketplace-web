@@ -42,7 +42,15 @@ const MyNftCard = ({
 
     return (
         <div className="card eb-nft__card h-100 shadow">
-            <img onClick={() => navigateTo(nftUrl())} src={croSkullRedPotionImageHack(nft.address, nft.image)} className="card-img-top marketplace" style={{cursor:'pointer'}} alt={nft.name} />
+            {
+                nft.useIframe
+                    ? <iframe src={nft.iframeSource}/>
+                    : <img onClick={() => navigateTo(nftUrl())}
+                           src={croSkullRedPotionImageHack(nft.address, nft.image)}
+                           className="card-img-top marketplace"
+                           style={{cursor:'pointer'}}
+                           alt={nft.name} />
+            }
             {nft.rank &&
             <div className="badge bg-rarity text-wrap mt-1 mx-1">
                 Rank: #{nft.rank}
