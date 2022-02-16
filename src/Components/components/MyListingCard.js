@@ -58,11 +58,7 @@ const MyListingCard = ({
                 <Card.Body className="d-flex flex-column">
                     <div className="row">
                         <div className="col-md-4 my-auto text-center">
-                            {
-                                nft.useIframe
-                                    ? <iframe src={nft.iframeSource}/>
-                                    : <img src={nft.image} className="img-fluid rounded-start" alt="" />
-                            }
+                            <img src={nft.image} className="img-fluid rounded-start" alt="" />
                         </div>
                         <div className="col-md-8">
                             <h5 className="card-title mx-auto">{nft.name}</h5>

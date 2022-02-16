@@ -328,8 +328,6 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             const name = `${ knownContract.name } ${ id }`;
                             const properties = {};
                             const nft = {
-                                useIframe: true,
-                                iframeSource: `https://www.metaversepixels.app/grid?id=${ numberId }&zoom=3`,
                                 id: numberId,
                                 name,
                                 image,
@@ -344,7 +342,6 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 listingId,
                                 price
                             };
-                            console.log(nft)
                             onNftLoaded([ nft ]);
                             continue;
                         }
