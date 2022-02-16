@@ -13,6 +13,10 @@ import { marketPlaceCollectionFilterOptions } from "../components/constants/filt
 import { FilterOption } from "../Models/filter-option.model";
 
 const GlobalStyles = createGlobalStyle`
+.jumbotron.tint{
+  background-color: rgba(0,0,0,0.6);
+  background-blend-mode: multiply;
+}
 `;
 
 const Marketplace = () => {
@@ -68,8 +72,8 @@ const Marketplace = () => {
         <div>
             <GlobalStyles/>
 
-            <section className='jumbotron breadcumb no-bg'
-                     style={{backgroundImage: `url(${'./img/background/subheader.jpg'})`}}>
+            <section className='jumbotron breadcumb no-bg tint'
+                     style={{backgroundImage: `url(${'./img/background/Ebisu-DT-Header.png'})`, backgroundPosition:'bottom'}}>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>

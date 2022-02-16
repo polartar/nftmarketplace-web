@@ -64,7 +64,7 @@ const CurrentDrops = ({showAll = false}) => {
       {showAll ?
               <div className='row'>
                       {currentDrops && currentDrops.map((item, index) => (
-                          <div className='col-12 col-xs-6 col-md-4 col-lg-3'>
+                          <div className='col-12 col-xs-6 col-md-4 col-lg-3' key={index}>
                               <CustomSlide
                                   key={index}
                                   index={index + 1}
