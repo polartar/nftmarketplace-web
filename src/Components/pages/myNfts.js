@@ -13,6 +13,10 @@ import { getAnalytics, logEvent } from "@firebase/analytics";
 
 
 const GlobalStyles = createGlobalStyle`
+.jumbotron.tint{
+  background-color: rgba(0,0,0,0.6);
+  background-blend-mode: multiply;
+}
 `;
 
 const mapStateToProps = (state) => ({
@@ -40,8 +44,8 @@ const MyNfts = ({ walletAddress }) => {
     return (
         <div>
             <GlobalStyles/>
-            <section className='jumbotron breadcumb no-bg'
-                     style={{backgroundImage: `url(${'/img/background/subheader.jpg'})`}}>
+            <section className='jumbotron breadcumb no-bg tint'
+                     style={{backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition:'bottom'}}>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>

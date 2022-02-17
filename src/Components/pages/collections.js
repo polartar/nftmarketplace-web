@@ -114,7 +114,7 @@ const Collections = () => {
         <div>
             <GlobalStyles/>
             <section className='jumbotron breadcumb no-bg tint'
-                     style={{backgroundImage: `url(${'./img/background/Ebisu-DT-Header.png'})`, backgroundPosition:'bottom'}}>
+                     style={{backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition:'bottom'}}>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>
