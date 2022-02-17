@@ -221,7 +221,7 @@ const Drop = () => {
         const eTime = new Date(drop.end);
         const now = new Date();
 
-        if (sTime > now) setStatus(statuses.NOT_STARTED);
+        if (!drop.address || sTime > now) setStatus(statuses.NOT_STARTED);
         else if (parseInt(totalSupply.toString()) >= parseInt(maxSupply.toString()) &&
             !isFounderDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
@@ -445,7 +445,7 @@ const Drop = () => {
                                     </p>
                                 </Reveal>
                                 }
-                                {status === statuses.NOT_STARTED &&
+                                {status === statuses.NOT_STARTED && drop.start &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <h4 className="col-white">
                                         Starts in: <span className="text-uppercase color"><Countdown date={drop.start}/></span>

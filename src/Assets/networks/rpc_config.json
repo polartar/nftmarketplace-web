@@ -64,6 +64,27 @@
             }
         },
         {
+            "name": "Ebisu's Valentine",
+            "onChain" : false,
+            "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+            "multiToken" : true,
+            "id" : 2,
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-valentine-rare",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/avatar.jpg",
+                "card": "",
+                "maxSupply": 1,
+                "website": "https://app.ebisusbay.com/",
+                "twitter": "https://twitter.com/EbisusBay",
+                "discord": "https://discord.gg/ynrBrSkAFG",
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
+            }
+        },
+        {
             "name": "Ebisu's Bay Founder",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
@@ -328,9 +349,9 @@
                 "slug": "wrapped-cronos-punk",
                 "description": "",
                 "verified": false,
-                "avatar": "/img/collections/wrappedcronospunk/avatar.png",
-                "banner": "/img/collections/wrappedcronospunk/banner.png",
-                "card": "/img/collections/wrappedcronospunk/card.png",
+                "avatar": "/img/collections/wrappedcronospunk/avatar.jpg",
+                "banner": "/img/collections/wrappedcronospunk/banner.jpg",
+                "card": "/img/collections/wrappedcronospunk/card.jpg",
                 "maxSupply": 2720,
                 "website": "https://www.crocrow.com/wrapcronospunk",
                 "twitter": "https://twitter.com/CronosPunk_Fam",
@@ -943,6 +964,26 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png",
+                "maxSupply": 10000,
+                "website": "https://www.lazyhorseraceclub.com",
+                "twitter": "https://twitter.com/LazyHorseRC",
+                "discord": "https://discord.gg/lhrc",
+                "medium": "https://medium.com/@lazyhorseraceclub"
+            }
+        },
+        {
+            "name" : "Barn Cats",
+            "multiToken" : false,
+            "address" : "0x8449821e8334d79e455223739d41eef55e36583e",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "barn-cats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/barncats/avatar.webp",
                 "card": "/img/collections/lazyhorse/card.png",
                 "banner": "/img/collections/lazyhorse/banner.png",
                 "maxSupply": 10000,
@@ -1650,9 +1691,9 @@
         {
             "name" : "CroNodesNFT",
             "multiToken" : false,
-            "address" : "0xFA64F85cC39Ddb11741Db733eaB919DEaD7278A6",
+            "address" : "0x7901cc63208F8eaD11c0196a52B1E799f5602d49",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronodes-nft",
                 "description": "",
@@ -1684,6 +1725,98 @@
                 "twitter": "https://twitter.com/CROmeleonNFT",
                 "website": "https://cromeleons.com/",
                 "discord": "https://discord.gg/cromeleonsnft"
+            }
+        },
+        {
+            "name" : "CROW PUNKS",
+            "multiToken": false,
+            "address" : "0x0f1439a290e86a38157831fe27a3dcd302904055",
+            "onChain" : false,
+            "listable" : true,
+            "metadata" : {
+                "slug" : "crow-punks",
+                "verified": true,
+                "avatar": "/img/collections/crowpunks/avatar.png",
+                "banner": "/img/collections/crowpunks/banner.png",
+                "card": "/img/collections/crowpunks/card.png",
+                "maxSupply": 3500,
+                "website": "https://crocrow.com",
+                "twitter": "https://twitter.com/cronoscrocrow",
+                "discord": "https://discord.gg/8a8Xm4wwR9",
+                "telegram": "https://t.me/crocrownft",
+                "medium": "https://medium.com/@cronoscrocrow"
+            }
+        },
+        {
+            "name" : "Panels Project",
+            "multiToken": false,
+            "address" : "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
+            "onChain" : false,
+            "listable" : true,
+            "metadata" : {
+                "slug" : "panels-project",
+                "verified": true,
+                "avatar": "/img/collections/panelsproject/avatar.jpg",
+                "banner": "/img/collections/panelsproject/banner.jpg",
+                "card": "/img/collections/panelsproject/card.jpg",
+                "maxSupply": 5555,
+                "website": "https://www.panelsproject.com/",
+                "twitter": "https://twitter.com/PanelsProject",
+                "discord": "https://discord.gg/cWdCce8XAx",
+                "medium": "https://medium.com/panels-project"
+            }
+        },
+        {
+            "name" : "NoBuddies NFT (BETA)",
+            "multiToken": false,
+            "address" : "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
+            "onChain" : false,
+            "listable" : true,
+            "metadata" : {
+                "slug" : "panels-project",
+                "verified": true,
+                "maxSupply": 100,
+                "website": "https://nobuddiesnft.com/",
+                "twitter": "https://twitter.com/NoBuddiesNFT",
+                "discord": "https://discord.gg/W5TDF7jC34"
+            }
+        },
+        {
+            "name" : "Reckless Robots",
+            "multiToken": false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "reckless-robots",
+                "verified": true,
+                "avatar": "/img/collections/recklessrobots/avatar.png",
+                "banner": "/img/collections/recklessrobots/banner.png",
+                "card": "/img/collections/recklessrobots/card.png",
+                "maxSupply": 2100,
+                "website": "https://www.recklessrobotsnft.com/",
+                "twitter": "https://twitter.com/RecklessRobots",
+                "discord": "https://discord.gg/Nk4PHjdhcs",
+                "medium": "https://medium.com/@recklessrobots"
+            }
+        },
+        {
+            "name" : "The HD: Hyped Dogs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "hyped-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/hypeddogs/avatar.png",
+                "card": "/img/collections/hypeddogs/card.png",
+                "banner": "/img/collections/hypeddogs/banner.png",
+                "maxSupply": 3000,
+                "website": "https://www.hypednftclub.com/hypeddog",
+                "twitter": "https://twitter.com/HypedDogs",
+                "discord": "https://discord.gg/z6MtMavKMp"
             }
         },
         {
@@ -2420,6 +2553,59 @@
             "referral": false,
             "is1155": false,
             "priceDescription": "1M LOOT required to be eligible for the Whitelist Price",
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 24,
+            "slug": "reckless-robots",
+            "imgNft": "/img/drops/recklessrobots/drop.png",
+            "imgPreview": "/img/drops/recklessrobots/drop.png",
+            "imgAvatar" : "/img/collections/recklessrobots/avatar.png",
+            "imgBanner" : "/img/collections/recklessrobots/banner.png",
+            "title": "RecklessRobots",
+            "subtitle": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain.",
+            "description": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain. Distinctive for this project are the detailed and unique arts, accelerated NFT staking and NFT eliminations (burns). With these eliminations Reckless Robots reduces the total supply by buying the weakest bids from secondary markets and burning the bought NFTs. The burning reduces the total supply and thus reduces the total amount of possible NFTs staked enlarging the percentage of the pool that one NFT holds.",
+            "author": { "name": "Reckless Robots", "link": "https://www.recklessrobotsnft.com/"},
+            "address": "",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2100,
+            "cost": "300",
+            "memberCost": "200",
+            "whitelistCost": "200",
+            "foundersOnly": false,
+            "start": null,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 25,
+            "slug": "hyped-dogs",
+            "imgNft": "/img/drops/hypeddogs/drop.gif",
+            "imgPreview": "/img/drops/hypeddogs/drop.gif",
+            "imgAvatar" : "/img/collections/hypeddogs/avatar.png",
+            "imgBanner" : "/img/drops/hypeddogs/banner.png",
+            "title": "The HD: Hyped Dogs",
+            "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
+            "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, it’s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
+            "author": { "name": "Hyped Dogs", "link": "https://www.hypednftclub.com/hypeddog"},
+            "address": "",
+            "maxMintPerTx": 7,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3000,
+            "cost": "199",
+            "memberCost": "150",
+            "whitelistCost": "150",
+            "foundersOnly": false,
+            "start": null,
+            "end": null,
+            "referral": false,
+            "is1155": false,
             "published": true,
             "complete": false
         }
