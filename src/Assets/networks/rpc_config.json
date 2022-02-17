@@ -1732,7 +1732,7 @@
             "multiToken": false,
             "address" : "0x0f1439a290e86a38157831fe27a3dcd302904055",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata" : {
                 "slug" : "crow-punks",
                 "verified": true,
@@ -1752,7 +1752,7 @@
             "multiToken": false,
             "address" : "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata" : {
                 "slug" : "panels-project",
                 "verified": true,
@@ -1771,7 +1771,7 @@
             "multiToken": false,
             "address" : "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata" : {
                 "slug" : "panels-project",
                 "verified": true,
