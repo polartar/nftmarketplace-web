@@ -1726,6 +1726,26 @@
                 "website": "https://cromeleons.com/",
                 "discord": "https://discord.gg/cromeleonsnft"
             }
+        },
+        {
+            "name" : "CROW PUNKS",
+            "multiToken": false,
+            "address" : "0x0f1439a290e86a38157831fe27a3dcd302904055",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "crow-punks",
+                "verified": true,
+                "avatar": "/img/collections/crowpunks/avatar.png",
+                "banner": "/img/collections/crowpunks/banner.png",
+                "card": "/img/collections/crowpunks/card.png",
+                "maxSupply": 3500,
+                "website": "https://crocrow.com",
+                "twitter": "https://twitter.com/cronoscrocrow",
+                "discord": "https://discord.gg/8a8Xm4wwR9",
+                "telegram": "https://t.me/crocrownft",
+                "medium": "https://medium.com/@cronoscrocrow"
+            }
         }
     ],
     "drops": [
