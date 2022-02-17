@@ -64,6 +64,27 @@
             }
         },
         {
+            "name": "Ebisu's Valentine",
+            "onChain" : false,
+            "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+            "multiToken" : true,
+            "id" : 2,
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-valentine-rare",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/avatar.jpg",
+                "card": "",
+                "maxSupply": 1,
+                "website": "https://app.ebisusbay.com/",
+                "twitter": "https://twitter.com/EbisusBay",
+                "discord": "https://discord.gg/ynrBrSkAFG",
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
+            }
+        },
+        {
             "name": "Ebisu's Bay Founder",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
@@ -943,6 +964,26 @@
                 "description": "",
                 "verified": true,
                 "avatar": "/img/collections/lazyhorse/avatar.png",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png",
+                "maxSupply": 10000,
+                "website": "https://www.lazyhorseraceclub.com",
+                "twitter": "https://twitter.com/LazyHorseRC",
+                "discord": "https://discord.gg/lhrc",
+                "medium": "https://medium.com/@lazyhorseraceclub"
+            }
+        },
+        {
+            "name" : "Barn Cats",
+            "multiToken" : false,
+            "address" : "0xdebad95f87cf04085b4f5e14dfbe66605cc8bee8",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "barn-cats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/bc_avatar.webp",
                 "card": "/img/collections/lazyhorse/card.png",
                 "banner": "/img/collections/lazyhorse/banner.png",
                 "maxSupply": 10000,
