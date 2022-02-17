@@ -976,7 +976,7 @@
         {
             "name" : "Barn Cats",
             "multiToken" : false,
-            "address" : "0xdebad95f87cf04085b4f5e14dfbe66605cc8bee8",
+            "address" : "0x8449821e8334d79e455223739d41eef55e36583e",
             "onChain" : false,
             "listable" : true,
             "metadata": {
