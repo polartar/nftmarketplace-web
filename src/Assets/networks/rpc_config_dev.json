@@ -1690,9 +1690,9 @@
         {
             "name": "CroNodesNFT",
             "multiToken": false,
-            "address": "0xFA64F85cC39Ddb11741Db733eaB919DEaD7278A6",
+            "address": "0x7901cc63208F8eaD11c0196a52B1E799f5602d49",
             "onChain": false,
-            "listable": false,
+            "listable": true,
             "metadata": {
                 "slug": "cronodes-nft",
                 "description": "",
