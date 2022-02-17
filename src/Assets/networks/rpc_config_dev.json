@@ -1684,6 +1684,25 @@
                 "website": "https://cromeleons.com/",
                 "discord": "https://discord.gg/cromeleonsnft"
             }
+        },
+        {
+            "name": "MetaPixels",
+            "onChain" : false,
+            "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
+            "multiToken" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "metapixels",
+                "description": "",
+                "verified": true,
+                "avatar": "",
+                "card": "",
+                "banner": "",
+                "maxSupply": 0,
+                "twitter": "",
+                "website": "",
+                "discord": ""
+            }
         }
     ],
     "drops": [
