@@ -190,58 +190,76 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
     const listingsReponse = await (await fetch(`${api.baseUrl}${api.listings}?seller=${walletAddress}&state=0`)).json()
     const listings = listingsReponse.listings;
 
+    //  Helper function
+    const getListing = (address, id) => {
+        return listings.find(listing => {
+            const sameId = ethers.BigNumber.from(listing['nftId']).eq(id);
+            const sameAddress = listing['nftAddress'].toLowerCase() === address.toLowerCase();
+            return sameId && sameAddress;
+        });
+    };
+
     let response = {
         nfts: [],
         isMember: false
     };
 
-    await Promise.all(knownContracts.filter(c => !!c.address).map(async (c, i) => {
+    await Promise.all(knownContracts.filter(c => !!c.address).map(async (knownContract) => {
             try{
-                if(c.multiToken){
-                    const contract = new Contract(c.address, ERC1155, signer);
+                const address = knownContract.address;
+                const listable = knownContract.listable;
+
+                if(knownContract.multiToken){
+                    const listed = !!getListing(address, knownContract.id);
+                    const listingId = listed ? getListing(address, knownContract.id).listingId : null;
+                    const price = listed ? getListing(address, knownContract.id).price : null;
+
+                    const contract = new Contract(knownContract.address, ERC1155, signer);
                     contract.connect(signer);
-                    let count = await contract.balanceOf(walletAddress, c.id);
+                    let count = await contract.balanceOf(walletAddress, knownContract.id);
                     count = count.toNumber();
-                    if(c.address === config.membership_contract && count > 0) {
+                    if(knownContract.address === config.membership_contract && count > 0) {
                         response.isMember = true;
                     }
-                    if(count !== 0){
-                        let uri = await contract.uri(c.id);
-                        const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(c.id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
-                        if(gatewayTools.containsCID(uri)){
-                            try{
-                                uri = gatewayTools.convertToDesiredGateway(uri, gateway);
-                            }catch(error){
-                                //console.log(error);
-                            }
-                        }
-                        const json = await (await fetch(uri)).json();
-                        const name = json.name;
-                        const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
-                        const description = json.description;
-                        const properties = json.properties;
-                        const nft = {
-                            'name': name,
-                            'id' : c.id,
-                            'image' : image,
-                            'count' : count,
-                            'description' : description,
-                            'properties' : properties,
-                            'contract' : contract,
-                            'address' : c.address,
-                            'multiToken' : true,
-                            'listable' : c.listable,
-                            'listed' : listing != null,
-                            'listingId' : (listing) ? listing['listingId'] : null,
-                            'price' : (listing) ? listing.price : null
-                        }
-
-                        onNftLoaded([nft]);
+                    if (count === 0) {
+                        return;
                     }
 
+                    let uri = await contract.uri(knownContract.id);
+
+                    if(gatewayTools.containsCID(uri)){
+                        try{
+                            uri = gatewayTools.convertToDesiredGateway(uri, gateway);
+                        }catch(error){
+                            //console.log(error);
+                        }
+                    }
+                    const json = await (await fetch(uri)).json();
+                    const name = json.name;
+                    const image = gatewayTools.containsCID(json.image) ? gatewayTools.convertToDesiredGateway(json.image, gateway) : json.image;
+                    const description = json.description;
+                    const properties = json.properties;
+                    const nft = {
+                        'name': name,
+                        'id' : knownContract.id,
+                        'image' : image,
+                        'count' : count,
+                        'description' : description,
+                        'properties' : properties,
+                        'contract' : contract,
+                        'address' : knownContract.address,
+                        'multiToken' : true,
+                        listable,
+                        listed,
+                        listingId,
+                        price
+                    };
+
+                    onNftLoaded([nft]);
+
                 } else {
-                    const contract = new Contract(c.address, ERC721, signer);
-                    const readContract = new Contract(c.address, ERC721, readProvider);
+                    const contract = new Contract(address, ERC721, signer);
+                    const readContract = new Contract(address, ERC721, readProvider);
                     contract.connect(signer);
 
                     const count = await contract.balanceOf(walletAddress);
@@ -264,20 +282,24 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                         } else {
                             id = ids[i];
                         }
-                        const listing = listings.find(e => ethers.BigNumber.from(e['nftId']).eq(id) && e['nftAddress'].toLowerCase() === c.address.toLowerCase());
+
+                        const listed = !!getListing(address, id);
+                        const listingId = listed ? getListing(address, id).listingId : null;
+                        const price = listed ? getListing(address, id).price : null;
+
                         let uri;
-                        if (c.name === 'Ant Mint Pass') {
+                        if (knownContract.name === 'Ant Mint Pass') {
                             //  fix for https://ebisusbay.atlassian.net/browse/WEB-166
                             //  ant mint pass contract hard coded to this uri for now - remove this when CSS goes live
                             uri = 'https://gateway.pinata.cloud/ipfs/QmWLqeupPQsb4MTtJFjxEniQ1F67gpQCzuszwhZHFx6rUM';
-                        } else if (c.name == "Red Skull Potions") {
+                        } else if (knownContract.name == "Red Skull Potions") {
                             // fix for CroSkull's Red Skull Potions
                             uri = `https://gateway.pinata.cloud/ipfs/QmQd9sFZv9aTenGD4q4LWDQWnkM4CwBtJSL82KLveJUNTT/${id}`;
                         } else {
                             uri = await readContract.tokenURI(id);
                         }
 
-                        if(c.onChain){
+                        if(knownContract.onChain){
                             const json = Buffer.from(uri.split(',')[1], 'base64');
                             const parsed = JSON.parse(json);
                             const name = parsed.name;
@@ -291,12 +313,12 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 'description' : desc,
                                 'properties' : properties,
                                 'contract' : contract,
-                                'address' : c.address,
+                                'address' : knownContract.address,
                                 'multiToken' : false,
-                                'listable' : c.listable,
-                                'listed' : listing != null,
-                                'listingId' : (listing) ? listing['listingId'] : null,
-                                'price' : (listing) ? listing.price : null
+                                listable,
+                                listed,
+                                listingId,
+                                price
                             }
                             onNftLoaded([nft]);
                         } else {
@@ -315,17 +337,17 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                             if(uri.includes('unrevealed')){
                                 json = {
                                     'id' : id,
-                                    'name' : c.name + ' ' + id,
+                                    'name' : knownContract.name + ' ' + id,
                                     'description' : 'Unrevealed!',
                                     'image' : "",
                                     'contract' : contract,
-                                    'address' : c.address,
+                                    'address' : knownContract.address,
                                     'multiToken' : false,
                                     'properties' : [],
-                                    'listable' : c.listable,
-                                    'listed' : listing != null,
-                                    'listingId' : (listing) ? listing['listingId'] : null,
-                                    'price' : (listing) ? listing.price : null
+                                    listable,
+                                    listed,
+                                    listingId,
+                                    price
                                 }
                             } else{
                                 json = await (await fetch(uri)).json();
@@ -358,19 +380,19 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
                                 'description' : json.description,
                                 'properties' : (json.properties) ? json.properties : json.attributes,
                                 'contract' : contract,
-                                'address' : c.address,
+                                'address' : knownContract.address,
                                 'multiToken' : false,
-                                'listable' : c.listable,
-                                'listed' : listing != null,
-                                'listingId' : (listing) ? listing['listingId'] : null,
-                                'price' : (listing) ? listing.price : null
+                                listable,
+                                listed,
+                                listingId,
+                                price
                             }
                             onNftLoaded([nft]);
                         }
                     }
                 }
             }catch(error){
-                console.log('error fetching ' + knownContracts[i].name);
+                console.log('error fetching ' + knownContract.name);
                 console.log(error);
                 Sentry.captureException(error);
             }
