@@ -26,6 +26,18 @@ const GlobalStyles = createGlobalStyle`
     background-color: rgba(0,0,0,0.6);
     background-blend-mode: multiply;
   }
+  .jumbotron.breadcumb.no-bg.tint {
+    background-image: url('/img/background/Ebisu-DT-Header.jpg');
+    background-position: bottom;
+    }
+    
+    @media only screen and (max-width: 480px) {
+    .jumbotron.breadcumb.no-bg.tint {
+        background-image: url('/img/background/Ebisu-Mobile-Header.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    }
 `;
 
 const customStyles = {
@@ -113,8 +125,7 @@ const Collections = () => {
     return (
         <div>
             <GlobalStyles/>
-            <section className='jumbotron breadcumb no-bg tint'
-                     style={{backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition:'bottom'}}>
+            <section className='jumbotron breadcumb no-bg tint'>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>
