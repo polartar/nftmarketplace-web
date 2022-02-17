@@ -1746,6 +1746,25 @@
                 "telegram": "https://t.me/crocrownft",
                 "medium": "https://medium.com/@cronoscrocrow"
             }
+        },
+        {
+            "name" : "Panels Project",
+            "multiToken": false,
+            "address" : "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "panels-project",
+                "verified": true,
+                "avatar": "/img/collections/panelsproject/avatar.jpg",
+                "banner": "/img/collections/panelsproject/banner.jpg",
+                "card": "/img/collections/panelsproject/card.jpg",
+                "maxSupply": 5555,
+                "website": "https://www.panelsproject.com/",
+                "twitter": "https://twitter.com/PanelsProject",
+                "discord": "https://discord.gg/cWdCce8XAx",
+                "medium": "https://medium.com/panels-project"
+            }
         }
     ],
     "drops": [
