@@ -643,6 +643,7 @@ export class AccountMenuActions {
             const receipt = await tx.wait();
             toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             dispatch(withdrewRewards());
+            dispatch(updateBalance());
         } catch (error) {
             if (error.data) {
                 toast.error(error.data.message);
@@ -684,7 +685,6 @@ export class AccountMenuActions {
             const receipt = await tx.wait();
             toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
             dispatch(registeredCode(id));
-            dispatch(updateBalance());
         } catch (error) {
             if (error.data) {
                 toast.error(error.data.message);
