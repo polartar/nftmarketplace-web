@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import { filterListings, getMarketData, sortListings } from "../../GlobalState/marketplaceSlice";
 import {siPrefixedNumber} from "../../utils";
@@ -11,25 +10,6 @@ import { sortOptions } from "../components/constants/sort-options";
 import { SortOption } from '../Models/sort-option.model';
 import { marketPlaceCollectionFilterOptions } from "../components/constants/filter-options";
 import { FilterOption } from "../Models/filter-option.model";
-
-const GlobalStyles = createGlobalStyle`
-.jumbotron.tint{
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-}
-.jumbotron.breadcumb.no-bg.tint {
-background-image: url('/img/background/Ebisu-DT-Header.jpg');
-background-position: bottom;
-}
-
-@media only screen and (max-width: 480px) {
-.jumbotron.breadcumb.no-bg.tint {
-    background-image: url('/img/background/Ebisu-Mobile-Header.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-}
-`;
 
 const Marketplace = () => {
     const cacheName = 'marketplace';
@@ -82,8 +62,6 @@ const Marketplace = () => {
 
     return (
         <div>
-            <GlobalStyles/>
-
             <section className='jumbotron breadcumb no-bg tint'>
                 <div className='mainbreadcumb'>
                     <div className='container'>
