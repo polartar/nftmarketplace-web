@@ -8,6 +8,7 @@ import UpcomingDrops from "../Drops/UpcomingDrops";
 import PastDrops from "../Drops/PastDrops";
 import foundingMember  from "../../Assets/founding_member.png";
 import {Link} from "react-router-dom";
+import CurrentDrops from "../components/CurrentDrops";
 
 const GlobalStyles = createGlobalStyle`
 `;
@@ -18,7 +19,7 @@ const Drops = () => (
         <section style={{paddingTop:'90px', paddingBottom:'8px', background:'transparent'}}>
             <div className="d-flex justify-content-center px-5">
                 <p className="my-auto me-5">
-                    Enjoy amazing discounts on drops and 50% off service fees while holding an Ebisu's Bay Founding Member NFT. <span className="fw-bold"><Link to="/drops/founding-member">Learn More ></Link></span>
+                    Enjoy amazing discounts on drops and 50% off service fees while holding an Ebisu's Bay Founding Member NFT. <span className="fw-bold d-block d-md-inline-block text-end"><Link to="/drops/founding-member">Learn More ></Link></span>
                 </p>
                 <div style={{width: '70px'}} className="my-auto">
                     <Link to="/drops/founding-member">
@@ -36,6 +37,20 @@ const Drops = () => (
         </section>
 
         <section className='container'>
+            <div className='row'>
+                <div className='col-lg-12'>
+                    <div className='text-center'>
+                        <h2>Active Drops</h2>
+                        <div className="small-border"></div>
+                    </div>
+                </div>
+                <div className='col-lg-12'>
+                    <CurrentDrops showAll={true}/>
+                </div>
+            </div>
+        </section>
+
+        <section className='container no-top'>
             <div className='row'>
                 <div className='col-lg-12'>
                     <div className='text-center'>

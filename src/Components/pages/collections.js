@@ -22,6 +22,10 @@ const GlobalStyles = createGlobalStyle`
       font-weight: 300;
     }
   }
+  .jumbotron.tint{
+    background-color: rgba(0,0,0,0.6);
+    background-blend-mode: multiply;
+  }
 `;
 
 const customStyles = {
@@ -109,8 +113,8 @@ const Collections = () => {
     return (
         <div>
             <GlobalStyles/>
-            <section className='jumbotron breadcumb no-bg'
-                     style={{backgroundImage: `url(${'./img/background/subheader.jpg'})`}}>
+            <section className='jumbotron breadcumb no-bg tint'
+                     style={{backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition:'bottom'}}>
                 <div className='mainbreadcumb'>
                     <div className='container'>
                         <div className='row m-10-hor'>

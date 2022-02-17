@@ -154,11 +154,11 @@ export function classList(classes) {
  * @returns {string}
  */
 export function humanize(str) {
-  var i, frags = str.split('_');
+  let i, frags = str.split(/(?=[A-Z])/).join(' ').split('_');
   for (i=0; i<frags.length; i++) {
     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
   }
-  return frags.join(' ').split(/(?=[A-Z])/).join(' ');
+  return frags.join(' ');
 }
 
 /**
@@ -289,6 +289,15 @@ export const isMagBrewVikingsDrop = (address) => {
 export const isDrop = (address, slug) => {
   const drop = drops.find(d => d.slug === slug);
   return drop?.address === address;
+}
+
+export const isCollection = (address, slug) => {
+  const collection = collections.find(c => c.metadata.slug === slug);
+  return collection && caseInsensitiveCompare(collection.address, address);
+}
+
+export const isCroCrowCollection = (address) => {
+  return isCollection(address, 'cro-crow');
 }
 
 export const percentage = (partialValue, totalValue) => {

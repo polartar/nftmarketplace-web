@@ -43,6 +43,48 @@
             }
         },
         {
+            "name": "Ebisu's Valentine",
+            "onChain" : false,
+            "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+            "multiToken" : true,
+            "id" : 1,
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-valentine",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/avatar.jpg",
+                "card": "",
+                "maxSupply": 1000,
+                "website": "https://app.ebisusbay.com/",
+                "twitter": "https://twitter.com/EbisusBay",
+                "discord": "https://discord.gg/ynrBrSkAFG",
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
+            }
+        },
+        {
+            "name": "Ebisu's Valentine",
+            "onChain" : false,
+            "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+            "multiToken" : true,
+            "id" : 2,
+            "listable" : true,
+            "metadata": {
+                "slug": "ebisu-valentine-rare",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/avatar.jpg",
+                "card": "",
+                "maxSupply": 1,
+                "website": "https://app.ebisusbay.com/",
+                "twitter": "https://twitter.com/EbisusBay",
+                "discord": "https://discord.gg/ynrBrSkAFG",
+                "medium": "https://blog.ebisusbay.com/",
+                "instagram": "https://www.instagram.com/ebisusbayofficial"
+            }
+        },
+        {
             "name": "Ebisu's Bay Founder",
             "onChain" : false,
             "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
@@ -265,7 +307,7 @@
             "onChain" : false,
             "listable" : true,
             "metadata" : {
-                "slug" : "crocrow",
+                "slug" : "cro-crow",
                 "verified": true,
                 "avatar": "/img/collections/crocrow/avatar.png",
                 "banner": "/img/collections/crocrow/banner.png",
@@ -307,11 +349,13 @@
                 "slug": "wrapped-cronos-punk",
                 "description": "",
                 "verified": false,
+                "avatar": "/img/collections/wrappedcronospunk/avatar.png",
+                "banner": "/img/collections/wrappedcronospunk/banner.png",
+                "card": "/img/collections/wrappedcronospunk/card.png",
                 "maxSupply": 2720,
-                "website": "https://www.cronospunk.net/",
-                "twitter": "https://twitter.com/PunkCronos",
-                "discord": "https://discord.gg/DGZBBkqdms",
-                "telegram": "https://t.me/cronospunk"
+                "website": "https://www.crocrow.com/wrapcronospunk",
+                "twitter": "https://twitter.com/CronosPunk_Fam",
+                "discord": "https://discord.gg/SYEH7pKX2N"
             }
         },
         {
@@ -576,9 +620,9 @@
         {
             "name" : "Dodger Dogs",
             "multiToken" : false,
-            "address" : "",
+            "address" : "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata": {
                 "slug": "dodger-dogs",
                 "description": "",
@@ -930,6 +974,26 @@
             }
         },
         {
+            "name" : "Barn Cats",
+            "multiToken" : false,
+            "address" : "0x8449821e8334d79e455223739d41eef55e36583e",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "barn-cats",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/lazyhorse/barncats/avatar.webp",
+                "card": "/img/collections/lazyhorse/card.png",
+                "banner": "/img/collections/lazyhorse/banner.png",
+                "maxSupply": 10000,
+                "website": "https://www.lazyhorseraceclub.com",
+                "twitter": "https://twitter.com/LazyHorseRC",
+                "discord": "https://discord.gg/lhrc",
+                "medium": "https://medium.com/@lazyhorseraceclub"
+            }
+        },
+        {
             "name" : "Cronos Lizards",
             "multiToken" : false,
             "address" : "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
@@ -949,7 +1013,7 @@
             }
         },
         {
-            "name" : "Cronos Monkey Business",
+            "name" : "Cronos Primate Business",
             "multiToken" : false,
             "address" : "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
             "onChain" : false,
@@ -1115,7 +1179,7 @@
             "multiToken" : false,
             "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
             "onChain" : false,
-            "listable" : false,
+            "listable" : true,
             "metadata": {
                 "slug": "cronos-dogs",
                 "description": "",
@@ -1525,7 +1589,8 @@
                 "avatar": "/img/collections/emergence/avatar.png",
                 "card": "/img/collections/emergence/card.png",
                 "banner": "/img/collections/emergence/banner.png",
-                "website": "https://0xluckless.com"
+                "website": "https://0xluckless.com",
+                "discord": "https://discord.gg/BpAVk2Za2c"
             }
         },
         {
@@ -1603,6 +1668,136 @@
                 "discord": "https://discord.gg/KqtDGjwWh3",
                 "medium" : "https://medium.com/@cromoon",
                 "telegram" : "https://t.me/OfficialCroMoon"
+            }
+        },
+        {
+            "name" : "BobaNFTea",
+            "multiToken" : false,
+            "address" : "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "boba-nftea",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/bobanftea/avatar.png",
+                "card": "/img/collections/bobanftea/card.png",
+                "banner": "/img/collections/bobanftea/banner.png",
+                "maxSupply": 3300,
+                "twitter": "https://twitter.com/Boba_NFTea",
+                "discord": "http://discord.gg/bobanftea"
+            }
+        },
+        {
+            "name" : "CroNodesNFT",
+            "multiToken" : false,
+            "address" : "0x7901cc63208F8eaD11c0196a52B1E799f5602d49",
+            "onChain" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "cronodes-nft",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cronodes/avatar.gif",
+                "card": "/img/collections/cronodes/card.png",
+                "banner": "/img/collections/cronodes/banner.png",
+                "maxSupply": 3300,
+                "twitter": "https://twitter.com/CronodesFinance",
+                "website": "https://cronodes.app",
+                "discord": "https://discord.gg/cronodesofficial",
+                "medium": "https://medium.com/@cronodes-official"
+            }
+        },
+        {
+            "name": "Cromeleons NFT",
+            "multiToken": false,
+            "address": "0xf004d2f46e177eC8Ffc7c7c7f2623E212b450920",
+            "onChain": false,
+            "listable": false,
+            "metadata": {
+                "slug": "cromeleons",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/cromeleons/avatar.png",
+                "card": "/img/collections/cromeleons/card.png",
+                "banner": "/img/collections/cromeleons/banner.png",
+                "maxSupply": 4444,
+                "twitter": "https://twitter.com/CROmeleonNFT",
+                "website": "https://cromeleons.com/",
+                "discord": "https://discord.gg/cromeleonsnft"
+            }
+        },
+        {
+            "name" : "CROW PUNKS",
+            "multiToken": false,
+            "address" : "0x0f1439a290e86a38157831fe27a3dcd302904055",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "crow-punks",
+                "verified": true,
+                "avatar": "/img/collections/crowpunks/avatar.png",
+                "banner": "/img/collections/crowpunks/banner.png",
+                "card": "/img/collections/crowpunks/card.png",
+                "maxSupply": 3500,
+                "website": "https://crocrow.com",
+                "twitter": "https://twitter.com/cronoscrocrow",
+                "discord": "https://discord.gg/8a8Xm4wwR9",
+                "telegram": "https://t.me/crocrownft",
+                "medium": "https://medium.com/@cronoscrocrow"
+            }
+        },
+        {
+            "name" : "Panels Project",
+            "multiToken": false,
+            "address" : "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "panels-project",
+                "verified": true,
+                "avatar": "/img/collections/panelsproject/avatar.jpg",
+                "banner": "/img/collections/panelsproject/banner.jpg",
+                "card": "/img/collections/panelsproject/card.jpg",
+                "maxSupply": 5555,
+                "website": "https://www.panelsproject.com/",
+                "twitter": "https://twitter.com/PanelsProject",
+                "discord": "https://discord.gg/cWdCce8XAx",
+                "medium": "https://medium.com/panels-project"
+            }
+        },
+        {
+            "name" : "NoBuddies NFT (BETA)",
+            "multiToken": false,
+            "address" : "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "panels-project",
+                "verified": true,
+                "maxSupply": 100,
+                "website": "https://nobuddiesnft.com/",
+                "twitter": "https://twitter.com/NoBuddiesNFT",
+                "discord": "https://discord.gg/W5TDF7jC34"
+            }
+        },
+        {
+            "name" : "Reckless Robots",
+            "multiToken": false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "reckless-robots",
+                "verified": true,
+                "avatar": "/img/collections/recklessrobots/avatar.png",
+                "banner": "/img/collections/recklessrobots/banner.png",
+                "card": "/img/collections/recklessrobots/card.png",
+                "maxSupply": 2100,
+                "website": "https://www.recklessrobotsnft.com/",
+                "twitter": "https://twitter.com/RecklessRobots",
+                "discord": "https://discord.gg/Nk4PHjdhcs",
+                "medium": "https://medium.com/@recklessrobots"
             }
         }
     ],
@@ -1998,7 +2193,7 @@
             "is1155": false,
             "published": true,
             "featured": true,
-            "complete": false,
+            "complete": true,
             "video": "https://app.ebisusbay.com/files/crognomes/trailer.m4v"
         },
         {
@@ -2282,7 +2477,7 @@
             "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
             "description" : "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
             "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/"},
-            "address": "",
+            "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
             "maxMintPerTx": 5,
             "maxMintPerAddress": 200,
             "totalSupply": 1111,
@@ -2293,6 +2488,60 @@
             "end": null,
             "referral": false,
             "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 23,
+            "slug": "boba-nftea",
+            "imgNft": "/img/drops/bobanftea/drop.gif",
+            "imgPreview": "/img/drops/bobanftea/drop.gif",
+            "imgAvatar" : "/img/collections/bobanftea/avatar.png",
+            "imgBanner" : "/img/collections/bobanftea/banner.png",
+            "title": "BobaNFTea",
+            "subtitle": "A collection of 3300 NFTeas hand-drawn and deployed on the Cronos chain!",
+            "description": "The Boba NFTea collection is a community driven project being deployed on the Cronos chain. Holders of the NFTs will gain access to exclusive utilities such as governance and the ability to earn $BOBA tokens, that offers benefits like staking.",
+            "author": { "name": "Boba NFTea", "link": "https://twitter.com/Boba_NFTea"},
+            "address": "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+            "maxMintPerTx": 20,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3300,
+            "cost": "180",
+            "memberCost": "150",
+            "whitelistCost": "150",
+            "foundersOnly": false,
+            "start": 1644784200000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "priceDescription": "1M LOOT required to be eligible for the Whitelist Price",
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 24,
+            "slug": "reckless-robots",
+            "imgNft": "/img/drops/recklessrobots/drop.png",
+            "imgPreview": "/img/drops/recklessrobots/drop.png",
+            "imgAvatar" : "/img/collections/recklessrobots/avatar.png",
+            "imgBanner" : "/img/collections/recklessrobots/banner.png",
+            "title": "RecklessRobots",
+            "subtitle": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain.",
+            "description": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain. Distinctive for this project are the detailed and unique arts, accelerated NFT staking and NFT eliminations (burns). With these eliminations Reckless Robots reduces the total supply by buying the weakest bids from secondary markets and burning the bought NFTs. The burning reduces the total supply and thus reduces the total amount of possible NFTs staked enlarging the percentage of the pool that one NFT holds.",
+            "author": { "name": "Reckless Robots", "link": "https://www.recklessrobotsnft.com/"},
+            "address": "",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2100,
+            "cost": "300",
+            "memberCost": "200",
+            "whitelistCost": "200",
+            "foundersOnly": false,
+            "start": null,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
             "published": true,
             "complete": false
         }

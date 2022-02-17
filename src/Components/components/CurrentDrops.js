@@ -12,12 +12,10 @@ export const drops = config.drops;
 export const collections = config.known_contracts;
 
 const carouselSetings = {
-    ...settings,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    ...settings
 }
 
-const CurrentDrops = () => {
+const CurrentDrops = ({showAll = false}) => {
 
   const dispatch = useDispatch();
 
@@ -25,7 +23,7 @@ const CurrentDrops = () => {
 
   function arrangeCollections() {
       const liveDrops = drops
-          .filter(d => !d.complete && d.published && d.start < Date.now());
+          .filter(d => !d.complete && d.published && d.start && d.start < Date.now());
       const dropCollections = liveDrops.map(d => {
           const collection = collections.find(c => {
               const collectionSlug = c.slug ?? c.metadata.slug;
@@ -62,29 +60,52 @@ const CurrentDrops = () => {
     }
 
   return (
-      <div className='nft'>
+      <>
+      {showAll ?
+              <div className='row'>
+                      {currentDrops && currentDrops.map((item, index) => (
+                          <div className='col-12 col-xs-6 col-md-4 col-lg-3' key={index}>
+                              <CustomSlide
+                                  key={index}
+                                  index={index + 1}
+                                  avatar={item.drop.imgAvatar}
+                                  banner={item.collection.metadata.card}
+                                  title={item.drop.title}
+                                  subtitle={item.drop.author.name}
+                                  collectionId={item.drop.slug}
+                                  url={item.drop.redirect ?? `/drops/${item.drop.slug}`}
+                                  externalPage={!!item.drop.redirect}
+                                  verified={true}
+                              />
+                          </div>
+                      ))}
+              </div>
+              :
+              <div className='nft'>
 
-          <Slider {...carouselSetings}
-            prevArrow={<PrevArrow />}
-            nextArrow={<NextArrow />}
-          >
+                  <Slider {...carouselSetings}
+                          prevArrow={<PrevArrow />}
+                          nextArrow={<NextArrow />}
+                  >
 
-          { currentDrops && currentDrops.map((item, index) => (
-              <CustomSlide
-                  key={index}
-                  index={index + 1}
-                  avatar={item.drop.imgAvatar}
-                  banner={item.collection.metadata.card}
-                  title={item.drop.title}
-                  subtitle={item.drop.author.name}
-                  collectionId={item.drop.slug}
-                  url={item.drop.redirect ?? `/drops/${item.drop.slug}`}
-                  externalPage={!!item.drop.redirect}
-                  verified={true}
-              />
-          ))}
-        </Slider>
-      </div>
+                      { currentDrops && currentDrops.map((item, index) => (
+                          <CustomSlide
+                              key={index}
+                              index={index + 1}
+                              avatar={item.drop.imgAvatar}
+                              banner={item.collection.metadata.card}
+                              title={item.drop.title}
+                              subtitle={item.drop.author.name}
+                              collectionId={item.drop.slug}
+                              url={item.drop.redirect ?? `/drops/${item.drop.slug}`}
+                              externalPage={!!item.drop.redirect}
+                              verified={true}
+                          />
+                      ))}
+                  </Slider>
+              </div>
+      }
+      </>
   );
 }
 

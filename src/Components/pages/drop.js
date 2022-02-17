@@ -122,7 +122,7 @@ const Drop = () => {
         // Don't do any contract stuff if the drop does not have an address
         if (!drop.address || drop.complete) {
             setDropInfo(currentDrop, 0);
-            calculateStatus(currentDrop, 0, currentDrop.totalSupply);
+            calculateStatus(currentDrop, drop.complete ? currentDrop.totalSupply : 0, currentDrop.totalSupply);
             return;
         }
 
@@ -165,7 +165,7 @@ const Drop = () => {
                 const supply = await readContract.totalSupply();
                 const offsetSupply = supply.add(901);
                 setDropInfo(currentDrop, offsetSupply.toString());
-                calculateStatus(currentDrop, supply, currentDrop.totalSupply);
+                calculateStatus(currentDrop, offsetSupply, currentDrop.totalSupply);
             }
             else if (isMagBrewVikingsDrop(currentDrop.address)) {
                 let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -221,7 +221,7 @@ const Drop = () => {
         const eTime = new Date(drop.end);
         const now = new Date();
 
-        if (sTime > now) setStatus(statuses.NOT_STARTED);
+        if (!drop.address || sTime > now) setStatus(statuses.NOT_STARTED);
         else if (parseInt(totalSupply.toString()) >= parseInt(maxSupply.toString()) &&
             !isFounderDrop(drop.address)
         ) setStatus(statuses.SOLD_OUT)
@@ -445,7 +445,7 @@ const Drop = () => {
                                     </p>
                                 </Reveal>
                                 }
-                                {status === statuses.NOT_STARTED &&
+                                {status === statuses.NOT_STARTED && drop.start &&
                                 <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
                                     <h4 className="col-white">
                                         Starts in: <span className="text-uppercase color"><Countdown date={drop.start}/></span>
@@ -509,10 +509,10 @@ const Drop = () => {
                             <div className="item_info">
                                 <h2>{drop.title}</h2>
 
-                                {status === statuses.NOT_STARTED
+                                {status === statuses.NOT_STARTED || drop.complete
                                 ?
                                     <div>
-                                        <div className="fs-6 fw-bold mb-1 text-end">
+                                        <div className="fs-6 fw-bold mb-1">
                                             Supply: {maxSupply.toString()}
                                         </div>
                                     </div>
@@ -567,6 +567,10 @@ const Drop = () => {
                                         </div>
                                     }
                                 </div>
+
+                                {drop.priceDescription &&
+                                    <p className="my-2" style={{color:'black'}}>*{drop.priceDescription}</p>
+                                }
 
                                 <div className="spacer-40"></div>
 
