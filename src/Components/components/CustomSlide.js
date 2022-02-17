@@ -25,7 +25,7 @@ const CustomSlide = ({ index, avatar, banner, title, subtitle, collectionId, url
     }
 
   return (
-    <div className='itm' index={index}>
+    <div className='itm' key={index}>
       <div className="nft_coll">
           <div className="nft_wrap">
               <span><img src={banner} className="lazy img-fluid" alt={title}/></span>

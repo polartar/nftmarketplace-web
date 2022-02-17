@@ -1799,6 +1799,25 @@
                 "discord": "https://discord.gg/Nk4PHjdhcs",
                 "medium": "https://medium.com/@recklessrobots"
             }
+        },
+        {
+            "name" : "The HD: Hyped Dogs",
+            "multiToken" : false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "hyped-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/hypeddogs/avatar.png",
+                "card": "/img/collections/hypeddogs/card.png",
+                "banner": "/img/collections/hypeddogs/banner.png",
+                "maxSupply": 3000,
+                "website": "https://www.hypednftclub.com/hypeddog",
+                "twitter": "https://twitter.com/HypedDogs",
+                "discord": "https://discord.gg/z6MtMavKMp"
+            }
         }
     ],
     "drops": [
@@ -2542,6 +2561,32 @@
             "referral": false,
             "is1155": false,
             "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 25,
+            "slug": "hyped-dogs",
+            "imgNft": "/img/drops/hypeddogs/drop.gif",
+            "imgPreview": "/img/drops/hypeddogs/drop.gif",
+            "imgAvatar" : "/img/collections/hypeddogs/avatar.png",
+            "imgBanner" : "/img/drops/hypeddogs/banner.png",
+            "title": "The HD: Hyped Dogs",
+            "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
+            "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, it’s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
+            "author": { "name": "Hyped Dogs", "link": "https://www.hypednftclub.com/hypeddog"},
+            "address": "",
+            "maxMintPerTx": 7,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3000,
+            "cost": "199",
+            "memberCost": "150",
+            "whitelistCost": "150",
+            "foundersOnly": false,
+            "start": null,
+            "end": null,
+            "referral": false,
+            "is1155": false,
             "published": true,
             "complete": false
         }
