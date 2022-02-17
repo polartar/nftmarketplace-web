@@ -71,8 +71,13 @@ const Nft = () => {
             <section className='container'>
                 <div className='row mt-md-5 pt-md-4'>
                     <div className="col-md-6 text-center">
-                        {nft &&
-                            <img src={croSkullRedPotionImageHack(address, nft.image)} className="img-fluid img-rounded mb-sm-30" alt={nft.name} />
+                        {
+                            nft ? nft.useIframe
+                                    ? <iframe width="100%" height="636" src={nft.iframeSource}/>
+                                    : <img src={croSkullRedPotionImageHack(address, nft.image)}
+                                           className="img-fluid img-rounded mb-sm-30"
+                                           alt={nft.name} />
+                                : <></>
                         }
                         {nft && nft.original_image &&
                             <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
