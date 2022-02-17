@@ -104,10 +104,10 @@ export default class Responsive extends Component {
     const twoDays = 3600000 * 24 * 2;
 
     const upcomingDrops = drops
-        .filter(d => !d.complete && d.published && (d.start > Date.now() && d.start - Date.now() < twelveHours))
+        .filter(d => !d.complete && d.published && d.start && (d.start > Date.now() && d.start - Date.now() < twelveHours))
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
     let liveDrops = drops
-        .filter(d => !d.complete && d.published && d.start < Date.now())
+        .filter(d => !d.complete && d.published && d.start && d.start < Date.now())
         .sort((a, b) => (a.start < b.start) ? 1 : -1);
 
     if (liveDrops.length > 3) {

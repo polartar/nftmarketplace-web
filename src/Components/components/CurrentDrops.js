@@ -23,7 +23,7 @@ const CurrentDrops = ({showAll = false}) => {
 
   function arrangeCollections() {
       const liveDrops = drops
-          .filter(d => !d.complete && d.published && d.start < Date.now());
+          .filter(d => !d.complete && d.published && d.start && d.start < Date.now());
       const dropCollections = liveDrops.map(d => {
           const collection = collections.find(c => {
               const collectionSlug = c.slug ?? c.metadata.slug;
