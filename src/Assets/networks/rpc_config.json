@@ -1765,6 +1765,21 @@
                 "discord": "https://discord.gg/cWdCce8XAx",
                 "medium": "https://medium.com/panels-project"
             }
+        },
+        {
+            "name" : "NoBuddies NFT (BETA)",
+            "multiToken": false,
+            "address" : "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "panels-project",
+                "verified": true,
+                "maxSupply": 100,
+                "website": "https://nobuddiesnft.com/",
+                "twitter": "https://twitter.com/NoBuddiesNFT",
+                "discord": "https://discord.gg/W5TDF7jC34"
+            }
         }
     ],
     "drops": [
