@@ -1779,6 +1779,25 @@
                 "twitter": "https://twitter.com/NoBuddiesNFT",
                 "discord": "https://discord.gg/W5TDF7jC34"
             }
+        },
+        {
+            "name" : "Reckless Robots",
+            "multiToken": false,
+            "address" : "",
+            "onChain" : false,
+            "listable" : false,
+            "metadata" : {
+                "slug" : "reckless-robots",
+                "verified": true,
+                "avatar": "/img/collections/recklessrobots/avatar.png",
+                "banner": "/img/collections/recklessrobots/banner.png",
+                "card": "/img/collections/recklessrobots/card.png",
+                "maxSupply": 2100,
+                "website": "https://www.recklessrobotsnft.com/",
+                "twitter": "https://twitter.com/RecklessRobots",
+                "discord": "https://discord.gg/Nk4PHjdhcs",
+                "medium": "https://medium.com/@recklessrobots"
+            }
         }
     ],
     "drops": [
@@ -2495,6 +2514,33 @@
             "referral": false,
             "is1155": false,
             "priceDescription": "1M LOOT required to be eligible for the Whitelist Price",
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 24,
+            "slug": "reckless-robots",
+            "imgNft": "/img/drops/recklessrobots/drop.png",
+            "imgPreview": "/img/drops/recklessrobots/drop.png",
+            "imgAvatar" : "/img/collections/recklessrobots/avatar.png",
+            "imgBanner" : "/img/collections/recklessrobots/banner.png",
+            "title": "RecklessRobots",
+            "subtitle": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain.",
+            "description": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain. Distinctive for this project are the detailed and unique arts, accelerated NFT staking and NFT eliminations (burns). With these eliminations Reckless Robots reduces the total supply by buying the weakest bids from secondary markets and burning the bought NFTs. The burning reduces the total supply and thus reduces the total amount of possible NFTs staked enlarging the percentage of the pool that one NFT holds.",
+            "author": { "name": "Reckless Robots", "link": "https://www.recklessrobotsnft.com/"},
+            "address": "",
+            "maxMintPerTx": 10,
+            "maxMintPerAddress": 50,
+            "totalSupply": 2100,
+            "cost": "300",
+            "memberCost": "200",
+            "whitelistCost": "200",
+            "foundersOnly": false,
+            "start": null,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
             "published": true,
             "complete": false
         }
