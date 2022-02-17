@@ -320,6 +320,25 @@
                 "discord": "https://discord.gg/recklessrobotsnft",
                 "medium": "https://medium.com/@recklessrobotsnft"
             }
+        },
+        {
+            "name" : "The HD: Hyped Dogs",
+            "multiToken" : false,
+            "address" : "0x1D3587f44944a665F28bE1d9D9E322d43318DbB8",
+            "onChain" : false,
+            "listable" : false,
+            "metadata": {
+                "slug": "hyped-dogs",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/hypeddogs/avatar.png",
+                "card": "/img/collections/hypeddogs/card.gif",
+                "banner": "/img/collections/hypeddogs/banner.png",
+                "website": "https://www.thelaboratory.io/",
+                "twitter": "https://twitter.com/thelaboratoryio",
+                "discord": "https://discord.gg/thelaboratory",
+                "medium": "https://medium.com/@TheLaboratoryIO"
+            }
         }
     ],
     "drops": [
@@ -755,6 +774,32 @@
             "whitelistCost": "5",
             "foundersOnly": false,
             "start": 1643727600000,
+            "end": null,
+            "referral": false,
+            "is1155": false,
+            "published": true,
+            "complete": false
+        },
+        {
+            "id": 20,
+            "slug": "hyped-dogs",
+            "imgNft": "/img/drops/hypeddogs/drop.gif",
+            "imgPreview": "/img/drops/hypeddogs/drop.gif",
+            "imgAvatar" : "/img/collections/hypeddogs/avatar.png",
+            "imgBanner" : "/img/drops/hypeddogs/banner.png",
+            "title": "The HD: Hyped Dogs",
+            "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
+            "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, it’s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
+            "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
+            "address": "0x1D3587f44944a665F28bE1d9D9E322d43318DbB8",
+            "maxMintPerTx": 7,
+            "maxMintPerAddress": 50,
+            "totalSupply": 3000,
+            "cost": "5",
+            "memberCost": "10",
+            "whitelistCost": "5",
+            "foundersOnly": false,
+            "start": 1639591200000,
             "end": null,
             "referral": false,
             "is1155": false,
