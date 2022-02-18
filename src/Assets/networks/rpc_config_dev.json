@@ -1751,7 +1751,7 @@
             "multiToken": false,
             "address" : "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
             "onChain" : false,
-            "listable" : true,
+            "listable" : false,
             "metadata" : {
                 "slug" : "panels-project",
                 "verified": true,
