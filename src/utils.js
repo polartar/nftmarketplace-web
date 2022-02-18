@@ -1,15 +1,15 @@
-import moment from "moment";
-import config from './Assets/networks/rpc_config.json'
+import moment from 'moment';
+import config from './Assets/networks/rpc_config.json';
 export const drops = config.drops;
 export const collections = config.known_contracts;
 
 export function debounce(func, wait, immediate) {
   var timeout;
-  return function() {
+  return function () {
     var context = this,
       args = arguments;
     clearTimeout(timeout);
-    timeout = setTimeout(function() {
+    timeout = setTimeout(function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     }, wait);
@@ -38,8 +38,7 @@ function currentYPosition() {
   // Firefox, Chrome, Opera, Safari
   if (window.pageYOffset) return window.pageYOffset;
   // Internet Explorer 6 - standards mode
-  if (document.documentElement && document.documentElement.scrollTop)
-    return document.documentElement.scrollTop;
+  if (document.documentElement && document.documentElement.scrollTop) return document.documentElement.scrollTop;
   // Internet Explorer 6, 7 and 8
   if (document.body.scrollTop) return document.body.scrollTop;
   return 0;
@@ -75,7 +74,7 @@ export function scrollTo(scrollableElement, elmID) {
   if (stopY > startY) {
     for (var i = startY; i < stopY; i += step) {
       setTimeout(
-        (function(leapY) {
+        (function (leapY) {
           return () => {
             scrollableElement.scrollTo(0, leapY);
           };
@@ -90,7 +89,7 @@ export function scrollTo(scrollableElement, elmID) {
   }
   for (let i = startY; i > stopY; i -= step) {
     setTimeout(
-      (function(leapY) {
+      (function (leapY) {
         return () => {
           scrollableElement.scrollTo(0, leapY);
         };
@@ -105,18 +104,13 @@ export function scrollTo(scrollableElement, elmID) {
 }
 
 export function getTimeDifference(date) {
-  let difference =
-    moment(new Date(), "DD/MM/YYYY HH:mm:ss").diff(
-      moment(date, "DD/MM/YYYY HH:mm:ss")
-    ) / 1000;
+  let difference = moment(new Date(), 'DD/MM/YYYY HH:mm:ss').diff(moment(date, 'DD/MM/YYYY HH:mm:ss')) / 1000;
 
   if (difference < 60) return `${Math.floor(difference)} seconds`;
   else if (difference < 3600) return `${Math.floor(difference / 60)} minutes`;
   else if (difference < 86400) return `${Math.floor(difference / 3660)} hours`;
-  else if (difference < 86400 * 30)
-    return `${Math.floor(difference / 86400)} days`;
-  else if (difference < 86400 * 30 * 12)
-    return `${Math.floor(difference / 86400 / 30)} months`;
+  else if (difference < 86400 * 30) return `${Math.floor(difference / 86400)} days`;
+  else if (difference < 86400 * 30 * 12) return `${Math.floor(difference / 86400 / 30)} months`;
   else return `${(difference / 86400 / 30 / 12).toFixed(1)} years`;
 }
 
@@ -128,12 +122,10 @@ export function generateRandomId() {
 
 export function getQueryParam(prop) {
   var params = {};
-  var search = decodeURIComponent(
-    window.location.href.slice(window.location.href.indexOf("?") + 1)
-  );
-  var definitions = search.split("&");
-  definitions.forEach(function(val, key) {
-    var parts = val.split("=", 2);
+  var search = decodeURIComponent(window.location.href.slice(window.location.href.indexOf('?') + 1));
+  var definitions = search.split('&');
+  definitions.forEach(function (val, key) {
+    var parts = val.split('=', 2);
     params[parts[0]] = parts[1];
   });
   return prop && prop in params ? params[prop] : params;
@@ -141,9 +133,9 @@ export function getQueryParam(prop) {
 
 export function classList(classes) {
   return Object.entries(classes)
-    .filter(entry => entry[1])
-    .map(entry => entry[0])
-    .join(" ");
+    .filter((entry) => entry[1])
+    .map((entry) => entry[0])
+    .join(' ');
 }
 
 /**
@@ -154,8 +146,12 @@ export function classList(classes) {
  * @returns {string}
  */
 export function humanize(str) {
-  let i, frags = str.split(/(?=[A-Z])/).join(' ').split('_');
-  for (i=0; i<frags.length; i++) {
+  let i,
+    frags = str
+      .split(/(?=[A-Z])/)
+      .join(' ')
+      .split('_');
+  for (i = 0; i < frags.length; i++) {
     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
   }
   return frags.join(' ');
@@ -168,53 +164,47 @@ export function humanize(str) {
  * @returns {string|number}
  */
 export function siPrefixedNumber(num) {
-
   // Nine Zeroes for Billions
-  return Math.abs(Number(num)) >= 1.0e+9
-
-      ? (Math.abs(Number(num)) / 1.0e+9).toFixed(2) + "B"
-      // Six Zeroes for Millions
-      : Math.abs(Number(num)) >= 1.0e+6
-
-          ? (Math.abs(Number(num)) / 1.0e+6).toFixed(2) + "M"
-          // Three Zeroes for Thousands
-          : Math.abs(Number(num)) >= 1.0e+3
-
-              ? (Math.abs(Number(num)) / 1.0e+3).toFixed(2) + "K"
-
-              : Math.abs(Number(num));
+  return Math.abs(Number(num)) >= 1.0e9
+    ? (Math.abs(Number(num)) / 1.0e9).toFixed(2) + 'B'
+    : // Six Zeroes for Millions
+    Math.abs(Number(num)) >= 1.0e6
+    ? (Math.abs(Number(num)) / 1.0e6).toFixed(2) + 'M'
+    : // Three Zeroes for Thousands
+    Math.abs(Number(num)) >= 1.0e3
+    ? (Math.abs(Number(num)) / 1.0e3).toFixed(2) + 'K'
+    : Math.abs(Number(num));
 }
 
 export function shortAddress(address) {
-  return `${address.substring(0, 4)}...${address.substring(address.length-3, address.length)}`;
+  return `${address.substring(0, 4)}...${address.substring(address.length - 3, address.length)}`;
 }
 
 export function timeSince(date) {
-
   var seconds = Math.floor((new Date() - date) / 1000);
 
   var interval = seconds / 31536000;
 
   if (interval > 1) {
-    return Math.floor(interval) + " years";
+    return Math.floor(interval) + ' years';
   }
   interval = seconds / 2592000;
   if (interval > 1) {
-    return Math.floor(interval) + " months";
+    return Math.floor(interval) + ' months';
   }
   interval = seconds / 86400;
   if (interval > 1) {
-    return Math.floor(interval) + " days";
+    return Math.floor(interval) + ' days';
   }
   interval = seconds / 3600;
   if (interval > 1) {
-    return Math.floor(interval) + " hours";
+    return Math.floor(interval) + ' hours';
   }
   interval = seconds / 60;
   if (interval > 1) {
-    return Math.floor(interval) + " minutes";
+    return Math.floor(interval) + ' minutes';
   }
-  return Math.floor(seconds) + " seconds";
+  return Math.floor(seconds) + ' seconds';
 }
 
 /**
@@ -223,7 +213,7 @@ export function timeSince(date) {
  * @returns {string} 0x00...000
  */
 export function getShortIdForView(id = '') {
-  return `${ id.substring(0, 4) }...${ id.substring(id.length - 3, id.length) }`;
+  return `${id.substring(0, 4)}...${id.substring(id.length - 3, id.length)}`;
 }
 
 /**
@@ -231,17 +221,21 @@ export function getShortIdForView(id = '') {
  * @param transactionHash 0x000
  */
 export function openWithCronosExplorer(transactionHash = '') {
-  window.open(`https://cronos.crypto.org/explorer/tx/${ transactionHash }`, '_blank');
+  window.open(`https://cronos.crypto.org/explorer/tx/${transactionHash}`, '_blank');
 }
 
 export function createSuccessfulTransactionToastContent(transactionHash) {
   return (
-      <span>Success!
-        <a className='link-primary' style={{paddingLeft: '1rem'}}
-           onClick={ () => openWithCronosExplorer(transactionHash) }>
-            ${ getShortIdForView(transactionHash) }
-        </a>
-      </span>
+    <span>
+      Success!
+      <a
+        className="link-primary"
+        style={{ paddingLeft: '1rem' }}
+        onClick={() => openWithCronosExplorer(transactionHash)}
+      >
+        ${getShortIdForView(transactionHash)}
+      </a>
+    </span>
   );
 }
 
@@ -258,52 +252,52 @@ export function caseInsensitiveCompare(str1, str2) {
 }
 
 export function newlineText(text) {
-  return text.split('\n').map(str => <p>{str}</p>);
+  return text.split('\n').map((str) => <p>{str}</p>);
 }
 
 export const isCroniesDrop = (address) => {
-  const drop = drops.find(d => d.slug === 'cronies');
+  const drop = drops.find((d) => d.slug === 'cronies');
   return drop?.address === address;
-}
+};
 
 export const isFounderDrop = (address) => {
-  const drop = drops.find(d => d.slug === 'founding-member');
+  const drop = drops.find((d) => d.slug === 'founding-member');
   return drop?.address === address;
-}
+};
 
 export const isFounderCollection = (address) => {
-  const collection = collections.find(c => caseInsensitiveCompare(c.address, address));
+  const collection = collections.find((c) => caseInsensitiveCompare(c.address, address));
   return collection && ['ebisu-vip', 'founding-member'].includes(collection.metadata?.slug);
-}
+};
 
 export const isCrognomesDrop = (address) => {
-  const drop = drops.find(d => d.slug === 'crognomes');
+  const drop = drops.find((d) => d.slug === 'crognomes');
   return drop?.address === address;
-}
+};
 
 export const isMagBrewVikingsDrop = (address) => {
-  const drop = drops.find(d => d.slug === 'mag-brew-vikings');
+  const drop = drops.find((d) => d.slug === 'mag-brew-vikings');
   return drop?.address === address;
-}
+};
 
 export const isDrop = (address, slug) => {
-  const drop = drops.find(d => d.slug === slug);
+  const drop = drops.find((d) => d.slug === slug);
   return drop?.address === address;
-}
+};
 
 export const isCollection = (address, slug) => {
-  const collection = collections.find(c => c.metadata.slug === slug);
+  const collection = collections.find((c) => c.metadata.slug === slug);
   return collection && caseInsensitiveCompare(collection.address, address);
-}
+};
 
 export const isCroCrowCollection = (address) => {
   return isCollection(address, 'cro-crow');
-}
+};
 
 export const percentage = (partialValue, totalValue) => {
   if (!totalValue || totalValue == 0) return 0;
   return Math.round((100 * partialValue) / totalValue);
-}
+};
 
 export const relativePrecision = (num) => {
   if (num < 0.001) {
@@ -312,4 +306,4 @@ export const relativePrecision = (num) => {
     return Math.round(num * 1000) / 10;
   }
   return Math.round(num * 100);
-}
+};

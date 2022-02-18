@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import withStyles from '@mui/styles/withStyles';
-import MuiAccordion from '@mui/material/Accordion'
-import MuiAccordionSummary from '@mui/material/AccordionSummary'
-import MuiAccordionDetails from '@mui/material/AccordionDetails'
-import Typography from '@mui/material/Typography'
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { useSelector } from 'react-redux'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     fontSize: '1.1rem',
-    fontWeight:'500'
+    fontWeight: '500',
   },
-  border:{
-    border:`1px solid ${theme.palette.primary.main}`
-  }
-}))
+  border: {
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
+}));
 
 const Accordion = withStyles({
   root: {
@@ -44,7 +44,7 @@ const Accordion = withStyles({
   },
 
   expanded: {},
-})(MuiAccordion)
+})(MuiAccordion);
 
 const AccordionSummary = withStyles({
   root: {
@@ -63,39 +63,42 @@ const AccordionSummary = withStyles({
     },
   },
   expanded: {},
-})(MuiAccordionSummary)
+})(MuiAccordionSummary);
 
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
-}))(MuiAccordionDetails)
+}))(MuiAccordionDetails);
 export default function SimpleAccordion() {
-    const classes = useStyles()
+  const classes = useStyles();
   const faqSelector = useSelector((state) => {
-    return state.initState.faq
-  })
+    return state.initState.faq;
+  });
 
   return (
-    <Container maxWidth='md'>
-
-      {faqSelector.map((val,j) => {
+    <Container maxWidth="md">
+      {faqSelector.map((val, j) => {
         return (
-          <Accordion square TransitionProps={{ unmountOnExit: true,timeout:400 }}   key={j}>
+          <Accordion square TransitionProps={{ unmountOnExit: true, timeout: 400 }} key={j}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon color='primary' />}
+              expandIcon={<ExpandMoreIcon color="primary" />}
               aria-controls={val.tab}
               id={val.id}
               className={classes.border}
             >
-              <Typography className={classes.heading} color='primary'>{val.head}</Typography>
+              <Typography className={classes.heading} color="primary">
+                {val.head}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography  className={`${classes.text}  faqText`} color='primary'>{val.desc}</Typography>
+              <Typography className={`${classes.text}  faqText`} color="primary">
+                {val.desc}
+              </Typography>
             </AccordionDetails>
           </Accordion>
-        )
-      })} 
+        );
+      })}
     </Container>
-  )
+  );
 }

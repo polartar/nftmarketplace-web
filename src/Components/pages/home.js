@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
 import { createGlobalStyle, default as styled } from 'styled-components';
-import ListingCollection from "../components/ListingCollection";
-import {Link, useHistory} from "react-router-dom";
-import HotCollections from "../components/HotCollections";
-import { keyframes } from "@emotion/react";
-import {siPrefixedNumber} from "../../utils";
-import {getMarketData} from "../../GlobalState/marketplaceSlice";
-import Reveal from "react-awesome-reveal";
-import { theme } from "../../Theme/theme";
-import CurrentDrops from "../components/CurrentDrops";
+import ListingCollection from '../components/ListingCollection';
+import { Link, useHistory } from 'react-router-dom';
+import HotCollections from '../components/HotCollections';
+import { keyframes } from '@emotion/react';
+import { siPrefixedNumber } from '../../utils';
+import { getMarketData } from '../../GlobalState/marketplaceSlice';
+import Reveal from 'react-awesome-reveal';
+import { theme } from '../../Theme/theme';
+import CurrentDrops from '../components/CurrentDrops';
 
 const fadeInUp = keyframes`
   0% {
@@ -69,192 +69,204 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const Jumbotron = {
-    Host: styled.div.attrs(({theme}) => ({
-        className: ''
-    }))`
-      background-image: url('/img/background/Ebisus-bg-1_L.jpg');
-      background-size: cover;
-      height: max(100vh, 800px);
-      display: flex;
-      align-items: center;
-      
-      @media only screen and (max-width: ${({theme}) => theme.breakpoints.md}) {
-        max-width: ${({theme}) => theme.breakpoints.md};
-        height: 200px
-      }
-    `,
-    Data: styled.div.attrs(({theme}) => ({
-        className: ''
-    }))`
-      max-width: 700px;
-      
-      padding: 1.5rem !important;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      background: #FFFFFFDD;
-      border-radius: 10px;
+  Host: styled.div.attrs(({ theme }) => ({
+    className: '',
+  }))`
+    background-image: url('/img/background/Ebisus-bg-1_L.jpg');
+    background-size: cover;
+    height: max(100vh, 800px);
+    display: flex;
+    align-items: center;
 
-    `
-}
+    @media only screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      max-width: ${({ theme }) => theme.breakpoints.md};
+      height: 200px;
+    }
+  `,
+  Data: styled.div.attrs(({ theme }) => ({
+    className: '',
+  }))`
+    max-width: 700px;
+
+    padding: 1.5rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background: #ffffffdd;
+    border-radius: 10px;
+  `,
+};
 
 const Home = () => {
-    const history = useHistory();
-    const dispatch = useDispatch();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-    const [ mobile, setMobile ] = useState(window.innerWidth < theme.breakpointsNum.md);
+  const [mobile, setMobile] = useState(window.innerWidth < theme.breakpointsNum.md);
 
-    const marketData = useSelector((state) => {
-        return state.marketplace.marketData;
-    })
+  const marketData = useSelector((state) => {
+    return state.marketplace.marketData;
+  });
 
-    useEffect(() => {
-        const breakpointObserver = ({ target }) => {
-            const { innerWidth } = target;
-            const newValue = innerWidth < theme.breakpointsNum.md;
-            setMobile(newValue);
+  useEffect(() => {
+    const breakpointObserver = ({ target }) => {
+      const { innerWidth } = target;
+      const newValue = innerWidth < theme.breakpointsNum.md;
+      setMobile(newValue);
+    };
 
-        };
+    window.addEventListener('resize', breakpointObserver);
 
-        window.addEventListener('resize', breakpointObserver);
+    return () => {
+      window.removeEventListener('resize', breakpointObserver);
+    };
+  }, [dispatch]);
 
-        return () => {
-            window.removeEventListener('resize', breakpointObserver);
-        }
-    }, [dispatch])
+  const navigateTo = (link) => {
+    history.push(link);
+  };
 
+  useEffect(async function () {
+    dispatch(getMarketData());
+  }, []);
 
-    const navigateTo = (link) => {
-        history.push(link);
-    }
-
-    useEffect(async function() {
-        dispatch(getMarketData())
-    }, []);
-
-    const JumbotronData = () => {
-        return (
-            <Jumbotron.Data>
-                <h6><span className="text-uppercase color">Ebisu's Bay Marketplace</span></h6>
-                <Reveal className='onStep' keyframes={ fadeInUp } delay={ 300 } duration={ 900 } triggerOnce>
-                    <h1>Discover <span className="color">rare</span> digital art and collect NFTs</h1>
-                </Reveal>
-                <Reveal className='onStep' keyframes={ fadeInUp } delay={ 600 } duration={ 900 } triggerOnce>
-                    <p className="lead">
-                        Ebisu's Bay is the first NFT marketplace on Cronos. Create, buy, sell, trade and enjoy the
-                        #CroFam NFT community.
-                    </p>
-                </Reveal>
-                <Reveal className='onStep call-to-action' keyframes={ inline } delay={ 800 } duration={ 900 }
-                        triggerOnce>
-                    <div
-                        className="min-width-on-column mb-2 w-100 d-inline-flex flex-column flex-md-row flex-lg-column flex-xl-row gap-3   align-items-center">
-
-                                    <span onClick={ () => window.open('/marketplace', "_self") }
-                                          className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main inline lead">Explore</span>
-
-                        <span onClick={ () => window.open('https://forms.gle/rRtn6gp16tyavQge9', "_blank") }
-                              className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
-                              style={ { outline: '1px solid #DDD' } }>Become a Creator</span>
-
-                        <span onClick={ () => window.open(`/drops/founding-member`, "_self") }
-                              className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
-                              style={ { outline: '1px solid #DDD' } }>Become a Member</span>
-
-                    </div>
-                </Reveal>
-                <Reveal className='onStep d-inline' keyframes={ inline } delay={ 900 } duration={ 1200 } triggerOnce>
-                    <div className="row">
-                        <div className="spacer-single"></div>
-                        { marketData &&
-                            <div className="row">
-                                <div className="col-4 col-sm-4 col-md-4 col-12  mb30 ">
-                                    <div className="de_count text-center text-md-start">
-                                        <h3><span>{ siPrefixedNumber(Number(marketData.totalVolume).toFixed(0)) }</span>
-                                        </h3>
-                                        <h5 className="id-color">Volume</h5>
-                                    </div>
-                                </div>
-
-                                <div className="col-4 col-sm-4 col-md-4 col-12 mb30 ">
-                                    <div className="de_count text-center text-md-start">
-                                        <h3><span>{ siPrefixedNumber(Number(marketData.totalSales).toFixed(0)) }</span>
-                                        </h3>
-                                        <h5 className="id-color">NFTs Sold</h5>
-                                    </div>
-                                </div>
-
-                                <div className="col-4 col-sm-4 col-md-4 col-12 mb30 ">
-                                    <div className="de_count text-center text-md-start">
-                                        <h3><span>{ siPrefixedNumber(marketData.totalActive) }</span></h3>
-                                        <h5 className="id-color">Active Listings</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </Reveal>
-            </Jumbotron.Data>
-        );
-    }
-
+  const JumbotronData = () => {
     return (
-        <div>
-            <GlobalStyles/>
-            <Jumbotron.Host>
-                { !mobile && <div className="container">{JumbotronData()}</div>}
-            </Jumbotron.Host>
-            { mobile && JumbotronData()}
+      <Jumbotron.Data>
+        <h6>
+          <span className="text-uppercase color">Ebisu's Bay Marketplace</span>
+        </h6>
+        <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+          <h1>
+            Discover <span className="color">rare</span> digital art and collect NFTs
+          </h1>
+        </Reveal>
+        <Reveal className="onStep" keyframes={fadeInUp} delay={600} duration={900} triggerOnce>
+          <p className="lead">
+            Ebisu's Bay is the first NFT marketplace on Cronos. Create, buy, sell, trade and enjoy the #CroFam NFT
+            community.
+          </p>
+        </Reveal>
+        <Reveal className="onStep call-to-action" keyframes={inline} delay={800} duration={900} triggerOnce>
+          <div className="min-width-on-column mb-2 w-100 d-inline-flex flex-column flex-md-row flex-lg-column flex-xl-row gap-3   align-items-center">
+            <span
+              onClick={() => window.open('/marketplace', '_self')}
+              className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main inline lead"
+            >
+              Explore
+            </span>
 
-            <section className='container no-bottom'>
-                <div className='row'>
-                    <div className='col-lg-12'>
-                        <div className='text-center'>
-                            <h2>Current Drops</h2>
-                            <div className="small-border"></div>
-                        </div>
-                    </div>
-                    <div className='col-lg-12'>
-                        <CurrentDrops />
-                    </div>
+            <span
+              onClick={() => window.open('https://forms.gle/rRtn6gp16tyavQge9', '_blank')}
+              className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
+              style={{ outline: '1px solid #DDD' }}
+            >
+              Become a Creator
+            </span>
+
+            <span
+              onClick={() => window.open(`/drops/founding-member`, '_self')}
+              className="m-0 text-nowrap p-4 pt-2 pb-2 btn-main btn-outline inline white lead"
+              style={{ outline: '1px solid #DDD' }}
+            >
+              Become a Member
+            </span>
+          </div>
+        </Reveal>
+        <Reveal className="onStep d-inline" keyframes={inline} delay={900} duration={1200} triggerOnce>
+          <div className="row">
+            <div className="spacer-single"></div>
+            {marketData && (
+              <div className="row">
+                <div className="col-4 col-sm-4 col-md-4 col-12  mb30 ">
+                  <div className="de_count text-center text-md-start">
+                    <h3>
+                      <span>{siPrefixedNumber(Number(marketData.totalVolume).toFixed(0))}</span>
+                    </h3>
+                    <h5 className="id-color">Volume</h5>
+                  </div>
                 </div>
-            </section>
 
-            <section className='container no-bottom'>
-                <div className='row'>
-                    <div className='col-lg-12'>
-                        <div className='text-center'>
-                            <h2>Hot Collections</h2>
-                            <div className="small-border"></div>
-                        </div>
-                    </div>
-                    <div className='col-lg-12'>
-                        <HotCollections/>
-                    </div>
+                <div className="col-4 col-sm-4 col-md-4 col-12 mb30 ">
+                  <div className="de_count text-center text-md-start">
+                    <h3>
+                      <span>{siPrefixedNumber(Number(marketData.totalSales).toFixed(0))}</span>
+                    </h3>
+                    <h5 className="id-color">NFTs Sold</h5>
+                  </div>
                 </div>
-            </section>
 
-            <section className='container'>
-                <div className='row'>
-                    <div className='col-lg-12'>
-                        <div className='text-center'>
-                            <h2>New Listings</h2>
-                            <div className="small-border"></div>
-                        </div>
-                    </div>
-                    <div className='col-lg-12'>
-                        <ListingCollection showLoadMore={false}/>
-                    </div>
-                    <div className='col-lg-12'>
-                        <div className="spacer-single"></div>
-                        <span onClick={() => navigateTo(`/marketplace`)} className="btn-main lead m-auto">View Marketplace</span>
-                    </div>
+                <div className="col-4 col-sm-4 col-md-4 col-12 mb30 ">
+                  <div className="de_count text-center text-md-start">
+                    <h3>
+                      <span>{siPrefixedNumber(marketData.totalActive)}</span>
+                    </h3>
+                    <h5 className="id-color">Active Listings</h5>
+                  </div>
                 </div>
-            </section>
-
-            <Footer/>
-
-        </div>
+              </div>
+            )}
+          </div>
+        </Reveal>
+      </Jumbotron.Data>
     );
+  };
+
+  return (
+    <div>
+      <GlobalStyles />
+      <Jumbotron.Host>{!mobile && <div className="container">{JumbotronData()}</div>}</Jumbotron.Host>
+      {mobile && JumbotronData()}
+
+      <section className="container no-bottom">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="text-center">
+              <h2>Current Drops</h2>
+              <div className="small-border"></div>
+            </div>
+          </div>
+          <div className="col-lg-12">
+            <CurrentDrops />
+          </div>
+        </div>
+      </section>
+
+      <section className="container no-bottom">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="text-center">
+              <h2>Hot Collections</h2>
+              <div className="small-border"></div>
+            </div>
+          </div>
+          <div className="col-lg-12">
+            <HotCollections />
+          </div>
+        </div>
+      </section>
+
+      <section className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="text-center">
+              <h2>New Listings</h2>
+              <div className="small-border"></div>
+            </div>
+          </div>
+          <div className="col-lg-12">
+            <ListingCollection showLoadMore={false} />
+          </div>
+          <div className="col-lg-12">
+            <div className="spacer-single"></div>
+            <span onClick={() => navigateTo(`/marketplace`)} className="btn-main lead m-auto">
+              View Marketplace
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
 };
 export default Home;

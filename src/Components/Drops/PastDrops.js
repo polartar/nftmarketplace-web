@@ -1,70 +1,62 @@
-import React, {memo, useEffect, useState} from "react";
+import React, { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Slider from "react-slick";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Slider from 'react-slick';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { settings } from "../components/constants";
-import CustomSlide from "../components/CustomSlide";
-import config from '../../Assets/networks/rpc_config.json'
-import { faArrowLeft, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import {caseInsensitiveCompare} from "../../utils";
+import { settings } from '../components/constants';
+import CustomSlide from '../components/CustomSlide';
+import config from '../../Assets/networks/rpc_config.json';
+import { faArrowLeft, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { caseInsensitiveCompare } from '../../utils';
 export const drops = config.drops;
 export const collections = config.known_contracts;
 const defaultCardImage = '/img/collections/default/card.jpg';
 
 const PastDrops = () => {
-
   const dispatch = useDispatch();
 
   const [pastDrops, setPastDrops] = useState([]);
 
   function arrangeCollections() {
-      const completedDrops = drops.filter(d => d.complete && d.published);
-      const dropCollections = completedDrops.map(d => {
-          const collection = collections.find(c => {
-              const collectionSlug = c.slug ?? c.metadata.slug;
-              return collectionSlug && collectionSlug === d.slug
-          });
-          return {collection, drop: d};
-      })
-      setPastDrops(dropCollections
-          .filter(d => d.collection)
-          .sort((a, b) => (a.drop.start < b.drop.start) ? 1 : -1)
-      );
+    const completedDrops = drops.filter((d) => d.complete && d.published);
+    const dropCollections = completedDrops.map((d) => {
+      const collection = collections.find((c) => {
+        const collectionSlug = c.slug ?? c.metadata.slug;
+        return collectionSlug && collectionSlug === d.slug;
+      });
+      return { collection, drop: d };
+    });
+    setPastDrops(dropCollections.filter((d) => d.collection).sort((a, b) => (a.drop.start < b.drop.start ? 1 : -1)));
   }
 
   useEffect(() => {
-      arrangeCollections();
+    arrangeCollections();
   }, [dispatch]);
 
-    const PrevArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <div className={className} style={style} onClick={onClick} >
-                <FontAwesomeIcon icon={faChevronLeft}/>
-            </div>
-        );
-    }
+  const PrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div className={className} style={style} onClick={onClick}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </div>
+    );
+  };
 
-    const NextArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <div className={className} style={style} onClick={onClick} >
-                <FontAwesomeIcon icon={faChevronRight}/>
-            </div>
-        );
-    }
+  const NextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div className={className} style={style} onClick={onClick}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </div>
+    );
+  };
 
   return (
-      <div className='nft'>
-
-          <Slider {...settings}
-            prevArrow={<PrevArrow />}
-            nextArrow={<NextArrow />}
-          >
-
-          { pastDrops && pastDrops.map((item, index) => (
+    <div className="nft">
+      <Slider {...settings} prevArrow={<PrevArrow />} nextArrow={<NextArrow />}>
+        {pastDrops &&
+          pastDrops.map((item, index) => (
             <CustomSlide
               key={index}
               index={index + 1}
@@ -76,9 +68,9 @@ const PastDrops = () => {
               verified={true}
             />
           ))}
-        </Slider>
-      </div>
+      </Slider>
+    </div>
   );
-}
+};
 
 export default memo(PastDrops);
