@@ -3,31 +3,28 @@ import { connect, useDispatch } from 'react-redux';
 import { MyNftCancelDialogActions } from '../../GlobalState/User';
 
 const mapStateToProps = (state) => ({
-    walletAddress: state.user.address,
-    myNftPageListDialog: state.user.myNftPageListDialog,
-    myNftPageCancelDialog: state.user.myNftPageCancelDialog,
+  walletAddress: state.user.address,
+  myNftPageListDialog: state.user.myNftPageListDialog,
+  myNftPageCancelDialog: state.user.myNftPageCancelDialog,
 });
 
-const MyNftCancelDialog = (
-    {
-        myNftPageCancelDialog,
-    }) => {
+const MyNftCancelDialog = ({ myNftPageCancelDialog }) => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  useEffect(async () => {
+    if (myNftPageCancelDialog) {
+      const {} = myNftPageCancelDialog;
+      dispatch(
+        MyNftCancelDialogActions.cancelListing({
+          address: myNftPageCancelDialog.contract.address,
+          id: myNftPageCancelDialog.id,
+          listingId: myNftPageCancelDialog.listingId,
+        })
+      );
+    }
+  }, [myNftPageCancelDialog]);
 
-    useEffect(async () => {
-        if (myNftPageCancelDialog) {
-            const {} = myNftPageCancelDialog;
-            dispatch(MyNftCancelDialogActions.cancelListing(
-                {
-                    address: myNftPageCancelDialog.contract.address,
-                    id: myNftPageCancelDialog.id,
-                    listingId: myNftPageCancelDialog.listingId
-                }));
-        }
-    }, [ myNftPageCancelDialog ]);
-
-    return (<></>);
+  return <></>;
 };
 
 export default connect(mapStateToProps)(memo(MyNftCancelDialog));
