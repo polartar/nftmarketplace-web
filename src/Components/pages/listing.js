@@ -170,8 +170,13 @@ const Listing = () => {
                 <section className='container'>
                     <div className='row mt-md-5 pt-md-4'>
                         <div className="col-md-6 text-center">
-                            {listing &&
-                                <img src={croSkullRedPotionImageHack(listing.nftAddress, listing.nft.image)} className="img-fluid img-rounded mb-sm-30" alt={listing.nft.name} />
+                            {
+                                listing ? listing.useIframe
+                                        ? <iframe width="100%" height="636" src={listing.iframeSource}/>
+                                        : <img src={croSkullRedPotionImageHack(listing.nftAddress, listing.nft.image)}
+                                               className="img-fluid img-rounded mb-sm-30"
+                                               alt={listing.nft.name} />
+                                    : <></>
                             }
                             {listing && listing.nft.original_image &&
                                 <div className="nft__item_action mt-2" style={{cursor: 'pointer'}}>
