@@ -1,17 +1,17 @@
 {
-  "name" : "Cronos",
-  "chain_id" : "25",
-  "write_rpc" : "https://evm-cronos.crypto.org/",
-  "read_rpc" : "https://gateway.nebkas.ro/",
-  "symbol" : "CRO",
-  "explorer" : "http://cronos.crypto.org/explorer/",
-  "api_base" : "https://api.ebisusbay.com/",
-  "app_base" : "https://app.ebisusbay.com/",
-  "membership_contract" : "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
-  "auction_contract" : "0x08254C5B77615E7B4d2f7df0Dc36e1AEb9025D10",
-  "cronie_contract" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
-  "market_contract" : "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
-  "elon_contract" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
+  "name": "Cronos",
+  "chain_id": "25",
+  "write_rpc": "https://evm-cronos.crypto.org/",
+  "read_rpc": "https://gateway.nebkas.ro/",
+  "symbol": "CRO",
+  "explorer": "http://cronos.crypto.org/explorer/",
+  "api_base": "https://api.ebisusbay.com/",
+  "app_base": "https://app.ebisusbay.com/",
+  "membership_contract": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
+  "auction_contract": "0x08254C5B77615E7B4d2f7df0Dc36e1AEb9025D10",
+  "cronie_contract": "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
+  "market_contract": "0x7a3CdB2364f92369a602CAE81167d0679087e6a3",
+  "elon_contract": "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
   "ebisu_contract": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
   "known_tokens": {
     "loot": {
@@ -20,14 +20,14 @@
       "address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B"
     }
   },
-  "known_contracts" :  [
+  "known_contracts": [
     {
       "name": "Ebisu's Bay VIP",
-      "onChain" : false,
+      "onChain": false,
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
-      "multiToken" : true,
-      "id" : 2,
-      "listable" : true,
+      "multiToken": true,
+      "id": 2,
+      "listable": true,
       "metadata": {
         "slug": "ebisu-vip",
         "description": "",
@@ -44,11 +44,11 @@
     },
     {
       "name": "Ebisu's Valentine",
-      "onChain" : false,
+      "onChain": false,
       "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
-      "multiToken" : true,
-      "id" : 1,
-      "listable" : true,
+      "multiToken": true,
+      "id": 1,
+      "listable": true,
       "metadata": {
         "slug": "ebisu-valentine",
         "description": "",
@@ -65,11 +65,11 @@
     },
     {
       "name": "Ebisu's Valentine",
-      "onChain" : false,
+      "onChain": false,
       "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
-      "multiToken" : true,
-      "id" : 2,
-      "listable" : true,
+      "multiToken": true,
+      "id": 2,
+      "listable": true,
       "metadata": {
         "slug": "ebisu-valentine-rare",
         "description": "",
@@ -86,11 +86,11 @@
     },
     {
       "name": "Ebisu's Bay Founder",
-      "onChain" : false,
+      "onChain": false,
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
-      "multiToken" : true,
-      "id" : 1,
-      "listable" : false,
+      "multiToken": true,
+      "id": 1,
+      "listable": false,
       "metadata": {
         "slug": "founding-member",
         "description": "",
@@ -106,11 +106,11 @@
       }
     },
     {
-      "name" : "Mad Meerkat",
-      "multiToken" : false,
-      "address" : "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Mad Meerkat",
+      "multiToken": false,
+      "address": "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "mad-meerkat",
         "description": "",
@@ -127,11 +127,11 @@
       }
     },
     {
-      "name" : "Petite Planets Gen 2",
+      "name": "Petite Planets Gen 2",
       "multiToken": false,
-      "address" : "0x83Ac37cc236DB5e9e2F01929aBEf70D8dfc44f9a",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x83Ac37cc236DB5e9e2F01929aBEf70D8dfc44f9a",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "petite-planets-gen2",
         "description": "",
@@ -146,11 +146,11 @@
       }
     },
     {
-      "name" : "Petite Planets NFT",
+      "name": "Petite Planets NFT",
       "multiToken": false,
-      "address" : "0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "petite-planets",
         "description": "",
@@ -165,11 +165,11 @@
       }
     },
     {
-      "name" : "CroMonkeys",
-      "multiToken" : false,
-      "address" : "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
-      "onChain" : false,
-      "listable" : true,
+      "name": "CroMonkeys",
+      "multiToken": false,
+      "address": "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cromonkeys",
         "description": "",
@@ -184,11 +184,11 @@
       }
     },
     {
-      "name" : "CroMonkeys Land",
-      "multiToken" : false,
-      "address" : "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
-      "onChain" : false,
-      "listable" : false,
+      "name": "CroMonkeys Land",
+      "multiToken": false,
+      "address": "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "cromonkeys-land",
         "description": "",
@@ -203,11 +203,11 @@
       }
     },
     {
-      "name" : "Cronos Slothty",
-      "multiToken" : false,
-      "address" : "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Slothty",
+      "multiToken": false,
+      "address": "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-slothy",
         "description": "",
@@ -223,11 +223,11 @@
       }
     },
     {
-      "name" : "Crosmonauts",
-      "multiToken" : false,
-      "address" : "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Crosmonauts",
+      "multiToken": false,
+      "address": "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crosmonauts",
         "description": "",
@@ -243,11 +243,11 @@
       }
     },
     {
-      "name" : "CronosChimp",
+      "name": "CronosChimp",
       "multiToken": false,
-      "address" : "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-chimp-club",
         "description": "",
@@ -263,13 +263,13 @@
       }
     },
     {
-      "name" : "CroPunks - Punks on Cronos",
+      "name": "CroPunks - Punks on Cronos",
       "multiToken": false,
-      "address" : "0xaec3adc72e453ecb6009aa48e0ac967941b30c4e",
-      "onChain" : false,
-      "listable" : true,
-      "metadata" : {
-        "slug" : "cro-punks",
+      "address": "0xaec3adc72e453ecb6009aa48e0ac967941b30c4e",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "cro-punks",
         "verified": true,
         "avatar": "/img/collections/cropunks/avatar.png",
         "banner": "/img/collections/cropunks/1920_banner.png",
@@ -282,13 +282,13 @@
       }
     },
     {
-      "name" : "WinterPunks by CroPunks",
+      "name": "WinterPunks by CroPunks",
       "multiToken": false,
-      "address" : "0x1c8Ef727Cb7AF92B8eE3cdBB6778BeAa1aBc43ac",
-      "onChain" : false,
-      "listable" : true,
-      "metadata" : {
-        "slug" : "winter-punks",
+      "address": "0x1c8Ef727Cb7AF92B8eE3cdBB6778BeAa1aBc43ac",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "winter-punks",
         "verified": true,
         "avatar": "/img/collections/winterpunks/winter_ava.png",
         "banner": "/img/collections/winterpunks/1920_bann_xmas.png",
@@ -301,13 +301,13 @@
       }
     },
     {
-      "name" : "CRO CROW",
+      "name": "CRO CROW",
       "multiToken": false,
-      "address" : "0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5",
-      "onChain" : false,
-      "listable" : true,
-      "metadata" : {
-        "slug" : "cro-crow",
+      "address": "0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "cro-crow",
         "verified": true,
         "avatar": "/img/collections/crocrow/avatar.png",
         "banner": "/img/collections/crocrow/banner.png",
@@ -323,9 +323,9 @@
     {
       "name": "Cronies",
       "multiToken": false,
-      "address" : "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
-      "onChain" : true,
-      "listable" : true,
+      "address": "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
+      "onChain": true,
+      "listable": true,
       "metadata": {
         "slug": "cronies",
         "description": "",
@@ -340,11 +340,11 @@
       }
     },
     {
-      "name" : "Wrapped Cronos Punk",
+      "name": "Wrapped Cronos Punk",
       "multiToken": false,
-      "address" : "0x13d13e2410A34Bfe5502D50ea4FCFBd591D7589E",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x13d13e2410A34Bfe5502D50ea4FCFBd591D7589E",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "wrapped-cronos-punk",
         "description": "",
@@ -359,11 +359,11 @@
       }
     },
     {
-      "name" : "Cronos Punk",
+      "name": "Cronos Punk",
       "multiToken": false,
-      "address" : "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-punk",
         "description": "",
@@ -376,11 +376,11 @@
       }
     },
     {
-      "name" : "CROCOSNFT",
+      "name": "CROCOSNFT",
       "multiToken": false,
-      "address" : "0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crocos-nft",
         "description": "",
@@ -394,11 +394,11 @@
       }
     },
     {
-      "name" : "CrocosXmasNFT",
+      "name": "CrocosXmasNFT",
       "multiToken": false,
-      "address" : "0xeEeecAF68c6142D2f2F2628557A58cf4440a9BBD",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0xeEeecAF68c6142D2f2F2628557A58cf4440a9BBD",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crocos-nft-xmas",
         "description": "",
@@ -412,11 +412,11 @@
       }
     },
     {
-      "name" : "CRODrakes",
+      "name": "CRODrakes",
       "multiToken": false,
-      "address" : "0xbed280E63B3292a5faFEC896F9a0256d12552170",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0xbed280E63B3292a5faFEC896F9a0256d12552170",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crodrakes",
         "description": "",
@@ -432,11 +432,11 @@
       }
     },
     {
-      "name" : "SupBirds",
+      "name": "SupBirds",
       "multiToken": false,
-      "address" : "0x48879b93AbCE2B69F9792584f8891BCe30C1BF28",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x48879b93AbCE2B69F9792584f8891BCe30C1BF28",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "supbirds",
         "description": "",
@@ -448,11 +448,11 @@
       }
     },
     {
-      "name" : "Crownos",
+      "name": "Crownos",
       "multiToken": false,
-      "address" : "0x704f0990CE1997ED5110e7415cc7aBE090006C1e",
-      "onChain" : false,
-      "listable" : false,
+      "address": "0x704f0990CE1997ED5110e7415cc7aBE090006C1e",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "crownos",
         "maxSupply": 3333,
@@ -463,11 +463,11 @@
       }
     },
     {
-      "name" : "Crypto Collage Collection",
-      "multiToken" :  false,
-      "address" : "0x64274Fce5bd057E6416f57A5EdC8a3195E153022",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Crypto Collage Collection",
+      "multiToken": false,
+      "address": "0x64274Fce5bd057E6416f57A5EdC8a3195E153022",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crypto-collage-collection",
         "description": "",
@@ -481,11 +481,11 @@
       }
     },
     {
-      "name" : "Petite Planets Gen 1 Governor Medals",
-      "multiToken" : false,
-      "address" : "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Petite Planets Gen 1 Governor Medals",
+      "multiToken": false,
+      "address": "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "petite-planets-gen1-governor-medals",
         "description": "",
@@ -497,11 +497,11 @@
       }
     },
     {
-      "name" : "Day One Supporter",
-      "multiToken" : false,
-      "address" : "0xf711e40d09BF4709c32eb967243872700fe80CC7",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Day One Supporter",
+      "multiToken": false,
+      "address": "0xf711e40d09BF4709c32eb967243872700fe80CC7",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "day-one-supporter",
         "description": "",
@@ -514,11 +514,11 @@
       }
     },
     {
-      "name" : "Cronostars",
-      "multiToken" : false,
-      "address" : "0x03741A724d0E15F8FD052DAa56633a69090D20a3",
-      "onChain" : false,
-      "listable" :true,
+      "name": "Cronostars",
+      "multiToken": false,
+      "address": "0x03741A724d0E15F8FD052DAa56633a69090D20a3",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronostars",
         "description": "",
@@ -530,11 +530,11 @@
       }
     },
     {
-      "name" : "CronosEyezNFT",
-      "multiToken" : false,
-      "address" : "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
-      "onChain" : false,
-      "listable" : true,
+      "name": "CronosEyezNFT",
+      "multiToken": false,
+      "address": "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronoseyez",
         "description": "",
@@ -549,11 +549,11 @@
       }
     },
     {
-      "name" : "CronosEyez Gen 2",
-      "multiToken" : false,
-      "address" : "0x15730353272C88229a91804854078aa9B3A70448",
-      "onChain" : false,
-      "listable" : false,
+      "name": "CronosEyez Gen 2",
+      "multiToken": false,
+      "address": "0x15730353272C88229a91804854078aa9B3A70448",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "cronoseyez-gen2",
         "description": "",
@@ -568,11 +568,11 @@
       }
     },
     {
-      "name" : "CROstmas Gnome",
-      "multiToken" : false,
-      "address" : "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
-      "onChain" : false,
-      "listable" : true,
+      "name": "CROstmas Gnome",
+      "multiToken": false,
+      "address": "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crostmas-gnome",
         "description": "",
@@ -583,11 +583,11 @@
       }
     },
     {
-      "name" : "Pingoo Black Friday Ticket",
-      "multiToken" : false,
-      "address" : "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
-      "onChain" : false,
-      "listable" : false,
+      "name": "Pingoo Black Friday Ticket",
+      "multiToken": false,
+      "address": "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "pingoo",
         "description": "",
@@ -600,11 +600,11 @@
       }
     },
     {
-      "name" : "Elon's Adventure",
-      "multiToken" : false,
-      "address" : "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Elon's Adventure",
+      "multiToken": false,
+      "address": "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "elons-adventure",
         "description": "",
@@ -618,11 +618,11 @@
       }
     },
     {
-      "name" : "Dodger Dogs",
-      "multiToken" : false,
-      "address" : "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
-      "onChain" : false,
-      "listable" : false,
+      "name": "Dodger Dogs",
+      "multiToken": false,
+      "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "dodger-dogs",
         "description": "",
@@ -636,11 +636,11 @@
       }
     },
     {
-      "name" : "Game Art NFT",
-      "multiToken" : false,
-      "address" : "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Game Art NFT",
+      "multiToken": false,
+      "address": "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "game-art-nft",
         "description": "",
@@ -652,11 +652,11 @@
       }
     },
     {
-      "name" : "SneakyPenguinsClub",
-      "multiToken" : false,
-      "address" : "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
-      "onChain" : false,
-      "listable" : true,
+      "name": "SneakyPenguinsClub",
+      "multiToken": false,
+      "address": "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "sneaky-penguins-club",
         "description": "",
@@ -672,11 +672,11 @@
       }
     },
     {
-      "name" : "CroBits",
-      "multiToken" : false,
-      "address" : "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
-      "onChain" : false,
-      "listable" : false,
+      "name": "CroBits",
+      "multiToken": false,
+      "address": "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "cro-bits",
         "description": "",
@@ -684,11 +684,11 @@
       }
     },
     {
-      "name" : "Cronos Red Pandas",
-      "multiToken" : false,
-      "address" : "0xdc29c27b6adE7b172359EC1746a02B3304e974d8",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Red Pandas",
+      "multiToken": false,
+      "address": "0xdc29c27b6adE7b172359EC1746a02B3304e974d8",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-red-pandas",
         "description": "",
@@ -701,12 +701,12 @@
       }
     },
     {
-      "name" : "Genesis Rock",
-      "multiToken" : true,
+      "name": "Genesis Rock",
+      "multiToken": true,
       "id": 1,
-      "address" : "0x68ec010Cf044CbAe1aCc213D043d394E620c641D",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x68ec010Cf044CbAe1aCc213D043d394E620c641D",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "genesis-rock",
         "description": "",
@@ -720,11 +720,11 @@
       }
     },
     {
-      "name" : "Ebisu by Barbara",
+      "name": "Ebisu by Barbara",
       "multiToken": false,
-      "address" : "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "ebisu-by-barbara",
         "description": "",
@@ -738,11 +738,11 @@
       }
     },
     {
-      "name" : "Cronos Dolphinos",
+      "name": "Cronos Dolphinos",
       "multiToken": false,
-      "address" : "0x9DD120Ed601c0bdc5725F9cbf529Cb70fc0ECAFB",
-      "onChain" : false,
-      "listable" : true,
+      "address": "0x9DD120Ed601c0bdc5725F9cbf529Cb70fc0ECAFB",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-dolphinos",
         "description": "",
@@ -754,11 +754,11 @@
       }
     },
     {
-      "name" : "DrakeStones",
+      "name": "DrakeStones",
       "multiToken": false,
-      "address" : "0x7E95774b4750F5c330ff2E44981c5E85E1a04F91",
-      "onChain" : false,
-      "listable" : false,
+      "address": "0x7E95774b4750F5c330ff2E44981c5E85E1a04F91",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "drake-stones",
         "description": "",
@@ -766,11 +766,11 @@
       }
     },
     {
-      "name" : "Afro Cronos Dogs",
+      "name": "Afro Cronos Dogs",
       "multiToken": false,
-      "address" : "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
-      "onChain" : false,
-      "listable" : false,
+      "address": "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "afro-cronos-dogs",
         "description": "",
@@ -911,7 +911,7 @@
         "twitter": "https://twitter.com/CronosSociety",
         "discord": "https://discord.gg/27w5Y6rCkF",
         "telegram": "https://t.me/CronosThugzSociety",
-        "gitbook":"https://cronosthugssociety.gitbook.io/cronos-secret-society/"
+        "gitbook": "https://cronosthugssociety.gitbook.io/cronos-secret-society/"
       }
     },
     {
@@ -954,11 +954,11 @@
       }
     },
     {
-      "name" : "LazyHorse",
-      "multiToken" : false,
-      "address" : "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
-      "onChain" : false,
-      "listable" : true,
+      "name": "LazyHorse",
+      "multiToken": false,
+      "address": "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "lazy-horse",
         "description": "",
@@ -974,11 +974,11 @@
       }
     },
     {
-      "name" : "Barn Cats",
-      "multiToken" : false,
-      "address" : "0x8449821e8334d79e455223739d41eef55e36583e",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Barn Cats",
+      "multiToken": false,
+      "address": "0x8449821e8334d79e455223739d41eef55e36583e",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "barn-cats",
         "description": "",
@@ -994,11 +994,11 @@
       }
     },
     {
-      "name" : "Cronos Lizards",
-      "multiToken" : false,
-      "address" : "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Lizards",
+      "multiToken": false,
+      "address": "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-lizards",
         "description": "",
@@ -1013,11 +1013,11 @@
       }
     },
     {
-      "name" : "Cronos Primate Business",
-      "multiToken" : false,
-      "address" : "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Primate Business",
+      "multiToken": false,
+      "address": "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-monkey-business",
         "description": "",
@@ -1033,11 +1033,11 @@
       }
     },
     {
-      "name" : "Crognomes (v1)",
-      "multiToken" : false,
-      "address" : "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
-      "onChain" : false,
-      "listable" : false,
+      "name": "Crognomes (v1)",
+      "multiToken": false,
+      "address": "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "crognomes-v1",
         "description": "",
@@ -1052,11 +1052,11 @@
       }
     },
     {
-      "name" : "Admiration",
-      "multiToken" : false,
-      "address" : "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Admiration",
+      "multiToken": false,
+      "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "admiration",
         "description": "",
@@ -1070,11 +1070,11 @@
       }
     },
     {
-      "name" : "CROugars",
-      "multiToken" : false,
-      "address" : "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
-      "onChain" : false,
-      "listable" : true,
+      "name": "CROugars",
+      "multiToken": false,
+      "address": "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crougars",
         "description": "",
@@ -1090,11 +1090,11 @@
       }
     },
     {
-      "name" : "Fractals",
-      "multiToken" : false,
-      "address" : "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Fractals",
+      "multiToken": false,
+      "address": "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "fractals",
         "description": "",
@@ -1107,11 +1107,11 @@
       }
     },
     {
-      "name" : "Cronos Fox Fraternity",
-      "multiToken" : false,
-      "address" : "0x75233B3C8b60b7191704C0f6100850dc769bb857",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Fox Fraternity",
+      "multiToken": false,
+      "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-fox-fraternity",
         "description": "",
@@ -1126,11 +1126,11 @@
       }
     },
     {
-      "name" : "MAG Brew Vikings Special Edition",
-      "multiToken" : false,
-      "address" : "0xAaACC4EdEaD913D8c8A90D7eb10F79490c9a39B8",
-      "onChain" : false,
-      "listable" : false,
+      "name": "MAG Brew Vikings Special Edition",
+      "multiToken": false,
+      "address": "0xAaACC4EdEaD913D8c8A90D7eb10F79490c9a39B8",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "mag-brew-vikings",
         "description": "",
@@ -1143,11 +1143,11 @@
       }
     },
     {
-      "name" : "CroSkullAmbassadors",
-      "multiToken" : false,
-      "address" : "0xF0a2BF982eD9dd6c83163b5B6E01744039D9EB6D",
-      "onChain" : false,
-      "listable" : false,
+      "name": "CroSkullAmbassadors",
+      "multiToken": false,
+      "address": "0xF0a2BF982eD9dd6c83163b5B6E01744039D9EB6D",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "croskull-ambassadors",
         "description": "",
@@ -1155,11 +1155,11 @@
       }
     },
     {
-      "name" : "Crxillion",
-      "multiToken" : false,
-      "address" : "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Crxillion",
+      "multiToken": false,
+      "address": "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crxillion",
         "description": "",
@@ -1175,11 +1175,11 @@
       }
     },
     {
-      "name" : "Cronos Dogs",
-      "multiToken" : false,
-      "address" : "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Dogs",
+      "multiToken": false,
+      "address": "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-dogs",
         "description": "",
@@ -1194,11 +1194,11 @@
       }
     },
     {
-      "name" : "Smart Mars",
-      "multiToken" : false,
-      "address" : "0x4B2e1f709Df771F2111f74522F79A97F95aAf1D6",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Smart Mars",
+      "multiToken": false,
+      "address": "0x4B2e1f709Df771F2111f74522F79A97F95aAf1D6",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "smart-mars",
         "description": "",
@@ -1210,11 +1210,11 @@
       }
     },
     {
-      "name" : "IcyCro",
-      "multiToken" : false,
-      "address" : "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
-      "onChain" : false,
-      "listable" : false,
+      "name": "IcyCro",
+      "multiToken": false,
+      "address": "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "icy-cro",
         "description": "",
@@ -1222,11 +1222,11 @@
       }
     },
     {
-      "name" : "Cronos Goats",
-      "multiToken" : false,
-      "address" : "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Goats",
+      "multiToken": false,
+      "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-goats",
         "description": "",
@@ -1241,11 +1241,11 @@
       }
     },
     {
-      "name" : "Cronos Ragdoll",
-      "multiToken" : false,
-      "address" : "0x21E68422011a330beFdf45b0E45072c947316C95",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Cronos Ragdoll",
+      "multiToken": false,
+      "address": "0x21E68422011a330beFdf45b0E45072c947316C95",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-ragdoll",
         "description": "",
@@ -1260,11 +1260,11 @@
       }
     },
     {
-      "name" : "Fooly Fish",
-      "multiToken" : false,
-      "address" : "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Fooly Fish",
+      "multiToken": false,
+      "address": "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "fooly-fish",
         "description": "",
@@ -1279,11 +1279,11 @@
       }
     },
     {
-      "name" : "Weird Apes Club",
-      "multiToken" : false,
-      "address" : "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Weird Apes Club",
+      "multiToken": false,
+      "address": "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "weird-apes-club",
         "description": "",
@@ -1299,11 +1299,11 @@
       }
     },
     {
-      "name" : "IcySquidGame Vikings",
-      "multiToken" : false,
-      "address" : "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
-      "onChain" : false,
-      "listable" : false,
+      "name": "IcySquidGame Vikings",
+      "multiToken": false,
+      "address": "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "icysquidgame-vikings",
         "description": "",
@@ -1318,11 +1318,11 @@
       }
     },
     {
-      "name" : "Blue Skull Potions",
-      "multiToken" : false,
-      "address" : "0xB929D3002208f405180D3C07616F88EDa45F3e14",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Blue Skull Potions",
+      "multiToken": false,
+      "address": "0xB929D3002208f405180D3C07616F88EDa45F3e14",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "blue-skull-potions",
         "description": "",
@@ -1338,11 +1338,11 @@
       }
     },
     {
-      "name" : "Red Skull Potions",
-      "multiToken" : false,
-      "address" : "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Red Skull Potions",
+      "multiToken": false,
+      "address": "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "red-skull-potions",
         "description": "",
@@ -1358,11 +1358,11 @@
       }
     },
     {
-      "name" : "Lazy Horse Member NFT (PONY)",
-      "multiToken" : false,
-      "address" : "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
-      "onChain" : false,
-      "listable" : false,
+      "name": "Lazy Horse Member NFT (PONY)",
+      "multiToken": false,
+      "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "lazy-horse-pony",
         "description": "",
@@ -1373,11 +1373,11 @@
       }
     },
     {
-      "name" : "Space Crystal Unicorns",
-      "multiToken" : false,
-      "address" : "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Space Crystal Unicorns",
+      "multiToken": false,
+      "address": "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "space-crystal-unicorns",
         "description": "They are magical! Their strength lies in feeling and finding those in need. All funds raised will be used to support hippotherapy classes for children with disabilities.",
@@ -1388,11 +1388,11 @@
       }
     },
     {
-      "name" : "Honorary Chimps",
-      "multiToken" : false,
-      "address" : "0x387cd44676CDEe5E398eC1a152A5136d9f4E1760",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Honorary Chimps",
+      "multiToken": false,
+      "address": "0x387cd44676CDEe5E398eC1a152A5136d9f4E1760",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "honorary-chimps",
         "description": "",
@@ -1403,11 +1403,11 @@
       }
     },
     {
-      "name" : "Crognomes",
-      "multiToken" : false,
-      "address" : "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
-      "onChain" : false,
-      "listable" : false,
+      "name": "Crognomes",
+      "multiToken": false,
+      "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "crognomes",
         "description": "",
@@ -1422,11 +1422,11 @@
       }
     },
     {
-      "name" : "Aunah",
-      "multiToken" : false,
-      "address" : "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Aunah",
+      "multiToken": false,
+      "address": "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "aunah",
         "description": "",
@@ -1439,11 +1439,11 @@
       }
     },
     {
-      "name" : "CronoGods",
-      "multiToken" : false,
-      "address" : "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
-      "onChain" : false,
-      "listable" : false,
+      "name": "CronoGods",
+      "multiToken": false,
+      "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "cronogods",
         "description": "",
@@ -1458,11 +1458,11 @@
       }
     },
     {
-      "name" : "Marie's Cyborgs",
-      "multiToken" : false,
-      "address" : "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Marie's Cyborgs",
+      "multiToken": false,
+      "address": "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "maries-cyborgs",
         "description": "",
@@ -1478,11 +1478,11 @@
       }
     },
     {
-      "name" : "Trooprz",
-      "multiToken" : false,
-      "address" : "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
-      "onChain" : false,
-      "listable" : false,
+      "name": "Trooprz",
+      "multiToken": false,
+      "address": "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "trooprz",
         "description": "",
@@ -1496,11 +1496,11 @@
       }
     },
     {
-      "name" : "DogeApeSociety",
-      "multiToken" : false,
-      "address" : "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
-      "onChain" : false,
-      "listable" : true,
+      "name": "DogeApeSociety",
+      "multiToken": false,
+      "address": "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "dogeapesociety",
         "description": "",
@@ -1516,11 +1516,11 @@
       }
     },
     {
-      "name" : "Chronoswap Founding Member",
-      "multiToken" : false,
-      "address" : "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Chronoswap Founding Member",
+      "multiToken": false,
+      "address": "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "chronoswap-founding-member",
         "description": "",
@@ -1537,11 +1537,11 @@
       }
     },
     {
-      "name" : "Crosmobabies",
-      "multiToken" : false,
-      "address" : "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Crosmobabies",
+      "multiToken": false,
+      "address": "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crosmobabies",
         "description": "",
@@ -1557,11 +1557,11 @@
       }
     },
     {
-      "name" : "MAG Brew Vikings",
-      "multiToken" : false,
-      "address" : "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
-      "onChain" : false,
-      "listable" : false,
+      "name": "MAG Brew Vikings",
+      "multiToken": false,
+      "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "mag-brew-vikings",
         "description": "",
@@ -1577,11 +1577,11 @@
       }
     },
     {
-      "name" : "0xLuckless",
-      "multiToken" : false,
-      "address" : "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
-      "onChain" : false,
-      "listable" : true,
+      "name": "0xLuckless",
+      "multiToken": false,
+      "address": "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "0xluckless",
         "description": "",
@@ -1594,11 +1594,11 @@
       }
     },
     {
-      "name" : "The LAB: Crazy Scientists",
-      "multiToken" : false,
-      "address" : "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
-      "onChain" : false,
-      "listable" : false,
+      "name": "The LAB: Crazy Scientists",
+      "multiToken": false,
+      "address": "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "crazy-scientists",
         "description": "",
@@ -1613,11 +1613,11 @@
       }
     },
     {
-      "name" : "Crobots",
-      "multiToken" : false,
-      "address" : "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Crobots",
+      "multiToken": false,
+      "address": "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "crobots",
         "description": "",
@@ -1631,11 +1631,11 @@
       }
     },
     {
-      "name" : "Special CMB",
-      "multiToken" : false,
-      "address" : "0x241a175BDE39D6a2C6fA7ba9ed8F9Ac2C7F2741D",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Special CMB",
+      "multiToken": false,
+      "address": "0x241a175BDE39D6a2C6fA7ba9ed8F9Ac2C7F2741D",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cmb-special",
         "description": "",
@@ -1650,11 +1650,11 @@
       }
     },
     {
-      "name" : "Moon Landing",
-      "multiToken" : false,
-      "address" : "0xc09a4eECA57C122BCdFab3A4DBF5C59B43E3f44e",
-      "onChain" : false,
-      "listable" : true,
+      "name": "Moon Landing",
+      "multiToken": false,
+      "address": "0xc09a4eECA57C122BCdFab3A4DBF5C59B43E3f44e",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cro-moon-landing",
         "description": "",
@@ -1666,16 +1666,16 @@
         "website": "https://cromoon.net",
         "twitter": "https://twitter.com/CroMoonOfficial",
         "discord": "https://discord.gg/KqtDGjwWh3",
-        "medium" : "https://medium.com/@cromoon",
-        "telegram" : "https://t.me/OfficialCroMoon"
+        "medium": "https://medium.com/@cromoon",
+        "telegram": "https://t.me/OfficialCroMoon"
       }
     },
     {
-      "name" : "BobaNFTea",
-      "multiToken" : false,
-      "address" : "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
-      "onChain" : false,
-      "listable" : false,
+      "name": "BobaNFTea",
+      "multiToken": false,
+      "address": "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "boba-nftea",
         "description": "",
@@ -1689,11 +1689,11 @@
       }
     },
     {
-      "name" : "CroNodesNFT",
-      "multiToken" : false,
-      "address" : "0x7901cc63208F8eaD11c0196a52B1E799f5602d49",
-      "onChain" : false,
-      "listable" : true,
+      "name": "CroNodesNFT",
+      "multiToken": false,
+      "address": "0x7901cc63208F8eaD11c0196a52B1E799f5602d49",
+      "onChain": false,
+      "listable": true,
       "metadata": {
         "slug": "cronodes-nft",
         "description": "",
@@ -1728,13 +1728,13 @@
       }
     },
     {
-      "name" : "CROW PUNKS",
+      "name": "CROW PUNKS",
       "multiToken": false,
-      "address" : "0x0f1439a290e86a38157831fe27a3dcd302904055",
-      "onChain" : false,
-      "listable" : true,
-      "metadata" : {
-        "slug" : "crow-punks",
+      "address": "0x0f1439a290e86a38157831fe27a3dcd302904055",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "crow-punks",
         "verified": true,
         "avatar": "/img/collections/crowpunks/avatar.png",
         "banner": "/img/collections/crowpunks/banner.png",
@@ -1748,13 +1748,13 @@
       }
     },
     {
-      "name" : "Panels Project",
+      "name": "Panels Project",
       "multiToken": false,
-      "address" : "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
-      "onChain" : false,
-      "listable" : false,
-      "metadata" : {
-        "slug" : "panels-project",
+      "address": "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "panels-project",
         "verified": true,
         "avatar": "/img/collections/panelsproject/avatar.jpg",
         "banner": "/img/collections/panelsproject/banner.jpg",
@@ -1767,13 +1767,13 @@
       }
     },
     {
-      "name" : "NoBuddies NFT (BETA)",
+      "name": "NoBuddies NFT (BETA)",
       "multiToken": false,
-      "address" : "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
-      "onChain" : false,
-      "listable" : true,
-      "metadata" : {
-        "slug" : "panels-project",
+      "address": "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "panels-project",
         "verified": true,
         "maxSupply": 100,
         "website": "https://nobuddiesnft.com/",
@@ -1782,13 +1782,13 @@
       }
     },
     {
-      "name" : "Reckless Robots",
+      "name": "Reckless Robots",
       "multiToken": false,
-      "address" : "",
-      "onChain" : false,
-      "listable" : false,
-      "metadata" : {
-        "slug" : "reckless-robots",
+      "address": "",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "reckless-robots",
         "verified": true,
         "avatar": "/img/collections/recklessrobots/avatar.png",
         "banner": "/img/collections/recklessrobots/banner.png",
@@ -1801,11 +1801,11 @@
       }
     },
     {
-      "name" : "The HD: Hyped Dogs",
-      "multiToken" : false,
-      "address" : "",
-      "onChain" : false,
-      "listable" : false,
+      "name": "The HD: Hyped Dogs",
+      "multiToken": false,
+      "address": "",
+      "onChain": false,
+      "listable": false,
       "metadata": {
         "slug": "hyped-dogs",
         "description": "",
@@ -1821,10 +1821,10 @@
     },
     {
       "name": "MetaPixels",
-      "onChain" : false,
+      "onChain": false,
       "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
-      "multiToken" : false,
-      "listable" : true,
+      "multiToken": false,
+      "listable": true,
       "metadata": {
         "slug": "metapixels",
         "description": "",
@@ -1871,15 +1871,13 @@
       "p1": "Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted.",
       "p2": "We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.",
       "description": "Cronies are a NFT to commemorate the launch of the Cronos network. Here we will take advantage of the low gas fees on Cronos and produce a randomly generated 100% on-chain SVG with the Cronos logo and the block number in which it was minted. We are really excited to see the unique collections you will build. Such as, sequential block numbers, block numbers that have a special meaning to you like a birthday, and color schemes. The Cronies minting contract will self destruct after the 1 millionth block validated.",
-      "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com"},
+      "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com" },
       "address": "",
       "maxMintPerTx": 5,
       "totalSupply": "âˆž",
       "cost": "100.0",
       "memberCost": "100.0",
-      "abi": [
-        "function mint(uint256 _amount) public payable"
-      ],
+      "abi": ["function mint(uint256 _amount) public payable"],
       "start": 1639489543000,
       "end": null,
       "referral": false,
@@ -1900,15 +1898,13 @@
       "p1": "If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.",
       "p2": "The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. Founding Member NFTs will be limited to 10,000.",
       "description": "If you hold a Founding Member NFT you will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees. The Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. Founding Member NFTs will be limited to 10,000.",
-      "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com"},
+      "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com" },
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
       "maxMintPerTx": 10,
       "totalSupply": 10000,
       "cost": "200.0",
       "memberCost": "200.0",
-      "abi": [
-        "function mint(uint256 _id, uint256 _amount, bytes _data) public payable"
-      ],
+      "abi": ["function mint(uint256 _id, uint256 _amount, bytes _data) public payable"],
       "start": 1639489543000,
       "end": null,
       "referral": true,
@@ -1924,20 +1920,17 @@
       "slug": "ebisu-by-barbara",
       "imgNft": "/img/drops/ebisu/Ebisu.gif",
       "imgPreview": "/img/drops/ebisu/ebisu_card.gif",
-      "imgAvatar" : "/img/collections/barbara/ebisu/avatar.jpg",
+      "imgAvatar": "/img/collections/barbara/ebisu/avatar.jpg",
       "title": "Ebisu by Barbara",
       "subtitle": "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
       "description": "Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods. Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters. May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.",
-      "author": { "name": "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/"},
+      "author": { "name": "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/" },
       "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
       "maxMintPerTx": 10,
       "totalSupply": "âˆž",
       "cost": "150.0",
       "memberCost": "100.0",
-      "abi": [
-        "function mint(uint256 count) public payable",
-        "function totalSupply() public view returns (uint256)"
-      ],
+      "abi": ["function mint(uint256 count) public payable", "function totalSupply() public view returns (uint256)"],
       "start": 1639489543000,
       "end": 1639929600000,
       "referral": false,
@@ -1955,8 +1948,8 @@
       "imgAvatar": "/img/drops/crostmas/avatar.png",
       "title": "CROstmas Cards",
       "subtitle": "CROstmas Cards is a collection on Cronos network.",
-      "description":  "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",
-      "author": { "name": "CROstmas Cards", "link": "https://crostmascards.com"},
+      "description": "CROstmas Cards is a festive collection on Cronos network. You can attach any amount of CRO to your CROstmas card and send it to your friends using the link below, which they will be able to \"Unwrap\" and get CRO to their wallet.",
+      "author": { "name": "CROstmas Cards", "link": "https://crostmascards.com" },
       "address": "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
       "maxMintPerTx": 50,
       "totalSupply": 10000,
@@ -1980,11 +1973,11 @@
       "slug": "santa-cro",
       "imgNft": "/img/drops/cromoon/cromoondrop.gif",
       "imgPreview": "/img/drops/cromoon/cromoondrop.gif",
-      "imgAvatar" : "/img/collections/santacro/avatar.png",
+      "imgAvatar": "/img/collections/santacro/avatar.png",
       "title": "SantaCro",
       "subtitle": "SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.",
-      "description":  "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Letâ€™s make this Christmas a special one together!",
-      "author": { "name": "CroMoon", "link": "https://cromoon.net/nfts"},
+      "description": "Ho, ho, ho! This year CroMoon is going to host the special Cronos Christmas, and we have a special guest: SantaCro, the Santa of the Cronos chain.\n SantaCro is a collection of 5555 Santa inspired NFTs with 75+ traits, living on the Cronos chain by crypto.com.\n SantaCro is going to bring presents to some lucky minters, on the blockchain AND in real life (yes, you heard that right!).\n Letâ€™s make this Christmas a special one together!",
+      "author": { "name": "CroMoon", "link": "https://cromoon.net/nfts" },
       "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
       "maxMintPerTx": 20,
       "totalSupply": 5555,
@@ -2009,12 +2002,12 @@
       "slug": "admiration",
       "imgNft": "/img/drops/deplone/drop.gif",
       "imgPreview": "/img/drops/deplone/drop.gif",
-      "imgAvatar" : "/img/collections/deplone/avatar.jpg",
-      "imgBanner" : "/img/collections/deplone/banner.jpg",
+      "imgAvatar": "/img/collections/deplone/avatar.jpg",
+      "imgBanner": "/img/collections/deplone/banner.jpg",
       "title": "Admiration",
       "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
-      "description":  "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
-      "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/"},
+      "description": "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
+      "author": { "name": "Deplone", "link": "https://www.instagram.com/deplone_/" },
       "address": "",
       "maxMintPerTx": 1,
       "totalSupply": 22,
@@ -2038,12 +2031,12 @@
       "slug": "lazy-horse",
       "imgNft": "/img/drops/lazyhorse/drop.png",
       "imgPreview": "/img/drops/lazyhorse/drop.png",
-      "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
-      "imgBanner" : "/img/collections/lazyhorse/banner.png",
+      "imgAvatar": "/img/collections/lazyhorse/avatar.png",
+      "imgBanner": "/img/collections/lazyhorse/banner.png",
       "title": "LazyHorse",
       "subtitle": "",
-      "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
-      "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
+      "description": "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+      "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/" },
       "address": "",
       "maxMintPerTx": 20,
       "totalSupply": 2000,
@@ -2069,12 +2062,12 @@
       "slug": "crougars",
       "imgNft": "/img/drops/crougars/drop.gif",
       "imgPreview": "/img/drops/crougars/drop.gif",
-      "imgAvatar" : "/img/collections/crougars/avatar.png",
-      "imgBanner" : "/img/collections/crougars/banner.png",
+      "imgAvatar": "/img/collections/crougars/avatar.png",
+      "imgBanner": "/img/collections/crougars/banner.png",
       "title": "CROugars",
       "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
-      "description":  "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
-      "author": { "name": "CROugars", "link": "https://crougar.com/"},
+      "description": "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
+      "author": { "name": "CROugars", "link": "https://crougar.com/" },
       "address": "",
       "maxMintPerTx": 5,
       "totalSupply": 2222,
@@ -2100,12 +2093,12 @@
       "slug": "cronos-fox-fraternity",
       "imgNft": "/img/drops/foxfraternity/drop.gif",
       "imgPreview": "/img/drops/foxfraternity/drop.gif",
-      "imgAvatar" : "/img/collections/foxfraternity/avatar.jpg",
-      "imgBanner" : "/img/drops/foxfraternity/banner.jpg",
+      "imgAvatar": "/img/collections/foxfraternity/avatar.jpg",
+      "imgBanner": "/img/drops/foxfraternity/banner.jpg",
       "title": "Cronos Fox Fraternity",
       "subtitle": "",
-      "description":  "CFF is a 4,444 NFT collection on the Cronos Blockchain. Each NFT was created from over 122 Different Traits, like skin, headgear, body, etc. They are all good looking Bros, but some of them have special perks.\n\nEntering the Fox Fraternity, doesn't just mean possessing a NFT. You will be part of a brotherhood and get exclusive Benefits. This include Giveaways, Airdrops, Gifts, etc.",
-      "author": { "name": "Cronos Fox Fraternity", "link": "https://www.cronosfoxfraternity.com/"},
+      "description": "CFF is a 4,444 NFT collection on the Cronos Blockchain. Each NFT was created from over 122 Different Traits, like skin, headgear, body, etc. They are all good looking Bros, but some of them have special perks.\n\nEntering the Fox Fraternity, doesn't just mean possessing a NFT. You will be part of a brotherhood and get exclusive Benefits. This include Giveaways, Airdrops, Gifts, etc.",
+      "author": { "name": "Cronos Fox Fraternity", "link": "https://www.cronosfoxfraternity.com/" },
       "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
       "maxMintPerTx": 1,
       "totalSupply": 2222,
@@ -2132,12 +2125,12 @@
       "slug": "cronos-goats",
       "imgNft": "/img/drops/cronosgoats/drop.png",
       "imgPreview": "/img/drops/cronosgoats/drop.png",
-      "imgAvatar" : "/img/collections/cronosgoats/avatar.gif",
-      "imgBanner" : "/img/collections/cronosgoats/banner.png",
+      "imgAvatar": "/img/collections/cronosgoats/avatar.gif",
+      "imgBanner": "/img/collections/cronosgoats/banner.png",
       "title": "Cronos Goats",
       "subtitle": "",
-      "description":  "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
-      "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/"},
+      "description": "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
+      "author": { "name": "Cronos Goats", "link": "https://cronosgoats.com/" },
       "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
       "maxMintPerTx": 5,
       "totalSupply": 1000,
@@ -2196,12 +2189,12 @@
       "slug": "lazy-horse-pony",
       "imgNft": "/img/drops/lazyhorse/pony/drop.png",
       "imgPreview": "/img/drops/lazyhorse/pony/drop.png",
-      "imgAvatar" : "/img/collections/lazyhorse/avatar.png",
-      "imgBanner" : "/img/collections/lazyhorse/banner.png",
+      "imgAvatar": "/img/collections/lazyhorse/avatar.png",
+      "imgBanner": "/img/collections/lazyhorse/banner.png",
       "title": "The Lazy Horse Member NFT (PONY)",
       "subtitle": "",
-      "description":  "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
-      "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/"},
+      "description": "The Lazy Horse Race Club connects the metaverse and real thoroughbred horse racing in a fun and unique club. Each Lazy Horse NFT grants access to the metaverse clubhouse and Lazy Horse Racing Game (drops end of January!), it also connects you to our real racing team. The Club owns, maintains and races horses with profits being shared by the community. All of the club's efforts are most importantly focused on providing a long and sustainable post-racing life for all horses. A large portion of all project proceeds will directly fund equine rescue and retirement, ensuring great lives for these beautiful animals.",
+      "author": { "name": "LazyHorse", "link": "https://www.lazyhorseraceclub.com/" },
       "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
       "maxMintPerTx": 20,
       "totalSupply": 8000,
@@ -2227,12 +2220,12 @@
       "slug": "crognomes",
       "imgNft": "/img/drops/crognomes/drop.png",
       "imgPreview": "/img/drops/crognomes/drop.png",
-      "imgAvatar" : "/img/collections/crognomes/avatar.png",
-      "imgBanner" : "/img/collections/crognomes/banner.png",
+      "imgAvatar": "/img/collections/crognomes/avatar.png",
+      "imgBanner": "/img/collections/crognomes/banner.png",
       "title": "Crognomes",
       "subtitle": "2000 secretive hard working Crognomes living on the cronos blockchain who might share the location of the secret mines if taken care of well enough.",
       "description": "Have you ever wondered where all those shiny crypto cards actually come from?\n\nThose glistening ruby, shiny indigo & luminescent jade crystals that are needed for those ooooh so sweet cashbacks are harvested deep inside the hidden cryptomines. The location of these mines are a well-kept secret by the Crognomes...\n\nWhile theyâ€™re no tattletales, the Crognomes might share the secret location of these Cryptomines with you, if you provide them safe refuge in your cryptowallet.\n\nCrognomes have been known to sneak in their wives, the Crognomides, when theyâ€™re feeling lonely. If you mint a route to your wallet after the minting fase of the Crognomes, you can expect these Crognomides to show up in your wallet as well! When you leave them alone for a long enough time, you will find your family of 2 has grown ever larger.\n\nStart your own Crognome-family and adopt your Crognome today!",
-      "author": { "name": "Crognomes", "link": "https://www.crognomes.com/"},
+      "author": { "name": "Crognomes", "link": "https://www.crognomes.com/" },
       "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
       "maxMintPerTx": 10,
       "totalSupply": 2000,
@@ -2259,12 +2252,12 @@
       "slug": "fractals",
       "imgNft": "/img/drops/fractals/drop.png",
       "imgPreview": "/img/drops/fractals/drop.png",
-      "imgAvatar" : "/img/collections/fractals/avatar.png",
-      "imgBanner" : "/img/drops/fractals/banner.png",
+      "imgAvatar": "/img/collections/fractals/avatar.png",
+      "imgBanner": "/img/drops/fractals/banner.png",
       "title": "Fractals",
       "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
       "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
-      "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/"},
+      "author": { "name": "SeasaltCrisp", "link": "https://www.instagram.com/maxx9498/" },
       "address": "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
       "maxMintPerTx": 1,
       "totalSupply": 50,
@@ -2290,12 +2283,12 @@
       "slug": "aunah",
       "imgNft": "/img/drops/anuah/drop.gif",
       "imgPreview": "/img/drops/anuah/drop.gif",
-      "imgAvatar" : "/img/collections/anuah/avatar.png",
-      "imgBanner" : "/img/collections/anuah/banner.png",
+      "imgAvatar": "/img/collections/anuah/avatar.png",
+      "imgBanner": "/img/collections/anuah/banner.png",
       "title": "Aunah",
       "subtitle": "Thereâ€™s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.",
       "description": "Thereâ€™s no slowing down anytime soon.\n\nBetween his skillfully bold contemplative rendering of abstraction and realism, his paintings are visceral yet sensual.\n\nEach concept is a treat, your mind skips between pops of color to moody-sophistication. Chance creates and energy with hints of density giving off a slight sculptural feel for the eye to play with.\n\nHis subjects are elevated to a new age and vibe that will constantly stimulate your mind with ever-changing narratives.\n\nChance Watt",
-      "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/"},
+      "author": { "name": "Chance Watt", "link": "https://www.instagram.com/chance.watt/" },
       "address": "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
       "maxMintPerTx": 1,
       "totalSupply": 81,
@@ -2322,12 +2315,12 @@
       "slug": "cronogods",
       "imgNft": "/img/drops/cronogods/drop.png",
       "imgPreview": "/img/drops/cronogods/drop.png",
-      "imgAvatar" : "/img/collections/cronogods/avatar.gif",
-      "imgBanner" : "/img/collections/cronogods/banner.png",
+      "imgAvatar": "/img/collections/cronogods/avatar.gif",
+      "imgBanner": "/img/collections/cronogods/banner.png",
       "title": "CronoGods",
       "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.",
-      "description":  "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
-      "author": { "name": "CronoGods", "link": "https://www.cronogods.com/"},
+      "description": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be A Part of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
+      "author": { "name": "CronoGods", "link": "https://www.cronogods.com/" },
       "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
       "erc20Address": "0xEd34211cDD2cf76C3cceE162761A72d7b6601E2B",
       "maxMintPerTx": 5,
@@ -2365,12 +2358,12 @@
       "slug": "maries-cyborgs",
       "imgNft": "/img/drops/mariecyborg/drop.gif",
       "imgPreview": "/img/drops/mariecyborg/drop.gif",
-      "imgAvatar" : "/img/collections/mariecyborg/avatar.png",
-      "imgBanner" : "/img/collections/mariecyborg/banner.png",
+      "imgAvatar": "/img/collections/mariecyborg/avatar.png",
+      "imgBanner": "/img/collections/mariecyborg/banner.png",
       "title": "Marie's Cyborgs",
       "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
       "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marieâ€™s passions: fashion, movies (rare) and her cyborgs (legendary).",
-      "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/"},
+      "author": { "name": "Marie Cyborg", "link": "https://www.mariescyborgs.io/" },
       "address": "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
       "maxMintPerTx": 25,
       "maxMintPerAddress": 50,
@@ -2394,12 +2387,12 @@
       "slug": "mag-brew-vikings",
       "imgNft": "/img/drops/magbrew/drop.jpg",
       "imgPreview": "/img/drops/magbrew/drop.jpg",
-      "imgAvatar" : "/img/collections/magbrew/avatar.jpg",
-      "imgBanner" : "/img/collections/magbrew/banner.jpg",
+      "imgAvatar": "/img/collections/magbrew/avatar.jpg",
+      "imgBanner": "/img/collections/magbrew/banner.jpg",
       "title": "MAG Brew Vikings",
       "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
       "description": "Each of the 8000 unique MAG Brew Vikings NFTs is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator.\nAmong the collection, you could find the six Magverse gods, legendary characters with custom features related to the lore conceived by our MAG writers. \n\nThe team strongly believes in the unique chance to reduce inequalities and empower people through NFT. \n\nCharity\nWe detected a list of charity associations that provides work to the homeless and immigrants. \nAfter a survey between our community, MAG Brew Vikings will donate 50.000 $ to a chosen no-profit brewery organization. \n\nAirdrops\nHolding NFTs with certain features (i.e., same mirrored backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces. After the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever in the Cronos blockchain! \n\nAn NFT-funding brewery\nThe completion of our roadmap won't represent a final step but the beginning of a never-seen entity: the first beer firm born and raised from an NFT collection and based on a beer eCommerce that also accepts crypto payments.\nNFT holders will have exclusive benefits and economic advantages: profit-sharing (through a staking mechanism), discounts, beer giveaways are only some of the suggestions for attaching a digital asset to real and shared happiness.\n",
-      "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/"},
+      "author": { "name": "MAG Brew", "link": "https://www.magbrewvikings.com/" },
       "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
       "maxMintPerTx": 10,
       "maxMintPerAddress": 50,
@@ -2424,12 +2417,12 @@
       "slug": "0xluckless",
       "imgNft": "/img/drops/emergence/drop.png",
       "imgPreview": "/img/drops/emergence/drop.png",
-      "imgAvatar" : "/img/collections/emergence/avatar.png",
-      "imgBanner" : "/img/collections/emergence/banner.png",
+      "imgAvatar": "/img/collections/emergence/avatar.png",
+      "imgBanner": "/img/collections/emergence/banner.png",
       "title": "0xLuckless",
       "subtitle": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment.",
       "description": "Welcome to Project: Emergence. This high-resolution A.I. assisted art project features 8K Ultra HD artwork, a first in the NFT space, using a text prompt guidance system along with a massive array of physical and cloud-based graphics cards to generate one-of-a-kind pieces for your personal enjoyment. This is the genesis project for 0xLuckless, a veteran artist who is somewhat new to the NFT space. Join us on this journey into the mind of man and machine artistry that seeks to breach the bounds of human comprehension and accelerate the evolution of generative art and artistic vision.",
-      "author": { "name": "0xLuckless", "link": "https://0xluckless.com"},
+      "author": { "name": "0xLuckless", "link": "https://0xluckless.com" },
       "address": "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
       "maxMintPerTx": 1,
       "maxMintPerAddress": 50,
@@ -2450,12 +2443,12 @@
       "slug": "crazy-scientists",
       "imgNft": "/img/drops/crazyscientists/drop.png",
       "imgPreview": "/img/drops/crazyscientists/drop.png",
-      "imgAvatar" : "/img/collections/crazyscientists/avatar.gif",
-      "imgBanner" : "/img/collections/crazyscientists/banner.png",
+      "imgAvatar": "/img/collections/crazyscientists/avatar.gif",
+      "imgBanner": "/img/collections/crazyscientists/banner.png",
       "title": "The LAB: Crazy Scientists",
       "subtitle": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratoryâ€™s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
       "description": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratoryâ€™s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
-      "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/"},
+      "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/" },
       "address": "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
       "maxMintPerTx": 5,
       "maxMintPerAddress": 50,
@@ -2476,12 +2469,12 @@
       "slug": "crobots",
       "imgNft": "/img/drops/crobots/drop.gif",
       "imgPreview": "/img/drops/crobots/drop.gif",
-      "imgAvatar" : "/img/collections/crobots/avatar.gif",
-      "imgBanner" : "/img/collections/crobots/banner.jpg",
+      "imgAvatar": "/img/collections/crobots/avatar.gif",
+      "imgBanner": "/img/collections/crobots/banner.jpg",
       "title": "Crobots",
       "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the Crobots explore, create, and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
       "description": "Meet the Crobots! â€“ A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
-      "author": { "name": "Crobots", "link": "https://TheCrobots.com"},
+      "author": { "name": "Crobots", "link": "https://TheCrobots.com" },
       "address": "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
       "maxMintPerTx": 10,
       "maxMintPerAddress": 2500,
@@ -2504,11 +2497,11 @@
       "slug": "trooprz",
       "imgNft": "/img/drops/trooprz/drop.gif",
       "imgPreview": "/img/drops/trooprz/drop.gif",
-      "imgAvatar" : "/img/collections/trooprz/avatar.gif",
+      "imgAvatar": "/img/collections/trooprz/avatar.gif",
       "title": "Trooprz",
       "subtitle": "",
       "description": "",
-      "author": { "name": "Trooprz", "link": "https://trooprz.army/mint"},
+      "author": { "name": "Trooprz", "link": "https://trooprz.army/mint" },
       "address": "",
       "maxMintPerTx": 0,
       "maxMintPerAddress": 0,
@@ -2529,12 +2522,12 @@
       "slug": "dodger-dogs",
       "imgNft": "/img/drops/barbara/dodgerdogs/drop.gif",
       "imgPreview": "/img/drops/barbara/dodgerdogs/drop.gif",
-      "imgAvatar" : "/img/collections/barbara/dodgerdogs/avatar.gif",
+      "imgAvatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
       "imgBanner": "/img/collections/barbara/dodgerdogs/banner.png",
       "title": "Dodger Dogs",
       "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
-      "description" : "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
-      "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/"},
+      "description": "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
+      "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/" },
       "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
       "maxMintPerTx": 5,
       "maxMintPerAddress": 200,
@@ -2554,12 +2547,12 @@
       "slug": "boba-nftea",
       "imgNft": "/img/drops/bobanftea/drop.gif",
       "imgPreview": "/img/drops/bobanftea/drop.gif",
-      "imgAvatar" : "/img/collections/bobanftea/avatar.png",
-      "imgBanner" : "/img/collections/bobanftea/banner.png",
+      "imgAvatar": "/img/collections/bobanftea/avatar.png",
+      "imgBanner": "/img/collections/bobanftea/banner.png",
       "title": "BobaNFTea",
       "subtitle": "A collection of 3300 NFTeas hand-drawn and deployed on the Cronos chain!",
       "description": "The Boba NFTea collection is a community driven project being deployed on the Cronos chain. Holders of the NFTs will gain access to exclusive utilities such as governance and the ability to earn $BOBA tokens, that offers benefits like staking.",
-      "author": { "name": "Boba NFTea", "link": "https://twitter.com/Boba_NFTea"},
+      "author": { "name": "Boba NFTea", "link": "https://twitter.com/Boba_NFTea" },
       "address": "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
       "maxMintPerTx": 20,
       "maxMintPerAddress": 50,
@@ -2581,12 +2574,12 @@
       "slug": "reckless-robots",
       "imgNft": "/img/drops/recklessrobots/drop.png",
       "imgPreview": "/img/drops/recklessrobots/drop.png",
-      "imgAvatar" : "/img/collections/recklessrobots/avatar.png",
-      "imgBanner" : "/img/collections/recklessrobots/banner.png",
+      "imgAvatar": "/img/collections/recklessrobots/avatar.png",
+      "imgBanner": "/img/collections/recklessrobots/banner.png",
       "title": "RecklessRobots",
       "subtitle": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain.",
       "description": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain. Distinctive for this project are the detailed and unique arts, accelerated NFT staking and NFT eliminations (burns). With these eliminations Reckless Robots reduces the total supply by buying the weakest bids from secondary markets and burning the bought NFTs. The burning reduces the total supply and thus reduces the total amount of possible NFTs staked enlarging the percentage of the pool that one NFT holds.",
-      "author": { "name": "Reckless Robots", "link": "https://www.recklessrobotsnft.com/"},
+      "author": { "name": "Reckless Robots", "link": "https://www.recklessrobotsnft.com/" },
       "address": "",
       "maxMintPerTx": 10,
       "maxMintPerAddress": 50,
@@ -2608,12 +2601,12 @@
       "slug": "hyped-dogs",
       "imgNft": "/img/drops/hypeddogs/drop.gif",
       "imgPreview": "/img/drops/hypeddogs/drop.gif",
-      "imgAvatar" : "/img/collections/hypeddogs/avatar.png",
-      "imgBanner" : "/img/drops/hypeddogs/banner.png",
+      "imgAvatar": "/img/collections/hypeddogs/avatar.png",
+      "imgBanner": "/img/drops/hypeddogs/banner.png",
       "title": "The HD: Hyped Dogs",
       "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
       "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, itâ€™s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
-      "author": { "name": "Hyped Dogs", "link": "https://www.hypednftclub.com/hypeddog"},
+      "author": { "name": "Hyped Dogs", "link": "https://www.hypednftclub.com/hypeddog" },
       "address": "",
       "maxMintPerTx": 7,
       "maxMintPerAddress": 50,
