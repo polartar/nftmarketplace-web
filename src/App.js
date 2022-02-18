@@ -24,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
     background-position: bottom;
     }
     
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 768px) {
     .jumbotron.breadcumb.no-bg.tint {
         background-image: url('/img/background/Ebisu-Mobile-Header.jpg');
         background-size: cover;
