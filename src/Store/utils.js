@@ -57,7 +57,7 @@ export function dataURItoBlob(dataURI, type) {
   let byteString = atob(dataURI.split(',')[1]);
 
   // separate out the mime component
-  let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  // let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
   // write the bytes of the string to an ArrayBuffer
   let ab = new ArrayBuffer(byteString.length);

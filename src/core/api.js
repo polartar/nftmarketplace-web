@@ -1,6 +1,7 @@
 import { BigNumber, Contract, ethers } from 'ethers';
+import * as Sentry from '@sentry/react';
 import config from '../Assets/networks/rpc_config.json';
-import Market from '../Contracts/Marketplace.json';
+// import Market from '../Contracts/Marketplace.json';
 import { ERC1155, ERC721, MetaPixelsAbi } from '../Contracts/Abis';
 import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { dataURItoBlob } from '../Store/utils';
@@ -8,12 +9,11 @@ import moment from 'moment';
 import { SortOption } from '../Components/Models/sort-option.model';
 
 import { FilterOption } from '../Components/Models/filter-option.model';
-import * as Sentry from '@sentry/react';
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = 'https://mygateway.mypinata.cloud';
 const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
-const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
+// const readMarket = new Contract(config.market_contract, Market.abi, readProvider);
 const knownContracts = config.known_contracts;
 
 const api = {
@@ -290,7 +290,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
             }
             for (let i = 0; i < count; i++) {
               let id;
-              if (ids.length == 0) {
+              if (ids.length === 0) {
                 try {
                   id = await readContract.tokenOfOwnerByIndex(walletAddress, i);
                 } catch (error) {

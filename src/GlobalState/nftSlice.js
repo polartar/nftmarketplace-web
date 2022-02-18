@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNftFromFile, getNft } from '../core/api';
+import { getNft } from '../core/api';
 
 const nftSlice = createSlice({
   name: 'nft',

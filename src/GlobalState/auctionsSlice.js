@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sortAndFetchListings, getCollectionMetadata, getMarketMetadata, sortAndFetchAuctions } from '../core/api';
+import { /*sortAndFetchListings, */getCollectionMetadata, getMarketMetadata, sortAndFetchAuctions } from '../core/api';
 import config from '../Assets/networks/rpc_config.json';
 export const knownContracts = config.known_contracts;
 

@@ -17,10 +17,10 @@ import TraitsFilter from '../Collection/TraitsFilter';
 import PowertraitsFilter from '../Collection/PowertraitsFilter';
 import { SortOption } from '../Models/sort-option.model';
 import { FilterOption } from '../Models/filter-option.model';
-import { faCheck, faCircle, faGlobe, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCircle /*, faGlobe, faLink*/ } from '@fortawesome/free-solid-svg-icons';
 import LayeredIcon from '../components/LayeredIcon';
-import { faDiscord, faMedium, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { NavLink } from 'react-bootstrap';
+// import { faDiscord, faMedium, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+// import { NavLink } from 'react-bootstrap';
 import SocialsBar from '../Collection/SocialsBar';
 
 const knownContracts = config.known_contracts;

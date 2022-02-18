@@ -16,7 +16,7 @@ import Drop from '../Components/pages/drop';
 import MyListings from '../Components/pages/myListings';
 import MySales from '../Components/pages/mySales';
 import Collections from '../Components/pages/collections';
-import ManageAuctions from '../Components/pages/manageAuctions';
+// import ManageAuctions from '../Components/pages/manageAuctions';
 import CharityBall from '../Components/pages/charityBall';
 import history from '../history';
 import { ErrorPage } from '../Components/pages/ErrorPage';

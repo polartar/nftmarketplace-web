@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import { createSuccessfulTransactionToastContent } from '../utils';
 import { FilterOption } from '../Components/Models/filter-option.model';
 import { nanoid } from 'nanoid';
-import { SortOption } from '../Components/Models/sort-option.model';
+// import { SortOption } from '../Components/Models/sort-option.model';
 
 const userSlice = createSlice({
   name: 'user',
@@ -378,6 +378,9 @@ export const connectAccount =
       dispatch(connectingWallet({ connecting: true }));
       var provider = new ethers.providers.Web3Provider(web3provider);
 
+      var cid = await web3provider.request({
+        method: 'net_version',
+      });
       let accounts = await web3provider.request({
         method: 'eth_accounts',
         params: [{ chainId: cid }],
@@ -385,9 +388,6 @@ export const connectAccount =
 
       var address = accounts[0];
       var signer = provider.getSigner();
-      var cid = await web3provider.request({
-        method: 'net_version',
-      });
 
       if (process.env.NODE_ENV !== 'production') {
         console.log('cid:       ', cid);
@@ -515,12 +515,12 @@ export const initProvider = () => async (dispatch) => {
     if (signer && correctChain) {
       mc = new Contract(config.membership_contract, Membership.abi, signer);
     }
-    const obj = {
-      provider: provider,
-      needsOnboard: false,
-      membershipContract: mc,
-      correctChain: correctChain,
-    };
+    // const obj = {
+    //   provider: provider,
+    //   needsOnboard: false,
+    //   membershipContract: mc,
+    //   correctChain: correctChain,
+    // };
 
     //dispatch(onProvider(obj))
 

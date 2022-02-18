@@ -21,10 +21,10 @@ import {
   newlineText,
   percentage,
 } from '../../utils';
-import MintButton from '../Drop/MintButton';
+// import MintButton from '../Drop/MintButton';
 import { dropState as statuses } from '../../core/api/enums';
 import ReactPlayer from 'react-player';
-import nft from './nft';
+// import nft from './nft';
 import { EbisuDropAbi } from '../../Contracts/Abis';
 import * as Sentry from '@sentry/react';
 export const drops = config.drops;

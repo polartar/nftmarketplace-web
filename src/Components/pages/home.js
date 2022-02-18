@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Footer from '../components/Footer';
-import { createGlobalStyle, default as styled } from 'styled-components';
-import ListingCollection from '../components/ListingCollection';
 import { Link, useHistory } from 'react-router-dom';
-import HotCollections from '../components/HotCollections';
 import { keyframes } from '@emotion/react';
-import { siPrefixedNumber } from '../../utils';
-import { getMarketData } from '../../GlobalState/marketplaceSlice';
 import Reveal from 'react-awesome-reveal';
-import { theme } from '../../Theme/theme';
+import { createGlobalStyle, default as styled } from 'styled-components';
+import Footer from '../components/Footer';
+import ListingCollection from '../components/ListingCollection';
+import HotCollections from '../components/HotCollections';
 import CurrentDrops from '../components/CurrentDrops';
+import { getMarketData } from '../../GlobalState/marketplaceSlice';
+import { siPrefixedNumber } from '../../utils';
+import { theme } from '../../Theme/theme';
 
 const fadeInUp = keyframes`
   0% {

@@ -295,7 +295,7 @@ export const isCroCrowCollection = (address) => {
 };
 
 export const percentage = (partialValue, totalValue) => {
-  if (!totalValue || totalValue == 0) return 0;
+  if (!totalValue || totalValue === 0) return 0;
   return Math.round((100 * partialValue) / totalValue);
 };
 
