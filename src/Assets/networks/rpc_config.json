@@ -1818,6 +1818,45 @@
                 "twitter": "https://twitter.com/HypedDogs",
                 "discord": "https://discord.gg/z6MtMavKMp"
             }
+        },
+        {
+            "name": "MetaPixels",
+            "onChain" : false,
+            "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
+            "multiToken" : false,
+            "listable" : true,
+            "metadata": {
+                "slug": "metapixels",
+                "description": "",
+                "verified": true,
+                "avatar": "",
+                "card": "",
+                "banner": "",
+                "maxSupply": 0,
+                "twitter": "",
+                "website": "",
+                "discord": ""
+            }
+        },
+        {
+            "name": "Bushicro",
+            "multiToken": false,
+            "address": "0xB8C3257E71E8294134E9B59a498d0BAF0c72C2b0",
+            "onChain": false,
+            "listable": true,
+            "metadata": {
+                "slug": "bushicro",
+                "description": "",
+                "verified": true,
+                "avatar": "/img/collections/bushicro/avatar.jpg",
+                "card": "/img/collections/bushicro/card.jpg",
+                "banner": "/img/collections/bushicro/banner.jpg",
+                "maxSupply": 2666,
+                "twitter": "https://twitter.com/bushicro",
+                "website": "https://bushicro.io/",
+                "discord": "https://discord.gg/27XPAwZHJg",
+                "medium": "https://medium.com/@bushicro"
+            }
         }
     ],
     "drops": [

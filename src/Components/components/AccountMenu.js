@@ -14,23 +14,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {toast} from "react-toastify";
 import MetaMaskOnboarding from '@metamask/onboarding';
-import { nanoid } from 'nanoid'
-import {ethers} from 'ethers'
 import { Modal, NavLink, Spinner } from "react-bootstrap";
 
 import {
     connectAccount,
     onLogout,
     setTheme,
-    withdrewRewards,
-    withdrewPayments,
-    registeredCode,
-    setShowWrongChainModal, chainConnect
+    setShowWrongChainModal,
+    chainConnect,
+    AccountMenuActions
 } from "../../GlobalState/User";
 import rpcConfig from '../../Assets/networks/rpc_config.json'
-
-import { createSuccessfulTransactionToastContent } from "../../utils";
-import InvalidListingWarning from './InvalidListingWarning';
 
 const AccountMenu = function() {
     const dispatch = useDispatch();
@@ -90,68 +84,15 @@ const AccountMenu = function() {
     }
 
     const withdrawRewards = async () => {
-        try {
-            // setDoingWork(true);
-            const tx = await user.membershipContract.withdrawPayments(user.address);
-            const receipt = await tx.wait();
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-            dispatch(withdrewRewards());
-        } catch (error) {
-            if (error.data) {
-                toast.error(error.data.message);
-            } else if (error.message) {
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        } finally {
-            // setDoingWork(false);
-        }
+        dispatch(AccountMenuActions.withdrawRewards());
     }
 
     const withdrawBalance = async() => {
-        try{
-            // setDoingWork(true);
-            const tx = await user.marketContract.withdrawPayments(user.address);
-            const receipt = await tx.wait();
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-            dispatch(withdrewPayments());
-        }catch(error){
-            if (error.data) {
-                toast.error(error.data.message);
-            } else if (error.message) {
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        }finally{
-            // setDoingWork(false);
-        }
+        dispatch(AccountMenuActions.withdrawBalance());
     }
 
     const registerCode = async () => {
-        try{
-            // setDoingWork(true);
-            const id = nanoid(10);
-            const encoded = ethers.utils.formatBytes32String(id)
-            const tx = await user.membershipContract.register(encoded);
-            const receipt = await tx.wait();
-            toast.success(createSuccessfulTransactionToastContent(receipt.transactionHash));
-            dispatch(registeredCode(id));
-        }catch(error){
-            if (error.data) {
-                toast.error(error.data.message);
-            } else if (error.message) {
-                toast.error(error.message);
-            } else {
-                console.log(error);
-                toast.error("Unknown Error");
-            }
-        }finally{
-            // setDoingWork(false);
-        }
+        dispatch(AccountMenuActions.registerCode());
     }
 
     const clearCookies = async () => {
