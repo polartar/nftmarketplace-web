@@ -2,7 +2,6 @@ import React, { memo, useEffect } from 'react';
 import { connect, useDispatch } from "react-redux";
 
 import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
 import {Redirect} from "react-router-dom";
 import NftCardList from "../components/MyNftCardList";
 import MyNftTransferDialog from "../components/MyNftTransferDialog";
@@ -10,14 +9,6 @@ import MyNftCancelDialog from "../components/MyNftCancelDialog";
 import MyNftListDialog from "../components/MyNftListDialog";
 import { fetchNfts } from "../../GlobalState/User";
 import { getAnalytics, logEvent } from "@firebase/analytics";
-
-
-const GlobalStyles = createGlobalStyle`
-.jumbotron.tint{
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-}
-`;
 
 const mapStateToProps = (state) => ({
     walletAddress: state.user.address
@@ -43,7 +34,6 @@ const MyNfts = ({ walletAddress }) => {
 
     return (
         <div>
-            <GlobalStyles/>
             <section className='jumbotron breadcumb no-bg tint'
                      style={{backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition:'bottom'}}>
                 <div className='mainbreadcumb'>

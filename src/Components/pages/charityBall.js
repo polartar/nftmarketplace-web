@@ -9,7 +9,6 @@ import {keyframes} from "@emotion/react";
 import AuctionCollection from "../components/AuctionCollection";
 import CharityBallCarousel from '../components/CharityBallCarousel';
 import DropsCarousel from "../components/DropsCarousel";
-import {createGlobalStyle} from "styled-components";
 export const drops = config.drops;
 
 const statuses = {
@@ -31,13 +30,6 @@ const fadeInUp = keyframes`
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-`;
-
-const GlobalStyles = createGlobalStyle`
-.jumbotron.tint{
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-}
 `;
 
 const CharityBall = () => {
@@ -65,7 +57,6 @@ const CharityBall = () => {
 
     return (
         <div>
-            <GlobalStyles />
             <section className="jumbotron breadcumb no-bg" style={{backgroundImage: `url(${'./img/background/12.jpg'})`}}>
                 <div className='container pt0 pt-3'>
                     <div className='row'>

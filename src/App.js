@@ -15,6 +15,22 @@ const GlobalStyles = createGlobalStyle`
   :root {
     scroll-behavior: unset;
   }
+  .jumbotron.tint{
+    background-color: rgba(0,0,0,0.6);
+    background-blend-mode: multiply;
+  }
+  .jumbotron.breadcumb.no-bg.tint {
+    background-image: url('/img/background/Ebisu-DT-Header.jpg');
+    background-position: bottom;
+    }
+    
+    @media only screen and (max-width: 768px) {
+    .jumbotron.breadcumb.no-bg.tint {
+        background-image: url('/img/background/Ebisu-Mobile-Header.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
 `;
 
 function App() {
