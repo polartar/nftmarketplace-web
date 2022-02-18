@@ -5,7 +5,6 @@ import {toast} from "react-toastify";
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
 import { keyframes } from "@emotion/react";
 import Reveal from 'react-awesome-reveal';
 import {useParams} from "react-router-dom";
@@ -26,13 +25,6 @@ import nft from "./nft";
 import {EbisuDropAbi} from "../../Contracts/Abis";
 import * as Sentry from "@sentry/react";
 export const drops = config.drops;
-
-const GlobalStyles = createGlobalStyle`
-.jumbotron.tint{
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-}
-`;
 
 const fadeInUp = keyframes`
   0% {
@@ -410,7 +402,6 @@ const Drop = () => {
     }
     return (
         <div>
-            <GlobalStyles/>
             <>
                 <section className={`jumbotron breadcumb h-vh tint`} style={{backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.jpg'})`}}>
                     <div className="container">

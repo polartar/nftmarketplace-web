@@ -2,17 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 
 import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
 import {Redirect} from "react-router-dom";
 import MySoldNftCollection from "../components/MySoldNftCollection";
-
-const GlobalStyles = createGlobalStyle`
-.jumbotron.tint{
-  background-color: rgba(0,0,0,0.6);
-  background-blend-mode: multiply;
-}
-`;
 
 const MySales = () => {
     const walletAddress = useSelector((state) => state.user.address)
@@ -20,8 +12,6 @@ const MySales = () => {
 
     const Content = () => (
         <>
-            <GlobalStyles/>
-
             <section className='jumbotron breadcumb no-bg tint'
                      style={{backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition:'bottom'}}>
                 <div className='mainbreadcumb'>
