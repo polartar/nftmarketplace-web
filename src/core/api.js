@@ -456,13 +456,21 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
 
 }
 
-export async function getUnfilteredListingsForAddress(walletAddress, walletProvider) {
+export async function getUnfilteredListingsForAddress(walletAddress, walletProvider, page) {
+    let query = {
+        'seller': walletAddress,
+        'state': 0,
+        'pageSize': 25,
+        'page': page
+    }
+
     try {
         const signer = walletProvider.getSigner();
-        const uri = `${ api.baseUrl }${ api.unfilteredListings }?seller=${ walletAddress }&state=0`;
 
-        const response = await fetch(uri);
-        const json = await response.json();
+        const queryString = new URLSearchParams(query);
+        const url = new URL(api.unfilteredListings, `${api.baseUrl}`);
+        const response = await fetch(`${url}?${queryString}`);
+        let json = await response.json();
         const listings = json.listings || [];
 
         // to get id and address of nft to check if it's inside user's wallet.
@@ -601,9 +609,11 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
                 useIframe: isMetaPixels,
                 iframeSource: isMetaPixels ? `https://www.metaversepixels.app/grid?id=${id}&zoom=3` : null
             }
-        });
+        }).sort(x => x.valid ? 1 : -1);
 
-        return filteredListings.sort(x => x.valid ? 1 : -1);
+        json.listings = filteredListings;
+
+        return json;
     } catch (error) {
         console.log('error fetching sales for: ' + walletAddress);
         console.log(error);
@@ -612,33 +622,18 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
     }
 }
 
-export async function getNftSalesForAddress(walletAddress) {
+export async function getNftSalesForAddress(walletAddress, page) {
+    let query = {
+        'seller': walletAddress,
+        'state': 1,
+        'pageSize': 25,
+        'page': page
+    }
+
     try {
-        const response = await fetch(`${ api.baseUrl }${ api.unfilteredListings }?seller=${ walletAddress }&state=1`);
-        const json = await response.json();
-
-        const listings = json.listings || [];
-
-        const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
-
-        const filteredListings = sortedListings.map(item => {
-
-            const { saleTime, listingId, price, nft, purchaser } = item;
-
-            const { name, image } = nft || {};
-
-            return {
-                name,
-                image,
-                saleTime: moment(new Date(saleTime * 1000)).format("DD/MM/YYYY, HH:mm"),
-                listingId,
-                price,
-                purchaser,
-            }
-        });
-
-        return filteredListings;
-
+        const queryString = new URLSearchParams(query);
+        const url = new URL(api.unfilteredListings, `${api.baseUrl}`);
+        return await (await fetch(`${url}?${queryString}`)).json();
     } catch (error) {
         console.log('error fetching sales for: ' + walletAddress);
         console.log(error);

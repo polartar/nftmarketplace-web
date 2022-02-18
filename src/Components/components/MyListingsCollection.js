@@ -1,6 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUnfilteredListings, MyListingsCollectionPageActions } from '../../GlobalState/User';
+import {
+    clearMySales, clearMyUnfilteredListings,
+    fetchSales,
+    fetchUnfilteredListings,
+    MyListingsCollectionPageActions
+} from '../../GlobalState/User';
 import { Form, Spinner } from "react-bootstrap";
 import { getAnalytics, logEvent } from '@firebase/analytics'
 import MyListingCard from "./MyListingCard";
@@ -10,6 +15,8 @@ import InvalidListingsPopup from "./InvalidListingsPopup";
 
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import InfiniteScroll from "react-infinite-scroll-component";
+import SoldNftCard from "./SoldNftCard";
 
 
 const MyListingsCollection = ({ walletAddress = null}) => {
@@ -19,6 +26,10 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     const isLoading = useSelector((state) => state.user.myUnfilteredListingsFetching);
     const myListings = useSelector((state) => state.user.myUnfilteredListings);
     const myUnfilteredListingsInvalidOnly = useSelector((state) => state.user.myUnfilteredListingsInvalidOnly);
+    const canLoadMore = useSelector((state) => {
+        return state.user.myUnfilteredListingsCurPage === 0 || state.user.myUnfilteredListingsCurPage < state.marketplace.myUnfilteredListingsTotalPages;
+    });
+
     const [openInvalidListingsAlertDialog, setOpenInvalidListingsAlertDialog] = useState(false);
     const [userAcknowledgedWarning, setUserAcknowledgedWarning] = useState(false);
 
@@ -30,6 +41,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     };
 
     useEffect(async() => {
+        dispatch(clearMyUnfilteredListings());
         dispatch(fetchUnfilteredListings(walletAddress));
     }, [walletAddress]);
 
@@ -49,6 +61,12 @@ const MyListingsCollection = ({ walletAddress = null}) => {
         setUserAcknowledgedWarning(true);
         setOpenInvalidListingsAlertDialog(false)
     };
+
+    const loadMore = () => {
+        if (!isLoading) {
+            dispatch(fetchUnfilteredListings(walletAddress));
+        }
+    }
 
     return (
         <>
@@ -86,35 +104,40 @@ const MyListingsCollection = ({ walletAddress = null}) => {
                 </div>
             </div>
             <div className='row gap-3'>
-                <div className='card-group'>
-
-                { myListings && myListings.filter(x => x.listed).filter(x => myUnfilteredListingsInvalidOnly ? !x.valid : true).map((nft, index) => (
-                    <div key={index} className="d-item col-lg-6 col-md-12 mb-4 px-2">
-                        <MyListingCard
-                            nft={ nft }
-                            key={ index }
-                            onImgLoad={ onImgLoad }
-                            width={ width }
-                            canCancel={ nft.state === 0 }
-                            canUpdate={ nft.state === 0 && nft.isInWallet }
-                            onUpdateButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageListDialog(nft)) }
-                            onCancelButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageCancelDialog(nft)) }
-                            newTab={ true }
-                        />
+                <InfiniteScroll
+                    dataLength={myListings.length}
+                    next={loadMore}
+                    hasMore={canLoadMore}
+                    style={{ overflow: 'hidden' }}
+                    loader={
+                        <div className='row'>
+                            <div className='col-lg-12 text-center'>
+                                <Spinner animation="border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </Spinner>
+                            </div>
+                        </div>
+                    }
+                >
+                    <div className="card-group">
+                        { myListings && myListings.filter(x => x.listed).filter(x => myUnfilteredListingsInvalidOnly ? !x.valid : true).map((nft, index) => (
+                            <div key={index} className="d-item col-lg-6 col-md-12 mb-4 px-2">
+                                <MyListingCard
+                                    nft={ nft }
+                                    key={ index }
+                                    onImgLoad={ onImgLoad }
+                                    width={ width }
+                                    canCancel={ nft.state === 0 }
+                                    canUpdate={ nft.state === 0 && nft.isInWallet }
+                                    onUpdateButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageListDialog(nft)) }
+                                    onCancelButtonPressed={ () => dispatch(MyListingsCollectionPageActions.showMyNftPageCancelDialog(nft)) }
+                                    newTab={ true }
+                                />
+                            </div>
+                        )) }
                     </div>
-                )) }
-                </div>
+                </InfiniteScroll>
             </div>
-            { isLoading &&
-                <div className='row mt-4'>
-                    <div className='col-lg-12 text-center'>
-                        <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                    </div>
-                </div>
-            }
-
             { !isLoading && myListings.length === 0 &&
                 <div className='row mt-4'>
                     <div className='col-lg-12 text-center'>

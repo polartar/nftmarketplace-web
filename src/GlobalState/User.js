@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { createSuccessfulTransactionToastContent } from "../utils";
 import { FilterOption } from "../Components/Models/filter-option.model";
 import { nanoid } from "nanoid";
+import {SortOption} from "../Components/Models/sort-option.model";
 
 const userSlice = createSlice({
     name : 'user',
@@ -62,10 +63,14 @@ const userSlice = createSlice({
         myUnfilteredListingsFetching: false,
         myUnfilteredListings: [],
         myUnfilteredListingsInvalidOnly: false,
+        myUnfilteredListingsCurPage: 0,
+        myUnfilteredListingsTotalPages: 0,
 
         // My Sales
         mySoldNftsFetching: false,
         mySoldNfts: [],
+        mySoldNftsCurPage: 0,
+        mySoldNftsTotalPages: 0,
 
         // Theme
         theme: 'light'
@@ -149,18 +154,36 @@ const userSlice = createSlice({
             state.mySoldNftsFetching = false;
         },
         mySalesOnNftsAdded(state, action){
-            state.mySoldNfts.push(...action.payload);
+            state.mySoldNfts.push(...action.payload.listings);
+            state.mySoldNftsCurPage = action.payload.page;
+            state.mySoldNftsTotalPages = action.payload.totalPages;
+        },
+        clearMySales(state) {
+            state.mySoldNfts = [];
+            state.mySoldNftsCurPage = 0;
+            state.mySoldNftsTotalPages = 0;
         },
         myUnfilteredListingsFetching(state, action){
             state.myUnfilteredListingsFetching = true;
             state.myUnfilteredListings = []
         },
+        myUnfilteredListingsAdded(state, action){
+            state.myUnfilteredListings.push(...action.payload.listings);
+            state.myUnfilteredListingsCurPage = action.payload.page;
+            state.myUnfilteredListingsTotalPages = action.payload.totalPages;
+
+            console.log('myUnfilteredListingsAdded', action.payload.listings);
+        },
         myUnfilteredListingsFetched(state, action){
             state.myUnfilteredListingsFetching = false;
-            state.myUnfilteredListings = action.payload;
         },
         myUnfilteredListingsInvalidOnly(state, action){
             state.myUnfilteredListingsInvalidOnly = action.payload;
+        },
+        clearMyUnfilteredListings(state) {
+            state.myUnfilteredListings = [];
+            state.myUnfilteredListingsCurPage = 0;
+            state.myUnfilteredListingsTotalPages = 0;
         },
         listingUpdate(state, action){
             const nftUpdate = (nft, index, key) => {
@@ -259,9 +282,12 @@ export const {
     onNftLoaded,
     myUnfilteredListingsFetching,
     myUnfilteredListingsFetched,
+    myUnfilteredListingsAdded,
+    clearMyUnfilteredListings,
     mySoldNftsFetching,
     mySalesFetched,
     mySalesOnNftsAdded,
+    clearMySales,
     connectingWallet,
     onCorrectChain,
     registeredCode,
@@ -602,13 +628,15 @@ export const fetchNfts = () => async (dispatch, getState) => {
     dispatch(nftsFetched());
 }
 
-export const fetchSales = (walletAddress) => async (dispatch) => {
+export const fetchSales = (walletAddress) => async (dispatch, getState) => {
+    const state = getState();
     dispatch(mySoldNftsFetching());
 
-    const listings = await getNftSalesForAddress(walletAddress);
-
+    const listings = await getNftSalesForAddress(
+        walletAddress,
+        state.user.mySoldNftsCurPage + 1
+    );
     dispatch(mySalesOnNftsAdded(listings))
-
     dispatch(mySalesFetched());
 };
 
@@ -618,9 +646,14 @@ export const fetchUnfilteredListings = (walletAddress) => async (dispatch, getSt
 
     dispatch(myUnfilteredListingsFetching());
 
-    const listings = await getUnfilteredListingsForAddress(walletAddress, walletProvider);
-
-    dispatch(myUnfilteredListingsFetched(listings));
+    const listings = await getUnfilteredListingsForAddress(
+        walletAddress,
+        walletProvider,
+        state.user.myUnfilteredListingsCurPage + 1
+    );
+console.log('fetchUnfilteredListings', listings);
+    dispatch(myUnfilteredListingsAdded(listings));
+    dispatch(myUnfilteredListingsFetched());
 };
 
 export const setTheme = (theme) => async(dispatch) =>{
