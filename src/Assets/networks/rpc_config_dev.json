@@ -1772,8 +1772,11 @@
       "onChain": false,
       "listable": true,
       "metadata": {
-        "slug": "panels-project",
+        "slug": "nobuddies",
         "verified": true,
+        "avatar": "/img/collections/nobuddies/avatar.jpg",
+        "banner": "/img/collections/nobuddies/banner.jpg",
+        "card": "/img/collections/nobuddies/card.jpg",
         "maxSupply": 100,
         "website": "https://nobuddiesnft.com/",
         "twitter": "https://twitter.com/NoBuddiesNFT",
