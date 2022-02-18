@@ -17,7 +17,7 @@ const MySoldNftCollection = ({ walletAddress = null}) => {
     const isLoading = useSelector((state) => state.user.mySoldNftsFetching);
     const mySoldNfts = useSelector((state) => state.user.mySoldNfts);
     const canLoadMore = useSelector((state) => {
-        return state.user.mySoldNftsCurPage === 0 || state.user.mySoldNftsCurPage < state.marketplace.mySoldNftsTotalPages;
+        return state.user.mySoldNftsCurPage === 0 || state.user.mySoldNftsCurPage < state.user.mySoldNftsTotalPages;
     });
 
     const onImgLoad = ({target:img}) => {

@@ -27,7 +27,7 @@ const MyListingsCollection = ({ walletAddress = null}) => {
     const myListings = useSelector((state) => state.user.myUnfilteredListings);
     const myUnfilteredListingsInvalidOnly = useSelector((state) => state.user.myUnfilteredListingsInvalidOnly);
     const canLoadMore = useSelector((state) => {
-        return state.user.myUnfilteredListingsCurPage === 0 || state.user.myUnfilteredListingsCurPage < state.marketplace.myUnfilteredListingsTotalPages;
+        return state.user.myUnfilteredListingsCurPage === 0 || state.user.myUnfilteredListingsCurPage < state.user.myUnfilteredListingsTotalPages;
     });
 
     const [openInvalidListingsAlertDialog, setOpenInvalidListingsAlertDialog] = useState(false);
