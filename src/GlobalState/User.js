@@ -148,12 +148,9 @@ const userSlice = createSlice({
         },
         mySoldNftsFetching(state, action){
             state.mySoldNftsFetching = true;
-            state.mySoldNfts = []
         },
         mySalesFetched(state, action){
             state.mySoldNftsFetching = false;
-        },
-        mySalesOnNftsAdded(state, action){
             state.mySoldNfts.push(...action.payload.listings);
             state.mySoldNftsCurPage = action.payload.page;
             state.mySoldNftsTotalPages = action.payload.totalPages;
@@ -165,17 +162,12 @@ const userSlice = createSlice({
         },
         myUnfilteredListingsFetching(state, action){
             state.myUnfilteredListingsFetching = true;
-            state.myUnfilteredListings = []
-        },
-        myUnfilteredListingsAdded(state, action){
-            state.myUnfilteredListings.push(...action.payload.listings);
-            state.myUnfilteredListingsCurPage = action.payload.page;
-            state.myUnfilteredListingsTotalPages = action.payload.totalPages;
-
-            console.log('myUnfilteredListingsAdded', action.payload.listings);
         },
         myUnfilteredListingsFetched(state, action){
             state.myUnfilteredListingsFetching = false;
+            state.myUnfilteredListings.push(...action.payload.listings);
+            state.myUnfilteredListingsCurPage = action.payload.page;
+            state.myUnfilteredListingsTotalPages = action.payload.totalPages;
         },
         myUnfilteredListingsInvalidOnly(state, action){
             state.myUnfilteredListingsInvalidOnly = action.payload;
@@ -636,8 +628,7 @@ export const fetchSales = (walletAddress) => async (dispatch, getState) => {
         walletAddress,
         state.user.mySoldNftsCurPage + 1
     );
-    dispatch(mySalesOnNftsAdded(listings))
-    dispatch(mySalesFetched());
+    dispatch(mySalesFetched(listings));
 };
 
 export const fetchUnfilteredListings = (walletAddress) => async (dispatch, getState) => {
@@ -651,9 +642,7 @@ export const fetchUnfilteredListings = (walletAddress) => async (dispatch, getSt
         walletProvider,
         state.user.myUnfilteredListingsCurPage + 1
     );
-console.log('fetchUnfilteredListings', listings);
-    dispatch(myUnfilteredListingsAdded(listings));
-    dispatch(myUnfilteredListingsFetched());
+    dispatch(myUnfilteredListingsFetched(listings));
 };
 
 export const setTheme = (theme) => async(dispatch) =>{

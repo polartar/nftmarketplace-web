@@ -30,9 +30,6 @@ const MyListingsCollection = ({ walletAddress = null}) => {
         return state.user.myUnfilteredListingsCurPage === 0 || state.user.myUnfilteredListingsCurPage < state.user.myUnfilteredListingsTotalPages;
     });
 
-    const [openInvalidListingsAlertDialog, setOpenInvalidListingsAlertDialog] = useState(false);
-    const [userAcknowledgedWarning, setUserAcknowledgedWarning] = useState(false);
-
     const onImgLoad = ({target:img}) => {
         let currentWidth = width;
         if(currentWidth < img.offsetWidth) {
@@ -45,22 +42,11 @@ const MyListingsCollection = ({ walletAddress = null}) => {
         dispatch(fetchUnfilteredListings(walletAddress));
     }, [walletAddress]);
 
-    useEffect(async() => {
-        if (!userAcknowledgedWarning) {
-            setOpenInvalidListingsAlertDialog(myListings.some((value => !value.valid)));
-        }
-    }, [myListings]);
-
     useEffect(() => {
         logEvent(getAnalytics(), 'screen_view', {
             firebase_screen : 'my_sales'
         })
     }, []);
-
-    const invalidListingsWarningAcknowledged = () => {
-        setUserAcknowledgedWarning(true);
-        setOpenInvalidListingsAlertDialog(false)
-    };
 
     const loadMore = () => {
         if (!isLoading) {
