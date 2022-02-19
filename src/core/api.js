@@ -98,12 +98,14 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
   const url = new URL(api.listings, `${api.baseUrl}`);
   const uri = `${url}?${queryString}`;
 
+  let cancelled = false;
   try {
     const controller = new AbortController();
     const { signal } = controller;
 
     if (sortAndFetchListingsInProgress) {
       console.log('Canceling previous call.');
+      cancelled = true;
       controller.abort();
     }
 
@@ -113,9 +115,12 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
 
     sortAndFetchListingsInProgress = false;
 
-    return { success: true, response: await response.json() };
+    return { cancelled, response: await response.json() };
   } catch (e) {
-    return { success: false, response: [] };
+    if (!cancelled) {
+      throw new TypeError(e);
+    }
+    return { cancelled, response: [] };
   }
 }
 

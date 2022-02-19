@@ -147,7 +147,7 @@ export const fetchListings = () => async (dispatch, getState) => {
   const state = getState();
 
   dispatch(listingsLoading());
-  const { response, success } = await sortAndFetchListings(
+  const { response, cancelled } = await sortAndFetchListings(
     state.collection.query.page + 1,
     state.collection.query.sort,
     state.collection.query.filter,
@@ -156,7 +156,7 @@ export const fetchListings = () => async (dispatch, getState) => {
     state.collection.query.search
   );
 
-  if (success) {
+  if (!cancelled) {
     response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
     dispatch(listingsReceived(response));
   }
