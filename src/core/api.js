@@ -36,7 +36,8 @@ export default api;
 //     })
 // });
 
-let sortAndFetchListingsInProgress = false;
+//  just for sortAndFetchListings function
+let abortController = null;
 
 export async function sortAndFetchListings(page, sort, filter, traits, powertraits, search) {
   let pagesize = 12;
@@ -98,32 +99,40 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
   const url = new URL(api.listings, `${api.baseUrl}`);
   const uri = `${url}?${queryString}`;
 
-  let cancelled = false;
+  //  Debugging
+  const date = new Date();
+  //  Debugging
+  const time = `${date.getSeconds()}-${date.getMilliseconds()}`;
+  //  Debugging
+  const log = (message) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`${time} ${message}`);
+    }
+  };
+
   try {
-    const controller = new AbortController();
-    const { signal } = controller;
+    log(`Ongoing call: ${!!abortController}`);
 
-    if (sortAndFetchListingsInProgress) {
-      cancelled = true;
-      controller.abort();
-
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Cancelled previous call.');
-      }
+    if (abortController) {
+      abortController.abort();
+      log(`Cancelled previous call.`);
     }
 
-    sortAndFetchListingsInProgress = true;
+    abortController = new AbortController();
+    const { signal } = abortController;
 
     const response = await fetch(uri, { signal });
 
-    sortAndFetchListingsInProgress = false;
+    abortController = null;
+    log(`Went through.`);
 
-    return { cancelled, response: await response.json() };
-  } catch (e) {
-    if (!cancelled) {
-      throw new TypeError(e);
+    return { cancelled: false, response: await response.json() };
+  } catch (error) {
+    if (error && error.name === 'AbortError') {
+      log(`Cancelled.`);
+      return { cancelled: true, response: [] };
     }
-    return { cancelled, response: [] };
+    throw new TypeError(error);
   }
 }
 
