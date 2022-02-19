@@ -1891,7 +1891,7 @@
         "description": "",
         "verified": true,
         "avatar": "/img/collections/cronosrocks/avatar.png",
-        "card": "/img/collections/cronosrocks/card.jpg",
+        "card": "/img/collections/cronosrocks/card.png",
         "banner": "/img/collections/cronosrocks/banner.png",
         "maxSupply": 100,
         "twitter": "https://twitter.com/CronosRocksNFT",
@@ -1910,12 +1910,33 @@
         "description": "",
         "verified": true,
         "avatar": "/img/collections/crayonartapeclub/avatar.gif",
-        "card": "/img/collections/crayonartapeclub/card.jpg",
+        "card": "/img/collections/crayonartapeclub/card.png",
         "banner": "/img/collections/crayonartapeclub/banner.png",
         "maxSupply": 2750,
         "twitter": "https://twitter.com/CrayonApe",
         "website": "https://crayon-ape.com/",
         "discord": "https://discord.gg/JDXQp85yNh"
+      }
+    },
+    {
+      "name": "Majestic Minotaurs",
+      "multiToken": false,
+      "address": "0xfE52ebb3aDb92CBA733B8DD3342DaAbf67A250a3",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "majestic-minotaurs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/majesticminotaurs/avatar.png",
+        "card": "/img/collections/majesticminotaurs/card.png",
+        "banner": "/img/collections/majesticminotaurs/banner.png",
+        "maxSupply": 2100,
+        "twitter": "https://twitter.com/Minotaur_Money",
+        "website": "https://minotaur.money/#/nfts",
+        "discord": "https://discord.gg/km7f7WDK4w",
+        "medium": "https://minotaurmoney.medium.com/",
+        "telegram": "https://t.me/MinotaurMoney"
       }
     }
   ],
