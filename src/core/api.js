@@ -104,9 +104,12 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
     const { signal } = controller;
 
     if (sortAndFetchListingsInProgress) {
-      console.log('Canceling previous call.');
       cancelled = true;
       controller.abort();
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Cancelled previous call.');
+      }
     }
 
     sortAndFetchListingsInProgress = true;
