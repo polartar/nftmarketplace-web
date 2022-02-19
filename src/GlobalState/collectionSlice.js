@@ -144,22 +144,22 @@ export const init = (filterOption, sortOption, traitFilterOption, address) => as
 };
 
 export const fetchListings = () => async (dispatch, getState) => {
-    const state = getState();
+  const state = getState();
 
-    dispatch(listingsLoading());
-    const { response, success } = await sortAndFetchListings(
-        state.collection.query.page + 1,
-        state.collection.query.sort,
-        state.collection.query.filter,
-        state.collection.query.traits,
-        state.collection.query.powertraits,
-        state.collection.query.search
-    );
+  dispatch(listingsLoading());
+  const { response, success } = await sortAndFetchListings(
+    state.collection.query.page + 1,
+    state.collection.query.sort,
+    state.collection.query.filter,
+    state.collection.query.traits,
+    state.collection.query.powertraits,
+    state.collection.query.search
+  );
 
-    if (success) {
-        response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
-        dispatch(listingsReceived(response));
-    }
+  if (success) {
+    response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
+    dispatch(listingsReceived(response));
+  }
 };
 
 export const filterListings = (filterOption, cacheName) => async (dispatch) => {

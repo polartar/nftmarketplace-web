@@ -95,28 +95,28 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
 
   const queryString = new URLSearchParams(query);
 
-    const url = new URL(api.listings, `${api.baseUrl}`);
-    const uri = `${url}?${queryString}`;
+  const url = new URL(api.listings, `${api.baseUrl}`);
+  const uri = `${url}?${queryString}`;
 
-    try {
-        const controller = new AbortController();
-        const { signal } = controller;
+  try {
+    const controller = new AbortController();
+    const { signal } = controller;
 
-        if (sortAndFetchListingsInProgress) {
-            console.log('Canceling previous call.');
-            controller.abort();
-        }
-
-        sortAndFetchListingsInProgress = true;
-
-        const response = await fetch(uri, { signal });
-
-        sortAndFetchListingsInProgress = false;
-
-        return { success: true, response: await response.json() }
-    }catch (e) {
-        return { success: false, response: [] }
+    if (sortAndFetchListingsInProgress) {
+      console.log('Canceling previous call.');
+      controller.abort();
     }
+
+    sortAndFetchListingsInProgress = true;
+
+    const response = await fetch(uri, { signal });
+
+    sortAndFetchListingsInProgress = false;
+
+    return { success: true, response: await response.json() };
+  } catch (e) {
+    return { success: false, response: [] };
+  }
 }
 
 export async function getListing(listingId) {
