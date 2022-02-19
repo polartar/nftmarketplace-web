@@ -1,4 +1,4 @@
-import { React, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollToTopBtn from './Components/menu/ScrollToTop';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
@@ -10,6 +10,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './Firebase/firebase_config';
 import { initializeAnalytics } from 'firebase/analytics';
 import { initProvider } from './GlobalState/User';
+import { appInitializer } from './GlobalState/InitSlice';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -39,6 +40,10 @@ function App() {
   const userTheme = useSelector((state) => {
     return state.user.theme;
   });
+
+  useEffect(() => {
+    dispatch(appInitializer());
+  }, [dispatch]);
 
   useLayoutEffect(() => {
     const firebase = initializeApp(firebaseConfig);
