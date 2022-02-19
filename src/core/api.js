@@ -132,6 +132,7 @@ export async function sortAndFetchListings(page, sort, filter, traits, powertrai
       log(`Cancelled.`);
       return { cancelled: true, response: [] };
     }
+    abortController = null;
     throw new TypeError(error);
   }
 }
