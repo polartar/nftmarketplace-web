@@ -462,6 +462,8 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
     state: 0,
     pageSize: 25,
     page: page,
+    sortBy: 'listingTime',
+    direction: 'asc',
   };
 
   try {
@@ -574,9 +576,7 @@ export async function getUnfilteredListingsForAddress(walletAddress, walletProvi
     //  array of {id, address} wallet nfts
     const walletNfts = walletNftsNotFlattened.flat();
 
-    const sortedListings = listings.sort((a, b) => b.saleTime - a.saleTime);
-
-    const filteredListings = sortedListings
+    const filteredListings = listings
       .map((item) => {
         const { listingId, price, nft, purchaser, valid, state, is1155 } = item;
         const { name, image, rank } = nft || {};
@@ -641,6 +641,8 @@ export async function getNftSalesForAddress(walletAddress, page) {
     state: 1,
     pageSize: 25,
     page: page,
+    sortBy: 'saleTime',
+    direction: 'desc',
   };
 
   try {
