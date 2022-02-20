@@ -147,7 +147,7 @@ export const fetchListings = () => async (dispatch, getState) => {
   const state = getState();
 
   dispatch(listingsLoading());
-  const response = await sortAndFetchListings(
+  const { response, cancelled } = await sortAndFetchListings(
     state.collection.query.page + 1,
     state.collection.query.sort,
     state.collection.query.filter,
@@ -156,9 +156,10 @@ export const fetchListings = () => async (dispatch, getState) => {
     state.collection.query.search
   );
 
-  response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
-
-  dispatch(listingsReceived(response));
+  if (!cancelled) {
+    response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
+    dispatch(listingsReceived(response));
+  }
 };
 
 export const filterListings = (filterOption, cacheName) => async (dispatch) => {
