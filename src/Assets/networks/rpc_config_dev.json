@@ -85,6 +85,24 @@
       }
     },
     {
+      "name": "Fobos Whale",
+      "onChain": false,
+      "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+      "multiToken": true,
+      "id": 3,
+      "listable": true,
+      "metadata": {
+        "slug": "fobos-whale",
+        "description": "",
+        "verified": true,
+        "maxSupply": 1,
+        "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
+        "banner": "/img/collections/barbara/dodgerdogs/banner.png",
+        "website": "https://crypto.com/nft/profile/vredekop?tab=created",
+        "twitter": "https://twitter.com/BarbaraRedekop"
+      }
+    },
+    {
       "name": "Ebisu's Bay Founder",
       "onChain": false,
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
@@ -2572,31 +2590,6 @@
       "published": true,
       "complete": true,
       "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
-    },
-    {
-      "id": 21,
-      "slug": "trooprz",
-      "imgNft": "/img/drops/trooprz/drop.gif",
-      "imgPreview": "/img/drops/trooprz/drop.gif",
-      "imgAvatar": "/img/collections/trooprz/avatar.gif",
-      "title": "Trooprz",
-      "subtitle": "",
-      "description": "",
-      "author": { "name": "Trooprz", "link": "https://trooprz.army/mint" },
-      "address": "",
-      "maxMintPerTx": 0,
-      "maxMintPerAddress": 0,
-      "totalSupply": 0,
-      "cost": "250",
-      "foundersOnly": false,
-      "start": 1644015600000,
-      "end": null,
-      "referral": false,
-      "is1155": false,
-      "published": true,
-      "complete": false,
-      "featured": true,
-      "redirect": "https://trooprz.army/mint"
     },
     {
       "id": 22,
