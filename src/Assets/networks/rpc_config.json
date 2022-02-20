@@ -1810,7 +1810,7 @@
     {
       "name": "The HD: Hyped Dogs",
       "multiToken": false,
-      "address": "",
+      "address": "0xD97A5ed8d1f5943085F7eFADC8e46415F5b7deDD",
       "onChain": false,
       "listable": false,
       "metadata": {
@@ -2689,7 +2689,7 @@
       "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
       "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, itâ€™s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
       "author": { "name": "Hyped Dogs", "link": "https://www.hypednftclub.com/hypeddog" },
-      "address": "",
+      "address": "0xD97A5ed8d1f5943085F7eFADC8e46415F5b7deDD",
       "maxMintPerTx": 7,
       "maxMintPerAddress": 50,
       "totalSupply": 3000,
