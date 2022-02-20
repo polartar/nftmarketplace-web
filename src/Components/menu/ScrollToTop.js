@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import {faChevronUp, faCircle} from "@fortawesome/free-solid-svg-icons";
-import LayeredIcon from "../components/LayeredIcon";
+import { faChevronUp, faCircle } from '@fortawesome/free-solid-svg-icons';
+import LayeredIcon from '../components/LayeredIcon';
 
 export default class ScrollToTop extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      is_visible: false
+      is_visible: false,
     };
   }
 
   componentDidMount() {
     var scrollComponent = this;
-    document.addEventListener("scroll", function(e) {
+    document.addEventListener('scroll', function (e) {
       scrollComponent.toggleVisibility();
     });
   }
@@ -21,10 +20,11 @@ export default class ScrollToTop extends Component {
   toggleVisibility() {
     if (window.pageYOffset > 600) {
       this.setState({
-        is_visible: true
+        is_visible: true,
       });
-    } else { this.setState({
-        is_visible: false
+    } else {
+      this.setState({
+        is_visible: false,
       });
     }
   }
@@ -32,21 +32,17 @@ export default class ScrollToTop extends Component {
   scrollToTop() {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: 'smooth',
     });
   }
 
   render() {
     const { is_visible } = this.state;
     return (
-      <div id='eb-scroll-to-top' className='init'>
+      <div id="eb-scroll-to-top" className="init">
         {is_visible && (
           <div onClick={() => this.scrollToTop()}>
-            <LayeredIcon
-                icon={faChevronUp}
-                bgIcon={faCircle}
-                shrink={8}
-            />
+            <LayeredIcon icon={faChevronUp} bgIcon={faCircle} shrink={8} />
           </div>
         )}
       </div>
