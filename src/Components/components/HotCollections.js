@@ -19,10 +19,10 @@ const HotCollections = () => {
     const shortList = [
       'mad-meerkat',
       'croskull',
+      'crobots',
+      'bushicro',
       'lazy-horse',
-      'cronos-monkey-business',
-      'weird-apes-club',
-      'cronos-nanas',
+      'barn-cats'
     ];
 
     const featuredCollections = [];

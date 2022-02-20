@@ -553,7 +553,7 @@
       "multiToken": false,
       "address": "0x15730353272C88229a91804854078aa9B3A70448",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cronoseyez-gen2",
         "description": "",
@@ -614,7 +614,8 @@
         "card": "/img/collections/barbara/elon/card.jpg",
         "maxSupply": 20,
         "website": "https://crypto.com/nft/profile/vredekop?tab=created",
-        "twitter": "https://twitter.com/BarbaraRedekop"
+        "twitter": "https://twitter.com/BarbaraRedekop",
+        "discord": "https://discord.gg/XrhWf2SppB"
       }
     },
     {
@@ -632,7 +633,8 @@
         "card": "/img/collections/barbara/dodgerdogs/card.png",
         "maxSupply": 20,
         "website": "https://crypto.com/nft/profile/vredekop?tab=created",
-        "twitter": "https://twitter.com/BarbaraRedekop"
+        "twitter": "https://twitter.com/BarbaraRedekop",
+        "discord": "https://discord.gg/XrhWf2SppB"
       }
     },
     {
@@ -734,7 +736,8 @@
         "card": "/img/collections/barbara/ebisu/card.jpg",
         "maxSupply": 173,
         "website": "https://crypto.com/nft/profile/vredekop?tab=created",
-        "twitter": "https://twitter.com/BarbaraRedekop"
+        "twitter": "https://twitter.com/BarbaraRedekop",
+        "discord": "https://discord.gg/XrhWf2SppB"
       }
     },
     {
@@ -1214,7 +1217,7 @@
       "multiToken": false,
       "address": "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "icy-cro",
         "description": "",
@@ -1384,7 +1387,8 @@
         "verified": true,
         "avatar": "/img/collections/barbara/spacecrystalunicorns/avatar.jpg",
         "card": "/img/collections/barbara/spacecrystalunicorns/card.jpg",
-        "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg"
+        "banner": "/img/collections/barbara/spacecrystalunicorns/banner.jpg",
+        "discord": "https://discord.gg/XrhWf2SppB"
       }
     },
     {
@@ -1859,6 +1863,81 @@
         "website": "https://bushicro.io/",
         "discord": "https://discord.gg/27XPAwZHJg",
         "medium": "https://medium.com/@bushicro"
+      }
+    },
+    {
+      "name": "Cronos Fox Elite",
+      "multiToken": false,
+      "address": "0xaC22b85bd9B71C7C6FE874C8F710A3AE45f76C76",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "cronos-fox-elite",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/cronosfoxelite/avatar.png",
+        "card": "/img/collections/cronosfoxelite/card.jpg",
+        "banner": "/img/collections/cronosfoxelite/banner.png",
+        "maxSupply": 250
+      }
+    },
+    {
+      "name": "Cronos Rocks",
+      "multiToken": false,
+      "address": "0xf8e63021C3d757b63eb53a9124271251A964D572",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "cronos-rocks",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/cronosrocks/avatar.png",
+        "card": "/img/collections/cronosrocks/card.png",
+        "banner": "/img/collections/cronosrocks/banner.png",
+        "maxSupply": 100,
+        "twitter": "https://twitter.com/CronosRocksNFT",
+        "website": "https://www.cronosrocks.com/",
+        "discord": "https://discord.com/invite/UtdADzxM6j"
+      }
+    },
+    {
+      "name": "Crayon Ape Art Club",
+      "multiToken": false,
+      "address": "0xd1063F12356eCb45f396776B05286c7B9F98AEB5",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "crayon-ape-art-club",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/crayonartapeclub/avatar.gif",
+        "card": "/img/collections/crayonartapeclub/card.png",
+        "banner": "/img/collections/crayonartapeclub/banner.png",
+        "maxSupply": 2750,
+        "twitter": "https://twitter.com/CrayonApe",
+        "website": "https://crayon-ape.com/",
+        "discord": "https://discord.gg/JDXQp85yNh"
+      }
+    },
+    {
+      "name": "Majestic Minotaurs",
+      "multiToken": false,
+      "address": "0xfE52ebb3aDb92CBA733B8DD3342DaAbf67A250a3",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "majestic-minotaurs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/majesticminotaurs/avatar.png",
+        "card": "/img/collections/majesticminotaurs/card.png",
+        "banner": "/img/collections/majesticminotaurs/banner.png",
+        "maxSupply": 2100,
+        "twitter": "https://twitter.com/Minotaur_Money",
+        "website": "https://minotaur.money/#/nfts",
+        "discord": "https://discord.gg/km7f7WDK4w",
+        "medium": "https://minotaurmoney.medium.com/",
+        "telegram": "https://t.me/MinotaurMoney"
       }
     }
   ],
@@ -2530,7 +2609,7 @@
       "title": "Dodger Dogs",
       "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
       "description": "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
-      "author": { "name": "Barbara", "link": "https://www.instagram.com/im_barbara_redekop/" },
+      "author": { "name": "Barbara", "link": "https://discord.gg/XrhWf2SppB" },
       "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
       "maxMintPerTx": 5,
       "maxMintPerAddress": 200,
