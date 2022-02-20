@@ -113,15 +113,16 @@ export const fetchListings = () => async (dispatch, getState) => {
   const state = getState();
 
   dispatch(listingsLoading());
-  const response = await sortAndFetchListings(
+  const { response, cancelled } = await sortAndFetchListings(
     state.marketplace.curPage + 1,
     state.marketplace.curSort,
     state.marketplace.curFilter
   );
 
-  response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
-
-  dispatch(listingsReceived(response));
+  if (!cancelled) {
+    response.hasRank = response.listings.length > 0 && typeof response.listings[0].nft.rank !== 'undefined';
+    dispatch(listingsReceived(response));
+  }
 };
 
 export const filterListings = (filterOption, cacheName) => async (dispatch) => {
