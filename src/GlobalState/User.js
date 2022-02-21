@@ -485,7 +485,8 @@ export const connectAccount =
         })
       );
     } catch (error) {
-      toast.info(`catch error: ${error.message}`);
+      toast.info(`error message:  ${error.message}`);
+      toast.info(`error stack:    ${error.stack}`);
       if (firstRun) {
         dispatch(appAuthInitFinished());
       }

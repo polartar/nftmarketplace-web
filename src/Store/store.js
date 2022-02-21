@@ -17,12 +17,19 @@ import { appInitializeStateReducer } from '../GlobalState/InitSlice';
 import { user } from '../GlobalState/User';
 import { toast } from 'react-toastify';
 
+const actionsToLog = [];
 const toastLogger = (store) => (next) => (action) => {
-  toast.info(action.type, { closeOnClick: true });
+  actionsToLog.push(action);
   let result = next(action);
   return result;
 };
 
+setInterval(() => {
+  if (actionsToLog.length > 0) {
+    toast.info(`${actionsToLog[0].type}`);
+    actionsToLog.shift();
+  }
+}, 1000);
 const rootReducer = combineReducers({
   memberships: memberships,
   cronies: cronies,
