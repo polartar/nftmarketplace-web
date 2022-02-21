@@ -85,23 +85,23 @@
       }
     },
     {
-        "name": "Fobos Whale",
-        "onChain": false,
-        "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
-        "multiToken": true,
-        "id": 3,
-        "listable": true,
-        "metadata": {
-          "slug": "fobos-whale",
-          "description": "",
-          "verified": true,
-          "maxSupply": 1,
-          "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
-          "banner": "/img/collections/barbara/dodgerdogs/banner.png",
-          "website": "https://crypto.com/nft/profile/vredekop?tab=created",
-          "twitter": "https://twitter.com/BarbaraRedekop"
-        }
-      },
+      "name": "Fobos Whale",
+      "onChain": false,
+      "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
+      "multiToken": true,
+      "id": 3,
+      "listable": true,
+      "metadata": {
+        "slug": "fobos-whale",
+        "description": "",
+        "verified": true,
+        "maxSupply": 1,
+        "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
+        "banner": "/img/collections/barbara/dodgerdogs/banner.png",
+        "website": "https://crypto.com/nft/profile/vredekop?tab=created",
+        "twitter": "https://twitter.com/BarbaraRedekop"
+      }
+    },
     {
       "name": "Ebisu's Bay Founder",
       "onChain": false,
