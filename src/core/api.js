@@ -845,6 +845,36 @@ export async function getNftFromFile(collectionId, nftId) {
   }
 }
 
+export async function getNftRankings(contractAddress, nftIds) {
+  const commaIds = [].concat(nftIds).join(',');
+
+  let query = {
+    collection: contractAddress,
+    tokenId: commaIds
+  };
+
+  const queryString = new URLSearchParams(query);
+  const url = new URL(api.nft, `${api.baseUrl}`);
+  const response = await fetch(`${url}?${queryString}`);
+  let json = await response.json();
+
+  if (json.data) {
+    return json.data.map(o => {
+      return {
+        id: o.nft?.nftId ?? 0,
+        rank: o.nft?.rank ?? 0
+      }
+    })
+  } else if (json.nft) {
+    return [{
+      id: json.nft.nftId,
+      rank: json.nft.rank
+    }];
+  } else {
+    return [];
+  }
+}
+
 export async function sortAndFetchAuctions(page) {
   const url = new URL(api.auctions, `${api.baseUrl}`);
   return await (await fetch(url)).json();
