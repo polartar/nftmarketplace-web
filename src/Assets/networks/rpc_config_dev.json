@@ -1324,7 +1324,7 @@
       "multiToken": false,
       "address": "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "icysquidgame-vikings",
         "description": "",
