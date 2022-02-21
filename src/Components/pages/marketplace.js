@@ -24,7 +24,7 @@ const Marketplace = () => {
     return state.marketplace.marketData;
   });
 
-  const [openMenu, setOpenMenu] = React.useState(0);
+  // const [openMenu, setOpenMenu] = React.useState(0);
   const handleBtnClick = (index) => (element) => {
     var elements = document.querySelectorAll('.tab');
     for (var i = 0; i < elements.length; i++) {
@@ -32,7 +32,7 @@ const Marketplace = () => {
     }
     element.target.parentElement.classList.add('active');
 
-    setOpenMenu(index);
+    // setOpenMenu(index);
   };
 
   useEffect(async function () {

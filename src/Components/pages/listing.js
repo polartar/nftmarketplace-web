@@ -50,7 +50,7 @@ const Listing = () => {
   });
 
   const [openCheckout, setOpenCheckout] = React.useState(false);
-  const [buying, setBuying] = useState(false);
+  // const [buying, setBuying] = useState(false);
   const [croCrowBreed, setCroCrowBreed] = useState(null);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const Listing = () => {
 
   const showBuy = () => async () => {
     if (user.address) {
-      setBuying(true);
+      // setBuying(true);
       try {
         let price = listing.price;
         if (typeof price === 'string') {
@@ -141,7 +141,7 @@ const Listing = () => {
           toast.error('Unknown Error');
         }
       } finally {
-        setBuying(false);
+        // setBuying(false);
       }
     } else {
       if (user.needsOnboard) {
