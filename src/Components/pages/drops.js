@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// import LatestDropsCollection from '../components/LatestDropsCollection';
 import DropsCarousel from '../components/DropsCarousel';
+// import LatestDropsCollection from '../components/LatestDropsCollection';
 // import HotCollections from '../components/HotCollections';
 import CurrentDrops from '../components/CurrentDrops';
 import Footer from '../components/Footer';
