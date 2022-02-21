@@ -482,7 +482,13 @@ export const connectAccount =
         })
       );
     } catch (error) {
-      captureException(error, { extra: { firstRun } });
+      captureException(error, {
+        extra: {
+          firstRun,
+          WEB3_CONNECT_CACHED_PROVIDER: localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'),
+          DeFiLink_session_storage_extension: localStorage.getItem('DeFiLink_session_storage_extension'),
+        },
+      });
       if (firstRun) {
         dispatch(appAuthInitFinished());
       }
