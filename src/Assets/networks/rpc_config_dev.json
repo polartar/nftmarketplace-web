@@ -1956,7 +1956,28 @@
         "medium": "https://minotaurmoney.medium.com/",
         "telegram": "https://t.me/MinotaurMoney"
       }
-    }
+    },
+    {
+        "name": "Looters",
+        "multiToken": false,
+        "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
+        "onChain": false,
+        "listable": true,
+        "metadata": {
+          "slug": "looters",
+          "description": "",
+          "verified": true,
+          "avatar": "/img/collections/looters/avatar.png",
+          "card": "/img/collections/looters/card.png",
+          "banner": "/img/collections/looters/banner.png",
+          "maxSupply": 1111,
+          "twitter": "https://twitter.com/LootNetwork_",
+          "website": "https://lootpad.io/",
+          "discord": "https://discord.gg/lootnetwork",
+          "medium": "https://medium.com/@Loot_Network",
+          "telegram": "https://t.me/loot_network"
+        }
+      }
   ],
   "drops": [
     {
