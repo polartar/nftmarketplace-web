@@ -1957,7 +1957,28 @@
         "medium": "https://minotaurmoney.medium.com/",
         "telegram": "https://t.me/MinotaurMoney"
       }
-    }
+    },
+    {
+        "name": "Looters",
+        "multiToken": false,
+        "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
+        "onChain": false,
+        "listable": true,
+        "metadata": {
+          "slug": "looters",
+          "description": "",
+          "verified": true,
+          "avatar": "/img/collections/looters/avatar.png",
+          "card": "/img/collections/looters/card.png",
+          "banner": "/img/collections/looters/banner.png",
+          "maxSupply": 1111,
+          "twitter": "https://twitter.com/LootNetwork_",
+          "website": "https://lootpad.io/",
+          "discord": "https://discord.gg/lootnetwork",
+          "medium": "https://medium.com/@Loot_Network",
+          "telegram": "https://t.me/loot_network"
+        }
+      }
   ],
   "drops": [
     {
@@ -2593,6 +2614,31 @@
       "video": "https://app.ebisusbay.com/files/crobots/trailer.mp4"
     },
     {
+      "id": 21,
+      "slug": "trooprz",
+      "imgNft": "/img/drops/trooprz/drop.gif",
+      "imgPreview": "/img/drops/trooprz/drop.gif",
+      "imgAvatar": "/img/collections/trooprz/avatar.gif",
+      "title": "Trooprz",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "Trooprz", "link": "https://trooprz.army/mint" },
+      "address": "",
+      "maxMintPerTx": 0,
+      "maxMintPerAddress": 0,
+      "totalSupply": 0,
+      "cost": "250",
+      "foundersOnly": false,
+      "start": 1644015600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false,
+      "featured": true,
+      "redirect": "https://trooprz.army/mint"
+    },
+    {
       "id": 22,
       "slug": "dodger-dogs",
       "imgNft": "/img/drops/barbara/dodgerdogs/drop.gif",
@@ -2680,7 +2726,7 @@
       "imgBanner": "/img/drops/hypeddogs/banner.png",
       "title": "The HD: Hyped Dogs",
       "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
-      "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, itâ€™s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
+      "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, it's your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
       "author": { "name": "Hyped Dogs", "link": "https://www.hypednftclub.com/hypeddog" },
       "address": "0xD97A5ed8d1f5943085F7eFADC8e46415F5b7deDD",
       "maxMintPerTx": 7,
