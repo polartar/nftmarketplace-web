@@ -15,21 +15,7 @@ import collectionsReducer from '../GlobalState/collectionsSlice';
 import collectionReducer from '../GlobalState/collectionSlice';
 import { appInitializeStateReducer } from '../GlobalState/InitSlice';
 import { user } from '../GlobalState/User';
-import { toast } from 'react-toastify';
 
-const actionsToLog = [];
-const toastLogger = (store) => (next) => (action) => {
-  actionsToLog.push(action);
-  let result = next(action);
-  return result;
-};
-
-setInterval(() => {
-  if (actionsToLog.length > 0) {
-    toast.info(`${actionsToLog[0].type}`);
-    actionsToLog.shift();
-  }
-}, 1000);
 const rootReducer = combineReducers({
   memberships: memberships,
   cronies: cronies,
@@ -46,7 +32,7 @@ const rootReducer = combineReducers({
 
 const reduxDevToolsComposeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const sentryEnhancedMiddlewares = applyMiddleware(thunk, createSentryMiddleware(Sentry, {}), toastLogger);
+const sentryEnhancedMiddlewares = applyMiddleware(thunk, createSentryMiddleware(Sentry, {}));
 
 const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_DEVTOOLS === 'true';
 

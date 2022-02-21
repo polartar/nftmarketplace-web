@@ -17,6 +17,7 @@ import { createSuccessfulTransactionToastContent } from '../utils';
 import { FilterOption } from '../Components/Models/filter-option.model';
 import { nanoid } from 'nanoid';
 import { appAuthInitFinished } from './InitSlice';
+import { captureException } from '@sentry/react';
 
 const userSlice = createSlice({
   name: 'user',
@@ -356,6 +357,7 @@ export const connectAccount =
       .connect()
       .then((web3provider) => web3provider)
       .catch((error) => {
+        captureException(error, { extra: { firstRun } });
         console.log('Could not get a wallet connection', error);
         return null;
       });
@@ -406,28 +408,23 @@ export const connectAccount =
       }
 
       web3provider.on('DeFiConnectorDeactivate', (error) => {
-        toast.info('DeFiConnectorDeactivate');
         dispatch(onLogout());
       });
 
       web3provider.on('disconnect', (error) => {
-        toast.info('disconnect');
         dispatch(onLogout());
       });
 
       web3provider.on('accountsChanged', (accounts) => {
-        toast.info('accountsChanged');
         dispatch(onLogout());
         dispatch(connectAccount());
       });
 
       web3provider.on('DeFiConnectorUpdate', (accounts) => {
-        toast.info('DeFiConnectorUpdate');
         window.location.reload();
       });
 
       web3provider.on('chainChanged', (chainId) => {
-        toast.info('chainChanged');
         // Handle the new chain.
         // Correctly handling chain changes can be complicated.
         // We recommend reloading the page unless you have good reason not to.
@@ -485,8 +482,7 @@ export const connectAccount =
         })
       );
     } catch (error) {
-      toast.info(`error message:  ${error.message}`);
-      toast.info(`error stack:    ${error.stack}`);
+      captureException(error, { extra: { firstRun } });
       if (firstRun) {
         dispatch(appAuthInitFinished());
       }
