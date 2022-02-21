@@ -384,7 +384,9 @@ export const connectAccount =
       const signer = provider.getSigner();
 
       if (!correctChain) {
-        dispatch(appAuthInitFinished());
+        if (firstRun) {
+          dispatch(appAuthInitFinished());
+        }
         await dispatch(setShowWrongChainModal(true));
       }
 
@@ -475,6 +477,9 @@ export const connectAccount =
         })
       );
     } catch (error) {
+      if (firstRun) {
+        dispatch(appAuthInitFinished());
+      }
       console.log(error);
       console.log('Error connecting wallet!');
       await web3Modal.clearCachedProvider();
