@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
 import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
 import TopFilterBar from '../components/TopFilterBar';
-import { useParams } from 'react-router-dom';
 import { sortOptions } from '../components/constants/sort-options';
 import { SortOption } from '../Models/sort-option.model';
-import { useDispatch, useSelector } from 'react-redux';
 import { sortListings } from '../../GlobalState/marketplaceSlice';
 
 const GlobalStyles = createGlobalStyle`
@@ -45,7 +46,7 @@ const Seller = () => {
 
       <section
         className="jumbotron breadcumb no-bg"
-        style={{ backgroundImage: `url(${'/img/background/subheader.jpg'})` }}
+        style={{ backgroundImage: `url(${'/img/background/subheader-blue.webp'})` }}
       >
         <div className="mainbreadcumb">
           <div className="container">

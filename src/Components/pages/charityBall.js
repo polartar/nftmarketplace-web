@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { keyframes } from '@emotion/react';
+// import Reveal from 'react-awesome-reveal';
+// import Countdown from 'react-countdown';
 
 import Footer from '../components/Footer';
-import Reveal from 'react-awesome-reveal';
-import Countdown from 'react-countdown';
-import config from '../../Assets/networks/rpc_config.json';
-import { keyframes } from '@emotion/react';
 import AuctionCollection from '../components/AuctionCollection';
 import CharityBallCarousel from '../components/CharityBallCarousel';
-import DropsCarousel from '../components/DropsCarousel';
+// import DropsCarousel from '../components/DropsCarousel';
+import config from '../../Assets/networks/rpc_config.json';
+
 export const drops = config.drops;
 
 const statuses = {
@@ -55,7 +56,7 @@ const CharityBall = () => {
 
   return (
     <div>
-      <section className="jumbotron breadcumb no-bg" style={{ backgroundImage: `url(${'./img/background/12.jpg'})` }}>
+      <section className="jumbotron breadcumb no-bg" style={{ backgroundImage: `url(${'./img/background/12.webp'})` }}>
         <div className="container pt0 pt-3">
           <div className="row">
             <CharityBallCarousel />

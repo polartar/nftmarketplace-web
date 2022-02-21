@@ -1,14 +1,14 @@
 import React, { memo, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { getAnalytics, logEvent } from '@firebase/analytics';
 
 import Footer from '../components/Footer';
-import { Redirect } from 'react-router-dom';
 import NftCardList from '../components/MyNftCardList';
 import MyNftTransferDialog from '../components/MyNftTransferDialog';
 import MyNftCancelDialog from '../components/MyNftCancelDialog';
 import MyNftListDialog from '../components/MyNftListDialog';
 import { fetchNfts } from '../../GlobalState/User';
-import { getAnalytics, logEvent } from '@firebase/analytics';
 
 const mapStateToProps = (state) => ({
   walletAddress: state.user.address,
@@ -35,7 +35,7 @@ const MyNfts = ({ walletAddress }) => {
     <div>
       <section
         className="jumbotron breadcumb no-bg tint"
-        style={{ backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition: 'bottom' }}
+        style={{ backgroundImage: `url(${'/img/background/Ebisu-DT-Header.webp'})`, backgroundPosition: 'bottom' }}
       >
         <div className="mainbreadcumb">
           <div className="container">

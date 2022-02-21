@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Footer from '../components/Footer';
-import { Redirect } from 'react-router-dom';
 import MyListingsCollection from '../components/MyListingsCollection';
 
 const MyListings = () => {
@@ -12,7 +12,7 @@ const MyListings = () => {
     <>
       <section
         className="jumbotron breadcumb no-bg tint"
-        style={{ backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition: 'bottom' }}
+        style={{ backgroundImage: `url(${'/img/background/Ebisu-DT-Header.webp'})`, backgroundPosition: 'bottom' }}
       >
         <div className="mainbreadcumb">
           <div className="container">
