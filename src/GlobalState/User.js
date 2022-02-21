@@ -361,6 +361,7 @@ export const connectAccount =
       });
 
     if (!web3provider) {
+      toast.info('web3provider is null');
       dispatch(onLogout());
       return;
     }
@@ -400,26 +401,33 @@ export const connectAccount =
           correctChain: correctChain,
         })
       );
-      dispatch(appAuthInitFinished());
+      if (firstRun) {
+        dispatch(appAuthInitFinished());
+      }
 
       web3provider.on('DeFiConnectorDeactivate', (error) => {
+        toast.info('DeFiConnectorDeactivate');
         dispatch(onLogout());
       });
 
       web3provider.on('disconnect', (error) => {
+        toast.info('disconnect');
         dispatch(onLogout());
       });
 
       web3provider.on('accountsChanged', (accounts) => {
+        toast.info('accountsChanged');
         dispatch(onLogout());
         dispatch(connectAccount());
       });
 
       web3provider.on('DeFiConnectorUpdate', (accounts) => {
+        toast.info('DeFiConnectorUpdate');
         window.location.reload();
       });
 
       web3provider.on('chainChanged', (chainId) => {
+        toast.info('chainChanged');
         // Handle the new chain.
         // Correctly handling chain changes can be complicated.
         // We recommend reloading the page unless you have good reason not to.
@@ -477,6 +485,7 @@ export const connectAccount =
         })
       );
     } catch (error) {
+      toast.info('catch error');
       if (firstRun) {
         dispatch(appAuthInitFinished());
       }
