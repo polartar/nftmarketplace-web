@@ -1993,8 +1993,8 @@
     {
       "id": 1,
       "slug": "founding-member",
-      "imgNft": "/img/drops/founding_member/founding_member.webp",
-      "imgPreview": "/img/drops/founding_member/founding_member.webp",
+      "imgNft": "/img/drops/founding_member/founding_member_sm.png",
+      "imgPreview": "/img/drops/founding_member/founding_member_sm.png",
       "imgAvatar": "/img/avatar.jpg",
       "title": "Founding Member",
       "subtitle": "Early access to features and reduced fees forever.",
