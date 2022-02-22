@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/Footer';
@@ -9,9 +9,6 @@ import TopFilterBar from '../components/TopFilterBar';
 import { sortOptions } from '../components/constants/sort-options';
 import { SortOption } from '../Models/sort-option.model';
 import { sortListings } from '../../GlobalState/marketplaceSlice';
-
-const GlobalStyles = createGlobalStyle`
-`;
 
 const Seller = () => {
   const cacheName = 'sellerPage';
@@ -42,7 +39,10 @@ const Seller = () => {
 
   return (
     <div>
-      <GlobalStyles />
+      <Helmet>
+        <title>Seller | Ebisu's Bay Marketplace</title>
+        <meta name="description" content="Seller for Ebisu's Bay Marketplace" />
+      </Helmet>
 
       <section
         className="jumbotron breadcumb no-bg"

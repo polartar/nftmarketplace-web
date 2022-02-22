@@ -11,6 +11,7 @@ import { Form, ProgressBar, Spinner } from 'react-bootstrap';
 import ReactPlayer from 'react-player';
 import * as Sentry from '@sentry/react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
@@ -430,6 +431,10 @@ const Drop = () => {
   return (
     <div>
       <>
+        <Helmet>
+          <title>Drop | Ebisu's Bay Marketplace</title>
+          <meta name="description" content="Drop for Ebisu's Bay Marketplace" />
+        </Helmet>
         <HeroSection
           className={`jumbotron h-vh tint`}
           style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.webp'})` }}
