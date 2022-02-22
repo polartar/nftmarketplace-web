@@ -1964,7 +1964,7 @@
       "multiToken": false,
       "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
       "onChain": false,
-      "listable": true,
+      "listable": false,
       "metadata": {
         "slug": "creatures",
         "description": "",

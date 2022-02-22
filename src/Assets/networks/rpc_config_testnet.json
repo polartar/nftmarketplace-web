@@ -340,6 +340,25 @@
         "discord": "https://discord.gg/thelaboratory",
         "medium": "https://medium.com/@TheLaboratoryIO"
       }
+    },
+    {
+      "name": "Creatures",
+      "multiToken": false,
+      "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "creatures",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/creatures/avatar.jpg",
+        "card": "/img/collections/creatures/card.png",
+        "banner": "/img/collections/creatures/banner.png",
+        "maxSupply": 4444,
+        "twitter": "https://twitter.com/creaturesxcl",
+        "website": "https://www.cultcreatures.xyz/",
+        "discord": "https://discord.gg/creaturegang"
+      }
     }
   ],
   "drops": [
@@ -801,6 +820,31 @@
       "whitelistCost": "5",
       "foundersOnly": false,
       "start": 1639591200000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 26,
+      "slug": "creatures",
+      "imgNft": "/img/drops/creatures/drop.gif",
+      "imgPreview": "/img/drops/creatures/drop.gif",
+      "imgAvatar": "/img/collections/creatures/avatar.jpg",
+      "imgBanner": "/img/collections/creatures/banner.png",
+      "title": "Creatures",
+      "subtitle": "A COLLECTION OF CREATURES THAT UNLOCK AN IMMERSIVE MUSIC & METAVERSE EXPERIENCE",
+      "description": "Creatures by Cult Leader is a 9,999 generative PFP project that unlocks an immersive music & metaverse experience. Before the initial drop, the teams focus has been building community, creating strategic partnerships, and developing the metaverse to deliver high value and a successful start for the creature community.",
+      "author": { "name": "Creatures", "link": "https://www.cultcreatures.xyz/" },
+      "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+      "maxMintPerTx": 9,
+      "maxMintPerAddress": 49,
+      "totalSupply": 4444,
+      "cost": "444",
+      "memberCost": "333",
+      "foundersOnly": false,
+      "start": 1645570800000,
       "end": null,
       "referral": false,
       "is1155": false,
