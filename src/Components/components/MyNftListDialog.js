@@ -39,12 +39,15 @@ const mapStateToProps = (state) => ({
 const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog }) => {
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    if (myNftPageListDialog) {
-      await showListDialog();
-    } else {
-      setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
+  useEffect(() => {
+    async function asyncFunc() {
+      if (myNftPageListDialog) {
+        await showListDialog();
+      } else {
+        setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
+      }
     }
+    asyncFunc();
   }, [myNftPageListDialog]);
 
   const [salePrice, setSalePrice] = useState(null);
@@ -87,7 +90,7 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
       console.log(myNftPageListDialog);
       const marketContractAddress = marketContract.address;
 
-      const { contract, id, image, name, address } = myNftPageListDialog;
+      const { contract, /*id, image, name,*/ address } = myNftPageListDialog;
 
       const fees = await marketContract.fee(walletAddress);
       const royalties = await marketContract.royalties(address);
@@ -118,7 +121,7 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
   const listDialogSetApprovalForAllStep = async () => {
     try {
       const marketContractAddress = marketContract.address;
-      const { contract, id, image, name, address } = myNftPageListDialog;
+      const { contract } = myNftPageListDialog;
 
       const tx = await contract.setApprovalForAll(marketContractAddress, true);
       await tx.wait();
@@ -139,7 +142,7 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
   };
 
   const listDialogConfirmListingStep = async () => {
-    const { contract, id, image, name, address } = myNftPageListDialog;
+    const { contract } = myNftPageListDialog;
 
     const nftId = myNftPageListDialog.id;
 

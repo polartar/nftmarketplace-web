@@ -232,7 +232,7 @@ export default class Responsive extends Component {
                             <div className="subtitle">
                               {drop.author.link && (
                                 <span className="profile_username">
-                                  <a href={drop.author.link} target="_blank">
+                                  <a href={drop.author.link} target="_blank" rel="noreferrer">
                                     View Website
                                   </a>
                                 </span>

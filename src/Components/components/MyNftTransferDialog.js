@@ -33,7 +33,7 @@ const MyNftTransferDialog = ({ walletAddress, myNftPageTransferDialog }) => {
 
   const [transferAddress, setTransferAddress] = useState(null);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!myNftPageTransferDialog) {
       setTransferAddress(null);
     }

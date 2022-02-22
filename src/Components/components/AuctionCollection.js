@@ -66,6 +66,7 @@ const AuctionCollection = ({ showLoadMore = true, collectionId = null, sellerId 
     }
     dispatch(init(sort, filter));
     dispatch(fetchListings());
+    // eslint-disable-next-line
   }, [dispatch]);
 
   // const loadMore = () => {

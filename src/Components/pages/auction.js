@@ -152,7 +152,7 @@ const Auction = () => {
                                   <div>{newlineText(charityMetadata.description)}</div>
                                   <p>
                                     Donate directly at{' '}
-                                    <a href={charityMetadata.link} target="_blank" className="fw-bold">
+                                    <a href={charityMetadata.link} target="_blank" rel="noreferrer" className="fw-bold">
                                       {charityMetadata.link}
                                     </a>
                                   </p>

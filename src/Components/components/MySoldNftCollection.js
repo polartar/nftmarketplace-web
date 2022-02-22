@@ -6,9 +6,9 @@ import { getAnalytics, logEvent } from '@firebase/analytics';
 import SoldNftCard from './SoldNftCard';
 import InvalidListingsPopup from './InvalidListingsPopup';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import HiddenCard from './HiddenCard';
-import ListingCard from './ListingCard';
-import { fetchListings } from '../../GlobalState/marketplaceSlice';
+// import HiddenCard from './HiddenCard';
+// import ListingCard from './ListingCard';
+// import { fetchListings } from '../../GlobalState/marketplaceSlice';
 
 const MySoldNftCollection = ({ walletAddress = null }) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const MySoldNftCollection = ({ walletAddress = null }) => {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(clearMySales());
     dispatch(fetchSales(walletAddress));
   }, [walletAddress]);
