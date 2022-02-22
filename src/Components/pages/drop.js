@@ -237,6 +237,10 @@ const Drop = () => {
   };
 
   const calculateCost = async (user, isErc20) => {
+    if (isCreaturesDrop(drop.address)) {
+      return ethers.utils.parseEther(dropObject.memberCost);
+    }
+
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
       let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
       if (abi.find((m) => m.name === 'cost')) {
