@@ -1939,26 +1939,45 @@
       }
     },
     {
-        "name": "Looters",
-        "multiToken": false,
-        "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
-        "onChain": false,
-        "listable": true,
-        "metadata": {
-          "slug": "looters",
-          "description": "",
-          "verified": true,
-          "avatar": "/img/collections/looters/avatar.png",
-          "card": "/img/collections/looters/card.png",
-          "banner": "/img/collections/looters/banner.png",
-          "maxSupply": 1111,
-          "twitter": "https://twitter.com/LootNetwork_",
-          "website": "https://lootpad.io/",
-          "discord": "https://discord.gg/lootnetwork",
-          "medium": "https://medium.com/@Loot_Network",
-          "telegram": "https://t.me/loot_network"
-        }
+      "name": "Looters",
+      "multiToken": false,
+      "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "looters",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/looters/avatar.png",
+        "card": "/img/collections/looters/card.png",
+        "banner": "/img/collections/looters/banner.png",
+        "maxSupply": 1111,
+        "twitter": "https://twitter.com/LootNetwork_",
+        "website": "https://lootpad.io/",
+        "discord": "https://discord.gg/lootnetwork",
+        "medium": "https://medium.com/@Loot_Network",
+        "telegram": "https://t.me/loot_network"
       }
+    },
+    {
+      "name": "Creatures",
+      "multiToken": false,
+      "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "creatures",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/creatures/avatar.jpg",
+        "card": "/img/collections/creatures/card.png",
+        "banner": "/img/collections/creatures/banner.png",
+        "maxSupply": 4444,
+        "twitter": "https://twitter.com/creaturesxcl",
+        "website": "https://www.cultcreatures.xyz/",
+        "discord": "https://discord.gg/creaturegang"
+      }
+    }
   ],
   "drops": [
     {
@@ -1991,8 +2010,8 @@
     {
       "id": 1,
       "slug": "founding-member",
-      "imgNft": "/img/drops/founding_member/founding_member.webp",
-      "imgPreview": "/img/drops/founding_member/founding_member.webp",
+      "imgNft": "/img/drops/founding_member/founding_member_sm.png",
+      "imgPreview": "/img/drops/founding_member/founding_member_sm.png",
       "imgAvatar": "/img/avatar.jpg",
       "title": "Founding Member",
       "subtitle": "Early access to features and reduced fees forever.",
@@ -2717,6 +2736,31 @@
       "whitelistCost": "150",
       "foundersOnly": false,
       "start": 1645380000000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 26,
+      "slug": "creatures",
+      "imgNft": "/img/drops/creatures/drop.gif",
+      "imgPreview": "/img/drops/creatures/drop.gif",
+      "imgAvatar": "/img/collections/creatures/avatar.jpg",
+      "imgBanner": "/img/collections/creatures/banner.png",
+      "title": "Creatures",
+      "subtitle": "A COLLECTION OF CREATURES THAT UNLOCK AN IMMERSIVE MUSIC & METAVERSE EXPERIENCE",
+      "description": "Creatures by Cult Leader is a 9,999 generative PFP project that unlocks an immersive music & metaverse experience. Before the initial drop, the teams focus has been building community, creating strategic partnerships, and developing the metaverse to deliver high value and a successful start for the creature community.",
+      "author": { "name": "Creatures", "link": "https://www.cultcreatures.xyz/" },
+      "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
+      "maxMintPerTx": 9,
+      "maxMintPerAddress": 49,
+      "totalSupply": 4444,
+      "cost": "444",
+      "memberCost": "333",
+      "foundersOnly": false,
+      "start": 1645570800000,
       "end": null,
       "referral": false,
       "is1155": false,

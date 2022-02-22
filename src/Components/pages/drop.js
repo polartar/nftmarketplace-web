@@ -188,7 +188,7 @@ const Drop = () => {
           setMemberCost(ethers.utils.formatEther(infos.memberCost));
           setRegularCost(ethers.utils.formatEther(infos.regularCost));
           setTotalSupply(infos.totalSupply);
-          setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
+          if (infos.whitelistCost) setWhitelistCost(ethers.utils.formatEther(infos.whitelistCost));
           setCanMintQuantity(canMint);
           calculateStatus(currentDrop, infos.totalSupply, infos.maxSupply);
         } else {
