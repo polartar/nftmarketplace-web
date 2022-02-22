@@ -340,6 +340,25 @@
         "discord": "https://discord.gg/thelaboratory",
         "medium": "https://medium.com/@TheLaboratoryIO"
       }
+    },
+    {
+      "name": "Creatures",
+      "multiToken": false,
+      "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "creatures",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/creatures/avatar.jpg",
+        "card": "/img/collections/creatures/card.png",
+        "banner": "/img/collections/creatures/banner.png",
+        "maxSupply": 4444,
+        "twitter": "https://twitter.com/creaturesxcl",
+        "website": "https://www.cultcreatures.xyz/",
+        "discord": "https://discord.gg/creaturegang"
+      }
     }
   ],
   "drops": [
@@ -825,7 +844,7 @@
       "cost": "444",
       "memberCost": "333",
       "foundersOnly": false,
-      "start": 1635570800000,
+      "start": 1645570800000,
       "end": null,
       "referral": false,
       "is1155": false,
