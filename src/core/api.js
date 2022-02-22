@@ -9,6 +9,7 @@ import moment from 'moment';
 import { SortOption } from '../Components/Models/sort-option.model';
 
 import { FilterOption } from '../Components/Models/filter-option.model';
+import {isMetapixelsCollection} from "../utils";
 
 const gatewayTools = new IPFSGatewayTools();
 const gateway = 'https://mygateway.mypinata.cloud';
@@ -143,6 +144,9 @@ export async function getListing(listingId) {
     var rawListing = await (await fetch(uri)).json();
 
     rawListing = rawListing['listings'][0];
+    
+    const isMetaPixels = isMetapixelsCollection(rawListing['nftAddress']);
+
     const listing = {
       listingId: rawListing['listingId'],
       nftId: rawListing['nftId'],
@@ -158,6 +162,8 @@ export async function getListing(listingId) {
       endingTime: rawListing['endingTime'],
       royalty: rawListing['royalty'],
       nft: rawListing['nft'],
+      useIframe: isMetaPixels,
+      iframeSource: isMetaPixels ? `https://www.metaversepixels.app/grid?id=${rawListing['nftId']}&zoom=3` : null
     };
     return listing;
   } catch (error) {
@@ -247,10 +253,7 @@ export async function getNftsForAddress(walletAddress, walletProvider, onNftLoad
         try {
           const address = knownContract.address;
           const listable = knownContract.listable;
-          const isMetaPixels =
-            (
-              (knownContracts.find((knownContract) => knownContract.name === 'MetaPixels') ?? {}).address ?? ''
-            ).toLowerCase() === address.toLowerCase();
+          const isMetaPixels = isMetapixelsCollection(address);
 
           if (knownContract.multiToken) {
             const listed = !!getListing(address, knownContract.id);
@@ -743,10 +746,7 @@ export async function getNft(collectionId, nftId, useFallback = true) {
 
 export async function getNftFromFile(collectionId, nftId) {
   try {
-    const isMetaPixels =
-      (
-        (knownContracts.find((knownContract) => knownContract.name === 'MetaPixels') ?? {}).address ?? ''
-      ).toLowerCase() === collectionId.toLowerCase();
+    const isMetaPixels = isMetapixelsCollection(collectionId);
 
     let nft;
     try {
@@ -842,6 +842,36 @@ export async function getNftFromFile(collectionId, nftId) {
   } catch (error) {
     console.log(error);
     Sentry.captureException(error);
+  }
+}
+
+export async function getNftRankings(contractAddress, nftIds) {
+  const commaIds = [].concat(nftIds).join(',');
+
+  let query = {
+    collection: contractAddress,
+    tokenId: commaIds
+  };
+
+  const queryString = new URLSearchParams(query);
+  const url = new URL(api.nft, `${api.baseUrl}`);
+  const response = await fetch(`${url}?${queryString}`);
+  let json = await response.json();
+
+  if (json.data) {
+    return json.data.map(o => {
+      return {
+        id: o.nft?.nftId ?? 0,
+        rank: o.nft?.rank ?? 0
+      }
+    })
+  } else if (json.nft) {
+    return [{
+      id: json.nft.nftId,
+      rank: json.nft.rank
+    }];
+  } else {
+    return [];
   }
 }
 

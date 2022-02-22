@@ -294,6 +294,10 @@ export const isCroCrowCollection = (address) => {
   return isCollection(address, 'cro-crow');
 };
 
+export const isMetapixelsCollection = (address) => {
+  return isCollection(address, 'metapixels');
+};
+
 export const percentage = (partialValue, totalValue) => {
   if (!totalValue || totalValue === 0) return 0;
   return Math.round((100 * partialValue) / totalValue);
@@ -307,3 +311,12 @@ export const relativePrecision = (num) => {
   }
   return Math.round(num * 100);
 };
+
+export const sliceIntoChunks = (arr, chunkSize) => {
+  const res = [];
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    const chunk = arr.slice(i, i + chunkSize);
+    res.push(chunk);
+  }
+  return res;
+}

@@ -1054,25 +1054,6 @@
       }
     },
     {
-      "name": "Crognomes (v1)",
-      "multiToken": false,
-      "address": "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
-      "onChain": false,
-      "listable": false,
-      "metadata": {
-        "slug": "crognomes-v1",
-        "description": "",
-        "verified": true,
-        "avatar": "/img/collections/crognomes/avatar.png",
-        "card": "/img/collections/crognomes/card.png",
-        "banner": "/img/collections/crognomes/banner.png",
-        "maxSupply": 2000,
-        "website": "https://www.crognomes.com/",
-        "twitter": "https://twitter.com/CroGnomes",
-        "discord": "https://discord.gg/WkRgkSQ2hJ"
-      }
-    },
-    {
       "name": "Admiration",
       "multiToken": false,
       "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
@@ -1324,7 +1305,7 @@
       "multiToken": false,
       "address": "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "icysquidgame-vikings",
         "description": "",
@@ -1429,7 +1410,7 @@
       "multiToken": false,
       "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "crognomes",
         "description": "",
@@ -1849,18 +1830,19 @@
       "onChain": false,
       "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
       "multiToken": false,
-      "listable": true,
+      "listable": false,
       "metadata": {
         "slug": "metapixels",
         "description": "",
         "verified": true,
-        "avatar": "",
+        "avatar": "/img/collections/metapixels/avatar.png",
         "card": "",
         "banner": "",
         "maxSupply": 0,
-        "twitter": "",
-        "website": "",
-        "discord": ""
+        "twitter": "https://twitter.com/MetaversePixels",
+        "website": "https://www.metaversepixels.app",
+        "discord": "https://discord.gg/3gA2jnEGPA",
+        "telegram": "https://t.me/metaversepixels"
       }
     },
     {
@@ -1959,26 +1941,45 @@
       }
     },
     {
-        "name": "Looters",
-        "multiToken": false,
-        "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
-        "onChain": false,
-        "listable": true,
-        "metadata": {
-          "slug": "looters",
-          "description": "",
-          "verified": true,
-          "avatar": "/img/collections/looters/avatar.png",
-          "card": "/img/collections/looters/card.png",
-          "banner": "/img/collections/looters/banner.png",
-          "maxSupply": 1111,
-          "twitter": "https://twitter.com/LootNetwork_",
-          "website": "https://lootpad.io/",
-          "discord": "https://discord.gg/lootnetwork",
-          "medium": "https://medium.com/@Loot_Network",
-          "telegram": "https://t.me/loot_network"
-        }
+      "name": "Looters",
+      "multiToken": false,
+      "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "looters",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/looters/avatar.png",
+        "card": "/img/collections/looters/card.png",
+        "banner": "/img/collections/looters/banner.png",
+        "maxSupply": 1111,
+        "twitter": "https://twitter.com/LootNetwork_",
+        "website": "https://lootpad.io/",
+        "discord": "https://discord.gg/lootnetwork",
+        "medium": "https://medium.com/@Loot_Network",
+        "telegram": "https://t.me/loot_network"
       }
+    },
+    {
+      "name": "Creatures",
+      "multiToken": false,
+      "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "creatures",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/creatures/avatar.jpg",
+        "card": "/img/collections/creatures/card.png",
+        "banner": "/img/collections/creatures/banner.png",
+        "maxSupply": 4444,
+        "twitter": "https://twitter.com/creaturesxcl",
+        "website": "https://www.cultcreatures.xyz/",
+        "discord": "https://discord.gg/creaturegang"
+      }
+    }
   ],
   "drops": [
     {
@@ -2011,8 +2012,8 @@
     {
       "id": 1,
       "slug": "founding-member",
-      "imgNft": "/img/drops/founding_member/founding_member.webp",
-      "imgPreview": "/img/drops/founding_member/founding_member.webp",
+      "imgNft": "/img/drops/founding_member/founding_member_sm.png",
+      "imgPreview": "/img/drops/founding_member/founding_member_sm.png",
       "imgAvatar": "/img/avatar.jpg",
       "title": "Founding Member",
       "subtitle": "Early access to features and reduced fees forever.",
@@ -2646,8 +2647,8 @@
       "imgAvatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
       "imgBanner": "/img/collections/barbara/dodgerdogs/banner.png",
       "title": "Dodger Dogs",
-      "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
-      "description": "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 unique and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
+      "subtitle": "\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 legendary and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain.",
+      "description": "DodgerDogs is the first PFP project created by Barbara Redekop. \n\n\"DodgerDogs\" are 1,111 unique, 1,105 algorithmically generated, 2 legendary and 4 customized by Barbara characters from 47 hand-drawn traits with different levels of rarity. No two DodgerDogs are exactly alike, and each one of them can be officially owned by a single person on the blockchain. \n\n Once, on the day when all the traders of the world fainted from the price of bitcoin, Dodger Dog was born. Gifted with unprecedented luck to get out of any troubles and extraordinary spots in honor of his majesty Bitcoin. \n\nBenefits \n-2 follow-up PFPs airdropped to owners withing 6 months. \n-All royalties will be used to buyback DodgerDogs on the market. \n-Physical gifts (cards, t-shirts etc) will be sent to random DodgerDog owners. (winners will be asked to provide personal information necessary for delivery)",
       "author": { "name": "Barbara", "link": "https://discord.gg/XrhWf2SppB" },
       "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
       "maxMintPerTx": 5,
@@ -2737,6 +2738,31 @@
       "whitelistCost": "150",
       "foundersOnly": false,
       "start": 1645380000000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 26,
+      "slug": "creatures",
+      "imgNft": "/img/drops/creatures/drop.gif",
+      "imgPreview": "/img/drops/creatures/drop.gif",
+      "imgAvatar": "/img/collections/creatures/avatar.jpg",
+      "imgBanner": "/img/collections/creatures/banner.png",
+      "title": "Creatures",
+      "subtitle": "A COLLECTION OF CREATURES THAT UNLOCK AN IMMERSIVE MUSIC & METAVERSE EXPERIENCE",
+      "description": "Creatures by Cult Leader is a 9,999 generative PFP project that unlocks an immersive music & metaverse experience. Before the initial drop, the teams focus has been building community, creating strategic partnerships, and developing the metaverse to deliver high value and a successful start for the creature community.",
+      "author": { "name": "Creatures", "link": "https://www.cultcreatures.xyz/" },
+      "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
+      "maxMintPerTx": 9,
+      "maxMintPerAddress": 49,
+      "totalSupply": 4444,
+      "cost": "444",
+      "memberCost": "333",
+      "foundersOnly": false,
+      "start": 1645570800000,
       "end": null,
       "referral": false,
       "is1155": false,

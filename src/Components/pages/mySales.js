@@ -11,10 +11,7 @@ const MySales = () => {
 
   const Content = () => (
     <>
-      <section
-        className="jumbotron breadcumb no-bg tint"
-        style={{ backgroundImage: `url(${'/img/background/Ebisu-DT-Header.webp'})`, backgroundPosition: 'bottom' }}
-      >
+      <section className="jumbotron breadcumb no-bg tint">
         <div className="mainbreadcumb">
           <div className="container">
             <div className="row m-10-hor">
