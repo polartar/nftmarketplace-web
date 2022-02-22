@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-
 import { createGlobalStyle } from 'styled-components';
 import { ethers } from 'ethers';
-import config from '../../Assets/networks/rpc_config.json';
-import AuctionContract from '../../Contracts/Auction.json';
 import { toast } from 'react-toastify';
+
 import { createSuccessfulTransactionToastContent } from '../../utils';
 import CreateAuction from '../Auctions/CreateAuction';
 import ManageAuctionList from '../Auctions/ManageAuctionList';
-
-const GlobalStyles = createGlobalStyle`
-`;
+import config from '../../Assets/networks/rpc_config.json';
+import AuctionContract from '../../Contracts/Auction.json';
 
 const ManageAuctions = () => {
   const user = useSelector((state) => state.user);
@@ -54,7 +51,7 @@ const ManageAuctions = () => {
 
       <section
         className="jumbotron breadcumb no-bg"
-        style={{ backgroundImage: `url(${'/img/background/subheader.jpg'})` }}
+        style={{ backgroundImage: `url(${'/img/background/subheader-blue.webp'})` }}
       >
         <div className="mainbreadcumb">
           <div className="container">

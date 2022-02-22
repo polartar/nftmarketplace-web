@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   apiKey: 'AIzaSyCiMb6y_lx83HmDjfbEWXxe8805ETDbO5Y',
   authDomain: 'ebisusbay.firebaseapp.com',

@@ -11,9 +11,9 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { DeFiWeb3Connector } from 'deficonnect';
 import WalletConnectProvider from '@deficonnect/web3-provider';
 import cdcLogo from '../Assets/cdc_logo.svg';
-import { getNftSalesForAddress, getNftsForAddress, getUnfilteredListingsForAddress } from '../core/api';
+import {getNftRankings, getNftSalesForAddress, getNftsForAddress, getUnfilteredListingsForAddress} from '../core/api';
 import { toast } from 'react-toastify';
-import { createSuccessfulTransactionToastContent } from '../utils';
+import {createSuccessfulTransactionToastContent, sliceIntoChunks} from '../utils';
 import { FilterOption } from '../Components/Models/filter-option.model';
 import { nanoid } from 'nanoid';
 // import { SortOption } from '../Components/Models/sort-option.model';
@@ -604,13 +604,10 @@ export const fetchNfts = () => async (dispatch, getState) => {
     dispatch(fetchingNfts());
     const response = await getNftsForAddress(walletAddress, walletProvider, (nfts) => {
       dispatch(onNftsAdded(nfts));
-      // setInterval(async () => {
-      //     dispatch(onNftsAdded(nfts));
-      // }, 4000);
     });
     dispatch(setIsMember(response.isMember));
+    await addRanksToNfts(dispatch, getState);
     dispatch(nftsFetched());
-
     return;
   }
 
@@ -620,9 +617,50 @@ export const fetchNfts = () => async (dispatch, getState) => {
   });
   dispatch(fetchingNfts());
   dispatch(onNftsReplace(loadedNfts));
+  await addRanksToNfts(dispatch, getState);
   dispatch(setIsMember(response.isMember));
   dispatch(nftsFetched());
 };
+
+const addRanksToNfts = async (dispatch, getState) => {
+  let cSortedNfts = [];
+  let currentStateNfts = getState().user.nfts.slice();
+  for (let i in currentStateNfts) {
+    if (!cSortedNfts[currentStateNfts[i].address]) {
+      cSortedNfts[currentStateNfts[i].address] = [];
+    }
+    cSortedNfts[currentStateNfts[i].address].push({
+      key: i,
+      nft: currentStateNfts[i]
+    });
+  }
+
+  for (let collectionId in cSortedNfts) {
+    const collectionNfts = cSortedNfts[collectionId];
+    const chunks = sliceIntoChunks(collectionNfts, 10);
+    for (let i in chunks) {
+      let cStateNfts = getState().user.nfts.slice();
+      try {
+        const rankedNfts = await getNftRankings(chunks[i][0].nft.address, chunks[i].map(a => a.nft.id));
+        for (let j in rankedNfts) {
+          const nft = rankedNfts[j];
+          const key = chunks[i].find(a => ethers.BigNumber.from(a.nft.id).eq(nft.id))?.key;
+          if (!key){
+            continue;
+          }
+          if (nft.rank) {
+            cStateNfts[key] = Object.assign({rank: nft.rank}, cStateNfts[key]);
+          } else {
+            cStateNfts[key] = Object.assign({rank: 'N/A'}, cStateNfts[key]);
+          }
+        }
+        dispatch(onNftsReplace(cStateNfts));
+      } catch (error) {
+        console.log('error while retrieving chunk for rankings', error);
+      }
+    }
+  }
+}
 
 export const fetchSales = (walletAddress) => async (dispatch, getState) => {
   const state = getState();
@@ -772,7 +810,7 @@ export class MyNftPageActions {
         ? await selectedNft.contract.safeTransferFrom(walletAddress, transferAddress, selectedNft.id, 1, [])
         : await selectedNft.contract.safeTransferFrom(walletAddress, transferAddress, selectedNft.id);
 
-      const receipt = await tx.wait();
+      await tx.wait();
 
       toast.success(`Transfer successful!`);
 

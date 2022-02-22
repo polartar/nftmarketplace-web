@@ -4,11 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Countdown from 'react-countdown';
 import { getAnalytics, logEvent } from '@firebase/analytics';
-import Footer from '../components/Footer';
 import { keyframes } from '@emotion/react';
 import Reveal from 'react-awesome-reveal';
 import { useParams } from 'react-router-dom';
 import { Form, ProgressBar, Spinner } from 'react-bootstrap';
+import ReactPlayer from 'react-player';
+import * as Sentry from '@sentry/react';
+
+import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
 import { connectAccount } from '../../GlobalState/User';
 import { fetchMemberInfo } from '../../GlobalState/Memberships';
@@ -23,10 +26,9 @@ import {
 } from '../../utils';
 // import MintButton from '../Drop/MintButton';
 import { dropState as statuses } from '../../core/api/enums';
-import ReactPlayer from 'react-player';
 // import nft from './nft';
 import { EbisuDropAbi } from '../../Contracts/Abis';
-import * as Sentry from '@sentry/react';
+
 export const drops = config.drops;
 
 const fadeInUp = keyframes`
@@ -409,7 +411,7 @@ const Drop = () => {
       <>
         <section
           className={`jumbotron breadcumb h-vh tint`}
-          style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.jpg'})` }}
+          style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.webp'})` }}
         >
           <div className="container">
             <div className="row align-items-center">
