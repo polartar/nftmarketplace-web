@@ -44,17 +44,17 @@ const fadeInUp = keyframes`
     transform: translateY(0);
   }
 `;
-const inline = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-  .d-inline{
-    display: inline-block;
-   }
-`;
+// const inline = keyframes`
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+//   .d-inline{
+//     display: inline-block;
+//    }
+// `;
 
 const HeroSection = styled.section`
   border-radius: 0;

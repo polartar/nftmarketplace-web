@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
 import Blockies from 'react-blockies';
 import { faCheck, faCircle } from '@fortawesome/free-solid-svg-icons';
-import LayeredIcon from './LayeredIcon';
 import styled from 'styled-components';
+
+import LayeredIcon from './LayeredIcon';
 
 const VerifiedIcon = styled.span`
   font-size: 10px;

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Button, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 const MintButton = ({ mintCallback, maxMintPerTx, numToMint, title, text = 'Mint', isERC20 }) => {

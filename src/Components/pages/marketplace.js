@@ -35,8 +35,9 @@ const Marketplace = () => {
     // setOpenMenu(index);
   };
 
-  useEffect(async function () {
+  useEffect(() => {
     dispatch(getMarketData());
+    // eslint-disable-next-line
   }, []);
 
   const selectDefaultFilterValue = marketplace.cachedFilter[cacheName] ?? FilterOption.default();

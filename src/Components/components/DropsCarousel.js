@@ -55,7 +55,7 @@ const VerifiedIcon = styled.span`
 
 class CustomSlide extends Component {
   render() {
-    const { index, ...props } = this.props;
+    const { ...props } = this.props;
     return <div {...props}></div>;
   }
 }
@@ -207,7 +207,7 @@ export default class Responsive extends Component {
         <Slider {...settings} prevArrow={<PrevArrow />} nextArrow={<NextArrow />}>
           {this.featuredDrops &&
             this.featuredDrops.map((drop, index) => (
-              <CustomSlide className="itm" index={index}>
+              <CustomSlide className="itm" key={index}>
                 <div className="nft__item_lg">
                   <div className="row align-items-center">
                     <div className="col-lg-6">

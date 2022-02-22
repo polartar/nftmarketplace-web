@@ -1,8 +1,20 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import { Contract, ethers } from 'ethers';
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { Spinner } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import Blockies from 'react-blockies';
+import { faCrow, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as Sentry from '@sentry/react';
+
+import ProfilePreview from '../components/ProfilePreview';
+import LayeredIcon from '../components/LayeredIcon';
 import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
 import { getListingDetails, listingUpdated } from '../../GlobalState/listingSlice';
+import { connectAccount, chainConnect } from '../../GlobalState/User';
 import {
   createSuccessfulTransactionToastContent,
   humanize,
@@ -11,24 +23,10 @@ import {
   shortAddress,
   timeSince,
 } from '../../utils';
-import { useParams, Link } from 'react-router-dom';
-import { Contract, ethers } from 'ethers';
-import MetaMaskOnboarding from '@metamask/onboarding';
-import { connectAccount, chainConnect } from '../../GlobalState/User';
-import { Spinner } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import Blockies from 'react-blockies';
 import config from '../../Assets/networks/rpc_config.json';
-import { faCrow, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProfilePreview from '../components/ProfilePreview';
 import { croSkullRedPotionImageHack } from '../../hacks';
-import * as Sentry from '@sentry/react';
-import LayeredIcon from '../components/LayeredIcon';
-const knownContracts = config.known_contracts;
 
-const GlobalStyles = createGlobalStyle`
-`;
+const knownContracts = config.known_contracts;
 
 const Listing = () => {
   const { id } = useParams();
@@ -157,7 +155,6 @@ const Listing = () => {
 
   return (
     <div>
-      <GlobalStyles />
       {isLoading ? (
         <section className="container">
           <div className="row mt-4">

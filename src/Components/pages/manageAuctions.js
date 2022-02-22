@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { createGlobalStyle } from 'styled-components';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
