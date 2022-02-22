@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers, constants } from 'ethers';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { Form, ProgressBar, Spinner } from 'react-bootstrap';
 import ReactPlayer from 'react-player';
 import * as Sentry from '@sentry/react';
+import styled from 'styled-components';
 
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
@@ -24,10 +25,10 @@ import {
   newlineText,
   percentage,
 } from '../../utils';
-// import MintButton from '../Drop/MintButton';
 import { dropState as statuses } from '../../core/api/enums';
-// import nft from './nft';
 import { EbisuDropAbi } from '../../Contracts/Abis';
+// import MintButton from '../Drop/MintButton';
+// import nft from './nft';
 
 export const drops = config.drops;
 
@@ -53,6 +54,26 @@ const inline = keyframes`
   .d-inline{
     display: inline-block;
    }
+`;
+
+const HeroSection = styled.section`
+  border-radius: 0;
+  margin: 0;
+  padding: 0 0;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .h-vh {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+  }
 `;
 
 const Drop = () => {
@@ -402,15 +423,15 @@ const Drop = () => {
     let dateString = `${fullDateString.split(', ')[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`;
     return dateString;
   };
-  const vidRef = useRef(null);
-  const handlePlayVideo = () => {
-    vidRef.current.play();
-  };
+  // const vidRef = useRef(null);
+  // const handlePlayVideo = () => {
+  //   vidRef.current.play();
+  // };
   return (
     <div>
       <>
-        <section
-          className={`jumbotron breadcumb h-vh tint`}
+        <HeroSection
+          className={`jumbotron h-vh tint`}
           style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.webp'})` }}
         >
           <div className="container">
@@ -461,7 +482,7 @@ const Drop = () => {
                   <h1 className="col-white">{drop.title}</h1>
                 </Reveal>
                 <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                  <p className="lead col-white">{newlineText(drop.subtitle)}</p>
+                  <div className="lead col-white">{newlineText(drop.subtitle)}</div>
                 </Reveal>
                 {drop.foundersOnly && (
                   <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
@@ -472,10 +493,15 @@ const Drop = () => {
                 <div className="spacer-10"></div>
               </div>
             </div>
+            <div>
+              <a href="#drop_detail" className="btn-main">
+                View Drop
+              </a>
+            </div>
           </div>
-        </section>
+        </HeroSection>
 
-        <section className="container no-bottom">
+        <section className="container no-bottom" id="drop_detail">
           <div className="row">
             <div className="col-md-12">
               <div className="d_profile de-flex">
@@ -487,7 +513,7 @@ const Drop = () => {
                         {drop.author.name}
                         {drop.author.link && (
                           <span className="profile_username">
-                            <a href={drop.author.link} target="_blank">
+                            <a href={drop.author.link} target="_blank" rel="noreferrer">
                               View Website
                             </a>
                           </span>

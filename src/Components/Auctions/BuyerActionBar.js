@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { createGlobalStyle } from 'styled-components';
 import { ethers } from 'ethers';
+import { Card, Form, Spinner } from 'react-bootstrap';
+import MetaMaskOnboarding from '@metamask/onboarding';
+import { toast } from 'react-toastify';
+import Countdown from 'react-countdown';
+
 import config from '../../Assets/networks/rpc_config.json';
 import AuctionContract from '../../Contracts/Auction.json';
-import { toast } from 'react-toastify';
 import { caseInsensitiveCompare, createSuccessfulTransactionToastContent } from '../../utils';
-import { ERC721 } from '../../Contracts/Abis';
-import { Card, Form, Spinner } from 'react-bootstrap';
 import { auctionState } from '../../core/api/enums';
 import { getAuctionDetails } from '../../GlobalState/auctionSlice';
-import MetaMaskOnboarding from '@metamask/onboarding';
 import { chainConnect, connectAccount } from '../../GlobalState/User';
-import Clock from '../components/Clock';
-import Countdown from 'react-countdown';
 
 const BuyerActionBar = () => {
   const dispatch = useDispatch();
 
   const [bidAmount, setBidAmount] = useState(0);
   const [rebidAmount, setRebidAmount] = useState(0);
-  const [minimumBid, setMinimumBid] = useState(1);
+  // const [minimumBid, setMinimumBid] = useState(1);
   const [bidError, setBidError] = useState('');
   const [awaitingAcceptance, setAwaitingAcceptance] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [isAuctionOwner, setIsAuctionOwner] = useState(false);
   const [executingBid, setExecutingBid] = useState(false);
-  const [executingIncreaseBid, setExecutingIncreaseBid] = useState(false);
+  // const [executingIncreaseBid, setExecutingIncreaseBid] = useState(false);
   const [executingWithdraw, setExecutingWithdraw] = useState(false);
   const [executingAcceptBid, setExecutingAcceptBid] = useState(false);
 
@@ -114,7 +111,7 @@ const BuyerActionBar = () => {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     // @todo set minimum bid
     setAwaitingAcceptance(listing.state === auctionState.ACTIVE && listing.endAt < Date.now());
     setIsComplete(listing.state === auctionState.SOLD || listing.state === auctionState.CANCELLED);

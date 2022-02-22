@@ -1,37 +1,38 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ListingCard from './ListingCard';
-import { init, fetchListings } from '../../GlobalState/auctionsSlice';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spinner } from 'react-bootstrap';
+// import { Link } from 'react-router-dom';
+// import InfiniteScroll from 'react-infinite-scroll-component';
+
 import AuctionCard from './AuctionCard';
-import Clock from './Clock';
-import { Link } from 'react-router-dom';
-import auction from '../pages/auction';
-import { auctionState } from '../../core/api/enums';
+import { init, fetchListings } from '../../GlobalState/auctionsSlice';
+// import ListingCard from './ListingCard';
+// import Clock from './Clock';
+// import auction from '../pages/auction';
+// import { auctionState } from '../../core/api/enums';
 
 const AuctionCollection = ({ showLoadMore = true, collectionId = null, sellerId = null, cacheName = null }) => {
   const dispatch = useDispatch();
   const listings = useSelector((state) => state.auctions.auctions);
   const isLoading = useSelector((state) => state.auctions.loading);
 
-  const canLoadMore = useSelector((state) => {
-    return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
-  });
+  // const canLoadMore = useSelector((state) => {
+  //   return state.marketplace.curPage === 0 || state.marketplace.curPage < state.marketplace.totalPages;
+  // });
 
   const marketplace = useSelector((state) => {
     return state.marketplace;
   });
 
-  const isFilteredOnCollection = useSelector((state) => {
-    return (
-      marketplace.curFilter !== null &&
-      marketplace.curFilter.type === 'collection' &&
-      marketplace.curFilter.address !== null
-    );
-  });
+  // const isFilteredOnCollection = useSelector((state) => {
+  //   return (
+  //     marketplace.curFilter !== null &&
+  //     marketplace.curFilter.type === 'collection' &&
+  //     marketplace.curFilter.address !== null
+  //   );
+  // });
 
-  useEffect(async () => {
+  useEffect(() => {
     let sort = {
       type: 'listingId',
       direction: 'desc',
@@ -67,9 +68,9 @@ const AuctionCollection = ({ showLoadMore = true, collectionId = null, sellerId 
     dispatch(fetchListings());
   }, [dispatch]);
 
-  const loadMore = () => {
-    dispatch(fetchListings());
-  };
+  // const loadMore = () => {
+  //   dispatch(fetchListings());
+  // };
 
   if (showLoadMore) {
     return (

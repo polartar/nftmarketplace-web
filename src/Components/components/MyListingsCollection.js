@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  clearMySales,
+  // clearMySales,
   clearMyUnfilteredListings,
-  fetchSales,
+  // fetchSales,
   fetchUnfilteredListings,
   MyListingsCollectionPageActions,
 } from '../../GlobalState/User';
@@ -17,7 +17,7 @@ import InvalidListingsPopup from './InvalidListingsPopup';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import SoldNftCard from './SoldNftCard';
+// import SoldNftCard from './SoldNftCard';
 
 const MyListingsCollection = ({ walletAddress = null }) => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const MyListingsCollection = ({ walletAddress = null }) => {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(clearMyUnfilteredListings());
     dispatch(fetchUnfilteredListings(walletAddress));
   }, [walletAddress]);
