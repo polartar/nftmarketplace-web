@@ -15,12 +15,12 @@ const Footer = () => {
         <h5>Partners</h5>
         <div className="row">
           <div className="col">
-            <a href="https://nebkas.ro" target="_blank">
+            <a href="https://nebkas.ro" target="_blank" rel="noreferrer">
               <img src={nebkas} alt="nebkas.co" width="128px" />
             </a>
           </div>
           <div className="col">
-            <a href="https://www.weare.fi/" target="_blank">
+            <a href="https://www.weare.fi/" target="_blank" rel="noreferrer">
               <img src={weAreFi} alt="WeAre Solutions" width="64px" />
             </a>
           </div>
@@ -35,16 +35,16 @@ const Footer = () => {
             </div>
 
             <div className="col-10 social-icons d-flex justify-content-end">
-              <a href="https://discord.gg/ebisusbay" target="_blank">
+              <a href="https://discord.gg/ebisusbay" target="_blank" rel="noreferrer">
                 <LayeredIcon icon={faDiscord} bgIcon={faSquare} shrink={8} />
               </a>
-              <a href="https://twitter.com/EbisusBay" target="_blank">
+              <a href="https://twitter.com/EbisusBay" target="_blank" rel="noreferrer">
                 <LayeredIcon icon={faTwitter} bgIcon={faSquare} shrink={7} />
               </a>
-              <a href="https://www.instagram.com/ebisusbayofficial" target="_blank">
+              <a href="https://www.instagram.com/ebisusbayofficial" target="_blank" rel="noreferrer">
                 <LayeredIcon icon={faInstagram} bgIcon={faSquare} shrink={7} />
               </a>
-              <a href="https://blog.ebisusbay.com" target="_blank">
+              <a href="https://blog.ebisusbay.com" target="_blank" rel="noreferrer">
                 <LayeredIcon icon={faMedium} bgIcon={faSquare} shrink={7} />
               </a>
               <a href="mailto:support@ebisusbay.com">
@@ -52,7 +52,7 @@ const Footer = () => {
               </a>
             </div>
 
-            <a href="/tos.html" target="_blank" className="col-12 pt-3 text-center">
+            <a href="/tos.html" target="_blank" rel="noreferrer" className="col-12 pt-3 text-center">
               &nbsp;{'Terms of Service'}
             </a>
 

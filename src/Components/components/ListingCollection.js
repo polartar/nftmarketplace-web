@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ListingCard from './ListingCard';
 import { init, fetchListings } from '../../GlobalState/marketplaceSlice';

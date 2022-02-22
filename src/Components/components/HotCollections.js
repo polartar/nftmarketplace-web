@@ -2,12 +2,13 @@ import React, { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
 import { settings } from './constants';
 import CustomSlide from './CustomSlide';
 import config from '../../Assets/networks/rpc_config.json';
-import { faArrowLeft, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 export const collections = config.known_contracts;
 
 const HotCollections = () => {
@@ -16,14 +17,7 @@ const HotCollections = () => {
   const [hotCollections, setHotCollections] = useState([]);
 
   function arrangeCollections() {
-    const shortList = [
-      'mad-meerkat',
-      'croskull',
-      'crobots',
-      'bushicro',
-      'lazy-horse',
-      'barn-cats'
-    ];
+    const shortList = ['mad-meerkat', 'croskull', 'crobots', 'bushicro', 'lazy-horse', 'barn-cats'];
 
     const featuredCollections = [];
     shortList.forEach(function (val, index) {

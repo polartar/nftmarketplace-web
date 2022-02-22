@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import Reveal from 'react-awesome-reveal';
 import { createGlobalStyle, default as styled } from 'styled-components';
+
 import Footer from '../components/Footer';
 import ListingCollection from '../components/ListingCollection';
 import HotCollections from '../components/HotCollections';
@@ -72,7 +73,7 @@ const Jumbotron = {
   Host: styled.div.attrs(({ theme }) => ({
     className: '',
   }))`
-    background-image: url('/img/background/Ebisus-bg-1_L.jpg');
+    background-image: url('/img/background/Ebisus-bg-1_L.webp');
     background-size: cover;
     height: max(100vh, 800px);
     display: flex;

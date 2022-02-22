@@ -72,6 +72,11 @@
       "react-app/jest"
     ]
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,md,mdx}": [
+      "prettier --write"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -86,6 +91,7 @@
   },
   "devDependencies": {
     "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
     "msw": "^0.35.0",
     "prettier": "^2.5.1",
     "react-scripts": "^4.0.3"
