@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Footer from '../components/Footer';
 // import TopFilterBar from '../components/TopFilterBar';
-import { Redirect } from 'react-router-dom';
 import MySoldNftCollection from '../components/MySoldNftCollection';
 
 const MySales = () => {
@@ -11,10 +11,7 @@ const MySales = () => {
 
   const Content = () => (
     <>
-      <section
-        className="jumbotron breadcumb no-bg tint"
-        style={{ backgroundImage: `url(${'/img/background/Ebisu-DT-Header.jpg'})`, backgroundPosition: 'bottom' }}
-      >
+      <section className="jumbotron breadcumb no-bg tint">
         <div className="mainbreadcumb">
           <div className="container">
             <div className="row m-10-hor">

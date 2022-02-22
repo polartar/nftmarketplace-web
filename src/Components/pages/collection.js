@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
-import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
-import { init, fetchListings, getStats } from '../../GlobalState/collectionSlice';
 import { Contract, ethers } from 'ethers';
-import config from '../../Assets/networks/rpc_config.json';
-import Market from '../../Contracts/Marketplace.json';
-import Blockies from 'react-blockies';
-import { toast } from 'react-toastify';
-import { caseInsensitiveCompare, isFounderCollection, siPrefixedNumber } from '../../utils';
-import CollectionListingsGroup from '../components/CollectionListingsGroup';
-import CollectionFilterBar from '../components/CollectionFilterBar';
-import TraitsFilter from '../Collection/TraitsFilter';
-import PowertraitsFilter from '../Collection/PowertraitsFilter';
-import { SortOption } from '../Models/sort-option.model';
-import { FilterOption } from '../Models/filter-option.model';
-import { faCheck, faCircle /*, faGlobe, faLink*/ } from '@fortawesome/free-solid-svg-icons';
-import LayeredIcon from '../components/LayeredIcon';
+import { createGlobalStyle } from 'styled-components';
 // import { faDiscord, faMedium, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 // import { NavLink } from 'react-bootstrap';
+import { faCheck, faCircle /*, faGlobe, faLink*/ } from '@fortawesome/free-solid-svg-icons';
+import Blockies from 'react-blockies';
+import { toast } from 'react-toastify';
+
+import Footer from '../components/Footer';
+import CollectionListingsGroup from '../components/CollectionListingsGroup';
+import CollectionFilterBar from '../components/CollectionFilterBar';
+import LayeredIcon from '../components/LayeredIcon';
+import { init, fetchListings, getStats } from '../../GlobalState/collectionSlice';
+import { caseInsensitiveCompare, isFounderCollection, siPrefixedNumber } from '../../utils';
+import TraitsFilter from '../Collection/TraitsFilter';
+import PowertraitsFilter from '../Collection/PowertraitsFilter';
 import SocialsBar from '../Collection/SocialsBar';
+import { SortOption } from '../Models/sort-option.model';
+import { FilterOption } from '../Models/filter-option.model';
+import config from '../../Assets/networks/rpc_config.json';
+import Market from '../../Contracts/Marketplace.json';
 
 const knownContracts = config.known_contracts;
 
@@ -137,7 +137,7 @@ const Collection = ({ cacheName = 'collection' }) => {
         id="profile_banner"
         className="jumbotron breadcumb no-bg"
         style={{
-          backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader.jpg'})`,
+          backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader-blue.webp'})`,
           backgroundPosition: '50% 50%',
         }}
       >

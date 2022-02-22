@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Footer from '../components/Footer';
 import { createGlobalStyle, default as styled } from 'styled-components';
 import { keyframes } from '@emotion/react';
-import { getMarketData } from '../../GlobalState/marketplaceSlice';
 import Reveal from 'react-awesome-reveal';
+
+import Footer from '../components/Footer';
+import { getMarketData } from '../../GlobalState/marketplaceSlice';
 import { theme } from '../../Theme/theme';
 
 const fadeInUp = keyframes`
@@ -67,7 +68,7 @@ const Jumbotron = {
   Host: styled.div.attrs(({ theme }) => ({
     className: '',
   }))`
-    background-image: url('/img/background/Ebisus-bg-1_L.jpg');
+    background-image: url('/img/background/Ebisus-bg-1_L.webp');
     background-size: cover;
     height: max(100vh, 800px);
     display: flex;

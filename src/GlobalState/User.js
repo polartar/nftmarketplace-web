@@ -810,7 +810,7 @@ export class MyNftPageActions {
         ? await selectedNft.contract.safeTransferFrom(walletAddress, transferAddress, selectedNft.id, 1, [])
         : await selectedNft.contract.safeTransferFrom(walletAddress, transferAddress, selectedNft.id);
 
-      const receipt = await tx.wait();
+      await tx.wait();
 
       toast.success(`Transfer successful!`);
 

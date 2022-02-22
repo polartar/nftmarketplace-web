@@ -647,7 +647,7 @@
         "description": "",
         "verified": true,
         "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
-        "banner": "/img/collections/barbara/dodgerdogs/banner.png",
+        "banner": "/img/collections/barbara/dodgerdogs/banner.webp",
         "card": "/img/collections/barbara/dodgerdogs/card.png",
         "maxSupply": 20,
         "website": "https://crypto.com/nft/profile/vredekop?tab=created",
@@ -1054,25 +1054,6 @@
       }
     },
     {
-      "name": "Crognomes (v1)",
-      "multiToken": false,
-      "address": "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
-      "onChain": false,
-      "listable": false,
-      "metadata": {
-        "slug": "crognomes-v1",
-        "description": "",
-        "verified": true,
-        "avatar": "/img/collections/crognomes/avatar.png",
-        "card": "/img/collections/crognomes/card.png",
-        "banner": "/img/collections/crognomes/banner.png",
-        "maxSupply": 2000,
-        "website": "https://www.crognomes.com/",
-        "twitter": "https://twitter.com/CroGnomes",
-        "discord": "https://discord.gg/WkRgkSQ2hJ"
-      }
-    },
-    {
       "name": "Admiration",
       "multiToken": false,
       "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
@@ -1429,7 +1410,7 @@
       "multiToken": false,
       "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "crognomes",
         "description": "",
@@ -1454,8 +1435,8 @@
         "description": "",
         "verified": true,
         "avatar": "/img/collections/anuah/avatar.png",
-        "card": "/img/collections/anuah/card.png",
-        "banner": "/img/collections/anuah/banner.png",
+        "card": "/img/collections/anuah/card.webp",
+        "banner": "/img/collections/anuah/banner.webp",
         "maxSupply": 81,
         "website": "https://www.instagram.com/chance.watt/"
       }
@@ -1548,7 +1529,7 @@
         "description": "",
         "verified": true,
         "avatar": "/img/collections/chronoswapfoundingmember/avatar.png",
-        "banner": "/img/collections/chronoswapfoundingmember/banner.png",
+        "banner": "/img/collections/chronoswapfoundingmember/banner.webp",
         "card": "/img/collections/chronoswapfoundingmember/card.png",
         "maxSupply": 387,
         "website": "https://chronoswap.org/",
@@ -1646,7 +1627,7 @@
         "verified": true,
         "avatar": "/img/collections/crobots/avatar.gif",
         "card": "/img/collections/crobots/card.jpg",
-        "banner": "/img/collections/crobots/banner.jpg",
+        "banner": "/img/collections/crobots/banner.webp",
         "website": "https://TheCrobots.com",
         "twitter": "https://twitter.com/thecrobots",
         "discord": "https://discord.gg/crobots"
@@ -1929,7 +1910,7 @@
         "verified": true,
         "avatar": "/img/collections/crayonartapeclub/avatar.gif",
         "card": "/img/collections/crayonartapeclub/card.png",
-        "banner": "/img/collections/crayonartapeclub/banner.png",
+        "banner": "/img/collections/crayonartapeclub/banner.webp",
         "maxSupply": 2750,
         "twitter": "https://twitter.com/CrayonApe",
         "website": "https://crayon-ape.com/",
@@ -1958,26 +1939,45 @@
       }
     },
     {
-        "name": "Looters",
-        "multiToken": false,
-        "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
-        "onChain": false,
-        "listable": true,
-        "metadata": {
-          "slug": "looters",
-          "description": "",
-          "verified": true,
-          "avatar": "/img/collections/looters/avatar.png",
-          "card": "/img/collections/looters/card.png",
-          "banner": "/img/collections/looters/banner.png",
-          "maxSupply": 1111,
-          "twitter": "https://twitter.com/LootNetwork_",
-          "website": "https://lootpad.io/",
-          "discord": "https://discord.gg/lootnetwork",
-          "medium": "https://medium.com/@Loot_Network",
-          "telegram": "https://t.me/loot_network"
-        }
+      "name": "Looters",
+      "multiToken": false,
+      "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "looters",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/looters/avatar.png",
+        "card": "/img/collections/looters/card.png",
+        "banner": "/img/collections/looters/banner.png",
+        "maxSupply": 1111,
+        "twitter": "https://twitter.com/LootNetwork_",
+        "website": "https://lootpad.io/",
+        "discord": "https://discord.gg/lootnetwork",
+        "medium": "https://medium.com/@Loot_Network",
+        "telegram": "https://t.me/loot_network"
       }
+    },
+    {
+      "name": "Creatures",
+      "multiToken": false,
+      "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "creatures",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/creatures/avatar.jpg",
+        "card": "/img/collections/creatures/card.png",
+        "banner": "/img/collections/creatures/banner.png",
+        "maxSupply": 4444,
+        "twitter": "https://twitter.com/creaturesxcl",
+        "website": "https://www.cultcreatures.xyz/",
+        "discord": "https://discord.gg/creaturegang"
+      }
+    }
   ],
   "drops": [
     {
@@ -2010,8 +2010,8 @@
     {
       "id": 1,
       "slug": "founding-member",
-      "imgNft": "/img/drops/founding_member/founding_member.webp",
-      "imgPreview": "/img/drops/founding_member/founding_member.webp",
+      "imgNft": "/img/drops/founding_member/founding_member_sm.png",
+      "imgPreview": "/img/drops/founding_member/founding_member_sm.png",
       "imgAvatar": "/img/avatar.jpg",
       "title": "Founding Member",
       "subtitle": "Early access to features and reduced fees forever.",
@@ -2590,7 +2590,7 @@
       "imgNft": "/img/drops/crobots/drop.gif",
       "imgPreview": "/img/drops/crobots/drop.gif",
       "imgAvatar": "/img/collections/crobots/avatar.gif",
-      "imgBanner": "/img/collections/crobots/banner.jpg",
+      "imgBanner": "/img/collections/crobots/banner.webp",
       "title": "Crobots",
       "subtitle": "It's quiet now. Humanity has ended. Building their world amongst what was left behind, the Crobots explore, create, and emulate the ancient race that left behind what created them. How were they made? What forces are at work? What secrets will be unearthed?",
       "description": "Meet the Crobots! â€“ A robotic species created after the extinction of humanity. Algorithmically generated on the Cronos blockchain, the collection features 200+ unique traits meticulously hand-drawn by Pyrilis, a Rubberhose Traditional Artist.\n\nHolders will be granted full commercial rights, allowing the ability to expand the Crobots brand beyond our imagination. Royalties will be strategically allocated into future project enhancements, supporting and building awareness of projects on the Cronos blockchain, and donating to various #crofam supported charities.\n\nAfter mint, we are excited to embark on the creation and development of multimedia and virtual ecosystem projects, starting with a comic book series. Stay tuned!\n\nThe journey has only just begun! https://thecrobots.com/",
@@ -2736,6 +2736,31 @@
       "whitelistCost": "150",
       "foundersOnly": false,
       "start": 1645380000000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 26,
+      "slug": "creatures",
+      "imgNft": "/img/drops/creatures/drop.gif",
+      "imgPreview": "/img/drops/creatures/drop.gif",
+      "imgAvatar": "/img/collections/creatures/avatar.jpg",
+      "imgBanner": "/img/collections/creatures/banner.png",
+      "title": "Creatures",
+      "subtitle": "A COLLECTION OF CREATURES THAT UNLOCK AN IMMERSIVE MUSIC & METAVERSE EXPERIENCE",
+      "description": "Creatures by Cult Leader is a 9,999 generative PFP project that unlocks an immersive music & metaverse experience. Before the initial drop, the teams focus has been building community, creating strategic partnerships, and developing the metaverse to deliver high value and a successful start for the creature community.",
+      "author": { "name": "Creatures", "link": "https://www.cultcreatures.xyz/" },
+      "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
+      "maxMintPerTx": 9,
+      "maxMintPerAddress": 49,
+      "totalSupply": 4444,
+      "cost": "444",
+      "memberCost": "333",
+      "foundersOnly": false,
+      "start": 1645570800000,
       "end": null,
       "referral": false,
       "is1155": false,

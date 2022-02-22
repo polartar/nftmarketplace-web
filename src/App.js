@@ -20,17 +20,17 @@ const GlobalStyles = createGlobalStyle`
     background-blend-mode: multiply;
   }
   .jumbotron.breadcumb.no-bg.tint {
-    background-image: url('/img/background/Ebisu-DT-Header.jpg');
+    background-image: url('/img/background/Ebisu-DT-Header.webp');
     background-position: bottom;
-    }
+  }
     
-    @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     .jumbotron.breadcumb.no-bg.tint {
-        background-image: url('/img/background/Ebisu-Mobile-Header.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
+      background-image: url('/img/background/Ebisu-Mobile-Header.webp');
+      background-size: cover;
+      background-repeat: no-repeat;
     }
-}
+  }
 `;
 
 function App() {
