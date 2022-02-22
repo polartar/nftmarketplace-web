@@ -1054,25 +1054,6 @@
       }
     },
     {
-      "name": "Crognomes (v1)",
-      "multiToken": false,
-      "address": "0x3b6d6256F5f38c5f7b29a2662B259BA99778278C",
-      "onChain": false,
-      "listable": false,
-      "metadata": {
-        "slug": "crognomes-v1",
-        "description": "",
-        "verified": true,
-        "avatar": "/img/collections/crognomes/avatar.png",
-        "card": "/img/collections/crognomes/card.png",
-        "banner": "/img/collections/crognomes/banner.png",
-        "maxSupply": 2000,
-        "website": "https://www.crognomes.com/",
-        "twitter": "https://twitter.com/CroGnomes",
-        "discord": "https://discord.gg/WkRgkSQ2hJ"
-      }
-    },
-    {
       "name": "Admiration",
       "multiToken": false,
       "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
@@ -1429,7 +1410,7 @@
       "multiToken": false,
       "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "crognomes",
         "description": "",
