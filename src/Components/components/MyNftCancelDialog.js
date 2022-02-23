@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 const MyNftCancelDialog = ({ myNftPageCancelDialog }) => {
   const dispatch = useDispatch();
 
-  useEffect(async () => {
+  useEffect(() => {
     if (myNftPageCancelDialog) {
       const {} = myNftPageCancelDialog;
       dispatch(

@@ -1,21 +1,18 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled, { createGlobalStyle } from 'styled-components';
-import { getAuctionDetails } from '../../GlobalState/auctionSlice';
-import { caseInsensitiveCompare, humanize, newlineText, shortAddress, timeSince } from '../../utils';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import { ethers } from 'ethers';
 import { Spinner } from 'react-bootstrap';
 import Blockies from 'react-blockies';
-import config from '../../Assets/networks/rpc_config.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+
+import { getAuctionDetails } from '../../GlobalState/auctionSlice';
+import { caseInsensitiveCompare, humanize, newlineText, shortAddress, timeSince } from '../../utils';
+import config from '../../Assets/networks/rpc_config.json';
 import BuyerActionBar from '../Auctions/BuyerActionBar';
 import ProfilePreview from '../components/ProfilePreview';
 const knownContracts = config.known_contracts;
-
-const GlobalStyles = createGlobalStyle`
-`;
 
 const Auction = () => {
   const { id } = useParams();
@@ -75,7 +72,6 @@ const Auction = () => {
         <Redirect to={`/drops/${charityMetadata.redirectToDrop}`} />
       ) : (
         <div>
-          <GlobalStyles />
           {isLoading ? (
             <section className="container">
               <div className="row mt-4">
@@ -152,7 +148,7 @@ const Auction = () => {
                                   <div>{newlineText(charityMetadata.description)}</div>
                                   <p>
                                     Donate directly at{' '}
-                                    <a href={charityMetadata.link} target="_blank" className="fw-bold">
+                                    <a href={charityMetadata.link} target="_blank" rel="noreferrer" className="fw-bold">
                                       {charityMetadata.link}
                                     </a>
                                   </p>

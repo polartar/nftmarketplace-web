@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import Blockies from 'react-blockies';
 import { useDispatch, useSelector } from 'react-redux';
 import useOnclickOutside from 'react-cool-onclickoutside';
@@ -19,7 +19,7 @@ import { Modal, NavLink, Spinner } from 'react-bootstrap';
 import {
   connectAccount,
   onLogout,
-  setTheme,
+  // setTheme,
   setShowWrongChainModal,
   chainConnect,
   AccountMenuActions,
@@ -44,9 +44,9 @@ const AccountMenu = function () {
   const correctChain = useSelector((state) => {
     return state.user.correctChain;
   });
-  const theme = useSelector((state) => {
-    return state.user.theme;
-  });
+  // const theme = useSelector((state) => {
+  //   return state.user.theme;
+  // });
   const user = useSelector((state) => {
     return state.user;
   });
@@ -72,11 +72,11 @@ const AccountMenu = function () {
     }
   };
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    console.log('toggleTheme...', newTheme);
-    dispatch(setTheme(newTheme));
-  };
+  // const toggleTheme = () => {
+  //   const newTheme = theme === 'light' ? 'dark' : 'light';
+  //   console.log('toggleTheme...', newTheme);
+  //   dispatch(setTheme(newTheme));
+  // };
 
   const handleCopy = (code) => () => {
     navigator.clipboard.writeText(code);
@@ -120,6 +120,7 @@ const AccountMenu = function () {
     ) {
       if (!user.provider) dispatch(connectAccount());
     }
+    // eslint-disable-next-line
   }, []);
 
   const onWrongChainModalClose = () => {

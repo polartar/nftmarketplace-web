@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUnfilteredListings, MyListingsCollectionPageActions } from '../../GlobalState/User';
 import { useHistory } from 'react-router-dom';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { /* fetchUnfilteredListings, */ MyListingsCollectionPageActions } from '../../GlobalState/User';
 
 const InvalidListingsPopup = (props) => {
   const [openInvalidListingsAlertDialog, setOpenInvalidListingsAlertDialog] = useState(false);
@@ -11,7 +11,7 @@ const InvalidListingsPopup = (props) => {
   const [userAcknowledgedWarning, setUserAcknowledgedWarning] = useState(false);
   const history = useHistory();
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!userAcknowledgedWarning) {
       setOpenInvalidListingsAlertDialog(myListings.some((value) => !value.valid));
     }

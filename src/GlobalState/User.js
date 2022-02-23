@@ -16,7 +16,8 @@ import { toast } from 'react-toastify';
 import {createSuccessfulTransactionToastContent, sliceIntoChunks} from '../utils';
 import { FilterOption } from '../Components/Models/filter-option.model';
 import { nanoid } from 'nanoid';
-// import { SortOption } from '../Components/Models/sort-option.model';
+import { appAuthInitFinished } from './InitSlice';
+import { captureException } from '@sentry/react';
 
 const userSlice = createSlice({
   name: 'user',
@@ -307,21 +308,6 @@ export const connectAccount =
   (firstRun = false) =>
   async (dispatch) => {
     const providerOptions = {
-      /*
-        walletconnect: {
-            package: WalletConnectProvider, // required
-            options: {
-                chainId: 25,
-                rpc: {
-                    25: "https://evm-cronos.crypto.org",
-                },
-                network: 'cronos',
-                metadata: {
-                    icons: ["https://ebisusbay.com/vector%20-%20face.svg"],
-                    description: "Cronos NFT Marketplace"
-                    }
-                }
-        },*/
       injected: {
         display: {
           logo: 'https://github.com/MetaMask/brand-resources/raw/master/SVG/metamask-fox.svg',
@@ -356,50 +342,53 @@ export const connectAccount =
       },
     };
 
+    const web3ModalWillShowUp = !localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER');
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('web3ModalWillShowUp: ', web3ModalWillShowUp);
+    }
+
     const web3Modal = new Web3Modal({
       cacheProvider: true, // optional
       providerOptions, // required
     });
 
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Opening a dialog', web3Modal);
-    }
+    const web3provider = await web3Modal
+      .connect()
+      .then((web3provider) => web3provider)
+      .catch((error) => {
+        captureException(error, { extra: { firstRun } });
+        console.log('Could not get a wallet connection', error);
+        return null;
+      });
 
-    var web3provider;
-    try {
-      web3provider = await web3Modal.connect();
-    } catch (e) {
-      console.log('Could not get a wallet connection', e);
+    if (!web3provider) {
       dispatch(onLogout());
       return;
     }
 
     try {
       dispatch(connectingWallet({ connecting: true }));
-      var provider = new ethers.providers.Web3Provider(web3provider);
+      const provider = new ethers.providers.Web3Provider(web3provider);
 
-      var cid = await web3provider.request({
+      const cid = await web3provider.request({
         method: 'net_version',
       });
-      let accounts = await web3provider.request({
+
+      const correctChain = cid === config.chain_id || cid === Number(config.chain_id);
+
+      const accounts = await web3provider.request({
         method: 'eth_accounts',
         params: [{ chainId: cid }],
       });
 
-      var address = accounts[0];
-      var signer = provider.getSigner();
-
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('cid:       ', cid);
-        console.log('chain_id:  ', config.chain_id);
-      }
-      var correctChain = cid === Number(config.chain_id);
+      const address = accounts[0];
+      const signer = provider.getSigner();
 
       if (!correctChain) {
-        correctChain = cid === config.chain_id;
-      }
-
-      if (!correctChain) {
+        if (firstRun) {
+          dispatch(appAuthInitFinished());
+        }
         await dispatch(setShowWrongChainModal(true));
       }
 
@@ -413,6 +402,9 @@ export const connectAccount =
           correctChain: correctChain,
         })
       );
+      if (firstRun) {
+        dispatch(appAuthInitFinished());
+      }
 
       web3provider.on('DeFiConnectorDeactivate', (error) => {
         dispatch(onLogout());
@@ -489,6 +481,16 @@ export const connectAccount =
         })
       );
     } catch (error) {
+      captureException(error, {
+        extra: {
+          firstRun,
+          WEB3_CONNECT_CACHED_PROVIDER: localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'),
+          DeFiLink_session_storage_extension: localStorage.getItem('DeFiLink_session_storage_extension'),
+        },
+      });
+      if (firstRun) {
+        dispatch(appAuthInitFinished());
+      }
       console.log(error);
       console.log('Error connecting wallet!');
       await web3Modal.clearCachedProvider();

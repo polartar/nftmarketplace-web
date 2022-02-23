@@ -22,7 +22,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null, sellerId 
     return state.marketplace;
   });
 
-  useEffect(async () => {
+  useEffect(() => {
     if (collectionId) {
       const sortOption = new SortOption();
       sortOption.key = 'listingId';

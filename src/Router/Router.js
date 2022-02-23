@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import Home from '../Components/pages/home';
 import Marketplace from '../Components/pages/marketplace';
 import Collection from '../Components/pages/collection';
@@ -16,16 +16,19 @@ import Drop from '../Components/pages/drop';
 import MyListings from '../Components/pages/myListings';
 import MySales from '../Components/pages/mySales';
 import Collections from '../Components/pages/collections';
-// import ManageAuctions from '../Components/pages/manageAuctions';
 import CharityBall from '../Components/pages/charityBall';
 import history from '../history';
 import { ErrorPage } from '../Components/pages/ErrorPage';
+import { Spinner } from 'react-bootstrap';
 const SentryEnhancedRoute = Sentry.withSentryRouting(Route);
 
-export const AppRouter = () => {
-  const walletConnected = useSelector((state) => {
-    return state.user.address !== null;
-  });
+const mapStateToProps = (state) => ({
+  walletAddress: state.user.address,
+  authInitFinished: state.appInitialize.authInitFinished,
+});
+
+const Component = ({ walletAddress, authInitFinished }) => {
+  const walletConnected = !!walletAddress;
 
   function PrivateRoute({ component: Component, ...rest }) {
     if (process.env.NODE_ENV !== 'production') {
@@ -36,6 +39,15 @@ export const AppRouter = () => {
       <SentryEnhancedRoute
         {...rest}
         render={(props) => {
+          if (!authInitFinished) {
+            return (
+              <div className="col-lg-12 text-center justify-content-center align-items-center">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            );
+          }
           if (!walletConnected) {
             // not logged in so redirect to login page with the return url
             return <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
@@ -77,3 +89,5 @@ export const AppRouter = () => {
     </Router>
   );
 };
+
+export const AppRouter = connect(mapStateToProps)(memo(Component));

@@ -1,20 +1,19 @@
 import React, { memo } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import Clock from './Clock';
 import { auctionState } from '../../core/api/enums';
 
-const Outer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 8px;
-`;
+// const Outer = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+//   align-items: center;
+//   overflow: hidden;
+//   border-radius: 8px;
+// `;
 
-//react functional component
 const AuctionCard = ({ listing, imgClass = 'marketplace' }) => {
   return (
     <Link className="linkPointer" to={`/auctions/${listing.auctionId}`}>
