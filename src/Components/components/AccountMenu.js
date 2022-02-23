@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import Blockies from 'react-blockies';
 import { useDispatch, useSelector } from 'react-redux';
 import useOnclickOutside from 'react-cool-onclickoutside';
@@ -99,28 +99,6 @@ const AccountMenu = function () {
     dispatch(onLogout());
     toast.success(`Cookies cleared!`);
   };
-
-  useEffect(() => {
-    let defiLink = localStorage.getItem('DeFiLink_session_storage_extension');
-    if (defiLink) {
-      try {
-        const json = JSON.parse(defiLink);
-        if (!json.connected) {
-          dispatch(onLogout());
-        }
-      } catch (error) {
-        dispatch(onLogout());
-      }
-    }
-
-    if (
-      localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') ||
-      window.ethereum ||
-      localStorage.getItem('DeFiLink_session_storage_extension')
-    ) {
-      if (!user.provider) dispatch(connectAccount());
-    }
-  }, []);
 
   const onWrongChainModalClose = () => {
     dispatch(setShowWrongChainModal(false));
