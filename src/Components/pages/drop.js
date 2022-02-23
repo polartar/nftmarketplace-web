@@ -497,13 +497,15 @@ const Drop = () => {
                     {drop.foundersOnly && <h3 className="col-white">Founding Member Presale</h3>}
                   </Reveal>
                 )}
+                <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                  <div>
+                    <a href="#drop_detail" className="btn-main">
+                      View Drop
+                    </a>
+                  </div>
+                </Reveal>
                 <div className="spacer-10"></div>
               </div>
-            </div>
-            <div>
-              <a href="#drop_detail" className="btn-main">
-                View Drop
-              </a>
             </div>
           </div>
         </HeroSection>
