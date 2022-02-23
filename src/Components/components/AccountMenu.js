@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import Blockies from 'react-blockies';
 import { useDispatch, useSelector } from 'react-redux';
 import useOnclickOutside from 'react-cool-onclickoutside';

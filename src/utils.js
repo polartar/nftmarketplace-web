@@ -280,6 +280,10 @@ export const isMagBrewVikingsDrop = (address) => {
   return drop?.address === address;
 };
 
+export const isCreaturesDrop = (address) => {
+  return isDrop(address, 'creatures');
+};
+
 export const isDrop = (address, slug) => {
   const drop = drops.find((d) => d.slug === slug);
   return drop?.address === address;
