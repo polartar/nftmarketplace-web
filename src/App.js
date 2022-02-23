@@ -14,7 +14,7 @@ import { appInitializer } from './GlobalState/InitSlice';
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    scroll-behavior: unset;
+    scroll-behavior: smooth;
   }
   .jumbotron.tint{
     background-color: rgba(0,0,0,0.6);
