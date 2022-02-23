@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import ListingCard from './ListingCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spinner } from 'react-bootstrap';

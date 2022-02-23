@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Contract, ethers } from 'ethers';
-import { createGlobalStyle } from 'styled-components';
+// import { createGlobalStyle } from 'styled-components';
 // import { faDiscord, faMedium, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 // import { NavLink } from 'react-bootstrap';
 import { faCheck, faCircle /*, faGlobe, faLink*/ } from '@fortawesome/free-solid-svg-icons';
 import Blockies from 'react-blockies';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 import Footer from '../components/Footer';
 import CollectionListingsGroup from '../components/CollectionListingsGroup';
@@ -24,9 +24,6 @@ import config from '../../Assets/networks/rpc_config.json';
 import Market from '../../Contracts/Marketplace.json';
 
 const knownContracts = config.known_contracts;
-
-const GlobalStyles = createGlobalStyle`
-`;
 
 const Collection = ({ cacheName = 'collection' }) => {
   const { address } = useParams();
@@ -66,10 +63,10 @@ const Collection = ({ cacheName = 'collection' }) => {
     return contract ? contract.name : 'Collection';
   };
 
-  const handleCopy = (code) => () => {
-    navigator.clipboard.writeText(code);
-    toast.success('Copied!');
-  };
+  // const handleCopy = (code) => () => {
+  //   navigator.clipboard.writeText(code);
+  //   toast.success('Copied!');
+  // };
 
   const hasTraits = () => {
     return collectionStats?.traits != null;
@@ -83,7 +80,7 @@ const Collection = ({ cacheName = 'collection' }) => {
     dispatch(fetchListings());
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     const sortOption = SortOption.default();
     sortOption.key = 'listingId';
     sortOption.direction = 'desc';
@@ -103,6 +100,7 @@ const Collection = ({ cacheName = 'collection' }) => {
       )
     );
     dispatch(fetchListings());
+    // eslint-disable-next-line
   }, [dispatch, address]);
 
   useEffect(() => {
@@ -118,21 +116,23 @@ const Collection = ({ cacheName = 'collection' }) => {
     }
   }, [address]);
 
-  useEffect(async () => {
-    dispatch(getStats(address));
-    try {
-      let royalties = await readMarket.royalties(address);
-      setRoyalty(Math.round(royalties[1]) / 100);
-    } catch (error) {
-      console.log('error retrieving royalties for collection', error);
-      setRoyalty('N/A');
+  useEffect(() => {
+    async function asyncFunc() {
+      dispatch(getStats(address));
+      try {
+        let royalties = await readMarket.royalties(address);
+        setRoyalty(Math.round(royalties[1]) / 100);
+      } catch (error) {
+        console.log('error retrieving royalties for collection', error);
+        setRoyalty('N/A');
+      }
     }
+    asyncFunc();
+    // eslint-disable-next-line
   }, [dispatch, address]);
 
   return (
     <div>
-      <GlobalStyles />
-
       <section
         id="profile_banner"
         className="jumbotron breadcumb no-bg"
@@ -180,7 +180,7 @@ const Collection = ({ cacheName = 'collection' }) => {
               <div className="row">
                 <div className="col-lg-8 col-sm-10 mx-auto text-end fst-italic" style={{ fontSize: '0.8em' }}>
                   Rarity scores and ranks provided by{' '}
-                  <a href="https://raritysniper.com/" target="_blank">
+                  <a href="https://raritysniper.com/" target="_blank" rel="noreferrer">
                     <span className="color">Rarity Sniper</span>
                   </a>
                 </div>

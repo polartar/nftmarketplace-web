@@ -1834,13 +1834,14 @@
         "slug": "metapixels",
         "description": "",
         "verified": true,
-        "avatar": "",
-        "card": "",
-        "banner": "",
-        "maxSupply": 0,
-        "twitter": "",
-        "website": "",
-        "discord": ""
+        "avatar": "/img/collections/metapixels/avatar.png",
+        "card": "/img/collections/metapixels/card.jpg",
+        "banner": "/img/collections/metapixels/banner.jpg",
+        "maxSupply": 4080,
+        "twitter": "https://twitter.com/MetaversePixels",
+        "website": "https://www.metaversepixels.app",
+        "discord": "https://discord.gg/3gA2jnEGPA",
+        "telegram": "https://t.me/metaversepixels"
       }
     },
     {
@@ -1964,7 +1965,7 @@
       "multiToken": false,
       "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
       "onChain": false,
-      "listable": true,
+      "listable": false,
       "metadata": {
         "slug": "creatures",
         "description": "",

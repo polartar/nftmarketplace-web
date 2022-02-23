@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers, constants } from 'ethers';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { Form, ProgressBar, Spinner } from 'react-bootstrap';
 import ReactPlayer from 'react-player';
 import * as Sentry from '@sentry/react';
+import styled from 'styled-components';
 
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
@@ -17,17 +18,17 @@ import { connectAccount } from '../../GlobalState/User';
 import { fetchMemberInfo } from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
-  createSuccessfulTransactionToastContent,
+  createSuccessfulTransactionToastContent, isCreaturesDrop,
   isCrognomesDrop,
   isFounderDrop,
   isMagBrewVikingsDrop,
   newlineText,
   percentage,
 } from '../../utils';
-// import MintButton from '../Drop/MintButton';
 import { dropState as statuses } from '../../core/api/enums';
-// import nft from './nft';
 import { EbisuDropAbi } from '../../Contracts/Abis';
+// import MintButton from '../Drop/MintButton';
+// import nft from './nft';
 
 export const drops = config.drops;
 
@@ -43,16 +44,36 @@ const fadeInUp = keyframes`
     transform: translateY(0);
   }
 `;
-const inline = keyframes`
-  0% {
-    opacity: 0;
+// const inline = keyframes`
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+//   .d-inline{
+//     display: inline-block;
+//    }
+// `;
+
+const HeroSection = styled.section`
+  border-radius: 0;
+  margin: 0;
+  padding: 0 0;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .h-vh {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
   }
-  100% {
-    opacity: 1;
-  }
-  .d-inline{
-    display: inline-block;
-   }
 `;
 
 const Drop = () => {
@@ -237,6 +258,10 @@ const Drop = () => {
   };
 
   const calculateCost = async (user, isErc20) => {
+    if (isCreaturesDrop(drop.address)) {
+      return ethers.utils.parseEther(dropObject.memberCost);
+    }
+
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
       let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
       if (abi.find((m) => m.name === 'cost')) {
@@ -282,6 +307,9 @@ const Drop = () => {
       try {
         const cost = await calculateCost(user, isErc20);
         let finalCost = cost.mul(numToMint);
+        if (isCreaturesDrop(drop.address)) {
+          finalCost = finalCost.sub((cost.mul((Math.floor(numToMint / 4)))))
+        }
         let extra = {
           value: finalCost,
         };
@@ -402,15 +430,15 @@ const Drop = () => {
     let dateString = `${fullDateString.split(', ')[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`;
     return dateString;
   };
-  const vidRef = useRef(null);
-  const handlePlayVideo = () => {
-    vidRef.current.play();
-  };
+  // const vidRef = useRef(null);
+  // const handlePlayVideo = () => {
+  //   vidRef.current.play();
+  // };
   return (
     <div>
       <>
-        <section
-          className={`jumbotron breadcumb h-vh tint`}
+        <HeroSection
+          className={`jumbotron h-vh tint`}
           style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.webp'})` }}
         >
           <div className="container">
@@ -461,7 +489,7 @@ const Drop = () => {
                   <h1 className="col-white">{drop.title}</h1>
                 </Reveal>
                 <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
-                  <p className="lead col-white">{newlineText(drop.subtitle)}</p>
+                  <div className="lead col-white">{newlineText(drop.subtitle)}</div>
                 </Reveal>
                 {drop.foundersOnly && (
                   <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
@@ -469,13 +497,20 @@ const Drop = () => {
                     {drop.foundersOnly && <h3 className="col-white">Founding Member Presale</h3>}
                   </Reveal>
                 )}
+                <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                  <div>
+                    <a href="#drop_detail" className="btn-main">
+                      View Drop
+                    </a>
+                  </div>
+                </Reveal>
                 <div className="spacer-10"></div>
               </div>
             </div>
           </div>
-        </section>
+        </HeroSection>
 
-        <section className="container no-bottom">
+        <section className="container no-bottom" id="drop_detail">
           <div className="row">
             <div className="col-md-12">
               <div className="d_profile de-flex">
@@ -487,7 +522,7 @@ const Drop = () => {
                         {drop.author.name}
                         {drop.author.link && (
                           <span className="profile_username">
-                            <a href={drop.author.link} target="_blank">
+                            <a href={drop.author.link} target="_blank" rel="noreferrer">
                               View Website
                             </a>
                           </span>

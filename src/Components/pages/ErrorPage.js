@@ -112,7 +112,7 @@ export const ErrorPage = () => {
     };
   }, [dispatch]);
 
-  useEffect(async function () {
+  useEffect(() => {
     dispatch(getMarketData());
   }, []);
 

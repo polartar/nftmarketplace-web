@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Footer from '../components/Footer';
 import { createGlobalStyle } from 'styled-components';
-import { getAllCollections } from '../../GlobalState/collectionsSlice';
 import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import Blockies from 'react-blockies';
 import { Form, Spinner } from 'react-bootstrap';
-import Select from 'react-select';
-import { SortOption } from '../Models/sort-option.model';
-import { searchListings } from '../../GlobalState/collectionSlice';
+// import Select from 'react-select';
+
+import Footer from '../components/Footer';
+import { getAllCollections } from '../../GlobalState/collectionsSlice';
+// import { searchListings } from '../../GlobalState/collectionSlice';
+// import { SortOption } from '../Models/sort-option.model';
 import { debounce } from '../../utils';
 
 const GlobalStyles = createGlobalStyle`
@@ -28,7 +29,7 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const customStyles = {
+/* const customStyles = {
   option: (base, state) => ({
     ...base,
     background: '#fff',
@@ -51,7 +52,7 @@ const customStyles = {
     ...base,
     padding: 2,
   }),
-};
+}; */
 
 const Collections = () => {
   const mobileListBreakpoint = 1000;
@@ -70,8 +71,9 @@ const Collections = () => {
     return state.collections.sort;
   });
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(getAllCollections());
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -81,10 +83,6 @@ const Collections = () => {
       setFilteredCollections(collections);
     }
   }, [collections]);
-
-  useEffect(async () => {
-    dispatch(getAllCollections());
-  }, []);
 
   const sortCollections = (key) => () => {
     let direction = 'asc';
