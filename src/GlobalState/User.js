@@ -363,7 +363,6 @@ export const connectAccount =
       });
 
     if (!web3provider) {
-      toast.info('web3provider is null');
       dispatch(onLogout());
       return;
     }
