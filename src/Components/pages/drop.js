@@ -19,7 +19,7 @@ import { connectAccount } from '../../GlobalState/User';
 import { fetchMemberInfo } from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
-  createSuccessfulTransactionToastContent,
+  createSuccessfulTransactionToastContent, isCreaturesDrop,
   isCrognomesDrop,
   isFounderDrop,
   isMagBrewVikingsDrop,
@@ -259,6 +259,10 @@ const Drop = () => {
   };
 
   const calculateCost = async (user, isErc20) => {
+    if (isCreaturesDrop(drop.address)) {
+      return ethers.utils.parseEther(dropObject.memberCost);
+    }
+
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
       let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
       if (abi.find((m) => m.name === 'cost')) {
@@ -304,6 +308,9 @@ const Drop = () => {
       try {
         const cost = await calculateCost(user, isErc20);
         let finalCost = cost.mul(numToMint);
+        if (isCreaturesDrop(drop.address)) {
+          finalCost = finalCost.sub((cost.mul((Math.floor(numToMint / 4)))))
+        }
         let extra = {
           value: finalCost,
         };
@@ -495,13 +502,15 @@ const Drop = () => {
                     {drop.foundersOnly && <h3 className="col-white">Founding Member Presale</h3>}
                   </Reveal>
                 )}
+                <Reveal className="onStep" keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
+                  <div>
+                    <a href="#drop_detail" className="btn-main">
+                      View Drop
+                    </a>
+                  </div>
+                </Reveal>
                 <div className="spacer-10"></div>
               </div>
-            </div>
-            <div>
-              <a href="#drop_detail" className="btn-main">
-                View Drop
-              </a>
             </div>
           </div>
         </HeroSection>

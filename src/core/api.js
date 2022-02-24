@@ -144,8 +144,15 @@ export async function getListing(listingId) {
     var rawListing = await (await fetch(uri)).json();
 
     rawListing = rawListing['listings'][0];
-    
+
     const isMetaPixels = isMetapixelsCollection(rawListing['nftAddress']);
+    if (isMetaPixels) {
+      const contract =  new Contract(rawListing['nftAddress'], MetaPixelsAbi, readProvider);
+      const data = await contract.lands(rawListing['nftId']);
+      const plotSize = `${(data.xmax - data.xmin + 1)}x${(data.ymax - data.ymin + 1)}`;
+      const plotCoords = `(${data.xmin}, ${data.ymin})`
+      rawListing['nft'].description = `Metaverse Pixel plot at ${plotCoords} with a ${plotSize} size`
+    }
 
     const listing = {
       listingId: rawListing['listingId'],
@@ -734,6 +741,15 @@ export async function getNft(collectionId, nftId, useFallback = true) {
 
     if (useFallback && !result.nft) {
       result.nft = await getNftFromFile(collectionId, nftId);
+    }
+
+    const isMetaPixels = isMetapixelsCollection(collectionId);
+    if (isMetaPixels) {
+      const contract =  new Contract(collectionId, MetaPixelsAbi, readProvider);
+      const data = await contract.lands(nftId);
+      const plotSize = `${(data.xmax - data.xmin + 1)}x${(data.ymax - data.ymin + 1)}`;
+      const plotCoords = `(${data.xmin}, ${data.ymin})`
+      result.nft.description = `Metaverse Pixel plot at ${plotCoords} with a ${plotSize} size`
     }
 
     return result;

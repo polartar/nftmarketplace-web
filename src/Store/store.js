@@ -13,31 +13,26 @@ import auctionReducer from '../GlobalState/auctionSlice';
 import nftReducer from '../GlobalState/nftSlice';
 import collectionsReducer from '../GlobalState/collectionsSlice';
 import collectionReducer from '../GlobalState/collectionSlice';
-import { initState } from '../GlobalState/CreateSlice';
+import { appInitializeStateReducer } from '../GlobalState/InitSlice';
 import { user } from '../GlobalState/User';
 
 const rootReducer = combineReducers({
-  // initState: initState,
   memberships: memberships,
   cronies: cronies,
-  // user : user,
-
   marketplace: marketplaceReducer,
   auctions: auctionsReducer,
   listing: listingReducer,
   auction: auctionReducer,
   nft: nftReducer,
   user: user,
-  initState: initState,
+  appInitialize: appInitializeStateReducer,
   collections: collectionsReducer,
   collection: collectionReducer,
 });
 
-const middleware = [thunk];
-
 const reduxDevToolsComposeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const sentryEnhancedMiddlewares = applyMiddleware(...middleware, createSentryMiddleware(Sentry, {}));
+const sentryEnhancedMiddlewares = applyMiddleware(thunk, createSentryMiddleware(Sentry, {}));
 
 const enableDevTools = process.env.NODE_ENV !== 'production' || process.env.REACT_APP_DEVTOOLS === 'true';
 
