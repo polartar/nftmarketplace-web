@@ -13,6 +13,7 @@ const MyNftCancelDialog = ({ myNftPageCancelDialog }) => {
 
   useEffect(() => {
     if (myNftPageCancelDialog) {
+      const {} = myNftPageCancelDialog;
       dispatch(
         MyNftCancelDialogActions.cancelListing({
           address: myNftPageCancelDialog.contract.address,
@@ -21,7 +22,7 @@ const MyNftCancelDialog = ({ myNftPageCancelDialog }) => {
         })
       );
     }
-  }, [myNftPageCancelDialog, dispatch]);
+  }, [myNftPageCancelDialog]);
 
   return <></>;
 };
