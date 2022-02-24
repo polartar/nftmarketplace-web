@@ -1,19 +1,8 @@
 import React, { memo } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
-import { croSkullRedPotionImage, croSkullRedPotionImageHack, isCroSkullRedPotion } from '../../hacks';
+import { croSkullRedPotionImageHack } from '../../hacks';
 
-const Outer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 8px;
-`;
-
-//react functional component
 const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
   return (
     <Link className="linkPointer" to={`/listing/${listing.listingId}`}>

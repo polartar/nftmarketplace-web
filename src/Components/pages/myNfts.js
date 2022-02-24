@@ -2,6 +2,7 @@ import React, { memo, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getAnalytics, logEvent } from '@firebase/analytics';
+import { Helmet } from 'react-helmet';
 
 import Footer from '../components/Footer';
 import NftCardList from '../components/MyNftCardList';
@@ -33,6 +34,10 @@ const MyNfts = ({ walletAddress }) => {
 
   return (
     <div>
+      <Helmet>
+        <title>My NFTs | Ebisu's Bay Marketplace</title>
+        <meta name="description" content="My NFTs for Ebisu's Bay Marketplace" />
+      </Helmet>
       <section className="jumbotron breadcumb no-bg tint">
         <div className="mainbreadcumb">
           <div className="container">

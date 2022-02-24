@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import DropsCarousel from '../components/DropsCarousel';
 // import LatestDropsCollection from '../components/LatestDropsCollection';
@@ -13,6 +14,10 @@ import FoundingMemberImg from '../../Assets/founding_member.png';
 
 const Drops = () => (
   <div>
+    <Helmet>
+      <title>Drops | Ebisu's Bay Marketplace</title>
+      <meta name="description" content="Drops for Ebisu's Bay Marketplace" />
+    </Helmet>
     <section style={{ paddingTop: '90px', paddingBottom: '8px', background: 'transparent' }}>
       <div className="d-flex justify-content-center px-5">
         <p className="my-auto me-5">

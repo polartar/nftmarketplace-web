@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  // clearMySales,
   clearMyUnfilteredListings,
-  // fetchSales,
   fetchUnfilteredListings,
   MyListingsCollectionPageActions,
+  // clearMySales,
+  // fetchSales,
 } from '../../GlobalState/User';
 import { Form, Spinner } from 'react-bootstrap';
 import { getAnalytics, logEvent } from '@firebase/analytics';
@@ -42,7 +42,7 @@ const MyListingsCollection = ({ walletAddress = null }) => {
   useEffect(() => {
     dispatch(clearMyUnfilteredListings());
     dispatch(fetchUnfilteredListings(walletAddress));
-  }, [walletAddress]);
+  }, [walletAddress, dispatch]);
 
   useEffect(() => {
     logEvent(getAnalytics(), 'screen_view', {

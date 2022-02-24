@@ -1,4 +1,6 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
+
 // import { useDispatch } from 'react-redux';
 // import { keyframes } from '@emotion/react';
 // import Reveal from 'react-awesome-reveal';
@@ -54,6 +56,10 @@ const CharityBall = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Charity Ball | Ebisu's Bay Marketplace</title>
+        <meta name="description" content="Charity Ball for Ebisu's Bay Marketplace" />
+      </Helmet>
       <section className="jumbotron breadcumb no-bg" style={{ backgroundImage: `url(${'./img/background/12.webp'})` }}>
         <div className="container pt0 pt-3">
           <div className="row">
