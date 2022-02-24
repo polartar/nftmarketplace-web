@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortOptions } from './constants/sort-options';
 import { SortOption } from '../Models/sort-option.model';
-import { sortListings, searchListings } from '../../GlobalState/collectionSlice';
+import { sortListings, resetListings, searchListings } from '../../GlobalState/collectionSlice';
 import { Form } from 'react-bootstrap';
 
 const CollectionFilterBar = ({ cacheName = null }) => {
@@ -25,7 +25,7 @@ const CollectionFilterBar = ({ cacheName = null }) => {
     (sortOption) => {
       dispatch(sortListings(sortOption, cacheName));
     },
-    [dispatch, cacheName]
+    [dispatch]
   );
 
   const handleSearch = debounce((event) => {
@@ -33,9 +33,9 @@ const CollectionFilterBar = ({ cacheName = null }) => {
     dispatch(searchListings(value));
   }, 300);
 
-  // const handleClear = useCallback(() => {
-  //   dispatch(resetListings());
-  // }, [dispatch]);
+  const handleClear = useCallback(() => {
+    dispatch(resetListings());
+  }, [dispatch]);
 
   const customStyles = {
     option: (base, state) => ({

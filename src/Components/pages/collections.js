@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import Blockies from 'react-blockies';
 import { Form, Spinner } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
+// import Select from 'react-select';
 
 import Footer from '../components/Footer';
 import { getAllCollections } from '../../GlobalState/collectionsSlice';
@@ -113,10 +113,6 @@ const Collections = () => {
   return (
     <div>
       <GlobalStyles />
-      <Helmet>
-        <title>Collections | Ebisu's Bay Marketplace</title>
-        <meta name="description" content="Collections for Ebisu's Bay Marketplace" />
-      </Helmet>
       <section className="jumbotron breadcumb no-bg tint">
         <div className="mainbreadcumb">
           <div className="container">

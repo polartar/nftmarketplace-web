@@ -11,7 +11,6 @@ import { Form, ProgressBar, Spinner } from 'react-bootstrap';
 import ReactPlayer from 'react-player';
 import * as Sentry from '@sentry/react';
 import styled from 'styled-components';
-import { Helmet } from 'react-helmet';
 
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
@@ -19,8 +18,7 @@ import { connectAccount } from '../../GlobalState/User';
 import { fetchMemberInfo } from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
-  createSuccessfulTransactionToastContent,
-  isCreaturesDrop,
+  createSuccessfulTransactionToastContent, isCreaturesDrop,
   isCrognomesDrop,
   isFounderDrop,
   isMagBrewVikingsDrop,
@@ -84,7 +82,7 @@ const Drop = () => {
   const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
   const dispatch = useDispatch();
 
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [minting, setMinting] = useState(false);
   const [mintingERC20, setMintingERC20] = useState(false);
   const [referral, setReferral] = useState('');
@@ -225,7 +223,7 @@ const Drop = () => {
       console.log(error);
       Sentry.captureException(error);
     }
-    // setLoading(false);
+    setLoading(false);
     setDropObject(currentDrop);
   };
 
@@ -310,7 +308,7 @@ const Drop = () => {
         const cost = await calculateCost(user, isErc20);
         let finalCost = cost.mul(numToMint);
         if (isCreaturesDrop(drop.address)) {
-          finalCost = finalCost.sub(cost.mul(Math.floor(numToMint / 4)));
+          finalCost = finalCost.sub((cost.mul((Math.floor(numToMint / 4)))))
         }
         let extra = {
           value: finalCost,
@@ -439,10 +437,6 @@ const Drop = () => {
   return (
     <div>
       <>
-        <Helmet>
-          <title>{drop.title || 'Drop'} | Ebisu's Bay Marketplace</title>
-          <meta name="description" content={`${drop.title || 'Drop'} for Ebisu's Bay Marketplace`} />
-        </Helmet>
         <HeroSection
           className={`jumbotron h-vh tint`}
           style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.webp'})` }}

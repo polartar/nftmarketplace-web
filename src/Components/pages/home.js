@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import Reveal from 'react-awesome-reveal';
 import { createGlobalStyle, default as styled } from 'styled-components';
-import { Helmet } from 'react-helmet';
 
 import Footer from '../components/Footer';
 import ListingCollection from '../components/ListingCollection';
@@ -127,9 +126,8 @@ const Home = () => {
     history.push(link);
   };
 
-  useEffect(() => {
+  useEffect(async function () {
     dispatch(getMarketData());
-    // eslint-disable-next-line
   }, []);
 
   const JumbotronData = () => {
@@ -217,10 +215,6 @@ const Home = () => {
   return (
     <div>
       <GlobalStyles />
-      <Helmet>
-        <title>Home | Ebisu's Bay Marketplace</title>
-        <meta name="description" content="Home for Ebisu's Bay Marketplace" />
-      </Helmet>
       <Jumbotron.Host>{!mobile && <div className="container">{JumbotronData()}</div>}</Jumbotron.Host>
       {mobile && JumbotronData()}
 

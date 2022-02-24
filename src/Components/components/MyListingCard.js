@@ -1,13 +1,23 @@
 import React, { memo } from 'react';
-// import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import { ethers } from 'ethers';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from '../../Assets/networks/rpc_config.json';
+import { toast } from 'react-toastify';
+import { ethers } from 'ethers';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
-import config from '../../Assets/networks/rpc_config.json';
+const Outer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  height: 100%;
+`;
 
 const MyListingCard = ({
   nft,
@@ -19,16 +29,16 @@ const MyListingCard = ({
   onCancelButtonPressed,
   onUpdateButtonPressed,
 }) => {
-  // const history = useHistory();
+  const history = useHistory();
 
-  // const navigateTo = (link) => {
-  //   console.log(canUpdate);
-  //   history.push(link);
-  // };
+  const navigateTo = (link) => {
+    console.log(canUpdate);
+    history.push(link);
+  };
 
-  // const viewListingDetails = () => {
-  //   navigateTo(`/listing/${nft.listingId}`);
-  // };
+  const viewListingDetails = () => {
+    navigateTo(`/listing/${nft.listingId}`);
+  };
 
   const nftUrl = () => {
     return `/collection/${nft.address}/${nft.id}`;

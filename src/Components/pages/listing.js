@@ -9,7 +9,6 @@ import Blockies from 'react-blockies';
 import { faCrow, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Sentry from '@sentry/react';
-import { Helmet } from 'react-helmet';
 
 import ProfilePreview from '../components/ProfilePreview';
 import LayeredIcon from '../components/LayeredIcon';
@@ -156,10 +155,6 @@ const Listing = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>{listing?.nft.name || 'Listing'} | Ebisu's Bay Marketplace</title>
-        <meta name="description" content={`${listing?.nft.name || 'Listing'} for Ebisu's Bay Marketplace`} />
-      </Helmet>
       {isLoading ? (
         <section className="container">
           <div className="row mt-4">

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Contract, ethers } from 'ethers';
+// import { createGlobalStyle } from 'styled-components';
+// import { faDiscord, faMedium, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+// import { NavLink } from 'react-bootstrap';
+import { faCheck, faCircle /*, faGlobe, faLink*/ } from '@fortawesome/free-solid-svg-icons';
 import Blockies from 'react-blockies';
-import { Helmet } from 'react-helmet';
-import { faCheck, faCircle } from '@fortawesome/free-solid-svg-icons';
 // import { toast } from 'react-toastify';
 
 import Footer from '../components/Footer';
@@ -131,10 +133,6 @@ const Collection = ({ cacheName = 'collection' }) => {
 
   return (
     <div>
-      <Helmet>
-        <title>{collectionName()} | Ebisu's Bay Marketplace</title>
-        <meta name="description" content={`${collectionName()} for Ebisu's Bay Marketplace`} />
-      </Helmet>
       <section
         id="profile_banner"
         className="jumbotron breadcumb no-bg"
