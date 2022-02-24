@@ -41,7 +41,7 @@ export default api;
 let abortController = null;
 
 export async function sortAndFetchListings(page, sort, filter, traits, powertraits, search) {
-  let pagesize = 12;
+  let pagesize = 25;
 
   let query = {
     state: 0,
