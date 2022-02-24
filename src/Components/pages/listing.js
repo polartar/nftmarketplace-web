@@ -157,8 +157,8 @@ const Listing = () => {
   return (
     <div>
       <Helmet>
-        <title>Listing | Ebisu's Bay Marketplace</title>
-        <meta name="description" content="Listing for Ebisu's Bay Marketplace" />
+        <title>{listing?.nft.name || 'Listing'} | Ebisu's Bay Marketplace</title>
+        <meta name="description" content={`${listing?.nft.name || 'Listing'} for Ebisu's Bay Marketplace`} />
       </Helmet>
       {isLoading ? (
         <section className="container">

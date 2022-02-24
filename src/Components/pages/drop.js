@@ -19,7 +19,8 @@ import { connectAccount } from '../../GlobalState/User';
 import { fetchMemberInfo } from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
-  createSuccessfulTransactionToastContent, isCreaturesDrop,
+  createSuccessfulTransactionToastContent,
+  isCreaturesDrop,
   isCrognomesDrop,
   isFounderDrop,
   isMagBrewVikingsDrop,
@@ -309,7 +310,7 @@ const Drop = () => {
         const cost = await calculateCost(user, isErc20);
         let finalCost = cost.mul(numToMint);
         if (isCreaturesDrop(drop.address)) {
-          finalCost = finalCost.sub((cost.mul((Math.floor(numToMint / 4)))))
+          finalCost = finalCost.sub(cost.mul(Math.floor(numToMint / 4)));
         }
         let extra = {
           value: finalCost,
@@ -439,8 +440,8 @@ const Drop = () => {
     <div>
       <>
         <Helmet>
-          <title>Drop | Ebisu's Bay Marketplace</title>
-          <meta name="description" content="Drop for Ebisu's Bay Marketplace" />
+          <title>{drop.title || 'Drop'} | Ebisu's Bay Marketplace</title>
+          <meta name="description" content={`${drop.title || 'Drop'} for Ebisu's Bay Marketplace`} />
         </Helmet>
         <HeroSection
           className={`jumbotron h-vh tint`}
