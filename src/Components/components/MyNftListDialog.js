@@ -39,17 +39,6 @@ const mapStateToProps = (state) => ({
 const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function asyncFunc() {
-      if (myNftPageListDialog) {
-        await showListDialog();
-      } else {
-        setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
-      }
-    }
-    asyncFunc();
-  }, [myNftPageListDialog]);
-
   const [salePrice, setSalePrice] = useState(null);
 
   const onListingDialogPriceValueChange = (inputEvent) => {
@@ -179,6 +168,17 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
     const youReceive = salePrice - (fee / 100) * salePrice - (royalty / 100) * salePrice;
     return ethers.utils.commify(youReceive.toFixed(2));
   };
+
+  useEffect(() => {
+    async function asyncFunc() {
+      if (myNftPageListDialog) {
+        await showListDialog();
+      } else {
+        setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
+      }
+    }
+    asyncFunc();
+  }, [myNftPageListDialog, showListDialog]);
 
   return (
     <>

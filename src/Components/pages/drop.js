@@ -84,7 +84,7 @@ const Drop = () => {
   const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [minting, setMinting] = useState(false);
   const [mintingERC20, setMintingERC20] = useState(false);
   const [referral, setReferral] = useState('');
@@ -225,7 +225,7 @@ const Drop = () => {
       console.log(error);
       Sentry.captureException(error);
     }
-    setLoading(false);
+    // setLoading(false);
     setDropObject(currentDrop);
   };
 
