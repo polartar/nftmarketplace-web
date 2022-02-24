@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import Blockies from 'react-blockies';
-import { faCheck, faChevronLeft, faChevronRight, faCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ethers } from 'ethers';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import Clock from './Clock';
-import LayeredIcon from './LayeredIcon';
+import styled, { createGlobalStyle } from 'styled-components';
 import config from '../../Assets/networks/rpc_config.json';
+import { humanize } from '../../utils';
+import Blockies from 'react-blockies';
+import LayeredIcon from './LayeredIcon';
+import { faCheck, faChevronLeft, faChevronRight, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ethers } from 'ethers';
 import { dropState } from '../../core/api/enums';
-
 export const drops = config.drops;
 
 const GlobalStyles = createGlobalStyle`

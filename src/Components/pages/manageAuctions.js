@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
-import { Helmet } from 'react-helmet';
 
 import { createSuccessfulTransactionToastContent } from '../../utils';
 import CreateAuction from '../Auctions/CreateAuction';
@@ -47,10 +46,8 @@ const ManageAuctions = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>Manage Auctions | Ebisu's Bay Marketplace</title>
-        <meta name="description" content="Manage Auctions for Ebisu's Bay Marketplace" />
-      </Helmet>
+      <GlobalStyles />
+
       <section
         className="jumbotron breadcumb no-bg"
         style={{ backgroundImage: `url(${'/img/background/subheader-blue.webp'})` }}
