@@ -206,7 +206,7 @@
       "multiToken": false,
       "address": "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cromonkeys-land",
         "description": "",
@@ -1977,6 +1977,26 @@
         "twitter": "https://twitter.com/creaturesxcl",
         "website": "https://www.cultcreatures.xyz/",
         "discord": "https://discord.gg/creaturegang"
+      }
+    },
+    {
+      "name": "Crobees",
+      "multiToken": false,
+      "address": "0x906C6c5c21144e9a2F4b060b569be98766d788C8",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "crobees",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/crobees/avatar.gif",
+        "card": "/img/collections/crobees/card.png",
+        "banner": "/img/collections/crobees/banner.png",
+        "maxSupply": 2222,
+        "twitter": "https://twitter.com/The_Crobees",
+        "website": "https://www.crobees.com/",
+        "discord": "discord.gg/BdYExfEJ8v",
+        "medium": "https://medium.com/the-crobees"
       }
     }
   ],
