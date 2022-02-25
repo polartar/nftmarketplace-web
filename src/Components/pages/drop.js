@@ -440,8 +440,8 @@ const Drop = () => {
     <div>
       <>
         <Helmet>
-          <title>{drop.title || 'Drop'} | Ebisu's Bay Marketplace</title>
-          <meta name="description" content={`${drop.title || 'Drop'} for Ebisu's Bay Marketplace`} />
+          <title>{drop?.title || 'Drop'} | Ebisu's Bay Marketplace</title>
+          <meta name="description" content={`${drop?.title || 'Drop'} for Ebisu's Bay Marketplace`} />
         </Helmet>
         <HeroSection
           className={`jumbotron h-vh tint`}

@@ -65,8 +65,8 @@ const Nft = () => {
   return (
     <div>
       <Helmet>
-        <title>{nft.name || 'NFT'} | Ebisu's Bay Marketplace</title>
-        <meta name="description" content={`${nft.name || 'NFT'} for Ebisu's Bay Marketplace`} />
+        <title>{nft?.name || 'NFT'} | Ebisu's Bay Marketplace</title>
+        <meta name="description" content={`${nft?.name || 'NFT'} for Ebisu's Bay Marketplace`} />
       </Helmet>
       <section className="container">
         <div className="row mt-md-5 pt-md-4">
