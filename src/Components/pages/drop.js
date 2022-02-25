@@ -198,6 +198,13 @@ const Drop = () => {
         const canMint = user.address ? await readContract.canMint(user.address) : 0;
         setCanMintQuantity(canMint);
         calculateStatus(currentDrop, supply, currentDrop.totalSupply);
+      } else if (isCreaturesDrop(drop.address)) {
+        let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+        const infos = await readContract.getInfo();
+        const canMint = user.address ? await readContract.canMint(user.address) : 0;
+        setDropInfo(currentDrop, infos.totalSupply);
+        setCanMintQuantity(canMint);
+        calculateStatus(currentDrop, infos.totalSupply, currentDrop.totalSupply);
       } else {
         if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi) || isUsingAbiFile(currentDrop.abi))) {
           let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -258,6 +265,9 @@ const Drop = () => {
   };
 
   const calculateCost = async (user, isErc20) => {
+    if (isCreaturesDrop(drop.address)) {
+      return ethers.utils.parseEther("444");
+    }
 
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
       let readContract = await new ethers.Contract(dropObject.address, abi, readProvider);
