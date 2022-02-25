@@ -1364,7 +1364,7 @@
       "multiToken": false,
       "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "lazy-horse-pony",
         "description": "",
