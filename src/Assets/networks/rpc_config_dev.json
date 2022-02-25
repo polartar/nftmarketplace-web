@@ -206,7 +206,7 @@
       "multiToken": false,
       "address": "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cromonkeys-land",
         "description": "",
@@ -1446,7 +1446,7 @@
       "multiToken": false,
       "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cronogods",
         "description": "",
@@ -1977,6 +1977,45 @@
         "twitter": "https://twitter.com/creaturesxcl",
         "website": "https://www.cultcreatures.xyz/",
         "discord": "https://discord.gg/creaturegang"
+      }
+    },
+    {
+      "name": "Crobees",
+      "multiToken": false,
+      "address": "0x906C6c5c21144e9a2F4b060b569be98766d788C8",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "crobees",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/crobees/avatar.gif",
+        "card": "/img/collections/crobees/card.png",
+        "banner": "/img/collections/crobees/banner.png",
+        "maxSupply": 2222,
+        "twitter": "https://twitter.com/The_Crobees",
+        "website": "https://www.crobees.com/",
+        "discord": "discord.gg/BdYExfEJ8v",
+        "medium": "https://medium.com/the-crobees"
+      }
+    },
+    {
+      "name": "Crognomides",
+      "multiToken": false,
+      "address": "0x9AE196176b528680B75C7aea2FBd72456FDFAE17",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "crognomides",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/crognomides/avatar.png",
+        "card": "/img/collections/crognomides/card.png",
+        "banner": "/img/collections/crognomides/banner.png",
+        "maxSupply": 2000,
+        "twitter": "https://twitter.com/CroGnomes",
+        "website": "https://www.crognomes.com/",
+        "discord": "https://discord.gg/yfqGzCy99W"
       }
     }
   ],
@@ -2759,7 +2798,8 @@
       "maxMintPerAddress": 49,
       "totalSupply": 4444,
       "cost": "444",
-      "memberCost": "333",
+      "memberCost": "444",
+      "whitelistCost": "444",
       "foundersOnly": false,
       "start": 1645570800000,
       "end": null,
