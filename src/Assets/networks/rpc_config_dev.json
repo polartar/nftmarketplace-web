@@ -1446,7 +1446,7 @@
       "multiToken": false,
       "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cronogods",
         "description": "",
@@ -1997,6 +1997,25 @@
         "website": "https://www.crobees.com/",
         "discord": "discord.gg/BdYExfEJ8v",
         "medium": "https://medium.com/the-crobees"
+      }
+    },
+    {
+      "name": "Crognomides",
+      "multiToken": false,
+      "address": "0x9AE196176b528680B75C7aea2FBd72456FDFAE17",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "crognomides",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/crognomides/avatar.png",
+        "card": "/img/collections/crognomides/card.png",
+        "banner": "/img/collections/crognomides/banner.png",
+        "maxSupply": 2000,
+        "twitter": "https://twitter.com/CroGnomes",
+        "website": "https://www.crognomes.com/",
+        "discord": "https://discord.gg/yfqGzCy99W"
       }
     }
   ],
