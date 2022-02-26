@@ -23,6 +23,7 @@
   "known_contracts": [
     {
       "name": "Ebisu's Bay VIP",
+      "slug": "ebisu-vip",
       "onChain": false,
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
       "multiToken": true,
@@ -33,7 +34,7 @@
         "description": "",
         "verified": true,
         "avatar": "/img/avatar.jpg",
-        "card": "/img/collections/ebisu/card.png",
+        "card": "/img/collections/ebisu/card.webp",
         "maxSupply": 1000,
         "website": "https://app.ebisusbay.com/",
         "twitter": "https://twitter.com/EbisusBay",
@@ -44,6 +45,7 @@
     },
     {
       "name": "Ebisu's Valentine",
+      "slug": "ebisu-valentine",
       "onChain": false,
       "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
       "multiToken": true,
@@ -65,6 +67,7 @@
     },
     {
       "name": "Ebisu's Valentine",
+      "slug": "ebisu-valentine-rare",
       "onChain": false,
       "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
       "multiToken": true,
@@ -86,6 +89,7 @@
     },
     {
       "name": "Fobos Whale",
+      "slug": "fobos-whale",
       "onChain": false,
       "address": "0x653DDF1Bb9995ecfcbDd411Dc3F9793127680B29",
       "multiToken": true,
@@ -97,13 +101,14 @@
         "verified": true,
         "maxSupply": 1,
         "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
-        "banner": "/img/collections/barbara/dodgerdogs/banner.png",
+        "banner": "/img/collections/barbara/dodgerdogs/banner.webp",
         "website": "https://crypto.com/nft/profile/vredekop?tab=created",
         "twitter": "https://twitter.com/BarbaraRedekop"
       }
     },
     {
       "name": "Ebisu's Bay Founder",
+      "slug": "founding-member",
       "onChain": false,
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
       "multiToken": true,
@@ -114,7 +119,7 @@
         "description": "",
         "verified": true,
         "avatar": "/img/avatar.jpg",
-        "card": "/img/collections/ebisu/card.png",
+        "card": "/img/collections/ebisu/card.webp",
         "maxSupply": 10000,
         "website": "https://app.ebisusbay.com/",
         "twitter": "https://twitter.com/EbisusBay",
@@ -125,6 +130,7 @@
     },
     {
       "name": "Mad Meerkat",
+      "slug": "mad-meerkat",
       "multiToken": false,
       "address": "0x89dBC8Bd9a6037Cbd6EC66C4bF4189c9747B1C56",
       "onChain": false,
@@ -146,6 +152,7 @@
     },
     {
       "name": "Petite Planets Gen 2",
+      "slug": "petite-planets-gen2",
       "multiToken": false,
       "address": "0x83Ac37cc236DB5e9e2F01929aBEf70D8dfc44f9a",
       "onChain": false,
@@ -165,6 +172,7 @@
     },
     {
       "name": "Petite Planets NFT",
+      "slug": "petite-planets",
       "multiToken": false,
       "address": "0xEdb2Eb556765F258a827f75Ad5a4d9AEe9eA7118",
       "onChain": false,
@@ -184,6 +192,7 @@
     },
     {
       "name": "CroMonkeys",
+      "slug": "cromonkeys",
       "multiToken": false,
       "address": "0xE3402E65311b06B2Bd5b0A7e0aae0F378ECd93d8",
       "onChain": false,
@@ -203,6 +212,7 @@
     },
     {
       "name": "CroMonkeys Land",
+      "slug": "cromonkeys-land",
       "multiToken": false,
       "address": "0xd93471cdad272969cd8314138ff2C2DBB860bE37",
       "onChain": false,
@@ -222,6 +232,7 @@
     },
     {
       "name": "Cronos Slothty",
+      "slug": "cronos-slothy",
       "multiToken": false,
       "address": "0x94fCEDf4e07f1c3906195FA76852675590886Aaa",
       "onChain": false,
@@ -242,6 +253,7 @@
     },
     {
       "name": "Crosmonauts",
+      "slug": "crosmonauts",
       "multiToken": false,
       "address": "0xDFab622fC4E5CE1420F83cf38E52312f33849a0A",
       "onChain": false,
@@ -262,6 +274,7 @@
     },
     {
       "name": "CronosChimp",
+      "slug": "cronos-chimp-club",
       "multiToken": false,
       "address": "0x562f021423d75a1636db5be1c4d99bc005ccebfe",
       "onChain": false,
@@ -282,6 +295,7 @@
     },
     {
       "name": "CroPunks - Punks on Cronos",
+      "slug": "cro-punks",
       "multiToken": false,
       "address": "0xaec3adc72e453ecb6009aa48e0ac967941b30c4e",
       "onChain": false,
@@ -301,6 +315,7 @@
     },
     {
       "name": "WinterPunks by CroPunks",
+      "slug": "winter-punks",
       "multiToken": false,
       "address": "0x1c8Ef727Cb7AF92B8eE3cdBB6778BeAa1aBc43ac",
       "onChain": false,
@@ -320,6 +335,7 @@
     },
     {
       "name": "CRO CROW",
+      "slug": "cro-crow",
       "multiToken": false,
       "address": "0xe4ab77ed89528d90e6bcf0e1ac99c58da24e79d5",
       "onChain": false,
@@ -340,6 +356,7 @@
     },
     {
       "name": "Cronies",
+      "slug": "cronies",
       "multiToken": false,
       "address": "0xD961956B319A10CBdF89409C0aE7059788A4DaBb",
       "onChain": true,
@@ -359,6 +376,7 @@
     },
     {
       "name": "Wrapped Cronos Punk",
+      "slug": "wrapped-cronos-punk",
       "multiToken": false,
       "address": "0x13d13e2410A34Bfe5502D50ea4FCFBd591D7589E",
       "onChain": false,
@@ -378,6 +396,7 @@
     },
     {
       "name": "Cronos Punk",
+      "slug": "cronos-punk",
       "multiToken": false,
       "address": "0x16134B610f15338B96D8DF52EE63553dD2B013A2",
       "onChain": false,
@@ -395,6 +414,7 @@
     },
     {
       "name": "CROCOSNFT",
+      "slug": "crocos-nft",
       "multiToken": false,
       "address": "0x18b73D1f9e2d97057deC3f8D6ea9e30FCADB54D7",
       "onChain": false,
@@ -413,6 +433,7 @@
     },
     {
       "name": "CrocosXmasNFT",
+      "slug": "crocos-nft-xmas",
       "multiToken": false,
       "address": "0xeEeecAF68c6142D2f2F2628557A58cf4440a9BBD",
       "onChain": false,
@@ -431,6 +452,7 @@
     },
     {
       "name": "CRODrakes",
+      "slug": "crodrakes",
       "multiToken": false,
       "address": "0xbed280E63B3292a5faFEC896F9a0256d12552170",
       "onChain": false,
@@ -451,6 +473,7 @@
     },
     {
       "name": "SupBirds",
+      "slug": "supbirds",
       "multiToken": false,
       "address": "0x48879b93AbCE2B69F9792584f8891BCe30C1BF28",
       "onChain": false,
@@ -467,6 +490,7 @@
     },
     {
       "name": "Crownos",
+      "slug": "crownos",
       "multiToken": false,
       "address": "0x704f0990CE1997ED5110e7415cc7aBE090006C1e",
       "onChain": false,
@@ -482,6 +506,7 @@
     },
     {
       "name": "Crypto Collage Collection",
+      "slug": "crypto-collage-collection",
       "multiToken": false,
       "address": "0x64274Fce5bd057E6416f57A5EdC8a3195E153022",
       "onChain": false,
@@ -500,6 +525,7 @@
     },
     {
       "name": "Petite Planets Gen 1 Governor Medals",
+      "slug": "petite-planets-gen1-governor-medals",
       "multiToken": false,
       "address": "0xCaa648e8f8fE3D4705BC3D9B0d4d1068509f1014",
       "onChain": false,
@@ -516,6 +542,7 @@
     },
     {
       "name": "Day One Supporter",
+      "slug": "day-one-supporter",
       "multiToken": false,
       "address": "0xf711e40d09BF4709c32eb967243872700fe80CC7",
       "onChain": false,
@@ -533,6 +560,7 @@
     },
     {
       "name": "Cronostars",
+      "slug": "cronostars",
       "multiToken": false,
       "address": "0x03741A724d0E15F8FD052DAa56633a69090D20a3",
       "onChain": false,
@@ -549,6 +577,7 @@
     },
     {
       "name": "CronosEyezNFT",
+      "slug": "cronoseyez",
       "multiToken": false,
       "address": "0xCE5caC89E25DBCCD590090994919a5Ef53bBD6C0",
       "onChain": false,
@@ -568,6 +597,7 @@
     },
     {
       "name": "CronosEyez Gen 2",
+      "slug": "cronoseyez-gen2",
       "multiToken": false,
       "address": "0x15730353272C88229a91804854078aa9B3A70448",
       "onChain": false,
@@ -587,6 +617,7 @@
     },
     {
       "name": "CROstmas Gnome",
+      "slug": "crostmas-gnome",
       "multiToken": false,
       "address": "0xE8D59fB0259F440F5f17cE29975F98D728614f18",
       "onChain": false,
@@ -602,6 +633,7 @@
     },
     {
       "name": "Pingoo Black Friday Ticket",
+      "slug": "pingoo",
       "multiToken": false,
       "address": "0x948E8c6E0c9035f7372a10e10f9f71cC81341053",
       "onChain": false,
@@ -619,6 +651,7 @@
     },
     {
       "name": "Elon's Adventure",
+      "slug": "elons-adventure",
       "multiToken": false,
       "address": "0x3Bf0a68a03fE82A5D21445f3a2306bB012dd50D9",
       "onChain": false,
@@ -638,6 +671,7 @@
     },
     {
       "name": "Dodger Dogs",
+      "slug": "dodger-dogs",
       "multiToken": false,
       "address": "0xf518f16F6611f0B7a51496cfCBA2Ed954Ec81112",
       "onChain": false,
@@ -647,7 +681,7 @@
         "description": "",
         "verified": true,
         "avatar": "/img/collections/barbara/dodgerdogs/avatar.gif",
-        "banner": "/img/collections/barbara/dodgerdogs/banner.webp",
+        "banner": "/img/collections/barbara/dodgerdogs/banner.png",
         "card": "/img/collections/barbara/dodgerdogs/card.png",
         "maxSupply": 20,
         "website": "https://crypto.com/nft/profile/vredekop?tab=created",
@@ -657,6 +691,7 @@
     },
     {
       "name": "Game Art NFT",
+      "slug": "game-art-nft",
       "multiToken": false,
       "address": "0x6213e64dc1c3c9C56E23516b4853bb36674f6272",
       "onChain": false,
@@ -673,6 +708,7 @@
     },
     {
       "name": "SneakyPenguinsClub",
+      "slug": "sneaky-penguins-club",
       "multiToken": false,
       "address": "0xb9f31aC76D21e529e41B4dB61af3ab7E2ec026D5",
       "onChain": false,
@@ -693,6 +729,7 @@
     },
     {
       "name": "CroBits",
+      "slug": "cro-bits",
       "multiToken": false,
       "address": "0x527db60A25a5FDf2529815f3cE7AeA4C95078d9c",
       "onChain": false,
@@ -705,6 +742,7 @@
     },
     {
       "name": "Cronos Red Pandas",
+      "slug": "cronos-red-pandas",
       "multiToken": false,
       "address": "0xdc29c27b6adE7b172359EC1746a02B3304e974d8",
       "onChain": false,
@@ -722,6 +760,7 @@
     },
     {
       "name": "Genesis Rock",
+      "slug": "genesis-rock",
       "multiToken": true,
       "id": 1,
       "address": "0x68ec010Cf044CbAe1aCc213D043d394E620c641D",
@@ -741,6 +780,7 @@
     },
     {
       "name": "Ebisu by Barbara",
+      "slug": "ebisu-by-barbara",
       "multiToken": false,
       "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
       "onChain": false,
@@ -760,6 +800,7 @@
     },
     {
       "name": "Cronos Dolphinos",
+      "slug": "cronos-dolphinos",
       "multiToken": false,
       "address": "0x9DD120Ed601c0bdc5725F9cbf529Cb70fc0ECAFB",
       "onChain": false,
@@ -776,6 +817,7 @@
     },
     {
       "name": "DrakeStones",
+      "slug": "drake-stones",
       "multiToken": false,
       "address": "0x7E95774b4750F5c330ff2E44981c5E85E1a04F91",
       "onChain": false,
@@ -788,6 +830,7 @@
     },
     {
       "name": "Afro Cronos Dogs",
+      "slug": "afro-cronos-dogs",
       "multiToken": false,
       "address": "0x8cA7e38Ef04F61276569E30E6f9550Ac703BA736",
       "onChain": false,
@@ -800,6 +843,7 @@
     },
     {
       "name": "SantaCro",
+      "slug": "santa-cro",
       "multiToken": false,
       "address": "0xf273dB80d2C2D85f86B5B4c25F2Cce1De836D404",
       "onChain": false,
@@ -821,6 +865,7 @@
     },
     {
       "name": "Cro Sharks",
+      "slug": "cro-sharks",
       "multiToken": false,
       "address": "0x01b7D7e3D4e2f496D0b25453A361e36eF5144686",
       "onChain": false,
@@ -840,6 +885,7 @@
     },
     {
       "name": "Pixowls",
+      "slug": "pixowls",
       "multiToken": false,
       "address": "0xF1Ad680E2F9269C0306F6176DB4D782ae05A9a9a",
       "onChain": false,
@@ -859,6 +905,7 @@
     },
     {
       "name": "Cronos Red Panda Giveaways",
+      "slug": "cronos-red-panda-giveaways",
       "multiToken": false,
       "address": "0x790D8b9568e44087aB144C7E502c47Cb43d9F75d",
       "onChain": false,
@@ -871,6 +918,7 @@
     },
     {
       "name": "Cronos Nanas",
+      "slug": "cronos-nanas",
       "multiToken": false,
       "address": "0x70c6062100b09aF2Ec63345cda372d52423BE4aC",
       "onChain": false,
@@ -890,6 +938,7 @@
     },
     {
       "name": "Crypto Lovers",
+      "slug": "crypto-lovers",
       "multiToken": false,
       "address": "0xe7907F66a464729D7Ca521dfCe01816d06D226Dc",
       "onChain": false,
@@ -902,6 +951,7 @@
     },
     {
       "name": "Cronos Slothty Xmas",
+      "slug": "cro-slothy-xmas",
       "multiToken": false,
       "address": "0x303D2a6143cFc67C26Db2879eA955f7d076c4cBc",
       "onChain": false,
@@ -919,6 +969,7 @@
     },
     {
       "name": "Ant Mint Pass",
+      "slug": "ant-mint-pass",
       "multiToken": false,
       "address": "0x844DaCD5A52DB9368E6C606f739599598031da84",
       "onChain": false,
@@ -937,6 +988,7 @@
     },
     {
       "name": "CROMages",
+      "slug": "cromages",
       "multiToken": false,
       "address": "0xb0faE50ebe0cE5aee08898d73042cD28E6A89D48",
       "onChain": false,
@@ -956,6 +1008,7 @@
     },
     {
       "name": "CroSkull",
+      "slug": "croskull",
       "multiToken": false,
       "address": "0xF87A517A5CaecaA03d7cCa770789BdB61e09e05F",
       "onChain": false,
@@ -976,6 +1029,7 @@
     },
     {
       "name": "LazyHorse",
+      "slug": "lazy-horse",
       "multiToken": false,
       "address": "0xD504ed871d33dbD4f56f523A37dceC86Ee918cb6",
       "onChain": false,
@@ -996,6 +1050,7 @@
     },
     {
       "name": "Barn Cats",
+      "slug": "barn-cats",
       "multiToken": false,
       "address": "0x8449821e8334d79e455223739d41eef55e36583e",
       "onChain": false,
@@ -1016,6 +1071,7 @@
     },
     {
       "name": "Cronos Lizards",
+      "slug": "cronos-lizards",
       "multiToken": false,
       "address": "0x89Ff2f804B6C029eeE739bCeE029453b05e94F43",
       "onChain": false,
@@ -1035,6 +1091,7 @@
     },
     {
       "name": "Cronos Primate Business",
+      "slug": "cronos-monkey-business",
       "multiToken": false,
       "address": "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
       "onChain": false,
@@ -1055,6 +1112,7 @@
     },
     {
       "name": "Admiration",
+      "slug": "admiration",
       "multiToken": false,
       "address": "0x3c02f80F2ca893783Af6FE1C648aEAc33AF60505",
       "onChain": false,
@@ -1073,6 +1131,7 @@
     },
     {
       "name": "CROugars",
+      "slug": "crougars",
       "multiToken": false,
       "address": "0xdCcCEd571dcbC82Bbeadf95Af20ee4442E21208C",
       "onChain": false,
@@ -1093,6 +1152,7 @@
     },
     {
       "name": "Fractals",
+      "slug": "fractals",
       "multiToken": false,
       "address": "0x78c9156EFb0c417F1E96935a37C3f456D7b3A1d1",
       "onChain": false,
@@ -1110,6 +1170,7 @@
     },
     {
       "name": "Cronos Fox Fraternity",
+      "slug": "cronos-fox-fraternity",
       "multiToken": false,
       "address": "0x75233B3C8b60b7191704C0f6100850dc769bb857",
       "onChain": false,
@@ -1129,12 +1190,13 @@
     },
     {
       "name": "MAG Brew Vikings Special Edition",
+      "slug": "mag-brew-vikings",
       "multiToken": false,
       "address": "0xAaACC4EdEaD913D8c8A90D7eb10F79490c9a39B8",
       "onChain": false,
       "listable": false,
       "metadata": {
-        "slug": "mag-brew-vikings",
+        "slug": "mag-brew-vikings-se",
         "description": "",
         "verified": true,
         "maxSupply": 8000,
@@ -1146,6 +1208,7 @@
     },
     {
       "name": "CroSkullAmbassadors",
+      "slug": "croskull-ambassadors",
       "multiToken": false,
       "address": "0xF0a2BF982eD9dd6c83163b5B6E01744039D9EB6D",
       "onChain": false,
@@ -1158,6 +1221,7 @@
     },
     {
       "name": "Crxillion",
+      "slug": "crxillion",
       "multiToken": false,
       "address": "0xE1bAa24525B5f48F9B9df54802E44E85c0D81099",
       "onChain": false,
@@ -1178,6 +1242,7 @@
     },
     {
       "name": "Cronos Dogs",
+      "slug": "cronos-dogs",
       "multiToken": false,
       "address": "0x7A47E51c4D51067b8A5B373235d5BB555aE06eB7",
       "onChain": false,
@@ -1197,6 +1262,7 @@
     },
     {
       "name": "Smart Mars",
+      "slug": "smart-mars",
       "multiToken": false,
       "address": "0x4B2e1f709Df771F2111f74522F79A97F95aAf1D6",
       "onChain": false,
@@ -1213,6 +1279,7 @@
     },
     {
       "name": "IcyCro",
+      "slug": "icy-cro",
       "multiToken": false,
       "address": "0x1aBBA40B94070Bf699970d8fCA9c71C1168273d3",
       "onChain": false,
@@ -1225,6 +1292,7 @@
     },
     {
       "name": "Cronos Goats",
+      "slug": "cronos-goats",
       "multiToken": false,
       "address": "0x93A3906FF14C9Aa4F33377aE94Cc4A9858D346b9",
       "onChain": false,
@@ -1244,6 +1312,7 @@
     },
     {
       "name": "Cronos Ragdoll",
+      "slug": "cronos-ragdoll",
       "multiToken": false,
       "address": "0x21E68422011a330beFdf45b0E45072c947316C95",
       "onChain": false,
@@ -1263,6 +1332,7 @@
     },
     {
       "name": "Fooly Fish",
+      "slug": "fooly-fish",
       "multiToken": false,
       "address": "0xBb0b5d1d32435764f8d11Ff7086d47D81bD2bA5B",
       "onChain": false,
@@ -1282,6 +1352,7 @@
     },
     {
       "name": "Weird Apes Club",
+      "slug": "weird-apes-club",
       "multiToken": false,
       "address": "0x7D5f8F9560103E1ad958A6Ca43d49F954055340a",
       "onChain": false,
@@ -1302,6 +1373,7 @@
     },
     {
       "name": "IcySquidGame Vikings",
+      "slug": "icysquidgame-vikings",
       "multiToken": false,
       "address": "0x4F68b2F90091B6C6012b487Faa7D267FC0Db86dE",
       "onChain": false,
@@ -1321,6 +1393,7 @@
     },
     {
       "name": "Blue Skull Potions",
+      "slug": "blue-skull-potions",
       "multiToken": false,
       "address": "0xB929D3002208f405180D3C07616F88EDa45F3e14",
       "onChain": false,
@@ -1341,6 +1414,7 @@
     },
     {
       "name": "Red Skull Potions",
+      "slug": "red-skull-potions",
       "multiToken": false,
       "address": "0x508378E99F5527Acb6eB4f0fc22f954c5783e5F9",
       "onChain": false,
@@ -1361,6 +1435,7 @@
     },
     {
       "name": "Lazy Horse Member NFT (PONY)",
+      "slug": "lazy-horse-pony",
       "multiToken": false,
       "address": "0x7d0259070B5f513CA543afb6a906d42af5884B1B",
       "onChain": false,
@@ -1376,6 +1451,7 @@
     },
     {
       "name": "Space Crystal Unicorns",
+      "slug": "space-crystal-unicorns",
       "multiToken": false,
       "address": "0x574677Ae4d09f8FcD4aa347E8905ccA7e18a4ca0",
       "onChain": false,
@@ -1392,6 +1468,7 @@
     },
     {
       "name": "Honorary Chimps",
+      "slug": "honorary-chimps",
       "multiToken": false,
       "address": "0x387cd44676CDEe5E398eC1a152A5136d9f4E1760",
       "onChain": false,
@@ -1407,6 +1484,7 @@
     },
     {
       "name": "Crognomes",
+      "slug": "crognomes",
       "multiToken": false,
       "address": "0xDe56D1C3E5B9E8e4f12533c1E64D4f6b7eEE701E",
       "onChain": false,
@@ -1426,6 +1504,7 @@
     },
     {
       "name": "Aunah",
+      "slug": "aunah",
       "multiToken": false,
       "address": "0xf3CbbEed8537b05557aBA2791642822C1A3F8Ac8",
       "onChain": false,
@@ -1443,6 +1522,7 @@
     },
     {
       "name": "CronoGods",
+      "slug": "cronogods",
       "multiToken": false,
       "address": "0xD366dc03fE6cE8fd620A48Cb2b9a0F87752aF15b",
       "onChain": false,
@@ -1462,6 +1542,7 @@
     },
     {
       "name": "Marie's Cyborgs",
+      "slug": "maries-cyborgs",
       "multiToken": false,
       "address": "0x2245a6e61dE5661D93183Ab3ADd8924b1DC774db",
       "onChain": false,
@@ -1482,6 +1563,7 @@
     },
     {
       "name": "Trooprz",
+      "slug": "trooprz",
       "multiToken": false,
       "address": "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
       "onChain": false,
@@ -1500,6 +1582,7 @@
     },
     {
       "name": "DogeApeSociety",
+      "slug": "dogeapesociety",
       "multiToken": false,
       "address": "0x1af91bAaC3175d3a714eD8EA42E2c696F3cF2737",
       "onChain": false,
@@ -1520,6 +1603,7 @@
     },
     {
       "name": "Chronoswap Founding Member",
+      "slug": "chronoswap-founding-member",
       "multiToken": false,
       "address": "0xCc9a4c16261745812d0c5ce7f4B5Ac66A4cf943c",
       "onChain": false,
@@ -1541,6 +1625,7 @@
     },
     {
       "name": "Crosmobabies",
+      "slug": "crosmobabies",
       "multiToken": false,
       "address": "0xf98F7fF91E8EF5F78c0DE703BD9b9de3Ad9eDE58",
       "onChain": false,
@@ -1561,6 +1646,7 @@
     },
     {
       "name": "MAG Brew Vikings",
+      "slug": "mag-brew-vikings",
       "multiToken": false,
       "address": "0x9a219f71D435bE7fADb5824dD843C7fc830c118F",
       "onChain": false,
@@ -1581,6 +1667,7 @@
     },
     {
       "name": "0xLuckless",
+      "slug": "0xluckless",
       "multiToken": false,
       "address": "0xd0B45e7bFcc58C99203E60a363E2574e01B0a581",
       "onChain": false,
@@ -1598,6 +1685,7 @@
     },
     {
       "name": "The LAB: Crazy Scientists",
+      "slug": "crazy-scientists",
       "multiToken": false,
       "address": "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
       "onChain": false,
@@ -1617,6 +1705,7 @@
     },
     {
       "name": "Crobots",
+      "slug": "crobots",
       "multiToken": false,
       "address": "0x3cdf2f7e9d0f998d4e6ef645dc3a293108f089f3",
       "onChain": false,
@@ -1635,6 +1724,7 @@
     },
     {
       "name": "Special CMB",
+      "slug": "cmb-special",
       "multiToken": false,
       "address": "0x241a175BDE39D6a2C6fA7ba9ed8F9Ac2C7F2741D",
       "onChain": false,
@@ -1654,6 +1744,7 @@
     },
     {
       "name": "Moon Landing",
+      "slug": "cro-moon-landing",
       "multiToken": false,
       "address": "0xc09a4eECA57C122BCdFab3A4DBF5C59B43E3f44e",
       "onChain": false,
@@ -1675,6 +1766,7 @@
     },
     {
       "name": "BobaNFTea",
+      "slug": "boba-nftea",
       "multiToken": false,
       "address": "0x0125Ce96f9A4324dD514D20bD8324c696619F9fe",
       "onChain": false,
@@ -1686,12 +1778,14 @@
         "avatar": "/img/collections/bobanftea/avatar.png",
         "card": "/img/collections/bobanftea/card.png",
         "banner": "/img/collections/bobanftea/banner.png",
+        "maxSupply": 3300,
         "twitter": "https://twitter.com/Boba_NFTea",
         "discord": "http://discord.gg/bobanftea"
       }
     },
     {
       "name": "CroNodesNFT",
+      "slug": "cronodes-nft",
       "multiToken": false,
       "address": "0x7901cc63208F8eaD11c0196a52B1E799f5602d49",
       "onChain": false,
@@ -1712,6 +1806,7 @@
     },
     {
       "name": "Cromeleons NFT",
+      "slug": "cromeleons",
       "multiToken": false,
       "address": "0xf004d2f46e177eC8Ffc7c7c7f2623E212b450920",
       "onChain": false,
@@ -1731,6 +1826,7 @@
     },
     {
       "name": "CROW PUNKS",
+      "slug": "crow-punks",
       "multiToken": false,
       "address": "0x0f1439a290e86a38157831fe27a3dcd302904055",
       "onChain": false,
@@ -1751,6 +1847,7 @@
     },
     {
       "name": "Panels Project",
+      "slug": "panels-project",
       "multiToken": false,
       "address": "0x0c2Bcb06cB46F9aE7cDB29cF76245BC04048919D",
       "onChain": false,
@@ -1770,6 +1867,7 @@
     },
     {
       "name": "NoBuddies NFT (BETA)",
+      "slug": "nobuddies",
       "multiToken": false,
       "address": "0xE13A2bf710c4D1fD3a04a85e14489B4D352CA2F0",
       "onChain": false,
@@ -1788,6 +1886,7 @@
     },
     {
       "name": "Reckless Robots",
+      "slug": "reckless-robots",
       "multiToken": false,
       "address": "",
       "onChain": false,
@@ -1807,6 +1906,7 @@
     },
     {
       "name": "The HD: Hyped Dogs",
+      "slug": "hyped-dogs",
       "multiToken": false,
       "address": "0xD97A5ed8d1f5943085F7eFADC8e46415F5b7deDD",
       "onChain": false,
@@ -1826,6 +1926,7 @@
     },
     {
       "name": "MetaPixels",
+      "slug": "metapixels",
       "onChain": false,
       "address": "0x19e1f891002240fbea77ccc2adb6e73b93b3b97a",
       "multiToken": false,
@@ -1846,6 +1947,7 @@
     },
     {
       "name": "Bushicro",
+      "slug": "bushicro",
       "multiToken": false,
       "address": "0xB8C3257E71E8294134E9B59a498d0BAF0c72C2b0",
       "onChain": false,
@@ -1866,6 +1968,7 @@
     },
     {
       "name": "Cronos Fox Elite",
+      "slug": "cronos-fox-elite",
       "multiToken": false,
       "address": "0xaC22b85bd9B71C7C6FE874C8F710A3AE45f76C76",
       "onChain": false,
@@ -1882,6 +1985,7 @@
     },
     {
       "name": "Cronos Rocks",
+      "slug": "cronos-rocks",
       "multiToken": false,
       "address": "0xf8e63021C3d757b63eb53a9124271251A964D572",
       "onChain": false,
@@ -1901,6 +2005,7 @@
     },
     {
       "name": "Crayon Ape Art Club",
+      "slug": "crayon-ape-art-club",
       "multiToken": false,
       "address": "0xd1063F12356eCb45f396776B05286c7B9F98AEB5",
       "onChain": false,
@@ -1920,6 +2025,7 @@
     },
     {
       "name": "Majestic Minotaurs",
+      "slug": "majestic-minotaurs",
       "multiToken": false,
       "address": "0xfE52ebb3aDb92CBA733B8DD3342DaAbf67A250a3",
       "onChain": false,
@@ -1941,6 +2047,7 @@
     },
     {
       "name": "Looters",
+      "slug": "looters",
       "multiToken": false,
       "address": "0xeE0F2Aa0A15d8A7Ddc8f0eE59bC555e43555C98d",
       "onChain": false,
@@ -1962,6 +2069,7 @@
     },
     {
       "name": "Creatures",
+      "slug": "creatures",
       "multiToken": false,
       "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
       "onChain": false,
@@ -1981,6 +2089,7 @@
     },
     {
       "name": "Crobees",
+      "slug": "crobees",
       "multiToken": false,
       "address": "0x906C6c5c21144e9a2F4b060b569be98766d788C8",
       "onChain": false,
@@ -2001,6 +2110,7 @@
     },
     {
       "name": "Crognomides",
+      "slug": "crognomides",
       "multiToken": false,
       "address": "0x9AE196176b528680B75C7aea2FBd72456FDFAE17",
       "onChain": false,
@@ -2016,6 +2126,26 @@
         "twitter": "https://twitter.com/CroGnomes",
         "website": "https://www.crognomes.com/",
         "discord": "https://discord.gg/yfqGzCy99W"
+      }
+    },
+    {
+      "name": "Croblins",
+      "slug": "croblins",
+      "multiToken": false,
+      "address": "0xaAAfCD854dC740794A65B32458ABE204205C9b4d",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "croblins",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/croblins/avatar.png",
+        "card": "/img/collections/croblins/card.png",
+        "banner": "/img/collections/croblins/banner.png",
+        "maxSupply": 3333,
+        "website": "https://croblins.io/",
+        "twitter": "https://twitter.com/croblins",
+        "discord": "https://discord.gg/zyXxkTkNXn"
       }
     }
   ],
@@ -2084,7 +2214,7 @@
       "title": "Ebisu by Barbara",
       "subtitle": "May his blessing be upon you as a guiding light in your journeys on the Cronos chain.",
       "description": "Ebisu has many origins, all of which have lead to his current status as one of the Seven Lucky Gods. Eternally grateful for the generosity and luck that had saved his life Ebisu is spreading joy and luck to all he encounters. May his blessing be upon you as a guiding light in your journeys on the Cronos Chain.",
-      "author": { "name": "Barbara Redekop", "link": "https://discord.gg/XrhWf2SppB" },
+      "author": { "name": "Barbara Redekop", "link": "https://www.instagram.com/im_barbara_redekop/" },
       "address": "0xd036b2223bcc2A96164B023022D6b78CD71A1a12",
       "maxMintPerTx": 10,
       "totalSupply": "âˆž",
@@ -2373,7 +2503,7 @@
       "is1155": false,
       "published": true,
       "featured": true,
-      "complete": false
+      "complete": true
     },
     {
       "id": 12,
