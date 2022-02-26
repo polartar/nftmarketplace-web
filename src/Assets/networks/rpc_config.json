@@ -1567,7 +1567,7 @@
       "multiToken": false,
       "address": "0x51112Bf32B9a1C64716DF2e6b82e63a04Bd384Fd",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "trooprz",
         "description": "",
@@ -1575,6 +1575,7 @@
         "avatar": "/img/collections/trooprz/avatar.gif",
         "card": "/img/collections/trooprz/card.jpeg",
         "banner": "/img/collections/trooprz/banner.jpeg",
+        "maxSupply": 2222,
         "website": "https://trooprz.army",
         "twitter": "https://twitter.com/trooprzarmy",
         "discord": "https://discord.gg/trooprz"
@@ -1972,7 +1973,7 @@
       "multiToken": false,
       "address": "0xaC22b85bd9B71C7C6FE874C8F710A3AE45f76C76",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cronos-fox-elite",
         "description": "",
@@ -2146,6 +2147,19 @@
         "website": "https://croblins.io/",
         "twitter": "https://twitter.com/croblins",
         "discord": "https://discord.gg/zyXxkTkNXn"
+      }
+    },
+    {
+      "name": "South Side Ants",
+      "slug": "south-side-ants",
+      "multiToken": false,
+      "address": "0x5219cA4b335bA51aB717E474F31D803381D09d24",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "south-side-ants",
+        "description": "",
+        "verified": true
       }
     }
   ],
@@ -2736,8 +2750,8 @@
       "imgAvatar": "/img/collections/crazyscientists/avatar.gif",
       "imgBanner": "/img/collections/crazyscientists/banner.png",
       "title": "The LAB: Crazy Scientists",
-      "subtitle": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratoryâ€™s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
-      "description": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratoryâ€™s ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+      "subtitle": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory's ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
+      "description": "5555 Crazy Scientists has for a long time been in the underground laboratory, they are now ready to move to the cronos blockchain.\n\nCrazy Scientists is a NFT collection packed with utility. The Crazy Scientists will be the central part of the Laboratory's ecosystem. They will have utility in our future launchpad, farms and play to earn game. We will also provide community utility such as airdrops, merch and raffles.",
       "author": { "name": "The LAB", "link": "https://www.thelaboratory.io/" },
       "address": "0xf0B2A653938f0E6A4620A140568D61D97F71978C",
       "maxMintPerTx": 5,
