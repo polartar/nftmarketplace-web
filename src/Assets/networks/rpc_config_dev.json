@@ -2017,6 +2017,25 @@
         "website": "https://www.crognomes.com/",
         "discord": "https://discord.gg/yfqGzCy99W"
       }
+    },
+    {
+      "name": "Croblins",
+      "multiToken": false,
+      "address": "0xaAAfCD854dC740794A65B32458ABE204205C9b4d",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "croblins",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/croblins/avatar.png",
+        "card": "/img/collections/croblins/card.png",
+        "banner": "/img/collections/croblins/banner.png",
+        "maxSupply": 3333,
+        "website": "https://croblins.io/",
+        "twitter": "https://twitter.com/croblins",
+        "discord": "https://discord.gg/zyXxkTkNXn"
+      }
     }
   ],
   "drops": [
