@@ -302,6 +302,15 @@ const AccountMenu = function () {
                   </span>
                 </li>
                 <li>
+                  <span onClick={() => navigateTo(`/staking`)}>
+                    <span>
+                      {' '}
+                      <FontAwesomeIcon icon={faShoppingBasket} />{' '}
+                    </span>
+                    <span>My Staking</span>
+                  </span>
+                </li>
+                <li>
                   <span onClick={clearCookies}>
                     <span>
                       {' '}

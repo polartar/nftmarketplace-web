@@ -33,7 +33,10 @@ const userSlice = createSlice({
     cronies: [],
     founderCount: 0,
     vipCount: 0,
+    stakeCount: 0,
     needsOnboard: false,
+    vipCountFetching: false,
+    stakeCountFetching: false,
 
     // Contracts
     membershipContract: null,
@@ -261,6 +264,18 @@ const userSlice = createSlice({
     balanceUpdated(state, action) {
       state.balance = action.payload;
     },
+    setVIPCount(state, action) {
+      state.vipCount = action.payload;
+    },
+    setVIPCountFetching(state, action) {
+      state.vipCountFetching = action.payload;
+    },
+    setStakeCount(state, action) {
+      state.stakeCount = action.payload;
+    },
+    setStakeCountFetching(state, action) {
+      state.stakeCountFetching = action.payload;
+    },
   },
 });
 
@@ -295,6 +310,10 @@ export const {
   onLogout,
   elonContract,
   onThemeChanged,
+  setVIPCount,
+  setVIPCountFetching,
+  setStakeCount,
+  setStakeCountFetching
 } = userSlice.actions;
 export const user = userSlice.reducer;
 
@@ -670,6 +689,20 @@ export const fetchSales = (walletAddress) => async (dispatch, getState) => {
 
   const listings = await getNftSalesForAddress(walletAddress, state.user.mySoldNftsCurPage + 1);
   dispatch(mySalesFetched(listings));
+};
+
+export const fetchVipCount = (walletAddress) => async (dispatch, getState) => {
+  dispatch(setVIPCountFetching(true));
+  const vipCount = await user.membershipContract.balanceOf(walletAddress, 2);
+  dispatch(setVIPCountFetching(false));
+  dispatch(setVIPCount(vipCount));
+};
+
+export const fetchStake = (walletAddress) => async (dispatch, getState) => {
+  dispatch(setStakeCountFetching(true));
+  const stakeCount = await user.membershipContract.balanceOf(walletAddress, 2);
+  dispatch(setStakeCountFetching(false));
+  dispatch(setStakeCount(stakeCount));
 };
 
 export const fetchUnfilteredListings = (walletAddress) => async (dispatch, getState) => {
