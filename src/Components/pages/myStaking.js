@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Footer from '../components/Footer';
-import MyVIPCollection from '../components/MyVIPCollection';
+import MyStakingComponent from '../components/MyStaking';
 
 const MyStaking = () => {
   const walletAddress = useSelector((state) => state.user.address);
@@ -23,7 +23,7 @@ const MyStaking = () => {
       </section>
 
       <section className="container">
-        <MyVIPCollection walletAddress={walletAddress} />
+        <MyStakingComponent walletAddress={walletAddress} />
       </section>
 
       <Footer />

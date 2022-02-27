@@ -9,6 +9,7 @@
   "app_base": "https://app.ebisusbay.biz/",
   "membership_contract": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
   "market_contract": "0x15876C450638158F48392F01dE2CEa51eccc7840",
+  "stake_contract": "0xEc30519c50275dDadb20A7140a75F8627dCb4956",
   "auction_contract": "0xba707763609f18bc1439ACCfe342c1E35ba0fDCC",
   "cronie_contract": "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
   "elon_contract": "0x2fE1f2722fa215A68b92aECaD425259C0D645972",
