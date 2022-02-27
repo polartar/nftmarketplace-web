@@ -1889,7 +1889,7 @@
       "name": "Reckless Robots",
       "slug": "reckless-robots",
       "multiToken": false,
-      "address": "",
+      "address": "0xD56AFcdB787e233325757D3ED7A987F11FB3fa08",
       "onChain": false,
       "listable": false,
       "metadata": {
@@ -2884,7 +2884,7 @@
       "subtitle": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain.",
       "description": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain. Distinctive for this project are the detailed and unique arts, accelerated NFT staking and NFT eliminations (burns). With these eliminations Reckless Robots reduces the total supply by buying the weakest bids from secondary markets and burning the bought NFTs. The burning reduces the total supply and thus reduces the total amount of possible NFTs staked enlarging the percentage of the pool that one NFT holds.",
       "author": { "name": "Reckless Robots", "link": "https://www.recklessrobotsnft.com/" },
-      "address": "",
+      "address": "0xD56AFcdB787e233325757D3ED7A987F11FB3fa08",
       "maxMintPerTx": 10,
       "maxMintPerAddress": 50,
       "totalSupply": 2100,
