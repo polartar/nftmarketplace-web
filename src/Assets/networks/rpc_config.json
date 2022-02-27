@@ -2161,6 +2161,27 @@
         "description": "",
         "verified": true
       }
+    },
+    {
+      "name": "Baby Alien Division",
+      "slug": "baby-alien-division",
+      "multiToken": false,
+      "address": "0xB340c91182b9fF831bB36232cB3296eD306c79B2",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "baby-alien-division",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/babyaliendivision/avatar.png",
+        "card": "/img/collections/babyaliendivision/card.png",
+        "banner": "/img/collections/babyaliendivision/banner.png",
+        "maxSupply": 3380,
+        "website": "https://badaliens.io/",
+        "twitter": "https://twitter.com/BAD_Cronos",
+        "discord": "https://discord.gg/2WT7gbSPnK",
+        "medium": "https://medium.com/@babyaliendivision"
+      }
     }
   ],
   "drops": [
