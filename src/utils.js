@@ -265,7 +265,7 @@ export const isFounderDrop = (address) => {
 
 export const isFounderCollection = (address) => {
   const collection = collections.find((c) => caseInsensitiveCompare(c.address, address));
-  return collection && ['ebisu-vip', 'founding-member'].includes(collection.slug);
+  return collection && ['vip-founding-member', 'founding-member'].includes(collection.slug);
 };
 
 export const isCrognomesDrop = (address) => {

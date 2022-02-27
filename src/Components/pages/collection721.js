@@ -54,7 +54,7 @@ const Collection721 = ({ address, cacheName = 'collection' }) => {
   const collectionName = () => {
     let contract;
     if (isFounderCollection(address)) {
-      contract = knownContracts.find((c) => c.slug === 'ebisu-vip');
+      contract = knownContracts.find((c) => c.slug === 'vip-founding-member');
     } else {
       contract = knownContracts.find((c) => c.address.toLowerCase() === address.toLowerCase());
     }
@@ -105,7 +105,7 @@ const Collection721 = ({ address, cacheName = 'collection' }) => {
   useEffect(() => {
     let extraData;
     if (isFounderCollection(address)) {
-      extraData = knownContracts.find((c) => c.slug === 'ebisu-vip');
+      extraData = knownContracts.find((c) => c.slug === 'vip-founding-member');
     } else {
       extraData = knownContracts.find((c) => caseInsensitiveCompare(c.address, address));
     }
