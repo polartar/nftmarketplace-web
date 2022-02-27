@@ -11,6 +11,7 @@ import {
   faShoppingBasket,
   faSignOutAlt,
   faExclamationCircle,
+  faShoppingBag
 } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import MetaMaskOnboarding from '@metamask/onboarding';
@@ -305,7 +306,7 @@ const AccountMenu = function () {
                   <span onClick={() => navigateTo(`/staking`)}>
                     <span>
                       {' '}
-                      <FontAwesomeIcon icon={faShoppingBasket} />{' '}
+                      <FontAwesomeIcon icon={faShoppingBag} />{' '}
                     </span>
                     <span>My Staking</span>
                   </span>
