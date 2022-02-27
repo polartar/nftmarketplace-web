@@ -27,11 +27,8 @@ const Auction = () => {
   const isLoading = useSelector((state) => state.auction.loading);
   const user = useSelector((state) => state.user);
 
-  const collectionMetadata = useSelector((state) => {
-    return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.metadata;
-  });
-  const collectionName = useSelector((state) => {
-    return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.name;
+  const collection = useSelector((state) => {
+    return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase());
   });
 
   const [charityMetadata, setCharityMetadata] = useState(false);
@@ -112,11 +109,11 @@ const Auction = () => {
                         <ProfilePreview type="Seller" address={listing.seller} to={`/seller/${listing.seller}`} />
                         <ProfilePreview
                           type="Collection"
-                          title={collectionName ?? 'View Collection'}
-                          avatar={collectionMetadata?.avatar}
+                          title={collection.name}
+                          avatar={collection.metadata.avatar}
                           address={listing.nftAddress}
-                          verified={collectionMetadata?.verified}
-                          to={`/collection/${listing.nftAddress}`}
+                          verified={collection.metadata.verified}
+                          to={`/collection/${collection.slug}`}
                         />
                       </div>
 

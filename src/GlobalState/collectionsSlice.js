@@ -47,6 +47,7 @@ export const getAllCollections =
 
         if (contract) {
           response.collections[index].name = contract.name;
+          response.collections[index].slug = contract.slug;
           response.collections[index].metadata = contract.metadata;
           response.collections[index].listable = contract.listable;
         }

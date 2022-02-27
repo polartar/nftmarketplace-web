@@ -67,7 +67,7 @@ const HotCollections = () => {
               banner={item.metadata.card}
               title={item.name}
               collectionId={item.address}
-              url={`/collection/${item.address}`}
+              url={`/collection/${item.slug}`}
               verified={item.metadata.verified}
             />
           ))}

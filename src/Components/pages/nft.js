@@ -27,11 +27,8 @@ const Nft = () => {
     state.nft.history.filter((i) => i.state === 1).sort((a, b) => (a.saleTime < b.saleTime ? 1 : -1))
   );
   const powertraits = useSelector((state) => state.nft.nft?.powertraits);
-  const collectionMetadata = useSelector((state) => {
-    return knownContracts.find((c) => c.address.toLowerCase() === address.toLowerCase())?.metadata;
-  });
-  const collectionName = useSelector((state) => {
-    return knownContracts.find((c) => c.address.toLowerCase() === address.toLowerCase())?.name;
+  const collection = useSelector((state) => {
+    return knownContracts.find((c) => c.address.toLowerCase() === address.toLowerCase());
   });
 
   useEffect(() => {
@@ -99,21 +96,21 @@ const Nft = () => {
                 <div className="row" style={{ gap: '2rem 0' }}>
                   <ProfilePreview
                     type="Collection"
-                    title={collectionName ?? 'View Collection'}
-                    avatar={collectionMetadata?.avatar}
+                    title={collection.name}
+                    avatar={collection.metadata.avatar}
                     address={address}
-                    verified={collectionMetadata?.verified}
-                    to={`/collection/${address}`}
+                    verified={collection.metadata.verified}
+                    to={`/collection/${collection.slug}`}
                   />
 
                   {typeof nft.rank !== 'undefined' && nft.rank !== null && (
                     <ProfilePreview
                       type="Rarity Rank"
                       title={nft.rank}
-                      avatar={collectionMetadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
+                      avatar={collection.metadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
                       hover={
-                        collectionMetadata.rarity === 'rarity_sniper'
-                          ? `Ranking provided by ${humanize(collectionMetadata.rarity)}`
+                        collection.metadata.rarity === 'rarity_sniper'
+                          ? `Ranking provided by ${humanize(collection.metadata.rarity)}`
                           : null
                       }
                     />
