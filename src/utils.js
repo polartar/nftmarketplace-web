@@ -256,13 +256,11 @@ export function newlineText(text) {
 }
 
 export const isCroniesDrop = (address) => {
-  const drop = drops.find((d) => d.slug === 'cronies');
-  return drop?.address === address;
+  return isDrop(address, 'cronies');
 };
 
 export const isFounderDrop = (address) => {
-  const drop = drops.find((d) => d.slug === 'founding-member');
-  return drop?.address === address;
+  return isDrop(address, 'founding-member');
 };
 
 export const isFounderCollection = (address) => {
@@ -271,13 +269,15 @@ export const isFounderCollection = (address) => {
 };
 
 export const isCrognomesDrop = (address) => {
-  const drop = drops.find((d) => d.slug === 'crognomes');
-  return drop?.address === address;
+  return isDrop(address, 'crognomes-member');
+};
+
+export const isCrognomidesDrop = (address) => {
+  return isDrop(address, 'crognomides');
 };
 
 export const isMagBrewVikingsDrop = (address) => {
-  const drop = drops.find((d) => d.slug === 'mag-brew-vikings');
-  return drop?.address === address;
+  return isDrop(address, 'mag-brew-vikings');
 };
 
 export const isCreaturesDrop = (address) => {
@@ -286,7 +286,7 @@ export const isCreaturesDrop = (address) => {
 
 export const isDrop = (address, slug) => {
   const drop = drops.find((d) => d.slug === slug);
-  return drop?.address === address;
+  return drop && caseInsensitiveCompare(drop.address, address);
 };
 
 export const isCollection = (address, slug) => {
