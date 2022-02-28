@@ -1,23 +1,21 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStakeCount, setVIPCount } from '../../GlobalState/User';
 import { Form, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { caseInsensitiveCompare, createSuccessfulTransactionToastContent } from '../../utils';
+import { createSuccessfulTransactionToastContent } from '../../utils';
 
 const MyStaking = ({ walletAddress = null }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  // const isVipCountFetching = useSelector((state) => state.user.vipCountFetching);
-  // const isStakeCountFetching = useSelector((state) => state.user.stakeCountFetching);
-  // const isLoading = isVipCountFetching || isStakeCountFetching;
   const stakeCount = user.stakeCount;
   const vipCount = user.vipCount;
   const [isStaking, setIsStaking] = useState(false);
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isHarvesting, setIsHarvesting] = useState(false);
   const [amount, setAmount] = useState(0);
-
+console.log({stakeCount})
+console.log({vipCount})
   const stake = async () => {
     if (!user.stakeContract) return;
     if (amount >= vipCount) {
@@ -28,7 +26,7 @@ const MyStaking = ({ walletAddress = null }) => {
       setIsStaking(true);
       await user.stakeContract.stake(amount);
       dispatch(setStakeCount(stakeCount + amount));
-      dispatch(setStakeCount(vipCount - amount));
+      dispatch(setVIPCount(vipCount - amount));
       toast.success(createSuccessfulTransactionToastContent("Successfully staked"));
     } catch(err) {
       toast.error(err.message);
@@ -47,7 +45,7 @@ const MyStaking = ({ walletAddress = null }) => {
       setIsUnstaking(true);
       await user.stakeContract.unstake(amount);
       dispatch(setStakeCount(stakeCount - amount));
-      dispatch(setStakeCount(vipCount + amount));
+      dispatch(setVIPCount(vipCount + amount));
       toast.success(createSuccessfulTransactionToastContent("Successfully unstaked"));
     } catch(err) {
       toast.error(err.message);
@@ -83,7 +81,7 @@ const MyStaking = ({ walletAddress = null }) => {
       </div>
       <div className="row mt-4 text-center d-flex justify-content-center">  
         <div className="col-lg-2 text-center">
-          <Form.Control type="number" placeholder="Input the amount" onChange={onAmountChnage} />
+          <Form.Control type="number" placeholder="Input the amount" onChange={onAmountChnage} value={amount}/>
         </div>
       </div>
       <div className="row mt-4">
@@ -102,7 +100,7 @@ const MyStaking = ({ walletAddress = null }) => {
           </button>
 
           <button className="btn-main lead mx-5" onClick={unStake} disabled={stakeCount === 0}>
-            {isStaking ? (
+            {isUnstaking ? (
               <>
                 UnStaking...
                 <Spinner animation="border" role="status" size="sm" className="ms-1">

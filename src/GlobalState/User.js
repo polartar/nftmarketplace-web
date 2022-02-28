@@ -464,14 +464,14 @@ export const connectAccount =
 
       if (signer && correctChain) {
         mc = new Contract(config.membership_contract, Membership.abi, signer);
-        sc = new Contract(config.membership_contract, StakeABI.abi, signer);
+        sc = new Contract(config.stake_contract, StakeABI.abi, signer);
         cc = new Contract(config.cronie_contract, Cronies.abi, signer);
         const rawCode = await mc.codes(address);
         code = ethers.utils.parseBytes32String(rawCode);
         rewards = ethers.utils.formatEther(await mc.payments(address));
         ownedFounder = await mc.balanceOf(address, 1);
         ownedVip = await mc.balanceOf(address, 2);
-        // stakeCount = await sc.amountStaked(address);
+        stakeCount = await sc.amountStaked(address);
         market = new Contract(config.market_contract, Market.abi, signer);
         auction = new Contract(config.auction_contract, Auction.abi, signer);
         sales = ethers.utils.formatEther(await market.payments(address));
