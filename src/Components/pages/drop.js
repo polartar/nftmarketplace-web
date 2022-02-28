@@ -251,7 +251,7 @@ const Drop = () => {
     const eTime = new Date(drop.end);
     const now = new Date();
 
-    if (!drop.address || sTime > now) setStatus(statuses.NOT_STARTED);
+    if (!drop.start || !drop.address || sTime > now) setStatus(statuses.NOT_STARTED);
     else if (parseInt(totalSupply.toString()) >= parseInt(maxSupply.toString()) && !isFounderDrop(drop.address))
       setStatus(statuses.SOLD_OUT);
     else if (!drop.end || eTime > now) setStatus(statuses.LIVE);
@@ -641,6 +641,14 @@ const Drop = () => {
                       {new Date(drop.start).toDateString()}, {new Date(drop.start).toTimeString()}
                     </h3>
                   </div>
+                )}
+                {status === statuses.NOT_STARTED && !drop.start && (
+                    <div className="me-4">
+                      <h6 className="mb-1">Minting Starts</h6>
+                      <h3>
+                        TBA
+                      </h3>
+                    </div>
                 )}
                 {status === statuses.LIVE && !drop.complete && (
                   <>
