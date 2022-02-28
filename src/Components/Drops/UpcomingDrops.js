@@ -19,10 +19,7 @@ const UpcomingDrops = () => {
   function arrangeCollections() {
     const nextDrops = drops.filter((d) => !d.complete && d.published && (!d.start || d.start > Date.now()));
     const dropCollections = nextDrops.map((d) => {
-      const collection = collections.find((c) => {
-        const collectionSlug = c.slug ?? c.metadata.slug;
-        return collectionSlug && collectionSlug === d.slug;
-      });
+      const collection = collections.find((c) => c.slug === d.slug);
       return { collection, drop: d };
     });
     setUpcomingDrops(

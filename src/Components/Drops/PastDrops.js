@@ -21,10 +21,7 @@ const PastDrops = () => {
   function arrangeCollections() {
     const completedDrops = drops.filter((d) => d.complete && d.published);
     const dropCollections = completedDrops.map((d) => {
-      const collection = collections.find((c) => {
-        const collectionSlug = c.slug ?? c.metadata.slug;
-        return collectionSlug && collectionSlug === d.slug;
-      });
+      const collection = collections.find((c) => c.slug === d.slug);
       return { collection, drop: d };
     });
     setPastDrops(dropCollections.filter((d) => d.collection).sort((a, b) => (a.drop.start < b.drop.start ? 1 : -1)));
@@ -64,7 +61,7 @@ const PastDrops = () => {
               banner={item.collection.metadata.card ?? defaultCardImage}
               title={item.drop.title}
               collectionId={item.drop.slug}
-              url={`/collection/${item.collection.address}`}
+              url={`/collection/${item.collection.slug}`}
               verified={true}
             />
           ))}
