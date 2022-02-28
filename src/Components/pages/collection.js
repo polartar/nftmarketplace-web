@@ -15,6 +15,7 @@ const Collection = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
+    setRedirect(false);
     let col = knownContracts.find(c => c.slug === slug);
     if (col) {
       setCollection(col);
@@ -24,10 +25,10 @@ const Collection = () => {
       col = knownContracts.find(c => caseInsensitiveCompare(c.address, slug));
       if (col) {
         setCollection(col);
-        // setRedirect(true);
+        setRedirect(true);
       }
     }
-  }, []);
+  }, [slug]);
 
   return (
     <>
