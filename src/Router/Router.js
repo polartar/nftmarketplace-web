@@ -80,7 +80,7 @@ const Component = ({ walletAddress, authInitFinished }) => {
           <SentryEnhancedRoute exact path="/auctions/:id" component={Auction} />
           <SentryEnhancedRoute exact path="/collections" component={Collections} />
           <SentryEnhancedRoute exact path="/collection/:slug" component={Collection} />
-          <SentryEnhancedRoute exact path="/collection/:address/:id" component={Nft} />
+          <SentryEnhancedRoute exact path="/collection/:slug/:id" component={Nft} />
           <SentryEnhancedRoute exact path="/seller/:address" component={Seller} />
           <SentryEnhancedRoute exact path="/charity-ball" component={CharityBall} />
           <SentryEnhancedRoute path="*" render={() => <Redirect to="/" />} />
