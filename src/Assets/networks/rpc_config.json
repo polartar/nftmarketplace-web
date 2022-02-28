@@ -3045,6 +3045,7 @@
       "end": null,
       "referral": false,
       "is1155": false,
+      "disclaimer": "Only whitelisted addresses are eligible for this mint. Please check the Crognomes discord for more information.",
       "published": true,
       "featured": true,
       "complete": false
