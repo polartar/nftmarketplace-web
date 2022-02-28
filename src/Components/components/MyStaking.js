@@ -14,8 +14,6 @@ const MyStaking = ({ walletAddress = null }) => {
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isHarvesting, setIsHarvesting] = useState(false);
   const [amount, setAmount] = useState(0);
-console.log({stakeCount})
-console.log({vipCount})
   const stake = async () => {
     if (!user.stakeContract) return;
     if (amount >= vipCount) {
