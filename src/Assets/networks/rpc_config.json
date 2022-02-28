@@ -23,14 +23,14 @@
   "known_contracts": [
     {
       "name": "Ebisu's Bay VIP",
-      "slug": "ebisu-vip",
+      "slug": "vip-founding-member",
       "onChain": false,
       "address": "0x8d9232Ebc4f06B7b8005CCff0ca401675ceb25F5",
       "multiToken": true,
       "id": 2,
       "listable": true,
       "metadata": {
-        "slug": "ebisu-vip",
+        "slug": "vip-founding-member",
         "description": "",
         "verified": true,
         "avatar": "/img/avatar.jpg",

@@ -22,7 +22,7 @@
   },
   "known_contracts": [
     {
-      "slug": "ebisu-vip",
+      "slug": "vip-founding-member",
       "name": "EbisusBay VIP",
       "onChain": false,
       "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
