@@ -2182,6 +2182,27 @@
         "discord": "https://discord.gg/2WT7gbSPnK",
         "medium": "https://medium.com/@babyaliendivision"
       }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0xB340c91182b9fF831bB36232cB3296eD306c79B2",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
+      }
     }
   ],
   "drops": [
