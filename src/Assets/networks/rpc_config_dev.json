@@ -2082,7 +2082,7 @@
         "avatar": "/img/collections/creatures/avatar.jpg",
         "card": "/img/collections/creatures/card.png",
         "banner": "/img/collections/creatures/banner.png",
-        "maxSupply": 4444,
+        "maxSupply": 2222,
         "twitter": "https://twitter.com/creaturesxcl",
         "website": "https://www.cultcreatures.xyz/",
         "discord": "https://discord.gg/creaturegang"
@@ -2961,7 +2961,7 @@
       "address": "0xf0533419F1dD11f311C00D06D263295e963e3574",
       "maxMintPerTx": 9,
       "maxMintPerAddress": 49,
-      "totalSupply": 4444,
+      "totalSupply": 2222,
       "cost": "444",
       "memberCost": "444",
       "whitelistCost": "444",
