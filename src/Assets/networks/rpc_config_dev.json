@@ -1811,7 +1811,7 @@
       "multiToken": false,
       "address": "0xf004d2f46e177eC8Ffc7c7c7f2623E212b450920",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cromeleons",
         "description": "",
@@ -1891,7 +1891,7 @@
       "multiToken": false,
       "address": "0xD56AFcdB787e233325757D3ED7A987F11FB3fa08",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "reckless-robots",
         "verified": true,
@@ -2160,6 +2160,27 @@
         "slug": "south-side-ants",
         "description": "",
         "verified": true
+      }
+    },
+    {
+      "name": "Baby Alien Division",
+      "slug": "baby-alien-division",
+      "multiToken": false,
+      "address": "0xB340c91182b9fF831bB36232cB3296eD306c79B2",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "baby-alien-division",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/babyaliendivision/avatar.png",
+        "card": "/img/collections/babyaliendivision/card.png",
+        "banner": "/img/collections/babyaliendivision/banner.png",
+        "maxSupply": 3380,
+        "website": "https://badaliens.io/",
+        "twitter": "https://twitter.com/BAD_Cronos",
+        "discord": "https://discord.gg/2WT7gbSPnK",
+        "medium": "https://medium.com/@babyaliendivision"
       }
     }
   ],
@@ -2817,7 +2838,7 @@
       "referral": false,
       "is1155": false,
       "published": true,
-      "complete": false,
+      "complete": true,
       "featured": true,
       "redirect": "https://trooprz.army/mint"
     },
@@ -2898,7 +2919,7 @@
       "is1155": false,
       "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
       "published": true,
-      "complete": false
+      "complete": true
     },
     {
       "id": 25,
@@ -2951,6 +2972,56 @@
       "is1155": false,
       "published": true,
       "complete": false
+    },
+    {
+      "id": 27,
+      "slug": "baby-alien-division",
+      "imgNft": "",
+      "imgPreview": "/img/drops/babyaliendivision/drop.png",
+      "imgAvatar": "/img/collections/babyaliendivision/avatar.png",
+      "imgBanner": "/img/collections/babyaliendivision/banner.png",
+      "title": "Baby Alien Division",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "Baby Alien Division", "link": "https://badaliens.io/" },
+      "address": "",
+      "maxMintPerTx": 0,
+      "maxMintPerAddress": 0,
+      "totalSupply": 3380,
+      "cost": "333",
+      "foundersOnly": false,
+      "start": 1645240287000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false,
+      "redirect": "https://badaliens.io/mint/"
+    },
+    {
+      "id": 28,
+      "slug": "cromeleons",
+      "imgNft": "/img/drops/cromeleons/drop.gif",
+      "imgPreview": "/img/drops/cromeleons/drop.gif",
+      "imgAvatar": "/img/collections/cromeleons/avatar.png",
+      "title": "Cromeleons",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "Cromeleons", "link": "https://cromeleons.com/" },
+      "address": "",
+      "maxMintPerTx": 0,
+      "maxMintPerAddress": 0,
+      "totalSupply": 0,
+      "cost": "250",
+      "foundersOnly": false,
+      "start": 1645240287000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false,
+      "featured": false,
+      "redirect": "https://lootpad.io/collection/cromeleons"
     }
   ],
   "auctions": [
