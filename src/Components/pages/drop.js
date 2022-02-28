@@ -29,8 +29,6 @@ import {
 } from '../../utils';
 import { dropState as statuses } from '../../core/api/enums';
 import { EbisuDropAbi } from '../../Contracts/Abis';
-// import MintButton from '../Drop/MintButton';
-// import nft from './nft';
 
 export const drops = config.drops;
 
@@ -84,7 +82,7 @@ const Drop = () => {
   const readProvider = new ethers.providers.JsonRpcProvider(config.read_rpc);
   const dispatch = useDispatch();
 
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [minting, setMinting] = useState(false);
   const [mintingERC20, setMintingERC20] = useState(false);
   const [referral, setReferral] = useState('');
@@ -200,6 +198,13 @@ const Drop = () => {
         const canMint = user.address ? await readContract.canMint(user.address) : 0;
         setCanMintQuantity(canMint);
         calculateStatus(currentDrop, supply, currentDrop.totalSupply);
+      } else if (isCreaturesDrop(drop.address)) {
+        let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
+        const infos = await readContract.getInfo();
+        const canMint = user.address ? await readContract.canMint(user.address) : 0;
+        setDropInfo(currentDrop, infos.totalSupply);
+        setCanMintQuantity(canMint);
+        calculateStatus(currentDrop, infos.totalSupply, currentDrop.totalSupply);
       } else {
         if (currentDrop.address && (isUsingDefaultDropAbi(currentDrop.abi) || isUsingAbiFile(currentDrop.abi))) {
           let readContract = await new ethers.Contract(currentDrop.address, abi, readProvider);
@@ -225,7 +230,7 @@ const Drop = () => {
       console.log(error);
       Sentry.captureException(error);
     }
-    // setLoading(false);
+    setLoading(false);
     setDropObject(currentDrop);
   };
 
@@ -261,7 +266,7 @@ const Drop = () => {
 
   const calculateCost = async (user, isErc20) => {
     if (isCreaturesDrop(drop.address)) {
-      return ethers.utils.parseEther(dropObject.memberCost);
+      return ethers.utils.parseEther('444');
     }
 
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {

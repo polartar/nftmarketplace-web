@@ -6,7 +6,6 @@ import { Spinner } from 'react-bootstrap';
 import Blockies from 'react-blockies';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { Helmet } from 'react-helmet';
 
 import { getAuctionDetails } from '../../GlobalState/auctionSlice';
 import { caseInsensitiveCompare, humanize, newlineText, shortAddress, timeSince } from '../../utils';
@@ -26,7 +25,7 @@ const Auction = () => {
   const bidHistory = useSelector((state) => state.auction.bidHistory);
   const powertraits = useSelector((state) => state.auction.powertraits);
   const isLoading = useSelector((state) => state.auction.loading);
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const collectionMetadata = useSelector((state) => {
     return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.metadata;
@@ -36,8 +35,8 @@ const Auction = () => {
   });
 
   const [charityMetadata, setCharityMetadata] = useState(false);
-  // const [openCheckout, setOpenCheckout] = React.useState(false);
-  // const [buying, setBuying] = useState(false);
+  const [openCheckout, setOpenCheckout] = React.useState(false);
+  const [buying, setBuying] = useState(false);
 
   useEffect(() => {
     dispatch(getAuctionDetails(id));
@@ -69,10 +68,6 @@ const Auction = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Auction | Ebisu's Bay Marketplace</title>
-        <meta name="description" content="Auction for Ebisu's Bay Marketplace" />
-      </Helmet>
       {charityMetadata && charityMetadata.redirectToDrop ? (
         <Redirect to={`/drops/${charityMetadata.redirectToDrop}`} />
       ) : (

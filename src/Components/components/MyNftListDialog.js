@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { MyNftPageActions } from '../../GlobalState/User';
 import {
   Box,
   CardMedia,
@@ -21,6 +20,7 @@ import { toast } from 'react-toastify';
 import { ethers } from 'ethers';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MyNftPageActions } from '../../GlobalState/User';
 
 const ListDialogStepEnum = {
   WaitingForTransferApproval: 0,
@@ -38,6 +38,17 @@ const mapStateToProps = (state) => ({
 
 const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function asyncFunc() {
+      if (myNftPageListDialog) {
+        await showListDialog();
+      } else {
+        setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
+      }
+    }
+    asyncFunc();
+  }, [myNftPageListDialog]);
 
   const [salePrice, setSalePrice] = useState(null);
 
@@ -151,6 +162,7 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
     dispatch(MyNftPageActions.hideMyNftPageListDialog());
     setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
     setNextEnabled(false);
+    setSalePrice(null);
   };
 
   const handleNext = () => {
@@ -167,17 +179,6 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
     const youReceive = salePrice - (fee / 100) * salePrice - (royalty / 100) * salePrice;
     return ethers.utils.commify(youReceive.toFixed(2));
   };
-
-  useEffect(() => {
-    async function asyncFunc() {
-      if (myNftPageListDialog) {
-        await showListDialog();
-      } else {
-        setListDialogActiveStep(ListDialogStepEnum.WaitingForTransferApproval);
-      }
-    }
-    asyncFunc();
-  }, [myNftPageListDialog, showListDialog]);
 
   return (
     <>
@@ -207,15 +208,32 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
                               type="number"
                               label="Price"
                               variant="outlined"
+                              onKeyDown={(e) => {
+                                if (e.keyCode === 190 || e.keyCode === 110) {
+                                  e.preventDefault();
+                                }
+                              }}
                               onChange={onListingDialogPriceValueChange}
                             />
                             <Typography>
-                              <strong> Buyer pays: {salePrice ? ethers.utils.commify(salePrice) : 0} CRO </strong>
+                              <strong>
+                                {' '}
+                                Buyer pays:{' '}
+                                <span style={{ fontSize: '18px' }}>
+                                  {salePrice ? ethers.utils.commify(salePrice) : 0}
+                                </span>{' '}
+                                CRO{' '}
+                              </strong>
                             </Typography>
                             <Typography>Service Fee: {fee} %</Typography>
                             <Typography>Royalty Fee: {royalty} %</Typography>
                             <Typography>
-                              <strong> You receive: {getYouReceiveViewValue()} CRO </strong>
+                              <strong>
+                                {' '}
+                                You receive: <span style={{ fontSize: '18px' }}>
+                                  {getYouReceiveViewValue()}
+                                </span> CRO{' '}
+                              </strong>
                             </Typography>
                           </Stack>
                         ) : null}

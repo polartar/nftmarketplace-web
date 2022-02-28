@@ -48,7 +48,6 @@ const Seller = () => {
         <meta property="og:url" content={`https://app.ebisusbay.com/seller/${address}`} />
         <meta name="twitter:title" content={`${shortAddress(address) || 'Seller'} | Ebisu's Bay Marketplace`} />
       </Helmet>
-
       <section
         className="jumbotron breadcumb no-bg"
         style={{ backgroundImage: `url(${'/img/background/subheader-blue.webp'})` }}
@@ -58,7 +57,7 @@ const Seller = () => {
             <div className="row m-10-hor">
               <div className="col-12 text-center">
                 <h1>Marketplace</h1>
-                <p>{shortAddress(address)}</p>
+                <p>{`${address.substring(0, 4)}...${address.substring(address.length - 3, address.length)}`}</p>
               </div>
             </div>
           </div>

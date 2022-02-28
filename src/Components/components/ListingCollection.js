@@ -1,13 +1,13 @@
 import React, { memo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import ListingCard from './ListingCard';
+import { init, fetchListings } from '../../GlobalState/marketplaceSlice';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spinner } from 'react-bootstrap';
-
-import ListingCard from './ListingCard';
-import HiddenCard from './HiddenCard';
 import { SortOption } from '../Models/sort-option.model';
+
 import { FilterOption } from '../Models/filter-option.model';
-import { init, fetchListings } from '../../GlobalState/marketplaceSlice';
+import HiddenCard from './HiddenCard';
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null, sellerId = null, cacheName = null }) => {
   const dispatch = useDispatch();
@@ -60,9 +60,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null, sellerId 
 
     dispatch(init(sortOption, filterOption));
     dispatch(fetchListings());
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, cacheName, collectionId, sellerId]);
+  }, [dispatch]);
 
   const loadMore = () => {
     if (!isFetching) {

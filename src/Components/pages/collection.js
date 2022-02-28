@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Contract, ethers } from 'ethers';
+import { faCheck, faCircle } from '@fortawesome/free-solid-svg-icons';
 import Blockies from 'react-blockies';
 import { Helmet } from 'react-helmet';
-import { faCheck, faCircle } from '@fortawesome/free-solid-svg-icons';
 // import { toast } from 'react-toastify';
 
 import Footer from '../components/Footer';

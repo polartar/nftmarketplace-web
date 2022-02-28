@@ -9,11 +9,10 @@ import { Helmet } from 'react-helmet';
 
 import ProfilePreview from '../components/ProfilePreview';
 import Footer from '../components/Footer';
-import config from '../../Assets/networks/rpc_config.json';
-import { getNftDetails } from '../../GlobalState/nftSlice';
 import { humanize, relativePrecision, shortAddress, timeSince } from '../../utils';
+import { getNftDetails } from '../../GlobalState/nftSlice';
+import config from '../../Assets/networks/rpc_config.json';
 import { croSkullRedPotionImageHack } from '../../hacks';
-
 const knownContracts = config.known_contracts;
 
 const Nft = () => {

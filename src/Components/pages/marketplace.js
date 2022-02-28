@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet';
 
 import ListingCollection from '../components/ListingCollection';
 import Footer from '../components/Footer';
@@ -69,10 +68,6 @@ const Marketplace = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>Marketplace | Ebisu's Bay Marketplace</title>
-        <meta name="description" content="Ebisu's Bay Marketplace" />
-      </Helmet>
       <section className="jumbotron breadcumb no-bg tint">
         <div className="mainbreadcumb">
           <div className="container">
