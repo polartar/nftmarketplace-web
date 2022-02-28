@@ -951,13 +951,13 @@
     },
     {
       "name": "Cronos Slothty Xmas",
-      "slug": "cro-slothy-xmas",
+      "slug": "cronos-slothy-xmas",
       "multiToken": false,
       "address": "0x303D2a6143cFc67C26Db2879eA955f7d076c4cBc",
       "onChain": false,
       "listable": true,
       "metadata": {
-        "slug": "cro-slothy-xmas",
+        "slug": "cronos-slothy-xmas",
         "description": "",
         "verified": true,
         "maxSupply": 50,
