@@ -43,6 +43,10 @@ const Seller = () => {
       <Helmet>
         <title>{shortAddress(address) || 'Seller'} | Ebisu's Bay Marketplace</title>
         <meta name="description" content={`${shortAddress(address) || 'Seller'} for Ebisu's Bay Marketplace`} />
+        <meta name="title" content={`${shortAddress(address) || 'Seller'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:title" content={`${shortAddress(address) || 'Seller'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:url" content={`https://app.ebisusbay.com/seller/${address}`} />
+        <meta name="twitter:title" content={`${shortAddress(address) || 'Seller'} | Ebisu's Bay Marketplace`} />
       </Helmet>
 
       <section

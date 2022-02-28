@@ -432,16 +432,24 @@ const Drop = () => {
     let dateString = `${fullDateString.split(', ')[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`;
     return dateString;
   };
+
   // const vidRef = useRef(null);
   // const handlePlayVideo = () => {
   //   vidRef.current.play();
   // };
+
   return (
     <div>
       <>
         <Helmet>
           <title>{drop?.title || 'Drop'} | Ebisu's Bay Marketplace</title>
           <meta name="description" content={`${drop?.title || 'Drop'} for Ebisu's Bay Marketplace`} />
+          <meta name="title" content={`${drop?.title || 'Drop'} | Ebisu's Bay Marketplace`} />
+          <meta property="og:title" content={`${drop?.title || 'Drop'} | Ebisu's Bay Marketplace`} />
+          <meta property="og:url" content={`https://app.ebisusbay.com/drops/${slug}`} />
+          <meta property="og:image" content={`https://app.ebisusbay.com${drop?.imgAvatar || '/'}`} />
+          <meta name="twitter:title" content={`${drop?.title || 'Drop'} | Ebisu's Bay Marketplace`} />
+          <meta name="twitter:image" content={`https://app.ebisusbay.com${drop?.imgAvatar || '/'}`} />
         </Helmet>
         <HeroSection
           className={`jumbotron h-vh tint`}

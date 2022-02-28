@@ -114,7 +114,7 @@ const Listing = () => {
         if (typeof price === 'string') {
           price = ethers.utils.parseEther(price);
         }
-        console.log(user.marketContract, listing.listingId, listing.price, price);
+
         const tx = await user.marketContract.makePurchase(listing.listingId, {
           value: price,
         });
@@ -159,6 +159,12 @@ const Listing = () => {
       <Helmet>
         <title>{listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace</title>
         <meta name="description" content={`${listing?.nft?.name || 'Listing'} for Ebisu's Bay Marketplace`} />
+        <meta name="title" content={`${listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:title" content={`${listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:url" content={`https://app.ebisusbay.com/${id}`} />
+        <meta property="og:image" content={listing?.nft?.image} />
+        <meta name="twitter:title" content={`${listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace`} />
+        <meta name="twitter:image" content={listing?.nft?.image} />
       </Helmet>
       {isLoading ? (
         <section className="container">

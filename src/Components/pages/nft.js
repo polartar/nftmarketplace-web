@@ -67,6 +67,12 @@ const Nft = () => {
       <Helmet>
         <title>{nft?.name || 'NFT'} | Ebisu's Bay Marketplace</title>
         <meta name="description" content={`${nft?.name || 'NFT'} for Ebisu's Bay Marketplace`} />
+        <meta name="title" content={`${nft?.name || 'NFT'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:title" content={`${nft?.name || 'NFT'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:url" content={`https://app.ebisusbay.com/nft/${address}`} />
+        <meta property="og:image" content={nft?.image} />
+        <meta name="twitter:title" content={`${nft?.name || 'NFT'} | Ebisu's Bay Marketplace`} />
+        <meta name="twitter:image" content={nft?.image} />
       </Helmet>
       <section className="container">
         <div className="row mt-md-5 pt-md-4">
