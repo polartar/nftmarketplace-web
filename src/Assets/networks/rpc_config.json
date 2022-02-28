@@ -1811,7 +1811,7 @@
       "multiToken": false,
       "address": "0xf004d2f46e177eC8Ffc7c7c7f2623E212b450920",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cromeleons",
         "description": "",
