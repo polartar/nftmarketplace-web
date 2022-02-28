@@ -12,19 +12,21 @@ import { fetchNfts } from '../../GlobalState/User';
 
 const mapStateToProps = (state) => ({
   walletAddress: state.user.address,
+  isLoading: state.user.fetchingNfts,
 });
 
-const MyNfts = ({ walletAddress }) => {
+const MyNfts = ({ walletAddress, isLoading }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchNfts());
-  }, []);
+    if (!isLoading) {
+      dispatch(fetchNfts());
+    }
 
-  useEffect(() => {
     logEvent(getAnalytics(), 'screen_view', {
       firebase_screen: 'my_nfts',
     });
+    // disable-eslint-next-line
   }, []);
 
   if (!walletAddress) {
