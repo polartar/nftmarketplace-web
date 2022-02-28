@@ -1891,7 +1891,7 @@
       "multiToken": false,
       "address": "0xD56AFcdB787e233325757D3ED7A987F11FB3fa08",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "reckless-robots",
         "verified": true,
@@ -2919,7 +2919,7 @@
       "is1155": false,
       "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
       "published": true,
-      "complete": false
+      "complete": true
     },
     {
       "id": 25,
@@ -2997,6 +2997,31 @@
       "published": true,
       "complete": false,
       "redirect": "https://badaliens.io/mint/"
+    },
+    {
+      "id": 28,
+      "slug": "cromeleons",
+      "imgNft": "/img/drops/cromeleons/drop.gif",
+      "imgPreview": "/img/drops/cromeleons/drop.gif",
+      "imgAvatar": "/img/collections/cromeleons/avatar.png",
+      "title": "Cromeleons",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "Cromeleons", "link": "https://cromeleons.com/" },
+      "address": "",
+      "maxMintPerTx": 0,
+      "maxMintPerAddress": 0,
+      "totalSupply": 0,
+      "cost": "250",
+      "foundersOnly": false,
+      "start": 1645833600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false,
+      "featured": false,
+      "redirect": "https://lootpad.io/collection/cromeleons"
     }
   ],
   "auctions": [
