@@ -31,8 +31,8 @@ const Collection = () => {
   }, [slug]);
 
   return (
-    <>
-      {collection &&
+      <>
+        {collection &&
         <>
           {redirect ?
               <Redirect to={`/collection/${collection.slug}`} />
@@ -46,8 +46,9 @@ const Collection = () => {
               </>
           }
         </>
-      }
-    </>
+        }
+      </>
   );
 };
+
 export default Collection;

@@ -11,6 +11,7 @@ import { Form, ProgressBar, Spinner } from 'react-bootstrap';
 import ReactPlayer from 'react-player';
 import * as Sentry from '@sentry/react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
@@ -18,7 +19,8 @@ import { connectAccount } from '../../GlobalState/User';
 import { fetchMemberInfo } from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
-  createSuccessfulTransactionToastContent, isCreaturesDrop,
+  createSuccessfulTransactionToastContent,
+  isCreaturesDrop,
   isCrognomesDrop,
   isFounderDrop,
   isMagBrewVikingsDrop,
@@ -27,8 +29,6 @@ import {
 } from '../../utils';
 import { dropState as statuses } from '../../core/api/enums';
 import { EbisuDropAbi } from '../../Contracts/Abis';
-// import MintButton from '../Drop/MintButton';
-// import nft from './nft';
 
 export const drops = config.drops;
 
@@ -266,7 +266,7 @@ const Drop = () => {
 
   const calculateCost = async (user, isErc20) => {
     if (isCreaturesDrop(drop.address)) {
-      return ethers.utils.parseEther("444");
+      return ethers.utils.parseEther('444');
     }
 
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
@@ -315,7 +315,7 @@ const Drop = () => {
         const cost = await calculateCost(user, isErc20);
         let finalCost = cost.mul(numToMint);
         if (isCreaturesDrop(drop.address)) {
-          finalCost = finalCost.sub((cost.mul((Math.floor(numToMint / 4)))))
+          finalCost = finalCost.sub(cost.mul(Math.floor(numToMint / 4)));
         }
         let extra = {
           value: finalCost,
@@ -437,13 +437,25 @@ const Drop = () => {
     let dateString = `${fullDateString.split(', ')[1]} ${date.getUTCDate()} ${month} ${date.getUTCFullYear()} UTC`;
     return dateString;
   };
+
   // const vidRef = useRef(null);
   // const handlePlayVideo = () => {
   //   vidRef.current.play();
   // };
+
   return (
     <div>
       <>
+        <Helmet>
+          <title>{drop?.title || 'Drop'} | Ebisu's Bay Marketplace</title>
+          <meta name="description" content={`${drop?.title || 'Drop'} for Ebisu's Bay Marketplace`} />
+          <meta name="title" content={`${drop?.title || 'Drop'} | Ebisu's Bay Marketplace`} />
+          <meta property="og:title" content={`${drop?.title || 'Drop'} | Ebisu's Bay Marketplace`} />
+          <meta property="og:url" content={`https://app.ebisusbay.com/drops/${slug}`} />
+          <meta property="og:image" content={`https://app.ebisusbay.com${drop?.imgAvatar || '/'}`} />
+          <meta name="twitter:title" content={`${drop?.title || 'Drop'} | Ebisu's Bay Marketplace`} />
+          <meta name="twitter:image" content={`https://app.ebisusbay.com${drop?.imgAvatar || '/'}`} />
+        </Helmet>
         <HeroSection
           className={`jumbotron h-vh tint`}
           style={{ backgroundImage: `url(${drop.imgBanner ? drop.imgBanner : '/img/background/Ebisus-bg-1_L.webp'})` }}

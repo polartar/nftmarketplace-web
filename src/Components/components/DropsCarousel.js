@@ -103,7 +103,7 @@ export default class Responsive extends Component {
       .filter((d) => !d.complete && d.published && d.start && d.start < Date.now())
       .sort((a, b) => (a.start < b.start ? 1 : -1));
 
-    liveDrops = liveDrops.filter(d => !!d.imgPreview);
+    liveDrops = liveDrops.filter((d) => !!d.imgPreview);
 
     if (liveDrops.length > 3) {
       let c = 0;
