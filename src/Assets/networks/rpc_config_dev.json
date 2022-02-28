@@ -1811,7 +1811,7 @@
       "multiToken": false,
       "address": "0xf004d2f46e177eC8Ffc7c7c7f2623E212b450920",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "cromeleons",
         "description": "",
@@ -1891,7 +1891,7 @@
       "multiToken": false,
       "address": "0xD56AFcdB787e233325757D3ED7A987F11FB3fa08",
       "onChain": false,
-      "listable": false,
+      "listable": true,
       "metadata": {
         "slug": "reckless-robots",
         "verified": true,
@@ -2838,7 +2838,7 @@
       "referral": false,
       "is1155": false,
       "published": true,
-      "complete": false,
+      "complete": true,
       "featured": true,
       "redirect": "https://trooprz.army/mint"
     },
@@ -2919,7 +2919,7 @@
       "is1155": false,
       "priceDescription": "8M LOOT required to be eligible for the Whitelist Price",
       "published": true,
-      "complete": false
+      "complete": true
     },
     {
       "id": 25,
@@ -2977,7 +2977,7 @@
       "id": 27,
       "slug": "baby-alien-division",
       "imgNft": "",
-      "imgPreview": "",
+      "imgPreview": "/img/drops/babyaliendivision/drop.png",
       "imgAvatar": "/img/collections/babyaliendivision/avatar.png",
       "imgBanner": "/img/collections/babyaliendivision/banner.png",
       "title": "Baby Alien Division",
@@ -2990,13 +2990,38 @@
       "totalSupply": 3380,
       "cost": "333",
       "foundersOnly": false,
-      "start": 1645984700000,
+      "start": 1645240287000,
       "end": null,
       "referral": false,
       "is1155": false,
       "published": true,
       "complete": false,
       "redirect": "https://badaliens.io/mint/"
+    },
+    {
+      "id": 28,
+      "slug": "cromeleons",
+      "imgNft": "/img/drops/cromeleons/drop.gif",
+      "imgPreview": "/img/drops/cromeleons/drop.gif",
+      "imgAvatar": "/img/collections/cromeleons/avatar.png",
+      "title": "Cromeleons",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "Cromeleons", "link": "https://cromeleons.com/" },
+      "address": "",
+      "maxMintPerTx": 0,
+      "maxMintPerAddress": 0,
+      "totalSupply": 0,
+      "cost": "250",
+      "foundersOnly": false,
+      "start": 1645240287000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false,
+      "featured": false,
+      "redirect": "https://lootpad.io/collection/cromeleons"
     }
   ],
   "auctions": [
