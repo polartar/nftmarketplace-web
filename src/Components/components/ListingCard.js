@@ -23,9 +23,7 @@ const ListingCard = ({ listing, imgClass = 'marketplace' }) => {
           className={`card-img-top ${imgClass}`}
           alt={listing.nft.name}
         />
-        {listing.nft.rank &&
-          <div className="badge bg-rarity text-wrap mt-1 mx-1">Rank: #{listing.nft.rank}</div>
-        }
+        {listing.nft.rank && <div className="badge bg-rarity text-wrap mt-1 mx-1">Rank: #{listing.nft.rank}</div>}
         <div className="card-body d-flex flex-column">
           <h6 className="card-title mt-auto">{listing.nft.name}</h6>
           <p className="card-text">{ethers.utils.commify(listing.price)} CRO</p>

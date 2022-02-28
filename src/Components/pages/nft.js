@@ -1,21 +1,19 @@
 import React, { memo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../components/Footer';
-import { createGlobalStyle } from 'styled-components';
-import { humanize, relativePrecision, shortAddress, timeSince } from '../../utils';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { getNftDetails } from '../../GlobalState/nftSlice';
 import Blockies from 'react-blockies';
-import config from '../../Assets/networks/rpc_config.json';
 import { ethers } from 'ethers';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Helmet } from 'react-helmet';
+
 import ProfilePreview from '../components/ProfilePreview';
+import Footer from '../components/Footer';
+import { humanize, relativePrecision, shortAddress, timeSince } from '../../utils';
+import { getNftDetails } from '../../GlobalState/nftSlice';
+import config from '../../Assets/networks/rpc_config.json';
 import { croSkullRedPotionImageHack } from '../../hacks';
 const knownContracts = config.known_contracts;
-
-const GlobalStyles = createGlobalStyle`
-`;
 
 const Nft = () => {
   const { address, id } = useParams();
@@ -65,7 +63,16 @@ const Nft = () => {
 
   return (
     <div>
-      <GlobalStyles />
+      <Helmet>
+        <title>{nft?.name || 'NFT'} | Ebisu's Bay Marketplace</title>
+        <meta name="description" content={`${nft?.name || 'NFT'} for Ebisu's Bay Marketplace`} />
+        <meta name="title" content={`${nft?.name || 'NFT'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:title" content={`${nft?.name || 'NFT'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:url" content={`https://app.ebisusbay.com/nft/${address}`} />
+        <meta property="og:image" content={nft?.image} />
+        <meta name="twitter:title" content={`${nft?.name || 'NFT'} | Ebisu's Bay Marketplace`} />
+        <meta name="twitter:image" content={nft?.image} />
+      </Helmet>
       <section className="container">
         <div className="row mt-md-5 pt-md-4">
           <div className="col-md-6 text-center">

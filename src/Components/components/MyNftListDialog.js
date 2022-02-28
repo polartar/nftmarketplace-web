@@ -87,7 +87,6 @@ const MyNftListDialog = ({ walletAddress, marketContract, myNftPageListDialog })
 
   const showListDialog = async () => {
     try {
-      console.log(myNftPageListDialog);
       const marketContractAddress = marketContract.address;
 
       const { contract, /*id, image, name,*/ address } = myNftPageListDialog;
