@@ -16,7 +16,7 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
 import { connectAccount } from '../../GlobalState/User';
-import { fetchMemberInfo } from '../../GlobalState/Memberships';
+import {fetchMemberInfo, fetchVipInfo} from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
   createSuccessfulTransactionToastContent,
@@ -110,6 +110,9 @@ const Drop = () => {
 
   useEffect(() => {
     dispatch(fetchMemberInfo());
+    if (process.env.NODE_ENV === 'development') {
+      dispatch(fetchVipInfo());
+    }
     dispatch(fetchCronieInfo());
   }, []);
 
