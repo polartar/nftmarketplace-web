@@ -21,12 +21,12 @@ const HotCollections = () => {
 
     const featuredCollections = [];
     shortList.forEach(function (val, index) {
-      const collection = collections.find((c) => c.metadata?.card && c.metadata.slug === val);
+      const collection = collections.find((c) => c.metadata?.card && c.slug === val);
       if (collection) featuredCollections.push(collection);
     });
 
     const otherCollections = collections
-      .filter((c) => c.metadata?.card && !shortList.includes(c.metadata.slug))
+      .filter((c) => c.metadata?.card && !shortList.includes(c.slug))
       .sort((a, b) => (a.name > b.name ? 1 : -1));
 
     const listableCollections = [...featuredCollections, ...otherCollections].filter((c) => c.listable);
@@ -67,7 +67,7 @@ const HotCollections = () => {
               banner={item.metadata.card}
               title={item.name}
               collectionId={item.address}
-              url={`/collection/${item.address}`}
+              url={`/collection/${item.slug}`}
               verified={item.metadata.verified}
             />
           ))}
