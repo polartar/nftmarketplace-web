@@ -2203,6 +2203,26 @@
         "discord": "http://discord.gg/wkq88dHDyA",
         "telegram": "https://t.me/croslothty"
       }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "slug": "meta-cyborgs",
+      "multiToken": false,
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/banner.webp",
+        "banner": "/img/collections/meta_cyborgs/banner.webp",
+        "website": "https://cyborgswap.io/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
     }
   ],
   "drops": [
