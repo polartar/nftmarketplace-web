@@ -328,6 +328,25 @@
         "discord": "https://discord.gg/aliennft",
         "medium": "https://medium.com/@aliennft"
       }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "multiToken": false,
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/card.png",
+        "banner": "/img/collections/meta_cyborgs/banner.png",
+        "website": "https://chronoswap.org/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
     }
   ],
   "drops": [
@@ -862,6 +881,32 @@
       "totalSupply": 8888,
       "cost": "5",
       "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 29,
+      "slug": "meta-cyborgs",
+      "imgNft": "/img/drops/meta_cyborgs/drop.png",
+      "imgPreview": "/img/drops/meta_cyborgs/drop.png",
+      "imgAvatar": "/img/collections/meta_cyborgs/avatar.png",
+      "imgBanner": "/img/drops/meta_cyborgs/banner.png",
+      "title": "Meta Cyborgs",
+      "subtitle": "",
+      "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
+      "author": { "name": "Meta Cyborgs", "link": "https://chronoswap.org/" },
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "maxMintPerTx": 10,
+      "maxMintPerAddress": 100,
+      "totalSupply": 10000,
+      "cost": "300",
+      "memberCost": "250",
+      "whitelistCost": "200",
       "foundersOnly": false,
       "start": 1643727600000,
       "end": null,

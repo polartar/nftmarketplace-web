@@ -186,7 +186,7 @@ const Collections = () => {
                         <th scope="row" className="row gap-4 border-bottom-0">
                           <div className="col-12">
                             <div className="coll_list_pp" style={{ cursor: 'pointer' }}>
-                              <Link to={`/collection/${collection.collection}`}>
+                              <Link to={`/collection/${collection.slug}`}>
                                 {collection.metadata?.avatar ? (
                                   <img className="lazy" src={collection.metadata.avatar} alt={collection?.name} />
                                 ) : (
@@ -195,7 +195,7 @@ const Collections = () => {
                               </Link>
                             </div>
                             <span>
-                              <Link to={`/collection/${collection.collection}`}>{collection?.name ?? 'Unknown'}</Link>
+                              <Link to={`/collection/${collection.slug}`}>{collection?.name ?? 'Unknown'}</Link>
                             </span>
                           </div>
 
