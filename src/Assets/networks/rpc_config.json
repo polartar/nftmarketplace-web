@@ -2182,6 +2182,47 @@
         "discord": "https://discord.gg/2WT7gbSPnK",
         "medium": "https://medium.com/@babyaliendivision"
       }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0x966B18Afe9D9062d611D0C246A1959b7a25FCdDe",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
+      }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "slug": "meta-cyborgs",
+      "multiToken": false,
+      "address": "",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/banner.webp",
+        "banner": "/img/collections/meta_cyborgs/banner.webp",
+        "website": "https://cyborgswap.io/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
     }
   ],
   "drops": [
@@ -3025,6 +3066,31 @@
     },
     {
       "id": 29,
+      "slug": "slothty",
+      "imgNft": "/img/collections/drops/card.webp",
+      "imgPreview": "/img/collections/drops/card.webp",
+      "imgAvatar": "/img/collections/slothty/avatar.png",
+      "imgBanner": "/img/collections/drops/banner.webp",
+      "title": "Slothty",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "SLOTHTY", "link": "https://croslothty.com/" },
+      "address": "0x966B18Afe9D9062d611D0C246A1959b7a25FCdDe",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 8888,
+      "cost": "5",
+      "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1646179200000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": "30",
       "slug": "crognomides",
       "imgNft": "/img/drops/crognomides/drop.webp",
       "imgPreview": "/img/drops/crognomides/drop.webp",
@@ -3048,6 +3114,32 @@
       "disclaimer": "Only whitelisted addresses are eligible for this mint. Please check the Crognomes discord for more information.",
       "published": true,
       "featured": true,
+      "complete": false
+    },
+    {
+      "id": 31,
+      "slug": "meta-cyborgs",
+      "imgNft": "/img/drops/meta_cyborgs/card.webp",
+      "imgPreview": "/img/drops/meta_cyborgs/card.webp",
+      "imgAvatar": "/img/collections/meta_cyborgs/avatar.png",
+      "imgBanner": "/img/drops/meta_cyborgs/banner.webp",
+      "title": "Meta Cyborgs",
+      "subtitle": "",
+      "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
+      "author": { "name": "Meta Cyborgs", "link": "https://cyborgswap.io/" },
+      "address": "",
+      "maxMintPerTx": 10,
+      "maxMintPerAddress": 100,
+      "totalSupply": 10000,
+      "cost": "300",
+      "memberCost": "250",
+      "whitelistCost": "200",
+      "foundersOnly": false,
+      "start": 1646247600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
       "complete": false
     }
   ],

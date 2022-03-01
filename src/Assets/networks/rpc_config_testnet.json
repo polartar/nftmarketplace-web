@@ -23,12 +23,25 @@
   "known_contracts": [
     {
       "slug": "vip-founding-member",
-      "name": "EbisusBay VIP",
+      "name": "Ebisu's Bay VIP",
       "onChain": false,
       "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
       "multiToken": true,
       "id": 2,
-      "listable": true
+      "listable": true,
+      "metadata": {
+        "slug": "vip-founding-member",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/avatar.jpg",
+        "card": "/img/collections/ebisu/card.webp",
+        "maxSupply": 1000,
+        "website": "https://app.ebisusbay.com/",
+        "twitter": "https://twitter.com/EbisusBay",
+        "discord": "https://discord.gg/ynrBrSkAFG",
+        "medium": "https://blog.ebisusbay.com/",
+        "instagram": "https://www.instagram.com/ebisusbayofficial"
+      }
     },
     {
       "slug": "founding-member",
@@ -37,7 +50,8 @@
       "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
       "multiToken": true,
       "id": 1,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "basic-nft",
@@ -45,7 +59,8 @@
       "multiToken": false,
       "address": "0xCfEEe4c7B10C52854e061607C347e0D79C6F73A1",
       "onChain": false,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "cronos-warrior",
@@ -53,7 +68,8 @@
       "multiToken": false,
       "address": "0x6777a24aef6374265B4A900c9Db57673cFF426Ab",
       "onChain": false,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "cronies",
@@ -61,7 +77,8 @@
       "multiToken": false,
       "address": "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
       "onChain": true,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "crypto-lovers",
@@ -69,7 +86,8 @@
       "multiToken": false,
       "address": "0xEf05151db4e0c96fff0921481300e2d53618Ee96",
       "onChain": false,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "admiration",
@@ -377,6 +395,47 @@
         "twitter": "https://twitter.com/aliennft",
         "discord": "https://discord.gg/aliennft",
         "medium": "https://medium.com/@aliennft"
+      }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "slug": "meta-cyborgs",
+      "multiToken": false,
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/banner.webp",
+        "banner": "/img/collections/meta_cyborgs/banner.webp",
+        "website": "https://cyborgswap.io/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
       }
     }
   ],
@@ -794,7 +853,7 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 21,
       "slug": "reckless-robots",
       "imgNft": "/img/drops/recklessrobots/drop.webp",
       "imgPreview": "/img/drops/recklessrobots/drop.webp",
@@ -820,7 +879,7 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 22,
       "slug": "hyped-dogs",
       "imgNft": "/img/drops/hypeddogs/drop.gif",
       "imgPreview": "/img/drops/hypeddogs/drop.gif",
@@ -871,7 +930,7 @@
       "complete": false
     },
     {
-      "id": 21,
+      "id": 27,
       "slug": "alie-nft",
       "imgNft": "/img/drops/alienft/drop.png",
       "imgPreview": "/img/drops/alienft/drop.png",
@@ -893,6 +952,83 @@
       "referral": false,
       "is1155": false,
       "published": true,
+      "complete": false
+    },
+    {
+      "id": 28,
+      "slug": "slothty",
+      "imgNft": "/img/drops/slothty/card.webp",
+      "imgPreview": "/img/drops/slothty/card.webp",
+      "imgAvatar": "/img/collections/slothty/avatar.png",
+      "imgBanner": "/img/drops/slothty/banner.webp",
+      "title": "Slothty",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "SLOTHTY", "link": "https://croslothty.com/" },
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 8888,
+      "cost": "5",
+      "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 29,
+      "slug": "meta-cyborgs",
+      "imgNft": "/img/drops/meta_cyborgs/card.webp",
+      "imgPreview": "/img/drops/meta_cyborgs/card.webp",
+      "imgAvatar": "/img/collections/meta_cyborgs/avatar.png",
+      "imgBanner": "/img/drops/meta_cyborgs/banner.webp",
+      "title": "Meta Cyborgs",
+      "subtitle": "",
+      "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
+      "author": { "name": "Meta Cyborgs", "link": "https://cyborgswap.io/" },
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "maxMintPerTx": 10,
+      "maxMintPerAddress": 100,
+      "totalSupply": 10000,
+      "cost": "300",
+      "memberCost": "250",
+      "whitelistCost": "200",
+      "foundersOnly": false,
+      "start": 1646247600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 30,
+      "slug": "vip-founding-member",
+      "imgNft": "/img/drops/vip/drop.webp",
+      "imgPreview": "/img/drops/founding_member/drop.webp",
+      "imgAvatar": "/img/avatar.jpg",
+      "title": "Founding VIP Member",
+      "subtitle": "Early access to features and reduced fees forever.",
+      "description": "Holders of the VIP Founding Member NFT will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.\n\nHolders will also share 50% of all service fees as well as other exclusive perks.\n\nThe VIP Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. VIP Founding Member NFTs will be limited to 1,000.",
+      "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com" },
+      "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+      "maxMintPerTx": 10,
+      "totalSupply": 1000,
+      "cost": "2.0",
+      "memberCost": "1.0",
+      "abi": ["function mint(uint256 _id, uint256 _amount, bytes _data) public payable"],
+      "start": 1639489543000,
+      "end": null,
+      "referral": true,
+      "discount": "10.0",
+      "is1155": true,
+      "foundersOnly": false,
+      "published": true,
+      "featured": true,
       "complete": false
     }
   ],

@@ -16,13 +16,13 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import config from '../../Assets/networks/rpc_config.json';
 import { connectAccount } from '../../GlobalState/User';
-import { fetchMemberInfo } from '../../GlobalState/Memberships';
+import {fetchMemberInfo, fetchVipInfo} from '../../GlobalState/Memberships';
 import { fetchCronieInfo } from '../../GlobalState/Cronies';
 import {
   createSuccessfulTransactionToastContent,
   isCreaturesDrop,
   isCrognomesDrop,
-  isFounderDrop,
+  isFounderDrop, isFounderVipDrop,
   isMagBrewVikingsDrop,
   newlineText,
   percentage,
@@ -110,6 +110,9 @@ const Drop = () => {
 
   useEffect(() => {
     dispatch(fetchMemberInfo());
+    if (process.env.NODE_ENV === 'development') {
+      dispatch(fetchVipInfo());
+    }
     dispatch(fetchCronieInfo());
   }, []);
 
@@ -185,6 +188,9 @@ const Drop = () => {
       if (isFounderDrop(currentDrop.address)) {
         setDropInfo(currentDrop, membership.founders.count);
         calculateStatus(currentDrop, membership.founders.count, currentDrop.totalSupply);
+      } else if (isFounderVipDrop(currentDrop.address)) {
+        setDropInfo(currentDrop, membership.vips.count);
+        calculateStatus(currentDrop, membership.vips.count, currentDrop.totalSupply);
       } else if (isCrognomesDrop(currentDrop.address)) {
         let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
         const supply = await readContract.totalSupply();
@@ -332,10 +338,9 @@ const Drop = () => {
             }
             const ref32 = ethers.utils.formatBytes32String(referral);
             response = await contract.mint(1, numToMint, ref32, extra);
-          } else {
-            // Cronie
-            const gas = String(900015 * numToMint);
-            response = await contract.mint(numToMint, extra);
+          } else if (isFounderVipDrop(dropObject.address)) {
+            const ref32 = ethers.utils.formatBytes32String(referral);
+            response = await contract.mint(2, numToMint, ref32, extra);
           }
         } else {
           if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
@@ -643,12 +648,10 @@ const Drop = () => {
                   </div>
                 )}
                 {status === statuses.NOT_STARTED && !drop.start && (
-                    <div className="me-4">
-                      <h6 className="mb-1">Minting Starts</h6>
-                      <h3>
-                        TBA
-                      </h3>
-                    </div>
+                  <div className="me-4">
+                    <h6 className="mb-1">Minting Starts</h6>
+                    <h3>TBA</h3>
+                  </div>
                 )}
                 {status === statuses.LIVE && !drop.complete && (
                   <>

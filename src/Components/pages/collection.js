@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {Redirect, useParams} from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import config from '../../Assets/networks/rpc_config.json';
-import Collection1155 from "./collection1155";
-import Collection721 from "./collection721";
-import {caseInsensitiveCompare} from "../../utils";
+import Collection1155 from './collection1155';
+import Collection721 from './collection721';
+import { caseInsensitiveCompare } from '../../utils';
 
 const knownContracts = config.known_contracts;
 
@@ -16,13 +16,13 @@ const Collection = () => {
 
   useEffect(() => {
     setRedirect(false);
-    let col = knownContracts.find(c => c.slug === slug);
+    let col = knownContracts.find((c) => c.slug === slug);
     if (col) {
       setCollection(col);
       setType(col.multiToken ? '1155' : '721');
       if (col.multiToken) setType(col.multiToken ? '1155' : '721');
     } else {
-      col = knownContracts.find(c => caseInsensitiveCompare(c.address, slug));
+      col = knownContracts.find((c) => caseInsensitiveCompare(c.address, slug));
       if (col) {
         setCollection(col);
         setRedirect(true);
@@ -31,23 +31,23 @@ const Collection = () => {
   }, [slug]);
 
   return (
-      <>
-        {collection &&
+    <>
+      {collection && (
         <>
-          {redirect ?
-              <Redirect to={`/collection/${collection.slug}`} />
-              :
-              <>
-                {type === '1155' ?
-                    <Collection1155 address={collection.address} />
-                    :
-                    <Collection721 address={collection.address} />
-                }
-              </>
-          }
+          {redirect ? (
+            <Redirect to={`/collection/${collection.slug}`} />
+          ) : (
+            <>
+              {type === '1155' ? (
+                <Collection1155 address={collection.address} />
+              ) : (
+                <Collection721 address={collection.address} />
+              )}
+            </>
+          )}
         </>
-        }
-      </>
+      )}
+    </>
   );
 };
 
