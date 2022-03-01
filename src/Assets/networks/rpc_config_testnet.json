@@ -342,7 +342,7 @@
         "avatar": "/img/collections/meta_cyborgs/avatar.png",
         "card": "/img/collections/meta_cyborgs/card.png",
         "banner": "/img/collections/meta_cyborgs/banner.png",
-        "website": "https://chronoswap.org/",
+        "website": "https://cyborgswap.io/",
         "twitter": "https://twitter.com/chronoswap",
         "discord": "https://discord.gg/chronoswap",
         "medium": "https://medium.com/@chronoswap"
@@ -899,7 +899,7 @@
       "title": "Meta Cyborgs",
       "subtitle": "",
       "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
-      "author": { "name": "Meta Cyborgs", "link": "https://chronoswap.org/" },
+      "author": { "name": "Meta Cyborgs", "link": "https://cyborgswap.io/" },
       "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
       "maxMintPerTx": 10,
       "maxMintPerAddress": 100,
