@@ -272,7 +272,7 @@ const Drop = () => {
 
   const calculateCost = async (user, isErc20) => {
     if (isCreaturesDrop(drop.address)) {
-      return ethers.utils.parseEther('444');
+      return ethers.utils.parseEther('333');
     }
 
     if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
