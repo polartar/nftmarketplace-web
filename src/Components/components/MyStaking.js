@@ -4,6 +4,7 @@ import { setStakeCount, setVIPCount } from '../../GlobalState/User';
 import { Form, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { createSuccessfulTransactionToastContent } from '../../utils';
+import config from '../../Assets/networks/rpc_config.json';
 
 const MyStaking = ({ walletAddress = null }) => {
   const dispatch = useDispatch();
@@ -14,14 +15,19 @@ const MyStaking = ({ walletAddress = null }) => {
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isHarvesting, setIsHarvesting] = useState(false);
   const [amount, setAmount] = useState(0);
+  
   const stake = async () => {
     if (!user.stakeContract) return;
     if (amount >= vipCount) {
-      alert("Exceed amount");
+      toast.error("Exceed amount");
       return;
     }
     try {
       setIsStaking(true);
+      const isApproved = await user.membershipContract.isApprovedForAll(walletAddress, config.stake_contract);
+      if (!isApproved) {
+        await user.membershipContract.setApprovalForAll(config.stake_contract, true);
+      }
       await user.stakeContract.stake(amount);
       dispatch(setStakeCount(stakeCount + amount));
       dispatch(setVIPCount(vipCount - amount));
