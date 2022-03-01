@@ -2239,6 +2239,26 @@
       "metadata" : {
         "slug" : "pixel-city"
       }
+    },
+    {
+      "name": "Cronos ALIENFT",
+      "slug": "alie-nft",
+      "multiToken": false,
+      "address": "",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "alie-nft",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/alienft/avatar.png",
+        "card": "/img/collections/alienft/card.png",
+        "banner": "/img/collections/alienft/banner.png",
+        "website": "https://www.aliennft.ca/",
+        "twitter": "https://twitter.com/aliennft",
+        "discord": "https://discord.gg/aliennft",
+        "medium": "https://medium.com/@aliennft"
+      }
     }
   ],
   "drops": [
@@ -3150,6 +3170,31 @@
       "cost": "300",
       "memberCost": "250",
       "whitelistCost": "200",
+      "foundersOnly": false,
+      "start": 1646247600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 32,
+      "slug": "alie-nft",
+      "imgNft": "/img/drops/alienft/drop.png",
+      "imgPreview": "/img/drops/alienft/drop.png",
+      "imgAvatar": "/img/collections/alienft/avatar.png",
+      "imgBanner": "/img/drops/alienft/banner.png",
+      "title": "Cronos ALIENFT",
+      "subtitle": "A limited collection of 2500 NFTs with a variety of hand-drawn attributes with a unique design sure to please all life forms. Offering forms of utility like royalty sharing that will reward the user upon staking their NFTS on Crodex",
+      "description": "From far off unquantifiable depths of our universe these brilliant extraterrestrial life forms live in harmony… until recently they have caught solar wind of what the humans of earth have been doing with these “NFTs” so they want in… will you take the small step for man and create the big change for mankind! Our unique utility of NFT staking will allow users to earn a from of passive rewards in this case CRO from staking their NFTs, the rewards are gathered from 100% of all secondary market sales at an 8% royalty fee.",
+      "author": { "name": "ALIENFT", "link": "https://www.aliennft.ca/" },
+      "address": "",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 2500,
+      "cost": "5",
+      "memberCost": "10",
       "foundersOnly": false,
       "start": 1646247600000,
       "end": null,
