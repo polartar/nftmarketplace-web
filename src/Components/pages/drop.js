@@ -22,7 +22,7 @@ import {
   createSuccessfulTransactionToastContent,
   isCreaturesDrop,
   isCrognomesDrop,
-  isFounderDrop,
+  isFounderDrop, isFounderVipDrop,
   isMagBrewVikingsDrop,
   newlineText,
   percentage,
@@ -185,6 +185,9 @@ const Drop = () => {
       if (isFounderDrop(currentDrop.address)) {
         setDropInfo(currentDrop, membership.founders.count);
         calculateStatus(currentDrop, membership.founders.count, currentDrop.totalSupply);
+      } else if (isFounderVipDrop(currentDrop.address)) {
+        setDropInfo(currentDrop, membership.vips.count);
+        calculateStatus(currentDrop, membership.vips.count, currentDrop.totalSupply);
       } else if (isCrognomesDrop(currentDrop.address)) {
         let readContract = await new ethers.Contract(currentDrop.address, currentDrop.abi, readProvider);
         const supply = await readContract.totalSupply();
@@ -332,10 +335,9 @@ const Drop = () => {
             }
             const ref32 = ethers.utils.formatBytes32String(referral);
             response = await contract.mint(1, numToMint, ref32, extra);
-          } else {
-            // Cronie
-            const gas = String(900015 * numToMint);
-            response = await contract.mint(numToMint, extra);
+          } else if (isFounderVipDrop(dropObject.address)) {
+            const ref32 = ethers.utils.formatBytes32String(referral);
+            response = await contract.mint(2, numToMint, ref32, extra);
           }
         } else {
           if (isUsingDefaultDropAbi(dropObject.abi) || isUsingAbiFile(dropObject.abi)) {
