@@ -9,6 +9,7 @@ import Blockies from 'react-blockies';
 import { faCrow, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Sentry from '@sentry/react';
+import { Helmet } from 'react-helmet';
 
 import ProfilePreview from '../components/ProfilePreview';
 import LayeredIcon from '../components/LayeredIcon';
@@ -40,11 +41,8 @@ const Listing = () => {
   const isLoading = useSelector((state) => state.listing.loading);
   const user = useSelector((state) => state.user);
 
-  const collectionMetadata = useSelector((state) => {
-    return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.metadata;
-  });
-  const collectionName = useSelector((state) => {
-    return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase())?.name;
+  const collection = useSelector((state) => {
+    return knownContracts.find((c) => c.address.toLowerCase() === listing?.nftAddress.toLowerCase());
   });
 
   const [openCheckout, setOpenCheckout] = React.useState(false);
@@ -113,7 +111,7 @@ const Listing = () => {
         if (typeof price === 'string') {
           price = ethers.utils.parseEther(price);
         }
-        console.log(user.marketContract, listing.listingId, listing.price, price);
+
         const tx = await user.marketContract.makePurchase(listing.listingId, {
           value: price,
         });
@@ -155,6 +153,16 @@ const Listing = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>{listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace</title>
+        <meta name="description" content={`${listing?.nft?.name || 'Listing'} for Ebisu's Bay Marketplace`} />
+        <meta name="title" content={`${listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:title" content={`${listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace`} />
+        <meta property="og:url" content={`https://app.ebisusbay.com/${id}`} />
+        <meta property="og:image" content={listing?.nft?.image} />
+        <meta name="twitter:title" content={`${listing?.nft?.name || 'Listing'} | Ebisu's Bay Marketplace`} />
+        <meta name="twitter:image" content={listing?.nft?.image} />
+      </Helmet>
       {isLoading ? (
         <section className="container">
           <div className="row mt-4">
@@ -215,20 +223,20 @@ const Listing = () => {
                     <ProfilePreview type="Seller" address={listing.seller} to={`/seller/${listing.seller}`} />
                     <ProfilePreview
                       type="Collection"
-                      title={collectionName ?? 'View Collection'}
-                      avatar={collectionMetadata?.avatar}
+                      title={collection.name}
+                      avatar={collection.metadata.avatar}
                       address={listing.nftAddress}
-                      verified={collectionMetadata?.verified}
-                      to={`/collection/${listing.nftAddress}`}
+                      verified={collection.metadata.verified}
+                      to={`/collection/${collection.slug}`}
                     />
                     {typeof listing.nft.rank !== 'undefined' && listing.nft.rank !== null && (
                       <ProfilePreview
                         type="Rarity Rank"
                         title={listing.nft.rank}
-                        avatar={collectionMetadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
+                        avatar={collection.metadata.rarity === 'rarity_sniper' ? '/img/rarity-sniper.png' : null}
                         hover={
-                          collectionMetadata.rarity === 'rarity_sniper'
-                            ? `Ranking provided by ${humanize(collectionMetadata.rarity)}`
+                          collection.metadata.rarity === 'rarity_sniper'
+                            ? `Ranking provided by ${humanize(collection.metadata.rarity)}`
                             : null
                         }
                       />
