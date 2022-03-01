@@ -2223,6 +2223,17 @@
         "discord": "https://discord.gg/chronoswap",
         "medium": "https://medium.com/@chronoswap"
       }
+    },
+    {
+      "name" : "Pixel City",
+      "slug" : "pixel-city",
+      "multiToken" : false,
+      "address" : "0xAECD843fC3677a2d3Fc142b9C165977D57fE4C40",
+      "onChain" : false,
+      "listable" : false,
+      "metadata" : {
+        "slug" : "pixel-city"
+      }
     }
   ],
   "drops": [
