@@ -1091,13 +1091,13 @@
     },
     {
       "name": "Cronos Primate Business",
-      "slug": "cronos-monkey-business",
+      "slug": "cronos-primate-business",
       "multiToken": false,
       "address": "0x939b90c529F0e3a2C187E1b190Ca966a95881FDe",
       "onChain": false,
       "listable": true,
       "metadata": {
-        "slug": "cronos-monkey-business",
+        "slug": "cronos-primate-business",
         "description": "",
         "verified": true,
         "avatar": "/img/collections/cronosmb/avatar.png",
