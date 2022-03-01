@@ -182,7 +182,7 @@ const Collection1155 = ({ address, cacheName = 'collection' }) => {
           <div className="row">
             {hasRank && collectionMetadata?.rarity === 'rarity_sniper' && (
               <div className="row">
-                <div className="col-lg-8 col-sm-10 mx-auto text-end fst-italic" style={{ fontSize: '0.8em' }}>
+                <div className="col-lg-8 col-sm-10 mx-auto text-center text-sm-end fst-italic" style={{ fontSize: '0.8em' }}>
                   Rarity scores and ranks provided by{' '}
                   <a href="https://raritysniper.com/" target="_blank" rel="noreferrer">
                     <span className="color">Rarity Sniper</span>
@@ -240,6 +240,16 @@ const Collection1155 = ({ address, cacheName = 'collection' }) => {
                 </div>
               </div>
             </div>
+            {collectionMetadata?.staking === 'crodex' && (
+              <div className="row">
+                <div className="mx-auto text-center fw-bold" style={{ fontSize: '0.8em' }}>
+                  NFTs from this collection can be staked at {' '}
+                  <a href="https://swap.crodex.app/#/rewards/nft" target="_blank" rel="noreferrer">
+                    <span className="color">Crodex</span>
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         )}
         <div className="row">
