@@ -40,13 +40,14 @@ export const getAllCollections =
       response.collections.forEach(function (collection, index) {
         let contract;
         if (isFounderCollection(collection.collection)) {
-          contract = knownContracts.find((c) => c.metadata?.slug === 'ebisu-vip');
+          contract = knownContracts.find((c) => c.slug === 'vip-founding-member');
         } else {
           contract = knownContracts.find((c) => caseInsensitiveCompare(c.address, collection.collection));
         }
 
         if (contract) {
           response.collections[index].name = contract.name;
+          response.collections[index].slug = contract.slug;
           response.collections[index].metadata = contract.metadata;
           response.collections[index].listable = contract.listable;
         }
