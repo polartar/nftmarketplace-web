@@ -1375,6 +1375,27 @@
       }
     },
     {
+      "name": "Weird Apes Club v2",
+      "slug": "weird-apes-club-v2",
+      "multiToken": false,
+      "address": "0x0b289dEa4DCb07b8932436C2BA78bA09Fbd34C44",
+      "onChain": false,
+      "listable": true,
+      "metadata": {
+        "slug": "weird-apes-club-v2",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/weirdapesclub/avatar.png",
+        "card": "/img/collections/weirdapesclub/card.png",
+        "banner": "/img/collections/weirdapesclub/banner.webp",
+        "maxSupply": 2500,
+        "website": "https://weirdapes.com/",
+        "twitter": "https://twitter.com/WeirdApesClub",
+        "discord": "https://discord.gg/d6WvCpfn9W",
+        "medium": "https://medium.com/@WeirdApesClub"
+      }
+    },
+    {
       "name": "IcySquidGame Vikings",
       "slug": "icysquidgame-vikings",
       "multiToken": false,
