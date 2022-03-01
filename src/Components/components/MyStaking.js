@@ -14,7 +14,7 @@ const MyStaking = ({ walletAddress = null }) => {
   const [isStaking, setIsStaking] = useState(false);
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isHarvesting, setIsHarvesting] = useState(false);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   
   const stake = async () => {
     if (!user.stakeContract || amount === 0) return;
