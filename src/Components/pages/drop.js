@@ -643,12 +643,10 @@ const Drop = () => {
                   </div>
                 )}
                 {status === statuses.NOT_STARTED && !drop.start && (
-                    <div className="me-4">
-                      <h6 className="mb-1">Minting Starts</h6>
-                      <h3>
-                        TBA
-                      </h3>
-                    </div>
+                  <div className="me-4">
+                    <h6 className="mb-1">Minting Starts</h6>
+                    <h3>TBA</h3>
+                  </div>
                 )}
                 {status === statuses.LIVE && !drop.complete && (
                   <>

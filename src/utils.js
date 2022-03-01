@@ -323,4 +323,4 @@ export const sliceIntoChunks = (arr, chunkSize) => {
     res.push(chunk);
   }
   return res;
-}
+};

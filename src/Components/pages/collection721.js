@@ -37,8 +37,8 @@ const Collection721 = ({ address, cacheName = 'collection' }) => {
   const hasRank = useSelector((state) => state.collection.hasRank);
   const canLoadMore = useSelector((state) => {
     return (
-        state.collection.listings.length > 0 &&
-        (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages)
+      state.collection.listings.length > 0 &&
+      (state.collection.query.page === 0 || state.collection.query.page < state.collection.totalPages)
     );
   });
 
@@ -86,12 +86,12 @@ const Collection721 = ({ address, cacheName = 'collection' }) => {
     filterOption.name = 'Specific collection';
 
     dispatch(
-        init(
-            filterOption,
-            collectionCachedSort[cacheName] ?? sortOption,
-            collectionCachedTraitsFilter[address] ?? {},
-            address
-        )
+      init(
+        filterOption,
+        collectionCachedSort[cacheName] ?? sortOption,
+        collectionCachedTraitsFilter[address] ?? {},
+        address
+      )
     );
     dispatch(fetchListings());
     // eslint-disable-next-line
@@ -126,140 +126,140 @@ const Collection721 = ({ address, cacheName = 'collection' }) => {
   }, [dispatch, address]);
 
   return (
-      <div>
-        <Helmet>
-          <title>{collectionName()} | Ebisu's Bay Marketplace</title>
-          <meta name="description" content={`${collectionName()} for Ebisu's Bay Marketplace`} />
-          <meta name="title" content={`${collectionName()} | Ebisu's Bay Marketplace`} />
-          <meta property="og:title" content={`${collectionName()} | Ebisu's Bay Marketplace`} />
-          <meta property="og:url" content={`https://app.ebisusbay.com/collection/${address}`} />
-          <meta property="og:image" content={`https://app.ebisusbay.com${collectionMetadata?.avatar || '/'}`} />
-          <meta name="twitter:title" content={`${collectionName()} | Ebisu's Bay Marketplace`} />
-          <meta name="twitter:image" content={`https://app.ebisusbay.com${collectionMetadata?.avatar || '/'}`} />
-        </Helmet>
-        <section
-            id="profile_banner"
-            className="jumbotron breadcumb no-bg"
-            style={{
-              backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader-blue.webp'})`,
-              backgroundPosition: '50% 50%',
-            }}
-        >
-          <div className="mainbreadcumb"></div>
-        </section>
+    <div>
+      <Helmet>
+        <title>{collectionName()} | Ebisu's Bay Marketplace</title>
+        <meta name="description" content={`${collectionName()} for Ebisu's Bay Marketplace`} />
+        <meta name="title" content={`${collectionName()} | Ebisu's Bay Marketplace`} />
+        <meta property="og:title" content={`${collectionName()} | Ebisu's Bay Marketplace`} />
+        <meta property="og:url" content={`https://app.ebisusbay.com/collection/${address}`} />
+        <meta property="og:image" content={`https://app.ebisusbay.com${collectionMetadata?.avatar || '/'}`} />
+        <meta name="twitter:title" content={`${collectionName()} | Ebisu's Bay Marketplace`} />
+        <meta name="twitter:image" content={`https://app.ebisusbay.com${collectionMetadata?.avatar || '/'}`} />
+      </Helmet>
+      <section
+        id="profile_banner"
+        className="jumbotron breadcumb no-bg"
+        style={{
+          backgroundImage: `url(${metadata?.banner ? metadata.banner : '/img/background/subheader-blue.webp'})`,
+          backgroundPosition: '50% 50%',
+        }}
+      >
+        <div className="mainbreadcumb"></div>
+      </section>
 
-        <section className="container d_coll no-top no-bottom">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="d_profile">
-                <div className="profile_avatar">
-                  <div className="d_profile_img">
-                    {metadata?.avatar ? (
-                        <img src={metadata.avatar} alt={collectionName()} />
-                    ) : (
-                        <Blockies seed={address.toLowerCase()} size={15} scale={10} />
-                    )}
-                    {metadata?.verified && (
-                        <LayeredIcon icon={faCheck} bgIcon={faCircle} shrink={8} stackClass="eb-avatar_badge" />
-                    )}
-                  </div>
+      <section className="container d_coll no-top no-bottom">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="d_profile">
+              <div className="profile_avatar">
+                <div className="d_profile_img">
+                  {metadata?.avatar ? (
+                    <img src={metadata.avatar} alt={collectionName()} />
+                  ) : (
+                    <Blockies seed={address.toLowerCase()} size={15} scale={10} />
+                  )}
+                  {metadata?.verified && (
+                    <LayeredIcon icon={faCheck} bgIcon={faCircle} shrink={8} stackClass="eb-avatar_badge" />
+                  )}
+                </div>
 
-                  <div className="profile_name">
-                    <h4>
-                      {collectionName()}
-                      <div className="clearfix" />
-                      <SocialsBar collection={knownContracts.find((c) => caseInsensitiveCompare(c.address, address))} />
-                    </h4>
-                  </div>
+                <div className="profile_name">
+                  <h4>
+                    {collectionName()}
+                    <div className="clearfix" />
+                    <SocialsBar collection={knownContracts.find((c) => caseInsensitiveCompare(c.address, address))} />
+                  </h4>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="container no-top">
-          {collectionStats && (
+      <section className="container no-top">
+        {collectionStats && (
+          <div className="row">
+            {hasRank && collectionMetadata?.rarity === 'rarity_sniper' && (
               <div className="row">
-                {hasRank && collectionMetadata?.rarity === 'rarity_sniper' && (
-                    <div className="row">
-                      <div className="col-lg-8 col-sm-10 mx-auto text-end fst-italic" style={{ fontSize: '0.8em' }}>
-                        Rarity scores and ranks provided by{' '}
-                        <a href="https://raritysniper.com/" target="_blank" rel="noreferrer">
-                          <span className="color">Rarity Sniper</span>
-                        </a>
-                      </div>
-                    </div>
-                )}
-                <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
-                  <div className="nft_attr">
-                    <div className="row">
-                      <div className="col-md-2 col-xs-4">
-                        <h5>Floor</h5>
-                        {collectionStats.floorPrice ? (
-                            <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
-                        ) : (
-                            <h4>-</h4>
-                        )}
-                      </div>
-                      <div className="col-md-2 col-xs-4">
-                        <h5>Volume</h5>
-                        {collectionStats.totalVolume ? (
-                            <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
-                        ) : (
-                            <h4>-</h4>
-                        )}
-                      </div>
-                      <div className="col-md-2 col-xs-4">
-                        <h5>Sales</h5>
-                        {collectionStats.numberOfSales ? (
-                            <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
-                        ) : (
-                            <h4>-</h4>
-                        )}
-                      </div>
-                      <div className="col-md-2 col-xs-4">
-                        <h5>Avg. Sale</h5>
-                        {collectionStats.averageSalePrice ? (
-                            <h4>{siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0))} CRO</h4>
-                        ) : (
-                            <h4>-</h4>
-                        )}
-                      </div>
-                      <div className="col-md-2 col-xs-4">
-                        <h5>Royalty</h5>
-                        {royalty ? <h4>{royalty}%</h4> : <h4>-</h4>}
-                      </div>
-                      <div className="col-md-2 col-xs-4">
-                        <h5>Active Listings</h5>
-                        {collectionStats.numberActive ? (
-                            <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
-                        ) : (
-                            <h4>-</h4>
-                        )}
-                      </div>
-                    </div>
+                <div className="col-lg-8 col-sm-10 mx-auto text-end fst-italic" style={{ fontSize: '0.8em' }}>
+                  Rarity scores and ranks provided by{' '}
+                  <a href="https://raritysniper.com/" target="_blank" rel="noreferrer">
+                    <span className="color">Rarity Sniper</span>
+                  </a>
+                </div>
+              </div>
+            )}
+            <div className="d-item col-lg-8 col-sm-10 mb-4 mx-auto">
+              <div className="nft_attr">
+                <div className="row">
+                  <div className="col-md-2 col-xs-4">
+                    <h5>Floor</h5>
+                    {collectionStats.floorPrice ? (
+                      <h4>{siPrefixedNumber(Number(collectionStats.floorPrice).toFixed(0))} CRO</h4>
+                    ) : (
+                      <h4>-</h4>
+                    )}
+                  </div>
+                  <div className="col-md-2 col-xs-4">
+                    <h5>Volume</h5>
+                    {collectionStats.totalVolume ? (
+                      <h4>{siPrefixedNumber(Number(collectionStats.totalVolume).toFixed(0))} CRO</h4>
+                    ) : (
+                      <h4>-</h4>
+                    )}
+                  </div>
+                  <div className="col-md-2 col-xs-4">
+                    <h5>Sales</h5>
+                    {collectionStats.numberOfSales ? (
+                      <h4>{siPrefixedNumber(collectionStats.numberOfSales)}</h4>
+                    ) : (
+                      <h4>-</h4>
+                    )}
+                  </div>
+                  <div className="col-md-2 col-xs-4">
+                    <h5>Avg. Sale</h5>
+                    {collectionStats.averageSalePrice ? (
+                      <h4>{siPrefixedNumber(Number(collectionStats.averageSalePrice).toFixed(0))} CRO</h4>
+                    ) : (
+                      <h4>-</h4>
+                    )}
+                  </div>
+                  <div className="col-md-2 col-xs-4">
+                    <h5>Royalty</h5>
+                    {royalty ? <h4>{royalty}%</h4> : <h4>-</h4>}
+                  </div>
+                  <div className="col-md-2 col-xs-4">
+                    <h5>Active Listings</h5>
+                    {collectionStats.numberActive ? (
+                      <h4>{siPrefixedNumber(collectionStats.numberActive)}</h4>
+                    ) : (
+                      <h4>-</h4>
+                    )}
                   </div>
                 </div>
               </div>
-          )}
-          <div className="row">
-            <CollectionFilterBar showFilter={false} cacheName={cacheName} />
-          </div>
-          <div className="row">
-            {(hasTraits() || hasPowertraits()) && (
-                <div className="col-md-3 mb-4">
-                  {hasTraits() && <TraitsFilter address={address} />}
-                  {hasPowertraits() && <PowertraitsFilter address={address} />}
-                </div>
-            )}
-            <div className={hasTraits() || hasPowertraits() ? 'col-md-9' : 'col-md-12'}>
-              <CollectionListingsGroup listings={listings} canLoadMore={canLoadMore} loadMore={loadMore} />
             </div>
           </div>
-        </section>
+        )}
+        <div className="row">
+          <CollectionFilterBar showFilter={false} cacheName={cacheName} />
+        </div>
+        <div className="row">
+          {(hasTraits() || hasPowertraits()) && (
+            <div className="col-md-3 mb-4">
+              {hasTraits() && <TraitsFilter address={address} />}
+              {hasPowertraits() && <PowertraitsFilter address={address} />}
+            </div>
+          )}
+          <div className={hasTraits() || hasPowertraits() ? 'col-md-9' : 'col-md-12'}>
+            <CollectionListingsGroup listings={listings} canLoadMore={canLoadMore} loadMore={loadMore} />
+          </div>
+        </div>
+      </section>
 
-        <Footer />
-      </div>
+      <Footer />
+    </div>
   );
 };
 export default Collection721;

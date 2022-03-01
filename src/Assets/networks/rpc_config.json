@@ -2182,6 +2182,47 @@
         "discord": "https://discord.gg/2WT7gbSPnK",
         "medium": "https://medium.com/@babyaliendivision"
       }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0x966B18Afe9D9062d611D0C246A1959b7a25FCdDe",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
+      }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "slug": "meta-cyborgs",
+      "multiToken": false,
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/banner.webp",
+        "banner": "/img/collections/meta_cyborgs/banner.webp",
+        "website": "https://cyborgswap.io/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
     }
   ],
   "drops": [
@@ -3025,6 +3066,31 @@
     },
     {
       "id": 29,
+      "slug": "slothty",
+      "imgNft": "/img/collections/drops/card.webp",
+      "imgPreview": "/img/collections/drops/card.webp",
+      "imgAvatar": "/img/collections/slothty/avatar.png",
+      "imgBanner": "/img/collections/drops/banner.webp",
+      "title": "Slothty",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "SLOTHTY", "link": "https://croslothty.com/" },
+      "address": "0x966B18Afe9D9062d611D0C246A1959b7a25FCdDe",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 8888,
+      "cost": "5",
+      "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": "30",
       "slug": "crognomides",
       "imgNft": "/img/drops/crognomides/drop.webp",
       "imgPreview": "/img/drops/crognomides/drop.webp",

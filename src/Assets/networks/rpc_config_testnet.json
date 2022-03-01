@@ -22,56 +22,6 @@
   },
   "known_contracts": [
     {
-      "slug": "vip-founding-member",
-      "name": "EbisusBay VIP",
-      "onChain": false,
-      "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
-      "multiToken": true,
-      "id": 2,
-      "listable": true
-    },
-    {
-      "slug": "founding-member",
-      "name": "EbisusBay Founder",
-      "onChain": false,
-      "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
-      "multiToken": true,
-      "id": 1,
-      "listable": true
-    },
-    {
-      "slug": "basic-nft",
-      "name": "Basic NFT",
-      "multiToken": false,
-      "address": "0xCfEEe4c7B10C52854e061607C347e0D79C6F73A1",
-      "onChain": false,
-      "listable": true
-    },
-    {
-      "slug": "cronos-warrior",
-      "name": "Cronos Warrior",
-      "multiToken": false,
-      "address": "0x6777a24aef6374265B4A900c9Db57673cFF426Ab",
-      "onChain": false,
-      "listable": true
-    },
-    {
-      "slug": "cronies",
-      "name": "Cronies",
-      "multiToken": false,
-      "address": "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
-      "onChain": true,
-      "listable": true
-    },
-    {
-      "slug": "crypto-lovers",
-      "name": "CryptoLovers",
-      "multiToken": false,
-      "address": "0xEf05151db4e0c96fff0921481300e2d53618Ee96",
-      "onChain": false,
-      "listable": true
-    },
-    {
       "slug": "admiration",
       "name": "Deplone",
       "multiToken": false,
@@ -377,6 +327,47 @@
         "twitter": "https://twitter.com/aliennft",
         "discord": "https://discord.gg/aliennft",
         "medium": "https://medium.com/@aliennft"
+      }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "slug": "meta-cyborgs",
+      "multiToken": false,
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/banner.webp",
+        "banner": "/img/collections/meta_cyborgs/banner.webp",
+        "website": "https://cyborgswap.io/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
       }
     }
   ],
@@ -794,7 +785,7 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 21,
       "slug": "reckless-robots",
       "imgNft": "/img/drops/recklessrobots/drop.webp",
       "imgPreview": "/img/drops/recklessrobots/drop.webp",
@@ -820,7 +811,7 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 22,
       "slug": "hyped-dogs",
       "imgNft": "/img/drops/hypeddogs/drop.gif",
       "imgPreview": "/img/drops/hypeddogs/drop.gif",
@@ -871,7 +862,7 @@
       "complete": false
     },
     {
-      "id": 21,
+      "id": 27,
       "slug": "alie-nft",
       "imgNft": "/img/drops/alienft/drop.png",
       "imgPreview": "/img/drops/alienft/drop.png",
@@ -887,6 +878,57 @@
       "totalSupply": 2500,
       "cost": "5",
       "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 28,
+      "slug": "slothty",
+      "imgNft": "/img/drops/slothty/card.webp",
+      "imgPreview": "/img/drops/slothty/card.webp",
+      "imgAvatar": "/img/collections/slothty/avatar.png",
+      "imgBanner": "/img/drops/slothty/banner.webp",
+      "title": "Slothty",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "SLOTHTY", "link": "https://croslothty.com/" },
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 8888,
+      "cost": "5",
+      "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 29,
+      "slug": "meta-cyborgs",
+      "imgNft": "/img/drops/meta_cyborgs/card.webp",
+      "imgPreview": "/img/drops/meta_cyborgs/card.webp",
+      "imgAvatar": "/img/collections/meta_cyborgs/avatar.png",
+      "imgBanner": "/img/drops/meta_cyborgs/banner.webp",
+      "title": "Meta Cyborgs",
+      "subtitle": "",
+      "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
+      "author": { "name": "Meta Cyborgs", "link": "https://cyborgswap.io/" },
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "maxMintPerTx": 10,
+      "maxMintPerAddress": 100,
+      "totalSupply": 10000,
+      "cost": "300",
+      "memberCost": "250",
+      "whitelistCost": "200",
       "foundersOnly": false,
       "start": 1643727600000,
       "end": null,
