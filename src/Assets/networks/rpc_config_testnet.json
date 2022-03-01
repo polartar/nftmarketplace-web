@@ -347,6 +347,27 @@
         "discord": "https://discord.gg/chronoswap",
         "medium": "https://medium.com/@chronoswap"
       }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
+      }
     }
   ],
   "drops": [
