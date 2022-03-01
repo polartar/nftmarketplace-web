@@ -794,7 +794,7 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 21,
       "slug": "reckless-robots",
       "imgNft": "/img/drops/recklessrobots/drop.webp",
       "imgPreview": "/img/drops/recklessrobots/drop.webp",
@@ -820,7 +820,7 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 22,
       "slug": "hyped-dogs",
       "imgNft": "/img/drops/hypeddogs/drop.gif",
       "imgPreview": "/img/drops/hypeddogs/drop.gif",
@@ -871,7 +871,7 @@
       "complete": false
     },
     {
-      "id": 21,
+      "id": 27,
       "slug": "alie-nft",
       "imgNft": "/img/drops/alienft/drop.png",
       "imgPreview": "/img/drops/alienft/drop.png",
@@ -885,6 +885,31 @@
       "maxMintPerTx": 5,
       "maxMintPerAddress": 50,
       "totalSupply": 2500,
+      "cost": "5",
+      "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 28,
+      "slug": "slothty",
+      "imgNft": "/img/collections/slothty/card.webp",
+      "imgPreview": "/img/collections/slothty/card.webp",
+      "imgAvatar": "/img/collections/slothty/avatar.png",
+      "imgBanner": "/img/collections/slothty/banner.webp",
+      "title": "Slothty",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "SLOTHTY", "link": "https://croslothty.com/" },
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 8888,
       "cost": "5",
       "memberCost": "10",
       "foundersOnly": false,
