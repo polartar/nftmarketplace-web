@@ -3047,10 +3047,10 @@
     {
       "id": 29,
       "slug": "slothty",
-      "imgNft": "/img/collections/slothty/card.webp",
-      "imgPreview": "/img/collections/slothty/card.webp",
+      "imgNft": "/img/drops/slothty/card.webp",
+      "imgPreview": "/img/drops/slothty/card.webp",
       "imgAvatar": "/img/collections/slothty/avatar.png",
-      "imgBanner": "/img/collections/slothty/banner.webp",
+      "imgBanner": "/img/drops/slothty/banner.webp",
       "title": "Slothty",
       "subtitle": "",
       "description": "",
