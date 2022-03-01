@@ -22,13 +22,26 @@
   },
   "known_contracts": [
     {
-      "slug": "ebisu-vip",
-      "name": "EbisusBay VIP",
+      "slug": "vip-founding-member",
+      "name": "Ebisu's Bay VIP",
       "onChain": false,
       "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
       "multiToken": true,
       "id": 2,
-      "listable": true
+      "listable": true,
+      "metadata": {
+        "slug": "vip-founding-member",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/avatar.jpg",
+        "card": "/img/collections/ebisu/card.webp",
+        "maxSupply": 1000,
+        "website": "https://app.ebisusbay.com/",
+        "twitter": "https://twitter.com/EbisusBay",
+        "discord": "https://discord.gg/ynrBrSkAFG",
+        "medium": "https://blog.ebisusbay.com/",
+        "instagram": "https://www.instagram.com/ebisusbayofficial"
+      }
     },
     {
       "slug": "founding-member",
@@ -37,7 +50,8 @@
       "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
       "multiToken": true,
       "id": 1,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "basic-nft",
@@ -45,7 +59,8 @@
       "multiToken": false,
       "address": "0xCfEEe4c7B10C52854e061607C347e0D79C6F73A1",
       "onChain": false,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "cronos-warrior",
@@ -53,7 +68,8 @@
       "multiToken": false,
       "address": "0x6777a24aef6374265B4A900c9Db57673cFF426Ab",
       "onChain": false,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "cronies",
@@ -61,7 +77,8 @@
       "multiToken": false,
       "address": "0xe9DCa9E03F31CBD538A19a89eA2cA3684AF2788f",
       "onChain": true,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "crypto-lovers",
@@ -69,7 +86,8 @@
       "multiToken": false,
       "address": "0xEf05151db4e0c96fff0921481300e2d53618Ee96",
       "onChain": false,
-      "listable": true
+      "listable": true,
+      "metadata": {}
     },
     {
       "slug": "admiration",
@@ -116,7 +134,7 @@
         "verified": true,
         "avatar": "/img/collections/crougars/avatar.png",
         "card": "/img/collections/crougars/card.gif",
-        "banner": "/img/collections/crougars/banner.png"
+        "banner": "/img/collections/crougars/banner.webp"
       }
     },
     {
@@ -132,7 +150,7 @@
         "verified": true,
         "avatar": "/img/collections/fractals/avatar.png",
         "card": "/img/collections/fractals/card.png",
-        "banner": "/img/collections/fractals/banner.png",
+        "banner": "/img/collections/fractals/banner.webp",
         "maxSupply": 50,
         "website": "https://www.instagram.com/maxx9498/"
       }
@@ -218,7 +236,7 @@
         "verified": true,
         "avatar": "/img/collections/cronogods/avatar.gif",
         "card": "/img/collections/cronogods/card.png",
-        "banner": "/img/collections/cronogods/banner.png",
+        "banner": "/img/collections/cronogods/banner.webp",
         "maxSupply": 1500,
         "website": "https://www.cronogods.com/",
         "twitter": "https://twitter.com/CronoGods",
@@ -237,7 +255,7 @@
         "verified": true,
         "avatar": "/img/collections/mariecyborg/avatar.png",
         "card": "/img/collections/mariecyborg/card.png",
-        "banner": "/img/collections/mariecyborg/banner.png",
+        "banner": "/img/collections/mariecyborg/banner.webp",
         "maxSupply": 2500,
         "website": "https://www.mariescyborgs.io/",
         "twitter": "https://twitter.com/mariescyborgs",
@@ -257,7 +275,7 @@
         "verified": true,
         "avatar": "/img/collections/magbrew/avatar.jpg",
         "card": "/img/collections/magbrew/card.jpg",
-        "banner": "/img/collections/magbrew/banner.jpg",
+        "banner": "/img/collections/magbrew/banner.webp",
         "website": "https://www.magbrewvikings.com/",
         "twitter": "https://twitter.com/MAGBrewVikings",
         "discord": "https://discord.gg/xPN84dsmuC",
@@ -315,7 +333,7 @@
         "verified": true,
         "avatar": "/img/collections/recklessrobots/avatar.png",
         "card": "/img/collections/recklessrobots/card.png",
-        "banner": "/img/collections/recklessrobots/banner.png",
+        "banner": "/img/collections/recklessrobots/banner.webp",
         "website": "https://www.recklessrobotsnft.com/",
         "twitter": "https://twitter.com/recklessrobotsnft",
         "discord": "https://discord.gg/recklessrobotsnft",
@@ -334,7 +352,7 @@
         "verified": true,
         "avatar": "/img/collections/hypeddogs/avatar.png",
         "card": "/img/collections/hypeddogs/card.gif",
-        "banner": "/img/collections/hypeddogs/banner.png",
+        "banner": "/img/collections/hypeddogs/banner.webp",
         "website": "https://www.thelaboratory.io/",
         "twitter": "https://twitter.com/thelaboratoryio",
         "discord": "https://discord.gg/thelaboratory",
@@ -378,6 +396,47 @@
         "discord": "https://discord.gg/aliennft",
         "medium": "https://medium.com/@aliennft"
       }
+    },
+    {
+      "name": "Meta Cyborgs",
+      "slug": "meta-cyborgs",
+      "multiToken": false,
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "meta-cyborgs",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/meta_cyborgs/avatar.png",
+        "card": "/img/collections/meta_cyborgs/banner.webp",
+        "banner": "/img/collections/meta_cyborgs/banner.webp",
+        "website": "https://cyborgswap.io/",
+        "twitter": "https://twitter.com/chronoswap",
+        "discord": "https://discord.gg/chronoswap",
+        "medium": "https://medium.com/@chronoswap"
+      }
+    },
+    {
+      "name": "Slothty",
+      "slug": "slothty",
+      "multiToken": false,
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "slothty",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/slothty/avatar.png",
+        "card": "/img/collections/slothty/card.webp",
+        "banner": "/img/collections/slothty/banner.webp",
+        "maxSupply": 8888,
+        "website": "https://croslothty.com/",
+        "twitter": "https://twitter.com/Slothtynft",
+        "discord": "http://discord.gg/wkq88dHDyA",
+        "telegram": "https://t.me/croslothty"
+      }
     }
   ],
   "drops": [
@@ -387,7 +446,7 @@
       "imgNft": "/img/drops/deplone/drop.gif",
       "imgPreview": "/img/drops/deplone/drop.gif",
       "imgAvatar": "/img/collections/deplone/avatar.jpg",
-      "imgBanner": "/img/collections/deplone/banner.jpg",
+      "imgBanner": "/img/collections/deplone/banner.webp",
       "title": "Deplone",
       "subtitle": "Deplone is a young visual artist, who turned his life upside down to chase what he really loves. Since he discovered his passion for 3D art and motion design he has developed his own distinct style. Tries to stay humble and anonymous. Works often influenced by the events from his personal life or day-to-day reflections about the world around him.",
       "description": "This 6 piece collection was created with an intention to admire certain elements important to the creative process, but also life in general. The aim of every one of these six artworks is to make the new owner just take a small break and ponder about one of those topics, as well as admire their influence on the surrounding world. I chose the form factor of a surreal museum-like space, because ever since I was a small child, I thought about modern art galleries as the calm, quiet places designed to let the observer admire and reflect upon the odd, non-conventional and often controversial concepts. I hope that events taking place in this little space I designed in my head will succeed in their goal.",
@@ -411,8 +470,8 @@
     {
       "id": 6,
       "slug": "lazyhorse",
-      "imgNft": "/img/drops/lazyhorse/drop.png",
-      "imgPreview": "/img/drops/lazyhorse/drop.png",
+      "imgNft": "/img/drops/lazyhorse/drop.webp",
+      "imgPreview": "/img/drops/lazyhorse/drop.webp",
       "imgAvatar": "/img/collections/lazyhorse/avatar.png",
       "imgBanner": "/img/collections/lazyhorse/banner.png",
       "title": "lazyhorse",
@@ -442,7 +501,7 @@
       "imgNft": "/img/drops/crougars/drop.gif",
       "imgPreview": "/img/drops/crougars/drop.gif",
       "imgAvatar": "/img/collections/crougars/avatar.png",
-      "imgBanner": "/img/collections/crougars/banner.png",
+      "imgBanner": "/img/collections/crougars/banner.webp",
       "title": "CROugars",
       "subtitle": "A limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain.",
       "description": "CROugars is a limited collection of 2,222 NFTs with a variety of hand-drawn attributes. Deployed on the Cronos Chain. This project has a strong focus on real NFT utilities, some of which, Cronos has not yet seen. This includes NFT staking that shares royalties with holders, as well as DAO governance that allows CROugar holders to vote on proposals.",
@@ -468,10 +527,10 @@
     {
       "id": 8,
       "slug": "Cronos goats",
-      "imgNft": "/img/drops/cronosgoats/drop.png",
-      "imgPreview": "/img/drops/cronosgoats/drop.png",
+      "imgNft": "/img/drops/cronosgoats/drop.webp",
+      "imgPreview": "/img/drops/cronosgoats/drop.webp",
       "imgAvatar": "/img/collections/cronosgoats/avatar.gif",
-      "imgBanner": "/img/collections/cronosgoats/banner.png",
+      "imgBanner": "/img/collections/cronosgoats/banner.webp",
       "title": "Cronos goats",
       "subtitle": "",
       "description": "OG Goats is a limited collection of 1000 NFT's on the Cronos Network. Our Goats main focus is Utility for the community. We will be implementing a buy back feature where half of all the royalties go towards buying the lowest ranked Goats so we can take them off the market for a minimum of 8 years. Our OG Goats will act as a major discount ticket to our second collection of Bad Billy Goats. We will also Gift our community with physical art pieces of their NFT's! The future for these goats are endless as we plan to implement a DEX, NFT staking, P2E games, and Cronos's First NFT art Gallery.",
@@ -555,8 +614,8 @@
     {
       "id": 12,
       "slug": "crognomes",
-      "imgNft": "/img/drops/crognomes/drop.png",
-      "imgPreview": "/img/drops/crognomes/drop.png",
+      "imgNft": "/img/drops/crognomes/drop.webp",
+      "imgPreview": "/img/drops/crognomes/drop.webp",
       "imgAvatar": "/img/collections/crognomes/avatar.png",
       "imgBanner": "/img/collections/crognomes/banner.png",
       "title": "Crognomes",
@@ -583,10 +642,10 @@
     {
       "id": 13,
       "slug": "fractals",
-      "imgNft": "/img/drops/fractals/drop.png",
-      "imgPreview": "/img/drops/fractals/drop.png",
+      "imgNft": "/img/drops/fractals/drop.webp",
+      "imgPreview": "/img/drops/fractals/drop.webp",
       "imgAvatar": "/img/collections/fractals/avatar.png",
-      "imgBanner": "/img/drops/fractals/banner.png",
+      "imgBanner": "/img/drops/fractals/banner.webp",
       "title": "Fractals",
       "subtitle": "SeasaltCrisp is a passionate visual artist trying to take you on an adventure with his unique and special artworks.He discovered his love for art already in his early years, but now he's here to share his workon the Cronos Chain as well.",
       "description": "This is a limited art collection of 50 unique and original NFTs.This collection was created to explore whole new worlds and surreal scenarios.Let's turn on our imagination and explore art together!",
@@ -644,10 +703,10 @@
     {
       "id": 15,
       "slug": "cronogods",
-      "imgNft": "/img/drops/cronogods/drop.png",
-      "imgPreview": "/img/drops/cronogods/drop.png",
+      "imgNft": "/img/drops/cronogods/drop.webp",
+      "imgPreview": "/img/drops/cronogods/drop.webp",
       "imgAvatar": "/img/collections/cronogods/avatar.gif",
-      "imgBanner": "/img/collections/cronogods/banner.png",
+      "imgBanner": "/img/collections/cronogods/banner.webp",
       "title": "CronoGods",
       "subtitle": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.",
       "description": "Become A God, CronoGods. 1520 CronoGods over 120 traits. Be Apart of the Journey.\n\nChance To win a trip the the U.S. Virgin Islands an meet Yako Founder of CronoGods.\n\nHolders Get Random Loot Airdrop.\n\nHolders have a chance to win a share of $10,000 in CRO.\n\n15% goes toward charities in the Virgin Islands.\n\nHave a say on your CronoGod NFT in our unique comic strip that will be mintable along huge names in cronos space. One of a kind.\n\nWe offer many more things visit https://www.cronogods.com/",
@@ -690,7 +749,7 @@
       "imgNft": "/img/drops/mariecyborg/drop.gif",
       "imgPreview": "/img/drops/mariecyborg/drop.gif",
       "imgAvatar": "/img/collections/mariecyborg/avatar.png",
-      "imgBanner": "/img/collections/mariecyborg/banner.png",
+      "imgBanner": "/img/collections/mariecyborg/banner.webp",
       "title": "Marie's Cyborgs",
       "subtitle": "Marie's Cyborgs connects fashion and the Metaverse. We invite you to enter Marie's universe by sharing her passions: Fashion, movies and her cyborgs!\nThe whole team is looking forward to meeting you!",
       "description": "Marie is a French high-potential model.\nConvinced that art takes multiple forms, she now wishes to introduce her universe through her collection of NFTs and becoming one of the first model in Metaverse.\nThe collection will come in 3 classes based on Marie’s passions: fashion, movies (rare) and her cyborgs (legendary).",
@@ -716,10 +775,10 @@
     {
       "id": 17,
       "slug": "mag-brew-vikings",
-      "imgNft": "/img/drops/magbrew/drop.jpg",
-      "imgPreview": "/img/drops/magbrew/drop.jpg",
+      "imgNft": "/img/drops/magbrew/drop.webp",
+      "imgPreview": "/img/drops/magbrew/drop.webp",
       "imgAvatar": "/img/collections/magbrew/avatar.jpg",
-      "imgBanner": "/img/collections/magbrew/banner.jpg",
+      "imgBanner": "/img/collections/magbrew/banner.webp",
       "title": "MAG Brew Vikings",
       "subtitle": "MAG is a project involving illustrative art, beer-crafting, and tales inspired by Norse mythology. All accompanied by friendship and conviviality.",
       "description": "Each Viking is composed of a random selection from 140+ features, hand-drawn by Luigi Zitelli, aka Gigi, a professional illustrator. \nAmong the 8000 algorithmically generated collectibles, you can also find the \"\"gods of Midgard\"\", six special characters related to the lore conceived by our MAG writers.\n\nHolding NFTs with certain features (i.e., compatible backgrounds) will open the collectors a door to exclusive airdrops consisting of unique Gigi masterpieces.\nAfter the sold-out, our fellow artist will join the MAG Bard and Minstrel to deliver an illustrated book to all MAG holders: the MAGverse will live forever on the Cronos blockchain!\n\nThe completion of our roadmap won't represent a final step but a chance to explore new horizons together. \n\nA \"\"Beer-elated\"\" NFT, how does that sound?",
@@ -744,8 +803,8 @@
     {
       "id": 19,
       "slug": "crazy-scientists",
-      "imgNft": "/img/drops/crazyscientists/drop.png",
-      "imgPreview": "/img/drops/crazyscientists/drop.png",
+      "imgNft": "/img/drops/crazyscientists/drop.webp",
+      "imgPreview": "/img/drops/crazyscientists/drop.webp",
       "imgAvatar": "/img/collections/crazyscientists/avatar.gif",
       "imgBanner": "/img/collections/crazyscientists/banner.png",
       "title": "The LAB: Crazy Scientists",
@@ -794,12 +853,12 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 21,
       "slug": "reckless-robots",
-      "imgNft": "/img/drops/recklessrobots/drop.png",
-      "imgPreview": "/img/drops/recklessrobots/drop.png",
+      "imgNft": "/img/drops/recklessrobots/drop.webp",
+      "imgPreview": "/img/drops/recklessrobots/drop.webp",
       "imgAvatar": "/img/collections/recklessrobots/avatar.png",
-      "imgBanner": "/img/drops/recklessrobots/banner.png",
+      "imgBanner": "/img/drops/recklessrobots/banner.webp",
       "title": "RecklessRobots",
       "subtitle": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain.",
       "description": "Reckless Robots is a collection of 2100 unique and detailed hand-drawn NFTs deployed on the Cronos chain. Distinctive for this project are the detailed and unique arts, accelerated NFT staking and NFT eliminations (burns). With these eliminations Reckless Robots reduces the total supply by buying the weakest bids from secondary markets and burning the bought NFTs. The burning reduces the total supply and thus reduces the total amount of possible NFTs staked enlarging the percentage of the pool that one NFT holds.",
@@ -820,12 +879,12 @@
       "complete": false
     },
     {
-      "id": 20,
+      "id": 22,
       "slug": "hyped-dogs",
       "imgNft": "/img/drops/hypeddogs/drop.gif",
       "imgPreview": "/img/drops/hypeddogs/drop.gif",
       "imgAvatar": "/img/collections/hypeddogs/avatar.png",
-      "imgBanner": "/img/drops/hypeddogs/banner.png",
+      "imgBanner": "/img/drops/hypeddogs/banner.webp",
       "title": "The HD: Hyped Dogs",
       "subtitle": "Hyped Dogs GEN1 is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities.",
       "description": "Hyped Dogs is a collection of 3000 uniquely generated NFTs stored on the Cronos Chain. Each Hyped Dog NFT is generated with over 120 + attributes with different rarities. Being a Hyped Dog member goes beyond owning an awesome dog art, it’s your pass to a exclusive brotherhood with many benefits. Hyped Dogs is here with the goal to merge physical world and crypto world. We are here and we are HYPED! Come join us!",
@@ -871,7 +930,7 @@
       "complete": false
     },
     {
-      "id": 21,
+      "id": 27,
       "slug": "alie-nft",
       "imgNft": "/img/drops/alienft/drop.png",
       "imgPreview": "/img/drops/alienft/drop.png",
@@ -893,6 +952,83 @@
       "referral": false,
       "is1155": false,
       "published": true,
+      "complete": false
+    },
+    {
+      "id": 28,
+      "slug": "slothty",
+      "imgNft": "/img/drops/slothty/card.webp",
+      "imgPreview": "/img/drops/slothty/card.webp",
+      "imgAvatar": "/img/collections/slothty/avatar.png",
+      "imgBanner": "/img/drops/slothty/banner.webp",
+      "title": "Slothty",
+      "subtitle": "",
+      "description": "",
+      "author": { "name": "SLOTHTY", "link": "https://croslothty.com/" },
+      "address": "0x7d09ff680b210770D6D9a1296b4A74bd5391b341",
+      "maxMintPerTx": 5,
+      "maxMintPerAddress": 50,
+      "totalSupply": 8888,
+      "cost": "5",
+      "memberCost": "10",
+      "foundersOnly": false,
+      "start": 1643727600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 29,
+      "slug": "meta-cyborgs",
+      "imgNft": "/img/drops/meta_cyborgs/card.webp",
+      "imgPreview": "/img/drops/meta_cyborgs/card.webp",
+      "imgAvatar": "/img/collections/meta_cyborgs/avatar.png",
+      "imgBanner": "/img/drops/meta_cyborgs/banner.webp",
+      "title": "Meta Cyborgs",
+      "subtitle": "",
+      "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
+      "author": { "name": "Meta Cyborgs", "link": "https://cyborgswap.io/" },
+      "address": "0xdd5014784763ea9C0d758b8C84a7979ca29BADDF",
+      "maxMintPerTx": 10,
+      "maxMintPerAddress": 100,
+      "totalSupply": 10000,
+      "cost": "300",
+      "memberCost": "250",
+      "whitelistCost": "200",
+      "foundersOnly": false,
+      "start": 1646247600000,
+      "end": null,
+      "referral": false,
+      "is1155": false,
+      "published": true,
+      "complete": false
+    },
+    {
+      "id": 30,
+      "slug": "vip-founding-member",
+      "imgNft": "/img/drops/vip/drop.webp",
+      "imgPreview": "/img/drops/founding_member/drop.webp",
+      "imgAvatar": "/img/avatar.jpg",
+      "title": "Founding VIP Member",
+      "subtitle": "Early access to features and reduced fees forever.",
+      "description": "Holders of the VIP Founding Member NFT will have access to the NFT launchpad, beta features, and receive the benefit of reduced service fees.\n\nHolders will also share 50% of all service fees as well as other exclusive perks.\n\nThe VIP Founding Member NFT has an on-chain referral system. Refer a friend and receive 5% of the NFT cost and they receive 5% off. VIP Founding Member NFTs will be limited to 1,000.",
+      "author": { "name": "Ebisu's Bay", "link": "https://app.ebisusbay.com" },
+      "address": "0x3F1590A5984C89e6d5831bFB76788F3517Cdf034",
+      "maxMintPerTx": 10,
+      "totalSupply": 1000,
+      "cost": "2.0",
+      "memberCost": "1.0",
+      "abi": ["function mint(uint256 _id, uint256 _amount, bytes _data) public payable"],
+      "start": 1639489543000,
+      "end": null,
+      "referral": true,
+      "discount": "10.0",
+      "is1155": true,
+      "foundersOnly": false,
+      "published": true,
+      "featured": true,
       "complete": false
     }
   ],

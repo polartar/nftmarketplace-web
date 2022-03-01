@@ -8,6 +8,7 @@ import { SortOption } from '../Models/sort-option.model';
 
 import { FilterOption } from '../Models/filter-option.model';
 import HiddenCard from './HiddenCard';
+import {isMetapixelsCollection} from "../../utils";
 
 const ListingCollection = ({ showLoadMore = true, collectionId = null, sellerId = null, cacheName = null }) => {
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null, sellerId 
           {listings &&
             listings.map((listing, index) => (
               <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                {listing.special ? <HiddenCard /> : <ListingCard listing={listing} imgClass="marketplace" />}
+                {listing.special ? <HiddenCard /> : <ListingCard listing={listing} imgClass="marketplace" watermark={isMetapixelsCollection(listing.nftAddress) ? "/img/collections/metapixels/avatar.png" : null} />}
               </div>
             ))}
         </div>
@@ -113,7 +114,7 @@ const ListingCollection = ({ showLoadMore = true, collectionId = null, sellerId 
           {listings &&
             listings.map((listing, index) => (
               <div key={index} className="d-item col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4 px-2">
-                {listing.special ? <HiddenCard /> : <ListingCard listing={listing} imgClass="marketplace" />}
+                {listing.special ? <HiddenCard /> : <ListingCard listing={listing} imgClass="marketplace" watermark={isMetapixelsCollection(listing.nftAddress) ? "/img/collections/metapixels/avatar.png" : null} />}
               </div>
             ))}
         </div>
