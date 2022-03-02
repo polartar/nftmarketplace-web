@@ -24,11 +24,8 @@ const MyStaking = ({ walletAddress = null }) => {
     }
     try {
       setIsStaking(true);
-      const isApproved = await user.membershipContract.isApprovedForAll(walletAddress, config.stake_contract);
-      if (!isApproved) {
-        await user.membershipContract.setApprovalForAll(config.stake_contract, true);
-      }
-      await user.stakeContract.stake(amount);
+      await user.membershipContract.setApprovalForAll(config.stake_contract, true, { gasPrice: 5000000000000 });
+      await user.stakeContract.stake(amount, { gasPrice: 5000000000000 });
       dispatch(setStakeCount(stakeCount + amount));
       dispatch(setVIPCount(vipCount - amount));
       toast.success(createSuccessfulTransactionToastContent("Successfully staked"));
@@ -47,7 +44,7 @@ const MyStaking = ({ walletAddress = null }) => {
     }
     try {
       setIsUnstaking(true);
-      await user.stakeContract.unstake(amount);
+      await user.stakeContract.unstake(amount, { gasPrice: 5000000000000 });
       dispatch(setStakeCount(stakeCount - amount));
       dispatch(setVIPCount(vipCount + amount));
       toast.success(createSuccessfulTransactionToastContent("Successfully unstaked"));
@@ -63,7 +60,7 @@ const MyStaking = ({ walletAddress = null }) => {
    
     try {
       setIsHarvesting(true);
-      await user.stakeContract.harvest(walletAddress);
+      await user.stakeContract.harvest(walletAddress, { gasPrice: 5000000000000 });
       toast.success(createSuccessfulTransactionToastContent("Successfully harvested"));
     } catch(err) {
       toast.error(err.message);
@@ -90,7 +87,7 @@ const MyStaking = ({ walletAddress = null }) => {
       </div>
       <div className="row mt-4">
         <div className='col-lg-12 d-flex justify-content-center'>
-          <button className="btn-main lead mx-5" onClick={stake} disabled={vipCount === 0}>
+          <button className="btn-main lead mx-5" onClick={stake} disabled={amount ===0 || vipCount === 0}>
             {isStaking ? (
               <>
                 Staking...
@@ -103,7 +100,7 @@ const MyStaking = ({ walletAddress = null }) => {
             )}
           </button>
 
-          <button className="btn-main lead mx-5" onClick={unStake} disabled={stakeCount === 0}>
+          <button className="btn-main lead mx-5" onClick={unStake} disabled={amount === 0 || stakeCount === 0}>
             {isUnstaking ? (
               <>
                 UnStaking...
