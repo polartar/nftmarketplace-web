@@ -252,6 +252,26 @@
       }
     },
     {
+      "name": "Cronos ALIENFT",
+      "slug": "alie-nft",
+      "multiToken": false,
+      "address": "",
+      "onChain": false,
+      "listable": false,
+      "metadata": {
+        "slug": "alie-nft",
+        "description": "",
+        "verified": true,
+        "avatar": "/img/collections/alienft/avatar.png",
+        "card": "/img/collections/alienft/card.png",
+        "banner": "/img/collections/alienft/banner.png",
+        "website": "https://www.aliennft.ca/",
+        "twitter": "https://twitter.com/aliennft",
+        "discord": "https://discord.gg/aliennft",
+        "medium": "https://medium.com/@aliennft"
+      }
+    },
+    {
       "name": "Crosmonauts",
       "slug": "crosmonauts",
       "multiToken": false,
@@ -2260,26 +2280,6 @@
       "metadata" : {
         "slug" : "pixel-city"
       }
-    },
-    {
-      "name": "Cronos ALIENFT",
-      "slug": "alie-nft",
-      "multiToken": false,
-      "address": "",
-      "onChain": false,
-      "listable": false,
-      "metadata": {
-        "slug": "alie-nft",
-        "description": "",
-        "verified": true,
-        "avatar": "/img/collections/alienft/avatar.png",
-        "card": "/img/collections/alienft/card.png",
-        "banner": "/img/collections/alienft/banner.png",
-        "website": "https://www.aliennft.ca/",
-        "twitter": "https://twitter.com/aliennft",
-        "discord": "https://discord.gg/aliennft",
-        "medium": "https://medium.com/@aliennft"
-      }
     }
   ],
   "drops": [
@@ -3201,7 +3201,7 @@
       "complete": false
     },
     {
-      "id": 32,
+      "id": 31,
       "slug": "alie-nft",
       "imgNft": "/img/drops/alienft/drop.png",
       "imgPreview": "/img/drops/alienft/drop.png",
