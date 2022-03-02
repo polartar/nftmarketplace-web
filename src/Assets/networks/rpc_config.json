@@ -3185,7 +3185,7 @@
       "subtitle": "",
       "description": "The Meta Cyborgs A collection of 10 000 uniquely generated NFTs to boost the yields of your farms on CyborgSwap Dex. The first collection resulting from the acquisition of ChronoSwap by Marie's Cyborgs NFTs.The Meta Cyborgs A collection of 10,000 uniquely generated NFTs to boost the APR yields of your farms on CyborgSwap Dex. This collection will unlock several features over time and will also be stakable after mint starts to earn CNFT. It's the Founding Member collection of CyborgSwap and will be used in all our next NFT features and development.",
       "author": { "name": "Meta Cyborgs", "link": "https://cyborgswap.io/" },
-      "address": "",
+      "address": "0xd1dd28f2B33bb2f9f23bac71C5221eF5907A738d",
       "maxMintPerTx": 10,
       "maxMintPerAddress": 100,
       "totalSupply": 10000,
