@@ -1,10 +1,12 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStakeCount, setVIPCount } from '../../GlobalState/User';
 import { Form, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { createSuccessfulTransactionToastContent } from '../../utils';
 import config from '../../Assets/networks/rpc_config.json';
+import { Contract } from 'ethers';
+import RewardsPoolABI from "../../Contracts/RewardsPool.json";
 
 const MyStaking = ({ walletAddress = null }) => {
   const dispatch = useDispatch();
@@ -15,7 +17,41 @@ const MyStaking = ({ walletAddress = null }) => {
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isHarvesting, setIsHarvesting] = useState(false);
   const [amount, setAmount] = useState(1);
-  
+  const [harvestAmount, setHarvestAmount] = useState(0);
+
+  const getStakeAmount = useCallback(async() => {
+    if (!user.stakeContract) return;
+    try {
+      setIsHarvesting(true);
+      const completedPool = await user.stakeContract.completedPool();
+      if (completedPool !== '0x000000000000000000000000000000000000') {
+        const rewardsContract = new Contract(completedPool, RewardsPoolABI.abi, user.provider.getSigner());
+        const finalBalance = await rewardsContract.finalBalance();
+        if (finalBalance.toNumber() <= 0) {
+          toast.error("Not available balance");      
+        } else {
+          const share = completedPool.shares(walletAddress);
+          setHarvestAmount(share.toNumber());
+        }          
+      }
+    } catch(err) {
+      toast.error(err.message);
+    } finally {
+      setIsHarvesting(false);
+    }    
+  }, [user.provider, user.stakeContract, walletAddress]);
+
+  useEffect(() => {
+    getStakeAmount();
+    const harvetstInterval = setInterval(getStakeAmount, 1000 * 60 * 60);
+
+    return () => {
+      clearInterval(harvetstInterval);
+    }
+  }, [getStakeAmount])
+
+ 
+
   const stake = async () => {
     if (!user.stakeContract || amount === 0) return;
     if (amount >= vipCount) {
@@ -60,8 +96,31 @@ const MyStaking = ({ walletAddress = null }) => {
    
     try {
       setIsHarvesting(true);
-      await user.stakeContract.harvest(walletAddress, { gasPrice: 5000000000000 });
-      toast.success(createSuccessfulTransactionToastContent("Successfully harvested"));
+      const completedPool = await user.stakeContract.completedPool();
+      if (completedPool !== '0x000000000000000000000000000000000000') {
+        const rewardsContract = new Contract(completedPool, RewardsPoolABI.abi, user.provider.getSigner());
+        try {
+          const released = await rewardsContract.released(walletAddress);
+          console.log("release", released.toNumber())
+          if (released.toNumber() > 0) {
+            toast.error("Already released");      
+          } else {
+            const share = completedPool.shares(walletAddress);
+            if (share.toNumber() > 0) {
+              try {
+                await user.stakeContract.harvest(walletAddress, { gasPrice: 5000000000000 });
+              } catch(err) {
+                toast.error(err.message);      
+              }
+              toast.success(createSuccessfulTransactionToastContent("Successfully harvested"));
+            } else {
+              toast.error("No shares");      
+            }
+          }          
+        } catch(err) {
+          toast.error("No harvest available");    
+        }
+      }
     } catch(err) {
       toast.error(err.message);
     } finally {
@@ -113,7 +172,7 @@ const MyStaking = ({ walletAddress = null }) => {
             )}
           </button>
 
-          <button className="btn-main lead mx-5" onClick={harvest}>
+          <button className="btn-main lead mx-5" onClick={harvest} disabled={harvestAmount === 0}>
             {isHarvesting ? (
               <>
                 Harvesting...
