@@ -5,7 +5,7 @@ import { Form, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { createSuccessfulTransactionToastContent } from '../../utils';
 import config from '../../Assets/networks/rpc_config.json';
-import { Contract } from 'ethers';
+import { Contract, utils } from 'ethers';
 import RewardsPoolABI from "../../Contracts/RewardsPool.json";
 
 const MyStaking = ({ walletAddress = null }) => {
@@ -27,11 +27,13 @@ const MyStaking = ({ walletAddress = null }) => {
       if (completedPool !== '0x000000000000000000000000000000000000') {
         const rewardsContract = new Contract(completedPool, RewardsPoolABI.abi, user.provider.getSigner());
         const finalBalance = await rewardsContract.finalBalance();
-        if (finalBalance.toNumber() <= 0) {
+        if (finalBalance <= 0) {
           toast.error("Not available balance");      
         } else {
-          const share = completedPool.shares(walletAddress);
-          setHarvestAmount(share.toNumber());
+          const share = await rewardsContract.shares(walletAddress);
+          const totalShares = await rewardsContract.totalShares();
+          const balance = finalBalance.mul(share).div(totalShares);
+          setHarvestAmount(utils.formatEther(balance));
         }          
       }
     } catch(err) {
@@ -101,12 +103,12 @@ const MyStaking = ({ walletAddress = null }) => {
         const rewardsContract = new Contract(completedPool, RewardsPoolABI.abi, user.provider.getSigner());
         try {
           const released = await rewardsContract.released(walletAddress);
-          console.log("release", released.toNumber())
-          if (released.toNumber() > 0) {
+
+          if (released > 0) {
             toast.error("Already released");      
           } else {
-            const share = completedPool.shares(walletAddress);
-            if (share.toNumber() > 0) {
+            const share = rewardsContract.shares(walletAddress);
+            if (share > 0) {
               try {
                 await user.stakeContract.harvest(walletAddress, { gasPrice: 5000000000000 });
               } catch(err) {
@@ -137,6 +139,7 @@ const MyStaking = ({ walletAddress = null }) => {
         <div className="col-lg-4 text-center d-flex justify-content-sm-between">
           <h4>VipCount: {vipCount} </h4>
           <h4>StakedCount: {stakeCount}</h4>
+          <h4>Harvest balance: {harvestAmount} Cro</h4>
         </div>
       </div>
       <div className="row mt-4 text-center d-flex justify-content-center">  
