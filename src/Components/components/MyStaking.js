@@ -136,7 +136,7 @@ const MyStaking = ({ walletAddress = null }) => {
   return (
     <>
       <div className="row mt-4 d-flex justify-content-center">
-        <div className="col-lg-4 text-center d-flex justify-content-sm-between">
+        <div className="col-lg-6 text-center d-flex justify-content-sm-between">
           <h4>VipCount: {vipCount} </h4>
           <h4>StakedCount: {stakeCount}</h4>
           <h4>Harvest balance: {harvestAmount} Cro</h4>
