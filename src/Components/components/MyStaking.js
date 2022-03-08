@@ -107,19 +107,22 @@ const MyStaking = ({ walletAddress = null }) => {
           if (released > 0) {
             toast.error("Already released");      
           } else {
-            const share = rewardsContract.shares(walletAddress);
+            const share = await rewardsContract.shares(walletAddress);
+            console.log({share})
             if (share > 0) {
               try {
                 await user.stakeContract.harvest(walletAddress, { gasPrice: 5000000000000 });
+                toast.success(createSuccessfulTransactionToastContent("Successfully harvested"));
+                await getStakeAmount();
               } catch(err) {
                 toast.error(err.message);      
               }
-              toast.success(createSuccessfulTransactionToastContent("Successfully harvested"));
             } else {
               toast.error("No shares");      
             }
           }          
         } catch(err) {
+          console.log({err})
           toast.error("No harvest available");    
         }
       }
@@ -175,7 +178,7 @@ const MyStaking = ({ walletAddress = null }) => {
             )}
           </button>
 
-          <button className="btn-main lead mx-5" onClick={harvest} disabled={harvestAmount === 0}>
+          <button className="btn-main lead mx-5" onClick={harvest} disabled={parseInt(harvestAmount) === 0}>
             {isHarvesting ? (
               <>
                 Harvesting...
